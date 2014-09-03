@@ -1,0 +1,29 @@
+# Example 12.65
+
+resource peeking
+
+    # declarations of request types:
+    op insert(d : int)
+
+body peeking()
+
+    process server
+        fa i := 1 to 5 ->
+            in insert(d) st d % 2 = 1 ->
+                write("got an even number: ", d)
+            ni
+        af
+        fa i := 1 to 5 ->
+            in insert(d) st d % 2 = 0 by -d ->
+                write("got an odd number: ", d)
+            ni
+        af
+    end
+
+    process client
+        fa i := 1 to 10 ->
+            send insert(i)
+        af
+    end
+
+end

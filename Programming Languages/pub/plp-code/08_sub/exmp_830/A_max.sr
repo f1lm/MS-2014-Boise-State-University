@@ -1,0 +1,14 @@
+# Example 8.30
+
+resource am()
+
+procedure A_max(ref A[1:*]: int) returns rtn: int
+    rtn := low(int)
+    fa i := 1 to ub(A) ->
+        if A[i] > rtn -> rtn := A[i] fi
+    af
+end
+
+var A : [5]int := (2, 4, 9, 3, 6)
+write(A_max(A))
+end

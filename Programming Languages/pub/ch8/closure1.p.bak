@@ -1,0 +1,29 @@
+{ fpc -oclosure1 closure1.p }
+
+program Closure;
+
+type ProcType=procedure;
+
+var i:integer;
+
+procedure f;
+begin
+   writeln(i);
+end;
+
+procedure g(ff : ProcType);
+begin
+   i:=2; { late/shallow }
+   ff;
+end;
+
+procedure closure;
+   { I wish I could have put f here }
+begin
+   i:=1;  { early/deep }
+   g(@f); { the @ is non-standard }
+end;
+
+begin
+   closure;
+end.

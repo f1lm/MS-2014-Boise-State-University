@@ -1,0 +1,37 @@
+# Example 12.64 (Figure 12.26)
+
+resource buffer
+  type bdata = int
+  op insert(d : bdata)
+  op remove() returns d : bdata
+body buffer()
+  const SIZE := 10;
+  var buf[0:SIZE-1] : bdata
+  var full_slots := 0, next_empty := 0, next_full := 0
+  process manager
+    do true ->
+      in insert(d) st full_slots < SIZE ->
+          buf[next_empty] := d
+          next_empty := next_empty % SIZE
+          full_slots++
+      [] remove() returns d st full_slots > 0 ->
+          d := buf[next_full]
+          next_full := next_full % SIZE
+          full_slots--
+      ni
+    od
+  end  # manager
+
+  process producer
+    fa i := 1 to 30 ->
+      call insert(i)
+    af
+  end  # producer
+
+  process consumer
+    fa i := 1 to 30 ->
+      write(remove())
+    af
+  end  # consumer
+
+end  # buffer
