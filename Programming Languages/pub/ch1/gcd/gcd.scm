@@ -1,4 +1,4 @@
-; scheme --load gcd.scm < /dev/nulllist
+; scheme --load gcd.scm < /dev/null
 
 (define (gcd a b)
   (cond ((= a b) a)

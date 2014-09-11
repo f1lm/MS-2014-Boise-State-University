@@ -1,4 +1,4 @@
-; scheme --load lambda.scm < /dev/null
+; scheme
 
 ; A function definition with abbreviation.
 (define (f x) (+ 1 x))

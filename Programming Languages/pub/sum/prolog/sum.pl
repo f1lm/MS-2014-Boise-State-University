@@ -1,4 +1,4 @@
-#!/usr/local/bin/gprolog --consult-file
+#!/bin/gprolog --consult-file
 
 % Prolog sum program
 

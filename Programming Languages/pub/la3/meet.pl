@@ -1,4 +1,4 @@
-#!/usr/local/bin/gprolog --consult-file
+#!/bin/gprolog --consult-file
 
 :- include('data.pl').
 :- include('uniq.pl').

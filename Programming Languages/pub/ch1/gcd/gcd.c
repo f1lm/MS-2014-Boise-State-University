@@ -1,3 +1,5 @@
+// gcc -o gcd gcd.c && ./gcd
+
 #include <stdio.h>
 
 int gcd(int a, int b) {

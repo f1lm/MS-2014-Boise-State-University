@@ -1,10 +1,10 @@
-#!/usr/local/bin/gprolog --consult-file
+#!/bin/gprolog --consult-file
 
 :- include('data.pl').
 
-earlytime(time(Hour,Minute)) :- Hour=<8, Minute=<59.
+earlytime(time(Hour, Minute)) :- Hour=<8, Minute=<59.
 
-early(Person) :- free(Person,slot(Time,_)),
+early(Person) :- free(Person, slot(Time, _)),
                  earlytime(Time).
 
 main :- findall(Person, early(Person), People),

@@ -1,4 +1,4 @@
-#!/usr/local/bin/gprolog --consult-file
+#!/bin/gprolog --consult-file
 
 % Now, consider the problem of sorting an array of numbers.
 % 
