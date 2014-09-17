@@ -55,9 +55,6 @@ public class Sales {
 		return subTotal;
 	}
 
-	/*
-	 * 
-	 */
 	/**
 	 * Calculate the discounted subtotal of items
 	 * @param rate customer's rate of discount
