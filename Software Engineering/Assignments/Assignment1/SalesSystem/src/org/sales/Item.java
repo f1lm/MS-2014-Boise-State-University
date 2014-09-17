@@ -35,6 +35,11 @@ public class Item {
 		this._quantity = _quantity;
 	}
 
+	/**
+	 * Get Total cost for an Item based on Count of Specified name 
+	 * @param count to update the price based on buy one get 50% off on next same items
+	 * @return Item's subtotal cost
+	 */
 	public double getItemTotal(int count) {
 		if (count >= 2) {
 			return (get_unitPriceOrgi() - get_unitPriceOrgi() * 0.5);

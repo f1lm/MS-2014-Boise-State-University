@@ -27,7 +27,11 @@ public class Customers {
 	public Customers(CustomerType customerType) {
 		this._customerType = customerType;
 	}
-
+	
+	/**
+	 * Calculate the discount rate based on CustomerType and day of the week
+	 * @return discount
+	 */
 	public double getDiscountRate() {
 
 		Calendar cal = Calendar.getInstance();
