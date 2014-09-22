@@ -2,9 +2,9 @@ package dto;
 
 public class RetweetObjects extends MessageObjects {
 	private int _retweet_id;
-	private int _uid;
-	private String _ip;
-	private int _created;
+	private int _retweet_uid;
+	private String _retweet_ip;
+	private int _retweet_created;
 
 	public int get_retweet_id() {
 		return _retweet_id;
@@ -14,28 +14,28 @@ public class RetweetObjects extends MessageObjects {
 		this._retweet_id = _retweet_id;
 	}
 
-	public int get_uid() {
-		return _uid;
+	public int get_retweet_uid() {
+		return _retweet_uid;
 	}
 
-	public void set_uid(int _uid) {
-		this._uid = _uid;
+	public void set_retweet_uid(int _retweet_uid) {
+		this._retweet_uid = _retweet_uid;
 	}
 
-	public String get_ip() {
-		return _ip;
+	public String get_retweet_ip() {
+		return _retweet_ip;
 	}
 
-	public void set_ip(String _ip) {
-		this._ip = _ip;
+	public void set_retweet_ip(String _retweet_ip) {
+		this._retweet_ip = _retweet_ip;
 	}
 
-	public int get_created() {
-		return _created;
+	public int get_retweet_created() {
+		return _retweet_created;
 	}
 
-	public void set_created(int _created) {
-		this._created = _created;
+	public void set_retweet_created(int _retweet_created) {
+		this._retweet_created = _retweet_created;
 	}
 
 }

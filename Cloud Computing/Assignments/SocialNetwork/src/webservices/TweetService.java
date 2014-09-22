@@ -108,7 +108,7 @@ public class TweetService {
 	// retweet users id embedded.
 	@POST
 	@Path("/RetweetThisMessage")
-	@Produces("application/json")
+	@Produces(MediaType.TEXT_PLAIN)
 	public String doRetweetThisMessage(@QueryParam("msgid") int msg_id,
 			@QueryParam("uid") int userID) throws Exception {
 		RetweetObjects message = dm.doRetweet(msg_id, userID);

@@ -121,7 +121,7 @@ public class DataAccessLayer {
 			throws Exception {
 		RetweetObjects retweet = new RetweetObjects();
 		Date date = new Date();
-		long timeData = date.getTime();
+		int timeData = (int) date.getTime();
 		PreparedStatement ps;
 		try {
 			ps = connection
@@ -162,13 +162,15 @@ public class DataAccessLayer {
 		RetweetObjects retweetData = new RetweetObjects();
 		try {
 			PreparedStatement ps = connection
-					.prepareStatement("SELECT R.retweet_id, M.uid_fk, M.ip, R.created, M.message FROM retweets R, messages M WHERE R.msg_id_fk=M.msg_id AND retweet_id=?");
+					.prepareStatement("SELECT R.retweet_id, M.uid_fk , M.ip, R.created, M.message FROM retweets R, messages M WHERE R.msg_id_fk=M.msg_id AND retweet_id=?");
 			ps.setInt(1, retweet_id);
 			ResultSet rs = ps.executeQuery();
-			retweetData.set_retweet_id(rs.getInt("retweet_id"));
-			retweetData.setMessage(rs.getString("message"));
-			retweetData.set_uid(rs.getInt("uid_fk"));
-			retweetData.set_created(rs.getInt("created"));
+			while (rs.next()) {
+				retweetData.set_retweet_id(rs.getInt("retweet_id"));
+				retweetData.setMessage(rs.getString("message"));
+				retweetData.set_retweet_uid(rs.getInt("uid_fk"));
+				retweetData.set_retweet_created(rs.getInt("created"));
+			}
 		} catch (Exception e) {
 			throw e;
 		}
@@ -547,10 +549,10 @@ public class DataAccessLayer {
 				feedObject.setMessage(rs.getString("message"));
 				feedObject.setUid(rs.getInt("uid"));
 				feedObject.setIp(rs.getString("ip"));
-				//feedObject.setMsg_created(rs.getInt("msg_created"));
-				//feedObject.setRetweet_id(rs.getInt("retweet_id"));
-				//feedObject.setRetweet_uid(rs.getInt("retweet_uid"));
-				//feedObject.setRetweet_created(rs.getInt("retweet_created"));
+				// feedObject.setMsg_created(rs.getInt("msg_created"));
+				// feedObject.setRetweet_id(rs.getInt("retweet_id"));
+				// feedObject.setRetweet_uid(rs.getInt("retweet_uid"));
+				// feedObject.setRetweet_created(rs.getInt("retweet_created"));
 				feedData.add(feedObject);
 			}
 			return feedData;

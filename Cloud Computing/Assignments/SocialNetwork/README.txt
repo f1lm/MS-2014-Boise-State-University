@@ -1,5 +1,6 @@
 SocialNetwork;
 Student Name: Milson Munakami
+Email: milsonmunakami@u.boisestate.edu
 Sudent ID : 114012811
 Course Number: CS 597 - Cloud Computing
 Assignment Number - 1
@@ -11,6 +12,17 @@ Assumtions:
 The github repo for this is: 
 
 https://github.com/Milstein/MS-2014-Boise-State-University/tree/master/Cloud%20Computing/Assignments/SocialNetwork
+
+The database configuration is in : SocialNetwork\src\dao\Database.java 
+The project database name is: db_socialnetwork
+
+The Base URL for the webservice is : var BASE_URL = "http://localhost:8080/SocialNetwork/";
+
+so if any change in this url then the page javascript value need to be updated so I suggest to create same hosting service in same name as SocialNetwork.
+
+All services are in this folder: \SocialNetwork\src\webservices
+
+The Client part is exported as SocialNetwork.war
 
 I have completed all the necessary back-end methods in JAX-RS web service but due to time constraint I am able to develop only some functionality in front/client side even thought that demonstrate the implementation of POST, GET methods using web-service and also Session to login and logout user is done. To update message/status I design the client web application with css and js.
 
