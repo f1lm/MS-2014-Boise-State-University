@@ -13,6 +13,17 @@
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 <link rel="stylesheet" href="css/tipsy.css" type="text/css" />
 </head>
+<script language="javascript">
+	$(function() {
+		var userSession =
+<%=session.getAttribute("userid")%>
+	;
+		if (userSession != null) {
+			window.location = 'home.jsp';
+		} 
+	});
+</script>
+
 <body>
 	<div class="index_container">
 		<div>
@@ -24,8 +35,8 @@
 				<form id="signinForm" action="REST/user/login" method="POST">
 					<label for="signin_email">Email/ Username :</label>
 					<div>
-						<input id="signin_email" type="text" name="email" class="input" minlength="2"
-							required>
+						<input id="signin_email" type="text" name="email" class="input"
+							minlength="2" required>
 					</div>
 					<br /> <label for="signin_password">Password :</label>
 					<div>
@@ -87,8 +98,8 @@
 					if (error != null) {
 				%>
 				<br />
-				<div class="error_msg" id="divemailalready">Username/ Email address
-					already registered.</div>
+				<div class="error_msg" id="divemailalready">Username/ Email
+					address already registered.</div>
 				<%
 					}
 				%>

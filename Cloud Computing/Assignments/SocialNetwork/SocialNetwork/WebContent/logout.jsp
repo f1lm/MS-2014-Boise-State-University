@@ -11,7 +11,15 @@
 
 	onload = function() {
 		var url = document.URL;
-		getLogout();
+		var userSession =
+<%=session.getAttribute("userid")%>
+	;
+		if (userSession == null) {
+			window.location = 'index.jsp';
+		} else {
+			getLogout();
+		}
+
 	};
 	function getLogout() {
 		try {

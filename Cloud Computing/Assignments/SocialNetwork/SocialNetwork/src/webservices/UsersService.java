@@ -95,11 +95,14 @@ public class UsersService {
 			ArrayList<UsersObjects> userList = new ArrayList<UsersObjects>();
 			DataModel dm = new DataModel();
 			userList = dm.getAllUsers();
+
+			boolean isFound = false;
 			if (userList.size() != 0) {
 				for (UsersObjects userVO : userList) {
 					if (userVO.get_username().equals(email)
 							|| userVO.get_email().equals(email)) {
 						if (userVO.get_password().equals(password)) {
+							isFound = true;
 							setMySessionID(req, userVO.get_uid());
 							java.net.URI location = new java.net.URI(
 									"../home.jsp");
@@ -112,6 +115,11 @@ public class UsersService {
 					}
 				}
 			} else {
+				java.net.URI location = new java.net.URI(
+						"../index.jsp?msg=error");
+				return Response.seeOther(location).build();
+			}
+			if (!isFound) {
 				java.net.URI location = new java.net.URI(
 						"../index.jsp?msg=error");
 				return Response.seeOther(location).build();

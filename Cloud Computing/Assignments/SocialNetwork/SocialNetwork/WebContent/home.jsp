@@ -32,9 +32,17 @@
 <script language="javascript">
 	var BASE_URL = "http://localhost:8080/SocialNetwork/";
 
+	var userId =
+<%=session.getAttribute("userid")%>
+	;
+
 	onload = function() {
 		var url = document.URL;
-		getFeed();
+		if (userId == null) {
+			window.location = 'index.jsp';
+		} else {
+			getFeed();
+		}
 	};
 	function getFeed() {
 		try {
@@ -44,19 +52,67 @@
 				if (request.status === 200) {
 					var det = eval("(" + request.responseText + ")");
 					var content = "";
-					for (var int = 0; int < det.length; int++) {
-						//alert(det[int].message + det[int].uid + det[int].msg_id);
-						content += '<div class="stbody"><div class="sttext"><a title="Delete Update" id='+det[int].msg_id+' href="#" class="stdelete"></a></b>'
-								+ det[int].message
-								+ '<div class="sttime"><span id="retweet"><a title="Retweet" id='+det[int].msg_id+' class="retweet_button" href="#">Retweet</a></span></div></div></div>';
+					for (var i = 0; i < det.length; i++) {
+						//alert(det[i].message + det[i].uid + det[i].msg_id);
+						content += '<div class="stbody"><div class="sttext"><a title="Delete Update" href="#" class="stdelete" onclick="deleteUpdate('
+								+ det[i].msg_id
+								+ ');"></a></b>'
+								+ det[i].message
+								+ '<div class="sttime"><span><a title="Retweet" class="retweet_button" href="#" onclick="retweetUpdate('
+								+ det[i].msg_id
+								+ ');">Retweet</a></span></div></div></div>';
 					}
 					document.getElementById("content").innerHTML = content;
+				} else {
+					document.getElementById("content").innerHTML = "Unable to load the content";
+					alert('Error');
+				}
+			};
+			request.send(null);
+		} catch (err) {
+			alert(err);
+			document.getElementById("content").innerHTML += "\nXMLHttprequest error: "
+					+ err.description;
+		}
+	}
+
+	function deleteUpdate(msg_id) {
+		try {
+			var request = new XMLHttpRequest();
+			request.open("POST", BASE_URL + 'REST/tweet/DeleteMessage'
+					+ '?msgid=' + msg_id + '&uid=' + userId, false);
+			request.onreadystatechange = function() {
+				if (request.status === 200) {
+					getFeed();
+					alert(request.responseText + " is deleted!");
+				} else {
+					document.getElementById("content").innerHTML = "Unable to load the content";
+					alert('Error');
+				}
+			};
+			request.send(null);
+		} catch (err) {
+			alert(err);
+			document.getElementById("content").innerHTML += "\nXMLHttprequest error: "
+					+ err.description;
+		}
+	}
+
+	function retweetUpdate(msg_id) {
+		try {
+			var request = new XMLHttpRequest();
+			request.open("POST", BASE_URL + 'REST/tweet/RetweetThisMessage'
+					+ '?msgid=' + msg_id + '&uid=' + userId, false);
+			request.onreadystatechange = function() {
+				if (request.status === 200) {
+					alert(" Retweeted succesfully");
+					getFeed();
 				} else {
 					document.getElementById("content").innerHTML = "Unable to load the button";
 					alert('Error');
 				}
 			};
-			request.send();
+			request.send(null);
 		} catch (err) {
 			alert(err);
 			document.getElementById("content").innerHTML += "\nXMLHttprequest error: "
@@ -93,7 +149,8 @@
 						<img src="icons/2.png">&nbsp;Update Status
 					</div>
 					<textarea name="update" id="update" maxlength="128"
-						placeholder="What's on your mind ?" title="What's on your mind ?" required></textarea>
+						placeholder="What's on your mind ?" title="What's on your mind ?"
+						required></textarea>
 					<div id="button_bar" style="width: 100%; clear: both;">
 						<br> <input type="submit" value=" Update " id="update_button"
 							class="update_button">
