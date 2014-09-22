@@ -8,6 +8,10 @@ Instructor - Dr Vijay Dialani
 Assumtions:
 ----------------
 
+The github repo for this is: 
+
+https://github.com/Milstein/MS-2014-Boise-State-University/tree/master/Cloud%20Computing/Assignments/SocialNetwork
+
 I have completed all the necessary back-end methods in JAX-RS web service but due to time constraint I am able to develop only some functionality in front/client side even thought that demonstrate the implementation of POST, GET methods using web-service and also Session to login and logout user is done. To update message/status I design the client web application with css and js.
 
 I have done the Database design in MySQL, I have included the SQL dump file.
