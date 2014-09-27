@@ -1,9 +1,9 @@
 ; scheme --load closure2.scm < /dev/null
 
-(define fff 'nil)
+(define fff 0)				;"global" variable: ugh!
 
 (define (g ff)
-  (set! fff ff))
+  (set! fff ff))			;assignment "statement": ugh!
 
 (define (closure)
   (let ((i 1))				;early/deep

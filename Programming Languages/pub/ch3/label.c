@@ -1,4 +1,4 @@
-// gcc -o label label.c
+// gcc -o label label.c && ./label
 
 #include <stdio.h>
 

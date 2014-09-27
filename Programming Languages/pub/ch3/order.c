@@ -1,4 +1,4 @@
-// gcc -o order order.c
+// gcc -o order order.c && ./order
 
 #include <stdio.h>
 

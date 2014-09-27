@@ -7,7 +7,7 @@
 typedef struct {
   int i;
   double d;
-} *foo;
+} *Foo;
 
 int main() {
   ALLOC(Foo,foo);

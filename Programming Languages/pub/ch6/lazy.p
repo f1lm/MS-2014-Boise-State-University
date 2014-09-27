@@ -1,4 +1,4 @@
-{ fpc -olazy lazy.p }
+{ fpc -olazy lazy.p && ./lazy }
 
 {$rangechecks on}
 

@@ -1,4 +1,4 @@
-// g++ -o values values.cc
+// g++ -o values values.cc && ./values
 
 #include <iostream>
 

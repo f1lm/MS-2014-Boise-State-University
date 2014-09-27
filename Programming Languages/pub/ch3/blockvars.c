@@ -1,4 +1,4 @@
-// gcc -o blockvars -Wall blockvars.c
+// gcc -o blockvars -Wall blockvars.c && ./blockvars
 
 int main() {
   // do some stuff

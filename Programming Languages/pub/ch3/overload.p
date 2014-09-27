@@ -1,14 +1,14 @@
-{ fpc -ooverload overload.p }
+{ fpc -ooverload overload.p && ./overload }
 
 program Overload;
-function f(x:integer): integer;
+function fact(x:integer): integer;
 begin
    if x=0 then
-      f:=1
+      fact:=1
    else
-      f:=f(x-1)+1
+      fact:=x*fact(x-1)
 end;
 begin
-   writeln(f(5));
+   writeln(fact(3));
    writeln(3.14)
 end.

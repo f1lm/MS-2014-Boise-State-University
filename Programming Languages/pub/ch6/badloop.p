@@ -1,4 +1,4 @@
-{ fpc -obadloop badloop.p }
+{ fpc -obadloop badloop.p && ./badloop }
 
 program Sum;
 const
