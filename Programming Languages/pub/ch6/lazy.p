@@ -1,6 +1,7 @@
-{ fpc -olazy lazy.p && ./lazy }
+{ fpc -gl -olazy lazy.p && ./lazy }
 
 {$rangechecks on}
+{$B+}
 
 program Lazy;
 const

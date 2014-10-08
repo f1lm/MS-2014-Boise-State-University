@@ -4,11 +4,11 @@
 
 int main() {
   int i=1;
-  goto loop;
+  goto label;
   {
     int j=0;
     j++;    
-  loop:
+  label:
     printf("%d %d\n",i,j);
   }
   return 0;
