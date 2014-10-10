@@ -2,19 +2,21 @@
 "Customer Object"
 
 Object subclass: Customer [	
-    instanceVariableNames: 'name '
-    classVariableNames: ' '
-    poolDictionaries: ' '
-	category: 'Customer' !
+    |name|   
 	
-    Customer class [
-        new [
-			name
-			^super new
-        ]
+	Customer class [
+        name: n[
+        	^super new name: n
+        ]        
     ]
 	
-	toString[
-        ^name
+	name: n [	
+		<category: 'set customer name'>
+		name := n
+	]
+	
+	toString [
+		<category: 'printing customer name'>
+    	^name
     ]
 ]

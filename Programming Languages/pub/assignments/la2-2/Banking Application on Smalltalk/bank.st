@@ -2,10 +2,7 @@
 "Bank Object"
 
 Object subclass: Bank [
-	instanceVariableNames: 'accounts '
-    classVariableNames: ' '
-    poolDictionaries: ' '
-	category: 'Bank' !
+	|accounts|
 	
 	Bank class [
         new [
@@ -14,32 +11,31 @@ Object subclass: Bank [
     ]
 	
 	init [
-         <category: 'initialization'>
-         accounts := Set new Account
-         ^super init
+		<category: 'initialization of accounts'>
+        accounts := Set new
     ]
 	
-	add[ : account
-        super accounts add: account		
+	add: account[
+		<category: 'add customer account'>
+        accounts add: account		
     ]
 	
-	accrue[ : rate
-		self accounts do: [ :Account |
-			Account accrue: rate].
+	accrue: rate [
+		accounts do: [ :x | x accrue: rate]
     ]
 	
-	toString[
+	toString [
+		<category: 'string formatting'>
 		|r|
-		r := ""
-		self accounts do: [ :Account |
-			r := r + account + '\n'].
-		^r
-    ]
+		r := ''.
+		accounts do: [ :x | r:= (r, (x toString), (Character nl asString))].
+		^r  	
+	]
 ]
 
-bank := Bank new.
-c := Customer name: 'Ann'
-bank add: CheckingAccount number: '01001' weight: c balance: 100.00
-bank add: SavingsAccount number: '01002' weight: c balance: 200.00
-bank accrue : 0.02
-bank printNl
+|Bank| bank := Bank new.
+|Customer| c := Customer name: 'Ann'.
+(bank add: (CheckingAccount number: '01001' customer: c balance: 100.00)).
+(bank add: (SavingsAccount number: '01002' customer: c balance: 200.00)).
+bank accrue: 0.02.
+(bank toString) printNl

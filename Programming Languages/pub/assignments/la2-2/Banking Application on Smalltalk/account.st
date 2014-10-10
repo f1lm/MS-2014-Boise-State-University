@@ -2,34 +2,30 @@
 "Account Object"
 
 Object subclass: Account [
-    instanceVariableNames: 'number customer balance '
-    classVariableNames: ' '
-    poolDictionaries: ' '
-	category: 'Account' !
+    |number customer balance|
 	 
-	accrue: rate
-	 
-	Account class [
-        new [			
-			^super new
-        ]
-    ]
+	accrue: rate [ 
+		^self subclassResponsibility
+	]
 	
-	balance[
+	
+	balance [
+		<category: 'return balance'>
 		^balance
 	]
 	
-	deposit[ : amount
-		balance := balance + amount.
+	deposit: amount[
+		<category: 'deposit money'>
+		balance := balance + amount
 	]
 	
-	withdraw[ : amount
-		balance := balance - amount.
+	withdraw: amount[ 
+		<category: 'withdraw money'>
+		balance := balance - amount
 	]
 	
-	toString[
-        ^number + ':' + customer + ':' + balance.
-    ]
-	 
-	 
+	toString [
+		<category: 'printing customer detail'>
+		^number, ':', (customer toString), ':', (balance asString)
+	]
 ]
