@@ -7,7 +7,6 @@ MySQL - 5.0.45-community-nt : Database - db_socialnetwork
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
-
 create database if not exists `db_socialnetwork`;
 
 USE `db_socialnetwork`;
@@ -126,6 +125,10 @@ CREATE TABLE `users` (
   `profile_img` varchar(500) default NULL,
   PRIMARY KEY  (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE USER 'root'@'localhost' IDENTIFIED BY '';
+GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost';
+FLUSH PRIVILEGES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
