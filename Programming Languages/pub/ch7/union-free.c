@@ -1,4 +1,4 @@
-// gcc -o union-free union-free.c
+// gcc -o union-freeunion-free && ./union-free
 
 #include <stdio.h>
 

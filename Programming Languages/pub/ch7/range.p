@@ -1,4 +1,5 @@
-{ fpc -orange range.p && ./range}
+{ fpc -gl -orange range.p && ./range }
+{$R+}
 
 program Range;
 type

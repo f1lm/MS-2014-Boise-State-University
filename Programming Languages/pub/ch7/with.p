@@ -1,4 +1,4 @@
-{ fpc -owith with.p }
+{ fpc -owith with.p  && ./with }
 
 program Range;
 type

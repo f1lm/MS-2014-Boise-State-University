@@ -1,4 +1,4 @@
-// gcc -o union-disc union-disc.c
+// gcc -o union-disc union-disc.c && ./union-disc
 
 #include <stdio.h>
 
