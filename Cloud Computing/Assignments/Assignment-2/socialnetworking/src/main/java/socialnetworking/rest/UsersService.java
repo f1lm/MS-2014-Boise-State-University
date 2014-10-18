@@ -178,4 +178,15 @@ public class UsersService {
 		}
 		return 0;
 	}
+
+	@GET
+	@Path("/GetUserID")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getMyUserId(@Context HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		if (session.getAttribute("userid") != null) {
+			return session.getAttribute("userid").toString();
+		}
+		return "0";
+	}
 }
