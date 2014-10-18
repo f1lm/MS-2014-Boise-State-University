@@ -41,6 +41,7 @@
 		if (userId == null) {
 			window.location = 'index.jsp';
 		} else {
+			$("a.lnkProfile").attr("href", "profile.jsp?id=" + userId + "");
 			getFeed();
 		}
 	};
@@ -167,7 +168,9 @@
 							content += '&nbsp;<a href="#" onclick="doFriend('
 									+ det[i]._uid
 									+ ')" class="follow"><span class="follow_btn"> Send Friend Request </span></a></div>';
-							content += '</div><div class="userlist_body"><a href="#"><b>'
+							content += '</div><div class="userlist_body"><a href="profile.jsp?id='
+									+ det[i]._uid
+									+ '"><b>'
 									+ det[i]._firstname
 									+ '&nbsp;'
 									+ det[i]._lastname
@@ -271,7 +274,9 @@
 					if (det.length > 0) {
 						for (var i = 0; i < det.length; i++) {
 							content += '<div class="userlist"><div>';
-							content += '<div class="userlist_body"><a href="#"><b>'
+							content += '<div class="userlist_body"><a href="profile.jsp?id='
+									+ det[i]._uid
+									+ '"><b>'
 									+ det[i]._firstname
 									+ '&nbsp;'
 									+ det[i]._lastname
@@ -307,7 +312,9 @@
 					if (det.length > 0) {
 						for (var i = 0; i < det.length; i++) {
 							content += '<div class="userlist"><div>';
-							content += '<div class="userlist_body"><a href="#"><b>'
+							content += '<div class="userlist_body"><a href="profile.jsp?id='
+									+ det[i]._uid
+									+ '"><b>'
 									+ det[i]._firstname
 									+ '&nbsp;'
 									+ det[i]._lastname
@@ -346,7 +353,9 @@
 					if (det.length > 0) {
 						for (var i = 0; i < det.length; i++) {
 							content += '<div class="userlist"><div>';
-							content += '<div class="userlist_body"><a href="#"><b>'
+							content += '<div class="userlist_body"><a href="profile.jsp?id='
+									+ det[i]._uid
+									+ '"><b>'
 									+ det[i]._firstname
 									+ '&nbsp;'
 									+ det[i]._lastname
@@ -385,7 +394,9 @@
 					if (det.length > 0) {
 						for (var i = 0; i < det.length; i++) {
 							content += '<div class="userlist"><div>';
-							content += '<div class="userlist_body"><a href="#"><b>'
+							content += '<div class="userlist_body"><a href="profile.jsp?id='
+									+ det[i]._uid
+									+ '"><b>'
 									+ det[i]._firstname
 									+ '&nbsp;'
 									+ det[i]._lastname
@@ -432,7 +443,7 @@
 					onclick="showAllFollowers();">Followers</a>&nbsp;|&nbsp; <a
 					href="#" onclick="showAllIncomingRequest();">Incoming Requests</a>&nbsp;|&nbsp;
 				<a href="#" onclick="showAllPendingOutgoingRequests();">Outgoing
-					Requests</a>&nbsp;|&nbsp; <a href="profile.jsp?id=1">Profile</a>
+					Requests</a>&nbsp;|&nbsp; <a class="lnkProfile" href="#">Profile</a>
 			</div>
 		</div>
 		<div id="wall_container">
