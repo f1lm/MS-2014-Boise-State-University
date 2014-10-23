@@ -48,7 +48,7 @@
 	function getFeed() {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("GET", BASE_URL + 'REST/tweet/GetFeeds', false);
+			request.open("GET", BASE_URL + 'RESTQ/tweet/GetFeeds', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
 					var det = eval("(" + request.responseText + ")");
@@ -86,7 +86,7 @@
 	function showTweetDetail(msg_id) {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("GET", BASE_URL + 'REST/tweet/GetMessageDetails'
+			request.open("GET", BASE_URL + 'RESTQ/tweet/GetMessageDetails'
 					+ '?msgid=' + msg_id, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -108,7 +108,7 @@
 	function deleteUpdate(msg_id) {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("POST", BASE_URL + 'REST/tweet/DeleteMessage'
+			request.open("POST", BASE_URL + 'RESTQ/tweet/DeleteMessage'
 					+ '?msgid=' + msg_id + '&uid=' + userId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -130,7 +130,7 @@
 	function retweetUpdate(msg_id) {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("POST", BASE_URL + 'REST/tweet/RetweetThisMessage'
+			request.open("POST", BASE_URL + 'RESTQ/tweet/RetweetThisMessage'
 					+ '?msgid=' + msg_id + '&uid=' + userId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -154,7 +154,7 @@
 			var request = new XMLHttpRequest();
 			request
 					.open("GET", BASE_URL
-							+ 'REST/friendandfollower/GetAllUsers?uid='
+							+ 'RESTQ/friendandfollower/GetAllUsers?uid='
 							+ userId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -197,7 +197,7 @@
 		try {
 			var request = new XMLHttpRequest();
 			request.open("POST", BASE_URL
-					+ 'REST/friendandfollower/ApproveFriendRequest' + '?uid='
+					+ 'RESTQ/friendandfollower/ApproveFriendRequest' + '?uid='
 					+ userId + '&fuid=' + frienduid, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -219,7 +219,7 @@
 	function doFollow(followUserId) {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("POST", BASE_URL + 'REST/friendandfollower/FollowUser'
+			request.open("POST", BASE_URL + 'RESTQ/friendandfollower/FollowUser'
 					+ '?uid=' + userId + '&fuid=' + followUserId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -242,7 +242,7 @@
 		try {
 			var request = new XMLHttpRequest();
 			request.open("POST", BASE_URL
-					+ 'REST/friendandfollower/SendFriendRequest' + '?uid='
+					+ 'RESTQ/friendandfollower/SendFriendRequest' + '?uid='
 					+ userId + '&fuid=' + friendUserId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -265,7 +265,7 @@
 		try {
 			var request = new XMLHttpRequest();
 			request.open("GET", BASE_URL
-					+ 'REST/friendandfollower/GetAllFriends?uid=' + userId,
+					+ 'RESTQ/friendandfollower/GetAllFriends?uid=' + userId,
 					false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -303,7 +303,7 @@
 		try {
 			var request = new XMLHttpRequest();
 			request.open("GET", BASE_URL
-					+ 'REST/friendandfollower/GetAllFollowers?uid=' + userId,
+					+ 'RESTQ/friendandfollower/GetAllFollowers?uid=' + userId,
 					false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -344,7 +344,7 @@
 					.open(
 							"GET",
 							BASE_URL
-									+ 'REST/friendandfollower/GetAllPendingOutgoingRequests?uid='
+									+ 'RESTQ/friendandfollower/GetAllPendingOutgoingRequests?uid='
 									+ userId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -385,7 +385,7 @@
 					.open(
 							"GET",
 							BASE_URL
-									+ 'REST/friendandfollower/GetAllPendingIncomingRequests?uid='
+									+ 'RESTQ/friendandfollower/GetAllPendingIncomingRequests?uid='
 									+ userId, false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -448,7 +448,7 @@
 		</div>
 		<div id="wall_container">
 			<div id="updateboxarea">
-				<form id="updateStatus" action="REST/tweet/PostMessage"
+				<form id="updateStatus" action="RESTQ/tweet/PostMessage"
 					method="POST">
 					<div style="margin-bottom: 5px; font-weight: bold;">
 						<img src="icons/2.png">&nbsp;Update Status
