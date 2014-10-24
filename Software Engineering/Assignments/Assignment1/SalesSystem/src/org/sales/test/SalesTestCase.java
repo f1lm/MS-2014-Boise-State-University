@@ -2,13 +2,12 @@ package org.sales.test;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.sales.Item;
+
+import src.org.sales.Item;
 
 public class SalesTestCase {
 	private ArrayList<Item> itemList = new ArrayList<Item>();
