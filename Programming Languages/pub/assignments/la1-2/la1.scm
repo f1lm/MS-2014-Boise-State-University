@@ -1,0 +1,11 @@
+(define (replace ls old new) 
+  (cond ((equal? ls old) new) 
+        ((not (pair? ls)) ls)     
+        (else (cons (replace (car ls) old new)
+                    (replace (cdr ls) old new)))))
+  ;pass all of the test case below
+  (replace  (list 1 2 3 4 5) 4 7)
+  (replace  (list 1 2 3 5 5) 5 7)
+  (replace  '(list  e f (a b) g h) '(a b) '(1 2))
+  (replace  '(list (1 2 (o r z)(x (o r z))) ) '(o r z) '(o m g)) 
+  (replace  '(list (G O (B S U) (1 2 3 ((B S U )) ((W I N ((B S U) W I N)))))) '(B S U) '(B R O N C O)) 
