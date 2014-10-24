@@ -12,6 +12,7 @@ meetone(Person, slot(FromTime, ToTime)) :- free(Person, slot(TimeStart, TimeEnd)
 
 main :- findall(P1, meetone(P1,slot(time(8,30),time(8,45))), People),write(People), nl, 
 	findall(P2, meetone(P2,slot(time(5,30),time(6,45))), User),write(User), nl, 
+	findall(P3, meetone(P3,slot(time(9,30),time(10,00))), Person),write(Person), nl,
 	halt.
 
 :- initialization(main).
