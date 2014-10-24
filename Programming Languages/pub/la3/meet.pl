@@ -3,15 +3,20 @@
 :- include('data.pl').
 :- include('uniq.pl').
 	
-findMax(time(Hour1,Minute1),time(Hour2,Minute2), time(Hour, Minute)) :-
-	Hour1 == Hour2, Minute1 =< Minute2, Hour==Hour2, Minute==Minute2.
-findMax(time(THour1,TMinute1),time(THour2,TMinute2), time(THour, TMinute)) :-
-	THour1 < THour2, THour==THour2, TMinute==TMinute2.
+isFirstMax(time(Hour1,Minute1),time(Hour2,Minute2)) :-
+	Hour1 == Hour2, Minute1 >= Minute2.
+isFirstMax(time(Hour1,_),time(Hour2,_)) :-
+	Hour1 > Hour2.
 
-findMin(time(Hour1,Minute1),time(Hour2,Minute2), time(Hour, Minute)) :-
-	Hour1 == Hour2, Minute1 =< Minute2, Hour==Hour1, Minute==Minute1.
-findMin(time(THour1,TMinute1),time(THour2,TMinute2), time(THour, TMinute)) :-
-	THour1 < THour2, THour==THour1, TMinute==TMinute1.
+findMax(T1,T2,T) :-
+	isFirstMax(T1,T2), T=T1.
+findMax(T1,T2,T) :-
+	\+isFirstMax(T1,T2), T=T2.
+
+findMin(T1,T2,T) :-
+	isFirstMax(T1,T2), T=T2.
+findMin(T1,T2,T) :-
+	\+isFirstMax(T1,T2), T=T1.
 	
 % make Max as common start time
 overlapStart(TS1, TS2, TS) :- findMax(TS2, TS1, TS).
