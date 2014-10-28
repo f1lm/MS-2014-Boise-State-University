@@ -30,8 +30,8 @@
 	});
 </script>
 <script language="javascript">
-	var BASE_URL = "http://localhost:8080/socialnetworking/";
-
+	//var BASE_URL = "http://132.178.128.200/socialnetworking/";
+	var BASE_URL = "";
 	var userId =
 <%=session.getAttribute("userid")%>
 	;
@@ -47,7 +47,7 @@
 	};
 	function getFeed() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("GET", BASE_URL + 'RESTQ/tweet/GetFeeds', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -85,7 +85,7 @@
 
 	function showTweetDetail(msg_id) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("GET", BASE_URL + 'RESTQ/tweet/GetMessageDetails'
 					+ '?msgid=' + msg_id, false);
 			request.onreadystatechange = function() {
@@ -107,7 +107,7 @@
 
 	function deleteUpdate(msg_id) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("POST", BASE_URL + 'RESTQ/tweet/DeleteMessage'
 					+ '?msgid=' + msg_id + '&uid=' + userId, false);
 			request.onreadystatechange = function() {
@@ -129,7 +129,7 @@
 
 	function retweetUpdate(msg_id) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("POST", BASE_URL + 'RESTQ/tweet/RetweetThisMessage'
 					+ '?msgid=' + msg_id + '&uid=' + userId, false);
 			request.onreadystatechange = function() {
@@ -151,7 +151,7 @@
 
 	function showUsers() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request
 					.open("GET", BASE_URL
 							+ 'RESTQ/friendandfollower/GetAllUsers?uid='
@@ -195,7 +195,7 @@
 
 	function doAcceptFriend(frienduid) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("POST", BASE_URL
 					+ 'RESTQ/friendandfollower/ApproveFriendRequest' + '?uid='
 					+ userId + '&fuid=' + frienduid, false);
@@ -218,7 +218,7 @@
 
 	function doFollow(followUserId) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("POST", BASE_URL + 'RESTQ/friendandfollower/FollowUser'
 					+ '?uid=' + userId + '&fuid=' + followUserId, false);
 			request.onreadystatechange = function() {
@@ -240,7 +240,7 @@
 
 	function doFriend(friendUserId) {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("POST", BASE_URL
 					+ 'RESTQ/friendandfollower/SendFriendRequest' + '?uid='
 					+ userId + '&fuid=' + friendUserId, false);
@@ -263,7 +263,7 @@
 
 	function showAllFriends() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("GET", BASE_URL
 					+ 'RESTQ/friendandfollower/GetAllFriends?uid=' + userId,
 					false);
@@ -301,7 +301,7 @@
 
 	function showAllFollowers() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("GET", BASE_URL
 					+ 'RESTQ/friendandfollower/GetAllFollowers?uid=' + userId,
 					false);
@@ -339,7 +339,7 @@
 
 	function showAllPendingOutgoingRequests() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request
 					.open(
 							"GET",
@@ -380,7 +380,7 @@
 
 	function showAllIncomingRequest() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request
 					.open(
 							"GET",

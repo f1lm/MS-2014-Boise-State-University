@@ -74,12 +74,12 @@ public class DataModel {
 		return messages;
 	}
 
-	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(String type)
+	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(int type)
 			throws Exception {
 		ArrayList<HTTPCodeObjects> messages = new ArrayList<HTTPCodeObjects>();
 		try {
 
-			if (type != null && type != "") {
+			if (type != 0) {
 				messages = dal.GetMessagesByErrorCode(type);
 			}
 		} catch (Exception e) {

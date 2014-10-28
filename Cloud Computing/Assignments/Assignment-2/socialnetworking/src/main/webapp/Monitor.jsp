@@ -9,15 +9,17 @@
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 
 <script language="javascript">
-	var BASE_URL = "http://localhost:8080/socialnetworking/";
-
+	//var BASE_URL = "http://132.178.128.200:/socialnetworking/";
+	var BASE_URL = "";
 	onload = function() {
 		getProcessingTime();
 	};
 
 	function getProcessingTime() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({
+				mozSystem : true
+			});
 			request.open("GET", BASE_URL + 'RESTQ/monitor/processingtime',
 					false);
 			request.onreadystatechange = function() {
@@ -51,7 +53,9 @@
 
 	function getQueueDepth() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({
+				mozSystem : true
+			});
 			request.open("GET", BASE_URL + 'RESTQ/monitor/queuedepth', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
@@ -70,7 +74,9 @@
 
 	function getQueueProcessService() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({
+				mozSystem : true
+			});
 			var x = document.getElementById("ddlResolution").selectedIndex;
 			var resoultionBy = document.getElementsByTagName("option")[x].value;
 			var resolutionQPS = document.getElementById("txtResolutionQPS").value;
@@ -113,14 +119,27 @@
 
 	function getMessageWithError() {
 		try {
-			var request = new XMLHttpRequest();
-			var type = document.getElementById("txtError").value;
+			var request = new XMLHttpRequest({
+				mozSystem : true
+			});
+			var x = document.getElementById("ddlError").selectedIndex;
+			var type = document.getElementsByTagName("option")[x].value;
 			if (type != "") {
 				request.open("GET", BASE_URL + 'RESTQ/monitor/errors'
 						+ '?type=' + type, false);
 				request.onreadystatechange = function() {
 					if (request.status === 200) {
-						//TODO: here get the collection of Message object
+						var det = eval("(" + request.responseText + ")");
+						var content = "<b>Error Message</b>";
+						if (det.length > 0) {
+							for (var i = 0; i < det.length; i++) {
+								content += '<div class="stbody"><div>'
+										+ det[i].serviceName + '</div><div>'
+										+ det[i].errorCode + ' </div> </div>';
+							}
+						} else {
+							content = "No Queueing Error so far!";
+						}
 						document.getElementById("content").innerHTML = content;
 					} else {
 						document.getElementById("content").innerHTML = "Unable to find the message for entered error code";
@@ -154,7 +173,12 @@
 				<td width="50%">
 					<div style="margin-bottom: 5px; font-weight: bold;">
 						<img src="icons/2.png">&nbsp;Message With Error
-					</div> <b>Error Code:</b> <input type="text" id="txtError">
+					</div> <b>Error Code:</b> <select id="ddlError">
+						<option value="202">202</option>
+						<option value="404">404</option>
+						<option value="505">505</option>
+						<option value="401">401</option>
+				</select>
 					<div style="width: 100%; clear: both;" align="right">
 						<br> <input type="submit" value=" Show Message "
 							class="button" onclick="getMessageWithError();">

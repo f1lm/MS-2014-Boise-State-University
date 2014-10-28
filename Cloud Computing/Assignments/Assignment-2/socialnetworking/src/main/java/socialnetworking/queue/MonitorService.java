@@ -1,7 +1,5 @@
 package socialnetworking.queue;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javax.ws.rs.GET;
@@ -98,7 +96,7 @@ public class MonitorService {
 	@GET
 	@Path("/errors")
 	@Produces("application/json")
-	public String getMessageWithError(@QueryParam("type") String type) {
+	public String getMessageWithError(@QueryParam("type") int type) {
 		ArrayList<HTTPCodeObjects> codeList = new ArrayList<HTTPCodeObjects>();
 		String messages = null;
 		try {

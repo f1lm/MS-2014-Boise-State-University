@@ -758,12 +758,13 @@ public class DataAccessLayer {
 		return messagesList;
 	}
 
-	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(String type) {
+	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(int type) {
 		ArrayList<HTTPCodeObjects> messagesList = new ArrayList<HTTPCodeObjects>();
 		PreparedStatement ps = null;
 		try {
 			ps = connection
-					.prepareStatement("select errorId, errorCode, serviceName, occured from errors ORDER BY serviceName DESC");
+					.prepareStatement("select errorId, errorCode, serviceName, occured from errors WHERE errorCode=? ORDER BY serviceName DESC");
+			ps.setInt(1, type);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				HTTPCodeObjects HTTPCodeObj = new HTTPCodeObjects();

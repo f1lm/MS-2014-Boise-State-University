@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <script language="javascript">
-	var BASE_URL = "http://localhost:8080/socialnetworking/";
-
+	//var BASE_URL = "http://132.178.128.200/socialnetworking/";
+	var BASE_URL = "";
 	onload = function() {
 		var url = document.URL;
 		var userSession =
@@ -23,7 +23,7 @@
 	};
 	function getLogout() {
 		try {
-			var request = new XMLHttpRequest();
+			var request = new XMLHttpRequest({mozSystem: true});
 			request.open("GET", BASE_URL + 'RESTQ/user/Logout', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
