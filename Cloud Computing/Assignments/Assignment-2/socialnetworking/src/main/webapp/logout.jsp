@@ -24,7 +24,7 @@
 	function getLogout() {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("GET", BASE_URL + 'REST/user/Logout', false);
+			request.open("GET", BASE_URL + 'RESTQ/user/Logout', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
 					//alert("success");

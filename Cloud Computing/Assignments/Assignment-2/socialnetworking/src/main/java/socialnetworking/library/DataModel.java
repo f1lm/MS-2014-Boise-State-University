@@ -15,6 +15,79 @@ public class DataModel {
 		}
 	}
 
+	public int InsertQueue(String serviceName, String startTime)
+			throws Exception {
+		int message = 0;
+		try {
+
+			if (serviceName != null && serviceName != "") {
+				message = dal.InsertQueue(serviceName, startTime);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return message;
+	}
+
+	public void UpdateQueue(int qId, long elapsedTimeMillis) throws Exception {
+		try {
+
+			if (qId != 0) {
+				dal.UpdateQueue(qId, elapsedTimeMillis);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public ArrayList<ProcessingTimeObjects> GetProcessingTime()
+			throws Exception {
+		ArrayList<ProcessingTimeObjects> messages = new ArrayList<ProcessingTimeObjects>();
+		try {
+			messages = dal.SearchQueueProcessingTime();
+		} catch (Exception e) {
+			throw e;
+		}
+		return messages;
+	}
+
+	public String GetQueueDepth() throws Exception {
+		String queueDepth = "";
+		try {
+			queueDepth = dal.GetQueueDepth();
+		} catch (Exception e) {
+			throw e;
+		}
+		return queueDepth;
+	}
+
+	public ArrayList<MessagesListObjects> GetMessagePerResolution(
+			String resolutionQPS, String resoultion) throws Exception {
+		ArrayList<MessagesListObjects> messages = new ArrayList<MessagesListObjects>();
+		try {
+			if (resolutionQPS != null && resolutionQPS != "") {
+				messages = dal.GetMessagePerResolution(resolutionQPS, resoultion);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return messages;
+	}
+
+	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(String type)
+			throws Exception {
+		ArrayList<HTTPCodeObjects> messages = new ArrayList<HTTPCodeObjects>();
+		try {
+
+			if (type != null && type != "") {
+				messages = dal.GetMessagesByErrorCode(type);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return messages;
+	}
+
 	// Tweet Service Model
 	public int InsertMessage(String tweet, int uid) throws Exception {
 		int message = 0;
@@ -228,4 +301,5 @@ public class DataModel {
 		}
 		return users;
 	}
+
 }

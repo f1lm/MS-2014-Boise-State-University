@@ -32,7 +32,7 @@
 		<div id="form_holder">
 			<div class="form_login">
 				<h3>Curious? Sign in fast.</h3>
-				<form id="signinForm" action="REST/user/login" method="POST">
+				<form id="signinForm" action="RESTQ/user/login" method="POST">
 					<label for="signin_email">Email/ Username :</label>
 					<div>
 						<input id="signin_email" type="text" name="email" class="input"
@@ -63,7 +63,7 @@
 				<h2>Stay connected</h2>
 				<h3>It's free and always will be.</h3>
 
-				<form id="signupForm" action="REST/user/Register" method="POST">
+				<form id="signupForm" action="RESTQ/user/Register" method="POST">
 					<label for="first_name">First name :</label>
 					<div>
 						<input id="first_name" type="text" name="firstname" class="input"

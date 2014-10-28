@@ -22,7 +22,19 @@
 					false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
-					//TODO
+					var det = eval("(" + request.responseText + ")");
+					var content = "<b>Processing Time</b>";
+					if (det.length > 0) {
+						for (var i = 0; i < det.length; i++) {
+							//alert(det[i].qid + det[i].serviceName + det[i].startTime + det[i].endTime + det[i].totalTime + det[i].status);
+							content += '<div class="stbody"><div>'
+									+ det[i].serviceName + '</div><div>'
+									+ det[i].totalTime
+									+ ' Milliseconds </div> </div>';
+						}
+					} else {
+						content = "No Queueing process so far";
+					}
 					document.getElementById("content").innerHTML = content;
 				} else {
 					document.getElementById("content").innerHTML = "Unable to load the content";
@@ -61,17 +73,36 @@
 			var request = new XMLHttpRequest();
 			var x = document.getElementById("ddlResolution").selectedIndex;
 			var resoultionBy = document.getElementsByTagName("option")[x].value;
-			request.open("GET", BASE_URL + 'RESTQ/monitor/qps' + '?resoultion='
-					+ resoultionBy, false);
-			request.onreadystatechange = function() {
-				if (request.status === 200) {
-					//TODO: here get the collection of Message object
-					document.getElementById("content").innerHTML = content;
-				} else {
-					document.getElementById("content").innerHTML = "Unable to load the button";
-					alert('Error');
-				}
-			};
+			var resolutionQPS = document.getElementById("txtResolutionQPS").value;
+			if (resolutionQPS != "") {
+				request.open("GET", BASE_URL + 'RESTQ/monitor/qps'
+						+ '?resolutionQPS=' + resolutionQPS + '&resoultion='
+						+ resoultionBy, false);
+				request.onreadystatechange = function() {
+					if (request.status === 200) {
+						var det = eval("(" + request.responseText + ")");
+						var content = "<b>Queue Message</b>";
+						if (det.length > 0) {
+							for (var i = 0; i < det.length; i++) {
+								//alert(det[i].qid + det[i].serviceName + det[i].startTime + det[i].endTime + det[i].totalTime + det[i].status);
+								content += '<div class="stbody"><div>'
+										+ det[i].serviceName + '</div><div>'
+										+ det[i].totalTime
+										+ ' Milliseconds </div> </div>';
+							}
+						} else {
+							content = "No Queueing process so far!";
+						}
+						document.getElementById("content").innerHTML = content;
+					} else {
+						document.getElementById("content").innerHTML = "Unable to load the button";
+						alert('Error');
+					}
+				};
+			} else {
+				alert("Enter the Resolution Value!");
+				return;
+			}
 			request.send(null);
 		} catch (err) {
 			alert(err);
@@ -132,7 +163,8 @@
 				<td width="50%">
 					<div style="margin-bottom: 5px; font-weight: bold;">
 						<img src="icons/2.png">&nbsp;Queue Process Message
-					</div> <b>Resolution By:</b> <select id="ddlResolution">
+					</div> <b>Resolution By:</b> <input type="text" id="txtResolutionQPS"
+					style="width: 95px;"><select id="ddlResolution">
 						<option value="Minutes">Minutes</option>
 						<option value="Hours">Hours</option>
 						<option value="Days">Days</option>

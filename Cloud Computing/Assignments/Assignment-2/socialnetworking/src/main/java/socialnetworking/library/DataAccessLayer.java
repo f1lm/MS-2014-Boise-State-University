@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class DataAccessLayer {
 
 	private Connection connection;
+	String[] myErrorCode = new String[100];
 
 	public DataAccessLayer() {
 		Database database = new Database();
@@ -18,6 +20,64 @@ public class DataAccessLayer {
 			connection = database.Get_Connection();
 		} catch (Exception e) {
 			e.getMessage();
+		}
+	}
+
+	public int InsertQueue(String serviceName, String startTime)
+			throws Exception {
+		try {
+
+			PreparedStatement ps = connection
+					.prepareStatement("INSERT INTO queues(serviceName, startTime, endTime, totalTime, status) VALUES(?,?,0,0,'0')");
+			ps.setString(1, serviceName);
+			ps.setString(2, startTime);
+			int rs = ps.executeUpdate();
+			if (rs > 0) {
+				return GetQueueID(serviceName, startTime);
+			} else {
+				return 0;
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public int GetQueueID(String serviceName, String startTime)
+			throws Exception {
+		int qId = 0;
+		try {
+
+			PreparedStatement ps = connection
+					.prepareStatement("SELECT qId FROM queues WHERE serviceName=? AND startTime=? AND endTime=0");
+			ps.setString(1, serviceName);
+			ps.setNString(2, startTime);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				qId = rs.getInt("qId");
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return qId;
+	}
+
+	public void UpdateQueue(int qId, long elapsedTimeMillis) throws Exception {
+		try {
+
+			Date now = new Date();
+			SimpleDateFormat formatNow = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+
+			String endTime = formatNow.format(now);
+
+			PreparedStatement ps = connection
+					.prepareStatement("UPDATE queues SET endTime=?, totalTime=?, status='1' WHERE qId=?");
+			ps.setString(1, endTime);
+			ps.setLong(2, elapsedTimeMillis);
+			ps.setInt(3, qId);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			throw e;
 		}
 	}
 
@@ -601,5 +661,121 @@ public class DataAccessLayer {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	public ArrayList<ProcessingTimeObjects> SearchQueueProcessingTime() {
+		PreparedStatement ps = null;
+		ArrayList<ProcessingTimeObjects> processingTimeList = new ArrayList<ProcessingTimeObjects>();
+		try {
+			ps = connection
+					.prepareStatement("SELECT * FROM queues WHERE status = '1' ORDER BY totalTime ASC");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ProcessingTimeObjects procssingTime = new ProcessingTimeObjects();
+				procssingTime.setQid(rs.getInt("qid"));
+				procssingTime.setServiceName(rs.getString("serviceName"));
+				procssingTime.setStartTime(rs.getString("startTime"));
+				procssingTime.setEndTime(rs.getString("endTime"));
+				procssingTime.setTotalTime(rs.getLong("totalTime"));
+				procssingTime.setStatus(rs.getString("status"));
+				processingTimeList.add(procssingTime);
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return processingTimeList;
+	}
+
+	public String GetQueueDepth() {
+		PreparedStatement ps = null;
+		String depth = "";
+		try {
+			ps = connection
+					.prepareStatement("SELECT count(*) As queuedepth FROM queues WHERE status='0' ORDER BY serviceName DESC");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				depth = rs.getString("queuedepth");
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return depth;
+	}
+
+	public ArrayList<MessagesListObjects> GetMessagePerResolution(
+			String resolutionQPS, String resoultion) {
+		ArrayList<MessagesListObjects> messagesList = new ArrayList<MessagesListObjects>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			switch (resoultion) {
+			case "Hours":
+				ps = connection
+						.prepareStatement("SELECT qid, serviceName, startTime, endTime, totalTime, status FROM queues WHERE startTime >= NOW() - INTERVAL ? HOUR");
+				ps.setString(1, resolutionQPS);
+				rs = ps.executeQuery();
+				break;
+
+			case "Days":
+				ps = connection
+						.prepareStatement("SELECT qid, serviceName, startTime, endTime, totalTime, status FROM queues WHERE startTime >= NOW() - INTERVAL ? DAY");
+				ps.setString(1, resolutionQPS);
+				rs = ps.executeQuery();
+				break;
+
+			case "Months":
+				ps = connection
+						.prepareStatement("SELECT qid, serviceName, startTime, endTime, totalTime, status FROM queues WHERE startTime >= NOW() - INTERVAL ? MONTH");
+				ps.setString(1, resolutionQPS);
+				rs = ps.executeQuery();
+				break;
+
+			default: // Minutes
+				ps = connection
+						.prepareStatement("SELECT qid, serviceName, startTime, endTime, totalTime, status FROM queues WHERE startTime >= NOW() - INTERVAL ? MINUTE");
+				ps.setString(1, resolutionQPS);
+				rs = ps.executeQuery();
+				break;
+			}
+
+			while (rs.next()) {
+				MessagesListObjects messagesObj = new MessagesListObjects();
+				messagesObj.setQid(rs.getInt("qid"));
+				messagesObj.setServiceName(rs.getString("serviceName"));
+				messagesObj.setStartTime(rs.getString("startTime"));
+				messagesObj.setEndTime(rs.getString("endTime"));
+				messagesObj.setTotalTime(rs.getLong("totalTime"));
+				messagesObj.setStatus(rs.getString("status"));
+				messagesList.add(messagesObj);
+			}
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return messagesList;
+	}
+
+	public ArrayList<HTTPCodeObjects> GetMessagesByErrorCode(String type) {
+		ArrayList<HTTPCodeObjects> messagesList = new ArrayList<HTTPCodeObjects>();
+		PreparedStatement ps = null;
+		try {
+			ps = connection
+					.prepareStatement("select errorId, errorCode, serviceName, occured from errors ORDER BY serviceName DESC");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				HTTPCodeObjects HTTPCodeObj = new HTTPCodeObjects();
+				HTTPCodeObj.setErrorId(rs.getInt("errorId"));
+				HTTPCodeObj.setServiceName(rs.getString("serviceName"));
+				HTTPCodeObj.setErrorCode(rs.getString("errorCode"));
+				HTTPCodeObj.setOccured(rs.getString("occured"));
+				messagesList.add(HTTPCodeObj);
+			}
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		return messagesList;
 	}
 }

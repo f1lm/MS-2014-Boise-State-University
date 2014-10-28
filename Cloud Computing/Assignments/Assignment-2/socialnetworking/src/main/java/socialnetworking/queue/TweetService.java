@@ -1,7 +1,7 @@
 package socialnetworking.queue;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,9 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import socialnetworking.library.DataModel;
-import socialnetworking.library.FeedObjects;
-import socialnetworking.library.JSONTansformer;
-import socialnetworking.library.RetweetObjects;
 
 @Path("/tweet")
 public class TweetService {
@@ -54,14 +51,27 @@ public class TweetService {
 				int userID = (int) session.getAttribute("userid");
 
 				PostMessage request = new PostMessage(tweet, userID);
+				int qId = 0;
+				Date now = new Date();
+				SimpleDateFormat formatNow = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+
+				String startTime = formatNow.format(now);
+				// Get current time
+				long start = System.currentTimeMillis();
 				TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 				if (queue != null) {
 					queue.add(request);
+					qId = dm.InsertQueue("PostMessage", startTime);
 				}
 				while (!request.isCompleted()) {
 					Thread.currentThread();
 					Thread.sleep(5);
 				}
+				// Get elapsed time in milliseconds
+				long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+				dm.UpdateQueue(qId, elapsedTimeMillis);
 				int tweetId = request.getResponse();
 
 				// GetFeedsByUserID(userID);
@@ -80,12 +90,34 @@ public class TweetService {
 	public String GetFeedsByUserID(@Context HttpServletRequest req)
 			throws Exception {
 		String feeds = null;
-		ArrayList<FeedObjects> feed = new ArrayList<FeedObjects>();
 		try {
 			HttpSession session = req.getSession();
 			int uid = (int) session.getAttribute("userid");
-			feed = dm.GetFeedsByUserID(uid);
-			feeds = JSONTansformer.ConvertToJSON(feed);
+
+			UserFeed request = new UserFeed(uid);
+			int qId = 0;
+			Date now = new Date();
+			SimpleDateFormat formatNow = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+
+			String startTime = formatNow.format(now);
+			// Get current time
+			long start = System.currentTimeMillis();
+			TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
+			if (queue != null) {
+				queue.add(request);
+				qId = dm.InsertQueue("GetMessageDetails", startTime);
+			}
+			while (!request.isCompleted()) {
+				Thread.currentThread();
+				Thread.sleep(5);
+			}
+			// Get elapsed time in milliseconds
+			long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+			dm.UpdateQueue(qId, elapsedTimeMillis);
+
+			feeds = request.getResponse();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -100,14 +132,26 @@ public class TweetService {
 			throws Exception {
 
 		MessageDetails request = new MessageDetails(msg_id);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetMessageDetails", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
 	}
 
@@ -118,10 +162,29 @@ public class TweetService {
 	@Path("/DeleteMessage")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteMessage(@QueryParam("msgid") int msg_id,
-			@QueryParam("uid") int userID) throws SQLException {
-		String tweet = dm.deleteTweet(msg_id, userID);
-		return tweet;
+			@QueryParam("uid") int userID) throws Exception {
+		DeleteMessage request = new DeleteMessage(msg_id, userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
+		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
+		if (queue != null) {
+			queue.add(request);
+			qId = dm.InsertQueue("DeleteMessage", startTime);
+		}
+		while (!request.isCompleted()) {
+			Thread.currentThread();
+			Thread.sleep(5);
+		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
+		return request.getResponse();
 	}
 
 	// POST tweet/retweet/:id Retweets a tweet. Returns the original tweet with
@@ -131,10 +194,27 @@ public class TweetService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String doRetweetThisMessage(@QueryParam("msgid") int msg_id,
 			@QueryParam("uid") int userID) throws Exception {
-		RetweetObjects message = dm.doRetweet(msg_id, userID);
-		String retweet = JSONTansformer.RetweetJSONInfo(message);
-		retweet = "{\"Retweet\":" + retweet + "}";
-		return retweet;
+		RetweetMessage request = new RetweetMessage(msg_id, userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
+		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
+		if (queue != null) {
+			queue.add(request);
+			qId = dm.InsertQueue("RetweetThisMessage", startTime);
+		}
+		while (!request.isCompleted()) {
+			Thread.currentThread();
+			Thread.sleep(5);
+		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
+		return request.getResponse();
 	}
 }

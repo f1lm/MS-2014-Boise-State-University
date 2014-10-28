@@ -1,5 +1,8 @@
 package socialnetworking.queue;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,14 +36,26 @@ public class FriendsandFollowersService {
 			throws Exception {
 		AllPendingIncomingRequests request = new AllPendingIncomingRequests(
 				userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetAllPendingIncomingRequests", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
 	}
 
@@ -54,14 +69,26 @@ public class FriendsandFollowersService {
 			throws Exception {
 		AllPendingOutgoingRequests request = new AllPendingOutgoingRequests(
 				userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetAllPendingOutgoingRequests", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
 	}
 
@@ -94,14 +121,26 @@ public class FriendsandFollowersService {
 	@Produces("application/json")
 	public String getAllUsers(@QueryParam("uid") int userID) throws Exception {
 		AllUsers request = new AllUsers(userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetAllUsers", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
 	}
 
@@ -125,9 +164,28 @@ public class FriendsandFollowersService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sendFriendRequest(@QueryParam("uid") int userID,
 			@QueryParam("fuid") int friend_id) throws Exception {
-		String response = dm.sendFriendRequest(userID, friend_id);
-		return response;
+		CreateFriend request = new CreateFriend(userID, friend_id);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
+		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
+		if (queue != null) {
+			queue.add(request);
+			qId = dm.InsertQueue("SendFriendRequest", startTime);
+		}
+		while (!request.isCompleted()) {
+			Thread.currentThread();
+			Thread.sleep(5);
+		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
+		return request.getResponse();
 	}
 
 	// POST friendships/destroy Allows the authenticating user to unfollow the
@@ -139,9 +197,28 @@ public class FriendsandFollowersService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String sendUnFriendRequest(@QueryParam("uid") int userID,
 			@QueryParam("fuid") int friend_id) throws Exception {
-		String response = dm.sendUnFriendRequest(userID, friend_id);
-		return response;
+		UnFriend request = new UnFriend(userID, friend_id);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
+		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
+		if (queue != null) {
+			queue.add(request);
+			qId = dm.InsertQueue("SendUnFriendRequest", startTime);
+		}
+		while (!request.isCompleted()) {
+			Thread.currentThread();
+			Thread.sleep(5);
+		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
+		return request.getResponse();
 	}
 
 	// GET friends/list Returns a cursored collection of user ids for every user
@@ -151,14 +228,26 @@ public class FriendsandFollowersService {
 	@Produces("application/json")
 	public String getAllFriends(@QueryParam("uid") int userID) throws Exception {
 		AllFriends request = new AllFriends(userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetAllFriends", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
 	}
 
@@ -170,16 +259,28 @@ public class FriendsandFollowersService {
 	public String getAllFollowers(@QueryParam("uid") int userID)
 			throws Exception {
 		AllFollowers request = new AllFollowers(userID);
+		int qId = 0;
+		Date now = new Date();
+		SimpleDateFormat formatNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String startTime = formatNow.format(now);
+		// Get current time
+		long start = System.currentTimeMillis();
 		TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
 		if (queue != null) {
 			queue.add(request);
+			qId = dm.InsertQueue("GetAllFollowers", startTime);
 		}
 		while (!request.isCompleted()) {
 			Thread.currentThread();
 			Thread.sleep(5);
 		}
+		// Get elapsed time in milliseconds
+		long elapsedTimeMillis = System.currentTimeMillis() - start;
+
+		dm.UpdateQueue(qId, elapsedTimeMillis);
 		return request.getResponse();
-		
+
 	}
 
 }

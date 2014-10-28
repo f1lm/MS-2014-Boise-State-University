@@ -1,17 +1,31 @@
 package socialnetworking.queue;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import socialnetworking.library.DataModel;
+import socialnetworking.library.HTTPCodeObjects;
+import socialnetworking.library.JSONTansformer;
+import socialnetworking.library.MessagesListObjects;
+import socialnetworking.library.ProcessingTimeObjects;
 import socialnetworking.rest.App;
 
 @Path("/monitor")
 public class MonitorService {
 
+	private DataModel dm = null;
 	private final static String queueName = "processing-queue";
+
+	public MonitorService() {
+		dm = new DataModel();
+	}
 
 	/**
 	 * Root resource (exposed at "myresource" path)
@@ -36,72 +50,67 @@ public class MonitorService {
 	@Path("/processingtime")
 	@Produces("application/json")
 	public String getProcessingTime() {
-		String processingTime = null;
+		ArrayList<ProcessingTimeObjects> processingTime = new ArrayList<ProcessingTimeObjects>();
+		String processingTimes = null;
 		try {
-			TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
-			queue.getDepth();
+			processingTime = dm.GetProcessingTime();
+			processingTimes = JSONTansformer.ConvertToJSON(processingTime);
 		} catch (Exception e) {
 			System.out.println("Exception Error"); // Console
 		}
-		return processingTime;
+		return processingTimes;
 	}
 
 	@GET
 	@Path("/queuedepth")
 	@Produces("application/json")
 	public String getQueueDepth() {
-		String depth = null;
+		String queueDepth = "0";
 		try {
-			TaskQueue queue = ProcessingFactory.getTaskQueue(queueName);
-			depth = Long.toString(queue.getDepth());
+			queueDepth = dm.GetQueueDepth();
 		}
 
 		catch (Exception e) {
 			System.out.println("Exception Error"); // Console
 		}
-		return depth;
+		return queueDepth;
 	}
 
 	@GET
 	@Path("/qps")
 	@Produces("application/json")
 	public String getQueueProcessService(
+			@QueryParam("resolutionQPS") String resolutionQPS,
 			@QueryParam("resoultion") String resoultion) {
+		ArrayList<MessagesListObjects> messageList = new ArrayList<MessagesListObjects>();
+		String messages = null;
 		try {
-			switch (resoultion) {
-			case "Hours":
-
-				break;
-			case "Days":
-
-				break;
-			case "Months":
-
-				break;
-
-			default: // Minutes
-				break;
-			}
-			return resoultion;
+			messageList = dm.GetMessagePerResolution(resolutionQPS, resoultion);
+			messages = JSONTansformer.ConvertToJSON(messageList);
 		}
 
 		catch (Exception e) {
 			System.out.println("Exception Error"); // Console
 		}
-		return null;
+		return messages;
 	}
 
 	@GET
 	@Path("/errors")
 	@Produces("application/json")
 	public String getMessageWithError(@QueryParam("type") String type) {
+		ArrayList<HTTPCodeObjects> codeList = new ArrayList<HTTPCodeObjects>();
+		String messages = null;
 		try {
-			return type;
-		}
-
-		catch (Exception e) {
+			codeList = dm.GetMessagesByErrorCode(type);
+			messages = JSONTansformer.ConvertToJSON(codeList);
+			// SocialNetworkDataBase.addCode("404");
+			// return
+			// Response.status(Status.NOT_FOUND).header("Access-Control-Allow-Origin",
+			// "*").build();
+		} catch (Exception e) {
 			System.out.println("Exception Error"); // Console
 		}
-		return null;
+		return messages;
 	}
 }

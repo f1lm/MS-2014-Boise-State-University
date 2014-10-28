@@ -41,7 +41,7 @@
 	function showUserID() {
 		try {
 			var request = new XMLHttpRequest();
-			request.open("GET", BASE_URL + 'REST/user/GetUserID', false);
+			request.open("GET", BASE_URL + 'RESTQ/user/GetUserID', false);
 			request.onreadystatechange = function() {
 				if (request.status === 200) {
 					alert("This is the user ID : " + request.responseText);
