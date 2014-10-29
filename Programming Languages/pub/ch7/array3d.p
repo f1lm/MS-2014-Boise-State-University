@@ -1,4 +1,4 @@
-{ fpc -oarray3d array3d.p && ./array3d}
+{ fpc -oarray3d array3d.p && ./array3d }
 
 program Array3D;
 const
@@ -25,6 +25,7 @@ begin
 
    i:=2; j:=5; k:=8;
    writeln(abs(PtrInt(@a)-PtrInt(@a[i,j,k])));
+   writeln(abs(PtrInt(@b)-PtrInt(@b[i][j][k])));
 
    { use some compile-time constants }
    writeln((i-l1)*s1
