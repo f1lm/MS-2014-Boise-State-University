@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<!-- saved from url=(0103)https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts -->
+<html class="m-pikabu-transitions m-pikabu-translate3d wf-proximanova-i4-active wf-proximanova-n1-active wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>An Introduction to HAProxy and Load Balancing Concepts | DigitalOcean</title>
+
+<meta name="description" content="An introduction to basic load balancing concepts and terminology, using HAProxy, with some examples.">
+<meta name="keywords" content="Server Optimization Miscellaneous Scaling">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="An Introduction to HAProxy and Load Balancing Concepts | DigitalOcean">
+<meta name="twitter:description" content="An introduction to basic load balancing concepts and terminology, using HAProxy, with some examples.">
+
+<meta name="og:title" content="An Introduction to HAProxy and Load Balancing Concepts | DigitalOcean">
+<meta name="og:description" content="An introduction to basic load balancing concepts and terminology, using HAProxy, with some examples.">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/miscellaneous-0040f39d9183bf1fc62c6524bbafd571.png">
+
+    <link href="https://www.digitalocean.com/assets/community/application-0faa49155e4503d229a8ccb68444bb2b.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="sbLnO5OxpAGf0+YA+OrS4ZhqOxL+RWS1ot5Jd9JjL+M=" name="csrf-token">
+    <script type="text/javascript" async="" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="https://s.adroll.com/j/roundtrip.js"></script><script type="text/javascript" async="" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/ga.js"></script><script async="" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/gtm.js"></script><script type="text/javascript" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/1fdd79/1w;proxima-nova,2,b5x:P:i4,b5r:P:n1,b5t:P:n3,b5w:P:n4,b5y:P:n6,bBh:P:n7/d?3bb2a6e53c9684ffdc9a9ef6135b2a62bb46276e187a8160e333b7fa415bc97a27221dc4f001ed1efa3e1e0f57ad37083a9d78cba430be3bad6753076e2bd0ddfb353cacf9a435773e5deddff12e2374b9b2c25df1140678865ea3e8318b904658808d401dfdfff6fa0f907f6b11bb784f7bc9e520254ceb849a1b85e478ca39eaf755e836e399384c2bb292bf52e302b012e19725cf0dc5e5dfb0b3bce89019ca12b5982f2ea40714e4ddfe2e9b785ba4f738f5ad58deed8a1e870e713b87ef17cbc13671b45475e5d4f045285dde7d92d38d4e9af581e22c4a9ff0538c708504a9fe55330da7f5b64126de61be9ff5ca094b29b436d15b526a8b2e2185bc41e64ca5648722b8b6a2b34579bc98f5dc1ac7e1f16683c9702ce90f260e3ce20a4057547892a384c6f238c54f6bfa9d0dd82c4330ffa9ec068e01ccaf13e767176ce200023e36af64befc00e03d753867c6a3b035830fb60d641ba21bde640d2243f1ebe41dc4221e6cf7a120759b2ae455fceebae54b9906e65536ad0d020667c547123e95dc2ac25c74317634e20b8c7da4acaabe34472050"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/application-56e6043e292eff354cd796f238c928ce.js"></script><style type="text/css"></style>
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 255px;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 255px;
+}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body class="tutorials-controller" style="" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <script>
+//<![CDATA[
+
+    $(function() {
+      dataLayer = [$.parseJSON('{\"user_id\":\"\",\"is_community_page\":true,\"content_type\":\"tutorial\",\"author\":\"Mitchell Anicas\",\"difficulty\":\"advanced\",\"created_at\":\"2014-05-13T19:11:20.000Z\",\"published_at\":\"2014-05-13T19:11:20.000Z\",\"updated_at\":\"2014-07-22T14:41:19.038Z\",\"article_tags\":\"Server Optimization, Miscellaneous, Scaling\"}')];
+    });
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div id="table-of-contents" class="hide-on-pikabu tocify absolute" style="top: 399px; display: block;">
+  <div id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">
+      <div class="title">Contents<span class="icon"><span class="close">×</span><span class="open icon-arrow-down"></span></span></div>
+    </a>
+  </div>
+<ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="haproxy-terminology"><a>HAProxy Terminology</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="types-of-load-balancing"><a>Types of Load Balancing</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="load-balancing-algorithms"><a>Load Balancing Algorithms</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="sticky-sessions"><a>Sticky Sessions</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="health-check"><a>Health Check</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="other-solutions"><a>Other Solutions</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+
+
+    </div>
+
+    <div class="m-pikabu-viewport" style="width: auto;">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" id="search" method="get"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+        
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+    
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" data-remote="true" id="search" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+  <input id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" type="hidden" value="true">
+
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button></form>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+      <p class="sidebar-avatar">
+        <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-large" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+      </p>
+
+      <p class="sidebar-author"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></p>
+
+    <p class="sidebar-date">
+        
+        May 13, 2014
+    </p>
+      <p class="sidebar-date updated-at">Updated Jul 22, 2014</p>
+
+
+    <div class="upvotes upvoted"><div class="upvote-count ">10</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1174&upvote%5Bupvotable_type%5D=Tutorial" class="upvote-form upvote" data-remote="true" data-upvotable="tutorial_1174" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="sbLnO5OxpAGf0+YA+OrS4ZhqOxL+RWS1ot5Jd9JjL+M="></div>
+    <button type="submit" disabled="disabled"><span class="icon-upvote-heart-full upvote-heart" title="Do you find this post helpful? Heart it! This will count as a point toward the author of this tutorial."></span></button>
+</form></div>
+
+    
+
+    <span class="meta-section">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value">Advanced</span>
+    </span>
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a class="share" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">
+      <span class="icon icon-share-square"></span>  
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=An%20Introduction%20to%20HAProxy%20and%20Load%20Balancing%20Concepts&url=https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts&t=An%20Introduction%20to%20HAProxy%20and%20Load%20Balancing%20Concepts" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+    <h1 class="content-title">An Introduction to HAProxy and Load Balancing Concepts</h1>
+
+    <div class="tut-meta">
+        <div class="content-tags">
+          
+
+
+        </div>
+
+      <div class="feedable-info">
+          <span class="meta-section meta-author">
+            <span class="meta-label">Author:</span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+        <span class="meta-section meta-date">
+            <span class="meta-label">Published:</span>
+            <span class="meta-value">May 13, 2014</span>
+        </span>
+
+          <span class="meta-section meta-date">
+            <span class="meta-separator">•</span>
+            <span class="meta-label">Updated:</span>
+            <span class="meta-value">Jul 22, 2014</span>
+          </span>
+
+        <br>
+
+          
+
+          <span class="meta-section">
+            <span class="meta-label">Tagged In: </span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+          <span class="meta-section">
+            <span class="meta-label">Difficulty: </span>
+            <span class="meta-value">Advanced</span>
+          </span>
+
+      </div>
+    </div>
+
+      <div class="tutorial-series-container collapsed">
+    <h2>Tutorial Series</h2>
+
+        <div class="tutorial-series-toggle">
+          This tutorial is part 1 of 4 in the series:
+          <a data-reveal="fast" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#tutorial_series_3">Load Balancing WordPress with HAProxy</a>
+        </div>
+
+      <div id="tutorial_series_3" class="tutorial-series hidden">
+        <a class="icon-close" href="javascript:void(0);"></a>
+        <h3 class="series-title"><a href="https://www.digitalocean.com/community/tutorial_series/load-balancing-wordpress-with-haproxy">Load Balancing WordPress with HAProxy</a></h3>
+
+          <div class="description">
+            Adding a load balancer to your server environment is a great way to increase reliability and performance. The first tutorial in this series will introduce you to load balancing concepts and terminology, followed by two tutorials that will teach you how to use HAProxy to implement layer 4 or layer 7 load balancing in your own WordPress environment. The last tutorial covers SSL termination with HAProxy.
+          </div>
+        <ol class="tutorial-series-list">
+    <li class="active">
+      <h2><a href="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean.html">An Introduction to HAProxy and Load Balancing Concepts</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">How To Use HAProxy As A Layer 4 Load Balancer for WordPress Application Servers on Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/wordpress?primary_filter=tutorials">WordPress</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/mysql?primary_filter=tutorials">MySQL</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-7-load-balancer-for-wordpress-and-nginx-on-ubuntu-14-04">How To Use HAProxy As A Layer 7 Load Balancer For WordPress and Nginx On Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/wordpress?primary_filter=tutorials">WordPress</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/mysql?primary_filter=tutorials">MySQL</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-implement-ssl-termination-with-haproxy-on-ubuntu-14-04">How To Implement SSL Termination With HAProxy on Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/security?primary_filter=tutorials">Security</a>, <a href="https://www.digitalocean.com/community/tags/apache?primary_filter=tutorials">Apache</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+</ol>
+  
+  <a class="next-tutorial" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">Next Tutorial</a>
+
+      </div>
+  </div>
+
+
+    <div class="content-body tutorial-content">
+        <h3>Introduction</h3>
+
+<p>HAProxy, which stands for High Availability Proxy, is a popular open source software TCP/HTTP Load Balancer and proxying solution which can be run on Linux, Solaris, and FreeBSD. Its most common use is to improve the performance and reliability of a server environment by distributing the workload across multiple servers (e.g. web, application, database). It is used in many high-profile environments, including: GitHub, Imgur, Instagram, and Twitter.</p>
+
+<p>In this guide, we will provide a general overview of what HAProxy is, basic load-balancing terminology, and examples of how it might be used to improve the performance and reliability of your own server environment.</p>
+
+<div name="haproxy-terminology" data-unique="haproxy-terminology"></div><h2>HAProxy Terminology</h2>
+
+<p>There are many terms and concepts that are important when discussing load balancing and proxying. We will go over commonly used terms in the following sub-sections.</p>
+
+<p>Before we get into the basic types of load balancing, we will talk about ACLs, backends, and frontends.</p>
+
+<h3>Access Control List (ACL)</h3>
+
+<p>In relation to load balancing, ACLs are used to test some condition and perform an action (e.g. select a server, or block a request) based on the test result. Use of ACLs allows flexible network traffic forwarding based on a variety of factors like pattern-matching and the number of connections to a backend, for example.</p>
+
+<p>Example of an ACL:</p>
+
+<pre data-initialized="true" data-gclp-id="0"><code>acl url_blog path_beg /blog
+</code></pre>
+
+<p>This ACL is matched if the path of a user's request begins with <em>/blog</em>. This would match a request of <em>http://yourdomain.com/blog/blog-entry-1</em>, for example.</p>
+
+<p>For a detailed guide on ACL usage, check out the <a href="http://cbonte.github.io/haproxy-dconv/configuration-1.4.html#7">HAProxy Configuration Manual</a>.</p>
+
+<h3>Backend</h3>
+
+<p>A backend is a set of servers that receives forwarded requests. Backends are defined in the <em>backend</em> section of the HAProxy configuration. In its most basic form, a backend can be defined by:</p>
+
+<ul>
+<li>which load balance algorithm to use</li>
+<li>a list of servers and ports</li>
+</ul>
+<p>A backend can contain one or many servers in it--generally speaking, adding more servers to your backend will increase your potential load capacity by spreading the load over multiple servers. Increase reliability is also achieved through this manner, in case some of your backend servers become unavailable.</p>
+
+<p>Here is an example of a two backend configuration, <em>web-backend</em> and <em>blog-backend</em> with two web servers in each, listening on port 80:</p>
+
+<pre data-initialized="true" data-gclp-id="1"><code>backend web-backend
+   balance roundrobin
+   server web1 web1.yourdomain.com:80 check
+   server web2 web2.yourdomain.com:80 check
+
+backend blog-backend
+   balance roundrobin
+   mode http
+   server blog1 blog1.yourdomain.com:80 check
+   server blog1 blog1.yourdomain.com:80 check
+</code></pre>
+
+<p><code>balance roundrobin</code> line specifies the load balancing algorithm, which is detailed in the <a href="https://www.digitalocean.com/community/articles/an-introduction-to-haproxy-and-load-balancing-concepts#LoadBalancingAlgorithms">Load Balancing Algorithms</a> section.</p>
+
+<p><code>mode http</code> specifies that layer 7 proxying will be used, which is explained in <a href="https://www.digitalocean.com/community/articles/an-introduction-to-haproxy-and-load-balancing-concepts#TypesofLoadBalancing">Types of Load Balancing</a> section.</p>
+
+<p>The <code>check</code> option at the end of the <code>server</code> directives specifies that health checks should be performed on those backend servers.</p>
+
+<h3>Frontend</h3>
+
+<p>A frontend defines how requests should be forwarded to backends. Frontends are defined in the <em>frontend</em> section of the HAProxy configuration. Their definitions are composed of the following components:</p>
+
+<ul>
+<li>a set of IP addresses and a port (e.g. 10.1.1.7:80, *:443, etc.)</li>
+<li>ACLs</li>
+<li>
+<em>use_backend</em> rules, which define which backends to use depending on which ACL conditions are matched, and/or a <em>default_backend</em> rule that handles every other case</li>
+</ul>
+<p>A frontend can be configured to various types of network traffic, as explained in the next section.</p>
+
+<div name="types-of-load-balancing" data-unique="types-of-load-balancing"></div><h2>Types of Load Balancing</h2>
+
+<p>Now that we have an understanding of the basic components that are used in load balancing, let's get into the basic types of load balancing.</p>
+
+<h3>No Load Balancing</h3>
+
+<p>A simple web application environment with no load balancing might look like the following:</p>
+
+<p><img src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/web_server.png" alt="No Load Balancing" title="No Load Balancing"></p>
+
+<p>In this example, the user connects directly to your web server, at <em>yourdomain.com</em> and there is no load balancing. If your single web server goes down, the user will no longer be able to access your web server. Additionally, if many users are trying to access your server simultaneously and it is unable to handle the load, they may have a slow experience or they may not be able to connect at all.</p>
+
+<h3>Layer 4 Load Balancing</h3>
+
+<p>The simplest way to load balance network traffic to multiple servers is to use layer 4 (transport layer) load balancing. Load balancing this way will forward user traffic based on IP range and port (i.e. if a request comes in for <em>http://yourdomain.com/anything</em>, the traffic will be forwarded to the backend that handles all the requests for <em>yourdomain.com</em> on <em>port 80</em>). For more details on layer 4, check out the <em>TCP</em> subsection of our <a href="https://www.digitalocean.com/community/articles/an-introduction-to-networking-terminology-interfaces-and-protocols#Protocols">Introduction to Networking</a>.</p>
+
+<p>Here is a diagram of a simple example of layer 4 load balancing:</p>
+
+<p><img src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/layer_4_load_balancing.png" alt="Layer 4 Load Balancing" title="Layer 4 Load Balancing"></p>
+
+<p>The user accesses the load balancer, which forwards the user's request to the <em>web-backend</em> group of backend servers. Whichever backend server is selected will respond directly to the user's request. Generally, all of the servers in the <em>web-backend</em> should be serving identical content--otherwise the user might receive inconsistent content. Note that both web servers connect to the same database server.</p>
+
+<h3>Layer 7 Load Balancing</h3>
+
+<p>Another, more complex way to load balance network traffic is to use layer 7 (application layer) load balancing. Using layer 7 allows the load balancer to forward requests to different backend servers based on the content of the user's request. This mode of load balancing allows you to run multiple web application servers under the same domain and port. For more details on layer 7, check out the <em>HTTP</em> subsection of our <a href="https://www.digitalocean.com/community/articles/an-introduction-to-networking-terminology-interfaces-and-protocols#Protocols">Introduction to Networking</a>.</p>
+
+<p>Here is a diagram of a simple example of layer 7 load balancing:</p>
+
+<p><img src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/layer_7_load_balancing.png" alt="Layer 7 Load Balancing" title="Layer 7 Load Balancing"></p>
+
+<p>In this example, if a user requests <em>yourdomain.com/blog</em>, they are forwarded to the <em>blog</em> backend, which is a set of servers that run a blog application. Other requests are forwarded to <em>web-backend</em>, which might be running another application. Both backends use the same database server, in this example.</p>
+
+<p>A snippet of the example frontend configuration would look like this:</p>
+
+<pre data-initialized="true" data-gclp-id="2"><code>frontend http
+  bind *:80
+  mode http
+
+  acl url_blog path_beg /blog
+  use_backend blog-backend if url_blog
+
+  default_backend web-backend
+</code></pre>
+
+<p>This configures a frontend named <em>http</em>, which handles all incoming traffic on port 80.</p>
+
+<p><code>acl url_blog path_beg /blog</code> matches a request if the path of the user's request begins with <em>/blog</em>.</p>
+
+<p><code>use_backend blog-backend if url_blog</code> uses the ACL to proxy the traffic to <em>blog-backend</em>.</p>
+
+<p><code>default_backend web-backend</code> specifies that all other traffic will be forwarded to <em>web-backend</em>.</p>
+
+<div name="load-balancing-algorithms" data-unique="load-balancing-algorithms"></div><h2>Load Balancing Algorithms</h2>
+
+<p>The load balancing algorithm that is used determines which server, in a backend, will be selected when load balancing. HAProxy offers several options for algorithms. In addition to the load balancing algorithm, servers can be assigned a <em>weight</em> parameter to manipulate how frequently the server is selected, compared to other servers.</p>
+
+<p>Because HAProxy provides so many load balancing algorithms, we will only describe a few of them here. See the <a href="http://cbonte.github.io/haproxy-dconv/configuration-1.4.html#4.2-balance">HAProxy Configuration Manual</a> for a complete list of algorithms.</p>
+
+<p>A few of the commonly used algorithms are as follows:</p>
+
+<h3>roundrobin</h3>
+
+<p>Round Robin selects servers in turns. This is the default algorithm.</p>
+
+<h3>leastconn</h3>
+
+<p>Selects the server with the least number of connections--it is recommended for longer sessions. Servers in the same backend are also rotated in a round-robin fashion.</p>
+
+<h3>source</h3>
+
+<p>This selects which server to use based on a hash of the source IP i.e. your user's IP address. This is one method to ensure that a user will connect to the same server.</p>
+
+<div name="sticky-sessions" data-unique="sticky-sessions"></div><h2>Sticky Sessions</h2>
+
+<p>Some applications require that a user continues to connect to the same backend server. This persistence is achieved through sticky sessions, using the <em>appsession</em> parameter in the backend that requires it.</p>
+
+<div name="health-check" data-unique="health-check"></div><h2>Health Check</h2>
+
+<p>HAProxy uses health checks to determine if a backend server is available to process requests. This avoids having to manually remove a server from the backend if it becomes unavailable. The default health check is to try to establish a TCP connection to the server i.e. it checks if the backend server is listening on the configured IP address and port.</p>
+
+<p>If a server fails a health check, and therefore is unable to serve requests, it is automatically disabled in the backend i.e. traffic will not be forwarded to it until it becomes healthy again. If all servers in a backend fail, the service will become unavailable until at least one of those backend servers becomes healthy again.</p>
+
+<p>For certain types of backends, like database servers in certain situations, the default health check is insufficient to determine whether a server is still healthy.</p>
+
+<div name="other-solutions" data-unique="other-solutions"></div><h2>Other Solutions</h2>
+
+<p>If you feel like HAProxy might be too complex for your needs, the following solutions may be a better fit:</p>
+
+<ul>
+<li><p>Linux Virtual Servers (LVS) - A simple, fast layer 4 load balancer included in many Linux distributions</p></li>
+<li><p>Nginx - A fast and reliable web server that can also be used for proxy and load-balancing purposes. Nginx is often used in conjunction with HAProxy for its caching and compression capabilities</p></li>
+</ul>
+<div name="conclusion" data-unique="conclusion"></div><h2>Conclusion</h2>
+
+<p>Now that you have a basic understanding of load balancing and know of a few ways that HAProxy facilitate your load balancing needs, you have a solid foundation to get started on improving the performance and reliability of your own server environment.</p>
+
+<p>The following tutorials provide detailed examples of HAProxy setups:</p>
+
+<p><a href="https://www.digitalocean.com/community/articles/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">How To Use HAProxy As A Layer 4 Load Balancer for WordPress Application Servers on Ubuntu 14.04</a></p>
+
+<p><a href="https://www.digitalocean.com/community/articles/how-to-use-haproxy-to-set-up-mysql-load-balancing--3">How To Use HAProxy to Set Up MySQL Load Balancing</a></p>
+
+<div class="author">By Mitchell Anicas</div>
+
+      <div class="clear"></div>
+      
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+      <div class="tutorial-series-container ">
+    <h2>Tutorial Series</h2>
+
+
+      <div id="tutorial_series_3" class="tutorial-series ">
+        
+        <h3 class="series-title"><a href="https://www.digitalocean.com/community/tutorial_series/load-balancing-wordpress-with-haproxy">Load Balancing WordPress with HAProxy</a></h3>
+
+          <div class="description">
+            Adding a load balancer to your server environment is a great way to increase reliability and performance. The first tutorial in this series will introduce you to load balancing concepts and terminology, followed by two tutorials that will teach you how to use HAProxy to implement layer 4 or layer 7 load balancing in your own WordPress environment. The last tutorial covers SSL termination with HAProxy.
+          </div>
+        <ol class="tutorial-series-list">
+    <li class="active">
+      <h2><a href="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean.html">An Introduction to HAProxy and Load Balancing Concepts</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">How To Use HAProxy As A Layer 4 Load Balancer for WordPress Application Servers on Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/wordpress?primary_filter=tutorials">WordPress</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/mysql?primary_filter=tutorials">MySQL</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-as-a-layer-7-load-balancer-for-wordpress-and-nginx-on-ubuntu-14-04">How To Use HAProxy As A Layer 7 Load Balancer For WordPress and Nginx On Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/wordpress?primary_filter=tutorials">WordPress</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/mysql?primary_filter=tutorials">MySQL</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+    <li class="">
+      <h2><a href="https://www.digitalocean.com/community/tutorials/how-to-implement-ssl-termination-with-haproxy-on-ubuntu-14-04">How To Implement SSL Termination With HAProxy on Ubuntu 14.04</a></h2>
+      <div class="meta">
+          <span class="author">By <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+
+          <span class="tag">
+            tagged in <a href="https://www.digitalocean.com/community/tags/security?primary_filter=tutorials">Security</a>, <a href="https://www.digitalocean.com/community/tags/apache?primary_filter=tutorials">Apache</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>
+          </span>
+      </div>
+      <div class="arrow-left"></div>
+    </li>
+</ol>
+
+      </div>
+  </div>
+
+
+    <span class="meta-section tags">
+      <span class="meta-label">Tagged In: </span>
+      <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+    </span>
+
+    
+
+    <div class="content-comments">
+      <div class="tutorial commentable" id="tutorial_1174">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>6 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" data-remote="true" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts/comments" rel="nofollow">Load</a>
+    <li class="response    " id="comment_13227">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13227" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/idanielinc"><img alt="idanielinc" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/f0087d56c86dac1a2c581b3ae2099fd0" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/idanielinc">idanielinc</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=13227" rel="nofollow">May 21, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">What would you do in the case of your load balancer going down?</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13227">
+
+    <div id="form_comment_13227" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13227/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13227"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13230">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13230" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/manicas">manicas</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=13230" rel="nofollow">May 21, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">If your load balancer went down in the environment described in this article, your site would become unavailable.
+
+The easiest way to avoid having the load balancer be a single point of failure is to set up active/passive HAProxy pair. This would require two HAProxy servers and a virtual IP that can float between the two servers. The active HAProxy server would handle all of the requests unless it went down, at which point the passive HAProxy server would take over the requests.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13230">
+
+    <div id="form_comment_13230" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13230/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13230"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13231">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13231" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/asb"><img alt="asb" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/a6051c05ce7dca251d644a1404210973" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/asb">asb</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=13231" rel="nofollow">May 21, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@idanielinc: In this set up, the load balancer is still a single point of failure. This is still a fairly basic set up to illustrate the concepts. For true "high availability" you'd need to have multiple HAProxy servers with some sort of failover using VRRP (http://en.wikipedia.org/wiki/Virtual_Router_Redundancy_Protocol). Keepalived (http://www.keepalived.org/) is often used for this. </div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13231">
+
+    <div id="form_comment_13231" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13231/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13231"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_14692">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_14692" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/dd5857242"><img alt="dd5857242" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/6d0efbaa16ae9317c2eb450c2e1203cc" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dd5857242">dd5857242</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=14692" rel="nofollow">July  6, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p>Take a look at route53 or another dns service that supports health checks. You can run two load balancers and if there is a problem it should automatically switch your sites IP to the redundant LB. If you set a low TTL on your sites A record it shouldn't be too bad. I haven't tried this 'yet' but it may be a replacement for a floating virtual ip?</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_14692">
+
+    <div id="form_comment_14692" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/14692/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_14692"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_15418">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_15418" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/angelica1988"><img alt="angelica1988" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/54d96bf2464e66145a008589a3e3ccdf" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/angelica1988">angelica1988</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=15418" rel="nofollow">July 23, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p>I want to send requests to different backends, depending on the status of the response.<br>
+I mean, one backend will be the primary one, receiving all requests if it is available, and the second backend will only be used when the first one is not available.<br>
+If, in the first backend, the server is unavailable (response status code = 503), I would like to send the request to the second backend, but I have a problem when creating an ACL with the check of the status response to decide which backend to use.</p>
+
+<p>The frontend part in my configuration file looks like the following (assuming my two groups of backends are named ‘backend<em>servers’, the primary one,  and ‘backend</em>servers2’, the secondary one):</p>
+
+<p>acl statusResponse status eq 503<br>
+use<em>backend backend</em>servers2 if statusResponse<br>
+default<em>backend backend</em>servers</p>
+
+<p>The HAProxy is returning the following error:</p>
+
+<p>acl 'statusResponse' will never match because it only involves keywords that are incompatible with 'frontend use-backend rule'</p>
+
+<p>How can I get the desired balancing? (i.e. having a primary backend and a secondary backend, only used when the primary is not available).</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_15418">
+
+    <div id="form_comment_15418" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/15418/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_15418"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_16455">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_16455" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/ndenev"><img alt="ndenev" class="avatar avatar-small" height="80" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/56bd0ad73723a19c89d46a744e0c4311" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/ndenev">ndenev</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts?comment=16455" rel="nofollow">August 16, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p><a href="https://www.digitalocean.com/community/users/angelica1988" class="username-tag">@angelica1988</a>: When you get 503 from the backend, this means that the request has already been received by HAProxy and routed to the backend and at this point the load balancing decision has been made. <br>
+I think what you need is a http health check for the backend servers that will disable them if they respond with 503. The deeper the health check the better.</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_16455">
+
+    <div id="form_comment_16455" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/16455/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_16455"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+    <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <input id="append" name="append" type="hidden" value="true" disabled="disabled">
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="load-more-container"></div>
+</div>
+
+
+
+    </div>
+
+    <div id="creative-commons">
+      <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="./An Introduction to HAProxy and Load Balancing Concepts   DigitalOcean_files/creativecommons-b4540f6e3875bceed5e8823eb0c597a2.png"></a>
+        <br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+
+
+          <div class="clearfix"></div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+        <li><a href="https://www.digitalocean.com/help/">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+        <li class="meetup"><a href="http://www.meetup.com/DigitalOcean_Community/" target="_blank">Meetup</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">3,004,038</span> Droplets Launched
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+      <script>
+    $(function() { init_mentions() });
+  </script>
+
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 713px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts#top" style="display: none; position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1310.5px; top: 1122px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1310.5px; top: 1764px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1310.5px; top: 4660px; display: none;"></div><script type="text/javascript" id="">adroll_custom_data={user_id:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271838'),article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271839'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271840'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271841'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271842'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612271843')};</script></body></html>

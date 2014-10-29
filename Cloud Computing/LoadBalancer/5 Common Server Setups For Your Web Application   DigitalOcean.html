@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application -->
+<html class="m-pikabu-transitions m-pikabu-translate3d wf-proximanova-i4-active wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-proximanova-n1-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>5 Common Server Setups For Your Web Application | DigitalOcean</title>
+
+<meta name="description" content="When deciding which server architecture to use for your environment, there are many factors to consider, such as performance, scalability, availability, reliability, cost, and ease of management. Here is a list of commonly used server setups, with a s">
+<meta name="keywords" content="Getting Started Caching Scaling LAMP Stack">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="5 Common Server Setups For Your Web Application | DigitalOcean">
+<meta name="twitter:description" content="When deciding which server architecture to use for your environment, there are many factors to consider, such as performance, scalability, availability, reliability, cost, and ease of management. Here is a list of commonly used server setups, with a s">
+
+<meta name="og:title" content="5 Common Server Setups For Your Web Application | DigitalOcean">
+<meta name="og:description" content="When deciding which server architecture to use for your environment, there are many factors to consider, such as performance, scalability, availability, reliability, cost, and ease of management. Here is a list of commonly used server setups, with a s">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/getting-started-3818d79640899534254cfdec41ebbf2c.png">
+
+    <link href="https://www.digitalocean.com/assets/community/application-0faa49155e4503d229a8ccb68444bb2b.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="KJtzhEKforMtSHWCfeQgwjSAPNG99/iQ68DlEFCwC4I=" name="csrf-token">
+    <script type="text/javascript" async="" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="https://s.adroll.com/j/roundtrip.js"></script><script type="text/javascript" async="" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/ga.js"></script><script async="" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/gtm.js"></script><script type="text/javascript" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/1fdd79/1w;proxima-nova,2,b5x:P:i4,b5r:P:n1,b5t:P:n3,b5w:P:n4,b5y:P:n6,bBh:P:n7/d?3bb2a6e53c9684ffdc9a9ef6135b2a62bb46276e187a8160e333b7fa415bc97a27221dc4f001ed1efa3e1e0f57ad37083a9d78cba430be3bad6753076e2bd0ddfb353cacf9a435773e5deddff12e2374b9b2c25df1140678865ea3e8318b904658808d401dfdfff6fa0f907f6b11bb784f7bc9e520254ceb849a1b85e478ca39eaf755e836e399384c2bb292bf52e302b012e19725cf0dc5e5dfb0b3bce89019ca12b5982f2ea40714e4ddfe2e9b785ba4f738f5ad58deed8a1e870e713b87ef17cbc13671b45475e5d4f045285dde7d92d38d4e9af581e22c4a9ff0538c708504a9fe55330da7f5b64126de61be9ff5ca094b29b436d15b526a8b2e2185bc41e64ca5648722b8b6a2b34579bc98f5dc1ac7e1f16683c9702ce90f260e3ce20a4057547892a384c6f238c54f6bfa9d0dd82c4330ffa9ec068e01ccaf13e767176ce200023e36af64befc00e03d753867c6a3b035830fb60d641ba21bde640d2243f1ebe41dc4221e6cf7a120759b2ae455fceebae54b9906e65536ad0d020667c547123e95dc2ac25c74317634e20b8c7da4acaabe34472050"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/application-56e6043e292eff354cd796f238c928ce.js"></script><style type="text/css"></style>
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 255px;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 255px;
+}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body class="tutorials-controller" style="" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <script>
+//<![CDATA[
+
+    $(function() {
+      dataLayer = [$.parseJSON('{\"user_id\":\"\",\"is_community_page\":true,\"content_type\":\"tutorial\",\"author\":\"Mitchell Anicas\",\"difficulty\":\"beginner\",\"created_at\":\"2014-05-30T19:59:20.000Z\",\"published_at\":\"2014-05-30T19:59:20.000Z\",\"updated_at\":\"2014-07-21T21:27:02.551Z\",\"article_tags\":\"Getting Started, Caching, Scaling, LAMP Stack\"}')];
+    });
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div id="table-of-contents" class="hide-on-pikabu tocify fixed" style="top: auto; display: block;">
+  <div id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">
+      <div class="title">Contents<span class="icon"><span class="close">×</span><span class="open icon-arrow-down"></span></span></div>
+    </a>
+  </div>
+<ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="1-everything-on-one-server"><a>1. Everything On One Server</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="2-separate-database-server"><a>2. Separate Database Server</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="3-load-balancer-(reverse-proxy)"><a>3. Load Balancer (Reverse Proxy)</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="4-http-accelerator-(caching-reverse-proxy)"><a>4. HTTP Accelerator (Caching Reverse Proxy)</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="5-master-slave-database-replication"><a>5. Master-Slave Database Replication</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="example-combining-the-concepts"><a>Example: Combining the Concepts</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+
+
+    </div>
+
+    <div class="m-pikabu-viewport" style="width: auto;">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" id="search" method="get"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+        
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+    
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" data-remote="true" id="search" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+  <input id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" type="hidden" value="true">
+
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button></form>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+      <p class="sidebar-avatar">
+        <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-large" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+      </p>
+
+      <p class="sidebar-author"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></p>
+
+    <p class="sidebar-date">
+        
+        May 30, 2014
+    </p>
+      <p class="sidebar-date updated-at">Updated Jul 21, 2014</p>
+
+
+    <div class="upvotes upvoted"><div class="upvote-count ">29</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1206&upvote%5Bupvotable_type%5D=Tutorial" class="upvote-form upvote" data-remote="true" data-upvotable="tutorial_1206" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="KJtzhEKforMtSHWCfeQgwjSAPNG99/iQ68DlEFCwC4I="></div>
+    <button type="submit" disabled="disabled"><span class="icon-upvote-heart-full upvote-heart" title="Do you find this post helpful? Heart it! This will count as a point toward the author of this tutorial."></span></button>
+</form></div>
+
+    
+
+    <span class="meta-section">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value">Beginner</span>
+    </span>
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a class="share" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">
+      <span class="icon icon-share-square"></span>  
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=5%20Common%20Server%20Setups%20For%20Your%20Web%20Application&url=https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application&t=5%20Common%20Server%20Setups%20For%20Your%20Web%20Application" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+    <h1 class="content-title">5 Common Server Setups For Your Web Application</h1>
+
+    <div class="tut-meta">
+        <div class="content-tags">
+          
+
+
+        </div>
+
+      <div class="feedable-info">
+          <span class="meta-section meta-author">
+            <span class="meta-label">Author:</span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+        <span class="meta-section meta-date">
+            <span class="meta-label">Published:</span>
+            <span class="meta-value">May 30, 2014</span>
+        </span>
+
+          <span class="meta-section meta-date">
+            <span class="meta-separator">•</span>
+            <span class="meta-label">Updated:</span>
+            <span class="meta-value">Jul 21, 2014</span>
+          </span>
+
+        <br>
+
+          
+
+          <span class="meta-section">
+            <span class="meta-label">Tagged In: </span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/getting-started?primary_filter=tutorials">Getting Started</a>, <a href="https://www.digitalocean.com/community/tags/caching?primary_filter=tutorials">Caching</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>, <a href="https://www.digitalocean.com/community/tags/lamp-stack?primary_filter=tutorials">LAMP Stack</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+          <span class="meta-section">
+            <span class="meta-label">Difficulty: </span>
+            <span class="meta-value">Beginner</span>
+          </span>
+
+      </div>
+    </div>
+
+    
+
+    <div class="content-body tutorial-content">
+        <h3>Introduction</h3>
+
+<p>When deciding which server architecture to use for your environment, there are many factors to consider, such as performance, scalability, availability, reliability, cost, and ease of management.</p>
+
+<p>Here is a list of commonly used server setups, with a short description of each, including pros and cons. Keep in mind that all of the concepts covered here can be used in various combinations with one another, and that every environment has different requirements, so there is no single, correct configuration.</p>
+
+<div name="1-everything-on-one-server" data-unique="1-everything-on-one-server"></div><h2>1. Everything On One Server</h2>
+
+<p>The entire environment resides on a single server. For a typical web application, that would include the web server, application server, and database server. A common variation of this setup is a LAMP stack, which stands for Linux, Apache, MySQL, and PHP, on a single server.</p>
+
+<p><strong>Use Case</strong>: Good for setting up an application quickly, as it is the simplest setup possible, but it offers little in the way of scalability and component isolation.</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/single_server.png" alt="Everything On a Single Server"></p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+<li>Simple</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+
+<ul>
+<li>Application and database contend for the same server resources (CPU, Memory, I/O, etc.) which, aside from possible poor performance, can make it difficult to determine the source (application or database) of poor performance</li>
+<li>Not readily horizontally scalable</li>
+</ul>
+<p><strong>Related Tutorials</strong>:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04">How To Install LAMP On Ubuntu 14.04</a></li>
+</ul>
+<div name="2-separate-database-server" data-unique="2-separate-database-server"></div><h2>2. Separate Database Server</h2>
+
+<p>The database management system (DBMS) can be separated from the rest of the environment to eliminate the resource contention between the application and the database, and to increase security by removing the database from the DMZ, or public internet.</p>
+
+<p><strong>Use Case</strong>: Good for setting up an application quickly, but keeps application and database from fighting over the same system resources.</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/separate_database.png" alt="Separate Database Server"></p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+<li>Application and database tiers do not contend for the same server resources (CPU, Memory, I/O, etc.)</li>
+<li>You may vertically scale each tier separately, by adding more resources to whichever server needs increased capacity</li>
+<li>Depending on your setup, it may increase security by removing your database from the DMZ</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+
+<ul>
+<li>Slightly more complex setup than single server</li>
+<li>Performance issues can arise if the network connection between the two servers is high-latency (i.e. the servers are geographically distant from each other), or the bandwidth is too low for the amount of data being transferred</li>
+</ul>
+<p><strong>Related Tutorials</strong>:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-a-remote-database-to-optimize-site-performance-with-mysql">How To Set Up a Remote Database to Optimize Site Performance with MySQL</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-migrate-a-mysql-database-to-a-new-server-on-ubuntu-14-04">How to Migrate A MySQL Database To A New Server On Ubuntu 14.04</a></li>
+</ul>
+<div name="3-load-balancer-(reverse-proxy)" data-unique="3-load-balancer-(reverse-proxy)"></div><h2>3. Load Balancer (Reverse Proxy)</h2>
+
+<p>Load balancers can be added to a server environment to improve performance and reliability by distributing the workload across multiple servers. If one of the servers that is load balanced fails, the other servers will handle the incoming traffic until the failed server becomes healthy again. It can also be used to serve multiple applications through the same domain and port, by using a layer 7 (application layer) reverse proxy.</p>
+
+<p>Examples of software capable of reverse proxy load balancing: HAProxy, Nginx, and Varnish.</p>
+
+<p><strong>Use Case</strong>: Useful in an environment that requires scaling by adding more servers, also known as horizontal scaling.</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/load_balancer.png" alt="Load Balancer"></p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+<li>Enables horizontal scaling, i.e. environment capacity can be scaled by adding more servers to it</li>
+<li>Can protect against DDOS attacks by limiting client connections to a sensible amount and frequency</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+
+<ul>
+<li>The load balancer can become a performance bottleneck if it does not have enough resources, or if it is configured poorly</li>
+<li>Can introduce complexities that require additional consideration, such as where to perform SSL termination and how to handle applications that require sticky sessions</li>
+</ul>
+<p><strong>Related Tutorials</strong>:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/an-introduction-to-haproxy-and-load-balancing-concepts">An Introduction to HAProxy and Load Balancing Concepts</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-use-haproxy-as-a-layer-4-load-balancer-for-wordpress-application-servers-on-ubuntu-14-04">How To Use HAProxy As A Layer 4 Load Balancer for WordPress Application Servers</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-use-haproxy-as-a-layer-7-load-balancer-for-wordpress-and-nginx-on-ubuntu-14-04">How To Use HAProxy As A Layer 7 Load Balancer For WordPress and Nginx</a></li>
+</ul>
+<div name="4-http-accelerator-(caching-reverse-proxy)" data-unique="4-http-accelerator-(caching-reverse-proxy)"></div><h2>4. HTTP Accelerator (Caching Reverse Proxy)</h2>
+
+<p>An HTTP accelerator, or caching HTTP reverse proxy, can be used to reduce the time it takes to serve content to a user through a variety of techniques. The main technique employed with an HTTP accelerator is caching responses from a web or application server in memory, so future requests for the same content can be served quickly, with less unnecessary interaction with the web or application servers.</p>
+
+<p>Examples of software capable of HTTP acceleration: Varnish, Squid, Nginx.</p>
+
+<p><strong>Use Case</strong>: Useful in an environment with content-heavy dynamic web applications, or with many commonly accessed files.</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/http_accelerator.png" alt="HTTP Accelerator"></p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+<li>Increase site performance by reducing CPU load on web server, through caching and compression, thereby increasing user capacity</li>
+<li>Can be used as a reverse proxy load balancer</li>
+<li>Some caching software can protect against DDOS attacks</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+
+<ul>
+<li>Requires tuning to get best performance out of it</li>
+<li>If the cache-hit rate is low, it could reduce performance</li>
+</ul>
+<p><strong>Related Tutorials</strong>:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-install-wordpress-nginx-php-and-varnish-on-ubuntu-12-04">How To Install Wordpress, Nginx, PHP, and Varnish on Ubuntu 12.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-a-clustered-web-server-with-varnish-and-nginx-on-ubuntu-13-10">How To Configure a Clustered Web Server with Varnish and Nginx</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-configure-varnish-for-drupal-with-apache-on-debian-and-ubuntu">How To Configure Varnish for Drupal with Apache on Debian and Ubuntu</a></li>
+</ul>
+<div name="5-master-slave-database-replication" data-unique="5-master-slave-database-replication"></div><h2>5. Master-Slave Database Replication</h2>
+
+<p>One way to improve performance of a database system that performs many reads compared to writes, such as a CMS, is to use master-slave database replication. Master-slave replication requires a master and one or more slave nodes. In this setup, all updates are sent to the master node and reads can be distributed across all nodes.</p>
+
+<p><strong>Use Case</strong>: Good for increasing the read performance for the database tier of an application.</p>
+
+<p>Here is an example of a master-slave replication setup, with a single slave node:</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/master_slave_database_replication.png" alt="Master-Slave Database Replication"></p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+<li>Improves database read performance by spreading reads across slaves</li>
+<li>Can improve write performance by using master exclusively for updates (it spends no time serving read requests)</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+
+<ul>
+<li>The application accessing the database must have a mechanism to determine which database nodes it should send update and read requests to</li>
+<li>Updates to slaves are asynchronous, so there is a chance that their contents could be out of date</li>
+<li>If the master fails, no updates can be performed on the database until the issue is corrected</li>
+<li>Does not have built-in failover in case of failure of master node</li>
+</ul>
+<p><strong>Related Tutorials</strong>:</p>
+
+<ul>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-optimize-wordpress-performance-with-mysql-replication-on-ubuntu-14-04">How To Optimize WordPress Performance With MySQL Replication On Ubuntu 14.04</a></li>
+<li><a href="https://www.digitalocean.com/community/articles/how-to-set-up-master-slave-replication-in-mysql">How To Set Up Master Slave Replication in MySQL</a></li>
+</ul>
+<div name="example-combining-the-concepts" data-unique="example-combining-the-concepts"></div><h2>Example: Combining the Concepts</h2>
+
+<p>It is possible to load balance the caching servers, in addition to the application servers, and use database replication in a single environment. The purpose of combining these techniques is to reap the benefits of each without introducing too many issues or complexity. Here is an example diagram of what a server environment could look like:</p>
+
+<p><img src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/combined.png" alt="Load Balancer, HTTP Accelerator, and Database Replication Combined"></p>
+
+<p>Let's assume that the load balancer is configured to recognize static requests (like images, css, javascript, etc.) and send those requests directly to the caching servers, and send other requests to the application servers.</p>
+
+<p>Here is a description of what would happen when a user sends a requests dynamic content:</p>
+
+<ol>
+<li>The user requests dynamic content from <em>http://example.com/</em> (load balancer)</li>
+<li>The load balancer sends request to app-backend</li>
+<li>app-backend reads from the database and returns requested content to load balancer</li>
+<li>The load balancer returns requested data to the user</li>
+</ol>
+<p>If the user requests static content:</p>
+
+<ol>
+<li>The load balancer checks cache-backend to see if the requested content is cached (cache-hit) or not (cache-miss)</li>
+<li>
+<em>If cache-hit</em>: return the requested content to the load balancer and jump to Step 7. <em>If cache-miss</em>: the cache server forwards the request to app-backend, through the load balancer</li>
+<li>The load balancer forwards the request through to app-backend</li>
+<li>app-backend reads from the database then returns requested content to the load balancer</li>
+<li>The load balancer forwards the response to cache-backend</li>
+<li>cache-backend <em>caches the content</em> then returns it to the load balancer</li>
+<li>The load balancer returns requested data to the user</li>
+</ol>
+<p>This environment still has two single points of failure (load balancer and master database server), but it provides the all of the other reliability and performance benefits that were described in each section above.</p>
+
+<div name="conclusion" data-unique="conclusion"></div><h2>Conclusion</h2>
+
+<p>Now that you are familiar with some basic server setups, you should have a good idea of what kind of setup you would use for your own application(s). If you are working on improving your own environment, remember that an iterative process is best to avoid introducing too many complexities too quickly.</p>
+
+<p>Let us know of any setups you recommend or would like to learn more about in the comments below! </p>
+
+<div class="author">By Mitchell Anicas</div>
+
+      <div class="clear"></div>
+      
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+    
+
+    <span class="meta-section tags">
+      <span class="meta-label">Tagged In: </span>
+      <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/getting-started?primary_filter=tutorials">Getting Started</a>, <a href="https://www.digitalocean.com/community/tags/caching?primary_filter=tutorials">Caching</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a>, <a href="https://www.digitalocean.com/community/tags/lamp-stack?primary_filter=tutorials">LAMP Stack</a></span>
+    </span>
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-a-centos-7-server">How To Add and Delete Users on a CentOS 7 Server</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-salt-cloud-map-files-to-deploy-app-servers-and-an-nginx-reverse-proxy">How To Use Salt Cloud Map Files to Deploy App Servers and an Nginx Reverse Proxy</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars">How to Point to DigitalOcean Nameservers From Common Domain Registrars</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server">How To Configure SSH Key-Based Authentication on a Linux Server</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-puppet-module-to-automate-wordpress-installation-on-ubuntu-14-04">How To Create a Puppet Module To Automate WordPress Installation on Ubuntu 14.04</a></li>
+    </ul>
+  </div>
+
+
+    <div class="content-comments">
+      <div class="tutorial commentable" id="tutorial_1206">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>44 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" data-remote="true" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application/comments" rel="nofollow">Load</a>
+    <li class="response    " id="comment_13512">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13512" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kyle-mclaren1"><img alt="kyle.mclaren1" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/99b6d8acf0cca332dc2bf8cc55e5c945" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kyle-mclaren1">kyle.mclaren1</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13512" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Well explained, thanks!</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13512">
+
+    <div id="form_comment_13512" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13512/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13512"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13514">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13514" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/dlazerka"><img alt="dlazerka" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/e7400cca6e3f9e2a4bb57135423186d7" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dlazerka">dlazerka</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13514" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">And Google App Engine gives all of that for free, plus
+1. Master-master replication, which gives you almost infinite horizontal scaling.
+2. Automatically replicates your data over datacenters/continents, so even whole datacenter failure won't make your unavaliable.
+3. Serves static content (HTML, CSS, JS, images) without even touching your server, from Google's distributed Content Delivery Network.
+4. Secures HTTPS requests automatically, no need to obtain/install/manage SSL certificates.
+5. Many more.
+
+And all of that automatically, you don't worry how it works inside.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13514">
+
+    <div id="form_comment_13514" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13514/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13514"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13515">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13515" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/abimaelmartell"><img alt="abimaelmartell" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/df8e5930113ab9844be90e1271e153fb" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/abimaelmartell">abimaelmartell</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13515" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">But GAP only supports some languages... you can't compare</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13515">
+
+    <div id="form_comment_13515" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13515/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13515"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13522">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13522" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/nguyenhstephen"><img alt="nguyenhstephen" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/056b8ecb67eade75d571f20a7fb6e5aa" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/nguyenhstephen">nguyenhstephen</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13522" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">#5 could be it's own article.
+
+lovely article though.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13522">
+
+    <div id="form_comment_13522" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13522/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13522"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13527">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13527" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/davidneubauer"><img alt="davidneubauer" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/c58ecb40bc017d29ba6f5a9a58376efe" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/davidneubauer">davidneubauer</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13527" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Awesome article, can you write another one that includes Snort level security threat detection? ;)</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13527">
+
+    <div id="form_comment_13527" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13527/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13527"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13528">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13528" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/adamkdean"><img alt="adamkdean" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/6ccb8f9721bb43a7af8d22ccd165a966" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/adamkdean">adamkdean</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13528" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@dlazerka whilst we're at it, why don't we suck all of the fun out of the web development as well, and just go for a prebuilt system? Recommending people use something out of the tin rather than learning how it works is setting them up for failure. Live a little, learn a little.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13528">
+
+    <div id="form_comment_13528" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13528/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13528"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13534">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13534" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/cerivera"><img alt="cerivera" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/6ed6440066e5519a0264e057aa3f0ca3" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/cerivera">cerivera</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13534" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">awesome post.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13534">
+
+    <div id="form_comment_13534" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13534/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13534"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13535">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13535" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kiru42"><img alt="kiru42" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/9424958d016ed224449d82782fe79fbe" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kiru42">kiru42</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13535" rel="nofollow">June  2, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">What happens when a load balancer fails? any alternative of common setups?</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13535">
+
+    <div id="form_comment_13535" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13535/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13535"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13537">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13537" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/app"><img alt="app" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/800033ec96d30186777173a11d534b98" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/app">app</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13537" rel="nofollow">June  3, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Great Post</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13537">
+
+    <div id="form_comment_13537" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13537/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13537"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13540">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13540" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/aglamb"><img alt="aglamb" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/502e3739a45cdafce523febd2040082c" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/aglamb">aglamb</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13540" rel="nofollow">June  3, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">incredible article! well served!</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13540">
+
+    <div id="form_comment_13540" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13540/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13540"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13541">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13541" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/garethpoole"><img alt="garethpoole" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/989bbb953f41b73521b2d8dee063a97e" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/garethpoole">garethpoole</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13541" rel="nofollow">June  3, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">excellent summary, thanks a lot</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13541">
+
+    <div id="form_comment_13541" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13541/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13541"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13544">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13544" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamlesh-kumar"><img alt="kamlesh.kumar" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/9d6e8117d209ed6f21fa3bf7d19aa4bc" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamlesh-kumar">kamlesh.kumar</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13544" rel="nofollow">June  3, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">It's very nice article
+thanks</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13544">
+
+    <div id="form_comment_13544" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13544/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13544"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13561">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13561" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/dan201745"><img alt="dan201745" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/908411832310d7867769c64e7fd369e4" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dan201745">dan201745</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13561" rel="nofollow">June  3, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">very good article.  I have always wondered though what do people do about the single point of failure of a load balancer?  In all these pictures (and in my own setups as well) if the load balancer fails, what then?</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13561">
+
+    <div id="form_comment_13561" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13561/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13561"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13563">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13563" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/manicas">manicas</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13563" rel="nofollow">June  4, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@dan / @kiru42:
+The easiest way to avoid having the load balancer be a single point of failure is to set up an active/passive HAProxy pair. This would require two HAProxy servers and a virtual/floating IP that can move between the two servers. The active HAProxy server would handle all of the requests unless it went down, at which point the passive HAProxy server would take over the requests. This is a high availability (HA) setup.
+
+DigitalOcean, similarly to many other hosting providers, does not currently support floating IP addresses.
+
+Some people suggest using round robin DNS to workaround not having floating IP addresses, but it is not a true HA setup for a variety of reasons. I do not recommend it because there are situations where it can actually decrease your availability. If you would like to experiment with it anyway, here is a tutorial:
+https://www.digitalocean.com/community/articles/how-to-configure-dns-round-robin-load-balancing-for-high-availability</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13563">
+
+    <div id="form_comment_13563" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13563/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13563"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13933">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13933" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/johnkamauwaweru"><img alt="johnkamauwaweru" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/53545edf7999aafa6c7b27d842c16cee" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/johnkamauwaweru">johnkamauwaweru</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13933" rel="nofollow">June 13, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Very informative article. Much appreciated!</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13933">
+
+    <div id="form_comment_13933" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13933/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13933"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_13974">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_13974" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jigar-tidus"><img alt="jigar.tidus" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/f3fbafd3952cd8cc658dbd6856a916f1" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jigar-tidus">jigar.tidus</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=13974" rel="nofollow">June 15, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Thank you !</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_13974">
+
+    <div id="form_comment_13974" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/13974/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_13974"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_14267">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_14267" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/james206057"><img alt="james206057" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/afdd57c784d3b64caeda35590a18208b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/james206057">james206057</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=14267" rel="nofollow">June 23, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p><a href="https://www.digitalocean.com/community/users/dlazerka" class="username-tag">@dlazerka</a> nothing is 'free' - yes perhaps Google App Engine might offer it for free to start with, but then as soon as you actually need to scale, and start handing hundreds of thousands of queries per hour, you will soon start paying. Knowing how to set this up using bare metal hardware or cloud instances might save you a lot of money, Google charge a premium for all of this of course.</p>
+
+<p>Then there is the fact that you're locked into their system, so once things start costing a lot then you will have to jump through hoops to get your app and data migrated and its never easy.</p>
+
+<p>I'm guessing you've probably never actually built anything that needs any kind of scale anyway :)</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_14267">
+
+    <div id="form_comment_14267" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/14267/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_14267"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_14309">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_14309" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jahor"><img alt="jahor" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/2facd0955ddc18c7167b047281e53461" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jahor">jahor</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=14309" rel="nofollow">June 24, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p>excelent writeup - informative, deep enough!</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_14309">
+
+    <div id="form_comment_14309" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/14309/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_14309"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_14319">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_14319" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/martinbrambati251122"><img alt="martinbrambati251122" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/c98229442a3f3bb65d6c7485b8f5f414" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/martinbrambati251122">martinbrambati251122</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=14319" rel="nofollow">June 24, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p>Nice! We used #5 with app-backend replicated</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_14319">
+
+    <div id="form_comment_14319" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/14319/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_14319"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_14430">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_14430" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/mark668218"><img alt="mark668218" class="avatar avatar-small" height="80" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/2f07144fd83b6ee4ba62069eeba7dfa4" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/mark668218">mark668218</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application?comment=14430" rel="nofollow">June 27, 2014</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body "><p>I've been playing with so many setups, after weening myself off some old-school habits. Currently playing with Ansible as a way of provisioning a single server for each of my apps or projects.</p>
+
+<p>The trade-off for simplicity is obviously well mentioned here, but the other thing is that it does mean that one app doesn't take your whole stack down (as I was previously hosting multiple sites on the same app server and multiple databases on the database server), and it keeps costs down, as you're only scaling up the app you need and not necessarily paying for two or more droplets for one app.</p>
+
+<p>Also I use Cloudflare, although since I moved my Django stack to nginx and gunicorn, I kind of think Digital Ocean is faster when going closer to the metal!</p></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_14430">
+
+    <div id="form_comment_14430" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/14430/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_14430"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li></ul><div class="comment-pagination"><span class="previous_page disabled">Previous</span> <em class="current">1</em> <a rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application/comments?page=2">2</a> <a rel="nofollow" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application/comments?page=3">3</a> <a class="next_page" rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application/comments?page=2">Next</a></div>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+
+  <div class="load-more-container"><a class="load-more" href="javascript:void(0);"><span class="load-more-text">Show More Comments</span><div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div></a></div>
+</div>
+
+
+
+    </div>
+
+    <div id="creative-commons">
+      <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="./5 Common Server Setups For Your Web Application   DigitalOcean_files/creativecommons-b4540f6e3875bceed5e8823eb0c597a2.png"></a>
+        <br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+
+
+          <div class="clearfix"></div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+        <li><a href="https://www.digitalocean.com/help/">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+        <li class="meetup"><a href="http://www.meetup.com/DigitalOcean_Community/" target="_blank">Meetup</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">3,004,038</span> Droplets Launched
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+      <script>
+    $(function() { init_mentions() });
+  </script>
+
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 713px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><script type="text/javascript" id="">adroll_custom_data={user_id:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270645'),article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270646'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270647'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270648'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270649'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612270650')};</script></body></html>

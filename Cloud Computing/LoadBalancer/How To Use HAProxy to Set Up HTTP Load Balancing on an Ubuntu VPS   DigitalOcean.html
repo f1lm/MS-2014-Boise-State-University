@@ -1,0 +1,2603 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps -->
+<html class="m-pikabu-transitions m-pikabu-translate3d wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-proximanova-i4-active wf-proximanova-n1-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS | DigitalOcean</title>
+
+<meta name="description" content="This article runs through how to use HAProxy to setup HTTP load balancing on an Ubuntu VPS.">
+<meta name="keywords" content="Server Optimization Miscellaneous Scaling">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS | DigitalOcean">
+<meta name="twitter:description" content="This article runs through how to use HAProxy to setup HTTP load balancing on an Ubuntu VPS.">
+
+<meta name="og:title" content="How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS | DigitalOcean">
+<meta name="og:description" content="This article runs through how to use HAProxy to setup HTTP load balancing on an Ubuntu VPS.">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/miscellaneous-0040f39d9183bf1fc62c6524bbafd571.png">
+
+    <link href="https://www.digitalocean.com/assets/community/application-0faa49155e4503d229a8ccb68444bb2b.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="e3xdh9rnMokKoenxeP5gDguySWmOdNBC7FfFgUKQB9I=" name="csrf-token">
+    <script type="text/javascript" async="" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="https://s.adroll.com/j/roundtrip.js"></script><script type="text/javascript" async="" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/ga.js"></script><script async="" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/gtm.js"></script><script type="text/javascript" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/njm7orv.js"></script>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/1fdd79/1w;proxima-nova,2,b5x:P:i4,b5r:P:n1,b5t:P:n3,b5w:P:n4,b5y:P:n6,bBh:P:n7/d?3bb2a6e53c9684ffdc9a9ef6135b2a62bb46276e187a8160e333b7fa415bc97a27221dc4f001ed1efa3e1e0f57ad37083a9d78cba430be3bad6753076e2bd0ddfb353cacf9a435773e5deddff12e2374b9b2c25df1140678865ea3e8318b904658808d401dfdfff6fa0f907f6b11bb784f7bc9e520254ceb849a1b85e478ca39eaf755e836e399384c2bb292bf52e302b012e19725cf0dc5e5dfb0b3bce89019ca12b5982f2ea40714e4ddfe2e9b785ba4f738f5ad58deed8a1e870e713b87ef17cbc13671b45475e5d4f045285dde7d92d38d4e9af581e22c4a9ff0538c708504a9fe55330da7f5b64126de61be9ff5ca094b29b436d15b526a8b2e2185bc41e64ca5648722b8b6a2b34579bc98f5dc1ac7e1f16683c9702ce90f260e3ce20a4057547892a384c6f238c54f6bfa9d0dd82c4330ffa9ec068e01ccaf13e767176ce200023e36af64befc00e03d753867c6a3b035830fb60d641ba21bde640d2243f1ebe41dc4221e6cf7a120759b2ae455fceebae54b9906e65536ad0d020667c547123e95dc2ac25c74317634e20b8c7da4acaabe34472050"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/application-56e6043e292eff354cd796f238c928ce.js"></script><style type="text/css"></style>
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 255px;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 255px;
+}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body class="tutorials-controller" style="" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <script>
+//<![CDATA[
+
+    $(function() {
+      dataLayer = [$.parseJSON('{\"user_id\":\"\",\"is_community_page\":true,\"content_type\":\"tutorial\",\"author\":\"Jesin A\",\"difficulty\":\"advanced\",\"created_at\":\"2013-09-26T18:38:50.000Z\",\"published_at\":\"2013-09-26T18:38:50.000Z\",\"updated_at\":\"2014-08-29T18:20:36.786Z\",\"article_tags\":\"Server Optimization, Miscellaneous, Scaling\"}')];
+    });
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div id="table-of-contents" class="hide-on-pikabu tocify fixed" style="top: auto; display: block;">
+  <div id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">
+      <div class="title">Contents<span class="icon"><span class="close">×</span><span class="open icon-arrow-down"></span></span></div>
+    </a>
+  </div>
+<ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="installing-haproxy"><a>Installing HAProxy</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="configuring-haproxy"><a>Configuring HAProxy</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="testing-load-balancing-and-failover"><a>Testing Load Balancing and Failover</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="session-stickiness"><a>Session Stickiness</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="cookie-prefix-method"><a>Cookie Prefix Method</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="configure-logging-for-haproxy"><a>Configure Logging for HAProxy</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="keepalives-in-haproxy"><a>Keepalives in HAProxy</a></li></ul></div>
+
+
+    </div>
+
+    <div class="m-pikabu-viewport" style="width: auto;">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" id="search" method="get"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+        
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+    
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" data-remote="true" id="search" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+  <input id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" type="hidden" value="true">
+
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button></form>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+      <p class="sidebar-avatar">
+        <a href="https://www.digitalocean.com/community/users/jesin"><img alt="jesin" class="avatar avatar-large" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/5c09ba39e56e77230d9cf2883a0c357c" width="80"></a>
+      </p>
+
+      <p class="sidebar-author"><a href="https://www.digitalocean.com/community/users/jesin">Jesin A</a></p>
+
+    <p class="sidebar-date">
+        
+        Sep 26, 2013
+    </p>
+      <p class="sidebar-date updated-at">Updated Aug 29, 2014</p>
+
+
+    
+
+    
+
+    <span class="meta-section">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value">Advanced</span>
+    </span>
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a class="share" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">
+      <span class="icon icon-share-square"></span>  
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=How%20To%20Use%20HAProxy%20to%20Set%20Up%20HTTP%20Load%20Balancing%20on%20an%20Ubuntu%20VPS&url=https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps&t=How%20To%20Use%20HAProxy%20to%20Set%20Up%20HTTP%20Load%20Balancing%20on%20an%20Ubuntu%20VPS" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+    <h1 class="content-title">How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS</h1>
+
+    <div class="tut-meta">
+        <div class="content-tags">
+          
+
+
+        </div>
+
+      <div class="feedable-info">
+          <span class="meta-section meta-author">
+            <span class="meta-label">Author:</span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/users/jesin">Jesin A</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+        <span class="meta-section meta-date">
+            <span class="meta-label">Published:</span>
+            <span class="meta-value">Sep 26, 2013</span>
+        </span>
+
+          <span class="meta-section meta-date">
+            <span class="meta-separator">•</span>
+            <span class="meta-label">Updated:</span>
+            <span class="meta-value">Aug 29, 2014</span>
+          </span>
+
+        <br>
+
+          
+
+          <span class="meta-section">
+            <span class="meta-label">Tagged In: </span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+          <span class="meta-section">
+            <span class="meta-label">Difficulty: </span>
+            <span class="meta-value">Advanced</span>
+          </span>
+
+      </div>
+    </div>
+
+    
+
+    <div class="content-body tutorial-content">
+        <h3>About HAProxy</h3>
+
+<hr>
+<p>HAProxy(High Availability Proxy) is an open source load balancer which can load balance any TCP service. It is particularly suited for HTTP load balancing as it supports session persistence and layer 7 processing.</p>
+
+<p>With the introduction of <a href="https://www.digitalocean.com/community/articles/how-to-set-up-and-use-digitalocean-private-networking">Shared Private Networking</a> in DigitalOcean HAProxy can be configured as a front-end to load balance two VPS through private network connectivity.</p>
+
+<h3>Prelude</h3>
+
+<hr>
+<p>We will be using three VPS (droplets) here:</p>
+
+<p>Droplet 1 - Load Balancer<br>
+Hostname: haproxy<br>
+OS: Ubuntu<br>
+Public IP: 1.1.1.1<br>
+Private IP: 10.0.0.100</p>
+
+<p>Droplet 2 - Node 1<br>
+Hostname: lamp1<br>
+OS: LAMP on Ubuntu<br>
+Private IP: 10.0.0.1</p>
+
+<p>Droplet 2 - Node 2<br>
+Hostname: lamp2<br>
+OS: LAMP on Ubuntu<br>
+Private IP: 10.0.0.2</p>
+
+<div name="installing-haproxy" data-unique="installing-haproxy"></div><h2>Installing HAProxy</h2>
+
+<hr>
+<p>Use the <code>apt-get</code> command to install HAProxy.</p>
+
+<pre data-initialized="true" data-gclp-id="0"><code>apt-get install haproxy
+</code></pre>
+
+<p>We need to enable HAProxy to be started by the init script.</p>
+
+<pre data-initialized="true" data-gclp-id="1"><code>nano /etc/default/haproxy
+</code></pre>
+
+<p>Set the <code>ENABLED</code> option to <code>1</code></p>
+
+<pre data-initialized="true" data-gclp-id="2"><code>ENABLED=1
+</code></pre>
+
+<p>To check if this change is done properly execute the init script of HAProxy without any parameters. You should see the following.</p>
+
+<pre data-initialized="true" data-gclp-id="3"><code>root@haproxy:~# service haproxy
+Usage: /etc/init.d/haproxy {start|stop|reload|restart|status}
+</code></pre>
+
+<div name="configuring-haproxy" data-unique="configuring-haproxy"></div><h2>Configuring HAProxy</h2>
+
+<hr>
+<p>We'll move the default configuration file and create our own one.</p>
+
+<pre data-initialized="true" data-gclp-id="4"><code>mv /etc/haproxy/haproxy.cfg{,.original}
+</code></pre>
+
+<p>Create and edit a new configuration file:</p>
+
+<pre data-initialized="true" data-gclp-id="5"><code>nano /etc/haproxy/haproxy.cfg
+</code></pre>
+
+<p>Let us begin by adding configuration block by block to this file:</p>
+
+<pre data-initialized="true" data-gclp-id="6"><code>global
+    log 127.0.0.1 local0 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+</code></pre>
+
+<p>The <code>log</code> directive mentions a syslog server to which log messages will be sent. On Ubuntu rsyslog is already installed and running but it doesn't listen on any IP address. We'll modify the config files of rsyslog later. </p>
+
+<p>The <code>maxconn</code> directive specifies the number of concurrent connections on the frontend. The default value is <code>2000</code> and should be tuned according to your VPS' configuration.</p>
+
+<p>The <code>user</code> and <code>group</code> directives changes the HAProxy process to the specified user/group. These shouldn't be changed.</p>
+
+<pre data-initialized="true" data-gclp-id="7"><code>defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    option redispatch
+    timeout connect  5000
+    timeout client  10000
+    timeout server  10000
+</code></pre>
+
+<p>We're specifying default values in this section. The values to be modified are the various <code>timeout</code> directives. The <code>connect</code> option specifies the maximum time to wait for a connection attempt to a VPS to succeed. </p>
+
+<p>The <code>client</code> and <code>server</code> timeouts apply when the client or server is expected to acknowledge or send data during the TCP process. HAProxy recommends setting the <code>client</code> and <code>server</code> timeouts to the same value.</p>
+
+<p>The <code>retries</code> directive sets the number of retries to perform on a VPS after a connection failure.</p>
+
+<p>The <code>option redispatch</code> enables session redistribution in case of connection failures. So session stickness is overriden if a VPS goes down.</p>
+
+<pre data-initialized="true" data-gclp-id="8"><code>listen appname 0.0.0.0:80
+    mode http
+    stats enable
+    stats uri /haproxy?stats
+    stats realm Strictly\ Private
+    stats auth A_Username:YourPassword
+    stats auth Another_User:passwd
+    balance roundrobin
+    option httpclose
+    option forwardfor
+    server lamp1 10.0.0.1:80 check
+    server lamp2 10.0.0.2:80 check
+</code></pre>
+
+<p>This contains configuration for both the frontend and backend. We are configuring HAProxy to listen on port 80 for <code>appname</code> which is just a name for identifying an application. The <code>stats</code> directives enable the connection statistics page and protects it with <a href="https://www.digitalocean.com/community/articles/how-to-set-up-http-authentication-with-nginx-on-ubuntu-12-10">HTTP Basic authentication</a> using the credentials specified by the <code>stats auth</code> directive.</p>
+
+<p>This page can viewed with the URL mentioned in <code>stats uri</code> so in this case, it is <code>http://1.1.1.1/haproxy?stats</code>;<br>
+a demo of this page can be <a href="http://demo.1wt.eu/">viewed here</a>.</p>
+
+<p>The <code>balance</code> directive specifies the load balancing algorithm to use. Options available are Round Robin (<code>roundrobin</code>), Static Round Robin (<code>static-rr</code>), Least Connections (<code>leastconn</code>), Source (<code>source</code>), URI (<code>uri</code>) and URL parameter (<code>url_param</code>).</p>
+
+<p>Information about each algorithm can be obtained from the <a href="http://cbonte.github.io/haproxy-dconv/configuration-1.4.html#balance">official documentation</a>.</p>
+
+<p>The <code>server</code> directive declares a backend server, the syntax is:</p>
+
+<pre data-initialized="true" data-gclp-id="9"><code>server &lt;name&gt; &lt;address&gt;[:port] [param*]
+</code></pre>
+
+<p>The name we mention here will appear in logs and alerts. There are <a href="http://cbonte.github.io/haproxy-dconv/configuration-1.4.html#5">many paratmeters</a> supported by this directive and we'll be using the <code>check</code> and <code>cookie</code> parameters in this article. The <code>check</code> option enables health checks on the VPS otherwise, the VPS is<br>
+always considered available.</p>
+
+<p>Once you're done configuring start the HAProxy service:</p>
+
+<pre data-initialized="true" data-gclp-id="10"><code>service haproxy start
+</code></pre>
+
+<div name="testing-load-balancing-and-failover" data-unique="testing-load-balancing-and-failover"></div><h2>Testing Load Balancing and Failover</h2>
+
+<hr>
+<p>To test this setup, create a PHP script on all your web servers (backend servers - LAMP1 and LAMP2 here).</p>
+
+<p><code>/var/www/file.php</code></p>
+
+<pre data-initialized="true" data-gclp-id="11"><code>&lt;?php
+header('Content-Type: text/plain');
+echo "Server IP: ".$_SERVER['SERVER_ADDR'];
+echo "\nClient IP: ".$_SERVER['REMOTE_ADDR'];
+echo "\nX-Forwarded-for: ".$_SERVER['HTTP_X_FORWARDED_FOR'];
+?&gt;
+</code></pre>
+
+<p>Now we will use curl and request this file multiple times.</p>
+
+<pre data-initialized="true" data-gclp-id="12"><code>&gt; curl http://1.1.1.1/file.php
+
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+
+&gt; curl http://1.1.1.1/file.php
+
+Server IP: 10.0.0.2
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+
+&gt; curl http://1.1.1.1/file.php
+
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+</code></pre>
+
+<p>Notice here how HAProxy alternatively toggled the connection between LAMP1 and LAMP2, this is how Round Robin works. The client IP we see here is the Private IP address of the load balancer and the <code>X-Forwarded-For</code> header is your IP.</p>
+
+<p>To see how failover works, go to a web server and stop the service:</p>
+
+<pre data-initialized="true" data-gclp-id="13"><code>lamp1@haproxy:~#service apache2 stop
+</code></pre>
+
+<p>Send requests with <code>curl</code> again to see how things work.</p>
+
+<div name="session-stickiness" data-unique="session-stickiness"></div><h2>Session Stickiness</h2>
+
+<hr>
+<p>If your web application serves dynamic content based on users' login sessions (which application doesn't), visitors will experience odd things due to continuous switching between VPS. Session stickiness ensures that a visitor sticks on to the VPS which served their first request. This is possible by tagging each backend server with a cookie.</p>
+
+<p>We'll use the following PHP code to demonstrate how session stickiness works.</p>
+
+<p><code>/var/www/session.php</code></p>
+
+<pre data-initialized="true" data-gclp-id="14"><code>&lt;?php
+header('Content-Type: text/plain');
+session_start();
+if(!isset($_SESSION['visit']))
+{
+        echo "This is the first time you're visiting this server";
+        $_SESSION['visit'] = 0;
+}
+else
+        echo "Your number of visits: ".$_SESSION['visit'];
+
+$_SESSION['visit']++;
+
+echo "\nServer IP: ".$_SERVER['SERVER_ADDR'];
+echo "\nClient IP: ".$_SERVER['REMOTE_ADDR'];
+echo "\nX-Forwarded-for: ".$_SERVER['HTTP_X_FORWARDED_FOR']."\n";
+print_r($_COOKIE);
+?&gt;
+</code></pre>
+
+<p>This code creates a <a href="http://jesin.tk/php-sessions-tutorial/">PHP session</a> and displays the number of page views in a single session.</p>
+
+<h3>Cookie insert method</h3>
+
+<p>In this method, all responses from HAProxy to the client will contain a <code>Set-Cookie:</code> header with the name of a backend server as its cookie value. So going forward the client (web browser) will include this cookie with all its requests and HAProxy will forward the request to the right backend server based on the cookie value.</p>
+
+<p>For this method, you will need to add the <code>cookie</code> directive and modify the <code>server</code> directives under <code>listen</code></p>
+
+<pre data-initialized="true" data-gclp-id="15"><code>   cookie SRVNAME insert
+   server lamp1 10.0.0.1:80 cookie S1 check
+   server lamp2 10.0.0.2:80 cookie S2 check
+</code></pre>
+
+<p>This causes HAProxy to add a <code>Set-Cookie:</code> header with a cookie named <code>SRVNAME</code> having its value as <code>S1</code> or <code>S2</code> based on which backend answered the request. Once this is added restart the service:</p>
+
+<pre data-initialized="true" data-gclp-id="16"><code>service haproxy restart
+</code></pre>
+
+<p>and use <code>curl</code> to check how this works.</p>
+
+<pre data-initialized="true" data-gclp-id="17"><code>&gt; curl -i http://1.1.1.1/session.php
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:11:22 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Set-Cookie: PHPSESSID=l9haakejnvnat7jtju64hmuab5; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 143
+Connection: close
+Content-Type: text/plain
+Set-Cookie: SRVNAME=S1; path=/
+
+This is the first time you're visiting this server
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+Array
+(
+)
+</code></pre>
+
+<p>This is the first request we made and it was answered by LAMP1 as we can see from <code>Set-Cookie: SRVNAME=S1; path=/</code>. Now, to emulate what a web browser would do for the next request, we add these cookies to the request using the <code>--cookie</code> <a href="http://curl.haxx.se/docs/manpage.html#-b">parameter</a> of curl.</p>
+
+<pre data-initialized="true" data-gclp-id="18"><code>&gt; curl -i http://1.1.1.1/session.php --cookie "PHPSESSID=l9haakejnvnat7jtju64hmuab5;SRVNAME=S1;"
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:11:45 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 183
+Connection: close
+Content-Type: text/plain
+
+Your number of visits: 1
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.87.127
+Array
+(
+    [PHPSESSID] =&gt; l9haakejnvnat7jtju64hmuab5
+    [SRVNAME] =&gt; S1
+)
+
+&gt; curl -i http://1.1.1.1/session.php --cookie "PHPSESSID=l9haakejnvnat7jtju64hmuab5;SRVNAME=S1;"
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:11:45 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 183
+Connection: close
+Content-Type: text/plain
+
+Your number of visits: 2
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.87.127
+Array
+(
+    [PHPSESSID] =&gt; l9haakejnvnat7jtju64hmuab5
+    [SRVNAME] =&gt; S1
+)
+</code></pre>
+
+<p>Both of these requests were served by LAMP1 and the session was properly maintained. This method is useful if you want stickiness for all files on the web server.</p>
+
+<div name="cookie-prefix-method" data-unique="cookie-prefix-method"></div><h2>Cookie Prefix Method</h2>
+
+<hr>
+<p>On the other hand, if you want stickiness only for specific cookies or don't want to have a separate cookie for session stickiness, the <code>prefix</code> option is for you.</p>
+
+<p>To use this method, use the following <code>cookie</code> directive:</p>
+
+<pre data-initialized="true" data-gclp-id="19"><code>cookie PHPSESSID prefix
+</code></pre>
+
+<p>The <code>PHPSESSID</code> can be replaced with your own cookie name. The <code>server</code> directive remains the same as the previous configuration.</p>
+
+<p>Now let's see how this works.</p>
+
+<pre data-initialized="true" data-gclp-id="20"><code>&gt; curl -i http://1.1.1.1/session.php
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:36:27 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Set-Cookie: PHPSESSID=S1~6l2pou1iqea4mnhenhkm787o56; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 143
+Content-Type: text/plain
+
+This is the first time you're visiting this server
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+Array
+(
+)
+</code></pre>
+
+<p>Notice how the <code>server</code> cookie <code>S1</code> is prefixed to the session cookie. Now, let's send two more requests with this cookie.</p>
+
+<pre data-initialized="true" data-gclp-id="21"><code>&gt; curl -i http://1.1.1.1/session.php --cookie "PHPSESSID=S1~6l2pou1iqea4mnhenhkm787o56;"
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:36:45 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: text/plain
+
+Your number of visits: 1
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+Array
+(
+    [PHPSESSID] =&gt; 6l2pou1iqea4mnhenhkm787o56
+)
+
+&gt; curl -i http://1.1.1.1/session.php --cookie "PHPSESSID=S1~6l2pou1iqea4mnhenhkm787o56;"
+HTTP/1.1 200 OK
+Date: Tue, 24 Sep 2013 13:36:54 GMT
+Server: Apache/2.2.22 (Ubuntu)
+X-Powered-By: PHP/5.3.10-1ubuntu3.8
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: text/plain
+
+Your number of visits: 2
+Server IP: 10.0.0.1
+Client IP: 10.0.0.100
+X-Forwarded-for: 117.213.X.X
+Array
+(
+    [PHPSESSID] =&gt; 6l2pou1iqea4mnhenhkm787o56
+)
+</code></pre>
+
+<p>We can clearly see that both the requests were served by LAMP1 and the session is perfectly working.</p>
+
+<div name="configure-logging-for-haproxy" data-unique="configure-logging-for-haproxy"></div><h2>Configure Logging for HAProxy</h2>
+
+<hr>
+<p>When we began configuring HAProxy, we added a line: <code>log 127.0.0.1 local0 notice</code> which sends syslog messages to the localhost IP address. But by default, rsyslog on Ubuntu doesn't listen on any address. So we have to make it do so.</p>
+
+<p>Edit the config file of rsyslog.</p>
+
+<pre data-initialized="true" data-gclp-id="22"><code>nano /etc/rsyslog.conf
+</code></pre>
+
+<p>Add/Edit/Uncomment the following lines:</p>
+
+<pre data-initialized="true" data-gclp-id="23"><code>$ModLoad imudp
+$UDPServerAddress 127.0.0.1
+$UDPServerRun 514
+</code></pre>
+
+<p>Now rsyslog will work on UDP port 514 on address 127.0.0.1 but all HAProxy messages will go to <code>/var/log/syslog</code> so we have to separate them.</p>
+
+<p>Create a rule for HAProxy logs.</p>
+
+<pre data-initialized="true" data-gclp-id="24"><code>nano /etc/rsyslog.d/haproxy.conf
+</code></pre>
+
+<p>Add the following line to it.</p>
+
+<pre data-initialized="true" data-gclp-id="25"><code>if ($programname == 'haproxy') then -/var/log/haproxy.log
+</code></pre>
+
+<p>Now restart the rsyslog service:</p>
+
+<pre data-initialized="true" data-gclp-id="26"><code>service rsyslog restart
+</code></pre>
+
+<p>This writes all HAProxy messages and access logs to <code>/var/log/haproxy.log</code>.</p>
+
+<div name="keepalives-in-haproxy" data-unique="keepalives-in-haproxy"></div><h2>Keepalives in HAProxy</h2>
+
+<hr>
+<p>Under the <code>listen</code> directive, we used <code>option httpclose</code> which adds a <code>Connection: close</code> header. This tells the client (web browser) to close a connection after a response is received.</p>
+
+<p>If you want to enable keep-alives on HAProxy, replace the <code>option httpclose</code> line with:</p>
+
+<pre data-initialized="true" data-gclp-id="27"><code>option http-server-close
+timeout http-keep-alive 3000
+</code></pre>
+
+<p>Set the keep-alive timeout wisely so that a few connections don't drain all the resources of the load balancer.</p>
+
+<h3>Testing Keepalives</h3>
+
+<p>Keepalives can be tested using <code>curl</code> by sending multiple requests at the same time. Unnecessary output will be omitted in the following example:</p>
+
+<pre data-initialized="true" data-gclp-id="28"><code>&gt; curl -v http://1.1.1.1/index.html http://1.1.1.1/index.html
+* About to connect() to 1.1.1.1 port 80 (#0)
+*   Trying 1.1.1.1... connected
+&gt; GET /index.html HTTP/1.1
+&gt; User-Agent: curl/7.23.1 (x86_64-pc-win32) libcurl/7.23.1 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: 1.1.1.1
+&gt; Accept: */*
+&gt;
+......[Output omitted].........
+* Connection #0 to host 1.1.1.1 left intact
+* Re-using existing connection! (#0) with host 1.1.1.1
+* Connected to 1.1.1.1 (1.1.1.1) port 80 (#0)
+&gt; GET /index.html HTTP/1.1
+&gt; User-Agent: curl/7.23.1 (x86_64-pc-win32) libcurl/7.23.1 OpenSSL/0.9.8r zlib/1.2.5
+&gt; Host: 1.1.1.1
+&gt; Accept: */*
+&gt;
+.......[Output Omitted].........
+* Connection #0 to host 1.1.1.1 left intact
+* Closing connection #0
+</code></pre>
+
+<p>In this output, we have to look for the line: <code>Re-using existing connection! (#0) with host 1.1.1.1</code>, which indicates that curl used the same connection to make subsequent requests.</p>
+
+<div class="author">Submitted By: <a rel="author" href="http://jesin.tk/">Jesin A</a>
+</div>
+
+      <div class="clear"></div>
+      
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+    
+
+    <span class="meta-section tags">
+      <span class="meta-label">Tagged In: </span>
+      <span class="meta-value"><a href="https://www.digitalocean.com/community/tags/server-optimization?primary_filter=tutorials">Server Optimization</a>, <a href="https://www.digitalocean.com/community/tags/miscellaneous?primary_filter=tutorials">Miscellaneous</a>, <a href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+    </span>
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-jmeter-to-record-test-scenarios">How To Use JMeter To Record Test Scenarios</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-apache-jmeter-to-perform-load-testing-on-a-web-server">How To Use Apache JMeter To Perform Load Testing on a Web Server</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts">An Introduction to HAProxy and Load Balancing Concepts</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-salt-cloud-map-files-to-deploy-app-servers-and-an-nginx-reverse-proxy">How To Use Salt Cloud Map Files to Deploy App Servers and an Nginx Reverse Proxy</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-troubleshoot-common-http-error-codes">How To Troubleshoot Common HTTP Error Codes</a></li>
+    </ul>
+  </div>
+
+
+    <div class="content-comments">
+      <div class="tutorial commentable" id="tutorial_658">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>37 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" data-remote="true" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps/comments" rel="nofollow">Load</a>
+    <li class="response    " id="comment_5192">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5192" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/dave119711"><img alt="dave119711" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/15e10eaa69a500ab4e5acea7f2b3b7f9" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dave119711">dave119711</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5192" rel="nofollow">October  2, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">I'd be interested to see this with 2 HAProxies and a floating Virtual IP</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5192">
+
+    <div id="form_comment_5192" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5192/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5192"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5198">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5198" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/tech179754"><img alt="tech179754" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/f13bdf551da41f1358ca1e2c67a30611" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/tech179754">tech179754</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5198" rel="nofollow">October  2, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Digital Ocean doesn't yet support floating ip's :(</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5198">
+
+    <div id="form_comment_5198" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5198/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5198"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5231">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5231" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/grigory-starikov"><img alt="grigory.starikov" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/bde840fd2610de96b7ef082739050ef4" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/grigory-starikov">grigory.starikov</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5231" rel="nofollow">October  4, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">I think you can use DNS load balancing</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5231">
+
+    <div id="form_comment_5231" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5231/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5231"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5247">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5247" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/inboxrupee-com"><img alt="inboxrupee.com" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/1f81f5146ce54ef04b149b13b89e2b46" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/inboxrupee-com">inboxrupee.com</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5247" rel="nofollow">October  6, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">hi, i have installed cpanel for two nodes , so while configuring roundrobin via IP , it taking to default page of cpanel , so kindly guide me to config via domain name (need example config)  </div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5247">
+
+    <div id="form_comment_5247" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5247/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5247"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5256">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5256" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5256" rel="nofollow">October  6, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Dave: We currently do not support floating IPs.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5256">
+
+    <div id="form_comment_5256" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5256/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5256"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5863">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5863" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/ivelclown"><img alt="ivelclown" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/db4fcdac214f8f46a9f35ba53ce9c57b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/ivelclown">ivelclown</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5863" rel="nofollow">October 24, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Hi, can I use Red Hot instead of ubuntu as my ha proxy? and how?</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5863">
+
+    <div id="form_comment_5863" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5863/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5863"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_5879">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_5879" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=5879" rel="nofollow">October 24, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@ivelclown: You can install HAProxy on Red Hat however we do not offer Red Hat as an available droplet OS image neither do we have an article an setting up HAProxy on Red Hat.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_5879">
+
+    <div id="form_comment_5879" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/5879/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_5879"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7105">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7105" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/laguerre"><img alt="laguerre" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/d92b559a553329fc4aeea84ad646c9a2" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/laguerre">laguerre</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7105" rel="nofollow">December  4, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Kamal Nasser Why are most of these guilds written for Ubuntu. It's easy enough for myself to figure out what I need for CentOS, but what's with this heavy Ubuntu favoring? </div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7105">
+
+    <div id="form_comment_7105" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7105/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7105"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7150">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7150" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7150" rel="nofollow">December  5, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@laguerre: We love all distros (our Technical Writer is a big fan of Arch)— if people submit specific requests for articles on other distros we’ll be happy to cover them. :]</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7150">
+
+    <div id="form_comment_7150" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7150/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7150"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7332">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7332" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/washimagt"><img alt="washimagt" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/c406ce4e3126fcb4c6ffeffad13c7883" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/washimagt">washimagt</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7332" rel="nofollow">December 10, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Hello, Very Nice article write up. I noticed that my "Connection resets during transfer" value keeps on increasing. (On the HAProxy stats UI). I do have "the option httpclose in the config"
+Any thoughts on how to go about fixing this?
+Cheers</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7332">
+
+    <div id="form_comment_7332" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7332/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7332"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7399">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7399" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jesin"><img alt="jesin" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/5c09ba39e56e77230d9cf2883a0c357c" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jesin">jesin</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7399" rel="nofollow">December 12, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@washimagt Try replacing httpclose with forceclose.
+
+From the documentation http://cbonte.github.io/haproxy-dconv/configuration-1.4.html#option%20forceclose
+
+<blockquote>Some HTTP servers do not necessarily close the connections when they receive
+the "Connection: close" set by "option httpclose", and if the client does not
+close either, then the connection remains open till the timeout expires. This
+causes high number of simultaneous connections on the servers and shows high
+global session times in the logs.</blockquote></div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7399">
+
+    <div id="form_comment_7399" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7399/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7399"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7428">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7428" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/washimagt"><img alt="washimagt" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/c406ce4e3126fcb4c6ffeffad13c7883" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/washimagt">washimagt</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7428" rel="nofollow">December 13, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Thank you Jesin.a
+will give that a go.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7428">
+
+    <div id="form_comment_7428" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7428/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7428"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7474">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7474" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/inboxrupee-com"><img alt="inboxrupee.com" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/1f81f5146ce54ef04b149b13b89e2b46" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/inboxrupee-com">inboxrupee.com</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7474" rel="nofollow">December 15, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Hi , Round Robin is not working in Chrome Browser  , http://zypog.in/load.php . help me out </div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7474">
+
+    <div id="form_comment_7474" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7474/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7474"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7481">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7481" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7481" rel="nofollow">December 15, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Krishna: Does <code>http://zypog.in/load.php</code> have HAProxy installed? If so, please pastebin the output of <pre data-initialized="true" data-gclp-id="29">sudo netstat -plutn</pre> and HAProxy's configs.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7481">
+
+    <div id="form_comment_7481" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7481/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7481"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7485">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7485" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/inboxrupee-com"><img alt="inboxrupee.com" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/1f81f5146ce54ef04b149b13b89e2b46" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/inboxrupee-com">inboxrupee.com</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7485" rel="nofollow">December 15, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Netstat output link : http://pastebin.com/dmP7SCEx
+
+Haproxy Config link : http://pastebin.com/5gg95a7e</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7485">
+
+    <div id="form_comment_7485" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7485/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7485"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7488">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7488" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7488" rel="nofollow">December 15, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Krishna: Based on what I see at <a href="http://192.241.249.6/haproxy?stats">http://192.241.249.6/haproxy?stats</a>, it's sending the same amount of requests to each server so it's working properly.
+
+Also, change the password ;)</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7488">
+
+    <div id="form_comment_7488" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7488/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7488"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7495">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7495" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/inboxrupee-com"><img alt="inboxrupee.com" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/1f81f5146ce54ef04b149b13b89e2b46" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/inboxrupee-com">inboxrupee.com</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7495" rel="nofollow">December 16, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">Of Course Round robin is working properly on Mozilla &amp; Safari  but the problem occurs only when i try it on Chrome brow . </div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7495">
+
+    <div id="form_comment_7495" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7495/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7495"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7502">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7502" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7502" rel="nofollow">December 16, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Krishna: This is because you have <code>option redispatch</code>. It makes each browser stick to only one webserver in order to preserve the session data. If you're storing sessions in a database you can safely remove that line however if you are not it might break your site.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7502">
+
+    <div id="form_comment_7502" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7502/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7502"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7511">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7511" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/inboxrupee-com"><img alt="inboxrupee.com" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/1f81f5146ce54ef04b149b13b89e2b46" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/inboxrupee-com">inboxrupee.com</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7511" rel="nofollow">December 16, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@kamal we are  using Memcached for session</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7511">
+
+    <div id="form_comment_7511" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7511/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7511"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_7548">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_7548" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/kamaln7"><img alt="kamaln7" class="avatar avatar-small" height="80" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/215b6bc15b5cf772f9c4477a3ba0544b" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamaln7">kamaln7</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps?comment=7548" rel="nofollow">December 18, 2013</a></span>
+
+    
+  </div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+      <div class="response-body content-body legacy">@Krishna: Ok, as long as it is on a separate server (i.e. all app servers are using the same mecached server) you can remove <code>option redispatch</code> and it should work fine.</div>
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_7548">
+
+    <div id="form_comment_7548" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/7548/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+
+  <div id="reply_anchor_comment_7548"></div>
+
+</div>
+
+  </div>
+
+  <div class="clear"></div>
+</li></ul><div class="comment-pagination"><span class="previous_page disabled">Previous</span> <em class="current">1</em> <a rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps/comments?page=2">2</a> <a class="next_page" rel="next nofollow" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps/comments?page=2">Next</a></div>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+
+  <div class="load-more-container"><a class="load-more" href="javascript:void(0);"><span class="load-more-text">Show More Comments</span><div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div></a></div>
+</div>
+
+
+
+    </div>
+
+    <div id="creative-commons">
+      <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="./How To Use HAProxy to Set Up HTTP Load Balancing on an Ubuntu VPS   DigitalOcean_files/creativecommons-b4540f6e3875bceed5e8823eb0c597a2.png"></a>
+        <br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+
+
+          <div class="clearfix"></div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+        <li><a href="https://www.digitalocean.com/help/">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+        <li class="meetup"><a href="http://www.meetup.com/DigitalOcean_Community/" target="_blank">Meetup</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">3,004,038</span> Droplets Launched
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+      <script>
+    $(function() { init_mentions() });
+  </script>
+
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 713px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/how-to-use-haproxy-to-set-up-http-load-balancing-on-an-ubuntu-vps#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1310.5px; top: 1053px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1310.5px; top: 1178px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1310.5px; top: 1303px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 1310.5px; top: 1456px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 1310.5px; top: 1654px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 1310.5px; top: 1779px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 1310.5px; top: 1904px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 1310.5px; top: 2325px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 1310.5px; top: 2929px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 1310.5px; top: 3681px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 1310.5px; top: 3940px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 1310.5px; top: 4167px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 1310.5px; top: 4397px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 1310.5px; top: 4964px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 1310.5px; top: 5375px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="15" data-hasqtip="true" style="left: 1310.5px; top: 6124px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="16" data-hasqtip="true" style="left: 1310.5px; top: 6319px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="17" data-hasqtip="true" style="left: 1310.5px; top: 6444px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="18" data-hasqtip="true" style="left: 1310.5px; top: 7066px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="19" data-hasqtip="true" style="left: 1310.5px; top: 8340px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="20" data-hasqtip="true" style="left: 1310.5px; top: 8543px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="21" data-hasqtip="true" style="left: 1310.5px; top: 9095px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="22" data-hasqtip="true" style="left: 1310.5px; top: 10268px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="23" data-hasqtip="true" style="left: 1310.5px; top: 10393px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="24" data-hasqtip="true" style="left: 1310.5px; top: 10638px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="25" data-hasqtip="true" style="left: 1310.5px; top: 10763px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="26" data-hasqtip="true" style="left: 1310.5px; top: 10888px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="27" data-hasqtip="true" style="left: 1310.5px; top: 11193px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="28" data-hasqtip="true" style="left: 1310.5px; top: 11500px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="29" data-hasqtip="true" style="left: 1250.5px; top: 14874px; display: none;"></div><script type="text/javascript" id="">adroll_custom_data={user_id:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274375'),article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274376'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274377'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274378'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274379'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1414612274380')};</script></body></html>

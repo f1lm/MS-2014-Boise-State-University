@@ -1,0 +1,34 @@
+stmt  : assn ';'
+assn  : id '=' expr
+expr  : term addop expr
+      | term
+term  : fact mulop term
+      | fact
+fact  : id 
+      | num
+      | '(' expr ')'
+addop : '+'
+      | '-'
+mulop : '*'
+      | '/'
+
+      
+      
+After adding Unary negative operator:
+
+stmt  :assn ';'
+assn  : id '=' expr
+expr  : term addop expr
+      | term
+term  : fact mulop term
+      | fact
+fact  : id
+ 	  | '-' id
+      | num
+      | '-' num
+      | '(' expr ')'
+      | '-' '(' expr ')'
+addop : '+'
+      | '-'
+mulop : '*'
+      | '/'
