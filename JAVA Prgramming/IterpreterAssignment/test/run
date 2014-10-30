@@ -1,8 +1,0 @@
-#!/bin/bash
-
-for t in $PWD/test-* ; do
-    echo ${t##*/}
-    [ -f $t/inp ] || > $t/inp
-    (cd .. && java Interpreter "$(< $t/prg)" < $t/inp > $t/out)
-    cmp -s $t/exp $t/out || echo ${t##*/} failed >&2
-done
