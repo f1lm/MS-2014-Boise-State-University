@@ -1,6 +1,5 @@
 
 
-import java.util.Scanner;
 
 /**
  Demonstrates the use of some trigonometric functions in the Math class.
@@ -10,7 +9,12 @@ import java.util.Scanner;
 
 public class TrigDemo
 {
-   public static void main (String[] args)
+   public TrigDemo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+public static void main (String[] args)
    {
    		double x, y, z;
 	

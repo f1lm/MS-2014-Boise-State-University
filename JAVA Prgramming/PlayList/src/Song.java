@@ -1,3 +1,5 @@
+package src;
+
 
 /**
  * Represents information about a song.
