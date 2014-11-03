@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://moonscript.org/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <title>MoonScript, a language that compiles to Lua</title>
+  <link rel="stylesheet" href="http://moonscript.org/index.css?Tue%20Sep%2016%2008:11:41%202014">
+  <script type="text/javascript" async="" src="./MoonScript, a language that compiles to Lua_files/ga.js"></script><script type="text/javascript">
+  if (window.location.hostname != "localhost") {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-136625-5']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  }
+</script>
+</head>
+<body class="enable_rainbow">
+  <div class="nav">
+    <h1>MoonScript</h1>
+
+    <div class="logo">
+      <img src="./MoonScript, a language that compiles to Lua_files/logo.png" alt="MoonScript">
+    </div>
+
+    <ul class="primary_nav">
+      <li><a data-name="intro" class="" href="http://moonscript.org/#top">Intro</a></li>
+      <li><a data-name="overview" href="http://moonscript.org/#overview" class="">Overview</a></li>
+      <li><a data-name="installation" href="http://moonscript.org/#installation" class="">Installation</a></li>
+      <li><a data-name="source" href="http://moonscript.org/#source" class="">Source</a></li>
+      <li><a data-name="learning" href="http://moonscript.org/#learning">Learning</a></li>
+      <li><a data-name="extras" href="http://moonscript.org/#extras" class="active">Extras</a></li>
+      <li><a data-name="about" href="http://moonscript.org/#about">About</a></li>
+    </ul>
+
+    <div class="sharing">
+      <a href="https://github.com/leafo/moonscript" title="View on GitHub">
+        <img src="./MoonScript, a language that compiles to Lua_files/github.png" alt="MoonScript on GitHub">
+      </a>
+      <a href="http://twitter.com/share?text=MoonScript%2C%20a%20language%20that%20compiles%20to%20Lua&via=moonscript&related=moonscript&url=http%3A%2F%2Fmoonscript.org" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600&#39;);return false;" title="Share on Twitter">
+        <img src="./MoonScript, a language that compiles to Lua_files/twitter.png" alt="MoonScript on Twitter">
+      </a>
+      <a href="https://plus.google.com/share?url=http%3A%2F%2Fmoonscript.org" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;" title="Share on Google Plus">
+        <img src="./MoonScript, a language that compiles to Lua_files/google.png" alt="MoonScript on Google Plus">
+      </a>
+    </div>
+
+    <ul class="sub_nav">
+      <li>Version <a href="http://moonscript.org/#installation">0.2.6</a></li>
+      <li>Read <a href="http://moonscript.org/reference">Manual</a></li>
+      <li>Try <a href="http://moonscript.org/compiler/">Online Compiler</a></li>
+    </ul>
+
+    <div class="nav_bottom">
+      MoonScript is an
+      <br>
+      open source project
+      <br>
+      <a href="https://github.com/leafo/moonscript#license-mit">MIT License</a>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="message">A programmer friendly language
+      that compiles to <a href="http://www.lua.org/">Lua</a>.</div>
+
+    <div class="body_box"><div id="intro"></div>
+
+
+<p><strong>MoonScript</strong> is a dynamic scripting language that compiles into
+<a href="http://www.lua.org/">Lua</a>. It gives you the power of one of the fastest
+scripting languages combined with a rich set of features.</p>
+
+<div class="code_container" data-compiled_lua="&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thing&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;unknown&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__init&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__base&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Thing&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Thing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thing&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;say_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Hello, I am &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;tostring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;..&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__init&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__base&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Person&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rawget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;__call&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;setmetatable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;cls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_self_0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_base_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__class&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__inherited&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__inherited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_parent_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_with_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_with_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;MoonScript&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;_with_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;say_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;"><div class="see_lua_btn rainbow_btn_wrap"><a href="http://moonscript.org/#" class="rainbow_btn">See Lua</a></div>
+<pre><code class="moon_code"><span class="k">class</span> <span class="nc">Thing</span>
+  <span class="nv">name:</span> <span class="s2">"</span><span class="s">unknown</span><span class="s2">"</span>
+
+<span class="k">class</span> <span class="nc">Person</span> <span class="k">extends</span> <span class="nc">Thing</span>
+  <span class="nv">say_name:</span> <span class="nf">=&gt;</span> <span class="nb">print</span> <span class="s2">"</span><span class="s">Hello, I am </span><span class="si">#{</span><span class="vc">@name</span><span class="si">}</span><span class="s">!</span><span class="s2">"</span>
+
+<span class="k">with</span> <span class="nc">Person</span><span class="o">!</span>
+  <span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"</span><span class="s">MoonScript</span><span class="s2">"</span>
+  <span class="o">\</span><span class="n">say_name</span><span class="o">!</span></code>
+</pre>
+</div>
+
+
+<p>MoonScript can either be compiled into Lua and run at a later time, or it can
+be dynamically compiled and run using the <em>moonloader</em>. It’s as simple as
+<code>require "moonscript"</code> in order to have Lua understand how to load and run any
+MoonScript file.</p>
+
+<p>Because it compiles right into Lua code, it is completely compatible with
+alternative Lua implementations like <a href="http://luajit.org/">LuaJIT</a>, and it is
+also compatible with all existing Lua code and libraries.</p>
+
+<p>The command line tools also let you run MoonScript directly from the
+command line, like any first-class scripting language.</p>
+
+<p>A comprehensive overview of the language can be found in the <a href="http://moonscript.org/reference/">reference
+manual</a>, the rest of this page serves as an overview of the
+language.</p>
+
+<div id="overview"></div>
+
+
+<h2>Overview</h2>
+
+<p>MoonScript provides a clean syntax using significant whitespace that avoids all
+the keyword noise typically seen in a Lua script. Below is a sample of some
+constructs found in the language.</p>
+
+<div class="code_container" data-compiled_lua="&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2323&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32434&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;hats&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;tophat&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bball&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;bowler&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;my_func&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;"><div class="see_lua_btn rainbow_btn_wrap"><a href="http://moonscript.org/#" class="rainbow_btn">See Lua</a></div>
+<pre><code class="moon_code"><span class="k">export</span> <span class="n">my_func</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">2323</span>
+
+<span class="n">collection</span> <span class="o">=</span>
+  <span class="nv">height:</span> <span class="mi">32434</span>
+  <span class="nv">hats:</span> <span class="kt">{</span><span class="s2">"</span><span class="s">tophat</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="s">bball</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="s">bowler</span><span class="s2">"</span><span class="kt">}</span>
+
+<span class="n">my_func</span> <span class="o">=</span> <span class="kt">(</span><span class="n">a</span><span class="kt">)</span> <span class="nf">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">a</span>
+
+<span class="nb">print</span> <span class="n">my_func</span> <span class="mi">100</span></code>
+</pre>
+</div>
+
+
+<p>It also adds <a href="http://moonscript.org/reference/#table_comprehensions">table comprehensions</a>, <a href="http://moonscript.org/reference/#function_literals">implicit return</a> on functions, <a href="http://moonscript.org/reference/#object_oriented_programming">classes</a>,
+<a href="http://moonscript.org/reference/#inheritance">inheritance</a>, scope management statements <a href="http://moonscript.org/reference/#import">import</a> &amp; <a href="http://moonscript.org/reference/#export">export</a>, and a convenient
+object creation statement called <a href="http://moonscript.org/reference/#with">with</a>.</p>
+
+<div class="code_container" data-compiled_lua="&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_obj_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_obj_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_obj_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double_args&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;double_args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_list_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_index_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_list_0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_list_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_index_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tuples&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ipairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my_table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_len_0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;tuples&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_accum_0&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;"><div class="see_lua_btn rainbow_btn_wrap"><a href="http://moonscript.org/#" class="rainbow_btn">See Lua</a></div>
+<pre><code class="moon_code"><span class="k">import</span> <span class="n">concat</span><span class="p">,</span> <span class="n">insert</span> <span class="k">from</span> <span class="n">table</span>
+
+<span class="n">double_args</span> <span class="o">=</span> <span class="kt">(</span><span class="o">...</span><span class="kt">)</span> <span class="nf">-&gt;</span>
+  <span class="kt">[</span><span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="k">in</span> <span class="o">*</span><span class="kt">{</span><span class="o">...</span><span class="kt">}]</span>
+
+<span class="n">tuples</span> <span class="o">=</span> <span class="kt">[{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="kt">}</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">ipairs</span> <span class="n">my_table</span><span class="kt">]</span></code>
+</pre>
+</div>
+
+
+<p>It can be loaded directly from a Lua script <a href="http://moonscript.org/reference/#moonscript_module">without an intermediate
+compile step</a>. It even knows how to <a href="http://moonscript.org/reference/#error_rewriting">tell you
+where errors occurred</a> in the original file when
+they happen.</p>
+
+<div id="installation"></div>
+
+
+<h2>Installation</h2>
+
+<h3>Installing with LuaRocks</h3>
+
+<p>If you're on Windows, then install the <a href="http://moonscript.org/#windows_binaries">Windows binaries</a>,
+otherwise the easiest way to install is to use LuaRocks.</p>
+
+<p>LuaRocks can be obtained <a href="http://www.luarocks.org/">here</a> or from your package
+manager.</p>
+
+<p>After it is installed, run the following in a terminal:</p>
+
+<pre class="highlight lang_bash"><code><span class="nv">$ </span>luarocks install moonscript</code>
+</pre>
+
+
+<p>This will provide the <code>moon</code> and <code>moonc</code> executables along with the
+<code>moonscript</code> and <code>moon</code> Lua module.</p>
+
+<h3>Windows Binaries</h3>
+
+<p>Precompiled Windows binaries are available to avoid the trouble of compiling:<br>
+<a href="http://moonscript.org/bin/moonscript-0.2.6.zip">http://moonscript.org/bin/moonscript-0.2.6.zip</a></p>
+
+<p>Extract the contents into your <code>PATH</code>.</p>
+
+<h3>Optional</h3>
+
+<p>If you're on Linux and use <em>watch</em> mode (which compiles <code>.moon</code> files to <code>.lua</code>
+files as they are changed) you can install
+<a href="https://github.com/hoelzro/linotify">linotify</a> to use inotify instead of
+polling.</p>
+
+<div id="source"></div>
+
+
+<h2>Source</h2>
+
+<p>The source code to the project lives on GitHub:<br>
+<a href="https://github.com/leafo/moonscript">https://github.com/leafo/moonscript</a></p>
+
+<p>Issues with the tool can be reported on the issue tracker:<br>
+<a href="https://github.com/leafo/moonscript/issues">https://github.com/leafo/moonscript/issues</a></p>
+
+<p>The latest development version can be installed with the dev rockspec:</p>
+
+<pre class="highlight lang_bash"><code><span class="nv">$ </span>luarocks install <span class="se">\</span>
+    http://moonscript.org/rocks/moonscript-dev-1.rockspec</code>
+</pre>
+
+
+<h3>Dependencies</h3>
+
+<p>In addition to <a href="http://lua.org/">Lua 5.1 or 5.2</a>, the following Lua modules are
+required to run the compiler and associated tools:</p>
+
+<ul>
+<li><a href="http://www.inf.puc-rio.br/~roberto/lpeg/lpeg.html">LPeg</a></li>
+<li><a href="http://keplerproject.github.com/luafilesystem/">LuaFileSystem</a></li>
+<li><a href="http://luaforge.net/projects/alt-getopt/">alt-getopt</a></li>
+<li>and <a href="http://moonscript.org/#optional">optionally</a> on Linux <a href="https://github.com/hoelzro/linotify">linotify</a></li>
+</ul>
+
+
+<p>All of the required ones can be retrieved automatically using the
+<a href="http://moonscript.org/#installing_with_luarocks">LuaRocks</a> installation.</p>
+
+<div id="learning"></div>
+
+
+<h2>Learning</h2>
+
+<ul>
+<li><a href="http://moonscript.org/reference/">Official reference manual</a></li>
+<li><a href="http://leafo.net/posts/getting_started_with_moonscript.html">Installation tutorial</a></li>
+<li><a href="https://github.com/leafo/moonscript/wiki/Moonscript-Examples">MoonScript examples</a></li>
+</ul>
+
+
+<div id="extras"></div>
+
+
+<h2>Extras &amp; Addons</h2>
+
+<h3>Editor Support</h3>
+
+<p>Vim syntax and indent:<br>
+<a href="https://github.com/leafo/moonscript-vim">https://github.com/leafo/moonscript-vim</a></p>
+
+<p>Textmate (and Sublime Text) syntax and indent:<br>
+<a href="https://github.com/leafo/moonscript-tmbundle">https://github.com/leafo/moonscript-tmbundle</a></p>
+
+<p>SciTE (with scintillua) syntax:<br>
+<a href="https://github.com/leafo/moonscript/tree/master/extra/scintillua">https://github.com/leafo/moonscript/tree/master/extra/scintillua</a></p>
+
+<p>Preconfigured and packaged version of SciTE for Windows with MoonScript
+support:<br>
+<a href="http://moonscript.org/scite/">http://moonscript.org/scite/</a></p>
+
+<h3>Tools</h3>
+
+<p>Online Compiler:<br>
+<a href="http://moonscript.org/compiler/">http://moonscript.org/compiler/</a></p>
+
+<h2>Overview of Differences &amp; Highlights</h2>
+
+<p>A more detailed overview of the syntax can be found in the
+<a href="http://moonscript.org/reference/">reference manual</a>.</p>
+
+<ul>
+<li>Whitespace sensitive blocks defined by indenting</li>
+<li>All variable declarations are local by default</li>
+<li><code>export</code> keyword to declare global variables, <code>import</code> keyword to make local
+copies of values from a table</li>
+<li>Parentheses are optional for function calls, similar to Ruby</li>
+<li>Fat arrow, <code>=&gt;</code>, can be used to create a function with a self argument</li>
+<li><code>@</code> can be prefixed in front of a name to refer to that name in <code>self</code></li>
+<li><code>!</code> operator can be used to call a function with no arguments</li>
+<li>Implicit return on functions based on the type of last statement</li>
+<li><code>:</code> is used to separate key and value in table literals instead of <code>=</code></li>
+<li>Newlines can be used as table literal entry delimiters in addition to <code>,</code></li>
+<li>\ is used to call a method on an object instead of <code>:</code></li>
+<li><code>+=</code>, <code>-=</code>, <code>/=</code>, <code>*=</code>, <code>%=</code> operators</li>
+<li><code>!=</code> is an alias for <code>~=</code></li>
+<li>Table comprehensions, with convenient slicing and iterator syntax</li>
+<li>Lines can be decorated with for loops and if statements at the end of the line</li>
+<li>If statements can be used as expressions</li>
+<li>Class system with inheritance based on metatable’s <code>__index</code> property</li>
+<li>Constructor arguments can begin with <code>@</code> to cause them to automatically be
+assigned to the object</li>
+<li>Magic <code>super</code> function which maps to super class method of same name in a
+class method</li>
+<li><code>with</code> statement lets you access anonymous object with short syntax</li>
+</ul>
+
+
+<div id="about"></div>
+
+
+<h2>About</h2>
+
+<p>The syntax of MoonScript has been heavily inspired by the syntax of
+<a href="http://jashkenas.github.com/coffee-script/">CoffeeScript</a>. MoonScript is
+CoffeeScript for Lua.</p>
+
+<p>MoonScript would not have been possible without the excellent tool
+<a href="http://www.inf.puc-rio.br/~roberto/lpeg/">LPeg</a> for parsing.</p>
+
+<p><a name="change_log"></a></p>
+
+<h2>Changelog</h2>
+
+<ul>
+<li><a href="https://github.com/leafo/moonscript/blob/master/CHANGELOG.md#moonscript-v026-2014-6-18">0.2.6</a>— June 19 2014</li>
+<li><a href="https://github.com/leafo/moonscript/blob/master/CHANGELOG.md#moonscript-v025-2014-3-5">0.2.5</a>— March 5 2014</li>
+<li><a href="http://leafo.net/posts/moonscript_v024.html">0.2.4</a>— July 2 2013</li>
+<li>0.2.3-2 — Jan 29 2013, Fixed bug with moonloader not loading anything</li>
+<li><a href="http://leafo.net/posts/moonscript_v023.html">0.2.3</a> — Jan 24 2013</li>
+<li><a href="http://leafo.net/posts/moonscript_v022.html">0.2.2</a> — Nov 04 2012</li>
+<li><a href="http://leafo.net/posts/moonscript_v020.html">0.2.0</a> — Dec 11 2011</li>
+</ul>
+
+
+    </div>
+
+    <div class="scroll_spacer"></div>
+
+    <div class="footer">
+      Generated with <a href="http://leafo.net/sitegen">Sitegen</a> on Tue Sep 16 08:11:41 2014; MoonScript v0.2.6
+    </div>
+  </div>
+
+  <div class="shroud">
+    <div class="lightbox">
+      <div class="close_btn">×</div>
+      <h2>Compiled Lua</h2>
+      <pre class="lb_code_column lua_col"></pre>
+    </div>
+  </div>
+  <script type="text/javascript" src="./MoonScript, a language that compiles to Lua_files/index.js"></script>
+
+
+</body></html>

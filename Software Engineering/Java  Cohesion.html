@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0078)http://www.fredosaurus.com/notes-java/principles_and_practices/15cohesion.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="author" content="Fred Swartz (www.fredswartz.com)">
+  <meta name="level" content="1">
+  <link rel="stylesheet" type="text/css" href="./Java  Cohesion_files/notes.css">
+  
+  <title>Java: Cohesion</title>
+</head>
+<body><div id="content">
+
+<h1><a href="http://www.fredosaurus.com/notes-java/index.html">Java</a>: Cohesion</h1>
+
+
+<b>Each function should do only one thing</b>. 
+This should be done so that the conceptual unit can be understood easily.
+Sometimes it will be convenient
+to do two things in a function because you're working on the same data.
+Try to resist this temptation.  Make two functions if you reasonably can.
+<p>For example, if you write a function to read a file of numbers into
+a vector (eg, readVector(v)), that's all the function should do.
+If you know that you also need the sum of the numbers,  
+Here are three ways to solve the problem of reading a vector and summing the 
+elements.
+</p>
+<ul>
+<li><b>Criminally bad</b>.  As elements as read it, it's probably most efficient
+    to add them to a <i>global variable</i>.  The call would then look
+    like
+    <pre class="fragment">// CRIMINALLY BAD.  Not obvious that sum is in global variable.
+readVector(v); </pre>
+    Not only does this function do more than one thing, but the name
+    and call give no clue that it is doing more.  The hidden
+    reference to a global variable also increases the <i>coupling</i>
+    (connections between parts of a program), which is bad.
+    </li>
+<li><b>Bad</b>.  To avoid global variables, which are almost always bad,
+    return the sum as the value of the function.
+    <pre class="fragment">// BAD.  Function does two things, and one is unobvious.
+x = readVector(v);</pre>
+    This is bad because it isn't obvious from that name that a value is returned
+    or what that value might be.  It does reduce the <i>coupling</i> and at
+    least it is obvious in this use that it does return a (unknown) value.
+    </li>
+<li><b>Poor</b>.
+    A better alternative is
+    <pre class="fragment">// POOR.  Understandable, but not very reusable.
+x = readVectorAndComputeSum(v);  </pre>
+   This clarifies the processing, but doesn't produce simple,
+   reusable building blocks.
+   </li>
+<li><b>Good</b>.  A better way to do it is two write two functions.
+    <pre class="fragment">// GOOD.  The two actions are separated and given good names.
+readVector(v);
+x = sumVector(v);</pre>
+    This is better because each function does one clear thing (ie, is <i>cohesive</i>).  
+    These function building blocks are also much more likely to 
+    be reusable.  But what about the efficiency of this solution.
+    Isn't the extra function call less efficient?
+    Yes, but the amount is so small that it isn't worth more than
+    a few nanoseconds.  If this was in an extremely high performance loop
+    (eg, rendering real-time graphics), then it might be worth thinking
+    about optimizing.  What you should optimize for is the readability
+    of programs -- programmer (ie, your) time is worth much more than
+    a few machine cycles.  And the extra time you take to type in an
+    extra function is easily repaid in having a simpler program to work on.
+    </li>
+</ul>
+
+<div class="footer">
+Copyleft 2003 <a href="http://www.fredosaurus.com/">Fred Swartz</a>
+<a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>, 
+Last update: 2003-08-29
+</div>
+</div>
+
+
+</body></html>
