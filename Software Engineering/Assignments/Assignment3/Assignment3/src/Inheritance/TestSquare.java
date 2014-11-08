@@ -12,7 +12,8 @@ public class TestSquare {
 
 	@Before
 	public void setUp() throws Exception {
-		sqr = new Square2(10);
+		sqr = new Square2();
+		sqr.setSide(10);
 	}
 
 	@After

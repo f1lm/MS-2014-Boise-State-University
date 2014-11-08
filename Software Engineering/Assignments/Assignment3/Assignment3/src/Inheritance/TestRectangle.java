@@ -13,8 +13,10 @@ public class TestRectangle {
 
 	@Before
 	public void setUp() throws Exception {
-		rect = new Rectangle1(10, 20);
-		sqr = new Square1(10, 10);
+		rect = new Rectangle1();
+		rect.setLength(10);
+		rect.setWidth(20);
+		sqr = new Square1();
 		sqr.setSide(10);
 	}
 

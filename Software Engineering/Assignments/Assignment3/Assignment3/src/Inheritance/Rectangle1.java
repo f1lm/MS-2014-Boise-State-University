@@ -12,11 +12,6 @@ public class Rectangle1 {
 		return 2 * (this.length + this.width);
 	}
 
-	public Rectangle1(double length, double width) {
-		this.length = length;
-		this.width = width;
-	}
-
 	public double getLength() {
 		return length;
 	}

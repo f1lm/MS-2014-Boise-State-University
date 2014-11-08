@@ -11,10 +11,6 @@ public class Square2 {
 		return 4 * this.side;
 	}
 
-	public Square2(double side) {
-		this.side = side;
-	}
-
 	public double getSide() {
 		return side;
 	}
