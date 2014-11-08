@@ -1,4 +1,4 @@
-package correct;
+package bug5;
 
 import static org.junit.Assert.assertTrue;
 
