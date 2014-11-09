@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- saved from url=(0017)http://waded.org/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<title></title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://waded.org/xmlrpc.php">
+	<link rel="stylesheet" id="style-css" href="./waded.org_files/style.css" type="text/css" media="all">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://waded.org/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://waded.org/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 3.9.2">
+<script type="text/javascript" async="" src="./waded.org_files/ga.js"></script><script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7695754-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</head>
+<body>
+	<div id="head"></div>	<div class="post index">
+		<h2>Node.js on Azure gotchas</h2>
+		<div class="byline">
+			<div class="author">Wade</div>
+			<div class="date">October 15, 2014</div>
+		</div>
+		<div class="content"><p>Two gotchas that “gotch” me when deploying a Node.js app on Azure:</p>
+<h3>1: Azure isn’t able to start your app because it’s not pleasing npm start</h3>
+<p>Azure starts your app using <em>npm start</em>. Try this command off&nbsp;Azure before on Azure, and if doesn’t work (exits silently without starting your app) it’s possibly&nbsp;because&nbsp;you wouldn’t run <em>node server.js</em> to start your app, which is what <em>npm start</em> does by default.</p>
+<p>You can certainly rename to <em>server.js</em>&nbsp;to match&nbsp;convention, or you can specify a different script in <em>package.json</em>:</p>
+<blockquote><p>&nbsp; “scripts”: {“start”:”node &lt;name of your script here&gt;”}</p></blockquote>
+<p>for example for my app&nbsp;<em>snowflake.js</em></p>
+<blockquote><p>&nbsp; “scripts”: {“start”:”node snowflake.js”}</p></blockquote>
+<h3>2: You aren’t letting Azure specify the port your app should listen on, or&nbsp;that code is buggy</h3>
+<p>Azure sets the environment variable “PORT” to tell your app what port it’d like it to HTTP&nbsp;.listen() on. It does this so it&nbsp;can forward requests from 80 and 443. Pick up the value Azure provides to override your choice (here, 1337) like this:</p>
+<blockquote><p>var port = process.env.PORT&nbsp;|| 1337;</p></blockquote>
+<p><strong>NOT</strong> the&nbsp;bitwise-or typo&nbsp;version I copied from somewhere:</p>
+<blockquote><p>var port = process.env.PORT&nbsp;| 1337;</p></blockquote>
+<p>It seems case of <em>PORT</em>&nbsp;doesn’t matter on Azure; I have&nbsp;also seen it <em>port</em>. But since case does seem to matter on my Unix dev system&nbsp;(<em>export port=8888</em>&nbsp;is only reflected in&nbsp;<em>process.env.port</em> and&nbsp;<em>export PORT=8888</em>&nbsp;is only reflected in&nbsp;<em>process.env.PORT</em>) I stick with the more conventional&nbsp;<em>PORT</em>.</p>
+</div>
+		<div class="previous">Previous: <a href="http://waded.org/2014/08/18/stinkin-badges/" rel="prev">Badges?</a></div>
+	</div>
+<div id="foot"></div>
+
+</body></html>

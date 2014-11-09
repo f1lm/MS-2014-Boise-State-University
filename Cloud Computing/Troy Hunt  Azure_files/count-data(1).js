@@ -1,0 +1,5 @@
+var DISQUSWIDGETS;
+
+if (typeof DISQUSWIDGETS != 'undefined') {
+    DISQUSWIDGETS.displayCount({"text":{"and":"and","comments":{"zero":"0 Comments","multiple":"{num} Comments","one":"1 Comment"}},"counts":[{"id":"http:\/\/www.troyhunt.com\/2014\/02\/the-cloud-never-goes-down-azure-slas.html","comments":7},{"id":"http:\/\/www.troyhunt.com\/2014\/10\/disabling-ssl-3-in-azure-websites-and.html","comments":28},{"id":"http:\/\/www.troyhunt.com\/2014\/01\/with-great-azure-vm-comes-great.html","comments":53},{"id":"http:\/\/www.troyhunt.com\/2014\/09\/10-things-i-learned-about-rapidly.html","comments":28},{"id":"http:\/\/www.troyhunt.com\/2014\/09\/your-azure-website-cpu-is-going-nuts.html","comments":17},{"id":"http:\/\/www.troyhunt.com\/2014\/03\/i-put-my-azure-website-in-wrong.html","comments":18},{"id":"http:\/\/www.troyhunt.com\/2014\/03\/the-worlds-greatest-azure-demo.html","comments":18},{"id":"http:\/\/www.troyhunt.com\/2014\/07\/scaling-standard-azure-website-to-380k.html","comments":15}]});
+}

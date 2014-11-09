@@ -1,0 +1,792 @@
+/*
+Theme Name: Bootstrap Ultimate
+Theme URI: http://eodepo.com/bootstrap-ultimate
+Description: The ultimate responsive WP theme; cures your common Bootstrap problems such as nav-menu, pagination etc.Built for speed, both loading-wise & development-wise.Comes packed with distinctive features such as adjustable layout, automatic Google Fonts update, sleek options panel, sub-themes and many built-in extensions; lightbox, font-icons etc.Optional layout per post/page.In short, you can have whatever you want, however you want.
+Version: 1.4.9
+Author: Emin Özlem
+Author URI: http://eodepo.com
+Tags: responsive-layout, black, white, one-column, two-columns, fluid-layout, custom-background, custom-colors, custom-menu, full-width-template, theme-options, translation-ready,left-sidebar,right-sidebar
+License: GNU General Public License v2.0 & Apache License 2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html http://www.apache.org/licenses/LICENSE-2.0
+*/
+
+/**
+ * @license
+ * MyFonts Webfont Build ID 2696156, 2013-11-26T07:00:14-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: ITC Lubalin Graph Std Medium by ITC
+ * URL: http://www.myfonts.com/fonts/itc/lubalin-graph/std-medium/
+ * Copyright: Font software Copyright 1992 Adobe Systems Incorporated. Typeface designs Copyright 2005 International Typeface Corporation. All rights reserved.
+ * 
+ * Webfont: ITC Lubalin Graph Std Book by ITC
+ * URL: http://www.myfonts.com/fonts/itc/lubalin-graph/std-book/
+ * Copyright: Copyright &#x00A9; 1985, 1987, 1997, 1998, 2001 Adobe Systems Incorporated.  All Rights Reserved.
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2696156
+ * Licensed pageviews: 250,000
+ * 
+ * © 2013 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2923dc");
+@font-face {font-family: 'LubalinGraphStd-Medium';src: url('webfonts/2923DC_0_0.eot');src: url('webfonts/2923DC_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2923DC_0_0.woff') format('woff'),url('webfonts/2923DC_0_0.ttf') format('truetype');}
+@font-face {font-family: 'LubalinGraphStd-Book';src: url('webfonts/2923DC_1_0.eot');src: url('webfonts/2923DC_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2923DC_1_0.woff') format('woff'),url('webfonts/2923DC_1_0.ttf') format('truetype');}
+
+
+.bs-callout h4 {
+margin-top: 0;
+margin-bottom: 5px;
+}
+.bs-callout-danger {
+background-color: #fdf7f7;
+border-color: #eed3d7;
+color: #63222d;
+}
+.bs-callout {
+margin: 20px 0;
+padding: 20px;
+border-left: 3px solid #eee;
+}
+.bs-callout-danger h4 {
+color: #b94a48;
+}
+
+/* GENERAL FIXES */
+body.admin-bar .navbar-fixed-top{ top: 28px}
+#content { padding-top: 1em;}
+.carousel .attachment-eo-carousel {    margin: 0 auto;}
+.carousel-caption {top: 0.1em}
+/* _eo-review: make this an option ? */
+#content img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+a.logo {max-width: 100%;}
+
+.navbar-nav > li > a {
+    padding: 1em 0.8em;
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+.navbar-nav > li > a {
+    padding: 1em 0.4em;
+}
+}
+@media only screen and (min-width : 768px) and (max-width : 1170px){
+.navbar-nav > li > a {
+    padding: 1em 0.4em;
+}
+}
+@media only screen and (min-width : 768px){
+
+.searchwrap input.s_exp:focus {
+ width: 200%;
+ -moz-transition: width 0.5s ease-out;
+ -webkit-transition: width 0.5s ease-out;
+ transition: width 0.5s ease-out;
+}
+}
+a.logo_img { padding:0.4em;}
+
+/* prevent overflow of enforced divs in post conten ? 
+Forced to put by weird 1200px image examlpe of WP unit test.. It'd be allright if they dint set element.style for the parent div...
+I mean what's the point of forcing parent element.style to 1200px and then saying it shouldnt overflow ?*/
+/*.post_content div {
+	width: 100% !important 
+}*/
+.navbar-fixed-top  {
+	/* _eo-check: better solution ?
+	If the menu items horizontally dont fit,  the navbar height can not be estimated, therefore you can not know how much padding-top you would require in order for navbar not to block any content
+	Set a max-height to prevent it, and add a js solution to display the navbar toggle if  regular navbar exceeds one-line in height
+	margin-bottom: 1em;
+    max-height: 3em;*/
+}
+body.fixednav #maincnot {
+	padding-top: 4em;
+}
+/* Non-js adjustment for sub-menus */
+li.menu-item:hover > ul, li.page-item:hover > ul , li.dropdown:hover > ul {	display: block;}
+li.menu-item.placeholder:hover ul {	display: none;}
+
+ul#comment-form-elements  {
+	list-style-type: none;
+	padding-left: 1em;}
+	
+	/*
+.carousel-inner > .item {	display: block;	position: absolute; visibility: hidden;}
+.carousel-inner > .item.active {	position: relative; left: 0;visibility: visible;}*/
+
+
+#highlights img {margin: 0 auto;}
+
+span.holdimg {
+	background: url("rsc/img/ph.jpg") repeat;
+    display: block;
+    height: 100%;
+    min-height: 20em;
+    width: 100%;
+}
+#copyright_foot.authl {
+	background: url("rsc/img/eofeb.png") top right no-repeat;
+	margin-bottom:0;
+	padding-bottom: 1em;
+	padding-right: 62px;
+}
+
+
+/* wp-specific classes */
+.wp-caption{}
+.wp-caption-text{}
+.sticky{ border: 1px dotted #eee; padding:0.6em;}
+.gallery-caption{ font-weight: 90%;}.
+.bypostauthor{ color:#999;}
+#all_comments ul{	list-style-type: none;}
+ul.commentlist { padding-left: 1em;}
+#all_comments .media{ border: 1px solid #ccc; padding: 1em; margin-bottom: 0.4em;}
+
+.glyphicon {    margin-right: 0.4em;}
+
+.cbinl {float: left; margin-right: 0.8em; margin-bottom: 0.4em;}
+.cbinr {float: right; margin-left: 0.8em; margin-bottom: 0.4em;}
+hr {width: 100%; clear: both;}
+a.cboxElement:hover img {	width: auto;}
+#main article {    border-bottom: 1px dashed #777777;}
+.gallery-item .thumbnail {	display: inline-block;}
+/* content_width adjustment */
+.size-auto, 
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+	max-width: 100%;
+	height: auto;
+}
+i.fa {  margin-right: 0.2em;}
+/* hide fontawesome icons if not enabled */
+body.fa_hid i.fa {	display: none;}
+#footer ul {    list-style-type: none;
+    padding-left: 0.6em;}
+#footer ul li ul li ul {	display: none;}
+#footer ul li ul li {
+    border-left: 1px solid #CCCCCC;
+    margin-bottom: 0;
+    padding-left: 0.4em;
+}
+.wp-caption { max-width: 100%;}
+.ahighlight {
+ border-bottom: 1px dashed #EEEEEE;
+    margin-bottom: 1px;
+    padding-bottom: 0.6em;
+}
+article footer { font-size: 90%;}
+article h2.h2 { margin: 0.2em 0;}
+.page-header {
+    margin: 1px 0 0.6em;
+    padding-bottom: 0.2em;
+}
+#main article {
+    border-bottom: 1px dashed #777777;
+    margin-bottom: 2em;
+    padding-bottom: 0.1em;
+}
+dl.gallery-item dt, dl.gallery-item {
+display: inline;
+display: inline-block;
+/* inline display fix for gallery items	*/
+}
+dl.gallery-item {margin-right: 0.2em; float: left;}
+dl.gallery-item a.thumbnail {	margin-bottom: 0.4em;}
+.gallery-size-thumbnail .gallery-caption {
+    width: 12em;
+	max-width: 14em;
+	max-height: 4em;
+	overflow: hidden;
+}
+#highlights {text-align: center;}
+#content img.wp-smiley {display: inline;}
+span.footmeta {padding-right:0.4em;}
+.comment-form input#defsubmit {display: none;}
+.dropdown-submenu{position:relative;}
+.dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
+.dropdown-submenu:hover>.dropdown-menu{display:block;}
+.dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
+.dropdown-submenu:hover>a:after{border-left-color:#ffffff;}
+.dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
+.carousel-caption {	padding: 0 !important;}
+.carousel-caption p {font-size: 1.2em;}
+.carousel-control { width: 10%;}
+.navbar-brand {float: none !important; display:block; height: auto !important;}
+/*a#logo_lg {overflow: visible;}*/
+
+
+/* MSP HEADER */
+
+.container.msp {
+}
+
+.site-header.msp {
+    background: url(rsc/img/midmarket-today-header.png) no-repeat scroll top;
+    background-size: auto;
+    /*height: 300px;*/
+    height: auto;
+    display: block;
+}
+
+.msphubheader {
+    margin: 13px 0;
+}
+
+#inner-header {
+    /*height: 139px;*/
+}
+
+.navbar.navbar-default {
+    margin-top: 12px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+ul.formelements { list-style-type: none;}
+li.name {
+    float: right;
+    display: block;
+    height: 40px;
+    clear: both;
+    margin-bottom: 15px
+}
+/* TOP NAV */
+
+ul.nav.navbar-nav {
+    padding: 0;
+    width: 100%;
+    height: 60px;
+    margin-top: -2px;
+}
+
+ul.nav.navbar-nav li {
+    width: 25%;
+    background-color: #000000;
+    border-left: 4px rgba(246,246,246,0.95) solid;
+}
+
+ul.nav.navbar-nav li a {
+    padding: 21px;
+    color: #FFFFFF;
+    text-align: center;
+    font-family:'ITC Lubalin Graph W01'; font-weight:300; font-style:normal;
+    font-size: 17px;
+    text-transform: uppercase;
+    background-color: #000000;
+}
+
+ul.nav.navbar-nav li.current_page_item.active a:link,
+ul.nav.navbar-nav li.main-nav-active a:link,
+ul.nav.navbar-nav li.page_item a:link,
+ul.nav.navbar-nav li.current_page_item.active a:visited,
+ul.nav.navbar-nav li.main-nav-active a:visited,
+ul.nav.navbar-nav li.page_item a:visited, 
+ul.nav.navbar-nav li.current_page_item.active a:hover,
+ul.nav.navbar-nav li.main-nav-active a:hover,
+ul.nav.navbar-nav li.page_item a:hover,
+ul.nav.navbar-nav li.current_page_item.active a:active,
+ul.nav.navbar-nav li.page_item a:active {
+    background-color: #43c3e2;
+    color: #FFFFFF !important;
+}
+
+ul.nav.navbar-nav li:first-child, 
+ul.nav.navbar-nav li.main-nav-active.home-nav,
+ul.nav.navbar-nav li.home-nav
+{
+    border-left: none !important;
+}
+
+ul.nav.navbar-nav li a:hover {
+    background-color: #43c3e2;
+}
+
+
+/* don't ask me why */
+.home-nav a a, ul.nav.navbar-nav li a a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+.partner-signup {
+    display: block;
+    margin: 0 auto;
+    background-color: rgba(246,246,246,0.95);
+    border-radius: 0 0 30px 30px;
+}
+
+.partner-signup input, #yourEmail {
+    float: right;
+    margin: 6px 13px;
+    height: 35px;
+    width: 362px;
+    color: #c1c1c1;
+    font-family: Helvetica, Arial;
+    font-weight: 100;
+    padding: 11px 5px 5px 11px;
+}
+
+#restoftheform .name input {
+    width: 363px;
+    background-color: #ffffff;
+}
+
+#restoftheform .name button {
+    margin-right: 14px;
+    margin-top: 5px;
+}
+
+.navbar-collapse {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+#highlights, .row.featurette {
+    display: none;
+}
+
+#emailcontainer {
+    width: 385px;
+    float: right;
+}
+
+
+#signuppartner h3 {
+    font-family:'ITC Lubalin Graph W01'; font-weight:200; font-style:normal;
+    text-decoration: none;
+    color: #676767;
+    font-size: 25px;
+    line-height: 50px;
+    padding-left: 20px;
+    position: relative;
+    float: left;
+    margin: 5px 0 0 0;
+}
+
+/* CAROUSEL */
+
+.left.carousel-control,
+.right.carousel-control {
+    display: none;
+}
+
+.carousel-caption.msp {
+    float: left;
+    left: 10%;
+    top: 20%;
+}
+
+.carousel-caption.msp h3 {
+    padding-top: 20px;
+    text-align: left;
+    font-family: 'LubalinGraphStd-Medium';
+    text-decoration: none;
+    color: #000000;
+    font-size: 38px;
+    line-height: 45px;
+}
+
+.carousel-detail-button.msp {
+    position: relative;
+    text-align: left;
+    padding-top: 41%;
+}
+
+.carousel-detail-button.msp a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+
+#myCarousel .container {
+    width: 960px;
+}
+
+/* CONTENT */
+
+a.msp-title {
+    font-family:'ITC Lubalin Graph W01'; font-style:normal;
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 300;
+}
+
+.container.msp-home {
+    
+}
+
+.page-header.msp {
+    padding-bottom: 10px;
+    margin-bottom: 0;
+}
+
+.page-header.msp h2.h2 {
+    margin: 0;
+}
+
+#main article {
+    border-bottom: none;
+}
+
+a.msp-read-article {
+    color: #000000;
+    line-height: 28px;
+    padding-left: 28px;
+    background: url(rsc/img/rss-icon-1.png) no-repeat;
+    float: left;
+}
+
+.post_content a.thumbnail {
+    height: 120px;
+    display: block;
+    float: left;
+    width: 120px;
+    margin-right: 10px;
+    border: none;
+}
+
+.homepage-short-description {
+    min-height: 60px;
+    display: block;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+/* FOOTER SETTINGS */
+
+
+.site-footer.msp {
+    background-color: rgba(246,246,246,0.95);
+    border-top: 12px #43c3e2 solid;
+}
+
+.site-footer.msp .site-info {
+    background: url(rsc/img/midmarket-footer.png) no-repeat scroll bottom center;
+    background-size: auto;
+    min-height: 311px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: rgba(246,246,246,0.95);
+}
+
+.black-tape {
+    background-color: #000000;
+    color: #FFFFFF;
+    text-align:center;
+    margin: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    font-family: 'Helvetica', Arial;
+    font-weight: 100;
+}
+
+.footer-3.container, .footer-container {
+    margin: 0 auto;
+    text-align: left;
+}
+
+.black-tape a {
+    text-decoration: none;
+    color: #43c3e2;
+}
+
+.site-info {
+}
+   
+.site-info .logo-description {
+    float: left;
+    padding-right: 15px;
+    text-align: left;
+    color: #676767;
+    font-family: 'Helvetica', Arial;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.site-info .footer-aboutus, .site-info .footer-social {
+    float: left;
+    padding-right: 15px;
+}
+
+.site-info .footer-aboutus h3, .site-info .footer-links h3, .site-info .footer-social h3 {
+    margin: 0 0 15px 0;
+    color: #43c3e2;
+    font-weight: 100;
+    font-family:'ITC Lubalin Graph W01'; 
+    font-style:normal;
+}
+
+.site-info .footer-aboutus p {
+    color: #676767;
+    font-weight: 100;
+    font-family: 'Helvetica', Arial;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.site-info .footer-links, .site-info .footer-social {
+    float: left;
+    width: 185px;
+    padding-right: 15px;
+}
+
+.site-info .footer-links ul, .site-info .footer-social ul {
+    list-style-type: none;
+    color: #FFFFFF;
+    font-weight: 100;
+    font-family: 'Helvetica', Arial;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0;
+}
+
+.site-info .footer-links ul li a, .site-info .footer-social ul li a {
+    text-decoration: none;
+    color: #43c3e2;
+    font-family:'ITC Lubalin Graph W01';
+    font-weight:300;
+    font-style:normal;
+    font-size: 15px;
+    line-height: 19px;
+}
+
+h3.homelatest {
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    line-height: 36px;
+    background-color: rgba(246,246,246,0.95);
+    font-family:'ITC Lubalin Graph W01';
+    font-weight:300;
+    font-style:normal;
+    font-size: 18px;
+    color: #676767;
+    padding-left: 12px;
+    padding-top:0;
+    margin-top:0;
+    margin-bottom: 25px;
+}
+
+.page-header.mps h2.h2,
+.page-header.mps h2,
+.page-header.mps .h2title  {font-size: 0px;}
+
+#signuptrial {
+    background-position: center bottom;
+    height: 225px;
+    display: block;
+    clear: both;
+    margin: 0 auto 25px;
+    background-color: rgba(246,246,246,0.95);
+    border-radius: 0 0 30px 30px;
+}
+
+#signuptrial h3 {
+    padding: 20px 20px;
+    font-family:'ITC Lubalin Graph W01'; font-weight:200; font-style:normal;
+    font-size: 25px;
+    line-height: 32px;
+    color: #676767;
+    margin: 0;
+}
+
+#emailtrialcontainer {
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+}
+
+#emailtrialcontainer li {
+    width:240px;
+}
+
+#emailtrialcontainer li input {
+    width:100%;
+}
+
+.navbar-inverse {
+    background-color: #000000;
+}
+
+.caru.paddingtop {
+    margin-top: 15px;
+}
+
+.caru.paddingtop a.thumbnail {
+    border: none;
+    margin-bottom: 0;
+}
+
+#myCarousel .container, .container.carumsp {
+    width: auto;
+}
+
+
+.logo-description a {
+    text-decoration: none;
+    color: #43c3e2;
+}
+
+@media (min-width: 960px) {
+  
+   #signuptrial h3 {
+        width:   240px;
+  }
+  
+  .container.carumsp {
+    width: 960px;
+  }
+
+  #emailtrialcontainer li {
+    width: 220px;
+    }
+
+
+    .site-info .logo-description {
+        width: 145px;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .footer-aboutus {
+        width: 400px;
+    }
+
+    .footer-msp-hub-image img {margin: 20px 0 20px 135px;}
+}
+
+@media (max-width: 988px) {
+    #emailtrialcontainer li {
+        width: 180px;
+    }
+
+    .footer-aboutus {
+        width: 400px;
+    }
+}
+
+@media (max-width: 767px) {
+    ul.nav.navbar-nav li { border-left: none;}
+    ul.formelements {margin-left: -40px;}
+}
+
+@media (max-width: 959px) {
+    .footer-msp-hub-image img {margin: 50px 0 20px 0;}
+}
+
+@media (max-width: 619px) and (min-width: 451px) {
+    .logo-description {
+        width: 100%;
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+@media (max-width: 450px) {
+    .footer-aboutus, .logo-description {
+        width: 100%;
+    }
+
+    .logo-description {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+
+
+@media (max-width: 767px) {
+  
+    ul.nav.navbar-nav {
+        padding: 0;
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        overflow: hidden;
+    }
+
+  ul.nav.navbar-nav li { width: 100%; height: 50px;}
+
+  .partner-signup input, #yourEmail, #restoftheform .name input {
+    width: 300px;
+  }
+
+  .site-header.msp {
+    background: url(rsc/img/midmarket-today-header.png) no-repeat left top;
+    background-size: 2800px 193px;
+  }
+
+  #emailtrialcontainer li {
+    width: 100%;
+  }
+
+
+}
+
+@media (max-width: 600px) {
+    .post_content a.thumbnail {
+        width: 100%;
+        clear: both;
+        height: auto;
+    }
+}
+
+@media (max-width: 416px) {
+    .navbar.navbar-default {
+        margin-top: 36px;
+    }
+
+    input.headerform, .partner-signup input, #yourEmail, #restoftheform .name input {
+        width: 195px;
+    }
+}
+
+.twitter-timeline {
+    margin-bottom: 30px;
+}
+
+#content #main {
+    margin-bottom: 35px;
+}
+
+#ssba_twitter_share, #ssba_linkedin_share, #ssba_google_share, #ssba_facebook_share {float:left;}
+.post_meta {display: none;}
+
+.logo-description {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+
+.help-block {
+    color: #FFFFFF;
+}
+
+#main article.post.category-news {
+    float:left;
+    min-height: 210px;
+    display: block;
+}
+
+@media (max-width: 580px) {
+    .nav-container.msp {
+        padding-top:20px;
+    }
+}

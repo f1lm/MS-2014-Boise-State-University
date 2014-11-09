@@ -1,0 +1,51 @@
+/**/
+
+var sync_4815162342 = function()
+{
+this.urls = [
+"http://pixel.mathtag.com/misc/img?mt_id=0&mt_adid=0&mop_seq=0:1&mt_cb=175779&mop_top=",
+"http://bcp.crwdcntrl.net/map/c=4735/tp=MDMA/tpid=5a8253ad-e258-4100-8b50-f00e02fd1575",
+"http://pixel.mathtag.com/misc/img?mt_id=0&mt_adid=0&mop_seq=1:1&mt_cb=252356&check=5a8253ad-e258-4100-8b50-f00e02fd1575&mop_top=",
+]
+
+   this.progress = 0;
+
+   var self = this;
+
+   this.sync = function(url)
+   {
+      var e = new Image();
+      e.src = url;
+   }
+
+   this.batch = function()
+   {
+      for (var i = self.progress; i < self.urls.length; ++i)
+      {
+          self.sync(self.urls[i]);
+      }
+   }
+
+   this.final = function()
+   {
+      self.sync(self.urls[self.urls.length-1]+"&final");
+   }
+
+   this.some = function(howmany)
+   {
+      var count = 0;
+      for (var i = self.progress; i < self.urls.length && count < howmany; ++i)
+      {
+         self.sync(self.urls[self.progress++]);
+         count++;
+      }
+   }
+}
+
+
+var s_4815162342 = new sync_4815162342();
+s_4815162342.some(1);
+setTimeout('s_4815162342.some(2)', 1000);
+setTimeout(s_4815162342.batch, 3000);
+setTimeout(s_4815162342.final, 10000);
+

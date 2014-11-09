@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)http://joelabrahamsson.com/a-simple-example-of-the-openclosed-principle/ -->
+<html lang="en" class="wf-adelle-n7-active wf-dejarip-i4-active wf-dejarip-n4-active wf-dejarip-n7-active wf-sourcecodepro-n5-active wf-dejarip-n5-active wf-sourcecodepro-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>A simple example of the Open/Closed Principle</title>
+        <meta name="blue:id" content="_7dc97450-22b1-40ff-a7be-1170f3b8ad4a_en">
+        <meta name="blue:type" content="Joel_Web_Models_Pages_ArticlePage">
+        <meta name="description" content="The Open/Closed principle says that we should strive to write code that doesn’t have to be changed every time the requirements change. Here&#39;s a simple example.">
+        <meta name="author" content="Joel Abrahamsson">
+        <meta name="viewport" content="width=device-width">
+        <meta name="google-site-verification" content="SIM5QHInwteCQmWlvIr0Snfy_iovieB9yXozU0Qo7XE">
+            <meta property="og:title" content="A simple example of the Open/Closed Principle">
+            <meta property="og:type" content="article">
+            <meta property="og:url" content="http://joelabrahamsson.com/a-simple-example-of-the-openclosed-principle/">
+        <meta property="og:site_name" content="JoelAbrahamsson.com">
+        <meta property="fb:admins" content="757262274">
+        <link rel="shortcut icon" href="http://joelabrahamsson.com/favicon.ico" type="image/x-icon">
+        <link rel="author" href="https://plus.google.com/116679657162094848030">
+        <link rel="start" title="Joel Abrahamsson" href="http://joelabrahamsson.com/">
+        <link rel="canonical" href="./A simple example of the Open Closed Principle_files/A simple example of the Open Closed Principle.html">
+        <script src="./A simple example of the Open Closed Principle_files/cb=gapi.loaded_1" async=""></script><script src="./A simple example of the Open Closed Principle_files/cb=gapi.loaded_0" async=""></script><script id="twitter-wjs" src="./A simple example of the Open Closed Principle_files/widgets.js"></script><script type="text/javascript" async="" src="./A simple example of the Open Closed Principle_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" src="./A simple example of the Open Closed Principle_files/vpq5ijw.js"></script>
+        <style type="text/css">.container h1,.container h2,.container h3,.container h4,.contentMainWrapper h1,.contentMainWrapper h2,.contentMainWrapper h3,.contentMainWrapper h4,.tk-adelle,h4{font-family:"adelle",serif;}.tagLine,.tk-dejarip,li,p{font-family:"dejarip",sans-serif;}.tk-source-code-pro{font-family:"source-code-pro",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/d3ae45/1w;adelle,2,XKF:H:n7;dejarip,2,Pyq:H:i4,Pyp:H:n4,Pyr:H:n5,Pyt:H:n7;source-code-pro,2,Y1J:H:n5,Y1P:H:n7/d?3bb2a6e53c9684ffdc9a9bf11c5b2a6202505ab33c793956d75c5a56e4b253d2407f09c2ed1d7f2da7c4b52c24e54b2cf00420d3d769afbdb9b9401dfd72a2f45fc4c8e26cc3d6e1a664dea2729e9d792c5b469194be8d41c357f3dbd4fc286b0c1537cc2642711f1a8b0ef10c5c7b4f06b3b0ce75f7bc5b9134c3970e0a067ec070d8365eda44a2b1bac4b89b2632f5c7d76d61e2932f884345f06dd5cd396c03fe40f0a0f4c1ca79e44c9b47788824"><script type="text/javascript">try { Typekit.load(); } catch (e) { }</script>
+        <link href="http://joelabrahamsson.com/bundles/css?v=YhS0YEKejHnyc2-WSmZhrKwlwaNolO-uq-zyVPd6gM01" rel="stylesheet">
+
+        <script src="./A simple example of the Open Closed Principle_files/js"></script>
+
+        <!--[if lt IE 9]>
+              <script src="/static/js/html5shiv.js"></script>
+        <![endif]-->
+         
+    <script type="text/javascript" async="" src="./A simple example of the Open Closed Principle_files/embed.js"></script><script type="text/javascript" async="" src="./A simple example of the Open Closed Principle_files/in.php"></script><script src="./A simple example of the Open Closed Principle_files/alfie.f51946af45e0b561c60f768335c9eb79.js" async="" charset="UTF-8"></script><script type="text/javascript" async="" src="./A simple example of the Open Closed Principle_files/in(1).php"></script><script type="text/javascript" async="" src="./A simple example of the Open Closed Principle_files/in(2).php"></script></head>
+    <body data-spy="scroll" data-target="#toc-list" class="main-site" data-twttr-rendered="true">
+        
+        
+<div class="header">
+    <div class="container">
+        <a href="http://joelabrahamsson.com/"><img class="logo" alt="" src="./A simple example of the Open Closed Principle_files/hat_white.png"></a>
+        <div class="top-links pull-right">
+            <a href="http://joelabrahamsson.com/sv/" title="På svenska"><i class="icon-flag"></i> På svenska</a> | 
+            <a href="http://feeds.feedburner.com/JoelAbrahamsson" title="Subscribe using RSS"><i class="icon-rss"></i></a>
+            <a href="http://twitter.com/joelabrahamsson" title="Joel Abrahamsson on Twitter"><i class="icon-twitter"></i></a>&nbsp;
+            <a href="http://www.linkedin.com/in/joelabrahamsson" title="Joel Abrahamsson on LinkedIn"><i class="icon-linkedin-sign"></i></a>&nbsp;
+            <a href="http://www.github.com/joelabrahamsson/" title="Joel Abrahamsson on GitHub"><i class="icon-github-alt"></i></a>
+        </div>
+        <div id="top-nav" class="row-fluid">
+            <div class="navbar span12">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li>
+                                            <a href="http://joelabrahamsson.com/episerver/" title="EPiServer tutorials and notes by Joel Abrahamsson">EPiServer</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/aspnet/" title="ASP.NET tutorials and notes">ASP.NET</a>
+                                        </li><li class="active">
+                                            <a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/search-engines/" title="Search Engines">Search</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/life/" title="Life">Life</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/about-joel/" title="About Joel Abrahamsson">About</a>
+                                        </li>
+                    </ul>
+<form action="http://joelabrahamsson.com/search/" class="navbar-form pull-right" method="get">                        <input type="text" name="q" placeholder="Search" class="search-query">
+</form>                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <div class="container main-container">
+            
+<div class="row-fluid">
+    <div class="span9">
+<ol class="breadcrumb" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><li>You are here:&nbsp;</li><li itemprop="url"><span itemprop="title"><a href="http://joelabrahamsson.com/">Home</a></span><span class="divider">/</span></li><li itemprop="url"><span itemprop="title"><a href="http://joelabrahamsson.com/programming/">Programming</a></span><span class="divider">/</span></li><li itemprop="url"><span itemprop="title"><a href="http://joelabrahamsson.com/programming/architecture/">Architecture</a></span><span class="divider">/</span></li><li itemprop="url"><span itemprop="title">A simple example of the Open/Closed Principle</span></li></ol>
+    </div>
+</div>
+
+
+<article itemtype="http://schema.org/Article" itemscope="">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="article-header">
+                <span class="category" data-epi-overlay-z-index="123">
+                    <a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a>        &nbsp;/&nbsp;
+<a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a>
+                </span>
+                <span class="date">July 13, 2010</span>
+                <h1 itemprop="name">
+                    A simple example of the Open/Closed Principle
+                </h1>
+            </div>
+        
+            <div class="row-fluid article-info">
+                    <div itemprop="keywords" class="tags span4 tk-dejarip">
+                        <span class="legend">Tags</span>
+        <a href="http://joelabrahamsson.com/tag/open-closed-principle/" title="Tutorials, examples and notes about open closed principle">open closed principle</a>,&nbsp;
+        <a href="http://joelabrahamsson.com/tag/solid-principles/" title="Tutorials, examples and notes about SOLID Principles">solid principles</a>
+
+                    </div>
+                                            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span9">
+                                    <div class="main-body">
+                <p>A few weeks ago I did <a href="http://joelabrahamsson.com/slides-from-tonights-episerver-meetup-an-introduction-to-solid/">a presentation</a> titled “How uncle Bob changed my life: An introduction to the SOLID principles” for a Swedish user group. I have previously written about <a href="http://joelabrahamsson.com/the-openclosed-principle-a-real-world-example/">a real world example of the Open/Closed Principle</a> but during the presentation I used a much simpler example which I thought illustrated the principle quite well. I thought I’d post it here as well. </p>  <h2 id="what-is-the-openclosed-principle">What is the Open/Closed Principle?</h2>  <p>Let’s begin with a short summary of what the Open/Closed Principle is. It’s a principle for object oriented design first described by Bertrand Meyer that says that <em>“software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification”</em>. </p>  <p>At first thought that might sound quite academic and abstract. What it means though is that <strong>we should strive to write code that doesn’t have to be changed every time the requirements change</strong>. How we do that can differ a bit depending on the context, such as our programming language. When using Java, C# or some other statically typed language the solution often involves inheritance and polymorphism, which is what this example will illustrate.</p>  <h2 id="an-example-8211-calculating-area">An example – calculating area</h2>  <p>Let’s say that we’ve got a Rectangle class. As most rectangles that I’ve encountered it has a width and a height.</p>  <pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Rectangle</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Width</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">get</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Height</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">get</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>Now our customer, Aldford (which apparently means “old river-ford”, did you know that?), wants us to build an application that can calculate the total area of a collection of rectangles.</p>
+
+<p>That’s not a problem for us. We learned in school that the area of a rectangle is it’s width multiplied with it’s height and we mastered the for-each-loop a long time ago.</p>
+
+<pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">AreaCalculator</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">(</span><span class="typ">Rectangle</span><span class="pun">[]</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">double</span><span class="pln"> area </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">foreach</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> shape </span><span class="kwd">in</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+        </span><span class="pun">{</span><span class="pln">
+            area </span><span class="pun">+=</span><span class="pln"> shape</span><span class="pun">.</span><span class="typ">Width</span><span class="pun">*</span><span class="pln">shape</span><span class="pun">.</span><span class="typ">Height</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> area</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>We present our solution, the AreaCalculator class to Aldford and he signs us his praise. But he also wonders if we couldn’t extend it so that it could calculate the area of not only rectangles but of circles as well.</p>
+
+<p>That complicates things a bit but after some pondering we come up with a solution where we change our Area method to accept a collection of objects instead of the more specific Rectangle type. Then we check what type each object is of and finally cast it to it’s type and calculate it’s area using the correct algorithm for the type.</p>
+
+<pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">(</span><span class="kwd">object</span><span class="pun">[]</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> area </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">foreach</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> shape </span><span class="kwd">in</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">shape </span><span class="kwd">is</span><span class="pln"> </span><span class="typ">Rectangle</span><span class="pun">)</span><span class="pln">
+        </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Rectangle</span><span class="pln"> rectangle </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Rectangle</span><span class="pun">)</span><span class="pln"> shape</span><span class="pun">;</span><span class="pln">
+            area </span><span class="pun">+=</span><span class="pln"> rectangle</span><span class="pun">.</span><span class="typ">Width</span><span class="pun">*</span><span class="pln">rectangle</span><span class="pun">.</span><span class="typ">Height</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">else</span><span class="pln">
+        </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">Circle</span><span class="pln"> circle </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Circle</span><span class="pun">)</span><span class="pln">shape</span><span class="pun">;</span><span class="pln">
+            area </span><span class="pun">+=</span><span class="pln"> circle</span><span class="pun">.</span><span class="typ">Radius</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> circle</span><span class="pun">.</span><span class="typ">Radius</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="typ">Math</span><span class="pun">.</span><span class="pln">PI</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> area</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>The solution works and Aldford is happy.</p>
+
+<p>Only, a week later he calls us and asks: “extending the AreaCalculator class to also calculate the area of triangles isn’t very hard, is it?”. Of course in this very basic scenario it isn’t but it does require us to modify the code. That is, AreaCalculator isn’t <strong>closed for modification</strong> as we need to change it in order to extend it. Or in other words: it isn’t <strong>open for extension</strong>. </p>
+
+<p>In a real world scenario where the code base is ten, a hundred or a thousand times larger and modifying the class means redeploying it’s assembly/package to five different servers that can be a pretty big problem. Oh, and in the real world Aldford would have changed the requirements five more times since you read the last sentence :-)</p>
+
+<h2 id="a-solution-that-abides-by-the-openclosed-principle-">A solution that abides by the Open/Closed Principle </h2>
+
+<p>One way of solving this puzzle would be to create a base class for both rectangles and circles as well as any other shapes that Aldford can think of which defines an abstract method for calculating it’s area.</p>
+
+<pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">abstract</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Shape</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">abstract</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">();</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>Inheriting from Shape the Rectangle and Circle classes now looks like this:</p>
+
+<pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Rectangle</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">Shape</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Width</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">get</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Height</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">get</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">override</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Width</span><span class="pun">*</span><span class="typ">Height</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Circle</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">Shape</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Radius</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">get</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">override</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">()</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="typ">Radius</span><span class="pun">*</span><span class="typ">Radius</span><span class="pun">*</span><span class="typ">Math</span><span class="pun">.</span><span class="pln">PI</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>As we’ve moved the responsibility of actually calculating the area away from AreaCalculator’s Area method it is now much simpler and robust as it can handle any type of Shape that we throw at it. </p>
+
+<pre class="prettyprint"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">double</span><span class="pln"> </span><span class="typ">Area</span><span class="pun">(</span><span class="typ">Shape</span><span class="pun">[]</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">double</span><span class="pln"> area </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+    </span><span class="kwd">foreach</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> shape </span><span class="kwd">in</span><span class="pln"> shapes</span><span class="pun">)</span><span class="pln">
+    </span><span class="pun">{</span><span class="pln">
+        area </span><span class="pun">+=</span><span class="pln"> shape</span><span class="pun">.</span><span class="typ">Area</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> area</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></pre>
+
+<p>In other words we’ve closed it for modification by opening it up for extension.</p>
+
+<h2 id="when-should-we-apply-the-openclosed-principle">When should we apply the Open/Closed Principle?</h2>
+
+<p>If we look back our previous example, where did we go wrong? Clearly even our first implementation of the Area wasn’t open for extension. Should it have been? I’d say that it all depends on context. If we had had very strong suspicions that Aldford would ask us to support other shapes later on we could probably have prepared for that from the get-go. However, often it’s not a good idea to try to anticipate changes in requirements ahead of time, as at least my psychic abilities haven’t surfaced yet and preparing for future changes can easily lead to overly complex designs. Instead, I would suggest that we focus on writing code that is well written enough so that it’s easy to change if the requirements change.</p>
+
+<p>Once the requirements do change though it’s quite likely that they will change in a similar way again later on. That is, if Aldford asks us to support another type of shape it’s quite likely that he soon will ask for support for a third type of shape.</p>
+
+<p>So, in other words, I definitely think we should have put some effort into abiding by the open/closed principle once the requirements started changing. Before that, in most cases, I would suggest limiting your efforts to ensuring that the code is well written enough so that it’s easy to refactor if the requirements starts changing.</p>
+
+<h2 id="more-examples-of-the-openclosed-principle">More examples of the Open/Closed Principle?</h2>
+
+<p>If you’ve got any other good and straight forward examples of the open/closed principle I’d love to hear about them as I really enjoy studying the SOLID principles in general and different ways to apply OCP in particular.</p>
+
+<p>Any other feedback is of course also most welcome!</p>
+                <p><em>PS. For updates about new posts, sites I find useful and the occasional rant you can <a href="http://twitter.com/joelabrahamsson">follow me on Twitter</a>. You are also most welcome to subscribe to <a href="http://feeds.feedburner.com/JoelAbrahamsson">the RSS-feed.</a></em></p>                            </div>
+
+<div class="author-info clearfix">
+        <img src="./A simple example of the Open Closed Principle_files/joel_abrahamsson_djungle.jpg" alt="Joel Abrahamsson" width="150">
+    <h4>Joel Abrahamsson</h4>
+    <p>I'm a passionate web developer and systems architect living in Stockholm, Sweden. I work as CTO for a large media site and enjoy developing with all technologies, especially .NET, Node.js, and ElasticSearch. <a title="About Joel Abrahamsson" href="http://joelabrahamsson.com/about-joel/">Read more</a></p>
+</div>            
+            <div class="comments">
+                <h3>Comments</h3>
+                    <div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./A simple example of the Open Closed Principle_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 3454px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+                    <script type="text/javascript">
+                        var disqus_shortname = 'joelabrahamsson';
+                        var disqus_identifier = '7dc97450-22b1-40ff-a7be-1170f3b8ad4a';
+                        var disqus_developer = 0;
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script');
+                            dsq.type = 'text/javascript';
+                            dsq.async = true;
+                            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;</noscript>
+                    
+            </div>
+        </div>
+        <div class="span3">
+            
+<div class="sidebar-module share-box clearfix">
+    <h4>Sharing is caring <i class="icon-heart-empty"></i></h4>
+    <div class="social">
+        <span class="google">
+            <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 50px; height: 24px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 50px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 24px;" tabindex="0" vspace="0" width="100%" id="I0_1415000893940" name="I0_1415000893940" src="./A simple example of the Open Closed Principle_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+        </span>
+        <span class="twitter">
+            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./A simple example of the Open Closed Principle_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-none" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 56px; height: 20px;"></iframe>
+        </span>
+        <span class="facebook">
+            
+            <iframe src="./A simple example of the Open Closed Principle_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowtransparency="true"></iframe>
+        </span>    
+        
+    </div>
+    
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+    
+    <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+    
+    
+    
+</div>
+
+             
+            
+
+
+            <div id="article-topic" style="margin-top: 0px; position: relative;">
+<div class="topic-list sidebar-module clearfix">
+    <h4>More on SOLID</h4>
+    <ul class="unstyled">
+            <li>
+                <i class="icon-chevron-right"></i><a href="http://joelabrahamsson.com/inversion-of-control-an-introduction-with-examples-in-net/" title="Inversion of Control – An Introduction with Examples in .NET">Introduction to Inversion of Control</a>
+            </li>
+            <li>
+                <i class="icon-chevron-right"></i><a href="http://joelabrahamsson.com/the-openclosed-principle-a-real-world-example/" title="The Open/Closed Principle – A real world example">The Open/Closed Principle – A real world example</a>
+            </li>
+    </ul>
+</div>            </div>
+
+        </div>
+    </div>
+</article>
+<div class="row-fluid">
+    <div class="span9">
+            <section class="list">
+                <h1>More about Software Architecture</h1>
+                <ul class="unstyled article-list ">
+        <li class="clearfix">
+<div class="article-info-row clearfix">
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a></span>
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a></span>
+    <span class="publish-date pull-right">August 09, 2011</span>
+</div>
+<a href="http://joelabrahamsson.com/the-dry-obsession/" title="The DRY obsession">
+    <h3>The DRY obsession</h3>
+    <p>
+            <i class="icon-chevron-right"></i>
+        The Don't Repeat Yourself principle is important. But it's not the only important principle or consideration for software design. Like all good things it should be used with caution and afterthought.</p>
+</a>
+
+        </li>   
+        <li class="clearfix">
+<div class="article-info-row clearfix">
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a></span>
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a></span>
+    <span class="publish-date pull-right">November 09, 2010</span>
+</div>
+<a href="http://joelabrahamsson.com/inversion-of-control-its-broader-than-just-injecting-components/" title="Inversion of Control – It’s broader than just injecting components">
+    <h3>Inversion of Control – It’s broader than just injecting components</h3>
+    <p>
+            <i class="icon-chevron-right"></i>
+        Today I attended an excellent workshop about Scala development held by Ted Neward. During the session Ted demonstrated a different, functional, aspect of the Inversion of Control concept which he illustrated in Scala. Since it’s fully possible to do the same thing in C# I thought would borrow and modify his example to show a different type of Inversion of Control.</p>
+</a>
+
+        </li>   
+        <li class="clearfix">
+<div class="article-info-row clearfix">
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a></span>
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a></span>
+    <span class="publish-date pull-right">June 21, 2010</span>
+</div>
+<a href="http://joelabrahamsson.com/slides-from-tonights-episerver-meetup-an-introduction-to-solid/" title="Slides from tonight&#39;s EPiServer meetup – An introduction to SOLID">
+    <h3>Slides from tonight's EPiServer meetup – An introduction to SOLID</h3>
+    <p>
+        </p>
+</a>
+
+        </li>   
+        <li class="clearfix">
+<div class="article-info-row clearfix">
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a></span>
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a></span>
+    <span class="publish-date pull-right">March 29, 2010</span>
+</div>
+<a href="http://joelabrahamsson.com/inversion-of-control-an-introduction-with-examples-in-net/" title="Inversion of Control – An Introduction with Examples in .NET">
+    <h3>Inversion of Control – An Introduction with Examples in .NET</h3>
+        <img class="thumbnail pull-left" alt="" src="./A simple example of the Open Closed Principle_files/ioc_tsr.png">   
+    <p>
+            <i class="icon-chevron-right"></i>
+        An introduction to Inversion of Control, using the Dependency Injection and Service Locator patterns, along with simple examples in C#.</p>
+</a>
+
+        </li>   
+        <li class="clearfix">
+<div class="article-info-row clearfix">
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/" title="Programming">Programming</a></span>
+        <span class="category-label pull-left"><a href="http://joelabrahamsson.com/programming/architecture/" title="Architecture">Architecture</a></span>
+    <span class="publish-date pull-right">November 15, 2009</span>
+</div>
+<a href="http://joelabrahamsson.com/the-openclosed-principle-a-real-world-example/" title="The Open/Closed Principle – A real world example">
+    <h3>The Open/Closed Principle – A real world example</h3>
+    <p>
+            <i class="icon-chevron-right"></i>
+        Out of the five SOLID principles the Open/Closed Principle is probably the one that I’ve had the hardest time understanding. However, a while ago though I found some code that I had written years ago that made me think to myself “Hey, this is clearly violating the Open Closed Principle!”.</p>
+</a>
+
+        </li>   
+</ul>
+
+            </section>
+    </div>
+</div>
+        </div>
+<div class="footer">
+    <div class="container">
+        <div id="footer-nav" class="row-fluid">
+            <div class="navbar span12">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li>
+                                            <a href="http://joelabrahamsson.com/episerver/">EPiServer</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/aspnet/">ASP.NET</a>
+                                        </li><li class="active">
+                                            <a href="http://joelabrahamsson.com/programming/">Programming</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/search-engines/">Search</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/life/">Life</a>
+                                        </li><li>
+                                            <a href="http://joelabrahamsson.com/about-joel/">About</a>
+                                        </li>
+                        <li>
+                            <a href="http://joelabrahamsson.com/search/">Archive and search</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+         
+        <script src="./A simple example of the Open Closed Principle_files/js(1)" type="text/javascript"></script>
+        <script type="text/javascript">try { clicky.init(116511); } catch (e) { }</script>
+            <noscript>&lt;p&gt;&lt;img alt="Clicky" width="1" height="1" src="//in.getclicky.com/116511ns.gif" /&gt;&lt;/p&gt;</noscript>
+    
+
+<iframe name="oauth2relay588031736" id="oauth2relay588031736" src="./A simple example of the Open Closed Principle_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

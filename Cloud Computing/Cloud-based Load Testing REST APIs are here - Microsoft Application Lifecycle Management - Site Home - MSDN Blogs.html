@@ -1,0 +1,1295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0144)http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="robots" content="index,follow">
+<meta name="description" content="Helping software development teams plan, manage, track, design, develop, and test applications with Visual Studio ALM and Team Foundation Server more successfully.">
+<meta name="keywords" content="software development, Visual Studio, ALM, Application Lifecycle Management, Visual Studio ALM, software team, Microsoft, Visual Studio 2010, software architecture, software design, software modeling, software testing, Team Foundation, software planning, software project management, software project planning, project tracking, TFS, agile development, software development cycle, software development lifecycle, software lifecycle, agile, agile development, agile software development, scrum">
+<meta name="GENERATOR" content="Telligent Evolution Platform Developer Build (Build: 5.6.50428.7875)">
+<link rel="pingback" href="http://blogs.msdn.com/b/visualstudioalm/pingback.aspx">
+<link rel="alternate" type="application/rss+xml" title="Site Home (RSS 2.0)" href="http://blogs.msdn.com/rss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Jimson Chalissery [MSFT]&#39;s Comments (RSS 2.0)" href="http://blogs.msdn.com/members/jimsonc_4000_live.com/comments/rss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Jimson Chalissery [MSFT]&#39;s Activities (RSS 2.0)" href="http://blogs.msdn.com/members/jimsonc_4000_live.com/activities/rss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Activities of People Jimson Chalissery [MSFT] Follows (RSS 2.0)" href="http://blogs.msdn.com/members/jimsonc_4000_live.com/activities/followersrss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Jimson Chalissery [MSFT]&#39;s Groups Activities (RSS 2.0)" href="http://blogs.msdn.com/members/jimsonc_4000_live.com/activities/groupsrss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Microsoft Application Lifecycle Management (RSS 2.0)" href="http://blogs.msdn.com/b/visualstudioalm/rss.aspx">
+<link rel="alternate" type="application/atom+xml" title="Microsoft Application Lifecycle Management (Atom 1.0)" href="http://blogs.msdn.com/b/visualstudioalm/atom.aspx">
+<link rel="alternate" type="application/rss+xml" title="Microsoft Application Lifecycle Management - All Comments (RSS 2.0)" href="http://blogs.msdn.com/b/visualstudioalm/rsscomments.aspx">
+<link rel="alternate" type="application/rss+xml" title="Cloud-based Load Testing REST APIs are here - Comments for this post (RSS 2.0)" href="http://blogs.msdn.com/b/visualstudioalm/rsscomments.aspx?WeblogPostID=10569283">
+
+            <link href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/9850a24327f85f4b891186ee70df506b-0d4983fe65dab9bc4d5debb4ec97b3a6-RequestReducedStyle.css" rel="Stylesheet" type="text/css">        
+          
+          <link rel="shortcut icon" type="image/ico" href="http://blogs.msdn.com/themes/wireframe/favicon.ico">
+          <!--
+            Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx.
+          -->
+          <link href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/1eae160ea2c1e5cb3196f8c18470cca1-9728b852b1bb5db880b4edfc37d5eac6-RequestReducedStyle.css" rel="Stylesheet" type="text/css"><script type="text/javascript" async="" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/ms2_blogs.js"></script><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/ai.js" async=""></script><script id="facebook-jssdk" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/all.js"></script><script id="twitter-wjs" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/widgets.js"></script><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/ai.js" async=""></script><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/jquery-1.5.2.min.js" type="text/javascript" language="javascript"></script>
+                  
+          		
+          <link type="text/css" rel="stylesheet" href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/DynamicStyle.aspx" media="screen,print">
+          <link type="text/css" rel="stylesheet" href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/DynamicStyle(1).aspx" media="screen,print">
+        
+          <!--[if lte IE 6]>
+              <link type="text/css" rel="stylesheet" href="/themes/wireframe/css/ie6.css" media="screen,print" />
+          <![endif]-->
+                  <meta name="msvalidate.01" content="B717AD6FC29D3A844832AF011B5F9E4C">
+ <!-- Copy this script into your html file to enable Application Insights -->
+<script type="text/javascript">
+    var appInsights = { queue: [], start: function (n) { function r(n, t) { n[t] = function () { var i = arguments; n.queue.push(function () { n[t].apply(n, i) }) } } var t, i; this.applicationInsightsId = n; this.accountId = null; this.appUserId = null; r(this, "logEvent"); r(this, "logPageView"); t = document.createElement("script"); t.type = "text/javascript"; t.src = "//az416426.vo.msecnd.net/scripts/ai.js"; t.async = !0; i = document.getElementsByTagName("script")[0]; i.parentNode.insertBefore(t, i) } };
+
+    appInsights.configUrl = "/ApplicationInsights.axd";
+    appInsights.developerMode = 1;
+
+    appInsights.start("58ec0af0-db2e-4ad6-812c-15bcf3dbd478");
+    appInsights.logPageView();
+</script>
+
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blogs.msdn.com/b/visualstudioalm/rsd.ashx">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href="http://blogs.msdn.com/b/visualstudioalm/wlwmanifest.ashx">
+
+        <!--
+            Third party scripts and code linked to or referenced from this website are licensed to you by the parties that own such code, not by Microsoft.  See ASP.NET Ajax CDN Terms of Use – http://www.asp.net/ajaxlibrary/CDN.ashx.
+          -->
+        <script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/jquery-1.5.2.min.js" type="text/javascript" language="javascript"></script>
+    <title>
+	Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs
+</title><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link{height:1% !important;}#li_ui_li_gen_1415027462761_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1415027462761_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link:link, #li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link:visited, #li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link:hover, #li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1415027462761_0 a#li_ui_li_gen_1415027462761_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-logo, #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-logo{}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title, #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title{}.IN-shadowed #li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title{}.IN-shadowed #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title, .IN-shadowed #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title{}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text, #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title-text, #li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title-text *{color:#000 !important;}#li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title-text, #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title-text, #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title-text *, #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title-text *{color:#666 !important;}#li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title #li_ui_li_gen_1415027462761_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text, .success #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1415027462761_0 #li_ui_li_gen_1415027462761_0-title{}.success #li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title-text, .success #li_ui_li_gen_1415027462761_0.hovered #li_ui_li_gen_1415027462761_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title, .success #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title-text, .success #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title-text, .success #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title-text *, .success #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1415027462761_0.clicked #li_ui_li_gen_1415027462761_0-title, .IN-shadowed .success #li_ui_li_gen_1415027462761_0.down #li_ui_li_gen_1415027462761_0-title{}#li_ui_li_gen_1415027462775_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1415027462775_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1415027462775_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1415027462775_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1415027462775_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1415027462775_1-container.IN-hidden #li_ui_li_gen_1415027462775_1 {display:none !important;}</style><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/WebResource.axd"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/WebResource(1).axd"></script><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/WebResource(2).axd"></script><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/jquery.tmpl.min.js"></script><link href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/UnifiedBaseballCard.css" rel="stylesheet" type="text/css"><link href="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/usercard.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/jquery.timeago.js"></script><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/jquery.textfill.js"></script><script type="text/javascript" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/widgets(1).js"></script><script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/WebResource(3).axd"></script><script type="text/javascript">try
+{
+// <![CDATA[
+window.ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList = new DelayedContent('ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList','ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList','ctl00_content_ctl00._customCallback(\'fragment-169509\',\'ctl00$content$ctl00$w_169509$_a7d07d$ctl00$ctl00$DelayedFeedbackList\',argument,null,callback,null)',true,true,null);
+// ]]>
+} catch(e) { }</script><script type="text/javascript">try
+{
+// <![CDATA[
+window.ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00 = new DelayedContent('ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00','ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00','ctl00_content_ctl00._customCallback(\'fragment-169504\',\'ctl00$content$ctl00$w_169504$_a7d07d$ctl00$ctl00$ctl00$TemporaryRssFeed$ctl01$ctl00\',argument,null,callback,null)',true,true,null);
+// ]]>
+} catch(e) { }</script></head>
+	<body spellcheck="true" data-twttr-rendered="true">
+		<form name="aspnetForm" method="post" action="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs.html" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_answer" id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_answer" value="10">
+<input type="hidden" name="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_encrypted" id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_encrypted" value="N2/QVaSrh1ld0HD4lQ7wHfjWKvx2NB8RCi/mKbRMO7Y=">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTM5OTAxNDYyNWRkvI787cXLvh9XHlDReEjVejxzcZ4=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/1eefecb645ebe47c7d2ebddbbde6f7f0-89fbe7f19527d1f4fba9b48d10b00191-RequestReducedScript.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="84C00179">
+</div>
+			
+            
+                
+            
+            <div class="header-fragments-header"></div>
+<div class="header-fragments"><div class="header-fragment-outer top-bar wireframe-header-fragment-outer wireframe-top-bar"><div class="header-fragment-inner top-bar wireframe-header-fragment-inner wireframe-top-bar"><div class="header-fragment welcome-message" id="header-fragment-247403536">
+
+
+<!-- always render -->
+</div><div class="header-fragment login-logout" id="header-fragment-247403537">
+
+
+
+
+
+        <div class="navigation-list-header"></div>
+        <ul class="navigation-list">
+
+            <li class="navigation-item">
+                <span id="ctl00_header_fragment_247403537__a7d07d_ctl00_ctl02_ctl05_WLIDLoginButton1" class="internal-link live-id-button"><a href="https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=12&ct=1415027464&rver=6.0.5286.0&wp=MBI&wreply=http:%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2F2014%2F11%2F03%2Fcloud-load-testing-rest-apis-are-here.aspx%3Futm_source%3Dtwitterfeed%26utm_medium%3Dlinkedin&lc=1033&id=271611">Sign in</a></span>
+            </li>
+        </ul>
+        <div class="navigation-list-footer"></div>
+    </div><div class="header-fragment user-welcome-without-login" id="header-fragment-247403538">
+
+ &nbsp;<!-- always render -->
+
+</div></div></div><div class="header-fragment-outer wireframe-header-fragment-outer site-banner"><div class="header-fragment-inner wireframe-header-fragment-inner site-banner"><div class="header-fragment site-banner" id="header-fragment-247403539">
+
+
+<div class="site-banner-header"></div>
+<div class="site-banner">
+    
+    
+    
+            <div class="site-logo"><a href="http://blogs.msdn.com/">
+                    <img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/logo_msdn.png" alt="" style="border-width:0px;">
+                </a></div>
+        
+</div>
+<div class="site-banner-footer"></div></div></div></div><div class="header-fragment-outer wireframe-header-fragment-outer search"><div class="header-fragment-inner wireframe-header-fragment-inner search"><div class="header-fragment search" id="header-fragment-247403540">
+
+<div class="field-list-header">
+</div>
+<fieldset class="field-list">
+    <ul class="field-list">
+        <li class="field-item"><span class="field-item-input">
+            <input id="SearchTextBox_Header" name="SearchTextBox_Header" type="text" class="search empty" autocomplete="off" title="Search MSDN with Bing" style="color: rgb(170, 170, 170); font-style: italic;">
+            <input id="SearchButton_Header" name="SearchButton_Header" type="image" class="search-button" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/trans.gif" title="Search MSDN with Bing">
+        <span style="background: white url(/Utility/images/MSDNTechnet/common.png) 0 -20px no-repeat;display:block;height:22px;overflow:hidden;width:47px;position:absolute;right:-17px"></span><div id="SearchFlyoutContainer" style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; color: rgb(51, 51, 51); font-family: Arial; font-size: 11px; background-color: rgb(255, 255, 255);"><div id="SuggestionContainer"><ul style="list-style: none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></span></li>
+        <li id="ctl00_header_fragment_247403540__a7d07d_ctl00_SearchOptionsButtonWrapper" class="field-item"><span class="field-item-input">
+            <a class="internal-link search-options" title="Change Search Scope">
+                &nbsp;</a> </span></li>
+    </ul>
+</fieldset>
+<div class="field-list-footer">
+</div>
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/SearchBox.jss" type="text/javascript" language="javascript"></script>
+
+<script type="text/javascript" language="javascript">
+    if ($.browser && $.browser.mozilla) {
+        $('#SearchButton_Header').parent().append('<span style="background: white url(/Utility/images/MSDNTechnet/common.png) 0 -20px no-repeat;display:block;height:22px;overflow:hidden;width:47px;position:absolute;right:22px"></span>');
+    } else {
+        $('#SearchButton_Header').parent().append('<span style="background: white url(/Utility/images/MSDNTechnet/common.png) 0 -20px no-repeat;display:block;height:22px;overflow:hidden;width:47px;position:absolute;right:-17px"></span>');
+    }
+</script>
+</div></div></div><div class="header-fragment-outer wireframe-header-fragment-outer group-navigation"><div class="header-fragment-inner wireframe-header-fragment-inner group-navigation"><div class="header-fragment group-navigation" id="header-fragment-247403541">
+
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/44a500773671f30bd4ba3b0c7bba2359-14e0c332a84e56b6d37629b4d8cac65a-RequestReducedScript.js" type="text/javascript"></script>
+    
+<div id="ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ParentGroupListContainer" class="parent-container" style="width: 100%;">
+<div class="parent-sub-container">
+	
+            <div class="navigation-list-header"></div>
+            <ul class="navigation-list parent">
+            <li class="navigation-item" style="display: none;">
+                <a href="http://blogs.msdn.com/">MSDN Blogs</a>
+            </li>
+        
+            <li class="navigation-item entry" style="">
+				
+						<a class="internal-link view-group" href="http://blogs.msdn.com/Microsoft_Blog_Images/"><span></span>Microsoft Blog Images</a>
+					
+            </li>
+        
+			
+            <li class="navigation-item last">
+				<a id="MoreLink" style="display: none;" onmouseover="Core_GroupNavigation_MoreShowNav(ctl00_header_fragment_247403541, true, this)" onmouseout="Core_GroupNavigation_MoreMouseOutPopup(ctl00_header_fragment_247403541, true, this)" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#">More ...</a>
+            </li>
+            </ul>
+            <div class="navigation-list-footer"></div>
+        
+</div>
+</div>
+<div id="ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup" style="position:absolute;visibility:hidden;left:-5000px;"></div>
+<div id="ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ParentMore" style="display: none;">
+    <div class="content-list-header"></div>
+    <ul id="ParentMoreListheader-fragment-247403541" class="content-list"></ul>
+    <div class="content-list-footer"></div>
+</div>
+<div id="ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ChildMore" style="display: none;">
+    <div class="content-list-header"></div>
+    <ul id="ChildMoreListheader-fragment-247403541" class="content-list"></ul>
+    <div class="content-list-footer"></div>
+</div>
+	
+<script type="text/javascript">
+    // <![CDATA[
+    
+    var Core_GroupNavigation_AjaxEndpoint = '/Utility/HeaderFragments/Core/GroupNavigationAjax.asmx';
+        
+    var ctl00_header_fragment_247403541={"wrapperId":"header-fragment-247403541","variableName":"ctl00_header_fragment_247403541","parameter":{"currentGroupId":0,"popupMenuId":"ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup","popupParentMoreId":"ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ParentMore","popupChildMoreId":"ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ChildMore","popupWrapperID":"popup-ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup","mouseInPopup":false,"popupPopulated":false,"errorHtml":"<div class=\"message error\">An error occured while attempting to load groups.</div>","loadingHtml":"<div class=\"message loading\">Loading...</div>","groupNavigationContentWrapperHtmlBlock":"<div id=\"popup-ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup\">{GroupNavigationContent}</div>","groupNavigationListHtmlBlock":"<div class=\"multiple-column-list-header\"></div>\n<div class=\"multiple-column-list columns-{ColumnsCount}\">{Columns}</div>\n<div class=\"multiple-column-list-footer\"></div>","columnWrapperHtmlBlock":"<div class=\"multiple-column-item column-{ColumnId}\">{T1GroupsData}</div>","t1GroupHtmlBlock":"\r\n\t\t<div class=\"content-list-header\"></div>\r\n\t\t<div class=\"content-list-name{NameClass}\">{Name}</div>\r\n\t\t<ul class=\"content-list\">\r\n\t\t\t{Groups}\r\n\t\t</ul>\r\n\t\t<div class=\"content-list-footer\"></div>\r\n\t","t2GroupHtmlBlock":"<li class=\"content-item{ItemClass}\">{Item}</li>","viewAllHtmlBlock":"<a href=\"{Url}\" class=\"internal-link view-all\">{Text}</a>","linkHtmlBlock":"<a href=\"{Url}\" class=\"{MoreClass}\">{Name}</a>","searchResultItemHtmlBlock":"<li class=\"content-item\"><a href=\"{Url}\">{Name}</a></li>","viewMoreText":"and {MoreText} more..."}};
+
+	$(document).ready(function() {
+		Core_GroupNavigation_SetMenuItems("#ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ParentGroupListContainer", true, "ParentMoreListheader-fragment-247403541");
+		Core_GroupNavigation_SetMenuItems("#ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ChildGroupListContainer", false, "ChildMoreListheader-fragment-247403541");
+	});
+
+	$(window).resize(function() {
+		Core_GroupNavigation_SetMenuItems("#ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ParentGroupListContainer", true, "ParentMoreListheader-fragment-247403541");
+		Core_GroupNavigation_SetMenuItems("#ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_ChildGroupListContainer", false, "ChildMoreListheader-fragment-247403541");
+	});
+    // ]]>
+</script></div></div></div></div>
+<div class="header-fragments-footer"></div>
+			
+    <div class="content-fragment-page post" id="ctl00_content_ctl00_page"><div class="layout">
+<div class="layout-header"></div>
+<div class="layout-content header-top-content-left-sidebar-right" id="ctl00_content_ctl00_layout">
+<div class="layout-region header" id="ctl00_content_ctl00_header">
+<div class="layout-region-inner header"><div class="content-fragment blog-title side-border-only" id="fragment-169496">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<h1 class="title">
+	    
+			        
+			    
+	                Cloud-based Load Testing REST APIs are here
+			    
+	</h1></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment blog-bread-crumbs no-wrapper-with-spacing" id="fragment-169497">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+
+
+<div class="breadcrumb-list-header"></div>
+<div class="breadcrumb-list">
+	<span class="breadcrumb-item"><a class="internal-link view-home" href="http://blogs.msdn.com/">MSDN Blogs</a></span>
+  
+	
+
+	
+			<span class="separator"> &gt; </span>
+			<span class="breadcrumb-item">
+		<a href="http://blogs.msdn.com/b/visualstudioalm/">Microsoft Application Lifecycle Management</a>
+			</span>
+		
+	
+	
+			<span class="separator"> &gt; </span>
+			<span class="breadcrumb-item">
+		<a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx">Cloud-based Load Testing REST APIs are here</a>
+			</span>
+		
+
+	
+</div>
+<div class="breadcrumb-list-footer"></div>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-169498">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><div id="stb-breadcrumbs">
+  <div class="breadcrumb-list">
+    <span class="breadcrumb-item"><a href="http://blogs.technet.com/b/serverandtools/">Server &amp; Tools Blogs</a></span>
+    <span class="separator"> &gt; </span>
+    <span class="breadcrumb-item"><a href="http://blogs.msdn.com/b/developer-tools/">Developer Tools Blogs</a></span><span class="separator"> &gt; </span><span class="breadcrumb-item2">Microsoft Application Lifecycle Management</span>
+  </div>
+</div>
+<div id="stb-header">
+          <ul class="stb-nav"> 
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">Executive Bloggers<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>	
+	  <li><a href="http://weblogs.asp.net/scottgu/" target="_blank">Scott Guthrie</a></li>				
+      <li><a href="http://blogs.msdn.com/b/somasegar/">S. Somasegar</a></li>
+      <li><a href="http://blogs.msdn.com/b/bharry/">Brian Harry</a></li>
+      <li><a href="http://blogs.msdn.com/b/stevengu/">Steve Guggenheimer</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">Visual Studio<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>
+      <li><a href="http://blogs.msdn.com/b/visualstudio">Visual Studio</a></li>
+      <li><a href="http://blogs.msdn.com/b/lightswitch/">LightSwitch</a></li>
+      <li><a href="http://blogs.msdn.com/b/bethmassi/archive/tags/devcenter/">Line of Business Apps by Beth Massi</a></li>
+      <li><a href="http://blogs.msdn.com/b/heaths/">Setup &amp; Install by Heath Stewart</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">Application Lifecycle Management<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>
+      <li><a href="http://blogs.msdn.com/b/visualstudioalm/">Application Lifecycle Management</a></li>
+      <li><a href="http://www.visualstudio.com/en-us/news/release-archive-vso" target="_blank">Visual Studio Online</a></li>
+    </ul>		
+  </li>
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">Languages<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>
+      <li><a href="http://blogs.msdn.com/b/vbteam/">Visual Basic</a></li>
+      <li><a href="http://blogs.msdn.com/b/csharpfaq/">Visual C#</a></li>
+      <li><a href="http://blogs.msdn.com/b/vcblog/">Visual C++</a></li>
+      <li><a href="http://blogs.msdn.com/b/fsharpteam/">Visual F#</a></li>
+      <li><a href="http://sxp.microsoft.com/feeds/3.0/devblogs/Languages?SourceFeedId=2427%20OR%202428%20OR%202429%20OR%202430" target="_blank">JavaScript</a></li>
+      <li><a href="http://blogs.msdn.com/b/typescript/">TypeScript</a></li>
+    </ul>				
+  </li>
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">.NET Framework<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>
+      <li><a href="http://blogs.msdn.com/b/dotnet/">.NET Framework</a></li>
+      <li><a href="http://blogs.msdn.com/b/pfxteam/">.NET Parallel Programming</a></li>
+      <li><a href="http://blogs.msdn.com/b/adonet/">ADO.NET (Managed Providers, DataSet &amp; EF)</a></li>
+      <li><a href="http://www.hanselman.com/blog/CategoryView.aspx?category=ASP.NET" target="_blank">ASP.NET by Scott Hanselman</a></li>
+      <li><a href="http://blogs.msdn.com/b/bclteam/">Base Class Library (BCL)</a></li>
+      <li><a href="http://blogs.msdn.com/b/astoriateam/">WCF Data Services</a></li>
+    </ul>				
+  </li>
+  <li>
+    <a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" class="menu-title">Platform Development<b><!--style element: drop-down arrow--></b></a>
+    <ul class="stb-nav-drop">
+      <b><!--style element: partial white border atop the drop-down menu--></b>
+	  <li><a href="http://blogs.msdn.com/b/officeapps/" target="_blank">Apps for Office and SharePoint</a></li>
+	  <li><a href="http://blogs.windows.com/buildingapps/" target="_blank">Apps for Windows</a></li>
+	  <li><a href="http://blogs.bing.com/" target="_blank">Bing</a></li>
+      <li><a href="http://blogs.msdn.com/b/ie/archive/tags/developers/" target="_blank">Internet Explorer</a></li>
+	  <li><a href="http://azure.microsoft.com/blog/" target="_blank">Microsoft Azure</a></li>
+	  <li><a href="http://blogs.msdn.com/b/vsto/">Office</a></li>
+      <li><a href="http://blogs.msdn.com/b/sharepointdev/" target="_blank">SharePoint</a></li>
+      <li><a href="http://blogs.msdn.com/b/webdevtools/">Web</a></li>
+    </ul>				
+  </li>
+</ul><div class="description-container">
+    <div class="description">
+      <a href="http://blogs.msdn.com/b/visualstudioalm/"><h2>Microsoft Application Lifecycle Management</h2></a>
+      <p class="tagline">Learn to use Visual Studio, Visual Studio Online, Application Insights and Team Foundation Server to decrease rework, increase transparency into your application and increase the rate at which you can ship high quality software throughout the application lifecycle </p>
+    </div>
+    <a class="logo" href="http://www.microsoft.com/visualstudio/"></a>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+<!-- Begin drop-down menu -->
+  $("#stb-header > .stb-nav")
+    .mouseleave(function () {
+      $(this)
+        .find("a.menu-title")
+          .removeClass("expanded")
+        .end()
+        .find(".stb-nav-drop")
+          .removeClass("expanded");
+    })
+	.find("a.menu-title")
+	.click(function(e) {
+		  e.preventDefault();
+		  e.stopImmediatePropagation();
+		  
+		  $(this).parents('li:first').find(".stb-nav-drop")
+            .toggleClass("expanded")
+          .end()
+          .find("a.menu-title")
+            .toggleClass("expanded")
+          .end()
+          .siblings()
+            .find("a.menu-title")
+              .removeClass("expanded")
+            .end()
+            .find(".stb-nav-drop")
+              .removeClass("expanded");
+	  });
+});  
+</script></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+</div>
+</div>
+<div class="layout-region right-sidebar" id="ctl00_content_ctl00_right-sidebar">
+<div class="layout-region-inner right-sidebar"><div class="content-fragment search-form no-wrapper" id="fragment-169499">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+
+<div class="field-list-header">
+</div>
+<fieldset class="field-list">
+    <ul class="field-list">
+        <li class="field-item search">
+            <div id="search-allblogs-container" style="display: none;">
+                <span class="field-item-input">
+                    <input id="SearchTextBox_AllBlogs" name="SearchTextBox_AllBlogs" type="text" class="searchField" maxlength="64" size="45" autocomplete="off" title="Search MSDN with Bing" style="color: rgb(170, 170, 170); font-style: italic;">
+                    <input id="SearchButton_AllBlogs" name="SearchButton_AllBlogs" type="button" class="search-button" title="Search MSDN with Bing">
+                <div id="SearchFlyoutContainer" style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; color: rgb(0, 0, 0); font-family: Arial; font-size: 11px; background-color: rgb(255, 255, 255);"><div id="SuggestionContainer"><ul style="list-style: none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></span>
+            </div>
+            <div id="search-thisblog-container">
+                <span class="field-item-input">
+                    <input id="SearchTextBox_ThisBlog" name="SearchTextBox_ThisBlog" type="text" class="searchField" maxlength="64" size="45" autocomplete="off" title="Search MSDN with Bing" style="color: rgb(170, 170, 170); font-style: italic;">
+                    <input id="SearchButton_ThisBlog" name="SearchButton_ThisBlog" type="button" class="search-button" title="Search MSDN with Bing">
+                <div id="SearchFlyoutContainer" style="display: none; text-align: left; border: 1px solid buttonshadow; position: absolute; z-index: 1000; padding: 2px; color: rgb(0, 0, 0); font-family: Arial; font-size: 11px; background-color: rgb(255, 255, 255);"><div id="SuggestionContainer"><ul style="list-style: none; padding: 4px 2px 0px 1px; cursor: pointer; margin: 1px; white-space: nowrap;"></ul></div></div></span>
+            </div>
+        </li>
+    </ul>
+</fieldset>
+<div class="field-list-footer">
+    <div id="search-switch-container">
+        <span style="display: inline-block">
+            <input type="radio" name="SearchTypeRadio" value="ThisBlog" id="ThisBlog" checked="checked"><label for="ThisBlog" id="ThisBlogText">Search this blog</label></span>
+        <span style="display: inline-block">
+            <input type="radio" name="SearchTypeRadio" value="AllBlogs" id="AllBlogs"><label for="AllBlogs" id="AllBlogsText">Search all blogs</label></span>
+    </div>
+</div>
+<script type="text/javascript">
+var elmSearchAll = $('#search-allblogs-container').hide();
+var elmSearchThis = $('#search-thisblog-container');
+
+// try to get the blog id, if we fail, then we aren't on a blog and just use the regular search approach       
+(4592 === -1) && $('#search-switch-container').hide();
+
+$(document).ready(function() {
+    $('#ThisBlog').click(function () {
+        var self = $(this);
+        if (self.is(':checked')) {
+            elmSearchAll.hide();
+            elmSearchThis.show();
+        }
+    });
+    
+    $('#AllBlogs').click(function () {
+        var self = $(this);
+        if (self.is(':checked')) {
+            elmSearchThis.hide();
+            elmSearchAll.show();
+        }
+    });
+});
+</script>
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/SearchBox(1).jss" type="text/javascript" language="javascript"></script>
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/SearchBox(2).jss" type="text/javascript" language="javascript"></script>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-169500">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SIDEBAR: METRO TILES -->
+<ul class="sidebar-tiles">
+  <li class="first">
+    <a href="http://blogs.msdn.com/b/visualstudioalm/rss.aspx" class="sidebar-tile-subscribe">Subscribe</a>
+  </li>
+  <li class="mid">
+    <a href="http://blogs.msdn.com/b/visualstudioalm/rsscomments.aspx" class="sidebar-tile-comments">Comments</a>
+  </li>
+  <li class="last">
+    <a href="http://blogs.msdn.com/b/visualstudioalm/contact.aspx" class="sidebar-tile-contact">Contact</a>
+  </li>
+</ul></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment blog-links no-wrapper-with-spacing with-header" id="fragment-169501">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-header"><div>Menu</div></div>
+<div class="content-fragment-content">
+
+		<div class="navigation-list-header"></div>
+		<ul class="navigation-list">
+	<li class="navigation-item"><a class="internal-link view-application" href="http://blogs.msdn.com/b/visualstudioalm/"><span></span>Blog Home</a></li><li class="navigation-item"><a class="internal-link rss" href="http://blogs.msdn.com/b/visualstudioalm/atom.aspx"><span></span>Atom</a></li>
+		</ul>
+		<div class="navigation-list-footer"></div>
+	</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment tag-cloud no-wrapper-with-spacing with-header" id="fragment-169502">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-header"><div>Tags</div></div>
+<div class="content-fragment-content">
+<div class="tag-list-header"></div><ul class="tag-list">
+<li class="tag-item level-4" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Agile/" rel="tag">Agile</a></li>
+<li class="tag-item level-2" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/ALM/" rel="tag">ALM</a></li>
+<li class="tag-item level-2" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Announcement/" rel="tag">Announcement</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Automated+Testing/" rel="tag">Automated Testing</a></li>
+<li class="tag-item level-5" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Coded+UI+Test/" rel="tag">Coded UI Test</a></li>
+<li class="tag-item level-5" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Coded+UI+Testing/" rel="tag">Coded UI Testing</a></li>
+<li class="tag-item level-3" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Debugging/" rel="tag">Debugging</a></li>
+<li class="tag-item level-1" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Diagnostics/" rel="tag">Diagnostics</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Extensibility/" rel="tag">Extensibility</a></li>
+<li class="tag-item level-3" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Guidance/" rel="tag">Guidance</a></li>
+<li class="tag-item level-3" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/insights/" rel="tag">insights</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/IntelliTrace/" rel="tag">IntelliTrace</a></li>
+<li class="tag-item level-2" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Rangers/" rel="tag">Rangers</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Release+Management/" rel="tag">Release Management</a></li>
+<li class="tag-item level-1" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Team+Foundation+Server/" rel="tag">Team Foundation Server</a></li>
+<li class="tag-item level-5" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Test+Management/" rel="tag">Test Management</a></li>
+<li class="tag-item level-1" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Testing/" rel="tag">Testing</a></li>
+<li class="tag-item level-2" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/TFS/" rel="tag">TFS</a></li>
+<li class="tag-item level-4" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/TFService/" rel="tag">TFService</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+Studio/" rel="tag">Visual Studio</a></li>
+<li class="tag-item level-4" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+Studio+2010/" rel="tag">Visual Studio 2010</a></li>
+<li class="tag-item level-6" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+Studio+2012/" rel="tag">Visual Studio 2012</a></li>
+<li class="tag-item level-5" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+studio+2013/" rel="tag">Visual studio 2013</a></li>
+<li class="tag-item level-1" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+Studio+ALM/" rel="tag">Visual Studio ALM</a></li>
+<li class="tag-item level-3" style="display: none;"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Work+Items/" rel="tag">Work Items</a></li>
+</ul>
+<div class="tag-list-footer"></div>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-169503">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SIDEBAR: TAGS MORE/LESS SCRIPT -->
+<script>
+  $(document).ready(function() {
+    $('ul.tag-list > li.tag-item').hide();
+    if ($('ul.tag-list > li.tag-item').length < 1) {
+      $('#TagMoreLink,#TagLessLink').hide();
+    }
+    if ($('ul.tag-list > li.tag-item:visible').length == $('ul.tag-list > li.tag-item').length) {
+      $('#TagMoreLink,#TagLessLink').hide();
+    }
+  });
+</script>
+<a id="TagMoreLink" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" onclick="$(&#39;ul.tag-list &gt; li.tag-item&#39;).show(); $(&#39;#TagLessLink&#39;).show(); $(&#39;#TagMoreLink&#39;).hide(); return false;">More <span class="arrowhead">▼</span></a>
+<a id="TagLessLink" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#" style="display:none" onclick="$(&#39;ul.tag-list &gt; li.tag-item&#39;).hide(); $(&#39;#TagMoreLink&#39;).show(); $(&#39;#TagLessLink&#39;).hide(); return false;">Less <span class="arrowhead">▲</span></a></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment temporary-rss-feed-item-list no-wrapper-with-spacing with-header" id="fragment-169504">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-header"><div>Videos <a class="internal-link rss" href="http://channel9.msdn.com/Events/ALM-Summit/2011/RSS"><span></span>RSS</a></div></div>
+<div class="content-fragment-content">
+
+    <div id="ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00" style="cursor: default;"><input type="hidden" name="ctl00$content$ctl00$w_169504$_a7d07d$ctl00$ctl00$ctl00$TemporaryRssFeed$ctl01$ctl00" value="true:undefined">
+			
+				    <div class="content-list-header simple"></div>
+                    <ul class="content-list simple">
+					    
+						        <li class="content-item">
+                                    <div class="abbreviated-post-header"></div>
+                                    <div class="abbreviated-post">
+						                <h4 class="post-name"><a class="external-link view-rss-item" href="http://channel9.msdn.com/Events/ALM-Summit/2011/Continuous-Delivery"><span></span>Continuous Delivery</a></h4>
+                                        
+            <div class="post-date">
+		        <span class="value">over 3 years ago</span>
+	        </div>
+                                        <div class="post-author">by Jez Humble</div>
+						            </div>
+                                    <div class="abbreviated-post-footer"></div>
+	                            </li>
+						    
+						        <li class="content-item">
+                                    <div class="abbreviated-post-header"></div>
+                                    <div class="abbreviated-post">
+						                <h4 class="post-name"><a class="external-link view-rss-item" href="http://channel9.msdn.com/Events/ALM-Summit/2011/ALM-in-the-Cloud"><span></span>ALM in the Cloud</a></h4>
+                                        
+            <div class="post-date">
+		        <span class="value">over 3 years ago</span>
+	        </div>
+                                        <div class="post-author">by Doug Neumann</div>
+						            </div>
+                                    <div class="abbreviated-post-footer"></div>
+	                            </li>
+						    
+					</ul>
+					<div class="content-list-footer simple"></div>
+				
+		</div>
+
+
+
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment blog-archive-list no-wrapper-with-spacing with-header" id="fragment-169505">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-header"><div>Archives</div></div>
+<div class="content-fragment-content">
+
+		<div class="content-list-header"></div>
+		<div class="content-list-name">Archives</div>
+		<ul class="content-list">
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11.aspx">November 2014</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/10.aspx">October 2014</a> (9)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/09.aspx">September 2014</a> (12)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/08.aspx">August 2014</a> (12)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/07.aspx">July 2014</a> (11)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/06.aspx">June 2014</a> (10)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/05.aspx">May 2014</a> (25)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/04.aspx">April 2014</a> (24)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/03.aspx">March 2014</a> (14)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/02.aspx">February 2014</a> (15)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/01.aspx">January 2014</a> (8)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/12.aspx">December 2013</a> (13)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/11.aspx">November 2013</a> (10)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/10.aspx">October 2013</a> (19)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/09.aspx">September 2013</a> (12)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/08.aspx">August 2013</a> (8)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/07.aspx">July 2013</a> (15)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/06.aspx">June 2013</a> (11)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/05.aspx">May 2013</a> (7)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/04.aspx">April 2013</a> (11)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/03.aspx">March 2013</a> (12)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/02.aspx">February 2013</a> (23)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2013/01.aspx">January 2013</a> (13)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/12.aspx">December 2012</a> (16)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/11.aspx">November 2012</a> (18)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/10.aspx">October 2012</a> (25)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/09.aspx">September 2012</a> (22)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/08.aspx">August 2012</a> (14)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/07.aspx">July 2012</a> (9)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/06.aspx">June 2012</a> (25)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/05.aspx">May 2012</a> (10)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/04.aspx">April 2012</a> (14)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/03.aspx">March 2012</a> (30)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/02.aspx">February 2012</a> (15)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2012/01.aspx">January 2012</a> (9)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/12.aspx">December 2011</a> (15)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/11.aspx">November 2011</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/10.aspx">October 2011</a> (17)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/09.aspx">September 2011</a> (20)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/08.aspx">August 2011</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/07.aspx">July 2011</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/06.aspx">June 2011</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/05.aspx">May 2011</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/04.aspx">April 2011</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/03.aspx">March 2011</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/02.aspx">February 2011</a> (7)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2011/01.aspx">January 2011</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/12.aspx">December 2010</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/11.aspx">November 2010</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/10.aspx">October 2010</a> (5)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/09.aspx">September 2010</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/08.aspx">August 2010</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/07.aspx">July 2010</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/06.aspx">June 2010</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/05.aspx">May 2010</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/04.aspx">April 2010</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2010/03.aspx">March 2010</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2009/04.aspx">April 2009</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2008/10.aspx">October 2008</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2008/05.aspx">May 2008</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2008/04.aspx">April 2008</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/12.aspx">December 2007</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/11.aspx">November 2007</a> (5)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/10.aspx">October 2007</a> (6)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/09.aspx">September 2007</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/08.aspx">August 2007</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/07.aspx">July 2007</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/06.aspx">June 2007</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/04.aspx">April 2007</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/03.aspx">March 2007</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/02.aspx">February 2007</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2007/01.aspx">January 2007</a> (3)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/11.aspx">November 2006</a> (5)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/10.aspx">October 2006</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/09.aspx">September 2006</a> (5)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/08.aspx">August 2006</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/07.aspx">July 2006</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/06.aspx">June 2006</a> (2)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/05.aspx">May 2006</a> (4)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/04.aspx">April 2006</a> (7)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/03.aspx">March 2006</a> (27)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2006/01.aspx">January 2006</a> (21)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2005/12.aspx">December 2005</a> (18)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2005/06.aspx">June 2005</a> (1)</li>
+	
+		<li class="content-item"><a class="internal-link view-post-archive-list" href="http://blogs.msdn.com/b/visualstudioalm/archive/2005/05.aspx">May 2005</a> (3)</li>
+	
+		</ul>
+		<div class="content-list-footer"></div>
+	
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+</div>
+</div>
+<div class="layout-region content" id="ctl00_content_ctl00_content">
+<div class="layout-region-inner content"><div class="content-fragment blog-post no-wrapper-with-spacing" id="fragment-169506">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+
+<div class="full-post-header"></div>
+<div class="full-post">
+	<h3 class="post-name">Cloud-based Load Testing REST APIs are here</h3>
+	
+	        <div class="post-rating">
+	            Rate This<br>
+	    <span id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01" title="Rated Excellent [5 out of 5]." class="rating readonly"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-left-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-right-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-left-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-right-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-left-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-right-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-left-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-right-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-left-on.png" align="absmiddle" border="0" style="border-width: 0px;"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/star-right-on.png" align="absmiddle" border="0" style="border-width: 0px;"></span><input type="hidden" value="5" id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01_Value">
+	        </div>
+	    
+    <div class="post-author">
+        <span class="avatar"><a href="http://blogs.msdn.com/593505/ProfileUrlRedirect.ashx"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/avatar.jpg" alt="" style="border-width:0px;max-height:32px;max-width:32px;"></a></span>
+        
+        <span class="profile-usercard-hover" data-profile-userid="46593b2329c94999b1704d1f58993df4" data-profile-rendered="true">
+            <span class="user-name"><a class="internal-link view-user-profile" href="http://blogs.msdn.com/593505/ProfileUrlRedirect.ashx"><span></span>Jimson Chalissery [MSFT]</a></span>
+        
+            
+        <div class="profile-usercard">            <div class="profile-header">                <span class="profile-userimage">                                            <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAsACwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0hOXX610OoaPbtFJNCDG6qW2qODj2rnk4dfrW/q98jWywW8iyNKcHYQePTj1/xr4DK/q31Wu66Tta3e+uxjG1ncSx0mGOBjclGkdcYyDs/wDr+9Yc0LQzvCeWU447+9P+xXf/AD6zf9+zT7SZtPvVklibK9VPB5FYV50qsadN0vZpOzlq9976K/cTsV9j/wBxvyo2P/cb8q6yHU7OdNwmVPUOdpFY2oarM14wt5isa/KNp4PvW+KyzC4ekqvtuZPsl/mNxSW4ttokkkfmzSKqYyAhDE/j0/nWTWzosl0UdFQvb9Dz90+1ZMsMkEhSVCjDsRXPjKNFYalVowave7ffTrt6WE0raHV6ddfa7JJCcuPlf6j/ADn8aoeILdTHHcAgMDsIz1H+f51n6Xf/AGKZt+TGy8geo6f4fjUF3dy3kxkkP+6vZRXp4nOKVfLVSqazen3df680U5JxLeiRpNdyxyKGRoiCD9RTLzTTBcskcsRXqN8iqR7HJqMwXlhCLgZjWUbcg888/h0qmSSck5JryqlSnTw8aFWm+da320fyJ6WZuWWr2dpaRwiObIHzEKOT370t3rFnc20kZhkLFTtLKODjg9awqK0Wd4pUvY6ctrbdA53axcs9NlvkZopIxtOCGJz/ACq1DpDRX8Ec8sR3HcUUkkgfh0qvpdw9vdMUxzG2QenAJH8qr/a5/tP2jzG83Od1FJ4OlQp1ZwblfXXSyav+DBWsb3iD/jwj/wCuo/ka5uta7upLzRUkl27hPt4HX5TWTVZ7UVXFc8dmkOe5/9k=" alt="Avatar of Jimson Chalissery [MSFT]">                                    </span>                <div>                    <p title="Jimson Chalissery [MSFT]" class="profile-display-name">Jimson Chalissery [MSFT]</p>                                    <p class="profile-company">Microsoft</p>                                    <p class="profile-affiliations"></p>                </div>            </div>            <div class="profile-points-bar">                <span class="profile-points">705<span class="points-label"> Points</span></span>                <span class="profile-count profile-bronze-points"><span class="profile-bronze-img" title="Achievements Earned"></span><span>3</span></span>                <span class="profile-count profile-silver-points"><span class="profile-silver-img" title="Achievements Earned"></span><span>0</span></span>                <span class="profile-count profile-gold-points"><span class="profile-gold-img" title="Achievements Earned"></span><span>0</span></span>                        </div>            <div class="profile-achievements-header">                <span class="profile-achievements-title">Recent Achievements</span>            </div>            <div class="profile-achievements-recent">                <div class="profile-achievements-centering">                                                                <span class="profile-achievement profile-achievement-Bronze"><span>New Blog Commentator</span></span>                                            <span class="profile-achievement profile-achievement-Bronze"><span>New Blogger</span></span>                                            <span class="profile-achievement profile-achievement-Bronze"><span>New Gallery Contributor</span></span>                                                            </div>            </div>            <div class="profile-footer">                                <a href="https://social.msdn.microsoft.com/profile/jimson%20chalissery%20%5Bmsft%5D/?ws=usercard-hover" class="profile-usercard-profileLink" target="_blank">View Profile</a>            </div>        </div></span>
+    </div>
+    <div class="post-date">
+        <span class="value">
+            2 Nov 2014 6:25 PM
+        </span>
+    </div>
+    <div class="post-attributes">
+        <div class="attribute-list-header"></div>
+        <ul class="attribute-list">
+             <li class="attribute-item post-reply-count">
+                <span class="attribute-name">Comments</span>
+                <span class="attribute-value"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx?utm_source=twitterfeed&utm_medium=linkedin#comments" class="internal-link view-replies"><span></span>2</a></span>
+             </li>
+        </ul>
+        <div class="attribute-list-footer"></div>
+    </div>
+    <div class="post-content user-defined-markup"><p>Many of you are looking at being more agile when it comes to testing, and with increased focus on automation, there are quite a few who wants to integrate Load Testing as a regular test practice. This could be either for those validating performance of their nightly/weekly builds or those that just does not want to wait for big milestone releases to validate performance but instead do it as part of a more frequent Automated Testing. This is more of a “culture” thing and one that is catching up fast.</p>
+<p>That is why we now have REST APIs for Cloud-based Load Testing with Visual Studio Online.</p>
+<p>The Cloud-based Load Testing (CLT) REST APIs give you the ability to execute Load tests from the Cloud in an automated manner, that can be integrated either as part of your Continuous Integration/Deployment pipeline or Test Automation.</p>
+<p>Here’s a list of what you can do with these new APIs:</p>
+<ul>
+<li>Start/Stop a Load Test Run</li>
+<li>Get Load Test Results&nbsp; - the set of KPIs groups that you are used to – Performance, Throughput, Application</li>
+<li>Get Messages from the service during a run</li>
+<li>Get Exceptions, if any, from the service during a run</li>
+<li>Get Counter instances and Samples for a Load Test run</li>
+<li>Get Application Counters for Apps configured with your load test</li>
+<li>Get list of all past Load test Runs - filtered by requester, date, status etc..</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Some callouts</h3>
+<ul>
+<li>For using the REST APIs, you’ll need to enable <a href="http://www.visualstudio.com/en-us/integrate/get-started/get-started-auth-introduction-vsi">alternate credentials</a>, and use that for authentication</li>
+<li>Add "vsclt" to your account name to get redirected to the Cloud-based Load Test (CLT) service within visualstudio.com. If your account is <a href="https://abc.visualstudio.com/">https://abc.visualstudio.com/</a>, then when using APIs, please specify this as <a href="https://abc.vsclt.visualstudio.com/">https://abc.vsclt.visualstudio.com/</a></li>
+<li>To get started you can refer to the API sample <a href="https://code.msdn.microsoft.com/windowsdesktop/Cloud-Load-Testing-API-b333e778">here</a> (Creating a load test) &amp; <a href="https://code.msdn.microsoft.com/windowsdesktop/Importing-Load-Test-Results-b577864b">here</a> (Importing results) that demonstrates some of the APIs</li>
+</ul>
+<p>&nbsp;</p>
+<h3>How to use the APIs</h3>
+<p>The following steps are essential to be successful with these APIs. These are demonstrated in the sample linked above.</p>
+<ol>
+<li>Create a valid load test project via Visual Studio. And use the files from this project for the load test.</li>
+<li>Create a location to upload the file(s). This location is a drop folder on Azure Blob and is below referred to as "TestDrop".</li>
+<li>Upload the loadtest file and any other files required for the run, this includes the webtest files, settings file, etc. to this location or "TestDrop"</li>
+<li>Create a Test Run using the Testdrop from the previous step as all the files required for a run are now available at the drop location</li>
+<li>Start the run</li>
+<li>Once finished, download the results to your local machine. This will be a gzip file. Uncompress it to get the results file</li>
+<li>Use Visual Studio to view the downloaded results</li>
+</ol>
+<p><a href="http://blogs.msdn.com/cfs-file.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-00-45-92/3286.CLTAPIsSteps.png"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/3286.CLTAPIsSteps.png" alt="" border="0"></a></p>
+<p>More details in the API documentation. Link below.</p>
+<p>&nbsp;</p>
+<h3>API Documentation</h3>
+<p>You can find the detailed API documentation <a href="http://www.visualstudio.com/en-us/integrate/reference/reference-vso-clt-overview-vsi">here</a>.</p>
+<p>Samples are available at the MSDN Gallery (<a href="https://code.msdn.microsoft.com/windowsdesktop/Cloud-Load-Testing-API-b333e778">here</a> (Creating a load test) &amp; <a href="https://code.msdn.microsoft.com/windowsdesktop/Importing-Load-Test-Results-b577864b">here</a> (Importing results)) that demonstrates the APIs.</p>
+<p>Please share any and all feedback on the APIs. If you have suggestions for improving it further, we’re all ears. If you run into any issues, you can reach out to us at <a href="mailto:vsoload@microsoft.com">vsoload@microsoft.com</a>.</p><div style="clear:both;"></div></div>
+    <div class="post-attachment-viewer">
+		
+    </div>
+    <div class="post-actions">
+        <div class="navigation-list-header"></div>
+        <ul class="navigation-list">
+            <!---->
+            <li class="navigation-item"><a class="internal-link view-replies" href="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx#comments"><span></span>2 Comments</a></li>
+            
+            
+        </ul>
+        <div class="navigation-list-footer"></div>
+    </div>
+    <div class="post-tags"><div id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Container" style="display: none;"><div class="tags-editor"><textarea id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Tags" style="width: 97%; height: 100%;" rows="2" cols="30"></textarea><div style="white-space: nowrap; padding-top: 4px;"><table cellpadding="0" cellspacing="0" border="0" width="100%"><tbody><tr><td align="left"><input type="button" onclick="Telligent_Modal.Open(&#39;\/utility\/TagSelector.aspx?TagEditor=ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_TagEditor&#39;,400,300,null);;return false;" value="Select Tags..."></td><td align="right"><input type="button" value="Save"><input type="button" onclick="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01.Close(); return false;" value="Cancel"></td></tr></tbody></table></div></div></div><span id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02"><a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Automated+Testing/" rel="tag">Automated Testing</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Load+Testing/" rel="tag">Load Testing</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/DevOps/" rel="tag">DevOps</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Announcement/" rel="tag">Announcement</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Performance/" rel="tag">Performance</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+studio+2013/" rel="tag">Visual studio 2013</a>, <a href="http://blogs.msdn.com/b/visualstudioalm/archive/tags/Visual+Studio+Online/" rel="tag">Visual Studio Online</a></span><input type="hidden" name="ctl00$content$ctl00$w_169506$_a7d07d$ctl00$ctl15$ctl02" id="ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02_State" value="value:%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FAutomated%2BTesting%2F%22%20rel%3D%22tag%22%3EAutomated%20Testing%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FLoad%2BTesting%2F%22%20rel%3D%22tag%22%3ELoad%20Testing%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FDevOps%2F%22%20rel%3D%22tag%22%3EDevOps%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FAnnouncement%2F%22%20rel%3D%22tag%22%3EAnnouncement%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FPerformance%2F%22%20rel%3D%22tag%22%3EPerformance%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FVisual%2Bstudio%2B2013%2F%22%20rel%3D%22tag%22%3EVisual%20studio%202013%3C%2Fa%3E%2C%20%3Ca%20href%3D%22http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2Ftags%2FVisual%2BStudio%2BOnline%2F%22%20rel%3D%22tag%22%3EVisual%20Studio%20Online%3C%2Fa%3E"></div>
+</div>
+<div class="full-post-footer"></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-169507">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SHARE WIDGETS -->
+<div class="share-widgets">
+  <div class="share-widget twitter">
+    <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 136px; height: 28px;"></iframe>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+  <div class="share-widget facebook">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/ehazDpFPEnK.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/ehazDpFPEnK(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="segoe ui" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;font=segoe%20ui&amp;href=http%3A%2F%2Fblogs.msdn.com%2Fb%2Fvisualstudioalm%2Farchive%2F2014%2F11%2F03%2Fcloud-load-testing-rest-apis-are-here.aspx%3Futm_source%3Dtwitterfeed%26utm_medium%3Dlinkedin&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=100"><span style="vertical-align: bottom; width: 75px; height: 20px;"><iframe name="f3c8525f0c" width="100px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/like.html" style="border: none; visibility: visible; width: 75px; height: 20px;" class=""></iframe></span></div>
+  </div>
+  <div class="share-widget linkedin">
+    <script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/in.js" type="text/javascript"></script>
+    <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415027462761_0"><a id="li_ui_li_gen_1415027462761_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1415027462761_0-logo">in</span><span id="li_ui_li_gen_1415027462761_0-title"><span id="li_ui_li_gen_1415027462761_0-mark"></span><span id="li_ui_li_gen_1415027462761_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415027462775_1-container" class="IN-right"><span id="li_ui_li_gen_1415027462775_1" class="IN-right"><span id="li_ui_li_gen_1415027462775_1-inner" class="IN-right"><span id="li_ui_li_gen_1415027462775_1-content" class="IN-right">6</span></span></span></span></span></span><script type="IN/Share+init" data-counter="right"></script>
+  </div>
+  <div class="share-widget delicious">
+    <img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/delicious.small.gif" height="10" width="10" alt="Delicious">
+    <a href="http://www.delicious.com/save" onclick="window.open(&#39;http://www.delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=&#39;+encodeURIComponent(location.href)+&#39;&amp;title=&#39;+encodeURIComponent(document.title), &#39;delicious&#39;,&#39;toolbar=no,width=550,height=550&#39;); return false;"> Save this on Delicious</a>
+  </div>
+</div></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment captcha-blog-post-comment-form no-wrapper-with-spacing" id="fragment-169508">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+<input type="hidden" name="ctl00$content$ctl00$w_169508$_a7d07d$ctl00$ctl00$postCommentUrl" id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_postCommentUrl">
+
+    
+            <div class="field-list-header"></div>
+            <fieldset class="field-list">
+                <legend class="field-list-description">Leave a Comment</legend>
+                <ul class="field-list">
+                    <li id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_NameField" class="field-item">
+                        <label for="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbName" class="field-item-header">Name</label>
+                        <span class="field-item-input"><input name="ctl00$content$ctl00$w_169508$_a7d07d$ctl00$ctl00$PlaceHolder1$ctl04$bpCommentForm$ctl04$tbName" type="text" size="60" id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbName"></span>
+                        <span id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV" style="color:Red;display:none;"><span class="field-item-validation">*</span></span>
+                    </li>
+                    <li class="field-item post-body">
+                        <label for="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment" class="field-item-header">Comment</label>
+                        <span class="field-item-input"><textarea rows="2" cols="20" style="height: 100px; resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; width: 668px; line-height: normal; text-decoration: none; letter-spacing: normal;" tabindex="-1"></textarea><textarea name="ctl00$content$ctl00$w_169508$_a7d07d$ctl00$ctl00$PlaceHolder1$ctl04$bpCommentForm$ctl04$tbComment" rows="2" cols="20" id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment" style="height: 100px; resize: none; overflow-y: hidden;"></textarea></span>
+                        <span id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV" style="color:Red;display:none;"><span class="field-item-validation">* Please enter a comment</span></span>
+                        <span id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV" style="color:Red;display:none;"><span class="field-item-validation">Please shorten the content to 3072 or less</span></span>
+                    </li>
+                    <li class="field-item">
+                        
+                           <span id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha" style="color:Red;display:none;">*</span><span id="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_subtext_captcha" style="display: none;">Please add 6 and 4 and type the answer here: <input type="text" name="ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_visibleanswer" value=""></span>
+
+
+                    </li>
+                    <li class="field-item">
+                        <script type="text/javascript">
+                            // <![CDATA[
+
+                            $(document).ready(function () {
+                                $('a.add-reply.post').click(function (e) {
+                                    e.preventDefault();
+                                    postComment(this);
+                                    return false;
+                                });
+
+                                $('#ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment').keyup(function (e) {
+                                    $('#errorOnPosting').hide();
+                                });
+                                var nameBox = $('#ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbName');
+                                if (nameBox.length > 0) {
+                                    $(nameBox).keyup(function (e) {
+                                        $('#errorOnPosting').hide();
+                                    });
+                                }
+                            });
+
+                            function postComment(anchor) {
+                                if (Page_ClientValidate('BlogPostCommentForm-ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00')) {
+                                    togglePostAndPublishing();
+
+                                    var Core_CreateBlogComment_AjaxEndpoint = '/Utility/ContentFragments/Core/CreateBlogComment.asmx' + "/PostComment";
+                                    var name = '';
+                                    var nameBox = $('#ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbName');
+                                    if (nameBox.length > 0) {
+                                        name = $(nameBox).val();
+                                    }
+                                    var body = $('#ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment').val();
+                                    var weblogPostId = '10569283';
+
+                                    $.ajax({
+                                        type: "POST",
+                                        async: false,
+                                        url: Core_CreateBlogComment_AjaxEndpoint,
+                                        beforeSend: function (xhr) { TelligentUtility.WriteAuthorizationHeader(xhr); },
+                                        data: { weblogPostId: weblogPostId, url: '', subject: '', message: body, name: name, remember: false },
+                                        success: function (results) {
+                                            var responseVal = $(results.firstChild).text();
+                                            if (responseVal === "-1" || responseVal === "-2") {
+                                                togglePostAndPublishing();
+                                                if (responseVal == "-2")
+                                                    $('#errorOnPosting').html('Your comment has been flagged as spam! The blog administrator has been notified.');
+                                                $('#errorOnPosting').show();
+                                                return;
+                                            }
+                                            var redirectUrl = window.location.href;
+                                            if (redirectUrl.indexOf("?") > -1) {
+                                                redirectUrl = redirectUrl.replace(/\?.*/, "");
+                                            } else if (redirectUrl.indexOf("#") > -1) {
+                                                redirectUrl = redirectUrl.replace(/\#.*/, "");
+                                            }
+
+                                            redirectUrl += '?CommentPosted=true#commentmessage';
+                                            if (window.location.href == redirectUrl) {
+                                                location.reload(true);
+                                            }
+                                            else {
+                                                window.location.href = redirectUrl;
+                                            }
+                                        },
+                                        error: function (xhr, textStatus, errorThrown) {
+                                            togglePostAndPublishing();
+                                            $('#errorOnPosting').show();
+                                        }
+                                    });
+
+                                }
+                            }
+
+                            function togglePostAndPublishing() {
+                                $('a.add-reply.post').toggle();
+                                $('a.publishing').toggle();
+                            }
+                            // ]]>
+                        </script>
+                        <span class="field-item-input">
+                            
+                            <a class="internal-link add-reply post" style="cursor: pointer;"><span></span>Post</a>
+                            <a class="internal-link add-reply publishing" style="color:#c7c7c7; display: none;cursor: pointer;"><span></span>Publishing</a>
+                            <span id="errorOnPosting" style="color: white; background-color: red; padding: 5px; margin-left: 10px; display: none;">An error occurred while posting! Please retry posting your comment.</span>
+                        </span>
+                    </li>
+                </ul>
+            </fieldset>
+            <div class="field-list-footer"></div>
+            
+        
+    </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+<div class="content-fragment blog-feedback-list no-wrapper-with-spacing" id="fragment-169509">
+<div class="content-fragment-inner wireframe-content-fragment-inner"><div class="content-fragment-top wireframe-content-fragment-top"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div><div class="content-fragment-content">
+
+
+
+
+<script type="text/javascript">
+	// <![CDATA[
+	$(document).ready(function() {
+	$(document).bind('telligent_blogs_commentposted', function(e, message) { 
+	            window.setTimeout(new Function(ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList.Reload()), 100); 
+	            return true; 
+	    });
+	    ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList.Reload();
+	});
+// ]]>
+</script>
+
+	
+
+<div id="ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList" style="cursor: default;"><input type="hidden" name="ctl00$content$ctl00$w_169509$_a7d07d$ctl00$ctl00$DelayedFeedbackList" value="true:undefined">
+	    
+			    <a name="comments"></a>
+			    <div class="content-list-header"></div>
+			    <div class="content-list-name">
+				    
+						    <a class="internal-link rss" href="http://blogs.msdn.com/b/visualstudioalm/rsscomments.aspx?WeblogPostID=10569283"><span></span>Comments</a>
+					    
+			    </div>
+			    <ul class="content-list">
+		    
+			    
+					    <li class="content-item">
+						    <div class="full-post-outer wireframe-full-post-outer"><div class="full-post-header"><div class="r wireframe-r"></div></div>
+						    <div class="full-post"><div class="full-post-inner wireframe-full-post-inner">
+				    
+			    <div class="post-author">
+				    <span class="avatar"><a href="http://blogs.msdn.com/365446/ProfileUrlRedirect.ashx"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/avatar(1).jpg" alt="" style="border-width:0px;max-height:32px;max-width:32px;"></a></span>
+				    
+                    <span class="profile-usercard-hover" data-profile-userid="4bcb29cd17ec4e94951d0385f561944d" data-profile-rendered="true">
+				        <span class="user-name"><a class="internal-link view-user-profile" href="http://blogs.msdn.com/365446/ProfileUrlRedirect.ashx"><span></span>Tarun__Arora</a></span>
+				        
+                    <div class="profile-usercard">            <div class="profile-header">                <span class="profile-userimage">                                            <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAsAB0DASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDufEWsDRdNNwI/Nmc7Yo/7zV55ea/4rkvVBklhdjlURcD6Y/xroPH7zLrWghE3xeY+4ds8Uyz12znuRbgytIM7Pl4YgZIFY1Kji7JG9OkpK7LvhjXr+4uv7M1uIJclC8UmMeYB1GPWt+cDd0rlTc/2pqWk3VjE42XIyWAB24YN+gNdZN96tKcnJamVWPK9Cn4lW0FnFPdAbo5B5RI/iP8A+quNtdWt110TmzQbhtUr79T6Z4Fc/wCIvEl/rNwDK/lop3RRr0U/1PvVrQ9OupbVL+0uIyjt80bIDtPfrWVWKT5mb0Zu3KeiaXsmuCBEqiIlhhcdR/8AXrQl+9XGeH/HFiLuSxvk8n96US47Pg4G70/l9K7GY/MK1px5UYVZc0jwSSVZeM4PUH0q3pes32lzk28v7okNJFgbXA+vQ/SsbJ3KfepWY7R7iraT0ZKbTuhGZiSScsSST717Z4cuzeeG9OndssYAGPqRwf5V4okrxO+wgbkKnjPBHNep+AZXbwnbAnhHdR9N2f60CZ//2Q==" alt="Avatar of Tarun__Arora">                                    </span>                <div>                    <p title="Tarun__Arora" class="profile-display-name">Tarun__Arora</p>                                    <p class="profile-company">Avanade</p>                                    <p class="profile-affiliations">Partner, MVP</p>                </div>            </div>            <div class="profile-points-bar">                <span class="profile-points">11,060<span class="points-label"> Points</span></span>                <span class="profile-count profile-bronze-points"><span class="profile-bronze-img" title="Achievements Earned"></span><span>17</span></span>                <span class="profile-count profile-silver-points"><span class="profile-silver-img" title="Achievements Earned"></span><span>5</span></span>                <span class="profile-count profile-gold-points"><span class="profile-gold-img" title="Achievements Earned"></span><span>1</span></span>                        </div>            <div class="profile-achievements-header">                <span class="profile-achievements-title">Recent Achievements</span>            </div>            <div class="profile-achievements-recent">                <div class="profile-achievements-centering">                                                                <span class="profile-achievement profile-achievement-Bronze"><span>New Gallery Storyteller</span></span>                                            <span class="profile-achievement profile-achievement-Silver"><span>Rated 'A' for Awesome</span></span>                                            <span class="profile-achievement profile-achievement-Silver"><span>Blog Commentator II</span></span>                                                            </div>            </div>            <div class="profile-footer">                                <a href="https://social.msdn.microsoft.com/profile/tarun__arora/?ws=usercard-hover" class="profile-usercard-profileLink" target="_blank">View Profile</a>            </div>        </div></span>
+			    </div>
+			    <div class="post-date">
+				    <span class="value">2 Nov 2014 10:35 PM</span>
+			    </div>
+			    <div class="post-content user-defined-markup"><p>No OAuth support? </p>
+<div style="clear:both;"></div></div>
+			    <div class="post-actions">
+				    
+			    </div>
+			    
+						    </div>
+						    </div><div class="full-post-footer"><div class="r wireframe-r"></div></div></div>
+					    </li>
+				    
+		    
+			    
+					    <li class="content-item user-is-author">
+						    <div class="full-post-outer wireframe-full-post-outer"><div class="full-post-header user-is-author"><div class="r wireframe-r"></div></div>
+						    <div class="full-post user-is-author"><div class="full-post-inner wireframe-full-post-inner">
+				    
+			    <div class="post-author">
+				    <span class="avatar"><a href="http://blogs.msdn.com/593505/ProfileUrlRedirect.ashx"><img src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/avatar.jpg" alt="" style="border-width:0px;max-height:32px;max-width:32px;"></a></span>
+				    
+                    <span class="profile-usercard-hover" data-profile-userid="46593b2329c94999b1704d1f58993df4" data-profile-rendered="true">
+				        <span class="user-name"><a class="internal-link view-user-profile" href="http://blogs.msdn.com/593505/ProfileUrlRedirect.ashx"><span></span>Jimson Chalissery [MSFT]</a></span>
+				        
+                    <div class="profile-usercard">            <div class="profile-header">                <span class="profile-userimage">                                            <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAsACwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD0hOXX610OoaPbtFJNCDG6qW2qODj2rnk4dfrW/q98jWywW8iyNKcHYQePTj1/xr4DK/q31Wu66Tta3e+uxjG1ncSx0mGOBjclGkdcYyDs/wDr+9Yc0LQzvCeWU447+9P+xXf/AD6zf9+zT7SZtPvVklibK9VPB5FYV50qsadN0vZpOzlq9976K/cTsV9j/wBxvyo2P/cb8q6yHU7OdNwmVPUOdpFY2oarM14wt5isa/KNp4PvW+KyzC4ekqvtuZPsl/mNxSW4ttokkkfmzSKqYyAhDE/j0/nWTWzosl0UdFQvb9Dz90+1ZMsMkEhSVCjDsRXPjKNFYalVowave7ffTrt6WE0raHV6ddfa7JJCcuPlf6j/ADn8aoeILdTHHcAgMDsIz1H+f51n6Xf/AGKZt+TGy8geo6f4fjUF3dy3kxkkP+6vZRXp4nOKVfLVSqazen3df680U5JxLeiRpNdyxyKGRoiCD9RTLzTTBcskcsRXqN8iqR7HJqMwXlhCLgZjWUbcg888/h0qmSSck5JryqlSnTw8aFWm+da320fyJ6WZuWWr2dpaRwiObIHzEKOT370t3rFnc20kZhkLFTtLKODjg9awqK0Wd4pUvY6ctrbdA53axcs9NlvkZopIxtOCGJz/ACq1DpDRX8Ec8sR3HcUUkkgfh0qvpdw9vdMUxzG2QenAJH8qr/a5/tP2jzG83Od1FJ4OlQp1ZwblfXXSyav+DBWsb3iD/jwj/wCuo/ka5uta7upLzRUkl27hPt4HX5TWTVZ7UVXFc8dmkOe5/9k=" alt="Avatar of Jimson Chalissery [MSFT]">                                    </span>                <div>                    <p title="Jimson Chalissery [MSFT]" class="profile-display-name">Jimson Chalissery [MSFT]</p>                                    <p class="profile-company">Microsoft</p>                                    <p class="profile-affiliations"></p>                </div>            </div>            <div class="profile-points-bar">                <span class="profile-points">705<span class="points-label"> Points</span></span>                <span class="profile-count profile-bronze-points"><span class="profile-bronze-img" title="Achievements Earned"></span><span>3</span></span>                <span class="profile-count profile-silver-points"><span class="profile-silver-img" title="Achievements Earned"></span><span>0</span></span>                <span class="profile-count profile-gold-points"><span class="profile-gold-img" title="Achievements Earned"></span><span>0</span></span>                        </div>            <div class="profile-achievements-header">                <span class="profile-achievements-title">Recent Achievements</span>            </div>            <div class="profile-achievements-recent">                <div class="profile-achievements-centering">                                                                <span class="profile-achievement profile-achievement-Bronze"><span>New Blog Commentator</span></span>                                            <span class="profile-achievement profile-achievement-Bronze"><span>New Blogger</span></span>                                            <span class="profile-achievement profile-achievement-Bronze"><span>New Gallery Contributor</span></span>                                                            </div>            </div>            <div class="profile-footer">                                <a href="https://social.msdn.microsoft.com/profile/jimson%20chalissery%20%5Bmsft%5D/?ws=usercard-hover" class="profile-usercard-profileLink" target="_blank">View Profile</a>            </div>        </div></span>
+			    </div>
+			    <div class="post-date">
+				    <span class="value">3 Nov 2014 5:18 AM</span>
+			    </div>
+			    <div class="post-content user-defined-markup"><p>OAuth support is planned, but a bit more work before we open it up. </p>
+<div style="clear:both;"></div></div>
+			    <div class="post-actions">
+				    
+			    </div>
+			    
+						    </div>
+						    </div><div class="full-post-footer user-is-author"><div class="r wireframe-r"></div></div></div>
+					    </li>
+				    
+		    
+			    </ul>
+			    <div class="content-list-footer"></div>
+		     
+	    <div class="pager">
+        <span class="summary">Page 1 of 1 (2 items)</span>
+    </div>
+	</div>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom wireframe-content-fragment-bottom"><div class="r1 wireframe-r1"></div><div class="r2 wireframe-r2"></div><div class="r3 wireframe-r3"></div><div class="r4 wireframe-r4"></div></div></div></div>
+</div>
+</div>
+</div>
+<div class="layout-footer"></div>
+</div></div>
+
+			<div class="footer-fragments-header"></div>
+<div class="footer-fragments"><div class="footer-fragment copyright-info" id="footer-fragment-247403536">
+
+<ul class="footer-fragment-links">
+    <li class="message copyright">© 2014 Microsoft Corporation.</li>
+	<li class="message termsOfService"><a href="http://msdn.microsoft.com/cc300389">Terms of Use</a> </li>
+    <li class="message trademarks"><a href="http://www.microsoft.com/library/toolbar/3.0/trademarks/en-us.mspx">Trademarks</a> </li>
+    <li class="message privacy"><a href="http://go.microsoft.com/fwlink/?LinkId=248681">Privacy &amp; Cookies</a> </li>
+    <li class="message abuse">
+    
+            <a id="ctl00_footer_fragment_247403536__a7d07d_ctl00_ctl00_ctl01_lnkAbuse" href="javascript:WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions("ctl00$footer_fragment_247403536$_a7d07d$ctl00$ctl00$ctl01$lnkAbuse", "", true, "", "", false, true))">Report Abuse</a>
+        
+    </li>
+    
+    <li class="message version">5.6.426.415</li>
+</ul></div><div class="footer-fragment omniture-footer-fragment" id="footer-fragment-247403537">
+
+
+<script src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/2569210a296af7a76a1f0a41cafcfd42-2e0c141b75ad92888490f6154505d4c2-RequestReducedScript.js" type="text/javascript"></script>        <noscript>&lt;a href="http://www.omniture.com" title="Web Analytics"&gt;&lt;img
+        src="http://msstomsdnblogs.112.2O7.net/b/ss/msstomsdnblogs/1/H.20.2--NS/0"
+        height="1" width="1" border="0" alt="" /&gt;&lt;/a&gt;</noscript>
+
+</div><div class="footer-fragment app-insights-footer-fragment" id="footer-fragment-247403538">
+
+        <script type="text/javascript" language="javascript">
+            $(document).ready(function () {
+                window.appInsights = { queue: [], start: function (n) { function r(n, t) { n[t] = function () { var i = arguments; n.queue.push(function () { n[t].apply(n, i) }) } } var t, i; this.applicationInsightsId = n; this.accountId = null; this.appUserId = null; r(this, "logEvent"); r(this, "logPageView"); t = document.createElement("script"); t.type = "text/javascript"; t.src = "//az416426.vo.msecnd.net/scripts/ai.js"; t.async = !0; i = document.getElementsByTagName("script")[0]; i.parentNode.insertBefore(t, i) } };
+                window.appInsights.start("b4d65b72-ce61-486e-b07c-969cef6675f6");
+                window.appInsights.logPageView();
+            });
+        </script>
+    </div></div>
+<div class="footer-fragments-footer"></div>
+		
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV"), document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV"), document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV"), document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV = document.all ? document.all["ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV"] : document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV");
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV.controltovalidate = "ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbName";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV.display = "Dynamic";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV.validationGroup = "BlogPostCommentForm-ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbNameRFV.initialvalue = "";
+var ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV = document.all ? document.all["ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV"] : document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV");
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV.controltovalidate = "ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV.display = "Dynamic";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV.validationGroup = "BlogPostCommentForm-ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentRFV.initialvalue = "";
+var ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV = document.all ? document.all["ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV"] : document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV");
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV.controltovalidate = "ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV.display = "Dynamic";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV.validationGroup = "BlogPostCommentForm-ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbCommentREV.validationexpression = "^[\\s\\S]{0,3072}$";
+var ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha = document.all ? document.all["ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha"] : document.getElementById("ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha");
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha.errormessage = "*";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha.display = "Dynamic";
+ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha.validationGroup = "BlogPostCommentForm-ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00";
+//]]>
+</script>
+
+<script type="text/javascript">
+// <![CDATA[
+ctl00_content_ctl00 = new ContentFragmentPageCustomCallback('ctl00_content_ctl00',new Function('mode','parameters','callback','errorCallback','context','ctl00_content_ctl00_ctl00._doCallback(mode+\':\'+parameters,callback,context,errorCallback);'));
+// ]]>
+</script>
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx"
+dc:identifier="http://blogs.msdn.com/b/visualstudioalm/archive/2014/11/03/cloud-load-testing-rest-apis-are-here.aspx"
+dc:title="Cloud-based Load Testing REST APIs are here"
+trackback:ping="http://blogs.msdn.com/b/visualstudioalm/trackback.ashx?WeblogPostID=10569283" />
+</rdf:RDF>
+-->
+<script type="text/javascript">
+// <![CDATA[
+Telligent_Modal.Configure('\/utility\/loading.htm',['modal'],['modal-title','modal-title-2','modal-title-3','modal-title-4'],['modal-close'],['modal-content','modal-content-2'],['modal-footer','modal-footer-2','modal-footer-3'],['modal-resize'],['modal-mask'],10000,false,true,true);
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup = new Telligent_PopupPanel('ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup','menu group-navigation-content','down',100,null,null,false,'ctl00_header_fragment_247403541__a7d07d_ctl00_ctl00_GroupNavigationPopup',new Function('Core_GroupNavigation_MouseOverPopup(ctl00_header_fragment_247403541)'),new Function('Core_GroupNavigation_MouseOutPopup(ctl00_header_fragment_247403541)'));
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_ctl00 = new Telligent_CallbackManager('ctl00_content_ctl00_ctl00','ctl00$content$ctl00$ctl00','aspnetForm');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00 = new DelayedContent('ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00','ctl00_content_ctl00_w_169504__a7d07d_ctl00_ctl00_ctl00_TemporaryRssFeed_ctl01_ctl00','ctl00_content_ctl00._customCallback(\'fragment-169504\',\'ctl00$content$ctl00$w_169504$_a7d07d$ctl00$ctl00$ctl00$TemporaryRssFeed$ctl01$ctl00\',argument,null,callback,null)',false,true,null);
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+var ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01=new RateableContentRating('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01_Value', 5, '/Utility/images/', false, 'rating','rating active','rating readonly',['Terrible','Poor','Fair','Average','Good','Excellent'],true,true);
+// ]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+WebForm_InitCallback();//]]>
+</script>
+<script type="text/javascript">
+				// <![CDATA[
+				var ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl01_ajax={"SaveRating":function(rating,successFunction,failureFunction){WebForm_DoCallback('ctl00$content$ctl00$w_169506$_a7d07d$ctl00$ctl01',rating,successFunction,rating,failureFunction,true)}};
+				// ]]>
+				</script><script type="text/javascript">
+// <![CDATA[
+$('#ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Container input[value="Save"]').attr('onclick','').removeAttr('onclick').click( function(){ try { var tagText = $('#ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Tags').val(); if (!tagText) return false;var tagList = tagText.replace(';',',').split(','); var isValid = true; for (var i=0,l=tagList.length;i<l;i++) {isValid = /^[ -~]{0,100}$/ig.test(tagList[i]); if (!isValid) { alert(tagList[i] + ' : is not valide'); return false; } }ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01.Save();}catch(ex){ } return false; });
+// ]]>
+</script>
+<script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01 = new Telligent_InlineEditor('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Container',new Function('id', 'p', 'ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor.SetInlineEditorPanelAndParameter(id,p);'),new Function('return ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor.GetContent();'),new Function('c', 'ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor.SetContent(c);'),null,new Function('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor.Focus();'),new Function('w', 'h', 'ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor.Resize(w,h);'),300,90);
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+var ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_TagEditor = new TagEditor('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_TagEditor',[['Administration','Administration'],['Agile','Agile'],['ALM','ALM'],['Announcement','Announcement'],['Architecture Explorer','Architecture Explorer'],['Automated Testing','Automated Testing'],['Azure','Azure'],['Branching','Branching'],['Breakpoints','Breakpoints'],['Build Process','Build Process'],['Chef','Chef'],['Code Coverage','Code Coverage'],['Code Index','Code Index'],['Code Map','Code Map'],['Code Visualization','Code Visualization'],['Coded UI Test','Coded UI Test'],['Coded UI Test TroubleShooting','Coded UI Test TroubleShooting'],['Coded UI Testing','Coded UI Testing'],['CodeLens','CodeLens'],['Conditional Expression','Conditional Expression'],['Configuration','Configuration'],['Control is not available','Control is not available'],['Cross Browser','Cross Browser'],['Customizing','Customizing'],['Debugger Map','Debugger Map'],['Debugging','Debugging'],['DevOps','DevOps'],['Diagnostic Search','Diagnostic Search'],['Diagnostics','Diagnostics'],['DSC','DSC'],['Extensibility','Extensibility'],['FAQ','FAQ'],['Feedback','Feedback'],['Filter','Filter'],['Gesture Automation','Gesture Automation'],['Git','Git'],['Guidance','Guidance'],['HiddenContolException','HiddenContolException'],['Hit Count','Hit Count'],['insights','insights'],['Installing','Installing'],['IntelliTrace','IntelliTrace'],['Internal','Internal'],['Lab management','Lab management'],['Load Testing','Load Testing'],['Manual Testing','Manual Testing'],['Modeling','Modeling'],['modern app','modern app'],['on-premise','on-premise'],['Performance','Performance'],['Performance and Diagnostics hub','Performance and Diagnostics hub'],['Process Guidance','Process Guidance'],['Process Templates','Process Templates'],['Profiler','Profiler'],['Project Management','Project Management'],['Rangers','Rangers'],['Release Management','Release Management'],['security','security'],['Setup','Setup'],['SharePoint','SharePoint'],['Team Foundation Build','Team Foundation Build'],['Team Foundation SDK','Team Foundation SDK'],['Team Foundation Server','Team Foundation Server'],['Test Management','Test Management'],['Test Recording','Test Recording'],['Testing','Testing'],['TFBuild','TFBuild'],['TFS','TFS'],['TFS 2012','TFS 2012'],['TFS 2013','TFS 2013'],['TFService','TFService'],['TFVC','TFVC'],['Tracepoints','Tracepoints'],['UI testing','UI testing'],['UML','UML'],['Unit Testing','Unit Testing'],['Update 3','Update 3'],['Upgrade','Upgrade'],['Usage','Usage'],['Version Control','Version Control'],['Visual Studio','Visual Studio'],['Visual Studio 2010','Visual Studio 2010'],['Visual Studio 2012','Visual Studio 2012'],['Visual studio 2013','Visual studio 2013'],['Visual Studio ALM','Visual Studio ALM'],['Visual Studio Online','Visual Studio Online'],['vs update 2','vs update 2'],['vsu2','vsu2'],['Windows Phone','Windows Phone'],['Windows Store app','Windows Store app'],['Work Items','Work Items'],['XAML','XAML']],'ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Tags');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+var ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor = new InlineTagEditor('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_InlineTagEditor','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Container','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01_Tags');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02 = new Telligent_InlineEditorPanel('ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl02_State','ctl00_content_ctl00_w_169506__a7d07d_ctl00_ctl15_ctl01',false,null,null,null);
+// ]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        $('#ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_tbComment').autoResize({animate : false,extraSpace : 0,limit : 3000});//]]>
+</script>
+<script type="text/javascript">
+subtext_invisible_captcha_hideFromJavascriptEnabledBrowsers('ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_subtext_captcha');
+</script><script type="text/javascript">
+subtext_invisible_captcha_setAnswer(6, 4, 'ctl00_content_ctl00_w_169508__a7d07d_ctl00_ctl00_PlaceHolder1_ctl04_bpCommentForm_ctl04_invisibleCaptcha_answer');
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList = new DelayedContent('ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList','ctl00_content_ctl00_w_169509__a7d07d_ctl00_ctl00_DelayedFeedbackList','ctl00_content_ctl00._customCallback(\'fragment-169509\',\'ctl00$content$ctl00$w_169509$_a7d07d$ctl00$ctl00$DelayedFeedbackList\',argument,null,callback,null)',true,true,null);
+// ]]>
+</script></form>
+       
+    <script type="text/javascript">
+        $(window).load(function () {
+            $.getScript('http://widgets.membership.s-msft.com/v1/loader.js?brand=msdn&lang=en-US', function () {
+            });
+        });
+    </script>
+    
+	
+
+<div id="_WEDCSInsertedData" style="display: none;"><iframe id="_msnFrame" src="./Cloud-based Load Testing REST APIs are here - Microsoft Application Lifecycle Management - Site Home - MSDN Blogs_files/c.gif" style="z-index:-1;height:1px;width:1px;display:none;visibility:hidden;" onload="javascript:MscomBeacon();"></iframe></div></body></html>

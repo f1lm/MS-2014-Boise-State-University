@@ -1,0 +1,1 @@
+document.write("(Visited 31 time, 11 visit today)")

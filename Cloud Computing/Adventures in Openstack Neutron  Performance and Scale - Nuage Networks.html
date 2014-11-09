@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://www.nuagenetworks.net/adventures-openstack-neutron-performance-scale/ -->
+<html lang="en-US" class="wf-ffdinweb-n4-active wf-ffdinweb-n6-active wf-ffdinweb-n7-active wf-active"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta name="viewport" content="width=device-width, user-scalable = no">
+	<meta name="google-site-verification" content="U7FGvBQ7L7oongp8NUo_Xw-rMU3002f5xEFzpmggWrg">
+	
+	<link rel="shortcut icon" href="http://www.nuagenetworks.net/wp-content/themes/nuage/favicon.ico">
+	<link rel="stylesheet" href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/style.css" type="text/css" media="screen">
+	
+	<link rel="stylesheet" href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/fontello.css" type="text/css" media="screen">
+
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script type="text/javascript" async="" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/ga.js"></script><script type="text/javascript" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/rot1gon.js"></script>
+	<style type="text/css">.tk-ff-din-web{font-family:"ff-din-web",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/ed5729/1w;ff-din-web,1,TkL:H:n4,Tq2:H:n6,TcY:H:n7/d?3bb2a6e53c9684ffdc9a9bf01b5b2a62ec6379d745fd2575909b931ba22c2452bb111c26d3d653bcf71a2e0bfd21ee2d36eabb7b7c18d42494f6910949917ef08fb745329fbeea4ab58b76d6cc76b911775312811746a62468f973c63ce53e0aec4267b32069772b2e2ce43e7c820c9a25eb6c8012df646006e48edd3428ce12d74d8b0cf3ecc17b593984a12fc71bb3a54960f01b74a6b7d93d325e6fcad592ce"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+	<script src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/jquery.min.js"></script>
+	<script src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/jquery.scrollTo-1.4.3.1-min.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){ 
+			// pop-up menu
+			$('.js-show-menu').click(function() {
+				var scrolltop = $(window).scrollTop(),
+				menudistance = $('.active-nav-top-level').height() + $('#masthead').height();
+				if (scrolltop > menudistance) {
+					$('#mobile-menu-primary').addClass('active-nav-top-level');
+				} else {
+					$('#mobile-menu-primary').toggleClass('active-nav-top-level');	
+				}
+				$('body').animate({scrollTop:0}, 'slow');
+				return false;
+			});
+			$('#mobile-menu-primary a.closed').click( function() {
+				$(this).toggleClass('open closed').parent().siblings().children('a.open').toggleClass('closed open');
+				$(this).siblings('ul.sub-menu').toggleClass('active-sub closed').parent().siblings().children('ul.active-sub').toggleClass('active-sub');
+				return false;
+			});
+			
+			//ScrollTo
+			var hdrheight = -1 * ( $('#masthead').height() + 24);
+			$('.jump-link').click(function() {
+				var loc = $(this).attr('href');
+				$.scrollTo($(loc), 200, { offset: hdrheight } );
+				return false;
+			});
+		});
+		
+		jQuery(document).ready(function(){
+			jQuery('.share-icons a').click(function() {
+				window.open($(this).attr('href'),'title', 'width=600, height=600');
+				return false;
+			});
+		});
+
+	</script>
+
+			<link rel="stylesheet" type="text/css" href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/shadowbox.css">
+		<script type="text/javascript" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/shadowbox.js"></script>
+		<script type="text/javascript">
+			Shadowbox.init({});
+		</script>
+	
+	
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.5.2.5 - http://yoast.com/wordpress/seo/ -->
+<title>Adventures in Openstack Neutron: Performance and Scale - Nuage Networks</title>
+<meta name="robots" content="noodp,noydir">
+<meta name="description" content="Over the last months there has been a lot of discussion in the community regarding the viability and scalability of Neutron. We set out to prove whether sc">
+<link rel="canonical" href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/Adventures in Openstack Neutron  Performance and Scale - Nuage Networks.html">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="stylesheet" id="wpt-twitter-feed-css" href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/twitter-feed.css" type="text/css" media="all">
+<script type="text/javascript" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/jquery.js"></script>
+<script type="text/javascript" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/jquery-migrate.min.js"></script>
+
+	<!-- Yoast -->
+	
+            <script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.5 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-39520400-1']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+				</head>
+
+<body class="single single-post postid-1835 single-format-standard"> 
+
+	<div id="main" class="fw clearfix">
+
+		<header id="masthead" class="fw clearfix">
+
+			<div id="hdr-top" class="clearfix">
+				<div class="fw-contain">
+					<form method="get" id="searchform" action="http://www.nuagenetworks.net/">
+						<label for="s" class="assistive-text"></label>
+						<input type="text" class="field" name="s" id="s" placeholder="Search">
+						<input type="submit" class="submit" name="submit" id="searchsubmit" value="">
+					</form>
+				<ul class="social-media">
+					<li class="connect">CONNECT ON </li>
+										<li class="facebook"><a href="http://www.facebook.com/NuageNetworks" target="_blank"><span aria-hidden="true" class="icon-facebook"></span></a></li>
+					<li class="twitter"><a href="http://twitter.com/nuagenetworks" target="_blank"><span aria-hidden="true" class="icon-twitter"></span></a></li>
+					<li class="linkedin"><a href="https://www.linkedin.com/company/nuage-networks" target="_blank"><span aria-hidden="true" class="icon-linkedin"></span></a></li>
+					<li class="gplus"><a href="https://plus.google.com/+NuagenetworksNet-SDN/" target="_blank"><span aria-hidden="true" class="icon-google-plus"></span></a></li>
+					<li class="youtube"><a href="https://www.youtube.com/user/nuagenetworks" target="_blank"><span aria-hidden="true" class="icon-youtube"></span></a></li>
+					<li class="slideshare"><a href="http://www.slideshare.net/nuage-networks" target="_blank"><span aria-hidden="true" class="icon-SLIDE"></span></a></li>
+				</ul>
+				
+				<a href="http://www.nuagenetworks.net/contact-us" class="link-secondary-hdr contact-us">CONTACT US</a>
+				
+				</div>
+			</div>
+
+			<div class="fw-contain">
+				<h1 class="site-title">
+					<a href="http://www.nuagenetworks.net/" title="Nuage" rel="home">Nuage</a>
+				</h1>
+				<a href="http://www.nuagenetworks.net/adventures-openstack-neutron-performance-scale/#" class="js-show-menu"></a>
+				<nav id="site-navigation" class="main-navigation" role="navigation">
+					<div class="menu-primary-container">
+						<ul class="menu-primary">
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/products">Products</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/solutions">Solutions</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/partners">Partners</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/testimonials">Testimonials</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/blog">Blog</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/about-us">Company</a>
+								<a class="closed" href="http://www.nuagenetworks.net/adventures-openstack-neutron-performance-scale/#sub-menu"></a>
+									<ul class="sub-menu closed">
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/about-us">About Us</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/management-team">Management Team</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/newsroom">Newsroom</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/events">Events</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/resource-center">Resource Center</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/contact-us">Contact Us</a>
+										</li>
+									</ul>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/careers">Careers</a>
+							</li>
+							<li id="nav_search">
+								<form method="get" id="searchform" action="http://www.nuagenetworks.net/">
+									<label for="s" class="assistive-text"></label>
+									<input type="text" class="field" name="s" id="s" placeholder="Search">
+									<input type="submit" class="submit" name="submit" id="searchsubmit" value="">
+								</form>
+							</li>
+							<li id="nav_contact">
+								<a href="http://www.nuagenetworks.net/contact-us">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+
+		</header>
+		
+		<div id="content" class="fw clearfix">
+			<div id="wrapper" class="fw-contain">
+
+							<div id="social-container">
+					<div class="social-main slide-main">
+						<div id="social-header">
+							<p>CONNECT</p>
+						</div>
+						<div class="sliding-icons">
+							<ul class="sliding-social">
+									
+								<li>
+									<a href="http://www.facebook.com/NuageNetworks" target="_blank">
+										<span aria-hidden="true" class="icon-facebook share-icon"></span>
+									</a>
+								</li>
+								<li>
+									<a href="http://twitter.com/nuagenetworks" target="_blank">
+										<span aria-hidden="true" class="icon-twitter share-icon">
+									</span></a>
+								</li>
+								<li>
+									<a href="https://www.linkedin.com/company/nuage-networks" target="_blank">
+										<span aria-hidden="true" class="icon-linkedin share-icon"></span>
+									</a>
+								</li>
+								<li>
+									<a href="https://plus.google.com/+NuagenetworksNet-SDN/" target="_blank">
+										<span aria-hidden="true" class="icon-google-plus share-icon"></span>
+									</a>
+								</li>
+								<li>
+									<a href="https://www.youtube.com/user/nuagenetworks" target="_blank">
+										<span aria-hidden="true" class="icon-youtube share-icon"></span>
+									</a>
+								</li>
+								<li>
+									<a href="http://www.slideshare.net/nuage-networks" target="_blank">
+										<span aria-hidden="true" class="icon-SLIDE share-icon"></span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+							<div class="main-content-wrap">
+
+					<div class="content-col">
+						<div class="content-col-wrap">
+							<h1 class="page-title">
+								Blog
+							</h1>
+							<article class="post">
+								<header>
+									<h2>
+										Adventures in Openstack Neutron: Performance and Scale									</h2>
+
+
+							
+									<p class="post-meta">
+										By Dimitri Stiliadis, October 28, 2014									</p>
+								</header>
+								<div class="entry-content">
+								<p>Over the last months there has been a lot of discussion in the community regarding the viability and scalability of Neutron. We set&nbsp;out to prove whether scale is actually a concern, especially when Neutron is supported by an SDN system such as the Nuage VSP. Some previous attempts to prove scale&nbsp;with Neutron [1] were either abandoned or reduced in scope.</p>
+<p>Neutron is composed of two components: the Neutron server that implements the north bound API, and the reference implementation based on ML2 and OVS.&nbsp;When the Nuage VSP platform is deployed in conjunction with Neutron, the reference plugin is&nbsp;replaced by the Nuage plugin and the control of the network data path is delegated to the Nuage VSD platform.&nbsp;In this implementation, the Neutron server operates as the API interface between Nova and&nbsp;the VSP platform. The Nuage VSP is responsible for all network implementations&nbsp;including DHCP, NAT, routing, and there is no need for l3 agents, dhcp agents or for that&nbsp;matter any centralized entity to manage the network.</p>
+<p>It was clear from the experiences reported in [1] that in most cases the performance issues identified with Neutron were all in the reference implementation. Achieving scale though, is not always &nbsp;just an issue of hardening code, but very often fundamental in the architecture of the system. In these series of blogs we will discuss the set of &nbsp;design and architectural decisions that allow the Nuage VSP system to scale and provide a robust SDN control plane&nbsp;for cloud deployments. Before we go into the technology though, we will present&nbsp;some of our performance results and how we tuned Openstack to scale performance.</p>
+<p>We started with a basic Openstack Icehouse install with the upstream Nuage plugin&nbsp;and tried to see how we can scale the infrastructure and what is the control plane&nbsp;performance that we could achieve. For these tests, our focus was to identify the maximum instance activation rate we could achieve, assuming a single Nova controller&nbsp;and a single Neutron server. Our setup included 40 compute nodes, and instances were activated using libvirt-lxc so that we can maximize the instance activation rate and not depend&nbsp;on VM boot times. Remember that our goal was to push Neutron to its limits. For the Nuage&nbsp;platform we used a single VSD and a single VSC in the control plane.</p>
+<p>We started issuing instance activation commands (batch activation with –num-instance=50),&nbsp;and we quickly discovered that the system was bottlenecked even though CPUs were underutilized,&nbsp;and we could not achieve any instance activation rate better than 1-2 instances/second. We started&nbsp;optimizing the default nova/neutron configurations. Increased the number of nova-conductor workers,&nbsp;increased the nova-api workers and increased the neutron API workers. Performance started&nbsp;improving, but then quickly realized that processes were timing-out on keystone APIs.&nbsp;Looking for an easy solution, we updated keystone to Juno that supports eventlet based workers&nbsp;and immediately the bottleneck seemed to be removed. At this point we had several keystone workers,&nbsp;but things were still not going as fast as we wanted. The Neutron server was idle, and the Nuage VSD was idle as well. &nbsp;A little more investigation showed that the default mysql settings needed some tuning&nbsp;as well. Because of the multiple workers, we had to increase the mysql connections&nbsp;and mysql had to be configured to accept these connections.</p>
+<p>After all these modifications, we were finally able to run our test. We configured&nbsp;5000 networks in Neutron and we started activating VMs. We managed to get a rate of about&nbsp;10 instances/second (600 instances/minute) that is more than double than what was reported in [1]. Note that the tests in [1] abandoned Neutron and relied only on Nova network&nbsp;and hit several problems when there were more than 170 instances/server. We were actually&nbsp;running at this point with close to 500 instances per server. &nbsp;Thus, with the Nuage plugin we were able to improve on the previous instance activation numbers while maintaining all the&nbsp;functionality of Neutron in place. But, even at this activation rate, both the Neutron server and the Nuage VSP were still pretty much idle. We were not happy with idle servers.</p>
+<p>What we noticed was that since we had a single nova controller, there&nbsp;was just one nova-scheduler process and this was the bottleneck in these tests.&nbsp;Since our goal was not to optimize nova, but rather prove whether Nuetron/Nuage can scale we decided to try an alternative test. We modified our test scripts and every instance was started with 5 interfaces (i.e. for every instance booted we would&nbsp;have to configure 5 neutron ports and implement of all associated functions). This means that essentially nova-scheduler had to do only 1/5th of the work that the Neutron server had to do.&nbsp;With this new test in hand, we started activating instances in batches of 50, where all instances&nbsp;in a batch had an interface in 5 different works. The result: We activated 4K instances in 40 servers with&nbsp;20K neutron ports across 400 networks in about 9 minutes. At this time, there were 100 instances per server with 500 Neutron ports per server.</p>
+<p>In summary, we had a neutron implementation that was activating 35 ports/second end-to-end (including DHCP, security rules, etc) and without errors. For all practical purposes, nova was still the bottleneck and the neutron server was no more than 60% utilized.</p>
+<p>Based on the above results we can say with confidence that the network functions&nbsp;and a Neutron/Nuage implementation is by far not the bottleneck in an Openstack deployment. All the bottlenecks in the above tests were removed by properly tuning Nova and Keystone, and even after all tuning, nova-scheduler remained as the main bottleneck. This is the &nbsp;opposite of what has been reported previously, where the Neutron reference &nbsp;implementation was the main bottleneck for scale.</p>
+<p>A detailed presentation of the above results together with details on the parameter tuning<br>
+will be presented during our <a href="http://openstacksummitnovember2014paris.sched.org/event/e4a070ff91747d32a9f5ec95e4f444e7" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://openstacksummitnovember2014paris.sched.org&#39;]);" target="_blank">talk</a> in the Paris Openstack Summit.</p>
+<p>[1]<a href="http://javacruft.wordpress.com/2014/06/18/168k-instances/" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;outbound-article&#39;,&#39;http://javacruft.wordpress.com&#39;]);" target="_blank"> How we scaled Openstack to launch 168,000 cloud instances.</a></p>
+
+
+								
+							</div></article>
+
+							
+
+					<aside id="share-bar">
+						<h3>Share This</h3>
+							<div class="share-icons">
+
+								
+								<a href="http://twitter.com/share?text=Adventures+in+Openstack+Neutron%3A+Performance+and+Scale&url=http%3A%2F%2Fwww.nuagenetworks.net%2Fadventures-openstack-neutron-performance-scale%2F">
+									<span aria-hidden="true" class="icon-twitter"><span class="hidden-text">Share this on Twitter</span></span>
+								</a>
+
+								<a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.nuagenetworks.net%2Fadventures-openstack-neutron-performance-scale%2F&t=Adventures+in+Openstack+Neutron%3A+Performance+and+Scale">
+									<span aria-hidden="true" class="icon-facebook share-icon"><span class="hidden-text">Share this on Facebook</span></span>
+								</a>
+
+								<a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.nuagenetworks.net%2Fadventures-openstack-neutron-performance-scale%2F">
+									<span aria-hidden="true" class="icon-google-plus share-icon"><span class="hidden-text">Share this on Google Plus</span></span>
+								</a>
+
+								<a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.nuagenetworks.net%2Fadventures-openstack-neutron-performance-scale%2F&title=Adventures+in+Openstack+Neutron%3A+Performance+and+Scale&source=Nuage%Networks">
+									<span class="icon-linkedin"><span class="hidden-text">Share this on LinkedIn</span></span>
+								</a>
+
+							</div>
+					</aside>
+
+
+							<div id="comments">
+		
+		
+		
+	<div id="respond">
+	<div class="hr hr-lgmargin"></div>
+		<h3>Post a Comment</h3>
+
+					<form id="commentform" action="http://www.nuagenetworks.net/wp-comments-post.php" method="post">
+				
+				<div id="cancel-comment-reply">
+					<p class="comment-notes"><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.nuagenetworks.net/adventures-openstack-neutron-performance-scale/#respond" style="display:none;">Click here to cancel reply.</a></p>
+				</div>
+				
+				<p class="comment-notes">
+					Comments are moderated and will be published/addressed upon review. Your email address will not be published.
+				</p>
+				<p class="comment-notes">
+					Required fields are marked <span class="required">*</span>
+				</p>
+				
+									<img alt="" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/avatar.gif" class="avatar left" height="40" width="40">
+					<div id="comment-form-fields">
+						<p class="comment-form-comment">
+							<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment"></textarea>
+						</p>
+						<div id="register">
+							<h6>Register</h6>
+							<p class="comment-form-author">
+								<input id="author" name="author" type="text" value="" size="30" aria-required="true" placeholder="Name">
+							</p>
+							<p class="comment-form-email">
+								<input id="email" name="email" type="text" value="" size="30" aria-required="true" placeholder="Email">
+							</p>
+							<p class="comment-form-url">
+								<input id="url" name="url" type="text" value="" size="30" placeholder="Website">
+							</p>
+
+														<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="a3e1753740"></p>
+							<p class="form-submit">
+								<input name="submit" type="submit" id="submit" value="Post Comment">
+								<input type="hidden" name="comment_post_ID" value="1835" id="comment_post_ID">
+								<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+							</p>
+						</div>
+					</div>
+				<input type="hidden" name="comment_post_ID" value="1835" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+								</form>
+
+		
+		</div><!-- #respond -->
+	</div><!-- #comments -->
+						</div>
+					</div>
+
+					<div class="block-col sidebar">
+
+																		<section class="block block-blog">
+							<h2 class="block-title">
+								Testimonials
+							</h2>
+							<div class="block-content">
+
+
+					<div id="blog-content" class="blog-content clearfix"><div class=""><p></p><p>“We are pleased to implement Nuage Networks with OpenStack in our cloud infrastructure. The Nuage Networks SDN technology allows us to offer our customers cloud services in a more dynamic way, giving them the capability to reduce their time-to-market with a programmable and automated networking environment,” <b>Octave Klaba</b>, CEO of OVH. <a href="http://www.nuagenetworks.net/press-releases/ovh-sdn-nuage-networks/">Read more</a>.</p>
+<p></p></div></div>
+
+								<a href="http://www.nuagenetworks.net/testimonials" class="more-link">View All Testimonials</a>
+							</div>
+						</section>						
+						<section class="block block-twitter">
+							<h2 class="block-title">
+								Twitter
+							</h2>
+							<div class="block-content">
+
+						<div class="tweet-content"><p class="tweet">11/5: Please join <a href="https://twitter.com/search?q=%23BBVA">#BBVA</a> at <a href="https://twitter.com/search?q=%23OpenStack">#OpenStack</a> Summit to hear their use of @<a href="https://twitter.com/OpenStack" title="OpenStack">OpenStack</a> in an <a href="https://twitter.com/search?q=%23enterprise">#enterprise</a> network. <a href="http://t.co/dRiEcyQWWL">bit.ly/bbva-nuage</a> cc @<a href="https://twitter.com/bbva" title="BBVA ">bbva</a> <a href="https://twitter.com/search?q=%23SDN">#SDN</a></p><p class="twt-meta">October 29, 2014 @ 06:20</p></div>
+
+								<a href="http://twitter.com/nuagenetworks" class="more-link">Follow Nuage Networks</a>
+							</div>
+						</section>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+				<nav id="mobile-site-navigation" class="main-navigation" role="navigation">
+					<div class="menu-primary-container">
+						<ul id="mobile-menu-primary" class="menu-primary">
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/products">Products</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/solutions">Solutions</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/partners">Partners</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/testimonials">Testimonials</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/blog">Blog</a>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/about-us">Company</a>
+								<a class="closed" href="http://www.nuagenetworks.net/adventures-openstack-neutron-performance-scale/#sub-menu"></a>
+									<ul class="sub-menu closed">
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/about-us">About Us</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/management-team">Management Team</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/newsroom">Newsroom</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/events">Events</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/resource-center">Resource Center</a>
+										</li>
+										<li class="menu-item">
+											<a href="http://www.nuagenetworks.net/contact">Contact Us</a>
+										</li>
+									</ul>
+							</li>
+							<li class="menu-item">
+								<a href="http://www.nuagenetworks.net/careers">Careers</a>
+							</li>
+							<li id="nav_search">
+								<form method="get" id="searchform" action="http://www.nuagenetworks.net/">
+									<label for="s" class="assistive-text"></label>
+									<input type="text" class="field" name="s" id="s" placeholder="Search">
+									<input type="submit" class="submit" name="submit" id="searchsubmit" value="">
+								</form>
+							</li>
+							<li id="nav_contact">
+								<a href="http://www.nuagenetworks.net/contact-us">Contact</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+
+	</div>
+
+	<div class="footer fw">
+		<footer id="colophon" class="fw-contain clearfix" role="contentinfo">
+
+			<div id="footer-main" class="clearfix">
+				<div class="fourth ft-first">
+					<h5>
+						<a href="http://www.nuagenetworks.net/about-us">About Nuage Networks</a>
+					</h5>
+					<p>
+						We're Nuage Networks and we deliver NOW to datacenter networks. We combine innovative technology with unmatched expertise to help make sophisticated network resources as readily consumable as compute and storage.					</p>
+					<a href="http://www.nuagenetworks.net/about-us" class="more-link">Read More</a>
+				</div>
+
+				<div class="third ft-second">
+					<h5>
+						<a href="http://www.nuagenetworks.net/blog">Blog</a>
+					</h5>
+					
+					<div id="blog-content-1" class="blog-content clearfix"><p class="blog-title"><a href="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/Adventures in Openstack Neutron  Performance and Scale - Nuage Networks.html">Adventures in Openstack Neutron: Performance and Scale</a></p><p class="blog-meta">October 28 - Over the last months there has been a lot of discussion in the community regarding the viability and scalability of Neutron. We set&nbsp;out to prove whether scale is actually a concern, especially when Neutron is supported by an SDN system such as the Nuage VSP. Some previous attempts to prove scale&nbsp;with Neutron [1] were either</p></div>					<a href="http://www.nuagenetworks.net/blog" class="more-link">Visit Blog</a>
+				</div>
+				
+				<div class="fourth ft-last">
+					<div id="twt-feed">
+						<h5>
+							<a href="http://twitter.com/nuagenetworks"><span class="arial">@</span>nuagenetworks</a>
+						</h5>
+
+						<p class="tweet">11/5: Please join <a href="https://twitter.com/search?q=%23BBVA">#BBVA</a> at <a href="https://twitter.com/search?q=%23OpenStack">#OpenStack</a> Summit to hear their use of @<a href="https://twitter.com/OpenStack" title="OpenStack">OpenStack</a> in an <a href="https://twitter.com/search?q=%23enterprise">#enterprise</a> network. <a href="http://t.co/dRiEcyQWWL">bit.ly/bbva-nuage</a> cc @<a href="https://twitter.com/bbva" title="BBVA ">bbva</a> <a href="https://twitter.com/search?q=%23SDN">#SDN</a></p><p class="twt-meta">October 29, 2014 @ 06:20</p>
+
+
+
+						<a href="http://twitter.com/nuagenetworks" class="more-link">Follow Nuage Networks</a>
+					</div>
+					<div class="sm-btns">
+						<ul class="social-media">
+														<li class="facebook"><a href="http://www.facebook.com/NuageNetworks" target="_blank"><span aria-hidden="true" class="icon-facebook"></span></a></li>
+							<li class="twitter"><a href="http://twitter.com/nuagenetworks" target="_blank"><span aria-hidden="true" class="icon-twitter"></span></a></li>
+							<li class="linkedin"><a href="https://www.linkedin.com/company/nuage-networks" target="_blank"><span aria-hidden="true" class="icon-linkedin"></span></a></li>
+							<li class="gplus"><a href="http://www.facebook.com/NuageNetworks" target="_blank"><span aria-hidden="true" class="icon-google-plus"></span></a></li>
+							<li class="youtube"><a href="https://www.youtube.com/user/nuagenetworks" target="_blank"><span aria-hidden="true" class="icon-youtube"></span></a></li>
+							<li class="slideshare"><a href="http://www.slideshare.net/nuage-networks" target="_blank"><span aria-hidden="true" class="icon-SLIDE"></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer-sub">
+				<small>
+					©2014 Nuage Networks. All Rights Reserved. An Alcatel-Lucent® Venture
+				</small>
+				<div id="footer-links">
+					<a href="http://www.nuagenetworks.net/terms-and-conditions">Terms &amp; Conditions</a>
+					<a href="http://www.nuagenetworks.net/privacy-policy">Privacy Policy</a>
+					<a href="http://www.nuagenetworks.net/contact-us">Contact</a>
+				</div>
+			</div>
+
+		</footer>
+	</div>
+
+
+<script type="text/javascript" src="./Adventures in Openstack Neutron  Performance and Scale - Nuage Networks_files/comment-reply.min.js"></script>
+
+<div id="sb-container"><div id="sb-overlay"></div><div id="sb-wrapper"><div id="sb-title"><div id="sb-title-inner"></div></div><div id="sb-wrapper-inner"><div id="sb-body"><div id="sb-body-inner"></div><div id="sb-loading"><div id="sb-loading-inner"><span>loading</span></div></div></div></div><div id="sb-info"><div id="sb-info-inner"><div id="sb-counter"></div><div id="sb-nav"><a id="sb-nav-close" title="Close" onclick="Shadowbox.close()"></a><a id="sb-nav-next" title="Next" onclick="Shadowbox.next()"></a><a id="sb-nav-play" title="Play" onclick="Shadowbox.play()"></a><a id="sb-nav-pause" title="Pause" onclick="Shadowbox.pause()"></a><a id="sb-nav-previous" title="Previous" onclick="Shadowbox.previous()"></a></div></div></div></div></div></body></html>

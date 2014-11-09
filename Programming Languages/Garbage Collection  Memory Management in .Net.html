@@ -1,0 +1,1232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0096)http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+Garbage Collection: Memory Management in .Net
+</title> <title>Garbage Collection: Memory Management in .Net</title> <meta name="Keywords" content="Garbage Collection,Memory Management in .Net"> <meta name="DESCRIPTION" content="In this article we will look at the mechanics of the Garbage Collection and the Memory Management."> <meta name="Search.TopicType" content="kbArticle"> <meta name="Search.PublishDate" content="15 Jun 2010 12:00:00 GMT"> <meta name="Search.RevisedDate" content="15 Jun 2010 01:33:07 GMT"> <meta name="Search.UserRating" content="0%"> <meta name="CODE_LANGUAGE" content="C#"> <meta name="MS.LOCALE" content="en-US">  <meta name="Author" content="Ritesh Ratna"> <link rel="stylesheet" type="text/css" href="./Garbage Collection  Memory Management in .Net_files/csharp_articles_20092014.css"><link href="./Garbage Collection  Memory Management in .Net_files/SyntaxHighlighter.css" rel="stylesheet" type="text/css"><link rel="Shortcut Icon" href="http://www.c-sharpcorner.com/Images/McnIcon.ico"><meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.3)"><meta property="fb:app_id" content="440531902678919"> <script src="./Garbage Collection  Memory Management in .Net_files/cb=gapi.loaded_1" async=""></script><script src="./Garbage Collection  Memory Management in .Net_files/cb=gapi.loaded_0" async=""></script><script src="./Garbage Collection  Memory Management in .Net_files/in.js"></script><script src="./Garbage Collection  Memory Management in .Net_files/widgets.js"></script><script type="text/javascript" async="" src="./Garbage Collection  Memory Management in .Net_files/client-plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./Garbage Collection  Memory Management in .Net_files/all.js"></script><script type="text/javascript" async="" src="./Garbage Collection  Memory Management in .Net_files/ga.js"></script><script src="./Garbage Collection  Memory Management in .Net_files/jquery.TrendingNow_09032014.js"></script><script src="./Garbage Collection  Memory Management in .Net_files/MindcrackerJScript.js"></script><script src="./Garbage Collection  Memory Management in .Net_files/jquery.min.js" type="text/javascript"></script> <script type="text/javascript">
+var $j = jQuery.noConflict();
+</script> <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style><script src="./Garbage Collection  Memory Management in .Net_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link{height:1% !important;}#li_ui_li_gen_1414802687980_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1414802687980_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link:link, #li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link:visited, #li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link:hover, #li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1414802687980_0 a#li_ui_li_gen_1414802687980_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-logo, #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-logo{}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title, #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title{}.IN-shadowed #li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title{}.IN-shadowed #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title, .IN-shadowed #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title{}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text, #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title-text, #li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title-text *{color:#000 !important;}#li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title-text, #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title-text, #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title-text *, #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title-text *{color:#666 !important;}#li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title #li_ui_li_gen_1414802687980_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text, .success #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1414802687980_0 #li_ui_li_gen_1414802687980_0-title{}.success #li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title-text, .success #li_ui_li_gen_1414802687980_0.hovered #li_ui_li_gen_1414802687980_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title, .success #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title-text, .success #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title-text, .success #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title-text *, .success #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1414802687980_0.clicked #li_ui_li_gen_1414802687980_0-title, .IN-shadowed .success #li_ui_li_gen_1414802687980_0.down #li_ui_li_gen_1414802687980_0-title{}#li_ui_li_gen_1414802687995_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1414802687995_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1414802687995_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1414802687995_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1414802687995_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1414802687995_1-container.IN-hidden #li_ui_li_gen_1414802687995_1 {display:none !important;}</style></head> <body id="MasterBody" data-twttr-rendered="true"> <form name="aspnetForm" method="post" action="http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx" id="aspnetForm"> <div> <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""> <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""> <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1Mg9kFgJmDw8WDh4IQXV0aG9ySUQFC3JpdGVzaHJhdG5hHg1DdXJyZW50UmF0aW5nBQEwHgZTdGF0dXMFATIeC0hhc0ZlZWRiYWNraB4JQXJ0aWNsZUlEBSQyY2I5MjE0ZS05NjdjLTRjNTktYTkyMi01N2RiMmJhZTgxNGMeD01pbm9yQ2F0ZWdvcnlJZAUDMTQ0Hg5Ud2l0dGVySGFuZGxlcmVkFgICAQ9kFiZmD2QWBgIBD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIEFghmD2QWAmYPFQJqaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzY1Nzk0ZS9pbnRlcnZpZXctcXVlc3Rpb25zLWFuZC1hbnN3ZXJzLWZvci0zLXllYXItbmV0LWV4cGVyaWVuY2VkL0BDYXJlZXIgYWR2aWNlOiBJbnRlcnZpZXcgUXVlc3Rpb25zIEZvciAzIFllYXIgLk5FVCBQcm9mZXNzaW9uYWxzZAIBD2QWAmYPFQJuaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9FdmVudHMvMTA4L0MtU2hhcnAtY29ybmVyLWRpbm5lci1wYXJ0eS1kdXJpbmctbWljcm9zb2Z0LW12cC1zdW1taXQtcmVkbW9uZC13LmFzcHg9QyMgQ29ybmVyIERpbm5lciBQYXJ0eSBkdXJpbmcgTWljcm9zb2Z0IE1WUCBTdW1taXQgUmVkbW9uZCBXQWQCAg9kFgJmDxUCUmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vbmV3cy80MDk4L3NlcHRlbWJlci0yMDE0LW1vbnRoLXdpbm5lcnMtYW5ub3VuY2VkLmFzcHg3Q09OR1JBVFVMQVRJT05TOiBTZXB0ZW1iZXIgMjAxNCBNb250aCBXaW5uZXJzIEFubm91bmNlZGQCAw9kFgJmDxUCX2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS9tYWhlc2gvdG9wLTEwLXRoaW5ncy15b3Utc2hvdWxkLW5ldmVyLXNheS10by15b3VyLWJvc3MvPkNhcmVlciBBZHZpY2U6IFRvcCAxMCBUaGluZ3MgWW91IFNob3VsZCBOZXZlciBTYXkgVG8gWW91ciBCb3NzZAIDD2QWEgICDxYCHgdWaXNpYmxlZxYEAgEPDxYCHghJbWFnZVVybAVWaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlL0F1dGhvckltYWdlL2E0OGY3OC5wbmcuYXNoeD93aWR0aD0yNSZoZWlnaHQ9MjVkZAIDDw8WAh4EVGV4dAUITWlsc3RlaW5kZAIDDw8WAh4LTmF2aWdhdGVVcmwFS2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXNlclJlZ2lzdHJhdGlvbi9Vc2VyUmVnaXN0cmF0aW9uLmFzcHg/Y2hlY2s9cmRkAgcPFgQeBXRpdGxlBR9Zb3UgaGF2ZSAwIG5ldyBhcnRpY2xlIGNvbW1lbnRzHwhnZAIJDxYCHwcCARYCZg9kFgJmDxUIP2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vYXV0aG9ycy9mZjBkMGYvYWJoaXNoZWsteWFkYXYuYXNweA5BYmhpc2hlayBZYWRhdkxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvQXV0aG9ySW1hZ2UvZmYwZDBmMjAxNDAzMjEwMjA0MTAuanBnMkhhdHMgb2ZmIHRvIG91ciBDIyBDb3JuZXIgdGVhbS4uLkdyZWF0IFN0ZXAgISEhIDopDGNvbW1lbnRlZCBvbm1odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMTgxMDMxL3ByYXlhbi1hLUMtU2hhcnAtY29ybmVyLWluaXRpYXRpdmUtb2ZmaWNpYWwtcmVjYXAvRGVmYXVsdC5hc3B4LlByYXlhbiwgQSBDIyBDb3JuZXIgSW5pdGlhdGl2ZTogT2ZmaWNpYWwgUmVjYXAMT2N0IDA5LCAyMDE0ZAILDxYCHwhnZAIMDw8WAh8IZ2RkAg8PDxYCHwhoZGQCEQ8WAh4EaHJlZgUcaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbWQCEg9kFgICAQ8PFgIfCGhkZAIFD2QWAmYPZBYCAgEPPCsACQEADxYEHghEYXRhS2V5cxYAHwcCRGQWiAFmD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIzNy9uZXQtNC01LmFzcHgILk5FVCA0LjVkAgEPZBYCZg8VAi9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTMxL2Fkby1uZXQuYXNweAdBRE8uTkVUZAICD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE3Ni9hamF4LmFzcHgEQUpBWGQCAw9kFgJmDxUCPGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS81Ni9hbGdvcml0aG1zLWluLUMtU2hhcnAuYXNweBBBbGdvcml0aG1zIGluIEMjZAIED2QWAmYPFQI7aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI0Ny9hbmRyb2lkLXByb2dyYW1taW5nLmFzcHgTQW5kcm9pZCBQcm9ncmFtbWluZ2QCBQ9kFgJmDxUCNGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMDcvYW5kcm9pZC13ZWFyLmFzcHgMQW5kcm9pZCBXZWFyZAIGD2QWAmYPFQIxaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwMi9hbmd1bGFyanMuYXNweAlBbmd1bGFySlNkAgcPZBYCZg8VAjhodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTcyL2FydGljbGVzLUMtU2hhcnAuYXNweAtBcnRpY2xlcyBDI2QCCA9kFgJmDxUCN2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83NS9Bc3AtTmV0LWNvbnRyb2xzLmFzcHgQQVNQLk5FVCBDb250cm9sc2QCCQ9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMjYvQXNwLU5ldC1tdmMuYXNweAtBU1AuTkVUIE1WQ2QCCg9kFgJmDxUCO2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMjQvQXNwLU5ldC1wcm9ncmFtbWluZy5hc3B4E0FTUC5ORVQgUHJvZ3JhbW1pbmdkAgsPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMzAzL2JhY2tib25lanMuYXNweApCYWNrYm9uZWpzZAIMD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxNC9iaWctZGF0YS5hc3B4CEJpZyBEYXRhZAIND2QWAmYPFQI2aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIwNS9iaXp0YWxrLXNlcnZlci5hc3B4DkJpelRhbGsgU2VydmVyZAIOD2QWAmYPFQI4aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE0NC9DLVNoYXJwLWxhbmd1YWdlLmFzcHgLQyMgTGFuZ3VhZ2VkAg8PZBYCZg8VAjlodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTY4L0MtU2hhcnAtdHV0b3JpYWxzLmFzcHgMQyMgVHV0b3JpYWxzZAIQD2QWAmYPFQIxaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI4Mi9jLWNwcC1tZmMuYXNweAtDLCBDKyssIE1GQ2QCEQ9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzgvY2FyZWVyLWFkdmljZS5hc3B4DUNhcmVlciBBZHZpY2VkAhIPZBYCZg8VAjBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjgwL2NoYXB0ZXJzLmFzcHgIQ2hhcHRlcnNkAhMPZBYCZg8VAjVodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjIwL2RhdGFiYXNlcy1kYmEuYXNweA9EYXRhYmFzZXMgJiBEQkFkAhQPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTQ1L2RlcGxveW1lbnQuYXNweApEZXBsb3ltZW50ZAIVD2QWAmYPFQI6aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzYyL2Rlc2lnbi1hcmNoaXRlY3R1cmUuYXNweBVEZXNpZ24gJiBBcmNoaXRlY3R1cmVkAhYPZBYCZg8VAjRodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjkzL2R5bmFtaWNzLWNybS5hc3B4DER5bmFtaWNzIENSTWQCFw9kFgJmDxUCLmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMDYvZnNoYXJwLmFzcHgCRiNkAhgPZBYCZg8VAjdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjk0L2dyYXBoaWNzLWRlc2lnbi5hc3B4D0dyYXBoaWNzIERlc2lnbmQCGQ9kFgJmDxUCMGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNDMvaG93LWRvLWkuYXNweAlIb3cgZG8gSSBkAhoPZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjQ0L2h0bWwtNS5hc3B4BkhUTUwgNWQCGw9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMTAvaHlicmlkLWFwcHMuYXNweAtIeWJyaWQgQXBwc2QCHA9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS82Ni9pbnRlcm5ldC13ZWIuYXNweA5JbnRlcm5ldCAmIFdlYmQCHQ9kFgJmDxUCK2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzUvaW9zLmFzcHgDaU9TZAIeD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI1OC9qYXZhLmFzcHgESmF2YWQCHw9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzMvamF2YXNjcmlwdC5hc3B4CkphdmFTY3JpcHRkAiAPZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM2L2pxdWVyeS5hc3B4BkpRdWVyeWQCIQ9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNzgvbGVhZGVyc2hpcC5hc3B4CkxlYWRlcnNoaXBkAiIPZBYCZg8VAixodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTgwL2xpbnEuYXNweARMSU5RZAIjD2QWAmYPFQI5aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI4Ny9taWNyb3NvZnQtc3VyZmFjZS5hc3B4EU1pY3Jvc29mdCBTdXJmYWNlZAIkD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwNC9ub2RlLWpzLmFzcHgHTm9kZS5qc2QCJQ9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODgvb2ZmaWNlLTIwMTMuYXNweAtPZmZpY2UgMjAxM2QCJg9kFgJmDxUCLmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMDgvb29wb29kLmFzcHgHT09QL09PRGQCJw9kFgJmDxUCOWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMjIvb3BlcmF0aW5nLXN5c3RlbXMuYXNweBFPcGVyYXRpbmcgU3lzdGVtc2QCKA9kFgJmDxUCLmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yOTkvb3JhY2xlLmFzcHgGT3JhY2xlZAIpD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxMS9waGlsb3NvcGh5LmFzcHgKUGhpbG9zb3BoeWQCKg9kFgJmDxUCK2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNzkvcGhwLmFzcHgDUEhQZAIrD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwOC9wb3dlci1iaS5hc3B4CFBvd2VyIEJJZAIsD2QWAmYPFQI6aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzY5L3ByaW50aW5nLWluLUMtU2hhcnAuYXNweA5QcmludGluZyBpbiBDI2QCLQ9kFgJmDxUCMGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODMvcHJvZHVjdHMuYXNweAhQcm9kdWN0c2QCLg9kFgJmDxUCPWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xODgvcmVwb3J0cy11c2luZy1DLVNoYXJwLmFzcHgQUmVwb3J0cyB1c2luZyBDI2QCLw9kFgJmDxUCNmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83MS9zZWN1cml0eS1pbi1uZXQuYXNweBBTZWN1cml0eSBpbiAuTkVUZAIwD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE4My9zaGFyZXBvaW50LmFzcHgKU2hhcmVQb2ludGQCMQ9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNTgvc21hcnQtZGV2aWNlcy5hc3B4DVNtYXJ0IERldmljZXNkAjIPZBYCZg8VAitodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjE2L3NxbC5hc3B4A1NRTGQCMw9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xODcvc3FsLXNlcnZlci5hc3B4ClNRTCBTZXJ2ZXJkAjQPZBYCZg8VAjhodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjc3L3Zpc3VhbC1iYXNpYy1uZXQuYXNweBFWaXN1YWwgQmFzaWMgLk5FVGQCNQ9kFgJmDxUCNGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS85L3Zpc3VhbC1DLVNoYXJwLmFzcHgJVmlzdWFsIEMjZAI2D2QWAmYPFQI5aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzEzOS92aXN1YWwtc3R1ZGlvLW5ldC5hc3B4ElZpc3VhbCBTdHVkaW8gLk5FVGQCNw9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODEvdmlzdWFsLXN0dWRpby0yMDEyLmFzcHgSVmlzdWFsIFN0dWRpbyAyMDEyZAI4D2QWAmYPFQI6aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI5Ni92aXN1YWwtc3R1ZGlvLTIwMTMuYXNweBJWaXN1YWwgU3R1ZGlvIDIwMTNkAjkPZBYCZg8VAjhodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTkyL3djZi13aXRoLUMtU2hhcnAuYXNweAtXQ0Ygd2l0aCBDI2QCOg9kFgJmDxUCN2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNTQvd2ViLWRldmVsb3BtZW50LmFzcHgPV2ViIERldmVsb3BtZW50ZAI7D2QWAmYPFQI/aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzEzMy93ZWItc2VydmljZXMtaW4tQy1TaGFycC5hc3B4EldlYiBTZXJ2aWNlcyBpbiBDI2QCPA9kFgJmDxUCMWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNzUvd2luZG93cy04LmFzcHgJV2luZG93cyA4ZAI9D2QWAmYPFQI1aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIzMi93aW5kb3dzLWF6dXJlLmFzcHgNV2luZG93cyBBenVyZWQCPg9kFgJmDxUCPGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83Ni93aW5kb3dzLWZvcm1zLUMtU2hhcnAuYXNweBFXaW5kb3dzIEZvcm1zIEMjIGQCPw9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNDUvd2luZG93cy1waG9uZS5hc3B4DVdpbmRvd3MgUGhvbmVkAkAPZBYCZg8VAjpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTM4L3dpbmRvd3Mtc3RvcmUtYXBwcy5hc3B4EldpbmRvd3MgU3RvcmUgQXBwc2QCQQ9kFgJmDxUCK2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xOTEvd3BmLmFzcHgDV1BGZAJCD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE5MC94YW1sLmFzcHgEWEFNTGQCQw9kFgJmDxUCKmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83OS94bWwuYXNweANYTUxkAgEPZBYCAgEPFgIfBwIKFhRmD2QWAmYPFQJqaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzYzODEyMi9mb3Jtcy1hdXRoZW50aWNhdGlvbi1mb3JtLWF1dGhvcml6YXRpb24tYW5kLXN0b3JpbmctZW5jcnlwLydGb3JtIEF1dGhlbnRpY2F0aW9uLCBGb3JtIEF1dGhvcml6YSAuLi5kAgEPZBYCZg8VAjtodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDBhOGI3L3dlYi1zZXJ2aWNlLxJXZWIgU2VydmljZXMgaW4gQyNkAgIPZBYCZg8VAkRodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvYTlkOTYxL2EtcXVpY2stc3RhcnQtb24tbXZjLxRBIFF1aWNrIFN0YXJ0IG9uIE1WQ2QCAw9kFgJmDxUCbGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8zNzg5YjcvaG93LXRvLWNyZWF0ZS1hLXZpcnR1YWwtbWFjaGluZS1mb3ItcnVuLXdpbmRvd3MtMTAtdGVjaG5pY2FsLydIb3cgdG8gQ3JlYXRlIGEgVmlydHVhbCBNYWNoaW5lIFRvICAuLi5kAgQPZBYCZg8VAkZodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDBhOGI3L0FzcC1OZXQtbXZjLWxpZmUtY3ljbGUvFkFTUC5OZXQgTVZDIExpZmUgQ3ljbGVkAgUPZBYCZg8VAmxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvYmQ4YjBiL2hvdy10by1jcmVhdGUtdGhlLW11bHRpbGFuZ3VhZ2UtYXBwbGljYXRpb24taW4tQXNwLU5ldC1hcHBsaS8nSG93IHRvIENyZWF0ZSB0aGUgTXVsdGlsYW5ndWFnZSBBcHAgLi4uZAIGD2QWAmYPFQJGaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzJlZDdhZS9qc29ucmVzdWx0LXR5cGUtaW4tbXZjLxZKc29uUmVzdWx0IFR5cGUgaW4gTVZDZAIHD2QWAmYPFQJtaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzBmNjhmMi9lbWJlZGRpbmctY2FsZW5kYXItZGF0ZXRpbWVwaWNrZXItY29udHJvbC1pbnRvLWRhdGFncmlkdmllNTg2LydFbWJlZGRpbmcgQ2FsZW5kYXIgKERhdGVUaW1lUGlja2VyKSAuLi5kAggPZBYCZg8VAmpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDIwZjhmL3dpbmRvd3MtcGhvbmUtOC1hcHAtZGV2ZWxvcG1lbnQtdXNpbmctcGhvbmVnYXAtY29yZG92YS1wYXIvJ1dpbmRvd3MgUGhvbmUgOCBBcHAgRGV2ZWxvcG1lbnQgVXNpIC4uLmQCCQ9kFgJmDxUCX2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS9tYWhlc2gvdG9wLTEwLXRoaW5ncy15b3Utc2hvdWxkLW5ldmVyLXNheS10by15b3VyLWJvc3MvJ1RvcCAxMCBUaGluZ3MgWW91IFNob3VsZCBOZXZlciBTYXkgIC4uLmQCAg9kFgICAQ8PFgYeCENzc0NsYXNzBRdzcHJpdGUgZGV0YWlscyBiZWdpbm5lch4HVG9vbFRpcAUIQmVnaW5uZXIeBF8hU0ICAmRkAgUPFgIfDQVCaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9hdXRob3JzL3JpdGVzaHJhdG5hL3JpdGVzaC1yYXRuYS5hc3B4FgICAQ8PFgQfCQVKaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlL0F1dGhvckltYWdlL0RlZmF1bHRBdXRob3JJbWFnZS5naWYfEAUMUml0ZXNoIFJhdG5hZGQCBg8WAh8IZxYEAgEPZBYCAgEPDxYCHwoFAzU2NWRkAgMPFgIeCWlubmVyaHRtbAV7PGEgY2xhc3M9IkxpbmtOb3JtYWxTdHlsZU9yYW5nZSIgaHJlZj1odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL0F1dGhvcnMvQXV0aG9yUmFua2luZy5hc3B4P0F1dGhvcklkPXJpdGVzaHJhdG5hID4gMjA8L2E+ZAIHDxYCHxIFLUdhcmJhZ2UgQ29sbGVjdGlvbjogTWVtb3J5IE1hbmFnZW1lbnQgaW4gLk5ldGQCCA8WBB8NBUJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL2F1dGhvcnMvcml0ZXNocmF0bmEvcml0ZXNoLXJhdG5hLmFzcHgfEgUMUml0ZXNoIFJhdG5hZAIKDxYEHw0FOGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNDQvQy1TaGFycC1sYW5ndWFnZS5hc3B4HxIFC0MjIExhbmd1YWdlZAILDw8WAh8KBQ1KdW5lIDE1LCAyMDEwZGQCDA8WAh8SBfIBPGEgY2xhc3M9J0xpbmtOb3JtYWxHcmF5TGlnaHQnIGhyZWY9J2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vdGFncy9HYXJiYWdlLUNvbGxlY3Rpb24nPkdhcmJhZ2UgQ29sbGVjdGlvbjwvYT4sIDxhIGNsYXNzPSdMaW5rTm9ybWFsR3JheUxpZ2h0JyBocmVmPSdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL3RhZ3MvTWVtb3J5LU1hbmFnZW1lbnQtaW4tLk5ldCc+TWVtb3J5IE1hbmFnZW1lbnQgaW4gLk5ldDwvYT5kAg0PFgIfEgViSW4gdGhpcyBhcnRpY2xlIHdlIHdpbGwgbG9vayBhdCB0aGUgbWVjaGFuaWNzIG9mIHRoZSBHYXJiYWdlIENvbGxlY3Rpb24gYW5kIHRoZSBNZW1vcnkgTWFuYWdlbWVudC5kAhUPDxYGHw8FF3Nwcml0ZSBkZXRhaWxzIGZlYXR1cmVkHxAFGk1ha2UgdGhpcyBhcnRpY2xlIGZlYXR1cmVkHxECAmRkAhkPDxYCHxAFDVByYXZlZW4gS3VtYXJkZAIbDw8WAh8KBQEyZGQCHA8WAh8SBQUyNjUyOGQCHQ8WAh4Fc3R5bGUFL21hcmdpbi10b3A6MTBweDttYXJnaW4tYm90dG9tOjBweDtkaXNwbGF5Om5vbmU7FgICAQ8WAh8IaGQCHw9kFgICAw8WAh8IaGQCIQ8PFgYeCUNvbnRlbnRJZAUkMmNiOTIxNGUtOTY3Yy00YzU5LWE5MjItNTdkYjJiYWU4MTRjHg1Db250ZW50VXNlcklkBQtyaXRlc2hyYXRuYR4MQ29udGVudFRpdGxlBS1HYXJiYWdlIENvbGxlY3Rpb246IE1lbW9yeSBNYW5hZ2VtZW50IGluIC5OZXRkFgRmD2QWAgIBDxAPZBYCHgdvbmNsaWNrBSpDb21tZW50c19hcnRpY2xlLlVwZGF0ZUZvbGxvd1N0YXR1cyh0aGlzKTtkZGQCAQ8WAh8IZ2QCIg9kFgICAQ9kFgJmD2QWBAIBDw8WBB4LXyFEYXRhQm91bmRnHwhoZGQCAw8PFgQfCgXXBzxTQ1JJUFQgTEFOR1VBR0U9IkphdmFTY3JpcHQiPg0KPCEtLSBoaWRlIGZyb20gbm9uLUphdmFTY3JpcHQgYnJvd3NlcnMNCnZhciBheGVsID0gTWF0aC5yYW5kb20oKSArICIiOw0KdmFyIG51bSA9IGF4ZWwgKiAxMDAwMDAwMDAwMDAwMDAwMDAwOw0KZG9jdW1lbnQud3JpdGUoJzxJRlJBTUUgU1JDPSJodHRwOi8vYWQuZG91YmxlY2xpY2submV0L2FkaS9ONTYyMS4xMjQ2NjIuNzE2MzY2MzM4MjQyMS9CNzk3ODQxNy4xMDU4MDk2NzU7c3o9MzAweDI1MDtjbGljaz07b3JkPScrIG51bSArJz8iIFdJRFRIPTMwMCBIRUlHSFQ9MjUwIE1BUkdJTldJRFRIPTAgTUFSR0lOSEVJR0hUPTAgSFNQQUNFPTAgVlNQQUNFPTAgRlJBTUVCT1JERVI9MCBTQ1JPTExJTkc9bm8gQk9SREVSQ09MT1I9IiMwMDAwMDAiPicpOw0KZG9jdW1lbnQud3JpdGUoJzxTQ1InKydJUFQgbGFuZ3VhZ2U9IkphdmFTY3JpcHQxLjEiIFNSQz0iaHR0cDovL2FkLmRvdWJsZWNsaWNrLm5ldC9hZGovTjU2MjEuMTI0NjYyLjcxNjM2NjMzODI0MjEvQjcyNDcxOTY7YWJyPSFpZTtzej0zMDB4MjUwO2NsaWNrPTtvcmQ9JysgbnVtICsnPyI+PC9TQ1InKydJUFQ+PC9JRlJBTUU+Jyk7DQovLyBlbmQgaGlkZSBmcm9tIGJyb3dzZXJzIC0tPg0KPC9zY3JpcHQ+DQo8bm9zY3JpcHQ+DQo8QSBIUkVGPSJodHRwOi8vYWQuZG91YmxlY2xpY2submV0L2p1bXAvTjU2MjEuMTI0NjYyLjcxNjM2NjMzODI0MjEvQjc5Nzg0MTcuMTA1ODA5Njc1O2Ficj0haWU0O2Ficj0haWU1O3N6PTMwMHgyNTA7b3JkPVt0aW1lc3RhbXBdPyI+DQo8SU1HIFNSQz0iaHR0cDovL2FkLmRvdWJsZWNsaWNrLm5ldC9hZC9ONTYyMS4xMjQ2NjIuNzE2MzY2MzM4MjQyMS9CNzk3ODQxNy4xMDU4MDk2NzU7YWJyPSFpZTQ7YWJyPSFpZTU7c3o9MzAweDI1MDtvcmQ9W3RpbWVzdGFtcF0/IiBCT1JERVI9MCBXSURUSD0zMDAgSEVJR0hUPTI1MCBBTFQ9IkFkdmVydGlzZW1lbnQiPjwvQT4NCjwvTk9TQ1JJUFQ+HwhnZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFHmN0bDAwJENvbW1lbnRzMSRGb2xsb3dDaGVja0JveAq7To17JTu8JReGg0dZXtAW/CeY"> </div> <script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+theForm.__EVENTTARGET.value = eventTarget;
+theForm.__EVENTARGUMENT.value = eventArgument;
+theForm.submit();
+}
+}
+//]]> </script> <div class="master"> <a name="Top"></a> <div class="header"> <script type="text/javascript" language="javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JavaScripts/MindcrackerJScript.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+</script> <script type="text/javascript">
+var winHe = $j(window).height();
+$j(document).ready(function() {
+// footer js start here 
+if (winHe >= $j(document).height()) {
+$j(".footer").css({ "position": "fixed", "bottom": 0 });
+}
+// footer js end here 
+});
+$j(window).scroll(function() {
+var topS = $j(window).scrollTop();
+var winWidth = $j(window).width();
+var headerHe = $j(".topHeaderConainer").height() - $j(".HeadermenuStripBlue").height();
+// header js 
+if (topS > headerHe) {
+$j(".HeadermenuStripBlue").css({ "position": "fixed", "top": 0 });
+$j(".main").css("margin-top", 50 + 'px');
+}
+else if (topS <= (headerHe + $j(".HeadermenuStripBlue").height())) {
+$j(".HeadermenuStripBlue").css("position", "relative");
+$j(".main").css("margin-top", 5 + 'px');
+}
+});
+</script> <div class="topHeaderConainer" style="width: 100%; float: left;"> <script>
+$j(document).ready(function() {
+$j.getScript('/JQuery/ticker_21122013.js', function() {
+$j('#js-news').ticker();
+});
+});
+</script> <style>
+.ticker
+{
+width: 585px;
+height: 30px;
+display: block;
+position: relative;
+overflow: hidden;
+}
+.ticker-title
+{
+padding-top: 9px;
+color: #900;
+font-weight: bold;
+text-transform: uppercase;
+}
+.ticker-content
+{
+margin: 0;
+padding-top: 9px;
+position: absolute;
+color: #1f527b;
+overflow: hidden;
+white-space: nowrap;
+line-height: 1.2em;
+}
+.ticker-content a:hover
+{
+text-decoration: none;
+color: #0d3059;
+}
+.ticker-swipe
+{
+padding-top: 9px;
+position: absolute;
+top: 0;
+background-color: #f60;
+display: block;
+width: 800px;
+height: 23px;
+}
+.ticker-swipe span
+{
+margin-left: 1px;
+border-bottom: 1px solid #fff;
+height: 14px;
+width: 7px;
+display: block;
+}
+.js-hidden
+{
+display: none;
+}
+.ticker-controls
+{
+padding: 8px 0 0 0;
+list-style-type: none;
+float: left;
+}
+.left .ticker-controls, .left .ticker-content, .left .ticker-title, .left .ticker
+{
+float: left;
+}
+</style> <div class="InFocusNews" id="InFocus"> <div class="page" style="position: relative;"> <h2>
+In Focus</h2> <div class="rightNew" style="display: inline;"> <div id="ticker-wrapper-1414802686787" class="ticker-wrapper has-js left"><div id="ticker-1414802686787" class="ticker"><div id="ticker-title-1414802686787" class="ticker-title"><span></span></div><p id="ticker-content-1414802686787" class="ticker-content" style="display: block; opacity: 1; left: 0px;"><a href="http://www.c-sharpcorner.com/Events/108/C-Sharp-corner-dinner-party-during-microsoft-mvp-summit-redmond-w.aspx" style="color: White;" rel="nofollow">
+C# Corner Dinner Party during Microsoft MVP Summit Redmond WA</a></p><div id="ticker-swipe-1414802686787" class="ticker-swipe" style="left: 0px; margin-left: 113.6px;"><span style="display: block;"><!-- --></span></div></div><ul id="ticker-controls-1414802686787" class="ticker-controls"><li id="play-pause-1414802686787" class="jnt-play-pause controls"><a href=""><!-- --></a></li><li id="prev-1414802686787" class="jnt-prev controls"><a href=""><!-- --></a></li><li id="next-1414802686787" class="jnt-next controls"><a href=""><!-- --></a></li></ul></div> </div> </div> </div> <script type="text/javascript">
+$j(document).ready(function() {
+var flag;
+var textBoxClientId = '#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId';
+var value = $j(textBoxClientId).val();
+$j(textBoxClientId).click(function() {
+if (value == "Invalid ID / Password")
+$j(textBoxClientId).val('');
+});
+//login popup js start here//
+$j('#ctl00_HeaderWithoutAjax1_Login1_loginBtn').click(function() {
+flag = 1;
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').slideToggle("slow");
+$j('#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId').focus();
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+});
+$j('.loginPopup.loggedIn').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+$j('.userdetailCntr').addClass('hover');
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+});
+$j('.loginPopup.loggedIn').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+$j('.userdetailCntr').removeClass('hover');
+});
+$j('.loginPopup').click(function() {
+flag = 1;
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').click(function() {
+flag = 1;
+});
+$j(document).click(function() {
+if (flag != 1) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').hide();
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+}
+flag = 0;
+});
+//login popup js end here//
+});
+</script> <script>
+$j(document).ready(function() {
+var flag = true;
+var close = true;
+$j('.notificationMessageCntr').click(function() {
+$j('.msg_container').hide();
+$j('.notificationMessageCntr .arrow').hide();
+flag = false;
+close = false;
+$j(this).find('.arrow').show();
+$j(this).next().show();
+ResetNotificationCount(this);
+});
+$j('.msg_container').click(function() {
+close = false;
+});
+$j(document).click(function() {
+if (close) {
+$j('.notificationMessageCntr .arrow').hide();
+$j('.msg_container').hide();
+flag = true;
+}
+close = true;
+});
+});
+//Reset notification count
+//type: 1- Message Notification, 2- Comment Notification
+function ResetNotificationCount(container) {
+var type;
+if ($j(container).attr('id') == 'messageNotification')
+type = 1
+else if ($j(container).attr('id') == 'commentNotification')
+type = 2
+if ($j(container).find('.messageCount').is(":visible")) {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=reset_notification_message_count&type=" + type,
+type: "POST",
+async: false,
+success: function(response) {
+if (parseInt(response) == 1) {
+$j(container).find('.messageCount').hide();
+}
+}
+});
+}
+}
+</script> <div class="page" style="position: relative; z-index: 9999999;"> <div class="loginControl"> <div id="ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer" class="userdetailCntr"> <div class="image"> <img id="ctl00_HeaderWithoutAjax1_Login1_UserImage" src="./Garbage Collection  Memory Management in .Net_files/a48f78.png.ashx" style="border-width:0px;"> </div> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelUserName">Milstein</span> </div> <div id="commentNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonComments" class="icons comments" title="You have 0 new article comments"> </span><span class="arrow">&nbsp;</span> </div> <div id="userCommentBox" class="msg_container" style="display: none;"> <ul> <li><a href="http://www.c-sharpcorner.com/authors/ff0d0f/abhishek-yadav.aspx" title="Abhishek Yadav"> <img src="./Garbage Collection  Memory Management in .Net_files/ff0d0f20140321020410.jpg.ashx" alt=""></a> <div class="right_content"> <div> <label style="font-family: Calibri; font-size: 14px; font-style: italic;">
+Hats off to our C# Corner team...Great Step !!! :)</label></div> <div class="LinkNormalGrayLight">
+commented on
+<a href="http://www.c-sharpcorner.com/UploadFile/181031/prayan-a-C-Sharp-corner-initiative-official-recap/Default.aspx#ReadAndPostComment" class="LinkNormalGray">
+Prayan, A C# Corner Initiative: Official Recap</a> <span class="floatRight" style="font-size: 11px;"><span class="watchICon"></span>
+Oct 09, 2014</span> </div> </div> </li> </ul> <a class="LinkNormalBlue" style="margin-right: 10px; float: right; margin-top: 10px; font-size:13px;" href="http://www.c-sharpcorner.com/notification/">Go to all article comments &gt;&gt;</a> </div> <div id="messageNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonMessages" class="icons message"> </span><span class="arrow">&nbsp;</span> </div> <div id="userMsgBox" class="msg_container" style="display: none;"> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelNoData" style="color:Red;display: block; text-align: center;">No new messages.</span> <ul> </ul> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonAllMessages" class="LinkNormalBlue" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonAllMessages','')" style="margin-right: 10px;
+float: right; margin-top: 10px;">Go to all messages &gt;&gt;</a> </div> </div> <div id="ctl00_HeaderWithoutAjax1_Login1_LogoutSpan" class="loginPopup loggedIn" style="position: absolute;
+right: 0px; top: 0px; display: none;"> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonMyAccount" class="myac" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonMyAccount','')">My Account</a> </li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonProfile" class="profileview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonProfile','')">View Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonEditProfile" class="editprofile" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonEditProfile','')">Edit Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonChangePassword" class="changepassword" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonChangePassword','')">Change Password</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonSetting" class="setting" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonSetting','')">Settings</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonLogout" class="signout" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$ImageButtonLogout','')">Logout</a> </li> </ul> </div> </div> <div class="Header"> <div class="page"> <a href="http://www.c-sharpcorner.com/" id="ctl00_HeaderWithoutAjax1_Login1_LogoLink"> <span id="ctl00_HeaderWithoutAjax1_Login1_LogoImage" class="logo"></span> </a> <div class="headerBanner"> </div> <div id="ctl00_HeaderWithoutAjax1_Login1_ContributionLinks"> <div class="contributeList"> <a href="http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/#" class="contributeOnHeader">Contribute</a> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostArticle" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostArticle','')">An Article</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonCodeSnippet" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonCodeSnippet','')">A Code Snippet</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostBlog" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostBlog','')">A Blog</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostNews" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostNews','')">A News</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostVideo" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostVideo','')">A Video</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostResource" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostResource','')">A Link</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostInterview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostInterview','')">An Interview Question</a></li> </ul> </div> <a id="ctl00_HeaderWithoutAjax1_Login1_PostForum" class="askQuestionOnHeader" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostForum','')">Ask a Question</a> </div> </div> </div> <input type="hidden" id="HiddenErrorMessage" value="Unable to fetch your account data!"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldUserId" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldEmail" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldFirstName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldLastName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldType" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType"> <input type="submit" name="ctl00$HeaderWithoutAjax1$Login1$ButtonLoginSocial" value="" id="ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial" style="display: none;"> <script>
+function FacebookLogin() {
+FB.login(function(response) {
+if (response.authResponse) {
+FB.api('/me', function(response) {
+try {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId').val(response.id.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(response.email.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(response.first_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(response.last_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('facebook');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+});
+} else {
+console.log('User cancelled login or did not fully authorize.');
+}
+}, { scope: 'publish_actions, email' });
+}
+</script> <script>
+$j(document).ready(function() {
+function signinCallback(authResult) {
+if (authResult['status']['signed_in']) {
+try {
+gapi.client.load('plus', 'v1', function() {
+var request = gapi.client.plus.people.get({
+'userId': 'me'
+});
+request.execute(function(resp) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(resp.emails[0].value.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(resp.name.givenName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(resp.name.familyName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('google');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+});
+});
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+} else {
+console.log('Sign-in state: ' + authResult['error']);
+}
+}
+var additionalParams = {
+'callback': signinCallback
+};
+var signinButton = document.getElementById('googleLoginHeader');
+if (signinButton != null) {
+signinButton.addEventListener('click', function() {
+gapi.auth.signIn(additionalParams);
+console.log(gapi);
+});
+}
+});
+</script> <div id="ctl00_HeaderWithoutAjax1_HeaderMenu" class="HeadermenuStripBlue" style="position: fixed; top: 0px;"> <div class="page" style="position: relative;"> <ul class="headerMenu"> <li style="background: none;"><a href="http://www.c-sharpcorner.com/" class="csharpHome" title="C# Corner Home">&nbsp;</a></li> <li class="first"><a href="http://www.c-sharpcorner.com/pulse/" title="C# Corner Pulse" class="pulse"></a></li> <li><a href="javascript:void(0);" class="show-dropdown menuLinkBlue">TECHNOLOGIES </a> <div class="dropDownMenu" id="dropDown"> <div id="ctl00_HeaderWithoutAjax1_divTechnology" style="overflow: hidden; margin-bottom: 10px;"> <span id="ctl00_HeaderWithoutAjax1_DataListTechnologyTop"><span> <a href="http://www.c-sharpcorner.com/1/237/net-4-5.aspx">
+.NET 4.5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/144/C-Sharp-language.aspx">
+C# Language
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/66/internet-web.aspx">
+Internet &amp; Web
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/279/php.aspx">
+PHP
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/281/visual-studio-2012.aspx">
+Visual Studio 2012
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/131/ado-net.aspx">
+ADO.NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/168/C-Sharp-tutorials.aspx">
+C# Tutorials
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/235/ios.aspx">
+iOS
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/308/power-bi.aspx">
+Power BI
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/296/visual-studio-2013.aspx">
+Visual Studio 2013
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/176/ajax.aspx">
+AJAX
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/282/c-cpp-mfc.aspx">
+C, C++, MFC
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/258/java.aspx">
+Java
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/69/printing-in-C-Sharp.aspx">
+Printing in C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/192/wcf-with-C-Sharp.aspx">
+WCF with C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/56/algorithms-in-C-Sharp.aspx">
+Algorithms in C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/238/career-advice.aspx">
+Career Advice
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/233/javascript.aspx">
+JavaScript
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/283/products.aspx">
+Products
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/154/web-development.aspx">
+Web Development
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/247/android-programming.aspx">
+Android Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/280/chapters.aspx">
+Chapters
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/236/jquery.aspx">
+JQuery
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/188/reports-using-C-Sharp.aspx">
+Reports using C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/133/web-services-in-C-Sharp.aspx">
+Web Services in C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/307/android-wear.aspx">
+Android Wear
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/220/databases-dba.aspx">
+Databases &amp; DBA
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/278/leadership.aspx">
+Leadership
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/71/security-in-net.aspx">
+Security in .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/275/windows-8.aspx">
+Windows 8
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/302/angularjs.aspx">
+AngularJS
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/145/deployment.aspx">
+Deployment
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/180/linq.aspx">
+LINQ
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/183/sharepoint.aspx">
+SharePoint
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/232/windows-azure.aspx">
+Windows Azure
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/172/articles-C-Sharp.aspx">
+Articles C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/62/design-architecture.aspx">
+Design &amp; Architecture
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/287/microsoft-surface.aspx">
+Microsoft Surface
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/158/smart-devices.aspx">
+Smart Devices
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/76/windows-forms-C-Sharp.aspx">
+Windows Forms C# 
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/75/Asp-Net-controls.aspx">
+ASP.NET Controls
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/293/dynamics-crm.aspx">
+Dynamics CRM
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/304/node-js.aspx">
+Node.js
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/216/sql.aspx">
+SQL
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/245/windows-phone.aspx">
+Windows Phone
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/226/Asp-Net-mvc.aspx">
+ASP.NET MVC
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/206/fsharp.aspx">
+F#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/288/office-2013.aspx">
+Office 2013
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/187/sql-server.aspx">
+SQL Server
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/138/windows-store-apps.aspx">
+Windows Store Apps
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/224/Asp-Net-programming.aspx">
+ASP.NET Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/294/graphics-design.aspx">
+Graphics Design
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/208/oopood.aspx">
+OOP/OOD
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/277/visual-basic-net.aspx">
+Visual Basic .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/191/wpf.aspx">
+WPF
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/303/backbonejs.aspx">
+Backbonejs
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/143/how-do-i.aspx">
+How do I 
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/222/operating-systems.aspx">
+Operating Systems
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/9/visual-C-Sharp.aspx">
+Visual C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/190/xaml.aspx">
+XAML
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/314/big-data.aspx">
+Big Data
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/244/html-5.aspx">
+HTML 5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/299/oracle.aspx">
+Oracle
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/139/visual-studio-net.aspx">
+Visual Studio .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/79/xml.aspx">
+XML
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/205/biztalk-server.aspx">
+BizTalk Server
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/310/hybrid-apps.aspx">
+Hybrid Apps
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/311/philosophy.aspx">
+Philosophy
+</a> </span></span> </div> <div style="position: absolute; bottom: 0px; left: 0px;"> <a href="http://www.c-sharpcorner.com/ContactUs.aspx?type=7" class="LinkNormalBlue" style="color: #ff6600; background: none; text-transform: none; float: left;">Request
+a new Category</a><span style="float: left; color: #8D8D8D; margin-top: 4px;">|</span> <a href="http://www.c-sharpcorner.com/Category/" class="LinkNormalBlue viewAll" style="color: #36c; background: none!important; text-transform: none; float: left;">
+View All</a> </div> </div> </li> <li><a href="http://www.c-sharpcorner.com/Forums/" title="Ask a Question">ANSWERS</a></li> <li><a href="http://www.c-sharpcorner.com/Blogs/" title="Share a Blog">BLOGS</a></li> <li><a href="http://www.c-sharpcorner.com/Videos/" title="Share a Video">VIDEOS</a></li><li> <a href="http://www.c-sharpcorner.com/interviews/" title="Ask an Interview Question">
+INTERVIEWS</a></li><li><a href="http://www.c-sharpcorner.com/ebooks/" title="Share a Book">
+BOOKS</a></li> <li><a href="http://www.c-sharpcorner.com/news/" title="Submit a News">NEWS</a></li> <li><a href="http://www.c-sharpcorner.com/Chapters/" title="Attend an Event">
+CHAPTERS</a></li> <li><a href="http://www.c-sharpcorner.com/CareerAdvice/" title="Get career advice">
+CAREER ADVICE</a></li> <li><a href="http://www.c-sharpcorner.com/jobs/" title="Get Jobs">Jobs</a></li> </ul> </div> </div> </div> </div> <div class="page"> <div class="clear"> </div> <div class="main" style="margin-top: 50px;"> <div class="leftCntr"> <div class="trendingNowBox"> <div class="left" id="example1_wrap"> <div class="bx_wrap"><a href="" class="prev"></a><a href="" class="next"></a><div class="bx_container" style="position: relative; width: 275px; overflow: hidden;"><ul id="example1" style="width: 999999px; position: relative; left: -275px;"><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/mahesh/top-10-things-you-should-never-say-to-your-boss/" class="LinkNormalStyle" style="color: Gray;">
+Top 10 Things You Should Never Say  ...</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/638122/forms-authentication-form-authorization-and-storing-encryp/" class="LinkNormalStyle" style="color: Gray;">
+Form Authentication, Form Authoriza ...</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/00a8b7/web-service/" class="LinkNormalStyle" style="color: Gray;">
+Web Services in C#</a></li></ul></div></div> </div> <div class="right"> <div id="ctl00_TrendingNow1_Panal1" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_TrendingNow1_searchImageButton&#39;)"> <input name="ctl00$TrendingNow1$searchTextBox" type="text" id="ctl00_TrendingNow1_searchTextBox" class="searchTextBox" placeholder="C# Corner Search" style="font-family:Calibri;"> <input type="submit" name="ctl00$TrendingNow1$searchImageButton" value="" id="ctl00_TrendingNow1_searchImageButton" class="button">  </div> </div> </div> <div class="article"> <div class="HeadingAr" id="div1"> <div class="floatRight marginTop" style="font-size: 12px;"> <div id="ctl00_AuthorRank" class="AuthorRank" style="width: 140px; text-align: left;">
+Reader Level:
+<span id="ctl00_ImageReaderLevel" title="Beginner" class="sprite details beginner"></span> </div> </div> <span id="ctl00_spanArticle" class="floatLeft">ARTICLE</span></div> <div class="clear"> </div> <div class="image"> <a href="http://www.c-sharpcorner.com/authors/riteshratna/ritesh-ratna.aspx" id="ctl00_AnchorAuthorImage"> <img id="ctl00_imgAuthor" title="Ritesh Ratna" class="image90" src="./Garbage Collection  Memory Management in .Net_files/DefaultAuthorImage.gif" style="border-width:0px;"></a> <div id="ctl00_divRankPoints" style="text-align: center;
+width: 91px;"> <span class="rankDotBlue"></span><span id="ctl00_spanRanks" title="Ranked"> <a id="ctl00_LabelRank" class="LinkNormalStyleOrange" href="http://www.c-sharpcorner.com/Members/rank/">565</a> </span><span class="rankDot"></span><span id="ctl00_AuthorPoints" title="Points"><a class="LinkNormalStyleOrange" href="http://www.c-sharpcorner.com/Authors/AuthorRanking.aspx?AuthorId=riteshratna"> 20</a></span> </div> </div> <div class="detail"> <div class="grayText"> <h1> <span id="ctl00_LabelArticleTitle" cssclass="BlogsWelcomeHeading">Garbage Collection: Memory Management in .Net</span> </h1> </div> <div class="LinkNormalGrayLight">
+Posted by <span><a href="http://www.c-sharpcorner.com/authors/riteshratna/ritesh-ratna.aspx" id="ctl00_AuthorLink" class="LinkBlack">Ritesh Ratna</a> </span> <label>
+in</label> <span class="LinkRed"><a href="http://www.c-sharpcorner.com/Articles/" id="ctl00_AnchorArticles" class="LinkRed">Articles</a> </span>| <span class="LinkNormalBlue"> <a href="http://www.c-sharpcorner.com/1/144/C-Sharp-language.aspx" id="ctl00_AnchorCategory" class="LinkNormalBlue">C# Language</a> </span> <label>
+on</label> <span id="ctl00_LabelDate">June 15, 2010</span> </div> <div class="LinkNormalGrayLight" style="margin-bottom: 5px; display: none;"> <span style="color: Black;">Tags:</span> <span id="ctl00_spanTags"><a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Garbage-Collection">Garbage Collection</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Memory-Management-in-.Net">Memory Management in .Net</a></span> </div> <div style="position: relative; margin: 2px 0px 2px 0px; width: 100%; float: left;
+border-bottom: solid 1px #d7d7d7;"> </div> <div id="ctl00_DivDescription" class="normalGray" style="padding: 5px 0 0;">In this article we will look at the mechanics of the Garbage Collection and the Memory Management.</div> </div> <div class="clear"> </div> <div class="tweetIcon" style="padding-bottom: 10px;"> <ul> <li><a href="https://twitter.com/" class="twitter-follow-button" data-show-count="false" data-lang="en" style="display: none" data-twttr-rendered="true">
+Follow @</a> </li> <li><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Garbage Collection  Memory Management in .Net_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe></li> <li> <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1414802687980_0"><a id="li_ui_li_gen_1414802687980_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1414802687980_0-logo">in</span><span id="li_ui_li_gen_1414802687980_0-title"><span id="li_ui_li_gen_1414802687980_0-mark"></span><span id="li_ui_li_gen_1414802687980_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1414802687995_1-container" class="IN-right IN-hidden"><span id="li_ui_li_gen_1414802687995_1" class="IN-right"><span id="li_ui_li_gen_1414802687995_1-inner" class="IN-right"><span id="li_ui_li_gen_1414802687995_1-content" class="IN-right">0</span></span></span></span></span></span><script type="in/share+init" data-counter="right"></script> </li> <li> <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1414802686985" name="I0_1414802686985" src="./Garbage Collection  Memory Management in .Net_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div> </li> <li> <div class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="tahoma" data-href="http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=440531902678919&amp;font=tahoma&amp;href=http%3A%2F%2Fwww.c-sharpcorner.com%2Fuploadfile%2Friteshratna%2Fgarbage-collection-memory-management-in-net%2FDefault.aspx&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=120"><span style="vertical-align: bottom; width: 77px; height: 20px;"><iframe name="f3c0993a84" width="120px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Garbage Collection  Memory Management in .Net_files/like.html" style="border: none; visibility: visible; width: 77px; height: 20px;" class=""></iframe></span></div> </li> </ul> </div> </div> <div class="clear"> </div> <div> <span id="ctl00_LabelMessageBox" style="color:Red;"></span> </div> <div class="contentHeaderArticle"> <ul style="width: 380px"> <li> <a id="ctl00_ImageButtonEmail" title="Email this article to friend" class="sprite details email" href="javascript:__doPostBack('ctl00$ImageButtonEmail','')"></a> </li> <li> <a id="ctl00_ImageButtonAddToMyBookmarks" title="Bookmark this article" class="sprite details bookmark" href="javascript:__doPostBack('ctl00$ImageButtonAddToMyBookmarks','')"></a> </li> <li><a href="javascript:void(GetPrintVersion())" class="sprite details print"></a> </li> <li><a href="http://www.c-sharpcorner.com/Authors/riteshratna/articles/" id="ctl00_AuthorsOtherArticles" title="Author&#39;s other article" class="sprite details authorOthers"></a></li> <li><a href="http://www.c-sharpcorner.com/Articles/Default.aspx?ArticleId=2cb9214e-967c-4c59-a922-57db2bae814c" id="ctl00_AnchorSimilarArticles" title="Similar articles" class="sprite details similar"></a></li> <li> </li> <li> </li> <li> </li> <li> <a id="ctl00_ImageButtonModerator" title="Article History" class="sprite details history" href="javascript:__doPostBack('ctl00$ImageButtonModerator','')"></a></li> <li> </li> <li> </li> <li> </li> <li> </li> </ul> <ul style="width: 280px" class="right"> <li><a title="Like it" onclick="Like();" class="sprite details like"></a><span class="ponit" style="float: left;"> <span id="ctl00_LabelLikeCount">2</span> </span></li> <li><a href="http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/#ReadAndPostComment"><span class="sprite details comments" title="Comments"> </span><span class="ponit"><span id="spanComments">1</span></span></a></li> <li><span class="sprite details views" title="Views"></span><span class="ponit"><span id="ctl00_spanArticleViews">26528</span></span></li> </ul> </div> <div class="clear"> </div> <div id="ctl00_downloadFiles" class="ratingTilte" style="margin-top:10px;margin-bottom:0px;display:none;">
+&nbsp;
+</div> <div id="div2" class="PaddingLeft5"><br><font size="2"><p align="justify"></p><div>During the days, when I was working with C++, as a basic rule for design and development, it was required to track all the memory usage and then carefully release all the memory acquired. Implementing proper resource management for our applications was always very difficult and a tedious task. It always distracted our concentration from the real problems that we were trying to solve. It was such a painful and disliked task that at times we used to wonder if we could have a mechanism that simplified this mind-numbing task of memory management.</div><div><br></div><div>Then came the Garbage Collection in the Microsoft .NET common language runtime environment, which completely relived the developer from the task of all this memory management. However, the irony is the developers were still not happy.&nbsp;</div><div><br></div><div>Of all of the technologies to be found in .NET, the most controversial, seems to be garbage collection. This was because; the managed heap and the garbage collection mechanism, which are a key part of the .NET framework, have always appeared as foreign ideas to many of us. We often criticize the memory management and the garbage collector, as implemented by the .Net CLR, but the criticisms are typically based on a lack of understanding and nothing more.</div><div><br></div><div>Let's try and look at the mechanics of the Garbage Collection and the Memory Management. Let's try and understand the steps of how the garbage collection algorithm works. I guess if we are able to explain how the resources are allocated and managed, then we would be in a better position to appreciate the importance and usefulness of the Garbage Collection.</div><div><br></div><div><b><span class="Apple-style-span" style="font-size: medium;">Memory management using the Garbage Collector</span></b></div><div><br></div><div>The Garbage Collector is an important process in the .Net CLR. The Microsoft .NET common language runtime requires that all resources be allocated from the managed heap. Objects are automatically freed when they are no longer needed by the application.</div><div><br></div><div>The CLR performs Non-deterministic finalization: i.e. it cannot be predicted, when the Garbage Collector will be called to clean up unnecessary objects from memory. Non deterministic finalization is performed when the CLR foresees a memory deficiency.</div><div><br></div><div>In all kinds of programs, resources are used. These resources could be in the form of 'memory buffers', 'screen space', 'network connections', 'database resources', and so on. Moreover, we should realize that in an object-oriented environment, every type is actually a resource available for our program to use. To use any of these resources requires that memory be allocated to represent the type. The bare minimum, steps required to access a resource are as follows:</div><div><ol><li>Allocate memory for the resource. (Resource Allocation - explained below)</li><li>Initialize the memory to set the initial state of the resource.</li><li>Use the resource by accessing the instance members of the type.</li><li>Reset the state of the resource for cleanup.&nbsp;</li><li>Free the memory. (Garbage Collection - explained below)</li></ol></div><div><b><span class="Apple-style-span" style="font-size: medium;">Resource Allocation</span></b></div><div><br></div><div>There are two data types that the Garbage collector bifurcates into: Value types and Reference types</div><div><br></div><div>1. <b><u>Value types</u></b></div><div><br></div><div>In C#, all the "things" declared with the following list of type declarations are Value types (because they are from System.ValueType):&nbsp;&nbsp;</div><div><ul><li>bool&nbsp;</li><li>byte&nbsp;</li><li>char&nbsp;</li><li>decimal&nbsp;</li><li>double&nbsp;</li><li>enum&nbsp;</li><li>float&nbsp;</li><li>int&nbsp;</li><li>long&nbsp;</li><li>sbyte&nbsp;</li><li>short&nbsp;</li><li>struct&nbsp;</li><li>uint&nbsp;</li><li>ulong&nbsp;</li><li>ushort&nbsp;</li></ul></div><div>These Value Types reside on the stack. The CLR does not care about this type of data with reference to memory management.</div><div><br></div><div>The Stack is self-maintaining, meaning that it basically takes care of its own memory management. &nbsp;When the top box is no longer used, it's thrown out.</div><div><br></div><div>2. <b><u>Reference Types</u></b></div><div><br></div><div>All the "things" declared with the types in this list are Reference types. They inherit from System.Object&nbsp;</div><div><ul><li>class&nbsp;</li><li>interface&nbsp;</li><li>delegate&nbsp;</li><li>object&nbsp;</li><li>string</li></ul></div><div>These Reference Types exist on a managed heap. This is where the Garbage Collector comes into the picture.</div><div><br></div><div><b>Managed Heap</b></div><div><br></div><div>A Managed Heap is a pool of memory where all the instances of Reference Types (classes and arrays etc.) are created and allocated space.</div><div><br></div><div>When an object is initialized, the CLR simply allocates an address space in the Managed Heap. There is actually no storage space allocated at this point of time. However a pointer to this heap is maintained to keep track of the next object within this heap. The memory space on this heap is allocated only when an object is created using the new operator.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/1.gif" alt="1.gif" width="314" height="196" border="0"><br></div><div><br></div><div><b>Mechanics of Resource Allocation - Object creation, initialization and instantiation.</b></div><div><br></div><div>Initially, the next object pointer is set to the base address of the reserved address space region.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/2.gif" alt="2.gif" width="313" height="201" border="0"><br></div><div><br></div><div>When we create an object i.e. declare a type, the runtime reserves a contiguous region of address space that initially has no storage allocated for it, when we create an object. The Jitter (Just-in-time Compiler) updates the manage heap and also maintains the addresses of all objects that are allocated within this managed heap.</div><div><br></div><div>After declaring an object, we instantiate the object using the 'new' operator. This 'new' operator first makes sure that the bytes required by the new object fit in the reserved region (committing storage if necessary). If the object fits, then pointer points to the object in the heap, this object's constructor is called, and the new operator returns the address of the object. At this point, 'Next Object Pointer' is incremented past the object so that it points to where the next object will be placed in the heap.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/3.gif" alt="3.gif" width="481" height="565" border="0"><br></div><div><br></div><div>Similarly, the objects keep adding to the heap, with the instantiation of each new object.</div><div><br></div><div>In this process, it might reach to a condition where there is no more space left in the heap to be allocated to a new object, or the available space is not enough to accommodate the new object that has been instantiated. This is to say, when the 'Next Object Pointer' reaches beyond the end of the address space, a memory deficiency occurs and therefore the CLR calls the Garbage Collector and gives it this memory heap.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/4.gif" alt="4.gif" width="582" height="209" border="0"><br></div><div><br></div><div><b>Application Roots</b></div><div><br></div><div>Before we proceed to examine and understand the Garbage Collection process, let's take a final look at the Managed Heap.</div><div><br></div><div>So, we see that the required memory space is allocated on the heap, to all the objects that have been initialized. An Object Pointer is set to the final location and stores the address, where the next object would be allocated the memory space on the heap. Is this all? No it is not.</div><div><br></div><div>Many objects on a heap are linked one to the other forming a chain, depending on which object is referenced by whom. There might be multiple such chains in the heap. The reference to the first object, i.e. the memory location to any such chain is called a Root. Every application has a set of such roots. E.g. the global and static object pointers, any local variable/parameter object pointers and any CPU registers containing pointers to objects.&nbsp;</div><div><br></div><div>All these roots are stored in the Application stack and identify storage locations, which refer to objects on the managed heap or to objects that are set to null. This list of active roots is maintained by the just-in-time (JIT) compiler and common language runtime, and is made accessible to the garbage collector's algorithm.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/5.gif" alt="5.gif" width="557" height="339" border="0"><br></div><div><br></div><div>In reality, a collection occurs when generation 0 is completely full. Briefly, a generation is a mechanism implemented by the garbage collector in order to improve performance. The idea is that newly created objects are part of a young generation, and objects created early in the application's lifecycle are in an old generation. Separating objects into generations can allow the garbage collector to collect specific generations instead of collecting all objects in the managed heap.</div><div><br></div><div><b><span class="Apple-style-span" style="font-size: medium;">The Garbage Collector</span></b></div><div><br></div><div>The basic algorithm used by the garbage collector is quite simple:&nbsp;</div><div><ul><li>Mark all managed memory as garbage&nbsp;</li><li>Look for used memory blocks, and mark them as valid&nbsp;</li><li>Discard all unused memory blocks&nbsp;</li><li>Compact the heap&nbsp;</li></ul></div><div>Once the GC receives this memory heap, The garbage collector checks to see if there are any objects in the heap that are no longer being used by the application. If such objects exist, then the memory used by these objects can be reclaimed. (If no more memory is available for the heap, then the new operator throws an OutOfMemoryException.)&nbsp;</div><div><br></div><div>Now there is a very valid question. How does the garbage collector know if the application is using an object or not?</div><div><br></div><div>When the garbage collector starts running, it makes the assumption that all objects in the heap are garbage. In other words, it assumes that none of the application's roots refer to any objects in the heap. Now, the garbage collector starts checking the roots and building a graph of all objects reachable from the roots.&nbsp;</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/6.gif" alt="6.gif" width="557" height="404" border="0"><br></div><div><br></div><div>In the above figure the Objects A, and E are directly referenced by the Application Roots. The Garbage collector starts from the Root, traversing through all the objects in the chain and stores them, making a graph. This action is repeated for all the chains one by one, and hence all the objects that are either referred directly by the Application Root or are indirectly referred by another object on the heap are added to the Graph.</div><div><br></div><div>Here it is important to note that, if while traversing down a chain, the garbage collector reaches an object that it has already added to the Graph, then it stops going further down that path. This is because, it is obvious that the next objects further down the chain would already be there in the Graph. This increases the performance of the process as well as it also prevents infinite loops. In case there are any circular linked lists of objects.</div><div><br></div><div>Once all the roots/chains have been checked and added to the Graph, the Garbage Collector assumes that are not in the Graph are not referenced from the application's roots and hence are not accessible by the application, and are therefore considered garbage. The garbage collector now checks the entire heap for contiguous blocks of garbage objects. It shifts the non-garbage objects down in the heap, removing all of the gaps in the heap. It then modifies the application's roots so that all the pointers now point to the objects' new locations. Also, if any object contains a pointer to another object, it corrects these pointers as well. Finally, the Next Object Pointer is positioned just after the last non-garbage object.&nbsp;</div><div><br></div><div>Now the heap is ready to allocate the memory space, required by the new object that was initialized and had triggered the Garbage Collection.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/7.gif" alt="7.gif" width="557" height="411" border="0"><br></div><div><br></div><div>However there might be a case where even after the Garbage Collection there is not enough space on the Heap to accommodate the new object. In such a scenario another very important feature of Garbage Collector called; 'Generations' comes into action.&nbsp;</div><div><br></div><div><b>Generations</b></div><div><br></div><div>Though this feature of the garbage collector resolves the issue where even after the garbage collection, there is not enough space on the heap to accommodate the new object. But, then it is absolutely wrong to say that the feature of Generations address and was developed only to address the memory accommodation issue. In fact this feature of the garbage collector exists purely to improve the performance.&nbsp;</div><div><br></div><div>The Garbage Collector with this feature is known as an 'Ephemeral Garbage Collector', and it makes the following assumptions:</div><div><ul><li>The newer an object is, the shorter its lifetime will be.&nbsp;</li><li>The older an object is, the longer its lifetime will be.&nbsp;</li><li>Newer objects tend to have strong relationships to each other and are frequently accessed around the same time.&nbsp;</li><li>Compacting a portion of the heap is faster than compacting the whole heap.</li></ul></div><div>In order to understand, physically the Generations are nothing more than the identification of the Heap area into 3 categories. Once the Garbage Collector receives the memory heap, it divides/distributes the contents in the heap into three categories of objects and stores these objects into three tables:&nbsp;</div><div><ul><li>Generation 0 this stores short lived objects.&nbsp;</li><li>Generation 1 this stores older objects.&nbsp;</li><li>Generation 2 this stores the oldest objects.</li></ul></div><div><b><u>Generation 0</u></b></div><div><br></div><div>At first when there are no objects on the Heap, then every time a new object is added, it goes into Generation 0. , as discussed above. Hence the objects in the Generation 0 are all latest objects that have never been examined by the Garbage Collector.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/8.gif" alt="8.gif" width="592" height="310" border="0"><br></div><div><br></div><div><b><u>Generation 1</u></b></div><div><br></div><div>Here Objects A, C, E, F and I are free objects, i.e. they do not have any reference, neither from a Root nor from any other object on the heap. &nbsp;When this Generation 0 is completely full, i.e. there is no more space for a new Object then the garbage collection occurs. All the objects that survive the collection (Objects B, D, G and H) are compacted into the left most portion of the heap. These objects are the old objects and are now said to be in Generation1.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/9.gif" alt="9.gif" width="592" height="310" border="0"><br></div><div><br></div><div>Now any new object added on the heap, goes to the Generation 0. So we see that in Generation 0 we have New Objects and in Generation 1 we have relative older objects.&nbsp;</div><div><br></div><div><b><u>Generation 2</u></b></div><div><br></div><div>Same as before, if again the Generation 0 is full, then again the heap is subjected to Garbage Collection. However, this time first all the objects in Generation 1, that survive the collection (Objects B, G &amp; H) are compacted and are now considered to be in Generation 2.</div><div><br></div><div>Then, all the objects in Generation 0 are compacted as before and are now considered to be in Generation 1. This clears the space in Generation 0 for new objects.</div><div><br></div><div>Hence, we see that in Generation 2 we have the oldest objects (objects B, G &amp; H), in generation we have relatively older objects (objects K &amp; N) and in generation we have the most recently added i.e. the newest objects (objects O, P, Q &amp; R).</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/10.gif" alt="10.gif" width="435" height="311" border="0"><br></div><div><br></div><div>Currently, generation 2 is the highest generation supported by the runtime's garbage collector. When future collections occur, any surviving objects currently in Generation 2 simply stays in generation 2.</div><div><br></div><div><b>But now the question is, how exactly does this feature of generations, help in improving the performance?&nbsp;&nbsp;</b></div><div><ol><li>When the heap fills and a collection occurs, the garbage collector first examines and collects the objects in the Generation 0. The assumption is that the newer an object is, the shorter its lifetime is expected to be. Hence, we hope that, collecting and compacting the Generation 0 objects would free enough space on the heap to accommodate the new object. We can see that, examining and collecting objects from just the Generation 0 is much faster than if the collector had examined the objects in all the generations.<br><br>However, even if collecting objects from Generation 0 doesn't provide the required amount of space, then the collector attempts to collect the objects from generations 1 and 0.&nbsp;<br><br>Similarly, if the collection from both the generations 1 &amp; 0, fails to create the required space, then the objects are collected from all the Generations-2, 1, and 0.&nbsp;<br><br></li><li>A generational collector can offer more optimizations by not traversing every object in the managed heap. If a root or object refers to an object in an old generation, the garbage collector can ignore any of the older objects' inner references, decreasing the time required to build the graph of reachable objects. Of course, it is possible that an old object refers to a new object. So that these objects are examined, the collector can take advantage of the system's write-watch support (provided by the Win32 GetWriteWatch function in Kernel32.dll). This support lets the collector know which old objects (if any) have been written to since the last collection. These specific old objects can have their references checked to see if they refer to any new objects.</li></ol></div><div><b><u>Garbage Collection in Multithreaded Applications</u></b></div><div><br></div><div>While understanding the mechanism of Garbage Collection, as above, we made a big assumption that, only one thread is running. Though in fact under normal circumstances, there would be multiple threads accessing the managed heap or manipulating objects allocated space on the managed heap.&nbsp;</div><div><br></div><div>When the space is requested by a new object from one thread and the Collection is triggered, then it becomes important that other threads must not access any objects (including object references on its own stack) since the collector is likely to move these objects, changing their memory locations. Hence, when the garbage collector starts a collection, all threads executing managed code are suspended.&nbsp;</div><div><br></div><div>The runtime employs different mechanisms to safely suspend threads so as to keep the threads running as long as possible before the collection is performed. This is to reduce overhead as much as possible. The mechanisms that the garbage collector employs when applications have multiple threads are:</div><div><br></div><div><b>1.&nbsp;Fully Interruptible Code</b></div><div><br></div><div>When a collection starts, the collector suspends all application threads and determines -&nbsp;</div><div><ol type="i"><li>Where the thread was suspended, i.e. where in a method the thread stopped,&nbsp;</li><li>What object references the code is currently accessing, and&nbsp;</li><li>Where those references are held in a variable or a CPU register, etc.</li></ol></div><div><b>2.<span class="Apple-style-span" style="white-space: pre;">&nbsp;</span></b><b>Hijacking&nbsp;</b></div><div><br></div><div>When a collection occurs, the collector modifies the thread's stack, such that when a method returns, a special function is executed, to suspend the thread. When the collection is complete, the thread resumes and returns to the method that originally called it. This is called Thread Hijacking.</div><div><br></div><div>This thread hijacking allows threads that are executing unmanaged code to continue execution while a garbage collection is occurring. Please note, this does not cause any problem, since unmanaged code is not accessing objects on the managed heap unless the objects do not contain object references. If a thread that is currently executing unmanaged code returns to managed code, the thread is hijacked and is suspended until the Garbage Collection completes.</div><div><br></div><div><b>3.&nbsp;Safe Points&nbsp;</b></div><div><br></div><div>While compiling a method, if the just-in-time compiler finds that a Garbage Collection is pending -</div><div><ol type="i"><li>It inserts a call to a function that suspends the thread,&nbsp;</li><li>First the Garbage Collection is completed, and&nbsp;</li><li>Then the thread is resumed.</li></ol></div><div>This position where the compiler inserts these method calls is called a Safe Point.</div><div><br></div><div><b>4.<span class="Apple-style-span" style="white-space: pre;">&nbsp;</span></b><b>Synchronization-free Allocations</b></div><div><br></div><div>On a multiprocessor system, generation 0 of the managed heap is split into multiple memory areas using one area per thread. This allows multiple threads to make allocations simultaneously so that exclusive access to the heap is not required.</div><div><br></div><div><b>5.&nbsp;Scalable Collections</b></div><div><br></div><div>On a multiprocessor system running the server version of the execution engine (MSCorSvr.dll), the managed heap is split into several sections, one per CPU. When a collection is initiated, the collector has one thread per CPU; all threads collect their own sections simultaneously. The workstation version of the execution engine (MSCorWks.dll) doesn't support this feature.</div><div><br></div><div><b><span class="Apple-style-span" style="font-size: medium;">Finalisation</span></b></div><div><br></div><div>Say if you want to execute a piece of code for an object, just before it is subjected to Collection by the Garbage Collector. This has been made possible by a feature of the Garbage Collector called 'Finalization'.</div><div><br></div><div>Finalization allows a resource to be gracefully cleaned when it is being collected. By using finalization, a resource like a file or network connection, is able to clean itself up properly when the garbage collector decides to free the resource's memory. This is made possible by an override void Finalize () with clean up resource code in it. When the Garbage Collector recognizes that the class object is pretty much going to be a piece of garbage, it calls the Finalize() method.</div><div><br></div><div><i>public class objBase&nbsp;</i></div><div><i>{</i></div><div><i>&nbsp;&nbsp; &nbsp;public objBase()&nbsp;</i></div><div><i>&nbsp;&nbsp; &nbsp;{</i></div><div><i>&nbsp;&nbsp; &nbsp;}</i></div><div><i><br></i></div><div><i>&nbsp;&nbsp; &nbsp;protected override void Finalize()&nbsp;</i></div><div><i>&nbsp;&nbsp; &nbsp;{</i></div><div><i>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;// Resource Cleanup Code&nbsp;</i></div><div><i>&nbsp;&nbsp; &nbsp;}</i></div><div><i>}</i></div><div><br></div><div>Let's try and understand, how the Finalization works.&nbsp;</div><div><br></div><div>When we create and then instantiate an object using the 'new' operator. This 'new' operator first makes sure that the bytes required by the new object are available on the heap, i.e. the new object could fit on the heap. It then not only puts the object on the heap, but also checks if the object's type contains a Finalize method. If yes then a pointer to the object is placed on the Finalization Queue.&nbsp;</div><div><br></div><div>The Finalization Queue is an internal data structure (Queue) controlled by the garbage collector. Each entry in the queue points to an object that should have its Finalize method called before the object's memory can be reclaimed.</div><div><br></div><div>E.g. when the objects K, O and P were created, the system detected that these objects had Finalize methods; hence after adding these objects to the heap, the pointers to these objects were added to the Finalization Queue.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/11.gif" alt="11.gif" width="568" height="370" border="0"><br></div><div><br></div><div>When the garbage collector finds the objects B, K, O, Q and S to be garbage, it scans the Finalization Queue looking for pointers to these objects. If a pointer is found, it is removed from the Finalization Queue and added to the Freachable Queue.&nbsp;</div><div><br></div><div>The Freachable Queue is another internal data structure (Queue) controlled by the garbage collector. Each pointer in the Freachable Queue identifies an object that is ready to have its Finalize method called.</div><div><br></div><div>Hence, we see that when the collection occurs, the memory occupied by objects B, O, and S is reclaimed because these objects did not have a Finalize method that needs to be called. However, the memory occupied by objects K and Q could not be reclaimed because their Finalize method has not been called yet and the pointers to both these objects are moved from the Finalization Queue to the Freachable Queue.</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/12.gif" alt="12.gif" width="568" height="370" border="0"><br></div><div><br></div><div>With this we reach to an understanding that, when an object is not reachable, the garbage collector considers the object garbage. Then, when the garbage collector moves an object's entry from the Finalization Queue to the Freachable Queue, the object is no longer considered garbage and its memory is not reclaimed. At this point, the garbage collector has finished identifying garbage. Some of the objects identified as garbage have been reclassified as not garbage. The garbage collector compacts the reclaimable memory and the special runtime thread empties the Freachable Queue, executing each object's Finalize method.</div><div>There is a special runtime thread dedicated to calling Finalize methods. Normally when the Freachable Queue is empty, this thread sleeps. But when the pointers are added to this queue, this thread awakes, removes each entry from the queue, and calls each object's Finalize method. Because of this, you should not execute any code in a Finalize method that makes any assumption about the thread that's executing the code. For example, avoid accessing thread local storage in the Finalize method.</div><div><br></div><div>In our example, we see that the pointers to objects K and Q have been moved to the Freachable Queue and their Finalize() method has been called by the thread.&nbsp;</div><div><br></div><div>Now the next time the garbage collection occurs, the Garbage Collector finds the pointers to objects K and Q in the Freacheble Queue and realizes that these finalized objects are truly garbage, and hence it goes ahead and reclaims the memory held by the objects K and Q. Please note that two iterations of the Garbage Collection process are required to free the memory space occupied by the objects that require finalization. In reality, more than two collections may be necessary since the objects could get promoted to an older generation.&nbsp;</div><div><br></div><div><img src="./Garbage Collection  Memory Management in .Net_files/13.gif" alt="13.gif" width="568" height="370" border="0"><br></div><div><br></div><div>So, we see that the Finalization process is quite fascinating, but I personally feel, it is not advisable to use this feature --<span class="Apple-tab-span" style="white-space:pre"> </span></div><div><ul><li>When a garbage collection occurs, the Garbage collector looks for and identifies the objects that contain a Finalize method. These objects are promoted to older generations, which for the time being prevent the object's memory from being collected. Moreover, all the objects referred to directly or indirectly by these finalized objects, also get promoted to older generations.</li><li>Finalizable objects take longer to allocate.</li><li>When a garbage collector is forced to execute the Finalize method of an object, it has a strong potential to significantly hurt the performance, as it would require each object to be finalized.&nbsp;</li><li>Finalizable objects may refer to other non-finalizable objects, prolonging their lifetime unnecessarily. In fact, you might want to consider breaking a type into two different types: a lightweight type with a Finalize method that doesn't refer to any other objects, and a separate type without a Finalize method that does refer to other objects.</li><li>We have no control over when a Finalize method would execute. The object may hold on to the resources until the next time the garbage collector runs.</li><li>When an application terminates, some objects are still reachable and will not have their Finalize method called. This can happen if background threads are using the objects or if objects are created during application shutdown or AppDomain unloading. In addition, by default, Finalize methods are not called for unreachable objects when an application exits so that the application may terminate quickly. Of course, all operating system resources will be reclaimed, but any objects in the managed heap are not able to clean up gracefully. We can change this default behavior by calling the System.GC type's RequestFinalizeOnShutdown method. However, we should use this method with care since calling it means that our type is controlling a policy for the entire application.&nbsp;</li><li>The runtime doesn't make any guarantees as to the order in which Finalize methods are called. For example, let's say there is an object that contains a pointer to an inner object. The garbage collector has detected that both objects are garbage. Furthermore, say that the inner object's Finalize method gets called first. Now, the outer object's Finalize method is allowed to access the inner object and call methods on it, but the inner object has been finalized and the results may be unpredictable. For this reason, it is strongly recommended that Finalize methods not access any inner, member objects.</li></ul></div><div><b><span class="Apple-style-span" style="font-size: medium;">What about External Resources?</span></b></div><div><br></div><div>The garbage collector efficiently handles freeing resources from the managed heap, but a collection is only initiated when memory pressure triggers a collection. What about classes that manage limited external resources such as database connections, Windows handles or External files etc.? Waiting until a garbage collection is triggered to clean up database connections or file handles can severely degrade system performance.&nbsp;</div><div><br></div><div><b>Dispose Method</b></div><div><br></div><div>Microsoft has provided another alternative whereby we could use the IDisposable interface. When we implement this interface, we get a Dispose() method which can be used to convey a message to the CLR to take care of objects that are no longer required by the application.&nbsp;</div><div><br></div><div>This method can be used to close or release unmanaged resources such as files, streams, and handles held by an instance of the class that implements this interface. This method is, by convention, used for all tasks associated with freeing resources held by an object, or preparing an object for reuse.</div><div><br></div><div>When implementing this method, objects must seek to ensure that all held resources are freed by propagating the call through the containment hierarchy. For example, if an object A allocates an object B, and object B allocates an object C, then A's Dispose implementation must call Dispose on B, which must in turn call Dispose on C. Objects must also call the Dispose method of their base class if the base class implements IDisposable.</div><div><br></div><div>If an object's Dispose method is called more than once, the object must ignore all calls after the first one. The object must not throw an exception if its Dispose method is called multiple times. Dispose can throw an exception if an error occurs because a resource has already been freed and Dispose had not been called previously.</div><div><br></div><div>Because the Dispose method must be called explicitly, objects that implement IDisposable must also implement a finalizer to handle freeing resources when Dispose is not called. By default, the garbage collector will automatically call an object's finalizer prior to reclaiming its memory. However, once the Dispose method has been called, it is typically unnecessary for the garbage collector to call the disposed object's finalizer. To prevent automatic finalization, Dispose implementations can call the GC.SuppressFinalize method.</div><div>&nbsp;</div><div><b><span class="Apple-style-span" style="font-size: medium;">Using the System.GC Class</span></b></div><div><br></div><div>The System.GC type allows your application some direct control over the garbage collector. It is used to access the garbage collection mechanism exposed by the .NET framework. This class includes the following useful methods:&nbsp;</div><div><ul><li><b>GC.MaxGeneration</b>, is used to query the maximum generation supported by the managed heap. By default, the GC.MaxGeneration property always returns 2.</li><li><b>GC.SuppressFinalize</b> was described earlier in the column; this method inhibits finalization for an object. Call this method if you have already released external resources owned by an object.&nbsp;</li><li><b>GC.Collect</b> comes in two versions. The version that has no parameter performs a full collection on all generations in the managed heap. Another version accepts an integer value representing the generation to be collected. You'll rarely need to call this method, as the garbage collector automatically runs when needed.&nbsp;<br><i><span class="Apple-style-span" style="font-style: normal;"><br></span>void GC.Collect(Int32 Generation)<br></i><i>void GC.Collect()<br><br></i>The first method allows you to specify which generation to collect. You may pass any integer from 0 to GC.MaxGeneration, inclusive. Passing 0 causes generation 0 to be collected; passing 1 cause generation 1 and 0 to be collected; and passing 2 causes generation 2, 1, and 0 to be collected. The version of the Collect method that takes no parameters forces a full collection of all generations and is equivalent to calling:<br><i><span class="Apple-style-span" style="font-style: normal;"><br></span>GC.Collect(GC.MaxGeneration);</i></li><li><i></i><b>GC.GetGeneration</b> returns the generation number for an object passed as a parameter. This method is useful when debugging or tracing for performance reasons, but has limited value in most applications.&nbsp;<br><i><span class="Apple-style-span" style="font-style: normal;"><br></span>Int32 GetGeneration(Object obj)<br></i><i>Int32 GetGeneration(WeakReference wr)<br><br></i>The first version of GetGeneration takes an object reference as a parameter, and the second version takes a WeakReference reference as a parameter. Of course, the value returned will be somewhere between 0 and GC.MaxGeneration, inclusive</li><li><b>GC.GetTotalMemory</b> returns the amount of memory allocated in the heap. This number is not exact due to the way the managed heap works, but a close approximation can be obtained if true is passed as a parameter. This causes a collection to be performed before the memory usage is calculated.</li><li><b>WaitForPendingFinalizers</b>, this method simply suspends the calling thread until the thread processing the Freachable Queue has emptied the queue, calling each object's Finalize method. In most applications, it is unlikely that you will ever have to call this method.</li></ul></div> <p></p></font></div> <div class="clear"> </div> <div class="clear"> </div> <div id="ctl00_RelatedArticles" class="relatedArticle"> <h3>
+Related Articles</h3> <ul> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl00_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/rmcochran/csharp_memory01122006130034PM/csharp_memory.aspx">C# Heap(ing) Vs Stack(ing) in .NET: Part I</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl01_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/rmcochran/csharp_memory2B01142006125918PM/csharp_memory2B.aspx">C# Heap(ing) Vs Stack(ing) in .NET: Part II</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl02_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/433c33/garbage-collection-in-java/">Garbage Collection in Java</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl03_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/tkagarwal/MemoryManagementInNet11232005064832AM/MemoryManagementInNet.aspx">Memory Management in .NET</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl04_HyperLinkTitle" href="http://www.c-sharpcorner.com/uploadfile/udeshikah/working-of-garbage-collector-part-i/default.aspx">Working of Garbage Collector: Part I</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl05_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/ankithakur/GCAlgorithm12222005224854PM/GCAlgorithm.aspx">Garbage Collector Algorithm</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl06_HyperLinkTitle" href="http://www.c-sharpcorner.com/uploadfile/babu_2082/sql-server-memory-management/default.aspx">SQL SERVER Memory Management</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl07_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/rmcochran/csharp_boxing02122006144943PM/csharp_boxing.aspx">The C# Value Type and Boxing</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl08_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/DipalChoksi/UnderstandingGarbageCollectioninNETFramework11292005051110AM/UnderstandingGarbageCollectioninNETFramework.aspx">Understanding Garbage Collection in the .NET Framework</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl09_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/skumaar_mca/garbage-collection-in-net-framework/">Garbage Collection in .Net framework</a> </li> </ul> </div> <script src="./Garbage Collection  Memory Management in .Net_files/jquery-Mention-Combined.js" type="text/javascript"></script> <script type="text/javascript">
+var mentionarraydata=[];
+var Comments_article = (function () {
+var pageSize = 10;
+var rootClass = '.article ';
+return {
+//Get Comments
+GetComments: function (parent_id) {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var rootComments = $j(rootClass + '#RootComments');
+var items = 0;
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'2cb9214e-967c-4c59-a922-57db2bae814c','type':'article','pageNumber':'" + pageNumber + "', 'pageSize':'" + pageSize + "', 'parentId':" + parent_id + "}",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#mainLoader').show();
+},
+success: function (d) {
+var data = d[0];
+var totalComments;
+$j.each(data, function (index) {
+rootComments.prepend(BuildComment(data[index])); //Prepend root comments
+if (pageNumber == 1 && index == 0) {
+$j(rootClass + '#HiddenTotalComments').val(data[index].TotalComments);
+if (d[2][index] == null || d[2][index] == undefined) {
+totalComments = data[index].TotalComments;
+}
+else {
+totalComments = parseFloat(data[index].TotalComments) + parseFloat(d[2][index].TotalComments);
+}
+$j(rootClass + '#TotalComments').text(totalComments); //set total comments only once.
+$j('#spanComments').text(totalComments); //Manages Header Comment Count
+}
+items = parseFloat(items) + 1; //track for number of comments to show
+ManageAlternateColor();
+});
+//Reply Binding starts here
+var reply = d[1];
+var element;
+$j.each(reply, function (index) {
+element = $j(rootClass + '#CommentReplies_' + reply[index].ParentId);
+element.prepend(BulildCommentReply(reply[index]));
+items = parseFloat(items) + 1;
+});
+//Reply Binding ends here
+//Manage paging
+{
+if (items != 0 && parseFloat(pageNumber) >= 1) {
+if (parseFloat(pageNumber) == 1)
+$j(rootClass + '#CommentCount').text(items);
+else
+$j(rootClass + '#CommentCount').text(parseFloat($j(rootClass + '#CommentCount').text()) + items);
+}
+else {
+$j(rootClass + '#Paging').hide();
+}
+ManageViewMoreVisibility();
+}
+$j(rootClass + '#mainLoader').hide();
+}
+});
+},
+//Like Comment
+LikeComment: function (id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=like_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+},
+Error: ShowError
+});
+if (status == '1') {
+var likes = $j(rootClass + '#Likes_' + id).text();
+$j(rootClass + '#Likes_' + id).text(parseFloat(likes) + 1);
+}
+else if (status == '2') {
+}
+},
+//Delete Comment
+DeleteComment: function (id, parent_id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=delte_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+success: function (response) {
+status = response;
+},
+Error: ShowError
+});
+if (status == '1') {
+var count = $j(rootClass + '#Replies_' + id).text();
+$j(rootClass + '#comment_' + id).remove();
+if (parent_id == 0) {
+ManageAlternateColor();
+ManagePaging('d', count);
+if (GetParentCommentsCount() == 0)
+Comments_article.GetComments(0);
+}
+else {
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) - 1);
+totalComments.text(parseFloat(totalComments.text()) - 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+}
+},
+//Post Comment
+PostComment: function (parent_id, e) {
+if (e.keyCode == 13) {
+var rootComments = $j(rootClass + '#RootComments');
+var totalComments = $j(rootClass + '#HiddenTotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var comment = null;
+$j('textarea.mention').mentionsInput('val', function(text) {
+comment=text;
+});
+comment=FormatText(comment);
+comment=GetCommentData(comment,'textarea.mention');
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'2cb9214e-967c-4c59-a922-57db2bae814c','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0]; 
+var mailtosendids=[];
+var mailtobesendids=null;
+$j('textarea.mention').mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+mailtosendids.push(obj.id);
+});
+});
+$j('textarea.mention').mentionsInput('reset', function(data) {
+});                          
+rootComments.append(BuildComment(data));
+ManageAlternateColor();
+$j(rootClass + '#InputCommentText_' + parent_id).val('').trigger('autosize.resize');
+//if (!(parseFloat(totalComments.val()) == parseFloat(commentCount.text()) && parseFloat($j('#HiddenPageNumber_article').val()) > 1))
+if (parseFloat(GetParentCommentsCount()) > parseFloat(pageSize))
+rootComments.find('div').first().remove();
+ManagePaging('i', 0);
+SendMail(comment, '0', data.ParentUserId, data.CommentId);
+mailtobesendids=mailtosendids.join(",");
+SendNotification(comment,mailtobesendids)
+$j(rootClass + '#PostLoader').hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Reply TextBox
+ShowReplyBox: function (id) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+if ($j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).length)
+{ $j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).toggle(); }
+else {
+var postReply = '<div id="ReplyContainer_' + id + '" class="ReplyComment" style="width:614px; padding-bottom:5px;">\
+<div class="image level1"><img src="http://www.c-sharpcorner.com/UploadFile/AuthorImage/a48f78.png" alt=""></div>\
+<div class="commentcontent">\
+<textarea id="ReplyComment_' + id + '" onkeypress="Comments_article.PostCommentReply(' + id + ',event);" class="mention" style="height:18px;" spellcheck="true" placeholder="Type your comment here and press Enter Key...."></textarea>\
+</div>\
+<img id="PostLoader_' + id + '" src="/Images/csharp/ajax-loader_12x9.gif"\
+style="margin: 5px 7px 0px 0px; clear:both; float:right; display:none;" />\
+</div>';
+element.append(postReply);
+$j(rootClass + 'textarea#ReplyComment_' + id).elastic();
+GetValueAtTheRate(rootClass + 'textarea#ReplyComment_' + id);
+$j(rootClass + '#ReplyComment_' + id).focus();
+}
+$j(rootClass + '#CommentReplies_' + id).show();
+},
+//Show Replies
+ShowReplies: function (id, anchr) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+var commentCount = $j(rootClass + '#CommentCount');
+//if (element.is(":visible") &&  == '')
+var pageSize = 50;
+if ($j(rootClass + '#Replies_' + id).text() != '0') {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'2cb9214e-967c-4c59-a922-57db2bae814c','type':'article','pageNumber':'1', 'pageSize':'" + pageSize + "', 'parentId':" + id + "}",
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (d) {
+element.html('');
+var data = d[0];
+$j.each(data, function (index) {
+data[index].CommentId;
+element.prepend(BulildCommentReply(data[index])); //Prepend root comments
+});
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+$j(anchr).remove();
+$j('#CommentReplies_' + id).show();
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+}
+});
+}
+},
+//Expend/Collapse Comment Replies
+ToggleReplies: function (id) {
+$j(rootClass + '#CommentReplies_' + id).toggle();
+},
+//Post Comment Reply
+PostCommentReply: function (parent_id, e) {
+if (e.keyCode == 13) {
+var replyContainer = $j(rootClass + '#ReplyContainer_' + parent_id);
+//var comment = FormatText($j(rootClass + '#ReplyComment_' + parent_id).val());
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+$j(rootClass + '#ReplyComment_' + parent_id).mentionsInput('val', function(text) {
+comment=text;
+});
+comment =FormatText(comment);
+comment=GetCommentData(comment,rootClass + '#ReplyComment_' + parent_id);
+$j(rootClass +'#ReplyComment_' + parent_id).mentionsInput('reset', function(data) {
+});
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'2cb9214e-967c-4c59-a922-57db2bae814c','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader_' + parent_id).show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0];
+replyContainer.before(BulildCommentReply(data));
+$j(rootClass + '#ReplyComment_' + parent_id).val('').trigger('autosize.resize');
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) + 1);
+totalComments.text(parseFloat(totalComments.text()) + 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+SendMail(comment, '1', data.ParentUserId, data.CommentId); //SendMail(comment, is_child_comment, parent_user_id)
+$j(rootClass + '#PostLoader_' + parent_id).hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Edit Panel
+ShowEditView: function (commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var editView = '<textarea id="CommentToEdit_' + commentId + '" onkeypress="Comments_article.EditComment(' + commentId + ',event);" class="inputText" style="width:95%;  height:16px; font-size:12px; margin: 5px 0px;" spellcheck="true"  ></textarea>\
+<img id="ajaxLoaderEdit_' + commentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />';
+editButton.hide();
+content.after(editView);
+var edittext=content.html();
+var existingusers= edittext.match(/<a[^>]+>([^<]+)<\/a>/g);
+var hyperlink=null;
+var username=null;
+//var userid=null;
+//var pieces=null;
+if(existingusers)
+{
+for(var i=0;i<=existingusers.length-1;i++)
+{
+hyperlink= $j(existingusers[i]).attr('href');
+//pieces=hyperlink.split('/');
+//userid=pieces[pieces.length-2];
+username=existingusers[i].match(/<a[^>]+>([^<]+)<\/a>/)[1];           
+mentionarraydata.push(username+'/^g*~o0#g*^/'+hyperlink);
+edittext=edittext.replace(existingusers[i],username);
+}
+}
+$j(rootClass + '#CommentToEdit_' + commentId).val(edittext);
+$j(rootClass + '#CommentToEdit_' + commentId).focus();
+content.hide();
+$j(rootClass + 'textarea#CommentToEdit_' + commentId).elastic();
+},
+//Edit Comment
+EditComment: function (commentId, e) {
+if (e.keyCode == 13) {  
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+textBox.val(textBox.val().replace('\n', ''));
+var comment = $j(rootClass + '#CommentToEdit_' + commentId).val().trim();
+comment = GetEditData(comment); 
+if (comment == content.text() || comment == '') {
+RemoveEditView(commentId);
+PreventDefault(e);
+}
+else {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=edit_comment&id=" + commentId + "&type=article",
+type: "POST",
+async: false,
+data: { description: FormatText(comment) },
+beforeSend: function () {
+$j(rootClass + '#ajaxLoaderEdit_' + commentId).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+PreventDefault(e);
+mentionarraydata.length=0;
+},
+Error: ShowError
+});
+if (status == '1') {
+content.html(decodeURIComponent(comment));
+RemoveEditView(commentId);
+}
+}
+}
+else if (e.keyCode == 27) {
+RemoveEditView(commentId);
+}
+},
+//Update Comment Follow Status
+UpdateFollowStatus: function (checkBox) {
+var status;
+status = ($j(checkBox).is(':checked'))?true:false;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=comment_follow_status&id=2cb9214e-967c-4c59-a922-57db2bae814c&type=article&status=" + status,
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+if(response=='1')
+$j(rootClass + '#PostLoader').hide();
+},
+Error: ShowError
+});
+},
+//View Previous Comments
+ViewPreviousComments: function () {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var totalComment = $j(rootClass + '#HiddenTotalComments').val();
+if (parseFloat(totalComment) > (parseFloat(pageNumber) * pageSize)) {
+$j('#HiddenPageNumber_article').val(parseFloat(pageNumber) + 1);
+}
+else {
+$j(rootClass + '#RootComments').text('');
+$j('#HiddenPageNumber_article').val('1');
+}
+Comments_article.GetComments(0);
+}
+}// End of return
+function PreventDefault(e)//Function to prevent Default Events. Working in IE8
+{
+if (e.preventDefault)
+e.preventDefault();
+else
+e.returnValue = false;
+}
+function BuildComment(obj) {
+var authorUrl = obj.AuthorUrl;
+var desc=unescape(obj.Description);
+var commentHtml;
+commentHtml = '<div id="comment_' + obj.CommentId + '" class="pulsecomment">';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDelete">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level0"><a href="' + authorUrl + '"><img alt="" src="' + obj.PhotoUrl + '" /></a></div>\
+<div class="commentcontent">\
+<a class="LinkNormalBlue" href="' + authorUrl + '">' + obj.FullName + '</a>\
+<div>' + desc + '</div>\
+<div>\
+<span class="floatRight"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.LikeComment(' + obj.CommentId + ')"><span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.ToggleReplies(' + obj.CommentId + ')" ><span id="Replies_' + obj.CommentId + '">' + obj.Replies + '</span> Reply</a>';
+if ('True' == 'True')
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplyBox(' + obj.CommentId + ')">Post Reply</a>';
+if (parseFloat(obj.Replies) > 3)
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplies(' + obj.CommentId + ', this)">Show All</a>';
+commentHtml += '<img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+<div class="clear"></div>\
+<div id="CommentReplies_' + obj.CommentId + '"></div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function BulildCommentReply(obj) {
+var authorUrl = obj.AuthorUrl;
+var commentHtml = '<div id="comment_' + obj.CommentId + '" class="ReplyComment" style="width:612px;">';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDeleteReply">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level1"><a href="' + authorUrl + '"><img src="' + obj.PhotoUrl + '" alt="" /></a></div>\
+<div class="commentcontent"><a href="' + authorUrl + '" class="LinkNormalBlue">' + obj.FullName + '</a>\
+<div>' + unescape(obj.Description) + '</div>\
+<div><span class="floatRight"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span><a onclick="Comments_article.LikeComment(' + obj.CommentId + ')" class="commnetLinkSecondStep"> <span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a>\
+<img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function GetParentCommentsCount() {
+var count = 0;
+//$j(rootClass + '#RootComments > div.pulsecomment').each(function () {
+//    count = count + 1;
+//});
+count = $j(rootClass + '#RootComments > div.pulsecomment').size();
+return count;
+}
+function GetChildCommentsCount() {
+var childNodes = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent div div.ReplyComment').size();
+var textareas = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent textarea').size();
+if (childNodes > 0)
+return childNodes - textareas;
+else return 0;
+}
+function ManageAlternateColor() {
+$j(rootClass + '#RootComments > div').removeClass("BackgroundWhite");
+$j(rootClass + '#RootComments > div:odd').addClass("BackgroundWhite");
+}
+//        function FormatTextToInsert(text) {
+//            return escape(($j.trim(text)).replace('<', '&lt;').replace('>', '&gt;').replace('/', '&#47;').replace('"', '&quot;').replace('\n', ''));
+//        }
+function SendMail(comment, is_child_comment, parent_user, commentId) {
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_mail&type=article",
+data: { description: unescape(comment),
+content_title:'Garbage Collection: Memory Management in .Net',
+content_user_id:'riteshratna',
+is_child_comment:is_child_comment,
+content_id: '2cb9214e-967c-4c59-a922-57db2bae814c',
+parent_user_id: parent_user,
+request_url:'http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx',
+content_url:'',
+content_user_email:'',
+comment_id:commentId
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function SendNotification(comment,mailtosendids)
+{
+var pathname = 'http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx';
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_notification&type=article",
+data: { description: unescape(comment),
+mailtosend:mailtosendids,
+currenturl:pathname
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function VerifyUser() {
+var data;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=current_user",
+type: "GET",
+async: false,
+success: function (response) {
+data = $j.parseJSON(response)[0].user_name;
+}
+});
+if (data == null || data == '') {
+var url = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx';
+window.location = url;
+}
+}
+function ManagePaging(action, count) {
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var total_comments = $j.trim($j(rootClass + '#HiddenTotalComments').val());
+switch (action) {
+case 'i': //increase
+total_comments = parseFloat(total_comments) + 1;
+if ($j.trim(totalComments.text()) == '')
+totalComments.text('1');
+else
+totalComments.text(parseFloat(totalComments.text()) + 1);
+$j(rootClass + '#Paging').show();
+break;
+case 'd': //decrease
+if (parseFloat(total_comments) <= 0) {
+totalComments.text('');
+commentCount.text('');
+$j(rootClass + '#Paging').hide();
+}
+else {
+totalComments.text(parseFloat(totalComments.text()) - (1 + parseFloat(count)));
+total_comments = parseFloat(total_comments) - 1;
+}
+break;
+}
+var parentComments = parseFloat(GetParentCommentsCount());
+commentCount.text(parentComments + parseFloat(GetChildCommentsCount()));
+$j(rootClass + '#HiddenTotalComments').val(total_comments);
+$j('#HiddenPageNumber_article').val(parseInt((parentComments - 1) / pageSize) + 1);
+ManageViewMoreVisibility();
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+function ManageViewMoreVisibility() {
+var previousComments = $j(rootClass + '#ViewPreviousComments');
+if (parseFloat($j(rootClass + '#HiddenTotalComments').val()) > parseFloat(GetParentCommentsCount()))
+previousComments.show();
+else
+previousComments.hide();
+}
+function RemoveEditView(commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+var ajaxLoader = $j(rootClass + '#ajaxLoaderEdit_' + commentId);
+editButton.show();
+textBox.val('');
+textBox.remove();
+ajaxLoader.remove();
+content.show();
+}
+function ShowError() {
+alert('There is some error processing your request');
+}
+}());
+$j(document).ready(function () {
+$j.ajaxSetup({ cache: false });
+if ('True' == 'False') {
+$j('#RootPostComment').remove();
+}
+Comments_article.GetComments(0);
+GetValueAtTheRate('textarea.mention');
+$j(document).on("click",function(event) {
+var classname = event.target.className;
+if(classname=== 'mention')
+{
+$j('.mentions-autocomplete-list').has('ul').show();
+}
+else
+{
+$j('.mentions-autocomplete-list').hide();
+}
+});
+});    
+function GetValueAtTheRate(id) {
+$j(id).mentionsInput({
+minChars:1,
+onDataRequest:function (mode, query, callback) {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/CSharpSearch.asmx/GetAllFriendsFollowers",
+data: "{'name':'"+query+"','user_id':'a48f78','content_id':'2cb9214e-967c-4c59-a922-57db2bae814c','type':'article'}",
+async:false,
+success: function(data) {
+var jasondata= [];
+var Id=null,Name=null,Avatar=null,Type=null;
+for(var i=0;i<=data.length-1;i++)
+{
+Id= data[i].Id
+Name= data[i].Name;
+Avatar=data[i].PhotoUrl;
+Type=data[i].AuthorUrl;
+var jasonobj= new JasonObj(Id,Name,Avatar,Type);
+jasondata.push(jasonobj);
+}
+//jasondata = _.filter(jasondata, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+callback.call(this, jasondata);
+}
+});
+}
+});
+}
+var JasonObj =function(Id, Name, Avatar,Type){
+this.id = Id;
+this.name = Name;
+this.avatar= Avatar;
+this.type = Type;
+};
+function GetCommentData(comment,id)
+{
+var value=null;
+var valuetobereplaced=null; 
+var userURL=null;
+$j(id).mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+value = '@['+obj.value+']('+obj.type+':'+obj.id+')';
+valuetobereplaced=FormatText(value);
+userURL= '<a target=_blank class=LinkNormalBlue href='+decodeURIComponent(obj.type)+'>'+obj.value+'</a>';
+comment=comment.replace(valuetobereplaced, userURL);
+});
+});
+return comment;            
+}
+function FormatText(text) {
+return escape(($j.trim(text)).replace('/</g', '&lt;').replace('/>/g', '&gt;').replace('/\//g', '&#47;').replace('/"/g', '&quot;').replace('/\n/g', ''));
+}  
+function GetEditData(comment) {
+if (mentionarraydata) {
+var username = null;
+var userlink = null;
+for (var i = 0; i <= mentionarraydata.length - 1; i++) {
+username = mentionarraydata[i].split('/^g*~o0#g*^/')[0];
+userlink = mentionarraydata[i].split('/^g*~o0#g*^/')[1];
+if (comment.indexOf(username) !== -1) {
+comment = comment.replace(username, '<a target=_blank class=LinkNormalBlue href=' + userlink + '>' + username + '</a>')
+}
+}
+mentionarraydata.length = 0;
+}
+return comment;
+}
+</script> <div class="clear"> </div> <div style="position: relative;" class="article"> <a name="ReadAndPostComment"></a> <div class="postHeader"> <span class="post_C">comments</span> <img id="mainLoader" src="./Garbage Collection  Memory Management in .Net_files/ajax-loader_12x9.gif" style="position: absolute; left: 315px; top: 26px; display: none;"> <div id="Paging" style="position: absolute; right: 1px; top: 16px;"> <div style="background: #f3f3f3; height: 15px; padding: 7px; float: right;"> <label id="TotalComments" class="floatRight" style="margin-right: 3px;">1</label> <label class="floatRight" style="margin-right: 3px;">
+of
+</label> <label id="CommentCount" class="floatRight" style="margin-right: 3px;">1</label> <input id="HiddenPageNumber_article" type="hidden" value="1"> <input id="HiddenTotalComments" type="hidden" value="1"> </div> <a id="ViewPreviousComments" class="previousComments" style="display: none; margin-right: 10px; margin-top: 7px; float: right;" onclick="Comments_article.ViewPreviousComments();return false;">
+View Previous Comments &gt;&gt;</a> </div> </div> <div class="clear"> </div> <div id="ctl00_Comments1_Panel1" class="pulseMainComment" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_Button1&#39;)"> <div class="pulseCommentSectionMain" style="padding: 0px;overflow:inherit"> <div class="pulseCommentSection"> <div id="RootComments"><div id="comment_47197" class="pulsecomment"><div class="image level0"><a href="http://www.c-sharpcorner.com/authors/7cbc08/imtiaz-malik.aspx"><img alt="" src="./Garbage Collection  Memory Management in .Net_files/DefaultAuthorImage.gif"></a></div><div class="commentcontent"><a class="LinkNormalBlue" href="http://www.c-sharpcorner.com/authors/7cbc08/imtiaz-malik.aspx">Imtiaz Malik</a><div>excellent article</div><div><span class="floatRight" style="font-size: 11px;"><span class="watchICon"></span>Aug 29, 2014</span><a class="commnetLinkSecondStep" onclick="Comments_article.LikeComment(47197)"><span id="Likes_47197">0</span> Like</a><a class="commnetLinkSecondStep" onclick="Comments_article.ToggleReplies(47197)"><span id="Replies_47197">0</span> Reply</a><a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplyBox(47197)">Post Reply</a><img id="ajaxLoader_47197" src="./Garbage Collection  Memory Management in .Net_files/ajax-loader_12x9.gif" style="margin:4px 0px 0px 5px; display:none;"></div><div class="clear"></div><div id="CommentReplies_47197"></div></div></div> </div> <div class="pulsecomment borderNone" id="RootPostComment"> <div class="image level0"> <img src="./Garbage Collection  Memory Management in .Net_files/a48f78.png" alt=""> </div> <div id="ctl00_Comments1_PanelPostComment" class="commentcontent" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_ButtonPost&#39;)"> <div class="mentions-input-box"><div class="mentions"><div></div></div><textarea id="InputCommentText_0" style="height: 30px; overflow: hidden;" onkeypress="Comments_article.PostComment(&#39;0&#39;,event);" class="mention" spellcheck="true" placeholder="Type your comment here and press Enter Key...." data-mentions-input="true"></textarea><div style="position: absolute; display: none; word-wrap: break-word; white-space: pre-wrap; border: 1px solid rgb(220, 220, 220); font-weight: normal; width: 602px; font-family: pt_sansregular; line-height: normal; font-size: 14px; padding: 5px;">&nbsp;</div><div class="mentions-autocomplete-list"></div></div> <input type="submit" name="ctl00$Comments1$ButtonPost" value="" id="ctl00_Comments1_ButtonPost" style="display: none;"> </div> <span title="If checked, you&#39;ll get email notification for any comment posted" style="display: inline-block;
+margin-left: 11px; margin-top: 6px; clear: both;"><input id="ctl00_Comments1_FollowCheckBox" type="checkbox" name="ctl00$Comments1$FollowCheckBox" checked="checked" onclick="Comments_article.UpdateFollowStatus(this);"><label for="ctl00_Comments1_FollowCheckBox">Follow Comments</label></span> <img id="PostLoader" src="./Garbage Collection  Memory Management in .Net_files/ajax-loader_12x9.gif" style="clear: both; margin: 10px 5px 0px 0px; float: right; display: none;"> </div> </div> </div> <input type="submit" name="ctl00$Comments1$Button1" value="" onclick="return false;" id="ctl00_Comments1_Button1" style="display: none;"> <input type="hidden" name="ctl00$Comments1$HiddenFieldEmailComment" id="ctl00_Comments1_HiddenFieldEmailComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldIsChildComment" id="ctl00_Comments1_HiddenFieldIsChildComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldParentUserId" id="ctl00_Comments1_HiddenFieldParentUserId"> </div> <div class="clear"> </div> <div id="ctl00_Comments1_SocialComments"> <div class="headerGray marginTop"> <span class="HeaderSpanFirstBlue"></span><span class="HeaderSpanSecond">COMMENT USING
+</span><span class="facebookComments" style="margin: 3px 5px;"></span> </div> <div class="fb-comments fb_iframe_widget" data-href="http://www.c-sharpcorner.com/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx" data-width="675" data-num-posts="5" fb-xfbml-state="rendered"><span style="height: 114px; width: 675px;"><iframe id="f187ac1" name="f2565f914" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./Garbage Collection  Memory Management in .Net_files/comments.html" style="border: none; overflow: hidden; height: 114px; width: 675px;"></iframe></span></div> </div> </div> </div> <div class="rightCntr"> <div class="clear"> </div> <div style="width: 336px; margin-bottom: 10px;"> <span id="ctl00_RightBar_ArticleDetailRightBar1_NewsArticleAd1_LabelArticleScript"><script language="JavaScript"> <!-- hide from non-JavaScript browsers
+var axel = Math.random() + "";
+var num = axel * 1000000000000000000;
+document.write('<IFRAME SRC="http://ad.doubleclick.net/adi/N5621.124662.7163663382421/B7978417.105809675;sz=300x250;click=;ord='+ num +'?" WIDTH=300 HEIGHT=250 MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no BORDERCOLOR="#000000">');
+document.write('<SCR'+'IPT language="JavaScript1.1" SRC="http://ad.doubleclick.net/adj/N5621.124662.7163663382421/B7247196;abr=!ie;sz=300x250;click=;ord='+ num +'?"></SCR'+'IPT></IFRAME>');
+// end hide from browsers --> </script><iframe src="./Garbage Collection  Memory Management in .Net_files/saved_resource.html" width="300" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" bordercolor="#000000" style="display: none !important;">&lt;SCRIPT language="JavaScript1.1" SRC="http://ad.doubleclick.net/adj/N5621.124662.7163663382421/B7247196;abr=!ie;sz=300x250;click=;ord=143691181205213070?"&gt;&lt;/SCRIPT&gt;</iframe> <noscript> &lt;A HREF="http://ad.doubleclick.net/jump/N5621.124662.7163663382421/B7978417.105809675;abr=!ie4;abr=!ie5;sz=300x250;ord=[timestamp]?"&gt; &lt;IMG SRC="http://ad.doubleclick.net/ad/N5621.124662.7163663382421/B7978417.105809675;abr=!ie4;abr=!ie5;sz=300x250;ord=[timestamp]?" BORDER=0 WIDTH=300 HEIGHT=250 ALT="Advertisement"&gt;&lt;/A&gt; </noscript></span> </div> <h2 class="headerControls">
+Trending up <a href="http://www.c-sharpcorner.com/RSS/TopArticles.aspx" id="ctl00_RightBar_ArticleDetailRightBar1_TrendingUp1_RssEnabledImageButton" class="headerRss" target="_blank"></a> </h2> <div class="rightBox"> <ul class="trendingBox"> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+01</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/638122/forms-authentication-form-authorization-and-storing-encryp/">
+Form Authentication, Form Authorization and Storing Encrypted Values in Database</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+02</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/00a8b7/web-service/">
+Web Services in C#</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+03</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/a9d961/a-quick-start-on-mvc/">
+A Quick Start on MVC</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+04</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/3789b7/how-to-create-a-virtual-machine-for-run-windows-10-technical/">
+How to Create a Virtual Machine To Run Windows 10 Technical Preview</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+05</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/00a8b7/Asp-Net-mvc-life-cycle/">
+ASP.Net MVC Life Cycle</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+06</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/bd8b0b/how-to-create-the-multilanguage-application-in-Asp-Net-appli/">
+How to Create the Multilanguage Application in ASP.Net</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+07</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/2ed7ae/jsonresult-type-in-mvc/">
+JsonResult Type in MVC</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+08</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/0f68f2/embedding-calendar-datetimepicker-control-into-datagridvie586/">
+Embedding Calendar (DateTimePicker) Control Into DataGridView Cell</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+09</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/020f8f/windows-phone-8-app-development-using-phonegap-cordova-par/">
+Windows Phone 8 App Development Using PhoneGap (Cordova): Part 1</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+10</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/mahesh/top-10-things-you-should-never-say-to-your-boss/">
+Top 10 Things You Should Never Say To Your Boss</a> </div> </li> </ul> <a href="http://www.c-sharpcorner.com/Articles/TopArticles.aspx" class="viewAllLink">
+View All</a> </div> <div style="padding-bottom: 10px;"> <iframe id="twitter-widget-2" scrolling="no" frameborder="0" allowtransparency="true" src="./Garbage Collection  Memory Management in .Net_files/follow_button.21f7daa948263c3043bab783473c3475.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 100%; height: 20px;"></iframe> </div> <div id="fb-root" class=" fb_reset"> <div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Garbage Collection  Memory Management in .Net_files/ehazDpFPEnK.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Garbage Collection  Memory Management in .Net_files/ehazDpFPEnK(1).html" style="border: none;"></iframe></div></div></div> <div class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/pages/C-Corner/194086953935286" data-width="336px" data-show-faces="true" data-stream="false" data-header="true" data-border-color="#c6c6c6" data-max-rows="2" style="padding-bottom: 10px;
+border: none 0px" async="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=440531902678919&amp;header=true&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC-Corner%2F194086953935286&amp;locale=en_US&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=336"><span style="vertical-align: bottom; width: 336px; height: 271px;"><iframe name="f2adcc3c08" width="336px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like_box Facebook Social Plugin" src="./Garbage Collection  Memory Management in .Net_files/like_box.html" style="border: none; visibility: visible; width: 336px; height: 271px;" class=""></iframe></span></div> <div class="clear"> </div> </div> </div> </div> <div class="footer"> <div class="menuStripGray"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/Members/mvps/">MVPs</a></li> <li><a href="http://www.c-sharpcorner.com/Articles/mostviewed.aspx">MOST VIEWED</a></li> <li><a href="http://www.c-sharpcorner.com/Members/legend/">LEGENDS</a></li> <li><a href="http://www.c-sharpcorner.com/articles/">NOW</a></li> <li><a href="http://www.c-sharpcorner.com/prizes/">PRIZES</a></li> <li><a href="http://www.c-sharpcorner.com/prizes/">AWARDS</a></li> <li><a href="http://www.c-sharpcorner.com/reviews/">REVIEWS</a></li> <li><a href="http://www.c-sharpcorner.com/survey/">SURVEY</a></li> <li><a href="http://www.c-sharpcorner.com/exam/">CERTIFICATIONS</a></li> <li><a href="http://www.c-sharpcorner.com/downloads/">DOWNLOADS</a></li> </ul> <div class="rightlink"> <a href="http://www.cbeyond.net/" target="_blank"><span class="hosted">Hosted By </span>
+CBeyond Cloud Services</a></div> </div> </div> <div class="menuStripBlue"> <div class="page"> <div class="menu"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/photos/">PHOTOS</a></li> <li><a href="http://www.c-sharpcorner.com/code/">CODE SNIPPETS</a> </li> <li><a href="http://www.c-sharpcorner.com/consulting/">CONSULTING</a> </li> <li><a href="http://www.c-sharpcorner.com/training/">TRAINING</a> </li> <li><a href="http://www.c-sharpcorner.com/beginners/">STUDENTS</a> </li> <li><a href="http://www.c-sharpcorner.com/Members/">MEMBERS</a> </li> <li><a href="http://www.c-sharpcorner.com/media/ContactUs.aspx">MEDIA KIT</a></li> <li><a href="http://www.c-sharpcorner.com/resources/aboutus.aspx">ABOUT US</a></li> <li><a href="http://www.c-sharpcorner.com/resources/">LINKS</a></li> <li><a href="http://www.c-sharpcorner.com/ideas/">IDEAS</a> </li> </ul> </div> </div> </div> <div class="footerBottom"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/contactus.aspx">CONTACT
+US</a></li> <li><a href="http://www.c-sharpcorner.com/privacypolicy.aspx">PRIVACY POLICY</a></li> <li><a href="http://www.c-sharpcorner.com/termsconditions.aspx">TERMS &amp;
+CONDITIONS</a></li> <li><a href="http://www.c-sharpcorner.com/sitemap/">SITEMAP</a></li> <li><a href="http://www.c-sharpcorner.com/contactus.aspx?Type=6">REPORT ABUSE</a></li> </ul> <div class="social_link"> <ul> <li><a target="_blank" href="http://www.facebook.com/pages/C-Corner/194086953935286" class="facebook">facebook</a></li> <li><a target="_blank" href="http://twitter.com/csharpcorner" class="twitter">twitter</a></li> <li><a target="_blank" href="https://plus.google.com/u/0/114221266846457741050/posts" class="google">google</a></li> <li><a target="_blank" href="http://www.youtube.com/user/CsharpCorner1/" class="media">
+media</a></li> </ul> <p class="copyright">
+©2014
+C# Corner. All contents are copyright of their authors.</p> </div> </div> </div> </div> </div> <input type="hidden" name="ctl00$hiddenFieldNext" id="ctl00_hiddenFieldNext"> <input type="hidden" name="ctl00$hiddenFieldPrevious" id="ctl00_hiddenFieldPrevious"> <meta name="google-signin-clientid" content="1008907732563-jaf78g0pj7k52q8efh0r22c58iol91cg.apps.googleusercontent.com"> <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read profile"> <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity"> <meta name="google-signin-cookiepolicy" content="single_host_origin"> <script type="text/javascript">
+$j(window).load(function() {
+window.fbAsyncInit = function() {
+// init the FB JS SDK
+FB.init({
+appId: '440531902678919', // App ID from the App Dashboard
+//channelUrl: "//connect.facebook.net/en_US/all.js", // Channel File for x-domain communication
+status: true, // check the login status upon init?
+cookie: true, // set sessions cookies to allow your server to access the session?
+xfbml: true  // parse XFBML tags on this page?
+});
+// Additional initialization code such as adding Event Listeners goes here
+};
+// Load the SDK's source Asynchronously
+(function(d, debug) {
+var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+if (d.getElementById(id)) { return; }
+js = d.createElement('script'); js.id = id; js.async = true;
+js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+ref.parentNode.insertBefore(js, ref);
+} (document, /*debug*/false));
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/client:plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.twitter.com/widgets.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.linkedin.com/in.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+});
+</script> <div id="fb-root"> </div> <div> <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWIwKbmIGvDQL5qLTNDwLHr/20AwLB4Z3HDQLWs6KhCQLB6efVDwKzz+rpBQLA16yLBAKYs5+LBALmtZ3cBQKLvuG4CQLvh5yoAwL25sacAQKMoJapAwLhoICGCQLWhpmdAgKszb2PCwKH1sfsBwKn347uAwLFh6i2DgLfxO3mCALFstzxDQKTxvebBQL6mL6/DQK6mby0DQKM08bkCAK/zYnfBQLpwuC/CwL1zrz+AQLrua7/DwKsyaD8BwLdoKjrDQKmldaNCQKc3rDeDAKayJrtBX3EeHsNXZMqEPrE2IasabxLbKwg"> </div> <script src="./Garbage Collection  Memory Management in .Net_files/WebResource.axd" type="text/javascript"></script> </form> <script type="text/javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JQuery/jquery.TrendingNow_09032014.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+function Like() {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=like_content&type=Article",
+data: { article_id: '2cb9214e-967c-4c59-a922-57db2bae814c' },
+type: "POST",
+async: false,
+success: function(response) {
+var label = $j('#ctl00_LabelLikeCount');
+if (response == "login")
+window.location = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/uploadfile/riteshratna/garbage-collection-memory-management-in-net/Default.aspx';
+else if (parseInt(response) == 1) {
+label.text(parseInt(label.text()) + 1);
+label.css('color', 'green');
+}
+else {
+label.css('color', 'red');
+}
+}
+});
+}
+</script> <script type="text/javascript">
+$j(document).ready(function() {
+$j('a.show-dropdown').mouseover(function() {
+//get the height position of the current object
+var elementHeight = $j(this).height();
+var offsetWidth = 10;
+var offsetHeight = 10;
+//Get the tool tip container width adn height
+var toolTipWidth = $j("#dropDown").width();
+var toolTipHeight = $j("#dropDown").height();
+//Get the HTML document width and height
+var documentWidth = $j(document).width();
+var documentHeight = $j(document).height();
+//Set top and bottom position of the tool tip
+var top = $j(this).offset().top;
+if (top + toolTipHeight > documentHeight) {
+top = documentHeight - toolTipHeight - offsetHeight - (2 * elementHeight);
+}
+var left = $j(this).offset().left + offsetWidth;
+if (left + toolTipWidth > documentWidth) {
+left = documentWidth - toolTipWidth - (2 * offsetWidth);
+}
+$j('#dropDown').show();
+});
+$j('a.show-dropdown').mouseout(function() {
+$j("#dropDown").hide();
+});
+$j('#dropDown').mouseover(function() {
+$j('#dropDown').show();
+});
+$j('#dropDown').mouseout(function() {
+$j('#dropDown').hide();
+});
+});
+</script> <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-535360-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>  <iframe name="oauth2relay704608099" id="oauth2relay704608099" src="./Garbage Collection  Memory Management in .Net_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

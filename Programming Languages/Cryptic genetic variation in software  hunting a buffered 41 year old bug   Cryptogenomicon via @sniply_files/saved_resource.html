@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<!-- saved from url=(0183)https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply -->
+<html lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Cryptic genetic variation in software: hunting a buffered 41 year old bug | Cryptogenomicon</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://cryptogenomicon.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+	<script src="https://s0.wp.com/wp-content/themes/pub/able/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Cryptogenomicon » Feed" href="https://cryptogenomicon.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Cryptogenomicon » Comments Feed" href="https://cryptogenomicon.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Cryptogenomicon » Cryptic genetic variation in software: hunting a buffered 41 year old bug Comments Feed" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="droid-serif-css" href="css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-2" href="saved_resource(1)" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="saved_resource(2)"></script>
+<link rel="stylesheet" id="all-css-0" href="style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cryptogenomicon.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Reboot" href="https://cryptogenomicon.wordpress.com/2014/09/19/reboot/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/">
+<link rel="shortlink" href="http://wp.me/p52lcj-dn">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Fcryptogenomicon.wordpress.com%2F2014%2F10%2F13%2Fcryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Fcryptogenomicon.wordpress.com%2F2014%2F10%2F13%2Fcryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cryptic genetic variation in software: hunting a buffered 41 year old bug">
+<meta property="og:url" content="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/">
+<meta property="og:description" content="In genetics, cryptic genetic variation means that a genome can contain mutations whose phenotypic effects are invisible because they are suppressed or buffered, but under rare conditions they becom...">
+<meta property="article:published_time" content="2014-10-13T15:57:06+00:00">
+<meta property="article:modified_time" content="2014-10-13T15:57:07+00:00">
+<meta property="article:author" content="https://cryptogenomicon.wordpress.com/author/cryptogenomicon/">
+<meta property="og:site_name" content="Cryptogenomicon">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://cryptogenomicon.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://cryptogenomicon.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://cryptogenomicon.wordpress.com/osd.xml" title="Cryptogenomicon">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			body {
+				background-image: none;
+			}
+		</style>
+			<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Cryptogenomicon"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Genome sequence analysis, the HMMER and Infernal projects, and the Eddy/Rivas lab"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://cryptogenomicon.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Cryptic genetic variation in software: hunting a buffered 41 year old bug | Cryptogenomicon on WordPress.com">
+<meta name="description" content="In genetics, cryptic genetic variation means that a genome can contain mutations whose phenotypic effects are invisible because they are suppressed or buffered, but under rare conditions they become visible and subject to selection pressure. In software code, engineers sometimes also face the nightmare of a bug in one routine that has no visible effect…">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #fafafa; }
+</style>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<style type="text/css" id="custom-colors-css">
+.site-title a, .site-description { color: #323232;}
+.site-title a:hover { color: #000000;}
+address, pre, th { color: #323232;}
+body { background-color: #fafafa;}
+#main h1, #main h1 a, #main h2, #main h2 a, #main h3, #main h3 a, #main h4, #main h4 a, #main h5, #main h5 a, #main h6, #main h6 a { color: #323232;}
+a, a:hover, a:active, a:focus { color: #C600AC;}
+.main-navigation li li:hover > a, .main-navigation li li a:hover { color: #9E0089;}
+.main-navigation li .current-menu-item > a, .main-navigation li .current-menu-ancestor > a, .main-navigation li .current_page_item > a, .main-navigation li .current_page_ancestor > a { color: #AD0096;}
+.page-links a:hover, .page-links a:active, .page-links a:focus { color: #B7009F;}
+address, pre, th { background-color: #f5f5f5;}
+address, pre, th { background-color: rgba( 245, 245, 245, 0.7 );}
+tr:hover { background-color: #f5f5f5;}
+tr:hover { background-color: rgba( 245, 245, 245, 0.2 );}
+address, pre, th, #page-liner, .bypostauthor > article.comment { border-color: #f5f5f5;}
+td, .wp-caption, #content .gallery-item img, #nav-below, article.comment, .page-header, .footer-navigation a, .site-info .sep { border-color: #f5f5f5;}
+td, .wp-caption, #content .gallery-item img, #nav-below, article.comment, .page-header, .footer-navigation a, .site-info .sep { border-color: rgba( 245, 245, 245, 0.7 );}
+</style>
+		<link rel="stylesheet" id="custom-css-css" type="text/css" href="saved_resource(3)">
+		<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="services.css"></head>
+
+<body class="single single-post postid-829 single-format-standard custom-background mp6 typekit-enabled one-column chrome highlander-enabled highlander-light custom-colors">
+<div id="page" class="hfeed site">
+	<div id="site-introduction">
+		<h1 class="site-title"><a href="https://cryptogenomicon.wordpress.com/" title="Cryptogenomicon" rel="home">Cryptogenomicon</a></h1>
+		<h2 class="site-description">Genome sequence analysis, the HMMER and Infernal projects, and the Eddy/Rivas lab</h2>
+	</div><!-- #site-title -->
+	<div id="page-liner">
+		<header id="masthead" class="site-header" role="banner">
+			
+			<nav role="navigation" class="site-navigation main-navigation">
+				<h1 class="assistive-text">Menu</h1>
+				<div class="assistive-text skip-link"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#content" title="Skip to content">Skip to content</a></div>
+
+				<div class="menu"><ul><li><a href="https://cryptogenomicon.wordpress.com/">Home</a></li><li class="page_item page-item-5"><a href="https://cryptogenomicon.wordpress.com/about-2/">About</a></li><li class="page_item page-item-501"><a href="https://cryptogenomicon.wordpress.com/contributing-code-to-our-projects/">Contributing code</a></li></ul></div>
+			</nav><!-- .site-navigation .main-navigation -->
+		</header><!-- #masthead .site-header -->
+
+		<div id="main">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+		
+			
+<article id="post-829" class="post-829 post type-post status-publish format-standard hentry category-easel">
+	<header class="entry-header">
+		<h1 class="entry-title">Cryptic genetic variation in software: hunting a buffered 41 year old&nbsp;bug</h1>
+
+		<div class="entry-meta">
+			Posted on <a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/" title="3:57 pm" rel="bookmark"><time class="entry-date" datetime="2014-10-13T15:57:06+00:00" pubdate="">October 13, 2014</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://cryptogenomicon.wordpress.com/author/cryptogenomicon/" title="View all posts by seaneddy" rel="author">seaneddy</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>In genetics, <a href="http://www.ncbi.nlm.nih.gov/pubmed/24614309"><em>cryptic genetic variation</em></a> means that a genome can contain mutations whose phenotypic effects are invisible because they are suppressed or buffered, but under rare conditions they become visible and subject to selection pressure.</p>
+<p>In software code, engineers sometimes also face the nightmare of a bug in one routine that has no visible effect because of a compensatory bug elsewhere. You fix the other routine, and suddenly the first routine starts failing for an apparently unrelated reason. <a href="http://en.wikipedia.org/wiki/Epistasis">Epistasis</a> sucks.</p>
+<p>I’ve just found an example in our code, and traced the origin of the problem back 41 years to the algorithm’s description in a 1973 applied mathematics paper. The algorithm — for sampling from a Gaussian distribution — is used worldwide, because it’s implemented in the venerable <a href="http://people.sc.fsu.edu/~jburkardt/f77_src/ranlib/ranlib.html">RANLIB software library</a> still used in lots of numerical codebases, including <a href="https://www.gnu.org/software/octave/">GNU Octave</a>. It looks to me that the only reason code has been working is that a compensatory “mutation” has been selected for in everyone else’s code except mine.</p>
+<p><span id="more-829"></span></p>
+<p><strong>The bug report</strong></p>
+<p>Elena Rivas reported yesterday that our routine for random sampling from a Gaussian distribution, <em>esl_rnd_Gaussian()</em>, had crashed. As with most bug reports on our code, my initial reaction was disbelief. First, there are no bugs in our code. Second, we’ve had this routine for at least a decade and never seen it fail before. Third, it’s not even my code, it’s derived from RANLIB, a well-trusted and well-used numerical library.</p>
+<p>Then, as with most bug reports on our code, my next reaction was well, goddammit, I guess I’d better look into it. We actually don’t sample from Gaussian distributions much (we’re more about Gumbels and Dirichlets and gammas, oh my), so that code isn’t as tested as a lot of our other code. It’s possible there could be a rare problem we hadn’t seen until Elena started running some big numerical simulations recently.</p>
+<p><strong>Finding the bug</strong></p>
+<p>Indeed, it’s rare, and it took a while to reproduce. I took several billion Gaussian-distributed samples from it before I saw it fail. The numerology of that rarity alone made me suspicious of where the problem might lie. I’ve seen bugs that fail at a ~1 in 2^32 rate before. One way they happen is when someone’s confused about whether a 32-bit integer interval is open or closed… meaning, a number (a 32-bit int normalized to 0..1, say) is said to be “between 0 and 1″ but it absolutely matters whether it’s [0,1] versus (0,1). And that’s where the bug turned out to be.</p>
+<p>(If you’re not familiar with the notation here, an interval is called <em>closed</em> if it includes the endpoints: [0,1] means 0 &lt;= x &lt;= 1, 0 and 1 are possible. An interval is <em>open </em>if it does not include the endpoints: (0,1) means 0 &lt; x &lt; 1.)</p>
+<p>Below is the relevant code snippet from the C source of RANLIB’s <em>snorm()</em> function, which is where we derived our code for Gaussian sampling from. <em>snorm()</em> implements a numerical algorithm that transforms a uniform random sample to a Gaussian-distributed sample. It gets its uniform random sample from a routine called <em>r4_uni_01()</em>, which is in the lower-level RNGLIB library.</p>
+<p>To see the bug, look at the code below and suppose that your random uniform deviate <em>u</em> “between 0 and 1″ happens to get sampled from <em>r4_uni_01()</em> as <em>exactly</em> 0. Now <em>s</em> = 0, and 2*<em>u</em>-<em>s</em> is 0, and 32*0 is 0, and (int)0 is 0, and you branch to the<em> i</em>==0 block; now what the code wants to do is loop, doubling <em>u</em> and incrementing array index i each time until <em>u</em>&gt;1. But if <em>u</em> is 0, doubling <em>u</em> does nothing, and this loop cannot ever terminate normally. The index <em>i</em> increments until it exceeds the range of parameter table <em>d[i]</em>, and the code crashes.</p>
+<pre>u = r4_uni_01 ( );         
+if ( u &lt;= 0.5 ) s = 0.0;
+else s = 1.0;
+u = 2.0 * u - s;
+u = 32.0 * u;
+i = (int) ( u );
+if ( i == 32 ) i = 31;
+if ( i != 0 ) { ... stuff happens ... }
+else&nbsp; {
+&nbsp;&nbsp;&nbsp; i = 6;
+&nbsp;&nbsp;&nbsp; aa = a[31];
+&nbsp;&nbsp;&nbsp; for ( ; ; )
+&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u = u + u;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ( 1.0 &lt;= u ) break;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aa = aa + d[i-1];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i = i + 1;
+&nbsp;&nbsp;&nbsp; }</pre>
+<p>So obviously, here it’s very important that the uniform random number must be sampled on the (left) open interval (0,1) not the closed interval [0,1), or this routine will (very rarely) fail.</p>
+<p>In <em>our</em> code, we’d replaced <em>r4_uni_01</em> with our random number generator, <em>esl_random()</em>. Why we use our own RNG is a whole ‘nother story, about how important it is to have reproducible, high-quality, platform-independent pseudorandom numbers in scientific research code, so our codebases include our own implementation of the fast and reliable <a href="http://en.wikipedia.org/wiki/Mersenne_twister">Mersenne Twister</a> generator. The <em>esl_random()</em> routine returns a uniform random deviate on the [0,1) interval: it can return exactly 0, but not exactly 1.</p>
+<p>Voila: the bug.</p>
+<p><strong>It’s not my bug</strong></p>
+<p>So why the hell did I use a random number sample with the wrong interval endpoints? I don’t remember for sure, but I think it’s because I actually read the literature.</p>
+<p>The algorithm implemented by&nbsp;<em>snorm() </em>is from <em><a href="http://www.ams.org/journals/mcom/1973-27-124/S0025-5718-1973-0329190-8/S0025-5718-1973-0329190-8.pdf">Extensions of Forsythe’s Method for Random Sampling from the Normal Distribution</a>, </em>by J.H. Ahrens and U. Dieter, <em>Mathematics of Computation </em>27:927-937 (1973). The RANLIB algorithm is “algorithm FT”, on page 931, and the relevant snippet is:</p>
+<pre>Algorithm FT (Forsythe, modified)
+1. Generate u. Store the first bit of u as a sign s (s=0 if u&lt;1/2, s=1 if u&gt;=1/2).
+Left-shift u by 1 bit (u = 2u-s). Initialize i=1 and a=0.
+2. Left shift u by 1 bit (u = 2u). If u &gt;=1 go to 4.
+3. Set a=a+d[i], and then i=i+1. Go back to 2.
+...</pre>
+<p>That’s enough to see that the same bug is potentially in the original paper, depending on what the endpoints of the uniform deviate <em>u </em>are supposed to be. Exactly as in the RANLIB implementation, you can see in step 2 and 3 that the algorithm is trying to double <em>u&nbsp;</em>until it is &gt;1, which will never happen if <em>u=</em>0.</p>
+<p>So of course the question is, what interval is <em>u </em>supposed to be on? In the preamble above the algorithm, Ahrens and Dieter say “In the description below, generate <em>u</em> indicates taking a sample from the uniform distribution in [0,1)”. Voila: I suppose that’s why I used a sample on the [0,1) interval. And voila: the bug.</p>
+<p><strong>Why hasn’t all the world’s simulation software crashed already?</strong></p>
+<p>A <a href="http://en.wikipedia.org/wiki/Heisenbug"><em>schrodinbug </em></a>is when you’re inspecting some code that’s been working fine for years, and you suddenly realize that it contains a horrible, obvious bug and it should never have worked in the first place. The moment you observe the schrodinbug, your code instantly stops working throughout the world, and bug reports start streaming in. We’ve had schrodinbugs before and this might turn out to be one. I’m puzzled why we haven’t seen it before.</p>
+<p>Even more puzzling, this is code derived from RANLIB, for god’s sake… which has been in numerical codebases since the Pleistocene. Why hasn’t <em>everything</em> that depends on RANLIB Gaussian samples been crashing?</p>
+<p>Or, more terrifyingly — the fault is rare enough (one in billions) that maybe it <em>has </em>been crashing. Perhaps I should look into this a bit more, I thought.</p>
+<p>Obviously, a good guess is that the <a href="http://people.sc.fsu.edu/~jburkardt/c_src/rnglib/rnglib.c">RNGLIB <em>r4_uni_01()</em></a> routine must not return exactly 0, so that no problem manifests. So I looked at it:</p>
+<pre>R4_UNI_01 returns a uniform random real number in [0,1].</pre>
+<p>Ah. Oops. So much for that.</p>
+<p>But then when I looked a little further:</p>
+<pre>&nbsp; Discussion:
+&nbsp;&nbsp;&nbsp; This procedure returns a random floating point number from a uniform 
+&nbsp;&nbsp;&nbsp; distribution over (0,1), not including the endpoint values, using the
+&nbsp;&nbsp;&nbsp; current random number generator.</pre>
+<p>Um. OK, that’s not the first time I’ve seen someone’s documentation contradict itself, and I’m not going to throw any stones in that particular glass house.</p>
+<p>Which is it, open or closed interval? To get at that, you’ve got to read source code, and that eventually leads you to another <a href="http://people.sc.fsu.edu/~jburkardt/c_src/rnglib/rnglib.c">RNGLIB routine, <em>i4_uni()</em></a>, which</p>
+<pre>returns a random integer following a uniform distribution over (1, 2147483562)"</pre>
+<p>which, sigh, is also incorrect; <em>i4_uni()</em> can definitely return exactly 1, so I think they mean the closed interval [1,2147483562]. But it doesn’t matter. So long as it doesn’t return 0, then <em>r4_uni_01()</em> won’t return 0, and it doesn’t return 0.</p>
+<p>So what I’m saying is, RANLIB’s <em>snorm()</em> routine only works in RANLIB because the authors used a routine for random number samples that isn’t what the original Ahrens/Dieter (1973) algorithm paper calls for. That’s what we geneticists would call a compensatory or suppressor mutation.</p>
+<p>I also looked at the RANLIB implementation in GNU Octave. There, the Octave authors have also replaced the random number generator with their own, <em>ranf()</em>, and it happens that <em>ranf()</em> generates on the open interval (0,1), again suppressing the bug in the published algorithm.</p>
+<p>Given the pervasive confusion in various documentation over the exact bounds of the intervals of their random numbers, I think it’s fair to say that this code has persisted by a process of selection, not by intelligent design. My “mutation” faithfully restored the original intelligent Ahrens/Dieter 1973 algorithm design… and broke the code.</p>
+<p><strong>Zuker’s schadenfreude</strong></p>
+<p>If <a href="http://www.bioinfo.rpi.edu/~zukerm/">Michael Zuker</a> is reading this, he will have already gleefully remembered that he sent me an email in 2012:</p>
+<blockquote><p><em>…I was amused (horrified?) when, while looking “under the hood”, I &nbsp;</em><br>
+<em>discovered that you are using some ancient and obscure method to &nbsp;</em><br>
+<em>generate Gaussian samples.</em></p></blockquote>
+<p>and he went on to suggest a cleaner, more modern alternative to me. Which has been on my to do list since. And which, ironically, I’ve been terrified of implementing, because once you have code that’s (apparently) been working for a long time, the last thing you want to do is to go in and start improving it, because man, that’s just asking for trouble.</p>
+<p>Code is an evolved system. You adopt a new algorithm and all you’ve done is teleport to a new point in the fitness landscape. You may indeed be near a higher fitness peak, but you aren’t likely to be on it yet. You’ll have to do a whole tedious evolutionary optimization process all over again to get your new code to be reliable and trusted. It’s a wonder anything works, either in genetics, or in software.</p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-829"><span>Twitter<span class="share-count">118</span></span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-829"><span>Facebook<span class="share-count">94</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-829"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-74439823-829-54546d53e4f96" data-src="//widgets.wp.com/likes/#blog_id=74439823&amp;post_id=829&amp;origin=cryptogenomicon.wordpress.com&amp;obj_id=74439823-829-54546d53e4f96" data-name="like-post-frame-74439823-829-54546d53e4f96"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-74439823-829-54546d53e4f96" height="55px" width="100%" frameborder="0" src="saved_resource(9).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="61" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://cryptogenomicon.wordpress.com/2009/01/19/infernal-10/" title="Infernal 1.0
+
+Infernal 1.0 -- the first production release of our software for RNA sequence/structure homology search and alignment -- has been released. Source code and documentation are available over at infernal.janelia.org.&amp;hellip;" rel="nofollow" data-origin="829" data-position="0">Infernal 1.0</a></span><span class="jp-relatedposts-post-context">In "Infernal"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="675" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://cryptogenomicon.wordpress.com/2012/09/03/dfam-annotation-of-transposable-elements-with-profile-hmms/" title="Dfam: annotation of transposable elements with profile HMMs
+
+We&#39;re happy to announce the release of Dfam 1.0, a set of profile HMMs for genomic DNA annotation of transposable elements. This essentially constitutes an upgrade of repeat element annotation&amp;hellip;" rel="nofollow" data-origin="829" data-position="1">Dfam: annotation of transposable elements with profile HMMs</a></span><span class="jp-relatedposts-post-context">In "Dfam"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="263" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://cryptogenomicon.wordpress.com/2010/02/10/hmmer-3-0rc1-hmmer3s-release-candidate-1/" title="HMMER 3.0rc1: HMMER3&#39;s release candidate 1
+
+After a year of alpha and beta testing, HMMER3 is ready. Release candidate 1 is available for download as a tarball. It includes precompiled binaries for Intel/Linux systems, both 64-bit&amp;hellip;" rel="nofollow" data-origin="829" data-position="2">HMMER 3.0rc1: HMMER3's release candidate 1</a></span><span class="jp-relatedposts-post-context">In "HMMER"</span></p></div></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was posted in <a href="https://cryptogenomicon.wordpress.com/category/easel/" rel="category tag">Easel</a>. Bookmark the <a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/" title="Permalink to Cryptic genetic variation in software: hunting a buffered 41 year old bug" rel="bookmark">permalink</a>.
+			</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				
+		<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+			<h1 class="assistive-text">Post navigation</h1>
+
+							<div class="nav-previous"><a href="https://cryptogenomicon.wordpress.com/2014/09/19/reboot/" rel="prev"><span class="meta-nav">←</span> Reboot</a></div>			
+					</nav><!-- #nav-below -->
+
+	
+			
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			15 thoughts on “<span>Cryptic genetic variation in software: hunting a buffered 41 year old&nbsp;bug</span>”		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-365">
+		<article id="comment-365" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="c8f4d4d1a8fc53c13ed05c202e0257fe" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-c8f4d4d1a8fc53c13ed05c202e0257fe-0">					<cite class="fn"><a href="http://jon.es/terry.html" rel="external nofollow" class="url">Terry Jones</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-365"><time pubdate="" datetime="2014-10-13T21:01:20+00:00">
+					October 13, 2014 at 9:01 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hey Sean.  I guess you must know this already, but none of the articles on your (new) blog seem to have their own URLs. That’s a real pain!</p>
+<p id="comment-like-365" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=365&_wpnonce=435ab177e8" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-365" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=365#respond" onclick="return addComment.moveForm( &quot;comment-365&quot;, &quot;365&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Terry Jones">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-cryptogenomicon bypostauthor odd alt depth-2 highlander-comment" id="li-comment-366">
+		<article id="comment-366" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="77ffb9bbd2f887a539fb3ba7c71edca0" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-77ffb9bbd2f887a539fb3ba7c71edca0-0">					<cite class="fn">seaneddy</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-366"><time pubdate="" datetime="2014-10-13T21:08:28+00:00">
+					October 13, 2014 at 9:08 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>yeah, it’s a problem with the way I’ve got my registrar (dotster) interacting with wordpress.com for resolving the cryptogenomicon.org domain; I’ve yet to figure out how to do it right. Using cryptogenomicon.wordpress.com instead of cryptogenomicon.org should work I think.</p>
+<p id="comment-like-366" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=366&_wpnonce=13a8c70415" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-366" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=366#respond" onclick="return addComment.moveForm( &quot;comment-366&quot;, &quot;366&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to seaneddy">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment even depth-3 highlander-comment" id="li-comment-378">
+		<article id="comment-378" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="71d3fcaa3a6b12107830a33f79559202" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-71d3fcaa3a6b12107830a33f79559202-0">					<cite class="fn">pseudorandom</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-378"><time pubdate="" datetime="2014-10-15T22:16:47+00:00">
+					October 15, 2014 at 10:16 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Have you tried following these steps? <a href="http://en.support.wordpress.com/domains/map-existing-domain/" rel="nofollow">http://en.support.wordpress.com/domains/map-existing-domain/</a> and <a href="http://www.dotster.com/support/tutorials/view_tutorial.bml?kbid=5775" rel="nofollow">http://www.dotster.com/support/tutorials/view_tutorial.bml?kbid=5775</a></p>
+<p id="comment-like-378" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=378&_wpnonce=d94140e7d9" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-378" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-cryptogenomicon bypostauthor odd alt depth-3 highlander-comment" id="li-comment-379">
+		<article id="comment-379" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="77ffb9bbd2f887a539fb3ba7c71edca0" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-77ffb9bbd2f887a539fb3ba7c71edca0-1">					<cite class="fn">seaneddy</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-379"><time pubdate="" datetime="2014-10-15T22:20:30+00:00">
+					October 15, 2014 at 10:20 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Yes, those are the instructions I followed, but I probably wasn’t patient enough to let the DNS changes propagate. After a few hours of the site being down, I set it back to the (broken way) it is now. I’m going to have another go and be more patient some weekend soon.</p>
+<p id="comment-like-379" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=379&_wpnonce=90968aeebf" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-379" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-367">
+		<article id="comment-367" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="f1626ffac3854669ee23af85ac074918" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-f1626ffac3854669ee23af85ac074918-0">					<cite class="fn">random</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-367"><time pubdate="" datetime="2014-10-14T13:04:35+00:00">
+					October 14, 2014 at 1:04 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Unless I’m too confused by the mess of open and closed intervals here (or I simply misunderstood you), I think there are two mistakes in the text:<br>
+“so I think they mean the closed interval [1,2147483562]” should say “so I think they mean the open interval [1,2147483562]” and<br>
+“ranf() generates on the open interval (0,1)” should be “ranf() generates on the closed interval (0,1)”.<br>
+Right?</p>
+<p id="comment-like-367" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=367&_wpnonce=abe980db7e" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-367" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=367#respond" onclick="return addComment.moveForm( &quot;comment-367&quot;, &quot;367&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to random">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-cryptogenomicon bypostauthor odd alt depth-2 highlander-comment" id="li-comment-369">
+		<article id="comment-369" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="77ffb9bbd2f887a539fb3ba7c71edca0" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-77ffb9bbd2f887a539fb3ba7c71edca0-2">					<cite class="fn">seaneddy</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-369"><time pubdate="" datetime="2014-10-14T18:45:49+00:00">
+					October 14, 2014 at 6:45 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>no, you have it wrong way around. [0,1] is closed. (0,1) is open. The original algorithm calls for [0,1) which means inclusive of exactly 0, exclusive of exactly 1. See <a href="http://en.wikipedia.org/wiki/Interval_%28mathematics%29" rel="nofollow">wikipedia’s page on intervals</a> for more.</p>
+<p id="comment-like-369" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=369&_wpnonce=f3b2388c86" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-369" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=369#respond" onclick="return addComment.moveForm( &quot;comment-369&quot;, &quot;369&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to seaneddy">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-368">
+		<article id="comment-368" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="c11428a1a8150a8a6d04d58a4edf661c" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-c11428a1a8150a8a6d04d58a4edf661c-0">					<cite class="fn">Michael Zuker</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-368"><time pubdate="" datetime="2014-10-14T13:52:20+00:00">
+					October 14, 2014 at 1:52 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Haha, told you <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p id="comment-like-368" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=368&_wpnonce=53f8082bf7" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-368" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=368#respond" onclick="return addComment.moveForm( &quot;comment-368&quot;, &quot;368&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Michael Zuker">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-370">
+		<article id="comment-370" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="778569075b5d0451fe4449d88095d205" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-778569075b5d0451fe4449d88095d205-0">					<cite class="fn">Donald Duck</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-370"><time pubdate="" datetime="2014-10-14T19:10:00+00:00">
+					October 14, 2014 at 7:10 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>I’ve seen people use (a,b) for closed intervals and )a,b( for open ones, perhaps that’s the reason for the contradicting docs…</p>
+<p id="comment-like-370" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=370&_wpnonce=018d252f4a" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-370" class="comment-like-feedback">Liked by <a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" class="view-likers" data-like-count="1">1 person</a></span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=370#respond" onclick="return addComment.moveForm( &quot;comment-370&quot;, &quot;370&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Donald Duck">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-cryptogenomicon bypostauthor even depth-2 highlander-comment" id="li-comment-371">
+		<article id="comment-371" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="77ffb9bbd2f887a539fb3ba7c71edca0" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-77ffb9bbd2f887a539fb3ba7c71edca0-3">					<cite class="fn">seaneddy</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-371"><time pubdate="" datetime="2014-10-14T19:32:15+00:00">
+					October 14, 2014 at 7:32 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>[citation needed]!</p>
+<p>]a,b[ I’ve seen for open interval. For example, <a href="http://mathworld.wolfram.com/OpenInterval.html" rel="nofollow">here.</a> But I’ve never seen (a,b) mean closed interval. That’s just horrible &amp; wrong &amp; backwards, surely.</p>
+<p id="comment-like-371" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=371&_wpnonce=602c19d1f2" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-371" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=371#respond" onclick="return addComment.moveForm( &quot;comment-371&quot;, &quot;371&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to seaneddy">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 highlander-comment" id="li-comment-372">
+		<article id="comment-372" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="11db65acbbcbb9bcb86e4985aa46723a" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-11db65acbbcbb9bcb86e4985aa46723a-0">					<cite class="fn">michael</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-372"><time pubdate="" datetime="2014-10-14T22:30:48+00:00">
+					October 14, 2014 at 10:30 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Interesting stuff that you’re dealing with! Thank’s for sharing:)</p>
+<p>I’m wondering though… </p>
+<p>The bug that you describe seems to be “fail-fast”, right? By that I don’t mean that occurs often and is fast to find. Rather I mean: once the program enters the erronous state (i.e. u is set to 0 in your algorithm) the failure will always become apparent right away and cannot propagate to other parts of the program unnoticed (here: the algorithm will always get stuck in an infinate loop right away and never return a bogus value). So “fail-fast” is a good thing.</p>
+<p>The compensatory bug in r4_uni_01() of RNGLIB on the other hand is not “fail-fast” in general. The faulty implementation may or may not return a value that contradicts its documentation (i.e. 0). However that does not necessarily become apparent to the caller immediately. So the erronous state can propagate to other parts of the program — and may cause seemingly unrelated trouble eventually. </p>
+<p>One of the worst case scenarios: </p>
+<p>r4_uni_01() is used by some program, where the absence of 0 is strictly expected for true randomness. Maybe the program itself does work without ever failing, even if 0 is introduced. But the scientific results that it produces may slightly skewed. Just because they depended on a truly random distribution, but instead got a slightly distorted one. Can you imagine that this might have affected research in genome sequence analysis?</p>
+<p>My naive guess would be: probably not if you work with real numbers. Any discrete representation of reals introduces far more potential for distortion. So the numeric algorithms that further process these reals are designed to deal with that. What do you think?</p>
+<p>Or worse yet?</p>
+<p>Random integers (like the ones produced by i4_uni()) on the other hand are also used for stuff like cryptography. There, a truly random distribution is often essential. Off-by-one problems (e.g. open vs. closed intervals) might leave the resulting cryptographic algorithims vulnerable. Any chance that RNGLIB is being used for such applications? Or might there be similar bugs slumbering in other libs for decades?</p>
+<p id="comment-like-372" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=372&_wpnonce=1bed893307" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-372" class="comment-like-feedback">Liked by <a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" class="view-likers" data-like-count="1">1 person</a></span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=372#respond" onclick="return addComment.moveForm( &quot;comment-372&quot;, &quot;372&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to michael">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment even depth-2 highlander-comment" id="li-comment-375">
+		<article id="comment-375" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="c989c0045808b278ebe0f0fc417d866d" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-c989c0045808b278ebe0f0fc417d866d-0">					<cite class="fn"><a href="http://scalability.org/" rel="external nofollow" class="url">Joe Landman</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-375"><time pubdate="" datetime="2014-10-15T15:30:40+00:00">
+					October 15, 2014 at 3:30 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>@michael:  Heartbleed was such a long duration bug.  In this case, it looks like Sean and team caught a bug in code + docs, where the docs didn’t accurately represent what the code was doing, nor for that matter accurately represent what the algorithm was supposed to do.  Are there other such out there?  Yes, and I am sorry to say that no one writes error free code.  All you can do is test, and make sure your test coverage includes your implicit and explicit assumptions.  When you distribute your code, you should also distribute your tests, as bugs in your tests can mask bugs in your code.  Is RNGLIB used in security apps?  Not likely … there’s a class of PRNGs that are good for research codes, but not so good for cryptographic codes.  The class of cryptographically viable PRNG are far smaller than the research quality PRNG (which are themselves a small subset of all PRNG).  RNGLIB isn’t quite up to cryptographic requirements.    c.f. <a href="http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator" rel="nofollow">http://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator</a></p>
+<p id="comment-like-375" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=375&_wpnonce=ff4e5d95e2" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-375" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=375#respond" onclick="return addComment.moveForm( &quot;comment-375&quot;, &quot;375&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Joe Landman">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a href="http://tm.durusau.net/?p=57050" rel="external nofollow" class="url">Cryptic genetic variation in software:… « Another Word For It</a></p>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-374">
+		<article id="comment-374" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="2a6acc616b604b5e1b1ddefcdb87ad89" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-2a6acc616b604b5e1b1ddefcdb87ad89-0">					<cite class="fn">$mike</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-374"><time pubdate="" datetime="2014-10-15T08:22:56+00:00">
+					October 15, 2014 at 8:22 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Classic example of the Six Stages of Debugging.</p>
+<p id="comment-like-374" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=374&_wpnonce=0444bbad58" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-374" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=374#respond" onclick="return addComment.moveForm( &quot;comment-374&quot;, &quot;374&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to $mike">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-376">
+		<article id="comment-376" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="271f319410bd0a3079d2681bc27f4571" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-271f319410bd0a3079d2681bc27f4571-0">					<cite class="fn">Howard</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-376"><time pubdate="" datetime="2014-10-15T16:17:03+00:00">
+					October 15, 2014 at 4:17 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>“Code is an evolved system. You adopt a new algorithm and all you’ve done is teleport to a new point in the fitness landscape. ”</p>
+<p>I wish every new programmer (my younger self included) could have caught this one sentence before they got into “but I know a better way and it’s SO much cleaner/faster/more elegant/…”.  Puts the potential cost in perfect perspective.</p>
+<p id="comment-like-376" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=376&_wpnonce=f83f1c987d" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-376" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=376#respond" onclick="return addComment.moveForm( &quot;comment-376&quot;, &quot;376&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Howard">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-377">
+		<article id="comment-377" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt="" src="7fa3efcf79c6b193cccbb3788c6b592e" class="avatar avatar-52 grav-hashed grav-hijack" height="52" width="52" id="grav-7fa3efcf79c6b193cccbb3788c6b592e-0">					<cite class="fn">Josh</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/comment-page-1/#comment-377"><time pubdate="" datetime="2014-10-15T21:28:58+00:00">
+					October 15, 2014 at 9:28 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>“It’s a wonder anything works, either in genetics, or in software.”</p>
+<p>I’ve had this perspective for years.  So many people get mad when their car won’t start, or say “why that person?” when they come down with some non-communicable disease.  But I’m the opposite.  I’m amazed at how often my car starts with no problem, and how often creatures live their lives with no major malfunctions.  It seems to be against the odds to me.</p>
+<p>If you don’t wonder how anything manages to work at all, I figure you aren’t really paying attention.</p>
+<p id="comment-like-377" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?like_comment=377&_wpnonce=4a581c3655" class="comment-like-link needs-login" rel="nofollow" data-blog="74439823"><span>Like</span></a><span id="comment-like-count-377" class="comment-like-feedback">Like</span></p>
+</div>
+
+			<div class="reply">
+				<a class="comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply&replytocom=377#respond" onclick="return addComment.moveForm( &quot;comment-377&quot;, &quot;377&quot;, &quot;respond&quot;, &quot;829&quot; )" aria-label="Reply to Josh">Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="https://cryptogenomicon.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="084d311c4b"><input type="hidden" name="_wp_http_referer" value="/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&amp;utm_medium=sniply&amp;utm_source=sniply">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 300; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 18px; width: 1206px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 38px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="saved_resource(7).html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&utm_medium=sniply&utm_source=sniply#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="829" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="3e78f2291e"></p>
+<input type="hidden" name="genseq" value="1414819156">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1414819156453"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments .comments-area -->
+
+		
+		</div><!-- #content -->
+	</div><!-- #primary .site-content -->
+
+
+		</div><!-- #main -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+			<div class="site-info">
+				<a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>.
+				<span class="sep"> | </span>
+				<a href="https://wordpress.com/themes/able/" title="Learn more about this theme">The Able Theme</a>.			</div><!-- .site-info -->
+		</footer><!-- #colophon .site-footer -->
+	</div><!-- #page-liner -->
+</div><!-- #page .hfeed .site -->
+
+<script type="text/javascript" src="gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-c8f4d4d1a8fc53c13ed05c202e0257fe">
+	</div>
+	<div class="grofile-hash-map-77ffb9bbd2f887a539fb3ba7c71edca0">
+	</div>
+	<div class="grofile-hash-map-71d3fcaa3a6b12107830a33f79559202">
+	</div>
+	<div class="grofile-hash-map-f1626ffac3854669ee23af85ac074918">
+	</div>
+	<div class="grofile-hash-map-c11428a1a8150a8a6d04d58a4edf661c">
+	</div>
+	<div class="grofile-hash-map-778569075b5d0451fe4449d88095d205">
+	</div>
+	<div class="grofile-hash-map-11db65acbbcbb9bcb86e4985aa46723a">
+	</div>
+	<div class="grofile-hash-map-c989c0045808b278ebe0f0fc417d866d">
+	</div>
+	<div class="grofile-hash-map-2a6acc616b604b5e1b1ddefcdb87ad89">
+	</div>
+	<div class="grofile-hash-map-271f319410bd0a3079d2681bc27f4571">
+	</div>
+	<div class="grofile-hash-map-7fa3efcf79c6b193cccbb3788c6b592e">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/cryptogenomicon.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/cryptogenomicon.wordpress.com\/wp-login.php?action=logout&_wpnonce=cee7e93e4a","homeURL":"https:\/\/cryptogenomicon.wordpress.com\/","postID":"829","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="saved_resource(4)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -237px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Cryptogenomicon”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="74439823">
+			<input type="hidden" name="source" value="https://cryptogenomicon.wordpress.com/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&amp;utm_medium=sniply&amp;utm_source=sniply">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="6b6c021aaf"><input type="hidden" name="_wp_http_referer" value="/2014/10/13/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug/?utm_campaign=sniply-V00B&amp;utm_medium=sniply&amp;utm_source=sniply">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"https:\/\/cryptogenomicon.wordpress.com\/2014\/10\/13\/cryptic-genetic-variation-in-software-hunting-a-buffered-41-year-old-bug\/":829}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading..."};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="saved_resource(5)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'74439823','v':'wpcom','tz':'0','user_id':'0','post':'829','subd':'cryptogenomicon'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1zNDZ8S252Wl15TnBbZzdDQV9VODNdNHlpMXEmbEUybk9TWlUvUTVqVWFzZyxoVFR6WlFPX0RUTVV1diZUaGRMUVdwRj8rMiZQd2c1PUZENmxTdl1LVnhoP3EwTCYtfjE1VWlnNFlrWVRKUz9VX19UbVFddjEvSjlJc1YrVy43QTVjfEN1bGU/bT9RdD9IYixPRG1BN29rWUFsUnpoW3JkbkczUUZpQnErY0o5THBaMzhsWms4a1pfWUpCYXUwN1VbbDAsNnBNP1RidDR6SjIsN0VEQjRZZjJJbDJla1FJYXB+VnNJaFFEMDNYWkZpZFJtdy43UEF0JkppLy9KcFdwLXFhLi8tcz8tYVNKU0YueERmVUtfNy1mLzVoVS5SM1RhX19bNW80WUl1PWNSWHZNNF1NVV8lU0I4amxG'});
+addLoadEvent(function(){linktracker_init('74439823',829);});
+	</script><img id="wpstats" src="g.gif" alt=""><img id="wpstats2" src="g(1).gif" alt="" style="display:none">
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<div class="comment-likes-overlay" style="display: none;"></div></body></html>

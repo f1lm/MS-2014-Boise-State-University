@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<!-- saved from url=(0162)http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29 -->
+<html class=" js no-touch borderradius boxshadow video svg json" lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/saved_resource"></script><script type="text/javascript" async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/linkid.js" id="undefined"></script><script async="" type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/gpt.js"></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--
+ _____               _   _                   _____           _            _____           _   _     _ _                           
+|  __ \             | | (_)                 |  __ \         | |          |  ___|         | | | |   | (_)                          
+| |  \/_ __ ___  ___| |_ _ _ __   __ _ ___  | |  \/ ___  ___| | ___   _  | |__  __ _ _ __| |_| |__ | |_ _ __   __ _               
+| | __| '__/ _ \/ _ \ __| | '_ \ / _` / __| | | __ / _ \/ _ \ |/ / | | | |  __|/ _` | '__| __| '_ \| | | '_ \ / _` |              
+| |_\ \ | |  __/  __/ |_| | | | | (_| \__ \ | |_\ \  __/  __/   <| |_| | | |__| (_| | |  | |_| | | | | | | | | (_| |              
+ \____/_|  \___|\___|\__|_|_| |_|\__, |___/  \____/\___|\___|_|\_\\__, | \____/\__,_|_|   \__|_| |_|_|_|_| |_|\__, |              
+                                  __/ |                            __/ |                                       __/ |              
+                                 |___/                            |___/                                       |___/               
+ _____ _                 _           __                                _ _               _____           _    _    _ _          _ 
+|_   _| |               | |         / _|                              | (_)             |  __ \         | |  | |  | (_)        | |
+  | | | |__   __ _ _ __ | | _____  | |_ ___  _ __   _ __ ___  __ _  __| |_ _ __   __ _  | |  \/ ___  ___| | _| |  | |_ _ __ ___| |
+  | | | '_ \ / _` | '_ \| |/ / __| |  _/ _ \| '__| | '__/ _ \/ _` |/ _` | | '_ \ / _` | | | __ / _ \/ _ \ |/ / |/\| | | '__/ _ \ |
+  | | | | | | (_| | | | |   <\__ \ | || (_) | |    | | |  __/ (_| | (_| | | | | | (_| | | |_\ \  __/  __/   <\  /\  / | | |  __/_|
+  \_/ |_| |_|\__,_|_| |_|_|\_\___/ |_| \___/|_|    |_|  \___|\__,_|\__,_|_|_| |_|\__, |  \____/\___|\___|_|\_\\/  \/|_|_|  \___(_)
+                                                                                  __/ |                                           
+                                                                                 |___/                                                                                                                                                                                                                                                                                                                                                                                                        
+-->
+  <title>Microsoft teams with Docker to make containers work with Windows Server - GeekWire</title>
+  <meta name="viewport" content="width=device-width, maximum-scale=1">
+
+  
+<!-- This site is optimized with the Yoast WordPress SEO plugin v1.6.3 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="robots" content="noodp,noydir">
+<link rel="original-source" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/">
+<meta name="description" content="Microsoft and Docker announced today that the two companies have forged a partnership targeted at bringing support for containerized applications to Micros">
+<link rel="canonical" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/">
+<link rel="publisher" href="https://plus.google.com/+GeekWire">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Microsoft teams with Docker to make containers work with Windows Server - GeekWire">
+<meta property="og:description" content="Microsoft and Docker announced today that the two companies have forged a partnership targeted at bringing support for containerized applications to Micros">
+<meta property="og:url" content="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/">
+<meta property="og:site_name" content="GeekWire">
+<meta property="article:publisher" content="https://www.facebook.com/geekwire">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Microsoft Azure">
+<meta property="article:section" content="Microsoft">
+<meta property="article:published_time" content="2014-10-15T08:51:52+00:00">
+<meta property="fb:app_id" content="364309080316986">
+<meta property="og:image" content="http://cdn.geekwire.com/wp-content/uploads/2014/10/DockerAndAzureEcosystem.png">
+<meta property="og:image" content="http://cdn.geekwire.com/wp-content/uploads/2014/07/DSC00429-300x199.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@geekwire">
+<meta name="twitter:domain" content="GeekWire">
+<meta name="twitter:creator" content="@belril">
+<meta name="twitter:image:src" content="http://cdn.geekwire.com/wp-content/uploads/2014/10/DockerAndAzureEcosystem.png">
+<!-- / Yoast WordPress SEO plugin. -->
+
+<link rel="stylesheet" href="http://cdn.geekwire.com/wp-content/plugins/fotorama/fotorama.css?ver=4.0">
+<link rel="stylesheet" href="http://cdn.geekwire.com/wp-content/plugins/fotorama/fotorama-wp.css?ver=4.0">
+<link rel="stylesheet" href="http://cdn.geekwire.com/wp-content/plugins/events-calendar-pro/resources/tribe-events-pro-full.min.css?ver=3.8.1">
+<link rel="stylesheet" href="http://cdn.geekwire.com/wp-content/plugins/events-calendar-pro/resources/tribe-events-pro-full-mobile.min.css?ver=3.8.1" media="only screen and (max-width: 768px)">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C700italic%2C300%2C400%2C600%2C700%7CRoboto%3A400%2C700&ver=4.0">
+<link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/34809/GeekWire/style-cf.css?ver=4.0">
+<link rel="stylesheet" href="http://cdn.geekwire.com/wp-content/themes/geekwire/assets/css/main.min.css?6c049b464933b3a2d4a7ede16a480556">
+<script type="text/javascript" async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/platform.js" gapi_processed="true"></script><script src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/quant.js" async="" type="text/javascript"></script><script async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/beacon.js"></script><script id="twitter-wjs" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/widgets.js"></script><script id="facebook-jssdk" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/sdk.js"></script><script async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/analytics.js"></script><script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/modernizr.min.js"></script>
+<script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/respond.min.js"></script>
+<script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://cdn.geekwire.com/wp-content/themes/geekwire/assets/vendor/jquery/dist/jquery.min.js?1.11.1"><\/script>')</script>
+<script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/jquery-migrate.min.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-21513116-1', 'auto');
+  ga('require', 'linkid', 'linkid.js');
+    ga('set', 'dimension1', 'Blair Hanley Frank');
+  ga('send', 'pageview');
+  
+</script>    
+  <link href="http://cdn.geekwire.com/wp-content/themes/geekwire/assets/vendor/respond/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy">
+  <link href="http://www.geekwire.com/wp-content/themes/geekwire/assets/vendor/respond/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect">
+  <!--[if lt IE 9]>
+  <script src="/wp-content/themes/geekwire/assets/vendor/respond/cross-domain/respond.proxy.js"></script>
+  <![endif]-->
+  <meta name="application-name" content="GeekWire">
+  <link rel="Shortcut Icon" href="http://cdn.geekwire.com/wp-content/themes/geekwire/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="http://cdn.geekwire.com/touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="http://cdn.geekwire.com/touch-icon-ipad.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="http://cdn.geekwire.com/touch-icon-iphone-retina.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="http://cdn.geekwire.com/touch-icon-ipad-retina.png">
+  <link rel="alternate" type="application/rss+xml" title="GeekWire Feed" href="http://feeds.geekwire.com/geekwire">
+<script type="text/javascript" async="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/embed.js"></script><style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><script async="" type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/pubads_impl_52.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style></head>
+<body class="single single-post postid-135101 single-format-standard microsoft-teams-docker-make-containers-work-azure tribe-theme-geekwire page-template-single-php" data-twttr-rendered="true"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/hub.1c5a573e465d84666458a45e49b0a735(1).html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/hub.1c5a573e465d84666458a45e49b0a735.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe>
+
+  <!--[if lt IE 8]>
+    <div class="alert alert-warning">
+      You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.    </div>
+  <![endif]-->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '364309080316986',
+          xfbml      : true,
+          version    : 'v2.1'
+        });
+        // Additional initialization code here
+        FB.Event.subscribe('edge.create',function(targetUrl){
+            ga('send', 'social', 'facebook', 'like', targetUrl);
+        });
+    
+        FB.Event.subscribe('edge.remove',function(targetUrl){
+            ga('send', 'social', 'facebook', 'unlike', targetUrl);
+        });
+
+        FB.Event.subscribe('message.send',function(targetUrl) {
+            ga('send', 'social', 'facebook', 'send', targetUrl);
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+  <header class="banner navbar navbar-inverse navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="right-toggle collapsed" data-toggle="collapse" data-target="#search-collapse">
+            <span class="sr-only">Toggle search box</span>
+            <span class="icon-search3"></span>
+        </button>
+      <button type="button" class="left-toggle collapsed" data-toggle="collapse" data-target="#nav-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-menu"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.geekwire.com/"></a>
+    </div>
+
+    <nav id="nav-collapse" class="collapse navbar-collapse navbar-left" role="navigation">
+      <ul id="menu-primary-menu" class="nav navbar-nav"><li class="visible-xs-block menu-home"><a href="http://www.geekwire.com/">Home</a></li>
+<li class="dropdown menu-news"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#">News <b class="caret"></b></a>
+<ul class="dropdown-menu">
+	<li class="current-post-ancestor active current-post-parent menu-microsoft"><a href="http://www.geekwire.com/microsoft/">Microsoft</a></li>
+	<li class="menu-amazon"><a href="http://www.geekwire.com/amazon/">Amazon</a></li>
+	<li class="menu-apple"><a href="http://www.geekwire.com/apple/">Apple</a></li>
+	<li class="menu-google"><a href="http://www.geekwire.com/google/">Google</a></li>
+	<li class="menu-app-of-the-week"><a href="http://www.geekwire.com/app-of-the-week/">App of the Week</a></li>
+	<li class="menu-startup-spotlight"><a href="http://www.geekwire.com/startup-spotlight/">Startup Spotlight</a></li>
+	<li class="menu-geek-life"><a href="http://www.geekwire.com/the-geek-life/">Geek Life</a></li>
+	<li class="menu-columnists"><a href="http://www.geekwire.com/columnists/">Columnists</a></li>
+	<li class="menu-podcast"><a href="http://www.geekwire.com/podcast/">Podcast</a></li>
+</ul>
+</li>
+<li class="menu-jobs"><a href="http://www.geekwork.com/jobs/">Jobs</a></li>
+<li class="dropdown menu-events"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#">Events <b class="caret"></b></a>
+<ul class="dropdown-menu">
+	<li class="menu-geekwire-events"><a href="http://www.geekwire.com/events/">GeekWire Events</a></li>
+	<li class="menu-community-calendar"><a href="http://www.geekwire.com/calendar/">Community Calendar</a></li>
+</ul>
+</li>
+<li class="dropdown menu-resources"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#">Resources <b class="caret"></b></a>
+<ul class="dropdown-menu">
+	<li class="menu-memberships"><a href="http://www.geekwire.com/memberships/">Memberships</a></li>
+	<li class="menu-health-benefits"><a href="http://www.geekwire.com/health-benefits/">Health Benefits</a></li>
+	<li class="menu-startup-resources"><a href="http://www.geekwire.com/startup-resources/">Startup Resources</a></li>
+	<li class="menu-startup-list"><a href="http://www.geekwire.com/startup-list/">Startup List</a></li>
+	<li class="menu-geekwire-200"><a href="http://www.geekwire.com/geekwire-200/">GeekWire 200</a></li>
+	<li class="menu-geekwire-store"><a href="http://store.geekwire.com/">GeekWire Store</a></li>
+	<li class="menu-community-calendar"><a href="http://www.geekwire.com/calendar/">Community Calendar</a></li>
+</ul>
+</li>
+<li class="dropdown menu-about"><a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#">About <b class="caret"></b></a>
+<ul class="dropdown-menu">
+	<li class="menu-about-geekwire"><a href="http://www.geekwire.com/about-geekwire/">About GeekWire</a></li>
+	<li class="menu-contact-us"><a href="http://www.geekwire.com/contact-us/">Contact Us</a></li>
+	<li class="menu-advertise"><a href="http://www.geekwire.com/advertise/">Advertise</a></li>
+	<li class="menu-sponsors"><a href="http://www.geekwire.com/sponsors/">Sponsors</a></li>
+</ul>
+</li>
+</ul>        <ul class="nav navbar-nav nav-social">
+            <li><a href="https://www.facebook.com/geekwire"><span class="icon-facebook"></span></a></li>
+            <li><a href="https://twitter.com/intent/user?screen_name=GeekWire"><span class="icon-twitter"></span></a></li>
+            <li><a href="http://feeds.geekwire.com/geekwire"><span class="icon-feed2"></span></a></li>
+            <li><a href="http://www.geekwire.com/podcast/"><span class="icon-mic"></span></a></li>
+        </ul>
+    </nav>
+      <div id="search-collapse" class="collapse navbar-collapse navbar-right">
+        <form class="navbar-form" role="search" method="get" action="http://www.geekwire.com/">
+            <div class="form-group has-feedback">
+                <label for="search-box" class="sr-only">Search for:</label>
+                <input type="search" id="search-box" value="" name="s" class="search-field form-control input-sm" placeholder="Search" required="">
+                <span class="icon-search3 form-control-feedback"></span>
+            </div>
+        </form>
+    </div>
+  </div>
+</header>
+<!-- 1600x900_wallpaper -->
+<div id="ad-1600x900_wallpaper"><div class="adunit display-none" id="1600x900_wallpaper" data-dimensions="1600x900"><div id="google_ads_iframe_/16932871/1600x900_wallpaper_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/1600x900_wallpaper_0" name="google_ads_iframe_/16932871/1600x900_wallpaper_0" width="1600" height="900" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/16932871/1600x900_wallpaper_0__hidden__" name="google_ads_iframe_/16932871/1600x900_wallpaper_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div></div>        <div id="left_newsfeed">
+            <div id="left_newsfeed_header">
+                <b>NEWS STREAM</b>
+            </div>
+            <ul>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/amazons-visa-card-will-work-apple-pay-just-right-away/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/amazonvisacard-100x100.jpg" class="img-rounded wp-post-image" alt="amazonvisacard"></a>
+                    <a href="http://www.geekwire.com/2014/amazons-visa-card-will-work-apple-pay-just-right-away/">Amazon’s Visa card will work with Apple Pay, just not right away</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/video-steve-ballmer-wont-say-bill-gates-good-terms/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/ballmer-100x100.png" class="img-rounded wp-post-image" alt="ballmer"></a>
+                    <a href="http://www.geekwire.com/2014/video-steve-ballmer-wont-say-bill-gates-good-terms/">In interview, Steve Ballmer won’t say if he’s on good terms with Bill Gates</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/magicflix-aka-magikflix/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/IMG_7675-100x100.jpg" class="img-rounded wp-post-image" alt="The Magicflix Team"></a>
+                    <a href="http://www.geekwire.com/2014/magicflix-aka-magikflix/">Startup Spotlight: Magicflix provides a safe, curated video experience for kids</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/yahoos-profit-beats-expectations-company-promises-give-alibaba-cash-back-shareholders/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/yahoo_logo-100x100.png" class="img-rounded wp-post-image" alt="yahoo_logo"></a>
+                    <a href="http://www.geekwire.com/2014/yahoos-profit-beats-expectations-company-promises-give-alibaba-cash-back-shareholders/">Yahoo beats expectations, promises to give some Alibaba cash back to shareholders</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/verizon-taking-logical-rational-approach-t-mobile-sprints-price-wars/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/verizonline-100x100.jpg" class="img-rounded wp-post-image" alt="verizon line"></a>
+                    <a href="http://www.geekwire.com/2014/verizon-taking-logical-rational-approach-t-mobile-sprints-price-wars/">Verizon taking a ‘logical, rational’ approach to T-Mobile and Sprint’s price wars</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/microsoft-updates-windows-10-preview-notification-center/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/windows10-100x100.png" class="img-rounded wp-post-image" alt="windows10"></a>
+                    <a href="http://www.geekwire.com/2014/microsoft-updates-windows-10-preview-notification-center/">Microsoft updates Windows 10 preview with notification center, faster upgrade track</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/future-education-practice-without-insights/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DBL_Oct-2014-100x100.jpg" class="img-rounded wp-post-image" alt="(Photo: DreamBox Learning)"></a>
+                    <a href="http://www.geekwire.com/2014/future-education-practice-without-insights/">DreamBox Learning CEO: How tech will shape the future of schools</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/nokias-maps-app-hits-wide-release-android/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/hand_android-100x100.jpg" class="img-rounded wp-post-image" alt="hand_android"></a>
+                    <a href="http://www.geekwire.com/2014/nokias-maps-app-hits-wide-release-android/">Nokia’s HERE maps app hits wide release on Android</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/microsofts-new-music-deals-app-gives-windows-users-new-tunes-cheap/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Windows_MusicDeals_Homepage-100x100.png" class="img-rounded wp-post-image" alt="Windows_MusicDeals_Homepage"></a>
+                    <a href="http://www.geekwire.com/2014/microsofts-new-music-deals-app-gives-windows-users-new-tunes-cheap/">Microsoft’s new Music Deals app gives Windows users new tunes on the cheap</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/amazon-q3-earnings-likely-reflect-spending-spree/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/amazon-boxes-100x100.jpg" class="img-rounded wp-post-image" alt="photo credit: CarlMalamud via Flickr."></a>
+                    <a href="http://www.geekwire.com/2014/amazon-q3-earnings-likely-reflect-spending-spree/">Amazon Q3 earnings likely to reflect recent spending spree</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/disability-technology/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/IMG_0564-100x100.jpg" class="img-rounded wp-post-image" alt="University of Washington professor Richard Ladner."></a>
+                    <a href="http://www.geekwire.com/2014/disability-technology/">How tech advances are helping innovators do more for people with disabilities</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/tablesafe-raises-2m-help-restaurant-patrons-pay-bills-quickly-securely/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/raildevice11-100x100.jpg" class="img-rounded wp-post-image" alt="raildevice11"></a>
+                    <a href="http://www.geekwire.com/2014/tablesafe-raises-2m-help-restaurant-patrons-pay-bills-quickly-securely/">TableSafe raises $2M to help restaurant patrons pay bills quickly and securely</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/microsoft-debuts-esl-competitive-gaming-app-xbox-one/" class="thumb"></a>
+                    <a href="http://www.geekwire.com/2014/microsoft-debuts-esl-competitive-gaming-app-xbox-one/">Microsoft debuts ESL competitive gaming app for Xbox One</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/google-leads-542m-magic-leap-investment-doubling-augmented-reality/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/magicleap-100x100.png" class="img-rounded wp-post-image" alt="magicleap"></a>
+                    <a href="http://www.geekwire.com/2014/google-leads-542m-magic-leap-investment-doubling-augmented-reality/">Google leads $542M Magic Leap deal, betting on augmented reality</a>
+                </li>
+                                                                <li>                                    <a href="http://www.geekwire.com/2014/cloud-accounting-software-startup-acumatica-raises-13-million/" class="thumb"><img width="100" height="100" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/jonroskill-100x100.jpg" class="img-rounded wp-post-image" alt="Jon Roskill"></a>
+                    <a href="http://www.geekwire.com/2014/cloud-accounting-software-startup-acumatica-raises-13-million/">Cloud accounting startup Acumatica raises $13 million, looks to battle NetSuite</a>
+                </li>
+                                            </ul>
+        </div>
+<div class="container">
+    <!-- 960x40_pencilcontent -->
+    <div id="ad-960x40_pencilcontent" class="text-center"><div class="adunit display-none" id="960x40_pencilcontent" data-dimensions="960x40"><div id="google_ads_iframe_/16932871/960x40_pencilcontent_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/960x40_pencilcontent_0" name="google_ads_iframe_/16932871/960x40_pencilcontent_0" width="960" height="40" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>    <!-- 960x300_slidecontent -->
+    <div id="ad-960x300_slidecontent" class="text-center"><div class="adunit slidecontent display-none" id="960x300_slidecontent" data-dimensions="960x300"><div id="google_ads_iframe_/16932871/960x300_slidecontent_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/960x300_slidecontent_0" name="google_ads_iframe_/16932871/960x300_slidecontent_0" width="960" height="300" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>    <!-- Leaderboard -->
+    <div class="adunit text-center center-block display-none" id="leaderboard" data-dimensions="728x90"><div id="google_ads_iframe_/16932871/leaderboard_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/leaderboard_0" name="google_ads_iframe_/16932871/leaderboard_0" width="728" height="90" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+
+  <div class="wrap container" role="document">
+        <div class="content row">
+      <main class="main col-md-12" role="main">
+          <article class="post-135101 post type-post status-publish format-standard has-post-thumbnail hentry category-microsoft tag-docker tag-microsoft-azure" itemscope="" itemtype="http://schema.org/Article">
+      <header>
+          <div class="page-header">
+              <h1 class="entry-title" itemprop="headline">Microsoft teams with Docker to make containers work with Windows Server</h1>
+                <p class="byline author vcard small"><span class="text-uppercase"><strong>by <span itemprop="author"><a href="http://www.geekwire.com/author/blair-hanley-frank/" title="Posts by Blair Hanley Frank" class="url fn" rel="author">Blair Hanley Frank</a></span></strong></span> on <time class="published" itemprop="datePublished" datetime="2014-10-15T08:51:52+00:00">October 15, 2014 at 8:51 am</time><time class="updated hidden" datetime="2014-10-15T08:51:52+00:00">October 15, 2014 at 8:51 am</time></p>
+                <meta itemprop="image" content="http://cdn.geekwire.com/wp-content/uploads/2014/10/DockerAndAzureEcosystem.png">                <meta itemprop="description" content="Microsoft and Docker announced today that the two companies have forged a partnership targeted at bringing support for containerized applications to Micros">          </div>
+          <div class="row">
+              <div class="col-md-8">
+                                    <div class="share hidden-xs">
+                      <a href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#disqus_thread" class="btn btn-primary btn-sm"><span class="icon-bubble"></span> Comments&nbsp;&nbsp;<span class="dsq-postid" rel="135101 http://www.geekwire.com/?p=135101">1</span></a>
+                      <a id="fb-top" class="btn btn-facebook btn-sm"><span class="icon-facebook"></span> Share&nbsp;&nbsp;9</a>
+                      <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F&via=GeekWire&text=Microsoft%20teams%20with%20Docker%20to%20make%20containers%20work%20with%20Windows%20Server&related=belril%3AAuthor" class="btn btn-twitter btn-sm"><span class="icon-twitter"></span> Tweet&nbsp;&nbsp;41</a>
+                      <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F&title=Microsoft%20teams%20with%20Docker%20to%20make%20containers%20work%20with%20Windows%20Server&summary=Microsoft%20and%20Docker%20announced%20today%20that%20the%20two%20companies%20have%20forged%20a%20partnership%20targeted%20at%20bringing%20support%20for%20containerized%20applications%20to%20Micros&source=GeekWire" class="btn btn-linkedin btn-sm" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=400&#39;);return false;"><span class="icon-linkedin"></span> Share</a>
+                      <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F" class="btn btn-googleplus btn-sm" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;"><span class="icon-googleplus"></span> Share</a>
+                      <a href="http://www.reddit.com/submit?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F" class="btn btn-reddit btn-sm" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;"><span class="icon-reddit"></span> Reddit</a>
+                  </div>
+                                </div>
+              <div class="col-md-4 hidden-xs">
+                                    <div class="share announcement-box">
+                      <a class="btn btn-gray btn-sm btn-block" href="http://www.geekwire.com/events/geekwire-game-night-november-11/">Board Games! GeekWire Game Night, Nov. 11</a>
+                  </div>
+                                </div>
+          </div>
+      </header>
+      <div class="row">
+          <div class="col-md-8">
+              <div class="entry-content" itemprop="articleBody">
+                <p><img class="aligncenter size-full wp-image-135106" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DockerAndAzureEcosystem.png" alt="DockerAndAzureEcosystem" width="610" height="297"></p>
+<p>Microsoft and <a href="https://www.docker.com/">Docker</a> announced today that the two companies have <a href="http://azure.microsoft.com/blog/2014/10/15/new-windows-server-containers-and-azure-support-for-docker/">forged a partnership</a> targeted at bringing support for containerized applications to Microsoft’s products.</p>
+<p>The partnership will be focused on bringing Docker Engine, the runtime that builds, runs and orchestrates containers, to Windows Server in an upcoming release, as well as integrating Docker Hub into Microsoft Azure through the Azure Management Portal and Azure Gallery. Docker is an open platform for developers to build, ship and run distributed applications.</p>
+<p><img class="alignright size-medium wp-image-128949" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DSC00429-300x199.jpg" alt="microsoft logo" width="300" height="199">Azure will also support Docker’s open orchestration APIs, so that developers will be able to create a multi-container Dockerized application.</p>
+<p>The news comes after Microsoft launched support for Linux-based Docker containers on Azure earlier this year. The company has been working to make a number of key cloud service partnerships over the past year as a part of CEO Satya Nadella’s new strategy, and this tie-up with Docker is the next move in a process that has already included industry titans like <a href="http://www.geekwire.com/2014/bitter-rivals-microsoft-salesforce-com-confirm-new-partnership/">Salesforce</a>.</p>
+<p>There’s more cloud news coming: Microsoft will be holding a press event to discuss more of its plans for how its cloud can impact business customers next week.</p>
+              </div>
+              <footer>
+                                                                    <div class="media">
+                      <a class="pull-left" href="http://www.geekwire.com/author/blair-hanley-frank/">
+                          <img alt="" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/85cd16d6ac014dad3d534fbb56a37f78" class="avatar avatar-64 photo" height="64" width="64">                      </a>
+                      <div class="media-body">
+                          <p class="small"><em><strong>Blair Hanley Frank</strong>&nbsp;is GeekWire's Bay Area Correspondent. He has also worked for Macworld, PCWorld and TechHive. Follow him on Twitter&nbsp;<a href="https://twitter.com/intent/user?screen_name=belril" target="_blank">@belril</a>&nbsp;and email him at&nbsp;<a href="mailto:blair@geekwire.com">blair@geekwire.com</a>.</em></p>
+                      </div>
+                  </div>
+                                    <div class="share">
+                      <a href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#disqus_thread" class="btn btn-primary btn-sm"><span class="icon-bubble"></span> Comments<span class="dsq-postid" rel="135101 http://www.geekwire.com/?p=135101"> 1</span></a>
+                      <a id="fb-bottom" class="btn btn-facebook btn-sm"><span class="icon-facebook"></span> Share&nbsp;&nbsp;9</a>
+                      <a href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F&via=GeekWire&text=Microsoft%20teams%20with%20Docker%20to%20make%20containers%20work%20with%20Windows%20Server&related=belril%3AAuthor" class="btn btn-twitter btn-sm"><span class="icon-twitter"></span> Tweet&nbsp;&nbsp;41</a>
+                      <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F&title=Microsoft%20teams%20with%20Docker%20to%20make%20containers%20work%20with%20Windows%20Server&summary=Microsoft%20and%20Docker%20announced%20today%20that%20the%20two%20companies%20have%20forged%20a%20partnership%20targeted%20at%20bringing%20support%20for%20containerized%20applications%20to%20Micros&source=GeekWire" class="btn btn-linkedin btn-sm hidden-xs" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=400&#39;);return false;"><span class="icon-linkedin"></span> Share</a>
+                      <a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F" class="btn btn-googleplus btn-sm hidden-xs" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;"><span class="icon-googleplus"></span> Share</a>
+                      <a href="http://www.reddit.com/submit?url=http%3A%2F%2Fwww.geekwire.com%2F2014%2Fmicrosoft-teams-docker-make-containers-work-azure%2F" class="btn btn-reddit btn-sm hidden-xs" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;"><span class="icon-reddit"></span> Reddit</a>
+                  </div>
+                  <div id="subscribe-box">
+                      <div><strong><span class="text-primary">Like what you're reading?</span></strong> Subscribe to GeekWire's free newsletter to catch every headline</div>
+                      <form action="http://geekwire.us2.list-manage.com/subscribe/post?u=7d9669cf206fb932dea38e25e&id=4e93fc7dfd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" role="form">
+                          <div class="form-group">
+                              <div class="input-group">
+                                  <input type="email" placeholder="Enter your email address" name="EMAIL" id="mce-EMAIL" value="" class="form-control input-sm">
+                                  <label class="sr-only" for="mce-EMAIL">Email address</label>
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-primary btn-sm" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+                                  </span>
+                              </div>
+                          </div>
+                          <div style="position: absolute; left: -5000px;"><input type="text" name="b_7d9669cf206fb932dea38e25e_4e93fc7dfd" tabindex="-1" value=""></div>
+                      </form>
+                  </div>
+                  <nav class="post-nav">
+                      <ul class="pager">
+                          <li class="previous"><a href="http://www.geekwire.com/2014/finland-prime-minister-blames-apple-countrys-troubles/" rel="prev"><span class="icon-arrow-left4"></span> Previous</a></li>
+                          <li class="next"><a href="http://www.geekwire.com/2014/walmart-opens-two-massive-warehouses-enabling-faster-cheaper-online-shopping/" rel="next">Next <span class="icon-arrow-right5"></span></a></li>
+                      </ul>
+                      <div class="text-muted hidden-xs"><small><span class="icon-drawer3"></span> Filed Under: <a href="http://www.geekwire.com/microsoft/" rel="category tag">Microsoft</a>&nbsp;<span class="icon-tag4"></span> Tagged With: <a href="http://www.geekwire.com/tag/docker/" rel="tag">Docker</a> • <a href="http://www.geekwire.com/tag/microsoft-azure/" rel="tag">Microsoft Azure</a></small></div>  
+                  </nav>
+              </footer>
+          </div>
+          <aside class="col-md-4 post-sidebar">
+                                <div class="share announcement-box visible-xs-block">
+                      <a class="btn btn-gray btn-sm btn-block" href="http://www.geekwire.com/events/geekwire-game-night-november-11/">Board Games! GeekWire Game Night, Nov. 11</a>
+                  </div>
+                            <div class="widget">
+                  <!-- 300x250_top -->
+                  <div id="ad-300x250_top" class="text-center center-block"><div class="adunit display-none" id="300x250_top" data-dimensions="300x600,300x250,160x600"><div id="google_ads_iframe_/16932871/300x250_top_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/300x250_top_0" name="google_ads_iframe_/16932871/300x250_top_0" width="300" height="600" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+                  <div id="ad-300x250_mobile" class="text-center visible-xs-block"></div>
+              </div>
+                            <section class="widget hidden-xs">
+                <h3><span class="pull-right"><a class="see-more" href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#sponsors"><span class="text-primary">See More<span class="icon-arrow-right3"></span></span></a></span>Featured Sponsor</h3><a href="http://www.centurylink.com/" rel="nofollow"><img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/centurylink1.jpg" alt="CenturyLink" class="img-responsive center-block"></a>              </section>
+              <section class="widget hidden-xs">
+                <h3><span class="pull-right"><a class="see-more" href="http://www.geekwire.com/#member-messages"><span class="text-primary">See More<span class="icon-arrow-right3"></span></span></a></span>Member Message</h3><p><strong>LiquidPlanner:</strong><a href="http://www.liquidplanner.com/" target="_blank" rel="nofollow">&nbsp;Project Management and Collaboration Tool.</a></p>                  <div id="member-message-caption" class="text-center"><a href="http://www.geekwire.com/memberships">Become a Member</a> for exclusive benefits.</div>              
+              </section>
+              <section class="widget hidden-xs"><h3><span class="pull-right"><a class="see-more" href="http://www.geekwire.com/events/"><span class="text-primary">See More<span class="icon-arrow-right3"></span></span></a></span>GeekWire Events</h3>                            <a href="http://www.geekwire.com/events/geekwire-game-night-november-11/" class="gw-event-banner">
+                                <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Game-Night-Small-Banner.png" alt="GeekWire Game Night, Nov. 11" class="img-responsive center-block">
+                            </a>                  
+                                                    <a href="http://www.geekwire.com/events/geekwire-gala-2014/" class="gw-event-banner">
+                                <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/banner.jpg" alt="GeekWire Gala 2014" class="img-responsive center-block">
+                            </a>                  
+                        </section>          </aside>
+      </div>
+  </article>
+<section id="latest_news" class="hidden-xs">
+    <h3 class="section_header">Latest News</h3>
+    <div class="row">
+        <div class="col-md-8">
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/amazons-visa-card-will-work-apple-pay-just-right-away/">Amazon’s Visa card will work with Apple Pay, just not right away</a></strong></p>
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/video-steve-ballmer-wont-say-bill-gates-good-terms/">In interview, Steve Ballmer won’t say if he’s on good terms with Bill Gates</a></strong></p>
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/magicflix-aka-magikflix/">Startup Spotlight: Magicflix provides a safe, curated video experience for kids</a></strong></p>
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/yahoos-profit-beats-expectations-company-promises-give-alibaba-cash-back-shareholders/">Yahoo beats expectations, promises to give some Alibaba cash back to shareholders</a></strong></p>
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/verizon-taking-logical-rational-approach-t-mobile-sprints-price-wars/">Verizon taking a ‘logical, rational’ approach to T-Mobile and Sprint’s price wars</a></strong></p>
+             <p class="small"><strong><a href="http://www.geekwire.com/2014/microsoft-updates-windows-10-preview-notification-center/">Microsoft updates Windows 10 preview with notification center, faster upgrade track</a></strong></p>
+              </div>
+        <div class="col-md-4">
+            <!-- 300x250_latest_news -->
+            <div id="ad-300x250_latest_news"><div class="adunit display-none" id="300x250_mid" data-dimensions="300x250"><div id="google_ads_iframe_/16932871/300x250_mid_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/300x250_mid_0" name="google_ads_iframe_/16932871/300x250_mid_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+        </div>
+    </div>
+</section>
+<section id="related_stories">
+    <h3 class="section_header">Related Stories</h3>
+    <div class="row">
+                <div class="col-xs-6 col-md-3">
+            <a href="http://www.geekwire.com/2014/microsoft-board-gives-nadella-3-6m-cash-bonus-annual-performance-review/" class="related-thumb">
+            <img width="300" height="199" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DSC00399-300x199.jpg" class="img-responsive wp-post-image" alt="Microsoft CEO Satya Nadella addresses employees to launch a company hackathon. (GeekWire File Photo)">            </a>
+            <div class="related_stories_title small"><strong><a href="http://www.geekwire.com/2014/microsoft-board-gives-nadella-3-6m-cash-bonus-annual-performance-review/">Microsoft board gives CEO Satya Nadella a $3.6M cash bonus in annual performance review</a></strong></div>
+        </div>
+                                <div class="col-xs-6 col-md-3">
+            <a href="http://www.geekwire.com/2014/microsoft-launches-azure-marketplace-help-companies-sell-cloud-apps/" class="related-thumb">
+            <img width="300" height="199" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DSC01411-300x199.jpg" class="img-responsive wp-post-image" alt="Microsoft CEO Satya Nadella presents at the company&#39;s cloud event in San Francisco">            </a>
+            <div class="related_stories_title small"><strong><a href="http://www.geekwire.com/2014/microsoft-launches-azure-marketplace-help-companies-sell-cloud-apps/">Microsoft launches Azure Marketplace to help companies sell cloud apps</a></strong></div>
+        </div>
+        <div class="clearfix visible-xs"></div>                        <div class="col-xs-6 col-md-3">
+            <a href="http://www.geekwire.com/2014/microsoft-launches-new-high-performance-instances-hybrid-cloud-hardware/" class="related-thumb">
+            <img width="300" height="199" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/DSC01477-300x199.jpg" class="img-responsive wp-post-image" alt="Scott Guthrie">            </a>
+            <div class="related_stories_title small"><strong><a href="http://www.geekwire.com/2014/microsoft-launches-new-high-performance-instances-hybrid-cloud-hardware/">Microsoft boosts Azure with high-performance instances, hybrid cloud hardware</a></strong></div>
+        </div>
+                                <div class="col-xs-6 col-md-3">
+            <a href="http://www.geekwire.com/2014/microsoft-hires-longtime-amazon-vp-suresh-kumar-run-cloud-infrastructure/" class="related-thumb">
+            <img width="300" height="300" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/suresh-300x300.jpg" class="img-responsive wp-post-image" alt="suresh">            </a>
+            <div class="related_stories_title small"><strong><a href="http://www.geekwire.com/2014/microsoft-hires-longtime-amazon-vp-suresh-kumar-run-cloud-infrastructure/">Microsoft hires longtime Amazon VP Suresh Kumar to run cloud infrastructure</a></strong></div>
+        </div>
+                                    </div>
+</section>
+<section id="comments">
+    <h3 class="section_header">Comments</h3>
+    <div class="row">
+        <div class="col-md-8">
+            
+<div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 539px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe><iframe id="dsq-indicator-north" data-disqus-uid="indicator-north" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" style="width: 630px !important; border: none !important; overflow: hidden !important; top: 0px !important; min-width: 630px !important; max-width: 630px !important; position: fixed !important; z-index: 2147483646 !important; height: 29px !important; min-height: 29px !important; max-height: 29px !important; display: none !important;"></iframe><iframe id="dsq-indicator-south" data-disqus-uid="indicator-south" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" style="width: 630px !important; border: none !important; overflow: hidden !important; bottom: 0px !important; min-width: 630px !important; max-width: 630px !important; position: fixed !important; z-index: 2147483646 !important; height: 29px !important; min-height: 29px !important; max-height: 29px !important; display: none !important;"></iframe></div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/';
+    var disqus_identifier = '135101 http://www.geekwire.com/?p=135101';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'geekwire';
+    var disqus_title = "Microsoft teams with Docker to make containers work with Windows Server";
+    var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /* Add the ability to add javascript callbacks */
+        
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=135101';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "http:\/\/www.geekwire.com\/2014\/microsoft-teams-docker-make-containers-work-azure\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/' + 'embed' + '.js' + '?pname=wordpress&pver=2.77';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+        </div>
+        <div class="col-md-4">
+            <!-- 300x250_comments -->
+            <div id="ad-300x250_comments"><div class="adunit display-none" id="300x250_comments" data-dimensions="300x250"><div id="google_ads_iframe_/16932871/300x250_comments_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/300x250_comments_0" name="google_ads_iframe_/16932871/300x250_comments_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+        </div>
+    </div>
+</section>
+<section id="geekwork">
+    <h3 class="section_header">Job Listings on GeekWork</h3>
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <div id="job_listings">
+                <div id="job_listings_caption">Find more jobs on <a href="http://www.geekwork.com/jobs/">GeekWork</a>. Employers, <a href="http://www.geekwork.com/pricing/">post a job here</a>.</div>
+                <div id="job_listings_tbody">
+            <div class="job_listing_row"><div class="job_logo"><a href="http://www.geekwork.com/job/zillow-seattle-wa-full-time-senior-software-development-engineer-rentals/"><img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/zillow_logo_RGB.png" alt="Senior Software Development Engineer, Rentals"></a></div><div class="job_title"><strong><a href="http://www.geekwork.com/job/zillow-seattle-wa-full-time-senior-software-development-engineer-rentals/">Senior Software Development Engineer, Rentals</a></strong>Zillow</div></div><div class="job_listing_row"><div class="job_logo"><a href="http://www.geekwork.com/job/ebay-inc-bellevue-wa-2-sr-applied-researcher-trust/"><img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/eBay.png" alt="Sr Applied Researcher, Trust"></a></div><div class="job_title"><strong><a href="http://www.geekwork.com/job/ebay-inc-bellevue-wa-2-sr-applied-researcher-trust/">Sr Applied Researcher, Trust</a></strong>eBay, Inc</div></div><div class="job_listing_row"><div class="job_logo"><a href="http://www.geekwork.com/job/here-com-seattle-2-sr-software-engineer-mobile/"><img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/HERE_MapsforLife_CMYK_TILE_BLUE.jpg" alt="Sr. Software Engineer (Mobile)"></a></div><div class="job_title"><strong><a href="http://www.geekwork.com/job/here-com-seattle-2-sr-software-engineer-mobile/">Sr. Software Engineer (Mobile)</a></strong>HERE.com</div></div>                </div>
+            </div>
+        </div>
+        <div class="hidden-xs col-md-4">
+            <!-- 300x250_geekwork -->
+            <div id="ad-300x250_geekwork"><div class="adunit display-none" id="300x250_geekwork" data-dimensions="300x250"><div id="google_ads_iframe_/16932871/300x250_geekwork_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/16932871/300x250_geekwork_0" name="google_ads_iframe_/16932871/300x250_geekwork_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div></div></div>
+        </div>
+    </div>
+</section>
+      </main><!-- /.main -->
+          </div><!-- /.content -->
+  </div><!-- /.wrap -->
+<!--twitter script-->
+  <footer class="content-info" role="contentinfo">
+    <section id="sponsor_posts">
+        <div class="container">
+            <h3 class="section_header">A Word From Our Sponsors</h3>
+            <div class="row">
+                            <div class="hidden-xs">
+                                                                    <div class="col-md-2 col-md-offset-1 sponsor-post-footer">
+                        <a href="http://www.construx.com/Requirements_Boot_Camp/#2" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Contrux Sponsor Post 10.20.14&#39;, &#39;Sidebar&#39;)">                            <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Geekwire_ReqBC_Nov.gif" class="img-responsive wp-post-image" alt="Geekwire_ReqBC_Nov">                        </a>
+                        <div class="small"><strong>Requirements Boot Camp, Bellevue, November 3-5</strong> <a href="http://www.construx.com/Requirements_Boot_Camp/#2" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Contrux Sponsor Post 10.20.14&#39;, &#39;Sidebar&#39;)">Register here</a></div>
+                    </div>
+                                                                                    <div class="col-md-2 sponsor-post-footer">
+                        <a href="http://centurylink.com/gig" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: CenturyLink Sponsor Post 10.17.14&#39;, &#39;Sidebar&#39;)">                            <img width="200" height="204" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Consumer_T2_1Gig-Seattle-Andrews_220x225-200x204.jpg" class="img-responsive wp-post-image" alt="CenturyLink">                        </a>
+                        <div class="small"><strong>CenturyLink is bringing 1GIG Internet speeds to your community</strong> <a href="http://centurylink.com/gig" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: CenturyLink Sponsor Post 10.17.14&#39;, &#39;Sidebar&#39;)">Check it out</a></div>
+                    </div>
+                                                                                    <div class="col-md-2 sponsor-post-footer">
+                        <a href="http://www.freshconsulting.com/7-uiux-principles-fresh-web-experiences/" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Fresh Sponsor Post 10.15.14&#39;, &#39;Sidebar&#39;)">                            <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/7-UI-UX-Principles.png" class="img-responsive wp-post-image" alt="7-UI-UX-Principles">                        </a>
+                        <div class="small"><strong>7 ui/ux principles to help create a fresh experience</strong> <a href="http://www.freshconsulting.com/7-uiux-principles-fresh-web-experiences/" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Fresh Sponsor Post 10.15.14&#39;, &#39;Sidebar&#39;)">Call us to talk UI/UX and give your users a fresh experience.</a></div>
+                    </div>
+                                                                                    <div class="col-md-2 sponsor-post-footer">
+                        <a href="http://www.seattleu.edu/events/detail.asp?sID=65867" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Seattle U Sponsor Post 10.13.14&#39;, &#39;Sidebar&#39;)">                            <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/GW-10-14-.png" class="img-responsive wp-post-image" alt="seattle university">                        </a>
+                        <div class="small"><strong>Seattle University: Where Passion Meets Profession</strong> <a href="http://www.seattleu.edu/events/detail.asp?sID=65867" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Seattle U Sponsor Post 10.13.14&#39;, &#39;Sidebar&#39;)">Graduate Information Session October 17th</a></div>
+                    </div>
+                                                                                    <div class="col-md-2 sponsor-post-footer">
+                        <a href="http://www.brenthaven.com/icarry?utm_source=geekwire&utm_medium=email&utm_campaign=contestRM" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Brenthaven Sponsor Post 10.10.14&#39;, &#39;Sidebar&#39;)">                            <img width="158" height="178" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Brenthaven.jpg" class="img-responsive wp-post-image" alt="Brenthaven">                        </a>
+                        <div class="small"><strong>‘I carry hope for forgotten children.’ Rick Montgomery, Founder, Executive Director, Global Roots</strong> <a href="http://www.brenthaven.com/icarry?utm_source=geekwire&utm_medium=email&utm_campaign=contestRM" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Brenthaven Sponsor Post 10.10.14&#39;, &#39;Sidebar&#39;)">Learn more here</a></div>
+                    </div>
+                                                                </div>
+
+                <div class="visible-xs-block">
+                                                                    <div class="sponsor-post-footer">
+                        <div class="col-xs-4">
+                            <a class="sponsor-post-link" href="http://www.construx.com/Requirements_Boot_Camp/#2" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Contrux Sponsor Post 10.20.14&#39;, &#39;Sidebar&#39;)">                                <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Geekwire_ReqBC_Nov.gif" class="img-responsive wp-post-image" alt="Geekwire_ReqBC_Nov">                            </a>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="small"><strong>Requirements Boot Camp, Bellevue, November 3-5</strong> <a class="sponsor-post-link" href="http://www.construx.com/Requirements_Boot_Camp/#2" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Contrux Sponsor Post 10.20.14&#39;, &#39;Sidebar&#39;)">Register here</a></div>
+                        </div>
+                        <div class="clearfix visible-xs-block"></div>
+                    </div>
+                                                                <div class="sponsor-post-footer">
+                        <div class="col-xs-4">
+                            <a class="sponsor-post-link" href="http://centurylink.com/gig" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: CenturyLink Sponsor Post 10.17.14&#39;, &#39;Sidebar&#39;)">                                <img width="200" height="204" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Consumer_T2_1Gig-Seattle-Andrews_220x225-200x204.jpg" class="img-responsive wp-post-image" alt="CenturyLink">                            </a>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="small"><strong>CenturyLink is bringing 1GIG Internet speeds to your community</strong> <a class="sponsor-post-link" href="http://centurylink.com/gig" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: CenturyLink Sponsor Post 10.17.14&#39;, &#39;Sidebar&#39;)">Check it out</a></div>
+                        </div>
+                        <div class="clearfix visible-xs-block"></div>
+                    </div>
+                                                                <div class="sponsor-post-footer">
+                        <div class="col-xs-4">
+                            <a class="sponsor-post-link" href="http://www.freshconsulting.com/7-uiux-principles-fresh-web-experiences/" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Fresh Sponsor Post 10.15.14&#39;, &#39;Sidebar&#39;)">                                <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/7-UI-UX-Principles.png" class="img-responsive wp-post-image" alt="7-UI-UX-Principles">                            </a>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="small"><strong>7 ui/ux principles to help create a fresh experience</strong> <a class="sponsor-post-link" href="http://www.freshconsulting.com/7-uiux-principles-fresh-web-experiences/" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Fresh Sponsor Post 10.15.14&#39;, &#39;Sidebar&#39;)">Call us to talk UI/UX and give your users a fresh experience.</a></div>
+                        </div>
+                        <div class="clearfix visible-xs-block"></div>
+                    </div>
+                                                                <div class="sponsor-post-footer">
+                        <div class="col-xs-4">
+                            <a class="sponsor-post-link" href="http://www.seattleu.edu/events/detail.asp?sID=65867" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Seattle U Sponsor Post 10.13.14&#39;, &#39;Sidebar&#39;)">                                <img width="200" height="225" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/GW-10-14-.png" class="img-responsive wp-post-image" alt="seattle university">                            </a>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="small"><strong>Seattle University: Where Passion Meets Profession</strong> <a class="sponsor-post-link" href="http://www.seattleu.edu/events/detail.asp?sID=65867" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Seattle U Sponsor Post 10.13.14&#39;, &#39;Sidebar&#39;)">Graduate Information Session October 17th</a></div>
+                        </div>
+                        <div class="clearfix visible-xs-block"></div>
+                    </div>
+                                                                <div class="sponsor-post-footer">
+                        <div class="col-xs-4">
+                            <a class="sponsor-post-link" href="http://www.brenthaven.com/icarry?utm_source=geekwire&utm_medium=email&utm_campaign=contestRM" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Brenthaven Sponsor Post 10.10.14&#39;, &#39;Sidebar&#39;)">                                <img width="158" height="178" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Brenthaven.jpg" class="img-responsive wp-post-image" alt="Brenthaven">                            </a>
+                        </div>
+                        <div class="col-xs-8">
+                            <div class="small"><strong>‘I carry hope for forgotten children.’ Rick Montgomery, Founder, Executive Director, Global Roots</strong> <a class="sponsor-post-link" href="http://www.brenthaven.com/icarry?utm_source=geekwire&utm_medium=email&utm_campaign=contestRM" rel="nofollow" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Sponsor post: Brenthaven Sponsor Post 10.10.14&#39;, &#39;Sidebar&#39;)">Learn more here</a></div>
+                        </div>
+                        <div class="clearfix visible-xs-block"></div>
+                    </div>
+                                        </div>
+            </div>
+        </div>
+    </section>
+    <section id="sponsors">
+        <div class="container">
+            <h4>Platinum Sponsors</h4>
+            <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                    <div class="platinum-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://toddlikesfrontier.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Ftr_bsnss_edge_2c_lrg.jpg" alt="Frontier Business Edge" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://toddlikesfrontier.com/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-6 col-md-4">
+                    <div class="platinum-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.wavebroadband.com/business/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/WaveBusiness-300x109.jpg" alt="Wave" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://www.wavebroadband.com/business/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <div class="clearfix visible-xs"></div>                                                            </div>
+            <h4>Gold Sponsors</h4>
+            <div class="row">
+                            <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://upsconnect.com/geekwire" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/UPS-300x153.jpg" alt="UPS Connect" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://upsconnect.com/geekwire" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.pce.uw.edu/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/uw.png" alt="UW Professional &amp; Continuing Education" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://www.pce.uw.edu/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.centurylink.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/centurylink1.jpg" alt="CenturyLink" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://www.centurylink.com/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <div class="clearfix visible-xs"></div>                                                <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.knoll.com/knoll_home.jsp" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/knollred-300x112.png" alt="Knoll" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://www.knoll.com/knoll_home.jsp" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-md visible-lg"></div>                                                                <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.moz.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Aqua-Roger-Blue-logo-300x87.jpg" alt="Moz" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://www.moz.com/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-4 col-md-3">
+                    <div class="gold-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://freshconsulting.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Fresh-Consulting.jpg" alt="Fresh Consulting" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sponsor-message-row hidden-xs">
+                                    <div class="sponsor-message-cell">
+                                        <a href="http://freshconsulting.com/" rel="nofollow" target="_blank"></a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <div class="clearfix visible-xs"></div>                                                            </div>
+            <h4>Silver Sponsors</h4>
+            <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.whitepages.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/wp.png" alt="WhitePages" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://level11.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Level11_pri_1col_rgbWB-1.png" alt="Level 11" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://nytec.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/nytec-Logo-Blue-3.jpg" alt="Nytec" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://bigdoor.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/bigdoor-logo-lrg-258x300.png" alt="BigDoor" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <div class="clearfix visible-xs"></div>                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="https://hired.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/hired-dark-flush-300x43.png" alt="Hired" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="https://www.firsttechfed.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/FT_logo_rebrand-300x92.jpg" alt="First Tech" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-md visible-lg"></div>                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://business.comcast.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/CCT-B4B-CB-wTag-Blue-RGB-300x230.png" alt="Comcast" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="https://www.wellsfargo.com/theprivatebank" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/1C_TPBStacked_logo_HEX_web1.png" alt="Wells Fargo" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                <div class="clearfix visible-xs"></div>                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.seattleinteractive.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/SIC2014-300x1501.jpg" alt="Add3" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.avalara.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Avalara-300pxls1-300x65.jpg" alt="Avalara" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.wsgr.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/WSGR-bug_RGB-300x135.jpg" alt="WSGR" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.perkinscoie.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/perkins-cole.jpg" alt="Perkins Cole" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-md visible-lg"></div>                <div class="clearfix visible-xs"></div>                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.tableausoftware.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Tableau_LogoRGB_SMALL.jpg" alt="Tableau" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.seattleu.edu/scieng/comsci/Default.aspx?id=58927" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/ScienceEng2C_process-231x300.jpg" alt="Seattle University" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div class="col-xs-3 col-md-2">
+                    <div class="silver-sponsor-box">
+                        <div class="sponsor-content">
+                            <div class="sponsor-content-table">
+                                <div class="sponsor-logo-row">
+                                    <div class="sponsor-logo-cell">
+                                        <a href="http://www.tune.com/" rel="nofollow" target="_blank">
+                                            <img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/Tune-with-Dial-Logo-300x55.jpg" alt="Tune" class="img-responsive">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                            </div>
+        </div>
+    </section>
+      <section id="gw_footer">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-4">
+                      <h3>About</h3>
+                      <ul class="list-unstyled">
+                          <li><a href="http://www.geekwire.com/about-geekwire/">About GeekWire</a></li>
+                          <li><a href="http://www.geekwire.com/contact-us/">Contact Us</a></li>
+                          <li><a href="http://www.geekwire.com/advertise/">Ask About Advertising</a></li>
+                          <li><a href="mailto:tips@geekwire.com">Send Us a Tip</a></li>
+                          <li><a href="http://www.geekwire.com/startup-spotlight-apply/">Apply for Startup Spotlight</a></li>
+                          <li><a href="http://www.geekwire.com/apply-geekwire-geek-of-the-week/">Apply for Geek of the Week</a></li>
+                          <li><a href="http://www.geekwire.com/memberships/">Become a GeekWire Member</a></li>
+                          <li><a href="http://www.geekwire.com/submit-startup/">Join Our Startup List</a></li>
+                      </ul>
+                                      </div>
+                  <div class="col-md-4">
+                      <h3>Follow</h3>
+                      <ul class="list-inline lead">
+                          <li><a href="https://www.facebook.com/geekwire"><span class="icon-facebook"></span></a></li>
+                          <li><a href="https://twitter.com/intent/user?screen_name=geekwire"><span class="icon-twitter"></span></a></li>
+                          <li><a href="https://www.linkedin.com/company/geekwire"><span class="icon-linkedin"></span></a></li>
+                          <li><a href="https://www.google.com/+GeekWire"><span class="icon-googleplus"></span></a></li>
+                          <li><a href="http://feeds.geekwire.com/geekwire"><span class="icon-feed2"></span></a></li>
+                          <li><a href="http://www.geekwire.com/podcast/"><span class="icon-mic"></span></a></li>
+                      </ul>
+                      <h3>GeekWire Newsletter</h3>
+                      <p>Catch every headline in your inbox</p>
+                      <form action="http://geekwire.us2.list-manage.com/subscribe/post?u=7d9669cf206fb932dea38e25e&id=4e93fc7dfd" method="post" id="mc-embedded-subscribe-form-footer" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="" role="form">
+                          <div class="form-group">
+                              <div class="input-group">
+                                  <input type="email" placeholder="Enter your email address" name="EMAIL" id="mce-EMAIL-footer" value="" class="form-control input-sm">
+                                  <label class="sr-only" for="mce-EMAIL-footer">Email address</label>
+                                  <span class="input-group-btn">
+                                      <button class="btn btn-default btn-sm" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe-footer">Subscribe</button>
+                                  </span>
+                              </div>
+                          </div>
+                          <div style="position: absolute; left: -5000px;"><input type="text" name="b_7d9669cf206fb932dea38e25e_4e93fc7dfd" tabindex="-1" value=""></div>
+                      </form>
+                                      </div>
+                  <div class="col-md-4">
+                      <h3>GeekWire Apps</h3>
+                      <ul class="list-unstyled">
+                          <li><a href="http://itunes.apple.com/us/app/geekwire/id482653203?mt=8"><span class="icon-apple"></span> iOS</a></li>
+                          <li><a href="https://play.google.com/store/apps/details?id=com.geekwire&hl=en"><span class="icon-android"></span> Android</a></li>
+                          <li><a href="http://www.windowsphone.com/en-us/store/app/geekwire/0dc8871a-fdd1-4ce6-bccb-7634199094b4"><span class="icon-windows8"></span> Windows Phone</a></li>
+                          <li><a href="http://apps.microsoft.com/windows/en-us/app/4a9e25d8-f15d-46c8-bcd8-af27fe04e61e"><span class="icon-windows8"></span> Windows 8</a></li>
+                          <li><a href="https://play.google.com/store/newsstand/news?id=CAowr7HbCg"><span class="icon-google"></span> Google Play Newsstand</a></li>
+                      </ul>
+                      <h4>Download GeekWire Logo</h4>
+                      <a class="btn btn-default btn-sm" href="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/geekwire-logo.png"><img src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/geekwire-logo.png" alt="GeekWire" width="100"></a>
+                                      </div>
+              </div>
+              <div class="row">
+                  <div class="col-xs-12 col-md-4"><small><a href="http://www.geekwire.com/2014/microsoft-teams-docker-make-containers-work-azure/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+geekwire+%28GeekWire%29#"><span class="icon-arrow-up4"></span> Return to Top of Page</a></small></div>
+                  <div class="col-xs-12 col-md-4"><small><a href="http://www.geekwire.com/privacy/">Privacy Policy</a> | <a href="http://www.geekwire.com/termsofuse/">Terms of Use</a></small></div>
+                  <div class="col-xs-12 col-md-4"><small>© 2011-2014 GeekWire, LLC</small></div>
+              </div>
+          </div>
+      </section>
+    <div id="mobile_ad">
+        <!-- Mobile Footer Leaderboard -->
+        <div id="ad-mobile_footer"></div>
+    </div>
+</footer>
+<script>window.twttr = (function (d, s, id) {
+  var t, js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id; js.src= "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  return window.twttr || (t = { _e: [], ready: function (f) { t._e.push(f) } });
+}(document, "script", "twitter-wjs"));</script>
+<!-- Begin comScore Tag -->
+<script>
+  var _comscore = _comscore || [];
+  _comscore.push({ c1: "2", c2: "18289459" });
+  (function() {
+    var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+    s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+    el.parentNode.insertBefore(s, el);
+  })();
+</script>
+<noscript>
+  &lt;img src="http://b.scorecardresearch.com/p?c1=2&amp;c2=18289459&amp;cv=2.0&amp;cj=1" /&gt;
+</noscript>
+<!-- End comScore Tag -->  
+<!-- Quantcast Tag -->
+<script type="text/javascript">
+var _qevents = _qevents || [];
+
+(function() {
+var elem = document.createElement('script');
+elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+elem.async = true;
+elem.type = "text/javascript";
+var scpt = document.getElementsByTagName('script')[0];
+scpt.parentNode.insertBefore(elem, scpt);
+})();
+
+_qevents.push({
+qacct:"p-bcx6n9uF4x_0A"
+});
+</script>
+
+<noscript>
+&lt;div style="display:none;"&gt;
+&lt;img src="//pixel.quantserve.com/pixel/p-bcx6n9uF4x_0A.gif" border="0" height="1" width="1" alt="Quantcast"/&gt;
+&lt;/div&gt;
+</noscript>
+<!-- End Quantcast tag -->
+<script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/scripts.min.js"></script><iframe src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/container.html" style="visibility: hidden; display: none;"></iframe>
+
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/2_ZudbRXWRs.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Microsoft teams with Docker to make containers work with Windows Server - GeekWire_files/2_ZudbRXWRs(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div></body></html>

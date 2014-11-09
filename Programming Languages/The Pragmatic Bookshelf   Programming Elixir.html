@@ -1,0 +1,788 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!-- saved from url=(0051)https://pragprog.com/book/elixir/programming-elixir -->
+<html xmlns="http://www.w3.org/1999/xhtml" version="-//W3C//DTD XHTML 1.1//EN" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="./The Pragmatic Bookshelf   Programming Elixir_files/7977.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./The Pragmatic Bookshelf   Programming Elixir_files/dc.js"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"beacon-1.newrelic.com","errorBeacon":"bam.nr-data.net","licenseKey":"4460760967","applicationID":"340824","transactionName":"cQ5YEkJeCFpTQEsSWkYNUxUfQgxZQQ==","queueTime":0,"applicationTime":168,"ttGuid":"","agentToken":null,"agent":"js-agent.newrelic.com/nr-476.min.js"}</script>
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=u(e),f=c.length,s=i(a,o,r),p=0;f>p;p++)c[p].apply(s,n);return s}function a(t,e){f[t]=u(t).concat(e)}function u(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:u,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=l.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&c&&c.body){l.proto="https"===p.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=c.createElement("script");e.src=l.proto+t.agent,c.body.appendChild(e)}}function r(){"complete"===c.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),u=window,c=u.document,f="addEventListener",s="attachEvent",p=(""+location).split("?")[0],l=e.exports={offset:i(),origin:p,features:{}};c[f]?(c[f]("DOMContentLoaded",o,!1),u[f]("load",n,!1)):(c[s]("onreadystatechange",r),u[s]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}]},{},["G9z0Bl"]);</script>
+    <meta name="google-site-verification" content="Y0U-2qfR5wHZl72gpEtOdc0gHrYcFRSsl4PsKagctzE">
+    
+
+<title>The Pragmatic Bookshelf | Programming Elixir</title>  
+<meta name="copyright" content="Copyright (c) 1999-2014 The Pragmatic Programmers, LLC. All rights reserved.">
+<meta name="description" content="title: Programming Elixir: Functional |&gt; Concurrent |&gt; Pragmatic |&gt; Fun, by: Dave Thomas, isbn: 9781937785581, date: 2014-10-15">
+<meta name="keywords" content="functional programming, erlang, uptime, reliable, scalable, concurrency, parallel, distributed, "> 
+
+<meta content="authenticity_token" name="csrf-param">
+<meta content="SdtmlxGl1ylGL0s4HiMci44KgP0unOVp7mt9ZhS1qlU=" name="csrf-token">
+
+
+<link rel="shortcut icon" href="https://pragprog.com/favicon.ico">
+<link href="./The Pragmatic Bookshelf   Programming Elixir_files/application-02e1bb0a682caa56bf620433a2f36f97.css" media="screen" rel="stylesheet" type="text/css">
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://pragprog.com/catalog/search-description" title="Content search">
+<link rel="canonical" href="./The Pragmatic Bookshelf   Programming Elixir_files/The Pragmatic Bookshelf   Programming Elixir.html">
+<link href="https://pragprog.com/feed/global" rel="alternate" title="RSS" type="application/rss+xml">
+
+<link rel="apple-touch-icon" href="https://pragprog.com/assets/apple-touch-icon-ff3ad05b8d36cfcc81fd8f823d52ee6f.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://pragprog.com/assets/apple-touch-icon-72-5c7527e32df16fd371e3108acd4d2a8a.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://pragprog.com/assets/apple-touch-icon-114-1e7fac036c8938f33dd35fc32e682a81.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://pragprog.com/assets/apple-touch-icon-144-70b7a367adc14da27bcb5c12d20256d7.png">
+
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-280358-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+  </head>
+  <body id="two-column-layout" class="book-page" itemscope="" itemtype="http://schema.org/WebPage">
+    <div id="page-wrapper">
+      <div id="page"> 
+        
+
+<div id="header-wrapper">
+  <div id="header">
+    <div id="logo">
+      <a href="https://pragprog.com/" title="Home"><img alt="The Pragmatic Programmers" src="./The Pragmatic Bookshelf   Programming Elixir_files/logo-c5c7f9c2f950df63a71871ba2f6bb115.gif" title=""></a>
+    </div>
+    <div id="navigation">
+      <a href="http://www.defectivebydesign.org/drm-free" class="drm-free"><img alt="NO DRM—see DefectiveByDesign.org" src="./The Pragmatic Bookshelf   Programming Elixir_files/drm-free80-9120ffac998173dc0ba7e5875d082f18.png" style="opacity: 0.732297389530017;"></a>
+      <div id="nav-area">
+        <div id="top-nav" class="nav">
+          <strong><a href="https://pragprog.com/titles" class="here" title="Pragmatic topics to make developer&#39;s lives easier">Books</a></strong><span class="separator"> | </span><a href="https://pragprog.com/screencasts" title="Experts show you how it&#39;s done">Video</a><span class="separator"> | </span><a href="https://pragprog.com/audio_books" title="Listen to our Audio Books">Audio</a><span class="separator"> | </span><a href="https://pragprog.com/magazines" title="Read our free monthly magazine">Magazine</a><span class="separator"> | </span><a href="https://forums.pragprog.com/" title="Where folks talk about books, screencasts, and other good stuff">Forums</a><span class="separator"> | </span><a href="https://pragprog.com/resources" title="Help finding stuff on the site">Resources</a><span class="separator"> | </span><a href="https://pragprog.com/frequently-asked-questions" title="Got a problem? Let us help.">Help!</a>
+        </div>
+        <div class="login">
+          <span class="nav"><a href="https://pragprog.com/book/elixir/programming-elixir#" id="display-signup-not-logged-in">Keep up-to-date</a></span><span class="separator"> | </span><span id="login"><a href="https://pragprog.com/login" class="orange">Login</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="signup-if-logged-in" class="newsletter-popup-div">
+  <p>
+    Want to receive a weekly email containing
+    the scoop on our new titles along with the 
+    occasional special offer? Just click the button. 
+    (You can always unsubscribe later by editing your 
+    account information).
+  </p>
+  <form accept-charset="UTF-8" action="https://pragprog.com/newsletter_signup/for_current_user" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="SdtmlxGl1ylGL0s4HiMci44KgP0unOVp7mt9ZhS1qlU="></div>
+    <button type="submit"><span>Subscribe</span></button>
+</form></div>
+
+<div id="signup-not-logged-in" class="newsletter-popup-div">
+  <p>
+    Give us an email and a password (you can use the password later to log in and
+    change your preferences). We'll send you a newsletter roughly once a week.
+  </p>
+  <form accept-charset="UTF-8" action="https://pragprog.com/newsletter_signup/signup_when_not_logged_in" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="SdtmlxGl1ylGL0s4HiMci44KgP0unOVp7mt9ZhS1qlU="></div>
+    <p>
+      <label for="name">Your name:</label>
+      <input id="name" name="name" type="text">
+    </p>
+    <p>
+      <label for="email">EMail:</label>
+      <input id="email" name="email" type="text">
+    </p>
+    <p>
+      <button type="submit"><span>Subscribe</span></button>
+    </p>
+</form></div>
+
+<div id="successful-signup" class="newsletter-popup-div">
+  <p>
+    Thanks for signing up. You can always unsubscribe
+    by visiting <a href="https://pragprog.com/my_profile">pragprog.com/my_profile</a> 
+  </p>
+  <button id="close-dialog" type="submit"><span>OK</span></button>
+</div>
+
+        <hr class="hidden">
+        <div id="main">
+          <div id="content-wrapper">
+            <div id="content" itemscope="" itemtype="http://schema.org/Book">
+                <div id="head-wrapper">
+                  <div id="head" class="title-head" style="padding-bottom: 35.1840000152588px;">
+                        <div id="book-detail">
+    <a href="https://imagery.pragprog.com/products/361/elixir.jpg?1368724397"><img alt="Cover Image For Programming Elixir..." height="228" itemprop="image" src="./The Pragmatic Bookshelf   Programming Elixir_files/elixir_xlargecover.jpg" width="190"></a>
+ </div>
+
+    <h1 itemprop="name">Programming Elixir: Functional |&gt; Concurrent |&gt; Pragmatic |&gt; Fun</h1>
+    <h2>by <span itemprop="author">Dave Thomas</span></h2>
+
+                  <div class="ui-tabs" style="position: absolute; bottom: 0px;"><ul class="plain ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+    <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-intro" aria-labelledby="ui-id-1" aria-selected="true"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-intro" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1"><span><strong>Buy</strong></span></a></li>
+    <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-about" aria-labelledby="ui-id-2" aria-selected="false"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-about" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2"><span>Details</span></a></li>
+      <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-contents" aria-labelledby="ui-id-3" aria-selected="false"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-contents" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3"><span>Contents/extracts</span></a></li>
+    <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-author" aria-labelledby="ui-id-4" aria-selected="false"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-author" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">
+      <span>
+        Author!
+      </span>
+    </a></li>
+
+      <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-comments" aria-labelledby="ui-id-5" aria-selected="false"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-comments" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5"><span>Reviews</span></a></li>
+      <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-forums" aria-labelledby="ui-id-6" aria-selected="false"><a href="https://pragprog.com/book/elixir/programming-elixir#tab-forums" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-6"><span>Discuss</span></a></li>
+  </ul></div></div>
+                </div>
+              
+  <div id="link-menu">
+    
+<ul>
+    <li><a href="https://pragprog.com/titles/elixir/source_code">Source code</a></li>
+    <li><a href="https://pragprog.com/titles/elixir/errata">Errata</a></li>
+    <li><a href="https://pragprog.com/titles/elixir/release_info" id="release_info" title="Programming Elixir">Releases</a></li>
+</ul>
+
+  </div>
+
+<div id="tabbed-interface" class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="display: block;">
+  
+           
+
+  
+
+
+  <!-- ============================================================= -->
+
+  <div class="stats font-90"> 
+  <div class="track-our-progress">
+  </div>
+</div>
+
+<div class="progress" style="display:none">
+  <div class="explanation">
+    The chart shows the approximate number of words in each chapter of <em>Programming Elixir</em> per week. The latest numbers are highlighted—mouse over prior weeks to see their figures.
+  </div>
+  <div id="progress-chart">
+  </div>  
+</div>  
+
+
+  <!-- ============================================================= -->
+
+  <div id="tab-intro" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
+    <div id="intro">
+      <a href="http://www.youtube.com/watch?v=hht9s6nAAx8" class="youtubePreviewLink" data-embed-content="&lt;iframe allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot; height=&quot;480&quot; src=&quot;http://www.youtube.com/embed/hht9s6nAAx8?rel=0&amp;amp;autoplay=1&quot; width=&quot;854&quot;&gt;&lt;/iframe&gt;" data-width="874" title="Programming Elixir"><img alt="Watch_me" class="watch-me-icon" src="./The Pragmatic Bookshelf   Programming Elixir_files/watch_me-3ac81e26cf22b55711498a9f4abfe023.png"></a>
+      <div itemprop="description">
+        <p>You want to explore functional programming, but are put off by the academic feel (tell me about monads just one more time). You know you need concurrent applications, but also know these are almost impossible to get right.  Meet Elixir, a functional, concurrent language built on the rock-solid Erlang VM.  Elixir’s pragmatic syntax and built-in support for metaprogramming will make you productive and keep you interested for the long haul. This book is <em>the</em> introduction to Elixir for experienced programmers.</p>
+
+
+	<p>Maybe you need something that’s closer to Ruby, but with a battle-proven environment that’s unrivaled for massive scalability, concurrency, distribution, and fault tolerance. Maybe the time is right for the Next Big Thing. Maybe it’s <em>Elixir</em>.</p>
+      </div>
+
+      <div class="web-highlight">
+        <p>Check out the short video on Elixir at <a href="http://youtu.be/hht9s6nAAx8">youtu.be/hht9s6nAAx8</a>, or the more detailed 30 minute video at <a href="http://youtu.be/a-off4Vznjs">youtu.be/a-off4Vznjs</a>.</p>
+
+
+	<p>And don’t forget to download this handy <a href="http://media.pragprog.com/titles/elixir/ElixirCheat.pdf">cheat sheet</a> for Elixir syntax.</p>
+      </div>
+
+      
+    </div>
+
+    <div class="clear"></div>
+
+
+    <div class="box rounded">
+  
+  
+  
+  
+    <h3 class="underline font-200" style="">Buy Now</h3>
+    <form accept-charset="UTF-8" action="https://pragprog.com/cart/add_to_cart" id="buy-now" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="SdtmlxGl1ylGL0s4HiMci44KgP0unOVp7mt9ZhS1qlU="></div>
+		<div class="buy-now-format">
+			<p class="black font-120">Select a DRM-free Format:</p>
+			<div>
+  				<div class="book-format-option" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+  					<input checked="checked" id="sku_id_643_642" name="sku_id" type="radio" value="643_642">
+  					<label for="sku_id_643_642">
+  						<span itemprop="bookFormat">eBook + Paper Book</span>
+  						(<span itemprop="price">$46.00</span>)
+  					</label>
+  					<span style="display: none" itemprop="availability" href="http://schema.org/InStock">In Stock</span>
+  				</div>
+  				<div class="book-format-option" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+  					<input id="sku_id_642" name="sku_id" type="radio" value="642">
+  					<label for="sku_id_642">
+  						<span itemprop="bookFormat">Paper Book</span>
+  						(<span itemprop="price">$36.00</span>)
+  					</label>
+  					<span style="display: none" itemprop="availability" href="http://schema.org/InStock">In Stock</span>
+  				</div>
+  				<div class="book-format-option" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+  					<input id="sku_id_643" name="sku_id" type="radio" value="643">
+  					<label for="sku_id_643">
+  						<span itemprop="bookFormat">eBook</span>
+  						(<span itemprop="price">$24.00</span>)
+  					</label>
+  					<span style="display: none" itemprop="availability" href="http://schema.org/InStock">In Stock</span>
+  				</div>
+		 
+				
+
+				<div class="buy-now-buttons">
+					<button class="round-rect red" id="add-to-cart" name="add-to-cart" type="submit"><span>+ ADD TO CART</span></button>    
+				</div>
+			</div>   
+		<div class="formats left font-85">
+				Buy the eBook and get these DRM-free formats delivered immediately:
+	<ul>
+			<li>epub (for iPhone/iPad, Android, eReaders)</li>
+			<li>mobi (for Kindle)</li>
+			<li>PDF</li>
+	</ul>
+    We can automatically send them to your <a href="https://pragprog.com/frequently-asked-questions/ebooks/read-on-kindle#wifi">Kindle</a>,
+
+    and your <a href="https://pragprog.com/frequently-asked-questions/ebooks/sending-ebooks-to-your-dropbox">Dropbox</a>.
+    (You'll need to <a href="https://pragprog.com/login">log in</a> to enable these options.)
+
+
+		</div>
+		</div>
+</form>  
+
+  <div class="clear"></div>
+  
+    
+  
+  <span class="clear">&nbsp;</span>
+  
+</div>
+
+
+  </div>
+    
+
+  <!-- ============================================================= -->
+  <div id="tab-about" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <h3 class="underline font-200 space-top">About this Book</h3>
+    <div class="stats-for-title right font-90"> 
+  <ul>
+    <li>
+      <span itemprop="numberOfPages">240</span> pages
+       
+    </li>
+
+      <li>
+        Published: <time itemprop="datePublished">2014-10-15</time>
+      </li>
+
+      <li>
+        Release: <span itemprop="release">P1.0 (2014-10-16)</span>
+      </li>
+    <li>
+      ISBN: <span itemprop="isbn">978-1-93778-558-1</span>
+    </li>
+  </ul>
+
+</div>
+
+    <p>As a developer, you’ve probably heard that functional programming techniques help manage the complexities of today’s real-world, concurrent systems. You’re also investigating designs that help you maximize uptime and manage security.</p>
+
+
+	<p>This book is your guide to Elixir, a modern, functional, and concurrent programming language. Because Elixir runs on the Erlang VM, and uses the underlying Erlang/OTP architecture, it benefits from almost 20 years of research into high performance, highly parallel, and seriously robust applications. Elixir brings a lot that’s new: a modern, Ruby-like, extendable  syntax, compile and runtime evaluation, a hygienic macro system, and more.</p>
+
+
+	<p>But, just as importantly, Elixir brings a sense of enjoyment to parallel, functional programming. Your applications become fun to work with, and the language encourages you to experiment.</p>
+
+
+	<p>Part 1 covers the basics of writing sequential Elixir programs. We’ll look at the language, the tools, and the conventions.</p>
+
+
+	<p>Part 2 uses these skills to start writing concurrent code—applications that use all the cores on your machine, or all the machines on your network! And we do it both with and without <span class="caps">OTP</span>.</p>
+
+
+	<p>And Part 3 looks at the more advanced features of the language, from DSLs and code generation to extending the syntax.</p>
+
+
+	<p>By the end of this book, you’ll understand Elixir, and know how to apply it to solve your complex, modern problems.</p>
+      <h4>What You Need</h4>
+      <p>You’ll need a computer, a little experience with another high-level language, and a sense of adventure. No functional programming experience is needed.</p>
+
+
+	<h4>User Level</h4>
+
+
+<div class="skill-level">
+<img src="./The Pragmatic Bookshelf   Programming Elixir_files/skill_range_elixir__nulyw6__.png" alt="">
+</div>
+  </div>
+
+  <!-- ============================================================= -->
+
+    <div id="tab-contents" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <h3 class="underline font-200 space-top">Contents and Extracts</h3>  
+      <p>Check out the short video on Elixir at <a href="http://youtu.be/hht9s6nAAx8">youtu.be/hht9s6nAAx8</a>, or the 30 minute, more detailed video at <a href="http://youtu.be/a-off4Vznjs">youtu.be/a-off4Vznjs</a> and enjoy.</p>
+
+
+	<p>And don’t forget to download this handy <a href="http://media.pragprog.com/titles/elixir/ElixirCheat.pdf">cheat sheet</a> for Elixir syntax.</p>
+
+
+	<p><a href="http://media.pragprog.com/titles/elixir/introduction.pdf">Preface/Introduction</a></p>
+
+
+	<ul>
+	<li><strong>Conventional Programming</strong>
+	<ul>
+	<li>Pattern Matching
+	<ul>
+	<li>Assignment: I do not think it means what you think it means</li>
+		<li>More Complex Matches</li>
+		<li>Ignoring a Value With _</li>
+		<li>Variables Bind Once (Per Match)</li>
+		<li>Another way of looking at the equals sign</li>
+	</ul>
+	</li>
+		<li>Immutability
+	<ul>
+	<li>You Already Have (Some) Immutable Data</li>
+		<li>Immutable Data Is Known Data</li>
+		<li>Performance Implications of Immutability</li>
+		<li>Coding With Immutable Data</li>
+	</ul>
+	</li>
+		<li>Elixir Basics 
+	<ul>
+	<li>Value Types</li>
+		<li>System Types</li>
+		<li>Collection Types</li>
+		<li>Names, Source Files, Conventions, Operators, and So On</li>
+		<li>End of the Basics</li>
+	</ul>
+	</li>
+		<li>Anonymous Functions
+	<ul>
+	<li>Functions and Pattern Matching</li>
+		<li>One Function, Multiple Bodies</li>
+		<li>Functions Can Return Functions</li>
+		<li>Passing Functions as Arguments</li>
+		<li>Functions Are The Core</li>
+	</ul>
+	</li>
+		<li>Modules and Named Functions
+	<ul>
+	<li>The Body of the Function is a Block</li>
+		<li>Function Calls and Pattern Matching</li>
+		<li>Guard Clauses</li>
+		<li>Default Parameters</li>
+		<li>|&gt; — The Amazing Pipe Operator</li>
+		<li>Modules</li>
+		<li>Module Attributes</li>
+		<li>Module Names: Elixir, Erlang, and Atoms</li>
+		<li>Finding Libraries</li>
+	</ul>
+	</li>
+		<li>Lists and Recursion <a href="http://media.pragprog.com/titles/elixir/lists.pdf">excerpt</a>
+	<ul>
+	<li>Heads and Tails</li>
+		<li>Using Head and Tail to Process a List</li>
+		<li>Using Head and Tail to Build a List</li>
+		<li>Creation of a Map Function</li>
+		<li>Keeping Track of Values During Recursion</li>
+		<li>More Complex List Patterns</li>
+		<li>List Comprehensions</li>
+		<li>Using the Built-in Libraries</li>
+		<li>List Libraries in Action</li>
+	</ul>
+	</li>
+		<li>Processing Collections—Enum and Stream
+	<ul>
+	<li>Enum—Processing Collections</li>
+		<li>Streams—Lazy Enumerables</li>
+	</ul>
+	</li>
+		<li>Strings and Binaries
+	<ul>
+	<li>String Literals</li>
+		<li>The Name “strings”</li>
+		<li>Single Quoted Strings—Lists of Character Codes</li>
+		<li>Binaries</li>
+		<li>Double Quoted Strings are Binaries</li>
+		<li>Binaries and Pattern Matching</li>
+	</ul>
+	</li>
+		<li>Records
+	<ul>
+	<li>Defining Records: defrecord</li>
+		<li>Records and Pattern Matching</li>
+		<li>Advanced Records</li>
+	</ul>
+	</li>
+		<li>Control Flow
+	<ul>
+	<li>if and unless</li>
+		<li>cond</li>
+		<li>case</li>
+		<li>Raising Exceptions</li>
+		<li>Designing With Exceptions</li>
+		<li>What we’ve seen</li>
+	</ul>
+	</li>
+		<li>Organizing a Project
+	<ul>
+	<li>The Project: Fetch Issues from Github</li>
+		<li>Task: Use Mix to Create our New Project</li>
+		<li>Transformation: Parse the Command Line</li>
+		<li>Step: Write Some Basic Tests</li>
+		<li>Transformation: Fetch from Github</li>
+		<li>Task: Use External Libraries</li>
+		<li>Transformation: Convert Response</li>
+		<li>Transformation: Take First N Items</li>
+		<li>Transformation: Format the Table</li>
+		<li>Task: Make a command line executable</li>
+		<li>Task: Test The Comments</li>
+		<li>Task: Create Project Documentation</li>
+		<li>What We’ve Just Seen</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+		<li><strong>Concurrent Programming</strong>
+	<ul>
+	<li>Working With Multiple Processes
+	<ul>
+	<li>A Simple Process</li>
+		<li>Process Overhead</li>
+		<li>When Processes Die</li>
+		<li>Parallel Map—The Hello World of Erlang</li>
+		<li>A Fibonacci Server</li>
+		<li>What’s Next</li>
+	</ul>
+	</li>
+		<li>Nodes—The Key To Distributing Services  <a href="http://media.pragprog.com/titles/elixir/nodes.pdf">excerpt</a>
+	<ul>
+	<li>Naming Nodes</li>
+		<li>Naming Your Processes</li>
+		<li>I/O, PIDs, and Nodes</li>
+		<li>What’s Next</li>
+	</ul>
+	</li>
+		<li><span class="caps">OTP</span>: Servers
+	<ul>
+	<li>Some <span class="caps">OTP</span> Definitions</li>
+		<li>An <span class="caps">OTP</span> Server</li>
+		<li>GenServer Callbacks</li>
+		<li>Naming A Process</li>
+		<li>Tidying Up The Interface</li>
+		<li>What We Learned</li>
+	</ul>
+	</li>
+		<li><span class="caps">OTP</span>: Supervisors
+	<ul>
+	<li>Supervisors And Workers</li>
+		<li>Supervisors Are The Heart of Reliability</li>
+	</ul>
+	</li>
+		<li><span class="caps">OTP</span>: Applications
+	<ul>
+	<li>Application: I do not think it means what you think it means</li>
+		<li>The Application Specification File</li>
+		<li>Turning Our Sequence Program into an <span class="caps">OTP</span> Application</li>
+		<li>Tell Mix About The Application</li>
+		<li>Create the application <span class="caps">OTP</span> entry point</li>
+		<li>Hot Code Swapping</li>
+		<li><span class="caps">OTP</span> is Big. Unbelievably Big</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+		<li><strong>More Advanced Elixir</strong>
+	<ul>
+	<li>Macros and Code Evaluation</li>
+		<li>Protocols—Polymorphic Functions</li>
+		<li>Linking Modules: Behavio(u)rs and Use</li>
+		<li>More Cool Stuff</li>
+	</ul></li>
+	</ul>
+    </div>
+
+  <!-- ============================================================= -->
+
+  <div id="tab-author" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <h3 id="author_bio" class="underline font-200 space-top">About the Author</h3>
+    <p><strong>Dave Thomas</strong> is a programmer who likes to evangelize cool stuff. He cowrote <em>The Pragmatic Programmer</em>, and was one of the creators of the Agile Manifesto. His book <em>Programming Ruby</em> introduced the Ruby language to the world, and <em>Agile Web Development with Rails</em> helped kickstart the Rails revolution.</p> 
+
+      <h3 class="underline font-200 space-top">Upcoming Author Events</h3>
+      <ul>
+      <li>
+        2014-11-17:
+        <strong>Dave Thomas</strong><br>
+        Advanced Ruby Course
+        <em>(<a href="https://skillsmatter.com/courses/510-dave-thomas-advanced-ruby-programming-course">Skillsmatter, London</a>)</em>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================================================= -->
+
+    <div id="tab-comments" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <h3 class="underline font-200 space-top">Comments and Reviews</h3>
+<ul class="quotes">
+  <li>
+    <div class="quote"><p>Dave Thomas has done it again. <em>Programming Elixir</em> is what every programming
+book aspires to be. It goes beyond the basics of simply teaching syntax and mechanical
+examples. It teaches you how to think Elixir.</p></div>
+    <span class="source">—Bruce Tate</span>
+    <span class="title">CTO, icanmakeitbetter.com. Author</span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p>In <em>Programming Elixir</em>, Dave has done an excellent job of presenting functional
+programming in a way that is fun, practical, and full of inspirational insights into
+how we can rethink our very approach to designing programs. As you progress
+through the book, you will often find yourself smiling after discovering a certain
+aspect of Elixir that lets you do things in a new, more elegant way that will almost
+seem too natural and intuitive to have been neglected by the programming community
+at large for so long.</p>
+
+
+	<p>The book provides a detailed overview of Elixir and its tooling, aimed at making
+the development process smooth and productive. Dave explains the core parts of
+the Erlang runtime system, such as distribution, concurrency, and fault tolerance,
+that imbue Elixir with the power to write scalable and resilient applications.</p></div>
+    <span class="source">—Alexei Sholik</span>
+    <span class="title"></span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p>The era of sequential programming is over—today’s high-performance, scalable,
+and fault-tolerant software is concurrent. Elixir is a key player in this new world,
+bringing the power of Erlang and <span class="caps">OTP</span> to a wider audience. Read this book for a
+head start on the next big thing in software development.</p></div>
+    <span class="source">—Paul Butcher</span>
+    <span class="title">Author of "Seven Concurrency Models in Seven Weeks"</span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p>Just like the <em>Pickaxe</em> book for Ruby, this book is the de facto standard for Elixir.
+Dave, in his impeccable style, provides a thorough coverage of the Elixir language,
+including data structures, macros, <span class="caps">OTP</span>, and even Dialyzer. This book is a joy to
+read, as it walks the reader through learning Elixir and the thought processes
+involved in writing functional programs. If you want to accelerate your mastery
+of the Elixir language, <em>Programming Elixir</em> is your best investment.</p></div>
+    <span class="source">—Jim Freeze</span>
+    <span class="title">Organizer of the world's first Elixir Conference</span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p>This will undoubtedly become the Pickaxe for Elixir. … Thomas excitedly guides
+the reader through the awesomeness of Elixir. Worth picking up for anyone interested
+in Elixir.</p></div>
+    <span class="source">—Dan Kozlowski</span>
+    <span class="title"></span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p><em>Programming Elixir</em> is another smash hit from Dave Thomas. Prior to <em>Programming Elixir</em> I tried my hand at several functional programming languages only to trip
+all over myself. You can feel Dave’s enthusiasm and joy of using the language in
+each and every chapter. He will have you thinking about solving problems in ways
+you never thought of before. This book has drastically changed the way I think
+about programming in any language for the better.</p></div>
+    <span class="source">—Richard Bishop</span>
+    <span class="title"></span>
+    <span class="company"></span>    
+
+  </li>
+  <li>
+    <div class="quote"><p>I’ve really enjoyed this book. It’s not just some whirlwind tour of syntax or features;
+I found it to be a very thoughtful introduction to both Elixir and functional programming
+in general.</p></div>
+    <span class="source">—Cody Russell</span>
+    <span class="title"></span>
+    <span class="company"></span>    
+
+  </li>
+</ul>
+
+    </div>
+
+
+  <!-- ============================================================= -->
+
+    <div id="tab-forums" class="a-tab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <h3 class="underline font-200 space-top" id="in-the-forums">Latest Topics in the Forums…</h3>
+<ul class="menu">
+  <li><a href="https://forums.pragprog.com/forums/310/topics/13055">Elixir vs Erlang</a>
+  </li><li><a href="https://forums.pragprog.com/forums/322/topics/11918">Exercise: Functions-2</a>
+  </li><li><a href="https://forums.pragprog.com/forums/322/topics/11937">Exercise: ListsAndRecursion-7</a>
+  </li><li><a href="https://forums.pragprog.com/forums/310/topics/13064">Max value in a list </a>
+  </li><li><a href="https://forums.pragprog.com/forums/322/topics/11921">Exercise: Functions-5</a>
+</li></ul>
+
+<a href="https://forums.pragprog.com/forums/310" class="orange">Join the Discussion</a>
+
+    </div>
+</div>
+
+            </div>
+          </div>
+            <hr class="hidden">
+            <div id="sidebar-wrapper">
+              <div id="sidebar">
+                
+
+<form accept-charset="UTF-8" action="https://pragprog.com/search" id="search" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="SdtmlxGl1ylGL0s4HiMci44KgP0unOVp7mt9ZhS1qlU="></div>  <h3 class="ital">Search</h3>      
+  <div>
+    <input class="textbox narrow" id="q" name="q" type="text">
+    <button class="go" type="submit"><span>Go</span></button>    
+  </div>
+</form>
+
+<h3>Related Titles</h3>
+<table id="related-books" class="book-list ruledTable" border="0" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/jaerlang2/programming-erlang"><img alt="Cover Image For Programming Erlang..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/jaerlang2_smallcover.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/jaerlang2/programming-erlang">Programming Erlang (2nd edition)</a>
+        <small class="authors">Joe Armstrong</small>      
+    </td>
+  </tr>
+  <tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/vsscala/programming-scala"><img alt="Cover Image For Programming Scala..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/vsscala_smallcover.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/vsscala/programming-scala">Programming Scala</a>
+        <small class="authors">Venkat Subramaniam</small>      
+    </td>
+  </tr>
+  <tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/rjnsd/the-nature-of-software-development"><img alt="Cover Image For The Nature of Software Development..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/rjnsd_smallbeta.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/rjnsd/the-nature-of-software-development">The Nature of Software Development</a>
+        <small class="authors">Ron Jeffries</small>      
+    </td>
+  </tr>
+  <tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/fsfire/fire-in-the-valley"><img alt="Cover Image For Fire in the Valley..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/fsfire_smallbeta.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/fsfire/fire-in-the-valley">Fire in the Valley</a>
+        <small class="authors">Michael Swaine and Paul Freiberger</small>      
+    </td>
+  </tr>
+  <tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/cjclojure/mastering-clojure-macros"><img alt="Cover Image For Mastering Clojure Macros..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/cjclojure_smallcover.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/cjclojure/mastering-clojure-macros">Mastering Clojure Macros</a>
+        <small class="authors">Colin Jones</small>      
+    </td>
+  </tr>
+  <tr>
+    <td class="thumbnail">
+      <a href="https://pragprog.com/book/ppmetr2/metaprogramming-ruby-2"><img alt="Cover Image For Metaprogramming Ruby 2..." height="48" src="./The Pragmatic Bookshelf   Programming Elixir_files/ppmetr2_smallcover.jpg" width="40"></a>
+    </td>
+    <td class="description">
+      <a href="https://pragprog.com/book/ppmetr2/metaprogramming-ruby-2">Metaprogramming Ruby 2</a>
+        <small class="authors">Paolo Perrotta</small>      
+    </td>
+  </tr>
+</tbody></table>
+
+
+<h3 class="ital">Other titles…</h3>
+<a href="https://pragprog.com/categories/all">All</a> •
+<a href="https://pragprog.com/categories/new">New</a> •
+<a href="https://pragprog.com/categories/upcoming">Upcoming</a> •
+<a href="https://pragprog.com/screencasts">Screencasts</a>
+
+
+
+<h3>Categories</h3>
+<ul class="menu">
+  <li><a href="https://pragprog.com/categories">All Categories</a></li>
+    <li><a href="https://pragprog.com/categories/practices">Agile Practices</a></li>
+    <li><a href="https://pragprog.com/categories/mobile_prog">Android, iPhone, and Mobile Programming</a></li>
+    <li><a href="https://pragprog.com/categories/career">Career Development</a></li>
+    <li><a href="https://pragprog.com/categories/cmdline">Command Line</a></li>
+    <li class="here"><a href="https://pragprog.com/categories/cool_things">Cool Things for Smart People</a></li>
+    <li><a href="https://pragprog.com/categories/diy">DIY &amp; Hardware</a></li>
+    <li><a href="https://pragprog.com/categories/intro_prog">For Beginners</a></li>
+    <li><a href="https://pragprog.com/categories/gaming">Gaming</a></li>
+    <li><a href="https://pragprog.com/categories/java_vm">Java and JVM Languages</a></li>
+    <li><a href="https://pragprog.com/categories/mac">Mac, iPhone, and iPad Programming</a></li>
+    <li><a href="https://pragprog.com/categories/on_sale">On Sale (with coupon code)</a></li>
+    <li><a href="https://pragprog.com/categories/pers_prod">Personal Productivity</a></li>
+    <li><a href="https://pragprog.com/categories/pragmatic_express">Pragmatic exPress</a></li>
+    <li><a href="https://pragprog.com/categories/ruby_and_rails">Ruby and Rails</a></li>
+    <li><a href="https://pragprog.com/categories/7in7">Seven in Seven</a></li>
+    <li><a href="https://pragprog.com/categories/design">Testing, Design, and Cloud Computing</a></li>
+    <li><a href="https://pragprog.com/categories/tools">Tools, Frameworks, Languages</a></li>
+    <li><a href="https://pragprog.com/categories/web20">Web 2.0+</a></li>
+</ul>
+
+
+
+
+
+              </div>
+            </div>
+        </div>
+        <hr class="hidden">
+        <div id="footer-wrapper">
+          <div id="footer">
+            <div id="site-links">
+  <p>
+    <a href="https://pragprog.com/">Home</a>
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/about">About Us</a>
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/community">Connect!</a>
+    <span class="separator"> | </span>
+    <a href="http://write-for-us.pragprog.com/">Write For Us</a>
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/privacy">Privacy Policy</a>        
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/security">Security</a>        
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/terms-of-use">Terms of Use</a>
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/resources/credits">Credits</a>
+    <span class="separator"> | </span>
+    <a href="https://pragprog.com/contact">Contact Us</a>
+  </p>
+</div>
+<div id="copyright">
+  <p>
+    The <em>Pragmatic Bookshelf™</em> is an imprint of
+	<a href="https://pragprog.com/">The Pragmatic Programmers, LLC</a>.
+    <br>
+    Copyright © 1999–2014 The Pragmatic Programmers, LLC. 
+    All Rights Reserved.
+  </p>
+</div>
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/7977.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+      <script async="async" src="./The Pragmatic Bookshelf   Programming Elixir_files/application-a018237bd3f4e740c909e52ea32d348e.js" type="text/javascript"></script>
+  
+
+<script src="./The Pragmatic Bookshelf   Programming Elixir_files/nr-476.min.js"></script><script type="text/javascript" src="./The Pragmatic Bookshelf   Programming Elixir_files/4460760967"></script></body></html>

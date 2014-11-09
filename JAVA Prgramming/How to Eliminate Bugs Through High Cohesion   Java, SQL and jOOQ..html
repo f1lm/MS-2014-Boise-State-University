@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/ -->
+<html lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>How to Eliminate Bugs Through High Cohesion | Java, SQL and jOOQ.</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://blog.jooq.org/xmlrpc.php">
+<meta name="google-site-verification" content="MgrPoGCqxEEak-ucYgQZG4BLz7dGZnVeYD1qKoj5YHs">
+		<script src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/remote-login.php" type="text/javascript"></script>
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			if ( 'function' === typeof WPRemoteLogin ) {
+				document.cookie = "wordpress_test_cookie=test; path=/";
+				if ( document.cookie.match( /(;|^)\s*wordpress_test_cookie\=/ ) ) {
+					WPRemoteLogin();
+				}
+			}
+		/* ]]> */
+		</script>
+		<link rel="alternate" type="application/rss+xml" title="Java, SQL and jOOQ. » Feed" href="http://blog.jooq.org/feed/">
+<link rel="alternate" type="application/rss+xml" title="Java, SQL and jOOQ. » Comments Feed" href="http://blog.jooq.org/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Java, SQL and jOOQ. » How to Eliminate Bugs Through High Cohesion Comments Feed" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-0" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource(1)"></script>
+<link rel="stylesheet" id="all-css-0" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://lukaseder.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="jOOQ Newsletter: February 26, 2014" href="http://blog.jooq.org/2014/02/26/jooq-newsletter-february-26-2014/">
+<link rel="next" title="Why Embracing Legacy is Wise" href="http://blog.jooq.org/2014/02/27/why-embracing-legacy-is-wise/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ..html">
+<link rel="shortlink" href="http://wp.me/p1Inrg-Rl">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fblog.jooq.org%2F2014%2F02%2F26%2Fhow-to-eliminate-bugs-through-high-cohesion%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fblog.jooq.org%2F2014%2F02%2F26%2Fhow-to-eliminate-bugs-through-high-cohesion%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Eliminate Bugs Through High Cohesion">
+<meta property="og:url" content="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/">
+<meta property="og:description" content="Intuition tells us that methods like these ones suffer from a distinct code smell: Why is that so? Let&#39;s delve into this intuition. Here is an example from the JavaCompiler Javadoc: So what&#39;s wrong...">
+<meta property="article:published_time" content="2014-02-26T13:24:13+00:00">
+<meta property="article:modified_time" content="2014-02-24T09:57:40+00:00">
+<meta property="article:author" content="https://www.facebook.com/profile.php?id=649865547">
+<meta property="og:site_name" content="Java, SQL and jOOQ.">
+<meta property="og:image" content="http://lukaseder.files.wordpress.com/2014/02/call-hierarchy.png">
+<meta name="twitter:site" content="@JavaOOQ">
+<meta name="twitter:image" content="http://lukaseder.files.wordpress.com/2014/02/call-hierarchy.png?w=240">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@JavaOOQ">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://0.gravatar.com/blavatar/204ac24d22cc0e3c113f7c496c9a05f9?s=16" sizes="16x16">
+<link rel="icon" type="image/x-icon" href="http://0.gravatar.com/blavatar/204ac24d22cc0e3c113f7c496c9a05f9?s=16" sizes="16x16">
+<link rel="apple-touch-icon-precomposed" href="http://0.gravatar.com/blavatar/067a765c05b24272cd380eb59374ea77?s=114">
+<link rel="openid.server" href="http://lukaseder.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://lukaseder.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://blog.jooq.org/osd.xml" title="Java, SQL and jOOQ.">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+<meta name="application-name" content="Java, SQL and jOOQ."><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Best Practices and Lessons Learned from Writing Awesome Java and SQL Code. Get some hands-on insight on what&#39;s behind developing jOOQ."><meta name="msapplication-task" content="name=Subscribe;action-uri=http://blog.jooq.org/feed/;icon-uri=http://0.gravatar.com/blavatar/204ac24d22cc0e3c113f7c496c9a05f9?s=16"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="How to Eliminate Bugs Through High Cohesion | Java, SQL and jOOQ. on WordPress.com">
+<meta name="description" content="Intuition tells us that methods like these ones suffer from a distinct code smell: Why is that so? Let&#39;s delve into this intuition. Here is an example from the JavaCompiler Javadoc: So what&#39;s wrong here? We have a lot of very disjunctly typed parameters that are very likely to be set to null. This decreases…">
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #eeeeee; background-image: url('http://lukaseder.files.wordpress.com/2013/10/noise.png'); background-repeat: repeat; background-position: top left; background-attachment: fixed; }
+</style>
+<link rel="stylesheet" type="text/css" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/shCore.css"><link rel="stylesheet" type="text/css" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script charset="utf-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rate.php"></script><script charset="utf-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rate(1).php"></script><script charset="utf-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rate(2).php"></script><script charset="utf-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rate(3).php"></script><script charset="utf-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rate(4).php"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/services.css"><style type="text/css" id="pd_popup_holder_style_4786451_post_3307">#pd_popup_holder_4786451_post_3307 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style><style type="text/css" id="pd_popup_holder_style_4786455_comm_16934">#pd_popup_holder_4786455_comm_16934 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style><style type="text/css" id="pd_popup_holder_style_4786455_comm_17279">#pd_popup_holder_4786455_comm_17279 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style><style type="text/css" id="pd_popup_holder_style_4786455_comm_16937">#pd_popup_holder_4786455_comm_16937 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style><style type="text/css" id="pd_popup_holder_style_4786455_comm_17041">#pd_popup_holder_4786455_comm_17041 { position:absolute; display:none; width:350px; height:auto; top:0px; left:0px; z-index:10000; border:solid 1px #CCC; background-color:white; padding:0px 15px;font-family:Arial,Sans;box-shadow: -10px 10px 20px rgba(0, 0, 0, .5);-webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25);-moz-box-shadow: 0px 0px 6px rgba(0, 0, 0, .25); }</style></head>
+
+<body class="single single-post postid-3307 single-format-standard custom-background mp6 highlander-enabled highlander-light" data-twttr-rendered="true">
+<div id="wrapper">
+		<div id="header">
+ 		<div class="col-full">
+			<div id="logo">
+								<span class="site-title">
+					<a href="http://blog.jooq.org/" title="Java, SQL and jOOQ." rel="home">Java, SQL and jOOQ.</a>
+				</span>
+				<span class="site-description">Best Practices and Lessons Learned from Writing Awesome Java and SQL Code. Get some hands-on insight on what's behind developing jOOQ.</span>
+			</div><!-- /#logo -->
+
+			<div id="navigation">
+					<ul id="main-nav" class="nav fl">
+			</ul>
+							</div><!-- /#navigation -->
+		</div><!-- /.col-full -->
+	</div><!-- /#header -->
+		<div id="header-image">
+		<a href="http://blog.jooq.org/" title="Java, SQL and jOOQ." rel="home"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/cropped-blog-banner1.jpg" width="940" height="200" alt=""></a>
+	</div>
+	
+	<div id="content" class="col-full">
+		<div id="main" class="col-left">
+		
+			<div id="post-3307" class="post-3307 post type-post status-publish format-standard hentry category-java tag-code-analysis tag-cohesion tag-high-cohesion tag-jarchitect tag-java tag-metrics tag-object-oriented-design tag-object-oriented-programming tag-oo tag-oop tag-refactoring tag-zone-of-pain">
+
+	<div class="post-meta col-left">
+			<a href="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ..html" title="Permalink to How to Eliminate Bugs Through High Cohesion" rel="bookmark" class="date-link">
+		<span class="post-date">
+			February 26, 2014			<span class="bg">&nbsp;</span>
+		</span>
+	</a>
+	<ul>
+		
+					<li class="post-category">in <a href="http://blog.jooq.org/category/java/" rel="category tag">java</a></li>
+		
+					<li class="comments"><a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comments" title="Comment on How to Eliminate Bugs Through High Cohesion">4 Comments</a></li>
+		
+			</ul>
+	</div><!-- /.meta -->
+
+	<div class="middle col-left clearfix">
+		<h1 class="title">
+					How to Eliminate Bugs Through High&nbsp;Cohesion				</h1>
+
+		
+		<div class="entry clearfix">
+			<div class="pd-rating" id="pd_rating_holder_4786451_post_3307" style="display: inline-block;"><div class="rating-icons" id="pd_rate_4786451_post_3307" style="float:left;"><div class="rating-star-icon" onmouseout="PDRTJS_4786451_post_3307.rebuild();" onclick="PDRTJS_4786451_post_3307.rate(1);" onmouseover="PDRTJS_4786451_post_3307.hover(1);" id="PDRTJS_4786451_post_3307_stars_1" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/images/ratings/star-yellow-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_4786451_post_3307.rebuild();" onclick="PDRTJS_4786451_post_3307.rate(2);" onmouseover="PDRTJS_4786451_post_3307.hover(2);" id="PDRTJS_4786451_post_3307_stars_2" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/images/ratings/star-yellow-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_4786451_post_3307.rebuild();" onclick="PDRTJS_4786451_post_3307.rate(3);" onmouseover="PDRTJS_4786451_post_3307.hover(3);" id="PDRTJS_4786451_post_3307_stars_3" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/images/ratings/star-yellow-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_4786451_post_3307.rebuild();" onclick="PDRTJS_4786451_post_3307.rate(4);" onmouseover="PDRTJS_4786451_post_3307.hover(4);" id="PDRTJS_4786451_post_3307_stars_4" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/images/ratings/star-yellow-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div><div class="rating-star-icon" onmouseout="PDRTJS_4786451_post_3307.rebuild();" onclick="PDRTJS_4786451_post_3307.rate(5);" onmouseover="PDRTJS_4786451_post_3307.hover(5);" id="PDRTJS_4786451_post_3307_stars_5" style="background-size: 32px 48px !important; cursor: pointer; width: 16px; height: 16px; line-height: 16px; background: url(http://i0.poll.fm/images/ratings/star-yellow-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin-right: 1px;">&nbsp;</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_4786451_post_3307" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_4786451_post_3307.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_4786451_post_3307">&nbsp;</div><div class="rating-msg" id="PDRTJS_4786451_post_3307_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><br><p>Intuition tells us that methods like these ones suffer from a distinct code smell:</p>
+<div><div id="highlighter_884429" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">CompilationTask getTask(</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Writer out,</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">JavaFileManager fileManager,</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">DiagnosticListener&lt;? </code><code class="java keyword">super</code> <code class="java plain">JavaFileObject&gt; </code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">diagnosticListener,</code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Iterable&lt;String&gt; options,</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Iterable&lt;String&gt; classes,</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Iterable&lt;? </code><code class="java keyword">extends</code> <code class="java plain">JavaFileObject&gt; </code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">compilationUnits</code></div><div class="line number10 index9 alt1"><code class="java plain">);</code></div></div></td></tr></tbody></table></div></div>
+<p>Why is that so? Let’s delve into this intuition. Here is an example from the <a href="http://docs.oracle.com/javase/7/docs/api/javax/tools/JavaCompiler.html">JavaCompiler Javadoc</a>:</p>
+<div><div id="highlighter_976082" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java plain">Iterable&lt;? </code><code class="java keyword">extends</code> <code class="java plain">JavaFileObject&gt; compilationUnits1 =</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">fileManager.getJavaFileObjectsFromFiles(</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">Arrays.asList(files1));</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="java plain">compiler.getTask(</code><code class="java keyword">null</code><code class="java plain">, fileManager, </code><code class="java keyword">null</code><code class="java plain">, </code></div><div class="line number6 index5 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">null</code><code class="java plain">, </code><code class="java keyword">null</code><code class="java plain">, compilationUnits1)</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">.call();</code></div></div></td></tr></tbody></table></div></div>
+<p>So what’s wrong here? We have a lot of very disjunctly typed parameters that are very likely to be set to <code>null</code>. This decreases the above method’s reusability, or <a href="http://javadepend.wordpress.com/2014/01/26/jooq-the-art-of-using-the-stable-abstractions-principle/">in the terms of the JArchitect guys</a>, we’re probably in the “Zone of Pain” as we have a <a href="http://www.jarchitect.com/Metrics.aspx#MetricsOnProjects">low level of stability coupled with a low level of abstractness</a>.</p>
+<ul>
+<li>Low stability: it is very likely that we’re going to need another very specific argument in a future version of the <code>JavaCompiler</code>, e.g. another <code>Iterable</code> of something. This will make for incompatible API enhancement</li>
+<li>Low abstractness: Even if the above is an interface method, there is very little chance of this method being implemented more than once, as it is quite hard to fulfil the above contract in a useful way.</li>
+</ul>
+<p>A common way to circumvent this issue for single methods is to use the <a href="http://www.petrikainulainen.net/software-development/design/three-reasons-why-i-like-the-builder-pattern/">builder pattern as Petri Kainulainen nicely described it</a>.</p>
+<h3>High cohesion instead of “Zone of Pain”</h3>
+<p>Maybe, for this compiler API, this isn’t too important you may think. But the biggest value of “high cohesion”, i.e. of an ideal stability / abstractness balance is the fact that you have highly reusable code. This isn’t just good because your developers spend less time implementing a specific task, it also means that your code es extremely error-resistant. For example, check out the data type conversion logic from the internals of <a href="http://www.jooq.org/">jOOQ</a>:</p>
+<div id="attachment_3311" style="width: 529px" class="wp-caption aligncenter"><a href="http://www.jooq.org/javadoc/latest/org/jooq/tools/Convert.html"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/call-hierarchy.png" alt="jOOQ&#39;s data type conversion call hierarchy" class="size-full wp-image-3311"></a><p class="wp-caption-text">jOOQ’s data type conversion hierarchy</p></div>
+<p>The above is just an extract of the call hierarchy leading towards a single data type conversion API that is indirectly used in the whole framework. Everything leads through there, so if there is any data type conversion bug, it is either</p>
+<ul>
+<li>Extremely local to a single method / single leaf of the above tree representation</li>
+<li>Extremely global to the whole tree</li>
+</ul>
+<p>In other words, any bug related to data type conversion is either merely cosmetic, or completely catastrophic. Which basically means that there is almost no possibility for a regression in that area, as any data type conversion regression will immediately break hundreds of unit and integration tests. This is a major benefit of having high cohesion in your code.</p>
+<h3>How to attain high cohesion</h3>
+<p>It’s simple: By <a href="http://www.extremeprogramming.org/rules/refactor.html">refactoring mercilessly</a>. You should <em>never</em> introduce a new feature only locally. For instance, let’s consider this fix here <a href="https://github.com/jOOQ/jOOQ/issues/3023">[#3023] DefaultRecordMapper does not map nested UDTs onto nested POJOs</a>. So we want the jOOQ <a href="http://www.jooq.org/doc/latest/manual/sql-execution/fetching/pojos-with-recordmapper-provider/">RecordMapperProvider feature</a> to be applied to nested records. Why? Imagine we have a PERSON table with Oracle OBJECT types for ADDRESS and STREET properties. Yes, you could also just normalise this data, but imagine we are using UDTs:</p>
+<div><div id="highlighter_50795" class="syntaxhighlighter  sql"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="sql keyword">CREATE</code> <code class="sql plain">TYPE street_type </code><code class="sql keyword">AS</code> <code class="sql plain">OBJECT (</code></div><div class="line number2 index1 alt1"><code class="sql spaces">&nbsp;&nbsp;</code><code class="sql plain">street VARCHAR2(100),</code></div><div class="line number3 index2 alt2"><code class="sql spaces">&nbsp;&nbsp;</code><code class="sql keyword">no</code> <code class="sql plain">VARCHAR2(30)</code></div><div class="line number4 index3 alt1"><code class="sql plain">);</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="sql keyword">CREATE</code> <code class="sql plain">TYPE address_type </code><code class="sql keyword">AS</code> <code class="sql plain">OBJECT (</code></div><div class="line number7 index6 alt2"><code class="sql spaces">&nbsp;&nbsp;</code><code class="sql plain">street street_type,</code></div><div class="line number8 index7 alt1"><code class="sql spaces">&nbsp;&nbsp;</code><code class="sql plain">zip VARCHAR2(50),</code></div><div class="line number9 index8 alt2"><code class="sql spaces">&nbsp;&nbsp;</code><code class="sql plain">city VARCHAR2(50)</code></div><div class="line number10 index9 alt1"><code class="sql plain">);</code></div></div></td></tr></tbody></table></div></div>
+<p>And now, we would like to recursively map this data onto custom nested POJOs:</p>
+<div><div id="highlighter_197948" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Street {</code></div><div class="line number2 index1 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String street;</code></div><div class="line number3 index2 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String number;</code></div><div class="line number4 index3 alt1"><code class="java plain">}</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Address {</code></div><div class="line number7 index6 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">Street street;</code></div><div class="line number8 index7 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String city;</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String country;</code></div><div class="line number10 index9 alt1"><code class="java plain">}</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="java keyword">public</code> <code class="java keyword">class</code> <code class="java plain">Person {</code></div><div class="line number13 index12 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String firstName;</code></div><div class="line number14 index13 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">String lastName;</code></div><div class="line number15 index14 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java keyword">public</code> <code class="java plain">Address address;</code></div><div class="line number16 index15 alt1"><code class="java plain">}</code></div></div></td></tr></tbody></table></div></div>
+<p>And the mapping should be available through:</p>
+<div><div id="highlighter_917188" class="syntaxhighlighter  java"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="java comments">// The configuration object contains the</code></div><div class="line number2 index1 alt1"><code class="java comments">// Mapping algorithm implementation</code></div><div class="line number3 index2 alt2"><code class="java plain">Person person = DSL.using(configuration)</code></div><div class="line number4 index3 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">.selectFrom(PERSON)</code></div><div class="line number5 index4 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">.where(PERSON.ID.eq(</code><code class="java value">1</code><code class="java plain">))</code></div><div class="line number6 index5 alt1">&nbsp;</div><div class="line number7 index6 alt2"><code class="java comments">// We want to make the mapping algorithm recursive</code></div><div class="line number8 index7 alt1"><code class="java comments">// to automatically map Address and Street as well</code></div><div class="line number9 index8 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="java plain">.fetchOneInto(Person.</code><code class="java keyword">class</code><code class="java plain">);</code></div></div></td></tr></tbody></table></div></div>
+<p>Mapping of a Record onto a POJO is already implemented, but recursion is not. And when we do implement recursion, we want to respect the existing, aforementioned <a href="http://www.jooq.org/doc/latest/manual/sql-execution/fetching/pojos-with-recordmapper-provider/">customisable mapping SPI</a> that was introduced in <a href="http://www.jooq.org/notes/?version=3.1">jOOQ 3.1</a>. It’s very simple, we just have a <em>single implementation point</em> at the top in the <code>ConvertAll</code> type.</p>
+<p>Implementing this in a highly cohesive code base means that:</p>
+<ul>
+<li>We have to implement this new feature only once</li>
+<li>Implementing this new feature costs less effort than writing this blog post</li>
+<li>Nesting of record mapping and conversion will work for <em>all</em> use-cases in one go</li>
+<li>We have only slightly increased complexity (low risk of bugs) while adding an awesome new feature</li>
+</ul>
+<h3>Do <em>you</em> refactor mercilessly? <a target="_blank" title="tweet this" href="http://twitter.com/home?status=Do+YOU+refactor+mercilessly?+By+@JavaOOQ+http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/tweet.png" alt="tweet this" title="tweet this" align="right"></a></h3>
+<p>The perfect design cannot be foreseen. It grows, slowly. Today, we know so many things about Java and collections, it took a while for the new <a href="http://blog.jooq.org/2012/04/19/exciting-ideas-in-java-8-streams/" title="Exciting ideas in Java 8: Streams">Streams API</a> to surface. No one would have implemented such a great new API in the JDK 1.2 from scratch, although from that perspective, it has already been pretty good at the time.</p>
+<p>This mainly means two things for you:</p>
+<ul>
+<li>For your essential core code, it is important to get it to a state where you attain high cohesion. If you’re an E-Banking vendor, your payment and brokerage logic should be exactly as above, with a balanced stability / abstractness ratio</li>
+<li>For your non-essential code (e.g. UI / DB-access), you should rely on third-party software, because someone else will spend a lot more time at getting their code on a high level of quality (UI: such as <a href="https://vaadin.com/">Vaadin</a>, <a href="http://www.zkoss.org/">ZK</a> or DB-access: such as <a href="http://hibernate.org/">Hibernate</a>, <a href="http://www.jooq.org/">jOOQ</a>, <a href="http://projects.spring.io/spring-data/">Spring Data</a>, just to name a few)</li>
+</ul>
+
+<p>… and if you request a new feature from a highly cohesive framework, it might just be that the only thing that needs to be done is <a href="https://github.com/jOOQ/jOOQ/commit/5564c0dfb7a93869d32247b930147263a94ffad3#diff-bb68916e0d3748c6c6a379316ea4c577">these four lines of code</a>.</p>
+<div id="jp-post-flair" class="sharedaddy sd-rating-enabled sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">That was awesome, right? Share it with your friends!</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=facebook&nb=1" target="_blank" title="Share on Facebook" id="sharing-facebook-3307"><span><span class="share-count">9</span></span><span class="sharing-screen-reader-text">Share on Facebook (Opens in new window)</span></a></li><li class="share-linkedin"><a rel="nofollow" class="share-linkedin sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn" id="sharing-linkedin-3307"><span><span class="share-count">1</span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter" id="sharing-twitter-3307"><span><span class="share-count">8</span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=google-plus-1&nb=1" target="_blank" title="Click to share on Google+" id="sharing-google-3307"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li><a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#" class="sharing-anchor sd-button share-more"><span>More</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-reddit"><a rel="nofollow" class="share-reddit sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=reddit&nb=1" target="_blank" title="Click to share on Reddit"><span></span><span class="sharing-screen-reader-text">Click to share on Reddit (Opens in new window)</span></a></li><li class="share-stumbleupon"><a rel="nofollow" class="share-stumbleupon sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=stumbleupon&nb=1" target="_blank" title="Click to share on StumbleUpon"><span></span><span class="sharing-screen-reader-text">Click to share on StumbleUpon (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-email share-service-visible"><a rel="nofollow" class="share-email sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?share=email&nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-print"><a rel="nofollow" class="share-print sd-button share-icon no-text" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#print" target="_blank" title="Click to print"><span></span><span class="sharing-screen-reader-text">Click to print (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-end"></li></ul></div></div></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-25352870-3307-5456e327010b8" data-src="//widgets.wp.com/likes/#blog_id=25352870&amp;post_id=3307&amp;origin=lukaseder.wordpress.com&amp;obj_id=25352870-3307-5456e327010b8" data-name="like-post-frame-25352870-3307-5456e327010b8"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-25352870-3307-5456e327010b8" height="55px" width="100%" frameborder="0" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource.html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="1956" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://blog.jooq.org/2013/07/30/10-common-mistakes-java-developers-make-when-writing-sql/" title="10 Common Mistakes Java Developers Make when Writing SQL
+
+Java developers mix object-oriented thinking with imperative thinking, depending on their levels of: Skill (anyone can code imperatively) Dogma (some use the &quot;Pattern-Pattern&quot;, i.e. the pattern of applying patterns everywhere&amp;hellip;" rel="nofollow" data-origin="3307" data-position="0">10 Common Mistakes Java Developers Make when Writing SQL</a></span><span class="jp-relatedposts-post-context">In "java"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="3878" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://blog.jooq.org/2014/05/26/yet-another-10-common-mistakes-java-developer-make-when-writing-sql-you-wont-believe-the-last-one/" title="Yet Another 10 Common Mistakes Java Developers Make When Writing SQL (You Won&#39;t BELIEVE the Last One)
+
+(Sorry for that click-bait heading. Couldn&#39;t resist ;-) ) We&#39;re on a mission. To teach you SQL. But mostly, we want to teach you how to appreciate SQL. You&#39;ll love&amp;hellip;" rel="nofollow" data-origin="3307" data-position="1">Yet Another 10 Common Mistakes Java Developers Make When Writing SQL (You Won't BELIEVE the Last One)</a></span><span class="jp-relatedposts-post-context">In "java"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="3569" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://blog.jooq.org/2014/03/28/java-8-friday-optional-will-remain-an-option-in-java/" title="Java 8 Friday: Optional Will Remain an Option in Java
+
+At Data Geekery, we love Java. And as we&#39;re really into jOOQ&#39;s fluent API and query DSL, we&#39;re absolutely thrilled about what Java 8 will bring to our ecosystem. Java&amp;hellip;" rel="nofollow" data-origin="3307" data-position="2">Java 8 Friday: Optional Will Remain an Option in Java</a></span><span class="jp-relatedposts-post-context">In "java"</span></p></div></div></div>					</div><!-- .entry -->
+		<p class="tags">Tags: <a href="http://blog.jooq.org/tag/code-analysis/" rel="tag">Code Analysis</a>, <a href="http://blog.jooq.org/tag/cohesion/" rel="tag">cohesion</a>, <a href="http://blog.jooq.org/tag/high-cohesion/" rel="tag">High cohesion</a>, <a href="http://blog.jooq.org/tag/jarchitect/" rel="tag">JArchitect</a>, <a href="http://blog.jooq.org/tag/java/" rel="tag">java</a>, <a href="http://blog.jooq.org/tag/metrics/" rel="tag">Metrics</a>, <a href="http://blog.jooq.org/tag/object-oriented-design/" rel="tag">object oriented design</a>, <a href="http://blog.jooq.org/tag/object-oriented-programming/" rel="tag">Object-Oriented Programming</a>, <a href="http://blog.jooq.org/tag/oo/" rel="tag">OO</a>, <a href="http://blog.jooq.org/tag/oop/" rel="tag">OOP</a>, <a href="http://blog.jooq.org/tag/refactoring/" rel="tag">Refactoring</a>, <a href="http://blog.jooq.org/tag/zone-of-pain/" rel="tag">Zone of Pain</a></p>			</div><!-- /.middle -->
+	<div class="fix"></div>
+</div><!-- /.post -->
+			<div class="nav-entries">
+				<div class="nav-prev fl"><a href="http://blog.jooq.org/2014/02/26/jooq-newsletter-february-26-2014/" rel="prev">« Previous post</a></div>
+				<div class="nav-next fr"><a href="http://blog.jooq.org/2014/02/27/why-embracing-legacy-is-wise/" rel="next">Next post »</a></div>
+				<div class="fix"></div>
+			</div>
+
+				<div id="comments">
+	
+	
+					<h3>
+				4 responses to “How to Eliminate Bugs Through High&nbsp;Cohesion”			</h3>
+
+			<ol class="commentlist">
+					<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-16934">
+		<a name="comment-16934"></a>
+		<div class="comment-container">
+
+								<div class="avatar"><img alt="" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/17b8b0eafae999c6feea832a565e3039" class="avatar avatar-80 grav-hashed grav-hijack" height="80" width="80" id="grav-17b8b0eafae999c6feea832a565e3039-0"></div>
+		
+			<div id="comment-16934" class="comment-content">
+				<span class="name">perry <span class="says">says :</span></span>
+				<span class="date">
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-16934"><time pubdate="" datetime="2014-03-11T14:39:01+00:00">March 11, 2014 at 14:39</time></a>				</span>
+				<span class="edit"></span>
+
+				<div class="pd-rating" id="pd_rating_holder_4786455_comm_16934" style="display: inline-block;"><div class="rating-icons" id="pd_rate_4786455_comm_16934" style="float:left;"><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_16934.rebuild();" onclick="PDRTJS_4786455_comm_16934.rate(1);" onmouseover="PDRTJS_4786455_comm_16934.hover(1);" id="PDRTJS_4786455_comm_16934_nero_1" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_16934_msg_1" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_16934.rebuild();" onclick="PDRTJS_4786455_comm_16934.rate(2);" onmouseover="PDRTJS_4786455_comm_16934.hover(2);" id="PDRTJS_4786455_comm_16934_nero_2" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom right; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_16934_msg_2" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_4786455_comm_16934" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_4786455_comm_16934.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_4786455_comm_16934">&nbsp;</div><div class="rating-msg" id="PDRTJS_4786455_comm_16934_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><p>a (very) small nitpick on the github code above: on the test class, why junit.framework.Assert.assertEquals is used instead of org.junit.Assert.assertEquals?</p>
+<p>other than that, really nice post!</p>
+
+				
+				<div class="reply">
+					<a class="comment-reply-link" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?replytocom=16934#respond" onclick="return addComment.moveForm( &quot;comment-16934&quot;, &quot;16934&quot;, &quot;respond&quot;, &quot;3307&quot; )" aria-label="Reply to perry">Reply</a>				</div><!-- /.reply -->
+			</div><!-- /comment-content -->
+			<div class="fix"></div>
+		</div><!-- /.comment-container -->
+		<div class="fix"></div>
+	<ul class="children">
+	<li class="comment byuser comment-author-lukaseder bypostauthor odd alt depth-2 highlander-comment" id="li-comment-16937">
+		<a name="comment-16937"></a>
+		<div class="comment-container">
+
+								<div class="avatar"><img alt="" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/eb96efa7a5664ba1c4ebf586abd4121f" class="avatar avatar-80 grav-hashed grav-hijack" height="80" width="80" id="grav-eb96efa7a5664ba1c4ebf586abd4121f-0"></div>
+		
+			<div id="comment-16937" class="comment-content">
+				<span class="name"><a href="http://lukaseder.wordpress.com/" rel="external nofollow" class="url">lukaseder</a> <span class="says">says :</span></span>
+				<span class="date">
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-16937"><time pubdate="" datetime="2014-03-11T14:45:38+00:00">March 11, 2014 at 14:45</time></a>				</span>
+				<span class="edit"></span>
+
+				<div class="pd-rating" id="pd_rating_holder_4786455_comm_16937" style="display: inline-block;"><div class="rating-icons" id="pd_rate_4786455_comm_16937" style="float:left;"><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_16937.rebuild();" onclick="PDRTJS_4786455_comm_16937.rate(1);" onmouseover="PDRTJS_4786455_comm_16937.hover(1);" id="PDRTJS_4786455_comm_16937_nero_1" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_16937_msg_1" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_16937.rebuild();" onclick="PDRTJS_4786455_comm_16937.rate(2);" onmouseover="PDRTJS_4786455_comm_16937.hover(2);" id="PDRTJS_4786455_comm_16937_nero_2" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom right; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_16937_msg_2" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_4786455_comm_16937" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_4786455_comm_16937.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_4786455_comm_16937">&nbsp;</div><div class="rating-msg" id="PDRTJS_4786455_comm_16937_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><p>Thanks for your feedback and your nice words.</p>
+<p>Hmm, where did you see that JUnit piece of code? I actually just recently found out that junit.framework.Assert seems to be deprecated. My IDE always offers me both and I tend to pick the first…</p>
+
+				
+				<div class="reply">
+					<a class="comment-reply-link" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?replytocom=16937#respond" onclick="return addComment.moveForm( &quot;comment-16937&quot;, &quot;16937&quot;, &quot;respond&quot;, &quot;3307&quot; )" aria-label="Reply to lukaseder">Reply</a>				</div><!-- /.reply -->
+			</div><!-- /comment-content -->
+			<div class="fix"></div>
+		</div><!-- /.comment-container -->
+		<div class="fix"></div>
+	<ul class="children">
+	<li class="comment even depth-3 highlander-comment" id="li-comment-17041">
+		<a name="comment-17041"></a>
+		<div class="comment-container">
+
+								<div class="avatar"><img alt="" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/17b8b0eafae999c6feea832a565e3039" class="avatar avatar-80 grav-hashed grav-hijack" height="80" width="80" id="grav-17b8b0eafae999c6feea832a565e3039-1"></div>
+		
+			<div id="comment-17041" class="comment-content">
+				<span class="name">perry <span class="says">says :</span></span>
+				<span class="date">
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-17041"><time pubdate="" datetime="2014-03-11T20:26:02+00:00">March 11, 2014 at 20:26</time></a>				</span>
+				<span class="edit"></span>
+
+				<div class="pd-rating" id="pd_rating_holder_4786455_comm_17041" style="display: inline-block;"><div class="rating-icons" id="pd_rate_4786455_comm_17041" style="float:left;"><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_17041.rebuild();" onclick="PDRTJS_4786455_comm_17041.rate(1);" onmouseover="PDRTJS_4786455_comm_17041.hover(1);" id="PDRTJS_4786455_comm_17041_nero_1" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_17041_msg_1" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_17041.rebuild();" onclick="PDRTJS_4786455_comm_17041.rate(2);" onmouseover="PDRTJS_4786455_comm_17041.hover(2);" id="PDRTJS_4786455_comm_17041_nero_2" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom right; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_17041_msg_2" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_4786455_comm_17041" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_4786455_comm_17041.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_4786455_comm_17041">&nbsp;</div><div class="rating-msg" id="PDRTJS_4786455_comm_17041_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><p>on jOOQ-test/src/org/jooq/test/PostgresTest.java, line 45. </p>
+<p>org.framework.Assert is deprecated but still shipped with latest JUnit4, alongside with org.junit.Assert. </p>
+<p>Most IDEs offer classes sorted by jar and then alphabetically (unless configured otherwise), so it’s quite common..</p>
+<p>cheers,<br>
+perry</p>
+
+				
+				<div class="reply">
+					<a class="comment-reply-link" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?replytocom=17041#respond" onclick="return addComment.moveForm( &quot;comment-17041&quot;, &quot;17041&quot;, &quot;respond&quot;, &quot;3307&quot; )" aria-label="Reply to perry">Reply</a>				</div><!-- /.reply -->
+			</div><!-- /comment-content -->
+			<div class="fix"></div>
+		</div><!-- /.comment-container -->
+		<div class="fix"></div>
+	<ul class="children">
+	<li class="comment byuser comment-author-lukaseder bypostauthor odd alt depth-4 highlander-comment" id="li-comment-17279">
+		<a name="comment-17279"></a>
+		<div class="comment-container">
+
+								<div class="avatar"><img alt="" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/eb96efa7a5664ba1c4ebf586abd4121f" class="avatar avatar-80 grav-hashed grav-hijack" height="80" width="80" id="grav-eb96efa7a5664ba1c4ebf586abd4121f-1"></div>
+		
+			<div id="comment-17279" class="comment-content">
+				<span class="name"><a href="http://lukaseder.wordpress.com/" rel="external nofollow" class="url">lukaseder</a> <span class="says">says :</span></span>
+				<span class="date">
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-17279"><time pubdate="" datetime="2014-03-12T08:02:10+00:00">March 12, 2014 at 08:02</time></a>				</span>
+				<span class="edit"></span>
+
+				<div class="pd-rating" id="pd_rating_holder_4786455_comm_17279" style="display: inline-block;"><div class="rating-icons" id="pd_rate_4786455_comm_17279" style="float:left;"><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_17279.rebuild();" onclick="PDRTJS_4786455_comm_17279.rate(1);" onmouseover="PDRTJS_4786455_comm_17279.hover(1);" id="PDRTJS_4786455_comm_17279_nero_1" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom left; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_17279_msg_1" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div><div class="rating-nero-icon" onmouseout="PDRTJS_4786455_comm_17279.rebuild();" onclick="PDRTJS_4786455_comm_17279.rate(2);" onmouseover="PDRTJS_4786455_comm_17279.hover(2);" id="PDRTJS_4786455_comm_17279_nero_2" style="background-size: 32px 32px !important; cursor: pointer; width: 16px; height: 16px;  line-height: 16px; background: url(http://i0.poll.fm/images/ratings/nero-hand-sml.png) bottom right; float: left; padding: 0px; margin: 0px; margin: 0px;">&nbsp;</div><div class="rating-nero-value" id="PDRTJS_4786455_comm_17279_msg_2" style="text-align: center; font:normal normal /16px ; color: #; float:left; padding: 0px 4px;">0</div></div><span style="float:left;">&nbsp;</span><div id="rating_info_4786455_comm_17279" style="display:block;float:left;background:url(http://i0.poll.fm/images/ratings/info.png) no-repeat 3px 2px;width:16px;height:16px;cursor:pointer; null " onclick="javascript:PDRTJS_4786455_comm_17279.togglePopup();return false;"><span style="display:none;">i</span></div><div class="pd_popup_holder" id="pd_popup_holder_4786455_comm_17279">&nbsp;</div><div class="rating-msg" id="PDRTJS_4786455_comm_17279_msg" style="float:left; padding-left: 5px; text-align: left; font:normal normal /16px ; color: #;">Rate This</div><p style="padding: 0px; margin: 0px; clear: both;"></p></div><p>OK, thanks for the hint about the location. We’ll replace these references and see if Eclipse can prevent them in the future. I have created <a href="https://github.com/jOOQ/jOOQ/issues/3119" rel="nofollow">issue 3119</a> for this.</p>
+
+				
+				<div class="reply">
+					<a class="comment-reply-link" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/?replytocom=17279#respond" onclick="return addComment.moveForm( &quot;comment-17279&quot;, &quot;17279&quot;, &quot;respond&quot;, &quot;3307&quot; )" aria-label="Reply to lukaseder">Reply</a>				</div><!-- /.reply -->
+			</div><!-- /comment-content -->
+			<div class="fix"></div>
+		</div><!-- /.comment-container -->
+		<div class="fix"></div>
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+			</ol>
+
+					
+		
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://blog.jooq.org/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="0daa8b60a3"><input type="hidden" name="_wp_http_referer" value="/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 14px; width: 500px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 35px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+		</li></ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="3307" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="dc49d153ec"></p>
+<input type="hidden" name="genseq" value="1414980391">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1414980389665"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+				</div><!-- /#main -->
+
+	<div id="sidebar" class="col-right">
+		<div id="blog_subscription-4" class="widget widget_blog_subscription"><h3><label for="subscribe-field">Follow Blog via Email</label></h3>
+				<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="subscribe-blog">
+											<p>Enter your email address to follow this blog and receive notifications of new posts by email.</p>
+<p>Join 1,993 other followers</p>
+						<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" placeholder="Enter your email address" value="" id="subscribe-field"></p>
+					
+					<p>
+						<input type="hidden" name="action" value="subscribe">
+						<input type="hidden" name="blog_id" value="25352870">
+						<input type="hidden" name="source" value="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/">
+						<input type="hidden" name="sub-type" value="widget">
+						<input type="hidden" name="redirect_fragment" value="blog_subscription-4">
+						<input type="hidden" id="_wpnonce" name="_wpnonce" value="051a5cae02">						<input type="submit" value="Follow">
+					</p>
+				</form>
+			
+</div><div id="blog-stats-3" class="widget widget_blog-stats"><h3>Blog Stats</h3>		<ul>
+			<li>816,587 hits</li>
+		</ul>
+		</div><div id="twitter-3" class="widget widget_twitter"><h3><a href="http://twitter.com/JavaOOQ">Twitter Updates</a></h3><ul class="tweets">
+			<li>
+				RT @<a href="http://twitter.com/bjornharrtell">bjornharrtell</a>: A RESTful JDBC HTTP Server built on top of jOOQ <a href="http://wp.me/p1Inrg-1co"> wp.me/p1Inrg-1co</a> via @<a href="http://twitter.com/JavaOOQ">JavaOOQ</a> 				<a href="http://twitter.com/JavaOOQ/statuses/528465594312847360" class="timesince">1&nbsp;day&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				RT @<a href="http://twitter.com/BrianGoetz">BrianGoetz</a>: Seeking candidates for Most Bizarre Programming-Lang Feature Ever. (Judge relative to the language's core principles, not y… 				<a href="http://twitter.com/JavaOOQ/statuses/528291007134453761" class="timesince">2&nbsp;days&nbsp;ago</a>
+			</li>
+
+			</ul><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/follow_button.21f7daa948263c3043bab783473c3475.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 125px; height: 20px;"></iframe></div><div id="facebook-likebox-3" class="widget widget_facebook_likebox"><iframe src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/likebox.html" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 200px;  height: 432px; background: #fff"></iframe></div><div id="text-5" class="widget widget_text"><h3>Get Back in Control of Your SQL</h3>			<div class="textwidget"></div>
+		</div><div id="image-6" class="widget widget_image"><div style="overflow:hidden;"><a href="http://www.jooq.org/"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/jooq-logo-black.png" alt="jOOQ: Get Back in Control of Your SQL" title="jOOQ generates Java code from your database and lets you build typesafe SQL queries through its fluent API." class="aligncenter" width="250" height="250"></a></div>
+</div><div id="top-posts-3" class="widget widget_top-posts"><h3>Top Posts &amp; Pages</h3><ul><li><a href="http://blog.jooq.org/2014/10/20/stop-claiming-that-youre-using-a-schemaless-database/" class="bump-view" data-bump-view="tp">Stop Claiming that you're Using a Schemaless Database</a></li>
+<li><a href="http://blog.jooq.org/2013/08/20/10-subtle-best-practices-when-coding-java/" class="bump-view" data-bump-view="tp">10 Subtle Best Practices when Coding Java</a></li>
+<li><a href="http://blog.jooq.org/2013/07/30/10-common-mistakes-java-developers-make-when-writing-sql/" class="bump-view" data-bump-view="tp">10 Common Mistakes Java Developers Make when Writing SQL</a></li>
+<li><a href="http://blog.jooq.org/2013/11/02/does-java-8-still-need-linq-or-is-it-better-than-linq/" class="bump-view" data-bump-view="tp">Does Java 8 Still Need LINQ? Or is it Better than LINQ?</a></li>
+<li><a href="http://blog.jooq.org/2013/10/03/the-10-most-popular-db-engines-sql-and-nosql/" class="bump-view" data-bump-view="tp">The 10 Most Popular DB Engines (SQL and NoSQL)</a></li>
+<li><a href="http://blog.jooq.org/2014/09/12/why-you-should-not-implement-layered-architecture/" class="bump-view" data-bump-view="tp">Why You Should NOT Implement Layered Architectures</a></li>
+<li><a href="http://blog.jooq.org/2013/10/09/sql-trick-row_number-is-to-select-what-dense_rank-is-to-select-distinct/" class="bump-view" data-bump-view="tp">SQL Trick: row_number() is to SELECT what dense_rank() is to SELECT DISTINCT</a></li>
+<li><a href="http://blog.jooq.org/2013/08/12/10-more-common-mistakes-java-developers-make-when-writing-sql/" class="bump-view" data-bump-view="tp">10 More Common Mistakes Java Developers Make when Writing SQL</a></li>
+<li><a href="http://blog.jooq.org/2014/04/11/java-8-friday-no-more-need-for-orms/" class="bump-view" data-bump-view="tp">Java 8 Friday: No More Need for ORMs</a></li>
+<li><a href="http://blog.jooq.org/2014/10/31/a-restful-jdbc-http-server-built-on-top-of-jooq/" class="bump-view" data-bump-view="tp">A RESTful JDBC HTTP Server built on top of jOOQ</a></li>
+</ul></div>		<div id="recent-posts-2" class="widget widget_recent_entries">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://blog.jooq.org/2014/10/31/a-restful-jdbc-http-server-built-on-top-of-jooq/">A RESTful JDBC HTTP Server built on top of&nbsp;jOOQ</a>
+							<span class="post-date">October 31, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/10/23/lets-stream-a-map-in-java-8-with-joo%ce%bb/">Let’s Stream a Map in Java 8 with&nbsp;jOOλ</a>
+							<span class="post-date">October 23, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/10/20/stop-claiming-that-youre-using-a-schemaless-database/">Stop Claiming that you’re Using a Schemaless&nbsp;Database</a>
+							<span class="post-date">October 20, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/10/17/the-dreaded-defaultabstracthelperimpl/">The dreaded DefaultAbstractHelperImpl</a>
+							<span class="post-date">October 17, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/10/02/dont-miss-out-on-writing-java-8-sql-one-liners-with-joo%ce%bb-or-jooq/">Don’t Miss out on Writing Java 8 SQL One-Liners with jOOλ or&nbsp;jOOQ</a>
+							<span class="post-date">October 2, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/09/30/the-caveats-of-dual-licensing/">The Caveats of&nbsp;Dual-Licensing</a>
+							<span class="post-date">September 30, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/09/26/using-your-rdbms-for-messaging-is-totally-ok/">Using Your RDBMS for Messaging is Totally&nbsp;OK</a>
+							<span class="post-date">September 26, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/09/23/asynchronous-sql-execution-with-jooq-and-java-8s-completablefuture/">Asynchronous SQL Execution with jOOQ and Java 8’s CompletableFuture</a>
+							<span class="post-date">September 23, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/09/22/top-10-most-popular-articles-on-the-jooq-blog/">Top 10 Most Popular Articles on the jOOQ&nbsp;Blog</a>
+							<span class="post-date">September 22, 2014</span>
+						</li>
+					<li>
+				<a href="http://blog.jooq.org/2014/09/19/learn-how-nashorn-prevents-effective-api-evolution-on-a-new-level/">How Nashorn Impacts API Evolution on a New&nbsp;Level</a>
+							<span class="post-date">September 19, 2014</span>
+						</li>
+				</ul>
+		</div><div id="image-9" class="widget widget_image"><div style="overflow:hidden;"><a href="http://www.jooq.org/"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/jooq-logo-black.png" alt="jOOQ: Get Back in Control of Your SQL" title="jOOQ generates Java code from your database and lets you build typesafe SQL queries through its fluent API." class="aligncenter" width="250" height="250"></a></div>
+</div></div><!-- /#sidebar -->
+	</div><!-- /#content -->
+
+
+	<div id="footer-widgets">
+	<div class="col-full">
+		<div class="block">
+			<div id="text-4" class="widget widget_text"><h3>Copyright</h3>			<div class="textwidget"><p>Copyright (c) 2009-2014 by <a href="http://www.datageekery.com/">Data Geekery GmbH</a>. Some rights reserved. This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA license</a>.</p>
+<p><a href="mailto:contact@datageekery.com">Contact us</a> if you wish to syndicate content from our blog.</p>
+</div>
+		</div>		</div>
+		<div class="block">
+			<div id="text-6" class="widget widget_text"><h3>Syndication</h3>			<div class="textwidget"></div>
+		</div><div id="image-8" class="widget widget_image"><div style="overflow:hidden;"><a href="http://java.dzone.com/users/lukasedergmailcom"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/dzone.com.png" class="alignnone" width="200" height="91"></a></div>
+</div><div id="image-7" class="widget widget_image"><div style="overflow:hidden;"><a href="http://www.javacodegeeks.com/author/Lukas-Eder"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/jcg.com.png" class="alignnone" width="250" height="250"></a></div>
+</div><div id="image-10" class="widget widget_image"><div style="overflow:hidden;"><a href="http://jaxenter.com/authors/lukaseder-49947"><img src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/jaxenter.com.jpg" class="alignnone" width="277" height="81"></a></div>
+</div>		</div>
+		<div class="block">
+			<div id="widget_contact_info-2" class="widget widget_contact_info"><h3>Contact</h3><div class="confit-address"><a href="http://maps.google.com/maps?z=16&q=binzstrasse+23+8045+z%C3%BCrich+switzerland" target="_blank">Binzstrasse 23
+<br>8045 Zürich
+<br>Switzerland</a></div><div class="confit-phone">+41 44 586 82 56</div><div class="confit-hours">contact@datageekery.com</div></div>		</div>
+		<div class="block last">
+					</div>
+		<div class="fix"></div>
+	</div>
+</div><!-- /#footer-widgets  -->
+	<div id="footer">
+		<div class="footer-inside">
+			<div id="copyright" class="col-left">
+				<p><a href="http://blog.jooq.org/" title="Java, SQL and jOOQ." rel="home">Java, SQL and jOOQ.</a></p>
+			</div>
+			<div id="credit" class="col-right">
+				<p><a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>. <a href="https://wordpress.com/themes/skeptical/" title="Learn more about this theme">The Skeptical Theme</a>.</p>
+			</div>
+			<div class="fix"></div>
+		</div>
+	</div><!-- /#footer  -->
+</div><!-- /#wrapper -->
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-17b8b0eafae999c6feea832a565e3039">
+	</div>
+	<div class="grofile-hash-map-eb96efa7a5664ba1c4ebf586abd4121f">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/lukaseder.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/lukaseder.wordpress.com\/wp-login.php?action=logout&_wpnonce=24e83d3506","homeURL":"http:\/\/blog.jooq.org\/","postID":"3307","gravDefault":"gravatar_default","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource(2)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -252px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Java, SQL and jOOQ.”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 1,993 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="25352870">
+			<input type="hidden" name="source" value="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="051a5cae02"><input type="hidden" name="_wp_http_referer" value="/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type="text/javascript" charset="UTF-8" id="polldaddyRatings"><!--//--><![CDATA[//><!--
+PDRTJS_settings_4786451_post_3307={"id":4786451,"unique_id":"wp-post-3307","title":"How%20to%20Eliminate%20Bugs%20Through%20High%26nbsp%3BCohesion","permalink":"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/","item_id":"_post_3307"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_4786451_post_3307 == 'undefined' ){PDRTJS_4786451_post_3307 = new PDRTJS_RATING( PDRTJS_settings_4786451_post_3307 );}}PDRTJS_settings_4786455_comm_16934={"id":4786455,"unique_id":"wp-comment-16934","title":"a%20%28very%29%20small%20nitpick%20on%20the%20github%20code%20above%3A%20on%20the%20test%20class%2C%20why%20junit.framework.Assert.assertEquals%20is%20used%20instead%20of%20org.junit.Assert.assertEquals%3Fother%20than%20that%2C%20really%20nice%20post%21...","permalink":"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/#comment-16934","item_id":"_comm_16934"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_4786455_comm_16934 == 'undefined' ){PDRTJS_4786455_comm_16934 = new PDRTJS_RATING( PDRTJS_settings_4786455_comm_16934 );}}PDRTJS_settings_4786455_comm_16937={"id":4786455,"unique_id":"wp-comment-16937","title":"Thanks%20for%20your%20feedback%20and%20your%20nice%20words.Hmm%2C%20where%20did%20you%20see%20that%20JUnit%20piece%20of%20code%3F%20I%20actually%20just%20recently%20found%20out%20that%20junit.framework.Assert%20seems%20to%20be%20deprecated.%20My%20IDE%20always%20...","permalink":"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/#comment-16937","item_id":"_comm_16937"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_4786455_comm_16937 == 'undefined' ){PDRTJS_4786455_comm_16937 = new PDRTJS_RATING( PDRTJS_settings_4786455_comm_16937 );}}PDRTJS_settings_4786455_comm_17041={"id":4786455,"unique_id":"wp-comment-17041","title":"on%20jOOQ-test%2Fsrc%2Forg%2Fjooq%2Ftest%2FPostgresTest.java%2C%20line%2045.%20org.framework.Assert%20is%20deprecated%20but%20still%20shipped%20with%20latest%20JUnit4%2C%20alongside%20with%20org.junit.Assert.%20Most%20IDEs%20offer%20classes%20sorted...","permalink":"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/#comment-17041","item_id":"_comm_17041"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_4786455_comm_17041 == 'undefined' ){PDRTJS_4786455_comm_17041 = new PDRTJS_RATING( PDRTJS_settings_4786455_comm_17041 );}}PDRTJS_settings_4786455_comm_17279={"id":4786455,"unique_id":"wp-comment-17279","title":"OK%2C%20thanks%20for%20the%20hint%20about%20the%20location.%20We%26%23039%3Bll%20replace%20these%20references%20and%20see%20if%20Eclipse%20can%20prevent%20them%20in%20the%20future.%20I%20have%20created%20%26lt%3Ba%20href%3D%26quot%3Bhttps%3A%2F%2Fgithub.com%2FjOOQ%2FjOOQ%2Fissues%2F3119%26quot%3B%20rel...","permalink":"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/#comment-17279","item_id":"_comm_17279"}; if ( typeof PDRTJS_RATING !== 'undefined' ){if ( typeof PDRTJS_4786455_comm_17279 == 'undefined' ){PDRTJS_4786455_comm_17279 = new PDRTJS_RATING( PDRTJS_settings_4786455_comm_17279 );}}
+//--><!]]></script><script type="text/javascript" charset="UTF-8" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/rating.js"></script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/blog.jooq.org\/2014\/02\/26\/how-to-eliminate-bugs-through-high-cohesion\/":3307}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+			
+		<iframe src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/form.js"></script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/widgets.js"></script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource(3)"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1395343499g&amp;ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'25352870','v':'wpcom','tz':'1','user_id':'0','post':'3307','subd':'lukaseder'});
+ex_go({'crypt':'UE40eW5QN0p8M2Y/RE1TaVhzUzFMbjdWNHpwZGhTayxPSUFCMGNrd29+Smw0TDhnZmRTK0hlRi9QSGh6bi9GXVhBJWIlZlR5U1JMLU8/MkNtblkvY1dDXzBbX0QlLSxWYXdHUVQyK2IyUVA5SjU1bj9VX3ExLHYsREFpcnlfNHYteUhkeUQ4SGk4a2x1SW5LZ0xVcjd+UTZueWpTWF9xeWZyOV9iRS9FUUV1SmZSaV9VNDlkOHNVLEpvUVd2TGRqamlTXXVXJl9ZYVNIbm0sMkRBQXZIPUVEWWlZczdMVSUxN19CQ0lJOUJmMk1sSXBdK1gvby1rW0MzNzlJT1hTbVV8UkZhb1VJWHpYV0RvLW9yVThHLWUzSWhWcG15a1FyZiY4R3FBdGhIZGg2dm1yJXdPR1JobStQMHZUSj13RTRFalFSZHk/RS1PSkRPMVg2fE1ON1dMYzdITHY0UkEuJXc='});
+addLoadEvent(function(){linktracker_init('25352870',3307);});
+	</script><img id="wpstats" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/g.gif" alt=""><img id="wpstats2" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/g(1).gif" alt="" style="display:none">
+<noscript>&lt;img src="http://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+<div id="sharing_email" style="display: none;">
+		<form action="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ..html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+			
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo">
+			<img style="float: right; display: none" class="loading" src="./How to Eliminate Bugs Through High Cohesion   Java, SQL and jOOQ._files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a href="http://blog.jooq.org/2014/02/26/how-to-eliminate-bugs-through-high-cohesion/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div></body></html>

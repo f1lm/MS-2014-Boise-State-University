@@ -1,0 +1,232 @@
+
+<!-- saved from url=(0040)http://www.cs.utsa.edu/~cs3443/ch10.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Inheritance and Polymorphism</title>
+</head>
+
+<body>
+
+  <h2>Inheritance and Polymorphism</h2>
+
+  <p>
+    <em>Inheritance</em> allows one class (the <em>subclass</em>) to use
+    and modify the public variables and methods of another class (the <em>superclass</em>).
+    Usually, the subclass is a specialized version of the more general
+    superclass, an <em>is-a relationship</em>. For example, a square is
+    a rectangle, which in turn is a polygon. This allows software reuse,
+    for example, the code to compute the area or perimeter of a polygon
+    should also be able to compute the area/perimeter of a rectangle or
+    a square. However, a rectangle might have its own code to compute
+    the area that is more efficient than the more general polygon code.
+  </p>
+
+  <p>
+    <em>Polymorphism</em> is writing code using a superclass that can be
+    executed for any object of a subclass. For example, an array of
+    Polygons might include Rectangle objects, Square objects, Triangle
+    objects, etc.
+  </p><blockquote>
+    <img src="./Inheritance and Polymorphism_files/polygon.png">
+  </blockquote>
+
+  Each subclass of Polygon might inherit or have its own method for
+  computing the area. The following code might be written to sum up the
+  area of these objects:
+
+  <blockquote>
+    <pre>double sumArea = 0;
+for (Polygon p : polygonArray) {
+    sumArea += p.computeArea();
+}
+</pre>
+  </blockquote>
+
+  Each call to computeArea uses the computeArea method of that object.
+  For example, if p is a Triangle object, then this code uses the
+  computeArea method of Triangle.
+
+
+  <h3>The Employee and Payable Case Study</h3>
+
+  <p>
+    This case study combines the two case studies in Chapter 10 of the
+    textbook. Here is the <a href="http://www.cs.utsa.edu/~cs3443/chapter10/chapter10.zip">Eclipse
+      project</a> and the <a href="http://www.cs.utsa.edu/~cs3443/chapter10/doc/index.html">documentation</a>.
+    The class hierachy is as follows:
+  </p><blockquote>
+
+    <img src="./Inheritance and Polymorphism_files/payable.png">
+
+  </blockquote>
+
+
+  <ul>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/Payable.java">Payable.java</a> is an <em>interface</em>
+      that declares the getPaymentAmount method.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/Employee.java">Employee.java</a> is an <em>abstract
+        class</em> that is a subclass of Payable and has three instance
+      variables.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/CommissionEmployee.java">CommissionEmployee.java</a>
+      is a <em>concrete class</em> that is a subclass of Employee and
+      adds two instance variables.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/BasePlusCommissionEmployee.java">BasePlusCommissionEmployee.java</a>
+      is a concrete class that is a subclass of CommissionEmployee and
+      adds one instance variable.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/HourlyEmployee.java">HourlyEmployee.java</a>
+      is a concrete class that is a subclass of Employee and adds two
+      instance variables.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/SalariedEmployee.java">SalariedEmployee.java</a>
+      is a concrete class that is a subclass of Employee and adds one
+      instance variables.</li>
+
+    <li><a href="http://www.cs.utsa.edu/~cs3443/chapter10/Invoice.java">Invoice.java</a> is a
+      concrete class that is a subclass of Payable and has four instance
+      variables.</li>
+
+  </ul>
+
+  <p>
+    Not shown in the UML class diagram is the following. Each abstract
+    class and concrete class has a constructor and methods for getting
+    and setting its instance variables (<em>getters</em> and <em>setters</em>)
+    and a toString method. Each concrete class has a getPaymentAmount
+    method.
+  </p>
+
+  <h3>The PayrollSystemTest Main Method</h3>
+
+  <p>The details of the main methods are discussed first, followed
+    by how other classes implement the appropriate behavior.</p>
+
+  <p>
+    The main method in <a href="http://www.cs.utsa.edu/~cs3443/chapter10/PayrollSystemTest.java">PayrollSystemTest.java</a>
+    uses the Employee class and its subclasses. It first creates four
+    objects, one for each subclass of Employee. Note that the
+    constructors have different numbers of parameters. For example, a
+    BasePlusCommissionEmployee object will need information for six
+    instance variables (one in BasePlusCommissionEmployee class and five
+    in superclasses). Also, the BasePlusCommissionEmployee constructor
+    needs some way to initialize the private variables from the
+    superclasses.
+  </p>
+
+  <p>The next group of statements prints information about each
+    object individually. For this to work, each subclass needs a
+    toString method and needs a getPaymentAmount method.</p>
+
+  <p>The next group of statements (creation of array through the
+    first for loop) prints information about each object
+    polymorphically. The objects are stored in an Employee array. The
+    for loop will depend on the same toString and getPaymentAmount
+    methods as the previous group of statements. An if statement inside
+    the for loop illustrates how to write code specific to one of the
+    Employee subclasses. The if condition tests whether currentEmployee
+    belongs to the subclass. The first statement inside the if casts the
+    Employee object to the subclass. This is needed because
+    setBaseSalary and getBaseSalary are methods in the
+    BasePlusCommissionEmployee class, but of Employee or other
+    subclasses of Employee.</p>
+
+  <p>The last for loop illustrates how to find out the specific
+    class for each object.</p>
+
+  <h3>The PayableInterfaceTest Main Method</h3>
+
+  <p>
+    The main method in <a href="http://www.cs.utsa.edu/~cs3443/chapter10/PayrollSystemTest.java">PayrollSystemTest.java</a>
+    uses the Payable interface and its subclasses. It creates four
+    objects, two are Invoice objects and two are SalariedEmployee
+    objects. Again, the number of parameters in the constructors is
+    related to the number of instance variables that need to be
+    initialized.
+  </p>
+
+  <p>The four objects are stored in a Payable array, and the for
+    loop iterates over the elements of this array. This is another
+    example of polymorphism. The toString and getPaymentAmount methods
+    are to be found in the class of each object, not the Payable
+    interface.</p>
+
+  <h3>The Payable Interface</h3>
+
+
+  <p>
+    An <em>interface</em> declares one or more methods, but does not
+    implement the methods. For example, the <a href="http://www.cs.utsa.edu/~cs3443/chapter10/Payable.java">Payable interface</a> declares
+    the getPaymentAmount method, but provides no code to implement it.
+  </p>
+
+  <h3>The Invoice and Employee Classes</h3>
+
+  <p>
+    You can declare classes that implement one or more interfaces. For
+    example, both the <a href="http://www.cs.utsa.edu/~cs3443/chapter10/Employe.java">Employee
+      class</a> and <a href="http://www.cs.utsa.edu/~cs3443/chapter10/Invoice.java">Invoice class</a>
+    specify "implements&nbsp;Payable", which is a promise to implement
+    the getPaymentAmount method. This allows Employee objects and and
+    Invoice objects to be processed polymorphically as Payable objects
+    because they all implement the getPaymentAmount method.
+  </p>
+
+  <p>The Invoice is a basic class: instance variables, a constructor
+    that initializes them, getters and setters, a toString method and a
+    getPaymentAmount method. Note that toString and getPaymentAmount use
+    the get methods rather than directly accessing the variables.</p>
+
+  <p>
+    The Employee class is a little more complicated. It is an <em>abstract
+      class</em> because it does not implement the getPaymentMethod. This
+    means that you cannot create an object whose class is Employee. For
+    example:
+  </p><blockquote>
+    <pre>Employee employee007 = new Employee("James", "Bond", "007-00-7007");
+</pre>
+  </blockquote>
+  would cause a runtime error.
+
+
+  <p>One might wonder what the constructor is good for. This code
+    will be called by the constructors of the subclasses.</p>
+
+  <h3>Subclasses of Employee</h3>
+
+  Each of the subclasses have the following features:
+
+  <ul>
+
+    <li>It extends the Employee class or a subclass of Employee.</li>
+
+    <li>The parameters of its constructor include values to
+      initialize all the instance variables of the class and its
+      superclasses.</li>
+
+    <li>The first line of code in the constructor calls the
+      constructor of the immediate superclass. Note the use of the super
+      keyword. This is good practice in inheritance heirarchies.</li>
+
+    <li>The getPaymentAmount method is implemented, fulfilling the
+      promise made by the Employee class.</li>
+
+    <li>The toString method combines the result of the toString
+      method of the superclass with additional information. Again, note
+      the use of the super keyword.</li>
+
+    <li>The constructor, getPaymentAmount and toString methods use
+      the getters and setters to get and set the instance variables. One
+      reason is that instance variables from the superclasses are
+      private, so there is no other way to access and modify these
+      variables. The other reason is that the setters include code to
+      validate (or at least partially validate) the new values.</li>
+
+  </ul>
+
+
+
+</body></html>
