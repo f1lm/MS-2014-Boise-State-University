@@ -1,4 +1,4 @@
-// gcc -o alloca alloca.c
+// gcc -o alloca alloca.c && ./alloca
 
 #include <stdio.h>
 #include <alloca.h>

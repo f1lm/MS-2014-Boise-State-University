@@ -2,8 +2,12 @@
 
 #include <stdio.h>
 
-#define P(F,A,B) printf("%s: sizeof(%s)=%ld sizeof(%s)=%ld\n", \
-			#F,#A,sizeof(A),#B,sizeof(B))
+#define P(F,A,B) printf("%s: "              \
+                        "sizeof(%s)=%ld "   \
+                        "sizeof(%s)=%ld\n", \
+                        #F,                 \
+                        #A,sizeof(A),       \
+                        #B,sizeof(B))
 
 void f1(int *a, int b[])   {           P(f1,a,b); }
 void f2(int **a, int *b[]) {           P(f2,a,b); }
