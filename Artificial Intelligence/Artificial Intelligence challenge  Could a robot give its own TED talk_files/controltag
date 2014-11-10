@@ -1,0 +1,55 @@
+
+/* Controltag Loader for IDG Enterprise */
+(function(){
+  function debugLog(msg) {
+    var isDebug = /kxdebug=(1|true)/.test(location);
+    if (isDebug && typeof window.console === 'object' && typeof console.info === 'function') {
+      console.info(msg);
+    }
+  }
+
+  function loadCT(url, callback) {
+    debugLog('Loading Krux control tag.');
+    var ct_element = document.createElement('script');
+    ct_element.async = true;
+    ct_element.src = url;
+
+    ct_element.onload = ct_element.onreadystatechange = function() {
+      var state = ct_element.readyState;
+      if (!callback.done && (!state || /loaded|complete/.test(state))) {
+        callback.done = true;
+        callback();
+      }
+    };
+
+    // Fetch the first script element, so we can insert the
+    // controltag before it. There *must* be at least one
+    // script element, or this code would never be called
+    var sibling = document.getElementsByTagName('script')[0];
+    sibling.parentNode.insertBefore(ct_element, sibling);
+  };
+
+  function loadConfig() {
+    
+    
+    debugLog('Loading krux configuration.');
+
+    var config = {"confid": "Hx-yBRge", "context_terms": [], "dnt": null, "geo":{"COUNTRY":"US", "REGION":"ID", "CITY":"BOISE", "GEOREGION":"254", "DMA":"757", "PMSA":"", "AREACODE":"208", "COUNTY":"ADA", "FIPS":"16001", "LATITUDE":"43.6139", "LONGITUDE":"-116.2025", "TIMEZONE":"MST", "ZIP":"83701-83709 83711-83713 83715-83717 83719-83720 83722 83724-83726 83728-83729 83731-83732 83735 83756 83799", "CONTINENT":"NA"}, "params": {"beacon_host": "beacon.krxd.net", "capture_js_errors": true, "capture_leakage": true, "client_side_storage": "localStorage,cookie", "context_terms": "false", "control_tag_load_sync": "false", "control_tag_namespace": null, "control_tag_pixel_throttle": null, "control_tag_stats_prefix": null, "control_tag_version": "stable", "datatag_version": "3", "jslog_host": "jslog.krxd.net", "max_slot_time": 1000, "no_pii": 0, "revenue_optimization": false, "services_host": "apiservices.krxd.net", "site_level_supertag_config": "site", "supertag_requires_approval": false}, "partner_segment_map": {}, "publisher": {"id": 10362, "name": "IDG Enterprise", "uuid": "c0535245-d1de-49ff-b2a3-236d27f0d078"}, "realtime_segments": [], "segments": [], "services": {"data": "//beacon.krxd.net/data.gif", "event": "//beacon.krxd.net/event.gif", "impression": "//beacon.krxd.net/ad_impression.gif", "log": "//jslog.krxd.net/jslog.gif", "pixel": "//beacon.krxd.net/pixel.gif", "social": "//beacon.krxd.net/social.gif", "stats": "//apiservices.krxd.net/stats", "um": "//apiservices.krxd.net/um", "userData": "//apiservices.krxd.net/user_data/segments/3"}, "site": {"id": 11947, "name": "Network World"}, "tags": [{"content": "<script type=\"text/javascript\">Krux('social.init');</script>", "content_type": "html", "docwrite": null, "execution_results": null, "id": 28056, "internal": 1, "library_tag_config": {}, "method": "document", "name": "Krux Track Social", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "library"}, {"content": "<script>\r\n// this tag is intentionally blank\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28057, "internal": 6, "method": "document", "name": "Technographic Data provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "data provider"}, {"content": "", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28058, "internal": 14, "method": "document", "name": "Krux Geographic Data provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload"}, {"content": "<script>\r\n(function(){\r\n  var kuid = Krux('get', 'user');\r\n  if (kuid) {\r\n    Krux('require:http').pixel({\r\n      url: \"//p.acxiom-online.com/pixel/sci\",\r\n      data: {\r\n          uid: kuid,\r\n          _kdpid: 'f19b7626-3732-4dcc-bac5-8d2c937dae9a',\r\n          pid: 3021\r\n      }});\r\n  }\r\n  })();\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28076, "internal": 21, "method": "document", "name": "Acxiom S2S provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "data provider"}, {"content": "<script>\r\n(function(){\r\n  var kuid = Krux('get', 'user');\r\n  if (kuid) {\r\n    Krux('require:http').pixel({\r\n      url: \"//krxd.nexac.com/dlx.gif\",\r\n      data: {\r\n          _kdpid: '2dd640a6-6ebd-4d4f-af30-af8baa441a0d',\r\n          kuid: kuid\r\n      }});\r\n  }\r\n  })();\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28077, "internal": 8, "method": "document", "name": "DataLogix provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "data provider"}, {"content": "<script>\r\n(function(){\r\n  if (window.KRUX) {\r\n    var pubid = KRUXSetup.pubid;\r\n  } else if (window.Krux) {\r\n    var pubid = Krux('get', 'pubid');\r\n  } else { \r\n    return;\r\n  }\r\n  var prefix = location.protocol == 'https:' ? \"https:\" : \"http:\";\r\n  var kurl = prefix + '//beacon.krxd.net/data.gif?_kdpid=890a6228-04af-4630-85b6-0b49dee6157f&pid=' + pubid;\r\n  var u = prefix + '//api.bizographics.com/v1/profile.redirect?api_key=595bae8dbc0c4c42b4544e688b10c002' + \r\n        '&callback_url=' + escape(kurl);\r\n  var i = new Image();\r\n  i.src = u;\r\n})();\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28078, "internal": 2, "method": "document", "name": "Bizo provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "data provider"}, {"content": "<script>\r\n(function(){\r\n  var kuid = Krux('get', 'user');\r\n  if (kuid) {\r\n    Krux('require:http').pixel({\r\n      url: \"//loadm.exelator.com/load\",\r\n      data: {\r\n          _kdpid: 'e4942ff0-4070-4896-a7ef-e6a5a30ce9f9',\r\n          buid: kuid,\r\n          p: '204',\r\n          g: '270',\r\n          j: '0'\r\n      }});\r\n  }\r\n  })();\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": null, "freq_cap": 3, "id": 28079, "internal": 11, "method": "document", "name": "eXelate Media provider tag", "require": "", "target": null, "target_action": "append", "tier": 1, "timing": "onload", "type": "data provider"}, {"content": "<script>\r\n(function() {\r\n\u00a0 if (window.s && window.s.prop1) {\r\n    var krx_p42 = window.s.prop1.split(/:/);\r\n    if (krx_p42.length >= 1) {\r\n\u00a0 \u00a0   Krux('set', 'section', krx_p42[0]);\r\n    }\r\n    if (krx_p42.length >= 2) {\r\n\u00a0 \u00a0   Krux('set', 'subsection', krx_p42[1]);\r\n    }\r\n  }\r\n\r\n})();\r\n</script>", "content_type": "html", "docwrite": null, "execution_results": {"docwrite": false, "listeners": [], "onloadSafe": true}, "id": 14021, "internal": 1, "method": "document", "name": "Networkworld", "require": "", "target": "", "target_action": null, "tier": 1, "timing": "onload", "type": "publisher"}]};
+
+    // Wrap in a function and comment, then toString the func and replace
+    // everything that's not the beginning or end of a JSON object, so we get a
+    // string that's either empty or JSON.
+    var esiGeo = String(function(){/*
+      <esi:include src="/geoip_esi"/>
+    */}).replace(/^.*\/\*[^{]+|[^}]+\*\/.*$/g, '');
+
+    if (esiGeo) {
+      config.geo = esiGeo;
+    }
+
+    Krux('config', config);
+    
+  };
+
+  loadCT( "//cdn.krxd.net/ctjs/controltag.js.b03611e4942732962bc477fb5bc7ba7e", loadConfig );
+})();

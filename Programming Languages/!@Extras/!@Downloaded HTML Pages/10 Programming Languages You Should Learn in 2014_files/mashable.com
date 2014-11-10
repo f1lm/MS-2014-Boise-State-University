@@ -1,0 +1,1 @@
+PARSELY.pInit({"apikey":"mashable.com","customizations":null,"bundle":"/code/slim_v05.js","settings":{"debug":false,"widget":false,"tracker":true},"uuid":"09f15644-84a2-4d33-878d-535df8b35e06"});

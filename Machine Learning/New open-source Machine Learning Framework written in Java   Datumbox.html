@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/ -->
+<html lang="en" class="js no-touch csstransforms csstransitions"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   
+   <title>New open-source Machine Learning Framework written in  Java | Datumbox</title>
+   
+   <!-- Meta -->
+   <meta charset="utf-8">
+   
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="pingback" href="http://blog.datumbox.com/xmlrpc.php">
+
+   
+   <script src="./New open-source Machine Learning Framework written in Java   Datumbox_files/cb=gapi.loaded_1" async=""></script><script src="./New open-source Machine Learning Framework written in Java   Datumbox_files/cb=gapi.loaded_0" async=""></script><script id="facebook-jssdk" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/sdk.js"></script><script type="text/javascript" async="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/ga.js"></script><script async="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/analytics.js"></script><script type="text/javascript">
+      // <![CDATA[
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-42245644-1', 'datumbox.com');
+          ga('send', 'pageview');
+      // ]]>
+   </script>
+   <link href="http://www.datumbox.com/favicon.ico" type="image/x-icon" rel="icon">
+   <link href="http://www.datumbox.com/favicon.ico" type="image/x-icon" rel="shortcut icon">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/style.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/bootstrap-responsive.min.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/style_responsive.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/font-awesome.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/flexslider.css">
+   <link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/themes-default.css">
+         <!--[if lt IE 9]>
+   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+   <![endif]-->
+   
+   <style type="text/css">
+					#sthoverbuttons #sthoverbuttonsMain, .stMainServices {
+						-webkit-box-sizing: content-box !important;
+						-moz-box-sizing:    content-box !important;
+						box-sizing:         content-box !important;
+					}
+				</style><style type="text/css">
+					.no-break br {
+						display: none !important;
+					}
+			</style><link rel="alternate" type="application/rss+xml" title="Datumbox » Feed" href="http://blog.datumbox.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Datumbox » Comments Feed" href="http://blog.datumbox.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Datumbox » New open-source Machine Learning Framework written in  Java Comments Feed" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/feed/">
+<link rel="stylesheet" id="contact-form-7-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="authorsure-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/public.css" type="text/css" media="all">
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.js"></script><style type="text/css"></style>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery-migrate.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.datumbox.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.datumbox.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Clustering with Dirichlet Process Mixture Model in Java" href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/">
+
+<link rel="shortlink" href="http://blog.datumbox.com/?p=620">
+<style type="text/css">#crp_related ul {
+  list-style: none;
+  float: left;
+  margin: 0;
+}
+#crp_related li, #crp_related a {
+  float: left;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+#crp_related li {
+  margin: .9em!important;
+  border: 1px solid #ddd;
+  padding: 6px;
+}
+#crp_related li:hover {
+  background: #eee;
+  border-color: #bbb;
+}
+#crp_related a {
+  width: 150px;
+  height: 150px;
+}
+#crp_related a:hover {
+  text-decoration: none;
+}
+#crp_related img {
+  max-width: 150px;
+  margin: auto;
+}
+#crp_related .crp_title {
+  position: absolute;
+  height: inherit;
+  bottom: 6px;
+  left: 0px;
+  padding: 3px;
+  width: 144px;  /* = 150px - (3px * 2) */
+  color: #fff;
+  font-size: .9em;
+  text-shadow: #000 .1em .1em .2em;
+  background: rgb(0.5, 0.5, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+}
+#crp_related li:hover .crp_title {
+  background: rgb(0.2, 0.2, 0.2);
+  background: rgba(0, 0, 0, 0.8);
+}
+#crp_related {
+  padding-top: 10px;
+  border-top: 2px solid #72c02c;
+}</style><script charset="utf-8" type="text/javascript">var switchTo5x=true;</script>
+<script charset="utf-8" type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/buttons.js"></script>
+<script charset="utf-8" type="text/javascript">stLight.options({"publisher":"wp.7f9df230-9171-4514-8041-41140eab0dcd","doNotCopy":true,"hashAddressBar":false,"doNotHash":true});var st_type="wordpress3.8.1";</script>
+<script charset="utf-8" type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/loader.js"></script>
+<script charset="utf-8" type="text/javascript">
+var h_options={"publisher":"wp.7f9df230-9171-4514-8041-41140eab0dcd","position":"left","chicklets_params":{"twitter":{"st_via":""},"instagram":{"st_username":""}},"chicklets":{"items":["twitter","facebook","linkedin","googleplus","reddit","delicious"]}};var st_hover_widget = new sharethis.widgets.hoverbuttons(h_options);
+</script><link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/hoverbuttons.6eab8de2ee93b309873157b6d3f977fe.css"><script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/hoverbuttons.f957c1409bef85dad9f9b3c8412895bd.js"></script>
+
+<!-- All in One SEO Pack 2.2.3.1 by Michael Torbert of Semper Fi Web Design[331,399] -->
+<link rel="author" href="https://plus.google.com/u/0/112669082786152542108">
+<meta name="description" content="I am happy to announce that the Datumbox Machine Learning Framework is now open sourced under GPL 3.0 and you can download its code from Github! What is this">
+
+<link rel="canonical" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html">
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-42245644-1']);
+		  _gaq.push(['_setDomainName', 'blog.datumbox.com']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+		<script type="text/javascript">
+		function recordOutboundLink(link, category, action) {
+					_gat._getTrackerByName()._trackEvent(category, action);
+					if ( link.target == '_blank' ) return true;
+			setTimeout('document.location = "' + link.href + '"', 100);
+			return false;
+		}
+			/* use regular Javascript for this */
+			function getAttr(ele, attr) {
+				var result = (ele.getAttribute && ele.getAttribute(attr)) || null;
+				if( !result ) {
+					var attrs = ele.attributes;
+					var length = attrs.length;
+					for(var i = 0; i < length; i++)
+					if(attr[i].nodeName === attr) result = attr[i].nodeValue;
+				}
+				return result;
+			}
+			function aiosp_addLoadEvent(func) {
+			  var oldonload = window.onload;
+			  if (typeof window.onload != 'function') {
+			    window.onload = func;
+			  } else {
+			    window.onload = function() {
+			      if (oldonload) {
+			        oldonload();
+			      }
+			      func();
+			    }
+			  }
+			}
+			
+			function aiosp_addEvent(element, evnt, funct){
+			  if (element.attachEvent)
+			   return element.attachEvent('on'+evnt, funct);
+			  else
+			   return element.addEventListener(evnt, funct, false);
+			}
+
+			aiosp_addLoadEvent(function () {
+				var links = document.getElementsByTagName('a');
+				for (var x=0; x < links.length; x++) {
+					if (typeof links[x] == 'undefined') continue;
+					aiosp_addEvent( links[x], 'onclick', function () {
+						var mydomain = new RegExp(document.domain, 'i');
+						href = getAttr(this, 'href');
+						if (href && href.toLowerCase().indexOf('http') === 0 && !mydomain.test(href)) {
+							recordOutboundLink(this, 'Outbound Links', href);
+						}
+					});
+				}
+			});
+		</script>
+<!-- /all in one seo pack -->
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/getAllAppDefault.esi"></script><script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/checkOAuth.esi"></script><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><link rel="stylesheet" type="text/css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/buttons.f72ae7c4435271cf3af83d1f10fbbbb0.css"><script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/getCount2.php"></script><script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/plusone.js" gapi_processed="true"></script><style type="text/css">.fancybox-margin{margin-right:0px;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+
+<body id="blog" data-gclp-initialized="true" data-gistbox-initialized="true">
+<!--=== Top ===-->    
+    <div class="top">
+        <div class="container">         
+            <ul class="loginbar pull-right">
+                                <li><i class="icon-question-sign"></i><a href="http://www.datumbox.com/faq/" class="login-btn">Help</a></li>  
+                <li class="devider">&nbsp;</li>
+                <li><i class="icon-edit"></i><a href="http://www.datumbox.com/users/register/" class="login-btn">Register</a></li>   
+                <li class="devider">&nbsp;</li>
+                <li><i class="icon-signin"></i><a href="http://www.datumbox.com/users/login/" class="login-btn">Login</a></li>   
+            </ul>
+        </div>      
+    </div><!--/top-->
+<!--=== End Top ===-->    
+
+<div class="header">
+   <div class="container">
+      <div class="logo">                                            
+         <a href="http://www.datumbox.com/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/logo.png" alt="Datumbox"></a> 
+      </div>
+      <!-- Menu -->       
+      <div class="navbar">
+         <div class="navbar-inner">
+            <div class="nav-collapse collapse">
+               <ul class="nav top-2">
+                  <li>
+                     <a href="http://www.datumbox.com/">Home</a>                            
+                  </li>
+                  <li class="">
+                     <a href="http://www.datumbox.com/machine-learning-framework/">Framework</a>                     
+                  </li>
+                  <li class="">
+                     <a href="http://www.datumbox.com/machine-learning-api/">API</a>              
+                  </li>
+                  <li class="active">
+                     <a href="http://blog.datumbox.com/">Blog</a>                       
+                  </li>
+                  <li class="">
+                     <a href="http://blog.datumbox.com/author/bbriniotis/">About</a>                        
+                  </li>
+                  <li class="">
+                     <a href="http://www.datumbox.com/contact/">Contact</a>                       
+                  </li>
+               </ul>
+            </div>
+            <!-- /nav-collapse -->                                
+         </div>
+         <!-- /navbar-inner -->
+      </div>
+      <!-- /navbar -->                          
+   </div>
+   <!-- /container -->               
+</div>
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-20">
+	<div class="container">
+        <h1 class="color-green pull-left">Machine Learning Blog &amp; Software Development News</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="http://www.datumbox.com/">Home</a> <span class="divider">/</span></li>
+            <li class="active">Blog</li>
+        </ul>
+    </div><!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
+<div class="container">		
+	<div class="row-fluid blog-page blog-item">
+        <!-- Left Sidebar -->
+    	<div class="span8">
+                        <div id="post-620">
+        	    <div class="blog margin-bottom-30">
+            	    <h1><a href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html" title="New open-source Machine Learning Framework written in  Java" rel="bookmark">New open-source Machine Learning Framework written in  Java</a></h1>
+            	    <ul class="unstyled inline blog-info">
+                    <li><i class="icon-calendar"></i> October 19, 2014</li>
+                    <li><i class="icon-user"></i> <a href="http://blog.datumbox.com/author/bbriniotis/" title="Posts by Vasilis Vryniotis" rel="author">Vasilis Vryniotis</a></li>
+                    <li><i class="icon-comments"></i> <a href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/#comments">. 6 Comments</a></li>
+                    </ul>
+                    <ul class="unstyled inline blog-tags">
+                        <li>
+                            <i class="icon-tags"></i> 
+                                                        <a href="http://blog.datumbox.com/topics/machine-learning-statistics">Machine Learning &amp; Statistics</a> 
+                                                        <a href="http://blog.datumbox.com/topics/programming">Programming</a> 
+                                                    </li>
+                    </ul>
+                    <ul class="unstyled inline social-media-buttons">
+                    <span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_fblike_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;position:relative;margin:3px 3px 0;padding:0px;font-size:11px;line-height:0px;vertical-align:bottom;overflow:visible;"><div data-action="" data-send="false" data-layout="button_count" data-show-faces="false" class="fb-like fb_iframe_widget" data-href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;href=http%3A%2F%2Fblog.datumbox.com%2Fnew-open-source-machine-learning-framework-written-in-java%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false"><span style="vertical-align: bottom; width: 76px; height: 20px;"><iframe name="f36d7558e8" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/like.html" style="border: none; visibility: visible; width: 76px; height: 20px;" class=""></iframe></span></div></span></span>
+<span st_via="datumbox" st_username="datumbox" st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_twitter_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-twitter-counter" style="background-image: url(http://w.sharethis.com/images/twitter_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">273</span></span></span></span></span></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_plusone_hcount" st_processed="yes"><div style="display:inline-block;overflow:hidden;line-height:0px;position:relative;vertical-align:middle;bottom:0px;width:75px; height:21px;">&nbsp;<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1415255936794" name="I0_1415255936794" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></div></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_facebook_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-facebook-counter" style="background-image: url(http://w.sharethis.com/images/facebook_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">180</span></span></span></span></span></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_linkedin_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stMainServices st-linkedin-counter" style="background-image: url(http://w.sharethis.com/images/linkedin_counter.png);">&nbsp;</span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">541</span></span></span></span></span></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_googleplus_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets googleplus">Share</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">334</span></span></span></span></span></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_reddit_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets reddit">Share</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">2234</span></span></span></span></span></span>
+<span st_title="New open-source Machine Learning Framework written in  Java" st_url="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/" class="st_delicious_hcount" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span><span class="stButton_gradient"><span class="chicklets delicious">Share</span></span><span class="stArrow"><span class="stButton_gradient stHBubble" style="display: inline-block;"><span class="stBubble_hcount">2</span></span></span></span></span></span>                    </ul>
+                    
+                    <div style="background:#000000; width:100%"><img class="alignnone size-full wp-image-622" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/open-source.jpg" alt="open-source" width="585" height="408"></div>
+<p>I am happy to announce that the Datumbox Machine Learning Framework is now open sourced under GPL 3.0 and you can download its code from <a href="https://github.com/datumbox/datumbox-framework" target="_blank">Github</a>!</p>
+<h2>What is this Framework?</h2>
+<p>The <a href="https://github.com/datumbox/datumbox-framework" target="_blank">Datumbox Machine Learning Framework</a> is an open-source framework written in Java which enables the rapid development of Machine Learning models and Statistical applications. It is the code that currently powers up the Datumbox API. The main focus of the framework is to include a large number of machine learning algorithms &amp; statistical methods and be able to handle small-medium sized datasets. Even though the framework targets to assist the development of models from various fields, it also provides tools that are particularly useful in Natural Language Processing and Text Analysis applications.</p>
+<h2>What types of models/algorithms are supported?</h2>
+<p>The framework is divided in several Layers such as Machine Learning, Statistics, Mathematics, Algorithms and Utilities. Each of them provides a series of classes that are used for training machine learning models. The two most important layers are the Statistics and the Machine Learning layer.</p>
+<p>The Statistics layer provides classes for calculating descriptive statistics, performing various types of sampling, estimating CDFs and PDFs from commonly used probability distributions and performing over 35 parametric and non-parametric tests. Such types of classes are usually necessary while performing explanatory data analysis, sampling and feature selection.</p>
+<p>The Machine Learning layer provides classes can be used in a large number of problems including Classification, Regression, Cluster Analysis, Topic Modeling, Dimensionality Reduction, Feature Selection, Ensemble Learning and Recommender Systems. Here are some of the supported algorithms: LDA, Max Entropy, Naive Bayes, SVM, Bootstrap Aggregating, Adaboost, Kmeans, Hierarchical Clustering, Dirichlet Process Mixture Models, Softmax Regression, Ordinal Regression, Linear Regression, Stepwise Regression, PCA and more.</p>
+<h2>Datumbox Framework VS Mahout VS Scikit-Learn</h2>
+<p>Both Mahout and Scikit-Learn are great projects and both of them have completely different targets. Mahout supports only a very limited number of algorithms which can be parallelized and thus use Hadoop’s Map-Reduce framework to handle Big Data. On the other hand Scikit-Learn supports a large number of algorithms but it can’t handle huge amount of data. Moreover it is developed in Python, which is a great language for prototyping and Scientific Computing but not my personal favourite for software development.</p>
+<p>The Datumbox Framework sits in the middle of the two solutions. It tries to support a large number of algorithms and it is written in Java. This means that it can be incorporated easier into production code, it can easier be tweaked to reduce memory consumption and it can be used in real time systems. Finally even though currently Datumbox Framework is capable of handling medium-sized datasets, it is within my plans to expand it to handle large-sized datasets.</p>
+<h2>How stable is it?</h2>
+<p>The early versions of the framework (up to 0.3.x) were developed in August and September of 2013 and they were written in PHP (yeap!). During May and June 2014 (versions 0.4.x), the framework was rewritten in Java and enhanced with additional features. Both branches were heavily tested in commercial applications including the Datumbox API. The current version is 0.5.0 and it seems mature enough to be released as the first public alpha version of the framework. Having said that, it is important to note that some functionalities of the framework are tested more thoroughly than others. Moreover since this version is alpha, you should expect drastic changes on the future releases.</p>
+<h2>Why I wrote it and why I open-source it?</h2>
+<p>My involvement with Machine Learning and NLP dates back to 2009 when I co-founded WebSEOAnalytics.com. Since then I have been developing implementations of various machine learning algorithms for various projects and applications. Unfortunately most of the original implementations were very problem-specific and they could hardly be used in any other problem. In August 2013 I decided to start Datumbox as a personal project and develop a framework that provides the tools for developing machine learning models focusing in the area of NLP and Text Classification. My target was to build a framework that would be reused on the future for developing quickly machine learning models, incorporating it in projects that require machine learning components or offer it as a service (Machine Learning as a Service).</p>
+<p>And here I am now, several lines of code later, open-sourcing the project. Why? The honest answer is that at this point, it is not within my plans to go through a “let’s build a new start-up” journey. At the same time I felt that keeping the code on my hard disk in case I need it on the future does not make sense. So the only logical thing to do was to open-source it. <img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/icon_smile.gif" alt=":)" class="wp-smiley"></p>
+<h2>Documentation?</h2>
+<p>If you read the previous two paragraphs, you should probably seen this coming. Since the framework was not developed having in mind that I would share it with others, the documentation is poor/non-existent. Most of the classes and public methods are not properly commented and there is no document describing the architecture of the code. Fortunately all the class names are self-explanatory and the framework provides JUnit tests for every public method &amp; algorithm and these can be used as examples of how to use the code. I hope that with the help of the community we will build a proper documentation, so I am counting on you!</p>
+<h2>Current Limitations and Future Development</h2>
+<p>As in every piece of software (and especially the open-source projects in alpha version), the Datumbox Machine Learning Framework comes with its own unique and adorable limitations. Let’s dig into them:</p>
+<ol>
+<li><b>Documentation: </b>As mentioned earlier, the documentation is poor.</li>
+<li><b>No Multithreading: </b>Unfortunately the framework does not currently support Multithreading. Of course we should note that not all machine learning algorithms can be parallelized.</li>
+<li><b>Code Examples: </b>Since the framework has just been published, you can’t find any code examples on the web other than those provided by the framework in the form of JUnit tests.</li>
+<li><b>Code Structure: </b>Creating a solid architecture for any large project is always challenging, let alone when you have to deal with Machine Learning algorithms that differ significantly (supervised learning, unsupervised learning, dimensionality reduction algorithms etc).</li>
+<li><b>Model Persistence and Large Data Collections: </b>Currently the models can be trained and stored either on files on disk or in MongoDB databases. To be able to handle large amount of data, other solutions must be investigated. For example <a href="http://www.mapdb.org/" target="_blank">MapDB</a> seems like a good candidate for storing data and parameters while training. Moreover it is important to remove any 3<sup>rd</sup> party libraries that currently handle the persistence of the models and develop a better dry and modular solution.</li>
+<li><b>New algorithms/</b><b>tests/models</b><b>: </b>There are so many great techniques that are not currently supported (especially for time series analysis).</li>
+</ol>
+<p>Unfortunately all the above are too much work and there is so little time. That is why if you are interested in the project, step forward and give me a hand with any of the above. Moreover I would love to hear from people who have experience in open-sourcing medium-large projects and could provide any tips on how to manage them. Additionally I would be grateful to any brave soul who would dare to look into the code and document some classes or public methods. Last but not least&nbsp;if you use the framework for anything interesting, please drop me a line or share it with a blog post.</p>
+<p>&nbsp;</p>
+<p>Finally I would like to thank my love Kyriaki for tolerating me while writing this project, my friend and super-ninja-Java-developer <a href="http://gr.linkedin.com/pub/eleftherios-bampaletakis/39/875/551" target="_blank">Eleftherios Bampaletakis</a> for helping out with important Java issues and you for getting involved in the project. I’m looking forward to your comments.</p>
+<div class="authorsure-author-box"><img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/0d9cf005f5d9fbbe42b6723e723a7f76" class="avatar avatar-90 photo" height="90" width="90"><h4>About&nbsp;<a rel="author" href="http://blog.datumbox.com/author/bbriniotis/" class="authorsure-author-link">Vasilis Vryniotis</a></h4><p>My name is Vasilis Vryniotis. I'm a Data Scientist, Software Engineer, Statistics &amp; Machine Learning enthusiast and author of Datumbox Machine Learning Framework. <a href="http://blog.datumbox.com/author/bbriniotis/">Learn more</a></p>
+</div><div class="clear"></div><div id="crp_related" class="crp_related"><h3>Related Posts:</h3><ul><li><a href="http://blog.datumbox.com/using-datumbox-api-with-ruby-node-js-and-other-featured-projects/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb.php" alt="Using Datumbox API with Ruby &amp; Node.js and other featured Projects" title="Using Datumbox API with Ruby &amp; Node.js and other featured Projects" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/using-datumbox-api-with-ruby-node-js-and-other-featured-projects/" class="crp_title">Using Datumbox API with Ruby &amp; Node.js and other…</a></li><li><a href="http://blog.datumbox.com/10-tips-for-sentiment-analysis-projects/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(1).php" alt="10 Tips for Sentiment Analysis projects" title="10 Tips for Sentiment Analysis projects" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/10-tips-for-sentiment-analysis-projects/" class="crp_title">10 Tips for Sentiment Analysis projects</a></li><li><a href="http://blog.datumbox.com/developing-a-naive-bayes-text-classifier-in-java/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(2).php" alt="Developing a Naive Bayes Text Classifier in JAVA" title="Developing a Naive Bayes Text Classifier in JAVA" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/developing-a-naive-bayes-text-classifier-in-java/" class="crp_title">Developing a Naive Bayes Text Classifier in JAVA</a></li><li><a href="http://blog.datumbox.com/overview-of-cluster-analysis-and-dirichlet-process-mixture-models/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(3).php" alt="Overview of Cluster Analysis and Dirichlet Process Mixture Models" title="Overview of Cluster Analysis and Dirichlet Process Mixture Models" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/overview-of-cluster-analysis-and-dirichlet-process-mixture-models/" class="crp_title">Overview of Cluster Analysis and Dirichlet Process Mixture…</a></li><li><a href="http://blog.datumbox.com/using-datumbox-api-with-python-and-r-languages/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(4).php" alt="Using Datumbox API with Python and R languages" title="Using Datumbox API with Python and R languages" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/using-datumbox-api-with-python-and-r-languages/" class="crp_title">Using Datumbox API with Python and R languages</a></li><li><a href="http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(5).php" alt="Machine Learning Tutorial: The Multinomial Logistic Regression (Softmax Regression)" title="Machine Learning Tutorial: The Multinomial Logistic Regression (Softmax Regression)" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/machine-learning-tutorial-the-multinomial-logistic-regression-softmax-regression/" class="crp_title">Machine Learning Tutorial: The Multinomial Logistic…</a></li><li><a href="http://blog.datumbox.com/machine-learning-tutorial-the-naive-bayes-text-classifier/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(6).php" alt="Machine Learning Tutorial: The Naive Bayes Text Classifier" title="Machine Learning Tutorial: The Naive Bayes Text Classifier" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/machine-learning-tutorial-the-naive-bayes-text-classifier/" class="crp_title">Machine Learning Tutorial: The Naive Bayes Text Classifier</a></li><li><a href="http://blog.datumbox.com/how-to-build-your-own-facebook-sentiment-analysis-tool/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/timthumb(7).php" alt="How to build your own Facebook Sentiment Analysis Tool" title="How to build your own Facebook Sentiment Analysis Tool" width="150" height="150" class="crp_thumb"></a><a href="http://blog.datumbox.com/how-to-build-your-own-facebook-sentiment-analysis-tool/" class="crp_title">How to build your own Facebook Sentiment Analysis Tool</a></li></ul><div style="clear:both"></div></div>                    
+                </div><!--/blog-->
+            </div>
+
+            <!-- You can start editing here. -->
+<div id="comments">
+<div class="total-comments">Latest Comments</div>
+
+<ol class="commentlist">
+<div class="navigation">
+<div class="alignleft"></div>
+<div class="alignright"></div>
+</div>
+
+	<li class="comment even thread-even depth-1" id="li-comment-10181">
+	<div id="comment-10181" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/c6202c2569ebda32705040fae1380396" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 20, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn">Renaud Richardet</span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>Did you try using UIMA as a pipeline engine for your NLP toolkit?</p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10181#respond" onclick="return addComment.moveForm(&quot;comment-10181&quot;, &quot;10181&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+<ul class="children">
+	<li class="comment byuser comment-author-bbriniotis bypostauthor odd alt depth-2" id="li-comment-10182">
+	<div id="comment-10182" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/0d9cf005f5d9fbbe42b6723e723a7f76(1)" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 20, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn"><a href="http://blog.datumbox.com/author/bbriniotis/" rel="external nofollow" class="url">Vasilis Vryniotis</a></span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>Hi Renaud,</p>
+<p>No, I can’t say that I have ever been used UIMA.</p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10182#respond" onclick="return addComment.moveForm(&quot;comment-10182&quot;, &quot;10182&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1" id="li-comment-10191">
+	<div id="comment-10191" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/aaa0ebbc190d9f5f7830738b4201258e" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 23, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn">sunyongfa</span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>I want to know where the class  org.apache.commons.math3.linear.ArrayRealVector can be  downloaded?</p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10191#respond" onclick="return addComment.moveForm(&quot;comment-10191&quot;, &quot;10191&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+<ul class="children">
+	<li class="comment byuser comment-author-bbriniotis bypostauthor odd alt depth-2" id="li-comment-10196">
+	<div id="comment-10196" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/0d9cf005f5d9fbbe42b6723e723a7f76(1)" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 26, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn"><a href="http://blog.datumbox.com/author/bbriniotis/" rel="external nofollow" class="url">Vasilis Vryniotis</a></span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>Hi,</p>
+<p>Yes it is part of the Apache Commons Math library so you can download it from Apache website. <img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/icon_smile.gif" alt=":)" class="wp-smiley"></p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10196#respond" onclick="return addComment.moveForm(&quot;comment-10196&quot;, &quot;10196&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1" id="li-comment-10198">
+	<div id="comment-10198" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/2f6342bf992fb2a5d7f52b36d8630f9b" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 27, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn">Kimando</span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>Hey,<br>
+I am interested contributing some code…especially on Threads.. how can i join? Send me an email if possible. </p>
+<p>Good work.</p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10198#respond" onclick="return addComment.moveForm(&quot;comment-10198&quot;, &quot;10198&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+<ul class="children">
+	<li class="comment byuser comment-author-bbriniotis bypostauthor odd alt depth-2" id="li-comment-10199">
+	<div id="comment-10199" style="position:relative;">
+	<div class="comment-author vcard">
+            <div class="avatar">
+                    <img alt="" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/0d9cf005f5d9fbbe42b6723e723a7f76(1)" class="avatar avatar-68 photo" height="68" width="68">                    <time>October 27, 2014</time>    
+            </div>
+	</div>
+            <div class="comment-content">
+                
+                <span class="fn"><a href="http://blog.datumbox.com/author/bbriniotis/" rel="external nofollow" class="url">Vasilis Vryniotis</a></span>    
+                                <div class="comment-meta commentmetadata">
+                </div>
+                <p>Hi Kimando,</p>
+<p>Thanks for your message. Adding multithread support would be awesome. I’ll send you an email. <img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/icon_smile.gif" alt=":)" class="wp-smiley"></p>
+                <div class="reply">
+                <a class="comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/?replytocom=10199#respond" onclick="return addComment.moveForm(&quot;comment-10199&quot;, &quot;10199&quot;, &quot;respond&quot;, &quot;620&quot;)">Reply</a>                </div>
+            </div> 
+       </div>    
+
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+ 
+<div class="navigation">
+<div class="alignleft"></div>
+<div class="alignright"></div>
+</div>
+</ol>
+</div>
+<hr style="clear: both;"> 
+
+<div id="respond" class="box m-t-6">
+ 								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://blog.datumbox.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required="true"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+<p class="cptch_block"><label>Captcha<span class="required"> *</span></label><br>		<input type="hidden" name="cptch_result" value="7C82">
+		<input type="hidden" name="cptch_time" value="1415255934">
+		<input type="hidden" value="Version: 2.4">
+		five + 5 =  <input id="cptch_input" type="text" autocomplete="off" name="cptch_number" value="" maxlength="2" size="2" aria-required="true" required="required" style="margin-bottom:0;display:inline;font-size: 12px;width: 40px;">	</p>												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title="" rel=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="620" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="b434acb85d"></p><p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1415255935187"></form>
+							</div><!-- #respond -->
+			</div>
+            
+        </div><!--/span9-->
+
+        
+        
+        
+        <!-- Right Sidebar -->
+<div class="span4">
+    <aside class="sidebar">
+    <div id="sidebars" class="g">
+            <li class="widget widget-sidebar"><h3>Follow Us</h3><div class="social-count-plus"><ul class="default"><li class="count-twitter"><a class="icon" href="http://twitter.com/datumbox" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">556</span><span class="label" style="color: #333333 !important;">followers</span></span></li><li class="count-facebook"><a class="icon" href="http://www.facebook.com/546816552044290" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">200</span><span class="label" style="color: #333333 !important;">likes</span></span></li><li class="count-googleplus"><a class="icon" href="https://plus.google.com/105921437813621882157" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">60</span><span class="label" style="color: #333333 !important;">followers</span></span></li><li class="count-posts"><a class="icon" href="http://blog.datumbox.com/" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">27</span><span class="label" style="color: #333333 !important;">posts</span></span></li><li class="count-comments"><a class="icon" href="http://blog.datumbox.com/" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">128</span><span class="label" style="color: #333333 !important;">comments</span></span></li></ul></div></li><li class="widget widget-sidebar"><h3>Subscribe</h3>			<div class="textwidget"><div id="optin-sidebar"><form onsubmit="window.open(&#39;http://feedburner.google.com/fb/a/mailverify?uri=Datumbox&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=550,height=520&#39;);return true" target="popupwindow" method="post" action="http://feedburner.google.com/fb/a/mailverify"><input type="hidden" name="uri" value="Datumbox"><input type="hidden" value="en_US" name="loc"><input type="text" id="name" name="name" onblur="if (&#39;&#39; === this.value) {this.value = &#39;Enter Your Name&#39;;}" onfocus="if (&#39;Enter Your Name&#39; === this.value) {this.value = &#39;&#39;;}" value="Enter Your Name"><input type="text" id="email" name="email" onblur="if (&#39;&#39; === this.value) {this.value = &#39;Enter Your Email Address&#39;;}" onfocus="if (&#39;Enter Your Email Address&#39; === this.value) {this.value = &#39;&#39;;}" value="Enter Your Email Address"><input type="submit" value="Subscribe Now" id="submit" name="submit"></form></div>
+
+<a href="http://feeds.feedburner.com/Datumbox" rel="alternate" type="application/rss+xml" target="_blank" class="rssFeed"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/feed-icon32x32.png"><span>RSS Feed</span></a></div>
+		</li><li class="widget widget-sidebar"><h3>Search</h3><!-- Search Bar -->
+<br>
+<div class="input-append  margin-bottom-20">
+    <form method="get" id="searchform" class="search-form" action="http://blog.datumbox.com/" _lpchecked="1">
+        <input type="text" class="span9" name="s" id="s" placeholder="Search this Blog...">
+        <button type="submit" class="btn-u">Search</button>
+    </form>
+</div></li>		
+
+	<div id="tabber">
+			
+		<ul class="tabs">
+			<li class="active"><a href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/#popular-posts" data-toggle="tab">Popular Posts</a></li>
+			<li><a href="http://blog.datumbox.com/new-open-source-machine-learning-framework-written-in-java/#recent-posts" data-toggle="tab">Recent Posts</a></li>
+		</ul> <!--end .tabs-->
+			
+		<div class="clear"></div>
+		
+		<div class="inside">
+		
+			<div id="popular-posts" class="active">
+				<ul>
+										<li>
+<div class="left">
+<a href="http://blog.datumbox.com/how-to-build-your-own-twitter-sentiment-analysis-tool/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/twitter2-150x150.jpg" alt="How to build your own Twitter Sentiment Analysis Tool" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">
+    <p class="entry-title"><a title="How to build your own Twitter Sentiment Analysis Tool" href="http://blog.datumbox.com/how-to-build-your-own-twitter-sentiment-analysis-tool/">How to build your own Twitter Sentiment Analysis Tool</a></p>
+	<div class="meta">
+        <p>September 2, 2013</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+        <div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/10-tips-for-sentiment-analysis-projects/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/sentiment-analysis-tips-150x150.jpg" alt="10 Tips for Sentiment Analysis projects" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">
+    <p class="entry-title"><a title="10 Tips for Sentiment Analysis projects" href="http://blog.datumbox.com/10-tips-for-sentiment-analysis-projects/">10 Tips for Sentiment Analysis projects</a></p>
+	<div class="meta">
+        <p>September 9, 2013</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+        <div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/developing-a-naive-bayes-text-classifier-in-java/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/NaiveBayes-JAVA-150x150.jpg" alt="Developing a Naive Bayes Text Classifier in JAVA" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">
+    <p class="entry-title"><a title="Developing a Naive Bayes Text Classifier in JAVA" href="http://blog.datumbox.com/developing-a-naive-bayes-text-classifier-in-java/">Developing a Naive Bayes Text Classifier in JAVA</a></p>
+	<div class="meta">
+        <p>January 27, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+        <div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/game-2048-java-150x150.png" alt="Using Artificial Intelligence to solve the 2048 Game (JAVA code)" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">
+    <p class="entry-title"><a title="Using Artificial Intelligence to solve the 2048 Game (JAVA code)" href="http://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/">Using Artificial Intelligence to solve the 2048 Game (JAVA code)</a></p>
+	<div class="meta">
+        <p>April 7, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+        <div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/the-importance-of-neutral-class-in-sentiment-analysis/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/sentiment-analysis-neutral-150x150.png" alt="The importance of Neutral Class in Sentiment Analysis" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">
+    <p class="entry-title"><a title="The importance of Neutral Class in Sentiment Analysis" href="http://blog.datumbox.com/the-importance-of-neutral-class-in-sentiment-analysis/">The importance of Neutral Class in Sentiment Analysis</a></p>
+	<div class="meta">
+        <p>September 23, 2013</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+        <div class="clear"></div>
+</li>
+
+				</ul>			
+		    </div> <!--end #popular-posts-->
+		       
+		    <div id="recent-posts"> 
+		        <ul>
+					<li>
+<div class="left">
+<a href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/open-source-150x150.jpg" alt="New open-source Machine Learning Framework written in  Java" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">   
+ 	<p class="entry-title"><a title="New open-source Machine Learning Framework written in  Java" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html">New open-source Machine Learning Framework written in  Java</a></p>
+        <div class="meta">
+        <p>October 19, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+	<div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/dirichlet-process-mixture-model-150x150.png" alt="Clustering with Dirichlet Process Mixture Model in Java" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">   
+ 	<p class="entry-title"><a title="Clustering with Dirichlet Process Mixture Model in Java" href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/">Clustering with Dirichlet Process Mixture Model in Java</a></p>
+        <div class="meta">
+        <p>July 7, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+	<div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/clustering-documents-and-gaussian-data-with-dirichlet-process-mixture-models/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/gaussian-dpmm-150x150.png" alt="Clustering documents and gaussian data with Dirichlet Process Mixture Models" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">   
+ 	<p class="entry-title"><a title="Clustering documents and gaussian data with Dirichlet Process Mixture Models" href="http://blog.datumbox.com/clustering-documents-and-gaussian-data-with-dirichlet-process-mixture-models/">Clustering documents and gaussian data with Dirichlet Process Mixture Models</a></p>
+        <div class="meta">
+        <p>June 30, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+	<div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/the-dirichlet-process-mixture-model/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/dirichlet-process-mixture-model-iterations-150x150.gif" alt="The Dirichlet Process Mixture Model" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">   
+ 	<p class="entry-title"><a title="The Dirichlet Process Mixture Model" href="http://blog.datumbox.com/the-dirichlet-process-mixture-model/">The Dirichlet Process Mixture Model</a></p>
+        <div class="meta">
+        <p>June 23, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+	<div class="clear"></div>
+</li>
+
+<li>
+<div class="left">
+<a href="http://blog.datumbox.com/the-dirichlet-process-the-chinese-restaurant-process-and-other-representations/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/chinese-restaurant-process-150x150.png" alt="The Dirichlet Process the Chinese Restaurant Process and other representations" width="65" height="50" class="wp-post-image"></a>
+<div class="clear"></div>
+</div>
+ 	<div class="info">   
+ 	<p class="entry-title"><a title="The Dirichlet Process the Chinese Restaurant Process and other representations" href="http://blog.datumbox.com/the-dirichlet-process-the-chinese-restaurant-process-and-other-representations/">The Dirichlet Process the Chinese Restaurant Process and other representations</a></p>
+        <div class="meta">
+        <p>May 20, 2014</p>	</div> <!--end .entry-meta--> 	
+	</div> <!--end .info-->
+	<div class="clear"></div>
+</li>
+
+                      
+				</ul>	
+		    </div> <!--end #recent-posts-->
+			
+			<div class="clear"></div>
+			
+		</div> <!--end .inside -->
+		
+		<div class="clear"></div>
+		
+	</div><!--end #tabber -->
+
+				<li class="widget widget-sidebar">		<h3>Recent Posts</h3>		<ul>
+					<li>
+				<a href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html">New open-source Machine Learning Framework written in  Java</a>
+						</li>
+					<li>
+				<a href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/">Clustering with Dirichlet Process Mixture Model in Java</a>
+						</li>
+					<li>
+				<a href="http://blog.datumbox.com/clustering-documents-and-gaussian-data-with-dirichlet-process-mixture-models/">Clustering documents and gaussian data with Dirichlet Process Mixture Models</a>
+						</li>
+					<li>
+				<a href="http://blog.datumbox.com/the-dirichlet-process-mixture-model/">The Dirichlet Process Mixture Model</a>
+						</li>
+					<li>
+				<a href="http://blog.datumbox.com/the-dirichlet-process-the-chinese-restaurant-process-and-other-representations/">The Dirichlet Process the Chinese Restaurant Process and other representations</a>
+						</li>
+				</ul>
+		</li><li class="widget widget-sidebar"><h3>Archives</h3>		<ul>
+	<li><a href="http://blog.datumbox.com/2014/10/">October 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/07/">July 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/06/">June 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/05/">May 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/04/">April 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/03/">March 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/02/">February 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2014/01/">January 2014</a></li>
+	<li><a href="http://blog.datumbox.com/2013/12/">December 2013</a></li>
+	<li><a href="http://blog.datumbox.com/2013/11/">November 2013</a></li>
+	<li><a href="http://blog.datumbox.com/2013/10/">October 2013</a></li>
+	<li><a href="http://blog.datumbox.com/2013/09/">September 2013</a></li>
+	<li><a href="http://blog.datumbox.com/2013/07/">July 2013</a></li>
+		</ul>
+</li>            
+            <li class="widget widget-sidebar">
+                                <!-- Blog Tags -->
+                <h3>Categories</h3>
+                <ul class="unstyled inline blog-tags">
+                                        <li><a href="http://blog.datumbox.com/topics/machine-learning-statistics"><i class="icon-tags"></i> Machine Learning &amp; Statistics</a></li>
+                                        <li><a href="http://blog.datumbox.com/topics/programming"><i class="icon-tags"></i> Programming</a></li>
+                                        <li><a href="http://blog.datumbox.com/topics/online-marketing"><i class="icon-tags"></i> Online Marketing</a></li>
+                                        <li><a href="http://blog.datumbox.com/topics/misc"><i class="icon-tags"></i> Misc</a></li>
+                                    </ul>
+            </li>
+            
+    </div>
+    </aside>
+    
+    
+</div><!--/span4-->        
+    </div><!--/row-fluid-->        
+</div><!--/container-->		
+<!--=== End Content Part ===-->
+
+<div class="footer">
+   <div class="container">
+      <div class="row-fluid">
+         <div class="span4">
+            <div class="headline">
+               <h3>About</h3>
+            </div>
+            <p class="margin-bottom-25">
+               Datumbox offers an open-source Machine Learning Framework and an easy to use and powerful API.
+            </p>
+            <div class="headline">
+               <h3>Subscribe To Newsletter</h3>
+            </div>
+            <p>Subscribe to our newsletter and get our latest news!</p>
+            <form action="http://www.datumbox.com/newsletters/subscribe/" class="form-inline" id="MailchimpSubscriberDisplayForm" method="post" accept-charset="utf-8">
+               <div style="display:none;"><input type="hidden" name="_method" value="POST"></div>
+               <div class="input-append">
+                  <input name="data[MailchimpSubscriber][email]" placeholder="Email Address" required="required" class="input-medium" type="email" id="MailchimpSubscriberEmail">                            <input class="btn-u" type="submit" value="Subscribe">                        
+               </div>
+            </form>
+         </div>
+         <!--/span4-->    
+         <div class="span4">
+            <div class="posts">
+               <div class="headline">
+                  <h3>Recent Blog Posts</h3>
+               </div>
+                                    <dl class="dl-horizontal">
+                      <dt><a href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/open-source-150x150.jpg" alt="New open-source Machine Learning Framework written in  Java"></a></dt>
+                      <dd>
+                         <p><a href="./New open-source Machine Learning Framework written in Java   Datumbox_files/New open-source Machine Learning Framework written in Java   Datumbox.html">New open-source Machine Learning Framework written in  Java</a></p>
+                      </dd>
+                     </dl>
+                                      <dl class="dl-horizontal">
+                      <dt><a href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/dirichlet-process-mixture-model-150x150.png" alt="Clustering with Dirichlet Process Mixture Model in Java"></a></dt>
+                      <dd>
+                         <p><a href="http://blog.datumbox.com/clustering-with-dirichlet-process-mixture-model-in-java/">Clustering with Dirichlet Process Mixture Model in Java</a></p>
+                      </dd>
+                     </dl>
+                                      <dl class="dl-horizontal">
+                      <dt><a href="http://blog.datumbox.com/clustering-documents-and-gaussian-data-with-dirichlet-process-mixture-models/"><img src="./New open-source Machine Learning Framework written in Java   Datumbox_files/gaussian-dpmm-150x150.png" alt="Clustering documents and gaussian data with Dirichlet Process Mixture Models"></a></dt>
+                      <dd>
+                         <p><a href="http://blog.datumbox.com/clustering-documents-and-gaussian-data-with-dirichlet-process-mixture-models/">Clustering documents and gaussian data with Dirichlet Process Mixture Models</a></p>
+                      </dd>
+                     </dl>
+                                
+            </div>
+         </div>
+         <!--/span4-->
+         <div class="span4">
+            <!-- Monthly Newsletter -->
+            <div class="headline">
+               <h3>Contact Us</h3>
+            </div>
+            <address>
+               Email: <span class="email"><a href="mailto:info@datumbox.com">info@datumbox.com</a></span> <br>
+            </address>
+            <!-- Stay Connected -->
+            <div class="headline">
+               <h3>Social Media</h3>
+            </div>
+            <ul class="social-icons">
+               <li>
+                  <a href="http://feeds.feedburner.com/Datumbox/" class="social_rss" data-original-title="Feed" target="_blank"></a>                        
+               </li>
+               <li>
+                  <a href="https://www.facebook.com/Datumbox/" class="social_facebook" data-original-title="Facebook" target="_blank"></a>                        
+               </li>
+               <li>
+                  <a href="https://twitter.com/datumbox/" class="social_twitter" data-original-title="Twitter" target="_blank"></a>                        
+               </li><li>
+                  <a href="https://plus.google.com/105921437813621882157/" class="social_googleplus" data-original-title="Google Plus" target="_blank"></a>                        
+               </li>
+               <li>
+                  <a href="http://www.linkedin.com/in/bbriniotis/" class="social_linkedin" data-original-title="LinkedIn" target="_blank"></a>                        
+               </li>
+            </ul>
+         </div>
+         <!--/span4-->
+      </div>
+      <!--/row-fluid-->    
+   </div>
+   <!--/container-->    
+</div>
+<div class="copyright">
+   <div class="container">
+      <div class="row-fluid">
+         <div class="span8">
+            <p>2013-2014 © Datumbox. All Rights Reserved. 
+               <a href="http://www.datumbox.com/privacy-policy/">Privacy Policy</a>                        |
+               <a href="http://www.datumbox.com/terms-of-use/">Terms of Use</a>                    
+            </p>
+         </div>
+         <div class="span4">    
+         </div>
+      </div>
+      <!--/row-fluid-->
+   </div>
+   <!--/container-->    
+</div>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/modernizr.custom.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/bootstrap.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/app.js"></script>
+<script type="text/javascript">
+   // <![CDATA[
+       jQuery(document).ready(function() {
+             App.init();
+       });
+
+   // ]]>
+</script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://www.datumbox.com/js/respond.js"></script>    <![endif]-->
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/form.js"></script>
+<link rel="stylesheet" id="dashicons-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/dashicons.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="thickbox-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/thickbox.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpdk-jquery-ui-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery-ui.custom.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpdk-style-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/wpdk.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-count-plus-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/counter.css" type="text/css" media="all">
+<link rel="stylesheet" id="fboif_sidebar_style-css" href="./New open-source Machine Learning Framework written in Java   Datumbox_files/fboif-sidebar.css" type="text/css" media="all">
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.form.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/blog.datumbox.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/scripts.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.tabs.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.resizable.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.draggable.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.button.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.dialog.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.menu.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.autocomplete.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.slider.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.sortable.min.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.ui.droppable.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var thickboxL10n = {"next":"Next >","prev":"< Prev","image":"Image","of":"of","close":"Close","noiframes":"This feature requires inline frames. You have iframes disabled or your browser does not support them.","loadingAnimation":"http:\/\/blog.datumbox.com\/wp-includes\/js\/thickbox\/loadingAnimation.gif"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/thickbox.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.timepicker.js"></script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/jquery.validate.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpdk_i18n = {"ajaxURL":"http:\/\/blog.datumbox.com\/wp-admin\/admin-ajax.php","messageUnLockField":"Please confirm before unlock this form field.\nDo you want unlock this form field?","timeOnlyTitle":"Choose Time","timeText":"Time","hourText":"Hour","minuteText":"Minute","secondText":"Seconds","currentText":"Now","dayNamesMin":"Su,Mo,Tu,We,Th,Fr,Sa","monthNames":"January,February,March,April,May,June,July,August,September,October,November,December","monthNamesShort":"Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec","closeText":"Close","dateFormat":"mm\/dd\/yy","timeFormat":"HH:mm"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/wpdk.js"></script>
+
+<iframe id="stSegmentFrame" name="stSegmentFrame" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/getSegment.html" frameborder="0" scrolling="no" width="0px" height="0px" style="display:none;"></iframe><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><div id="sthoverbuttons" class="sthoverbuttons-pos-left"><div id="sthoverbuttons-background" class="sthoverbuttons-background-l"><div id="sthoverbuttons-top" class="sthoverbuttons-top-l">&nbsp;</div><div id="sthoverbuttons-shade" class="sthoverbuttons-shade-l">&nbsp;</div><div id="sthoverbuttons-bottom" class="sthoverbuttons-bottom-l">&nbsp;</div></div><div id="sthoverbuttonsMain" class="sthoverbuttonsMain-l"><div class="sthoverbuttons-label"><span>Share</span></div><div class="sthoverbuttons-chicklets"><span class="st_twitter_large" st_via="" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/twitter_32.png);"></span></span></span><span class="st_facebook_large" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/facebook_32.png);"></span></span></span><span class="st_linkedin_large" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/linkedin_32.png);"></span></span></span><span class="st_googleplus_large" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/googleplus_32.png);"></span></span></span><span class="st_reddit_large" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/reddit_32.png);"></span></span></span><span class="st_delicious_large" style="display:block; height: 35px; float:left;" displaytext="" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(http://w.sharethis.com/images/delicious_32.png);"></span></span></span></div></div></div><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/QjK2hWv6uak.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/QjK2hWv6uak(1).html" style="border: none;"></iframe></div></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><iframe name="oauth2relay713604283" id="oauth2relay713604283" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div id="stwrapper" class="stwrapper stwrapper5x" style="display: none; z-index: 89999999;"><iframe allowtransparency="true" id="stLframe" class="stLframe stframe5x" name="stLframe" frameborder="0" scrolling="no" width="514px" height="419px" src="./New open-source Machine Learning Framework written in Java   Datumbox_files/index.cf3727cef3867c5556624d0554f110b8.html" style="top: 0px; left: 0px;"></iframe></div><div id="stOverlay" onclick="javascript:stWidget.closeWidget();" style="height: 100%; width: 100%; opacity: 0.6; position: fixed; display: none; left: 0px; top: 0px; z-index: 89999990; background-color: rgb(0, 0, 0);"></div></body></html>
