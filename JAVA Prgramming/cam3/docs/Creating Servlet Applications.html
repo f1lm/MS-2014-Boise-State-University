@@ -1,0 +1,281 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Müller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <title>Creating Servlet Applications</title>
+<link REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
+</head>
+<body>
+
+<h1>Creating Servlet Applications</h1>
+
+<h2>
+Precautions</h2>
+Before you begin to build Servlet applications, you should have read <a href="Defining data structures.html">Defining
+data structures</a>. Servlet applications use these "data objects" to read
+and write database tables.
+<h2>
+Introduction</h2>
+To access large amounts of data, we typically need to navigate precisely
+through the data, select an entry and then modify it. For to see what we
+are talking about: Get an overview about how the sample application "Marketing"
+is created. Browse the <a href="Servlet-Screenshots.html">screenshots with
+links to source and super class Documentation</a>.Test live application
+at <a href="http://www.must.de/cameleon.html">http://www.must.de/cameleon.html</a>,
+Button "Test Sample Application".
+<p><b>What's remarkable?</b>
+<br>The application has one single servlet that handles all reqests which
+extends <a href="api/de/must/markup/MainStd.html">de.must.markup.MainStd</a>.
+It divides all requests into sessions, super classes of <a href="api/de/must/markup/SessionStd.html">de.must.markup.SessionStd</a>.
+Each session has a hierarchical mirror of the users open stuff.
+<br>&nbsp;
+<h2>
+Principles</h2>
+
+<h3>
+The Servlet Application Principle</h3>
+
+<p><br><img SRC="markup-overview.jpg" height=344 width=645>
+<br><b><font size=+1>Legend</font></b>
+<br>&nbsp;
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td WIDTH="10%"><b>Element</b></td>
+
+<td><b>Description</b></td>
+
+<td WIDTH="20%"><b>Representant</b></td>
+</tr>
+
+<tr>
+<td>Servlet Main</td>
+
+<td>Central servlet for all requests. It separates sessions from each other
+and delegates the request to the appropriate Session object.</td>
+
+<td><a href="src-html/de/jugs/cookbook/Main.html">de.jugs.cookbook.Main</a></td>
+</tr>
+
+<tr>
+<td>Session</td>
+
+<td>Image of the session with its dialog stack. Each dialog is represented
+by an Invokable.</td>
+
+<td><a href="src-html/de/jugs/cookbook/Session.html">de.jugs.cookbook.Session</a></td>
+</tr>
+
+<tr>
+<td>Container</td>
+
+<td>Frame-like Container to enclose input-output fields like text fields
+with database field association.</td>
+
+<td><a href="src-html/de/jugs/cookbook/CookbookAdministration.html">de.jugs.cookbook.CookbookAdministration</a></td>
+</tr>
+
+<tr>
+<td>Fields</td>
+
+<td>Java objects, whose methods are similar to the Swing based objects
+in package de.must.markup.</td>
+
+<td><a href="api/de/must/markup/DataTextField.html">de.must.markup.DataTextField</a></td>
+</tr>
+
+<tr>
+<td>Layouter</td>
+
+<td>Liberal creator of the markup tag sequence. Collects information from
+all actually active components including their state and layouts them.
+The layout may be replaced during the execution and may differ from session
+to session.</td>
+
+<td><a href="api/de/must/markup/HostLayout.html">de.must.markup.HostLayout</a></td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h3>
+The stack control principle</h3>
+The substantial class to control the stack of dialog steps is the Session
+class. This means branching to deeper dialogs and continuing the former
+dialog when finished. Also, dialog steps have do exchange information with
+each other to coordinate. How is this done?
+<center>
+<p><img SRC="dialog-stack-principle.jpg" height=189 width=590></center>
+
+<ol>
+<li>
+The session class invokes the root dialog step (dialog step 1).</li>
+
+<li>
+Dialog step 1 interprets user input and decides to cause dialog step 2.
+It creates submission info to be retrieved by dialog step 2 later.</li>
+
+<li>
+The session class invokes dialog step 2 as requested by dialog step 1 and
+informs it, that it was submitted by dialog step 1.</li>
+
+<li>
+Dialog step 2 retrieves detailled submission infos from dialog step 1</li>
+
+<li>
+After work is done, dialog step 2 causes the session to return to dialog
+step 1 by indicating a stack movement of -1.</li>
+</ol>
+This principle may be repeated in arbitrary amounts of stack tiers.
+<br>&nbsp;
+<h2>
+Developing a Server Application</h2>
+
+<h3>
+Preparation</h3>
+Create a package of your choice.
+<br>&nbsp;
+<h3>
+Create Global</h3>
+Create a Global class extending <a href="api/de/must/middle/GlobalStd.html">de.must.middle.GlobalStd</a>.
+It is meant to contain all objects public for the entire application, e.g.
+the main database connection. --> <a href="src-html/de/jugs/cookbook/Global.html">Sample</a>
+<br>&nbsp;
+<h3>
+Create Main</h3>
+Create a Main class extending <a href="api/de/must/markup/MainStd.html">de.must.markup.MainStd</a>.
+The only thing to do is to provide informations about global objects via
+<tt>getGlobal()</tt>
+and to indicate the Session class via <tt>getSessionClass()</tt>. --> <a href="src-html/de/jugs/cookbook/Main.html">Sample</a>
+<br>This Main class is the one and only servlet used in the URL of the
+entire application.
+<br>&nbsp;
+<h3>
+Create Entitlement</h3>
+Since Internet applications may be accessed by anyone, it is important
+to distinguish entitlements easily. The central method to regulate it is
+<tt>getLevel(int
+subjectArea)</tt>. How does it work? The entitlement indicates the subject
+area of the wished dialog or process to be done. You may now decide, if
+the user is allowed to do it, and if so, which level. E.g. you indicate
+via level, that he may see data but not change it. Return the appropriate
+level to control it. --> <a href="src-html/de/jugs/cookbook/Entitlement.html">Sample</a>
+For getting started, you may at first always return LEVEL_ALL.
+<br>&nbsp;
+<h3>
+Create the Session Class</h3>
+Define the "post action" and the application title via constructor. In
+the <tt>build()</tt> method there is an oportunity to do any individual
+stuff. At least you should set the following values there:
+<ul>
+<li>
+<tt>sessionData.setResourceBundle()</tt></li>
+
+<li>
+<tt>sessionData.entitlement = new Entitlement(sessionData)</tt>;</li>
+
+<li>
+<tt>sessionData.menuBar = new MainMenu(sessionData)</tt>;</li>
+
+<li>
+<tt>setToolBar(new ToolBar(sessionData))</tt>;</li>
+
+<li>
+<tt>setLayout(new HostLayout()</tt>;</li>
+</ul>
+Finally, you define the root dialog via baseInvoke(), this may be an <a href="api/de/must/markup/Invokable.html">Invokable</a>
+or a <a href="api/de/must/markup/MustMenuBar.html">MustMenuBar</a> object.
+The Session class' build method determines the appearance of the server
+application. --> <a href="src-html/de/jugs/cookbook/Session.html">Sample</a>
+<br>&nbsp;
+<h3>
+Create the MainMenu Class</h3>
+The menus appearance is defined in the constructor of MainMenu. The root
+header is defined via <tt>setRootMenuDescription()</tt>. You may hierarchically
+create a menu tree by using the methods <tt>addMenu(), addSubMenu()</tt>
+and
+<tt>closeMenu(). </tt>Fill the menus with items via method
+<tt>addMenuItem()</tt>.
+<br>&nbsp;
+<br>&nbsp;
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td WIDTH="25%"><tt>addMenu()</tt></td>
+
+<td>Creates a new top first level menu, former submenus are implicitly
+closed.</td>
+</tr>
+
+<tr>
+<td><tt>addSubMenu()</tt></td>
+
+<td>Creates a new menu one level below the current menu.</td>
+</tr>
+
+<tr>
+<td><tt>closeMenu()</tt></td>
+
+<td>Closes the current menu and allows to continue in the menu one level
+above.</td>
+</tr>
+
+<tr>
+<td><tt>addMenuItem()</tt></td>
+
+<td>Adds a new menu item to the current menu. At the most frequent Dialogs
+are assigned here.</td>
+</tr>
+</table>
+--> <a href="src-html/de/jugs/cookbook/MainMenu.html">Sample</a>
+<h3>
+Create a ToolBar</h3>
+The toolbar is not required, but useful. It is similar to the menu, but
+it has only one level. Using a toolbar option cancels the current dialog
+step. After the toolbar option is done, the control goes back to the root.
+--> <a href="src-html/de/jugs/cookbook/ToolBar.html">Sample</a>
+<br>&nbsp;
+<h3>
+Create Dialogs</h3>
+
+<h3>
+Introduction</h3>
+You are ready now to develop your application by creating <a href="api/de/must/markup/Dialog.html">Dialogs</a>
+and add them to the menu and the toolbar. <i>Dialogs</i> are <i>invokeables</i>,
+that control user interaction and stack movement upwards and downwards.
+<br>&nbsp;
+<h3>
+Administrating big entities</h3>
+Unlike the handling in package <a href="api/de/must/wuic/package-summary.html">wuic</a>
+there are seperate dialog steps for enquiry and listing of data. Since
+internet applications often reduce access to read-only, additional components
+for browsing are used frequently. See <a href="api/de/must/markup/EntitlementStd.html">de.must.markup.EntitlementStd</a>
+and its subclass <a href="src-html/de/jugs/cookbook/Entitlement.html">de.jugs.cookbook.Entitlement</a>
+for how access control is provided.
+<p><b>Enquiry</b>
+<br>The enquiry input is controlled by <a href="api/de/must/markup/Enquiry.html">de.must.markup.Enquiry</a>.
+--> <font size=+0><a href="Servlet-Screenshots.html#Enquiry">(Screenshot)</a></font>
+<p><b>Listing</b>
+<br>The consequence of the enquiry is an overview of the matching entries
+with the opportunity to browse details or request modification, deletion
+among others. This functionality is provided by <a href="api/de/must/markup/DataList.html">de.must.markup.DataList.html</a>
+--> <font size=+0><a href="Servlet-Screenshots.html#DataList">(Screenshot)</a></font>
+<p><b>Browsing details</b>
+<br>If the user clicks the item in the overview, he's going to browse the
+details of this item. This functionality is provided by <a href="api/de/must/markup/DataPropertyPresentation.html">de.must.markup.DataPropertyPresentation</a>.&nbsp;
+--> <font size=+0><a href="Servlet-Screenshots.html#DataPropertyPresentation">(Screenshot)</a></font>
+<p><b>Modifying</b>
+<br>If authorized, the user may modify the entries by using subclasses
+of <a href="api/de/must/markup/DataPropertyAdministration.html">de.must.markup.DataPropertyAdministration</a>.
+--> <font size=+0><a href="Servlet-Screenshots.html#DataPropertyAdministration">(Screenshot)</a></font>
+<br>&nbsp;
+<h3>
+Administrating small entities <font size=+0><a href="Servlet-Screenshots.html#DataTableAdministration">(Screenshot)</a></font></h3>
+Some entities have view rows and columns. They may be edited in a table
+sheet. In this case, use <a href="api/de/must/markup/DataTableAdministration.html">de.must.markup.DataTableAdministration</a>
+as done in <a href="src-html/de/jugs/cookbook/TypeAdministration.html">de.jugs.cookbook.TypeAdministration</a>.
+<hr width="100%">
+<font size="-2">&copy; Copyright 2001-2004 Christoph
+M&uuml;ller, K&auml;rntner Str. 56, D-70469 Stuttgart, Germany, <a
+ href="http://www.must.de">http://www.must.de</a></font>
+</body>
+</html>

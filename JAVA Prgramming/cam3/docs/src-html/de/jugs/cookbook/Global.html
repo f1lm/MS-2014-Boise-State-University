@@ -1,0 +1,88 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>Global</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+
+package de.jugs.cookbook;
+
+import de.must.middle.GlobalStd;
+import de.must.dataobj.ConnectionSpecification;
+
+//import java.io.InputStream;
+//import java.util.Properties;
+//import java.util.PropertyResourceBundle;
+
+/**
+ * Container for global objects. To be used for shared use of any objects.
+ * This is session comprehensive. Sample: database connections or connections
+ * pools may be stored here.
+ * @author Christoph Mueller
+ */
+public class Global extends GlobalStd {
+
+  private static Global instance;
+
+  public final static Global getInstance() {
+    if (instance == null) {
+      instance = new Global();
+    }
+    return instance;
+  }
+  
+  public Global() {
+//    if (System.getProperty("user.name").equals("Christoph Müller")) {
+//      connectionSpecification = new ConnectionSpecification(
+//        "jdbc:mysql://192.168.1.36/cookbook", "org.gjt.mm.mysql.Driver", "cook", "pwd1"
+//         // "cookbook", "cook", "pwd1"
+//        );
+//    } else {
+//      connectionSpecification = new ConnectionSpecification(
+//        "jdbc:mysql://localhost/cookbook", "org.gjt.mm.mysql.Driver", "cook", "pwd1"
+//      );
+//    }
+    if (System.getProperty("os.name").toLowerCase().indexOf("linux")!= -1) {
+      connectionSpecification = new ConnectionSpecification(
+          "jdbc:mysql://localhost/cookbook", "org.gjt.mm.mysql.Driver", "cook", "pwd1"
+        );
+    } else {
+      connectionSpecification = new ConnectionSpecification("Cookbook");
+      encryptPasswords = false;
+    }
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

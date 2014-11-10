@@ -1,0 +1,108 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>AddressDrawer</h1>
+package mkt;
+
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.font.TextAttribute;
+import java.awt.print.PageFormat;
+import java.awt.print.Paper;
+import java.awt.print.Printable;
+import java.awt.print.PrinterJob;
+import java.text.AttributedString;
+
+import de.must.print.PageDrawer;
+import de.must.print.MotivePageFormat;
+
+public class AddressDrawer extends PageDrawer {
+  
+  private String header = "MÜLLER UND STEIN software • Kärntner Str. 56 • 70469 Stuttgart"; // TODO parameter
+  
+  /**
+   * Returns the page format for planning state that data may fit into form.
+   * @return the page format for planning state
+   */
+  private static MotivePageFormat getPlanningPageFormat() {
+    MotivePageFormat pageFormat = new MotivePageFormat();
+    Paper paper = new Paper();
+    // --------------------------------------
+    // Ging schon einmal ohne Absturz für Adressetikett groß (99012)
+    paper.setSize(108, 252);
+    paper.setImageableArea(4, 10, 100, 225);
+    pageFormat.setOrientation(PageFormat.LANDSCAPE);
+    // --------------------------------------
+    // Teststrecke für Adressetikett groß (99012)
+    paper.setSize(103, 250);
+    paper.setImageableArea(3, 5 , 97, 228);
+    pageFormat.setOrientation(PageFormat.LANDSCAPE);
+    // --------------------------------------
+    pageFormat.setPaper(paper);
+    return pageFormat;
+  }
+  
+  public AddressDrawer() {
+    setLineSpace(2);
+  }
+
+  private String[] addressLines;
+  private Font headerFont;
+  
+  public void setData(String[] addressLines) {
+    this.addressLines = addressLines;
+  }
+
+  public MotivePageFormat getPageFormat(PrinterJob printerJob) {
+    return getPlanningPageFormat();
+  }
+  
+  public int draw(Graphics graphics, int pageIndex) {
+    if (pageIndex != 0) return Printable.NO_SUCH_PAGE;
+    startFromBeginning();
+    graphics.setFont(new Font(graphics.getFont().getFontName(), graphics.getFont().getStyle(), 10));
+    if (headerFont == null) {
+      originalFont = graphics.getFont();
+      headerFont = new Font(graphics.getFont().getFontName(), graphics.getFont().getStyle(), 7);
+    }
+    AttributedString as = new AttributedString(header);
+    as.addAttribute(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+    as.addAttribute(TextAttribute.FONT, headerFont);
+    drawLine(graphics, as);
+    for (int i = 0; i < addressLines.length; i++) {
+      drawLine(graphics, addressLines[i]);
+    }
+    return Printable.PAGE_EXISTS;
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

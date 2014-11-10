@@ -1,0 +1,112 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>FrUserSl</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+package mkt;
+
+import de.must.wuic.*;
+import java.awt.*;
+
+/**
+ * @author Christoph Mueller
+ */
+public class FrUserSl extends SimpleDataListFrame {
+  private DoUser doUser1 = new DoUser();
+  private MustTextField tfUserBz;
+  private MustTextField tfUserId;
+  private static final int LIST_BY_USERID = 0;
+  private static final int LIST_BY_USERBZ = 1;
+  private int listMode = LIST_BY_USERID;
+
+  public static void openMainInstance() {
+    getOrCreateMainInstance().open();
+  }
+  
+  public static FrUserSl getOrCreateMainInstance() {
+    return (FrUserSl)getOrCreateMainInstance(FrUserSl.class);
+  }
+
+  public FrUserSl() {
+    this(null);
+  }
+
+  public FrUserSl(Frame ParentFrame) {
+    super(ParentFrame);
+    this.setTitle("Benutzer des Marketing-Systems");
+
+    newPanel("Allg.");
+    tfUserId = createTextField("Benutzer-ID", 20);
+    tfUserBz = createTextField("Name", 20);
+    setAssociatedPropertyAdministration(FrUserPr.class);
+    setListDataObject(doUser1);
+    tfUserId.requestFocus();
+
+    creationEnding();
+  }
+
+  public String getSelectionFields() {
+    return "userni, userid, userbz";
+  }
+
+  public String getWhereCondition() {
+    listMode = LIST_BY_USERID;
+    return "userid like \'" + tfUserId.getText() + "%\'";
+  }
+
+  public String getOrderByFields() {
+    switch (listMode) {
+    case LIST_BY_USERID:
+      return "userid";
+    case LIST_BY_USERBZ:
+      return "userbz";
+    }
+    return "";
+  }
+
+  public String getRowString() {
+    switch (listMode) {
+    case LIST_BY_USERBZ:
+      return doUser1.getText("userbz");
+    default:
+      return doUser1.getText("userid");
+    }
+  }
+
+}
+
+
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

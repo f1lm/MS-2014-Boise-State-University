@@ -1,0 +1,72 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Müller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <title>Creating Swing Applications</title>
+<link REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
+</head>
+<body>
+
+<h1>Creating Swing Applications</h1>
+
+<h2>
+Precautions</h2>
+Before you begin to build Swing applications, you should have read <a href="Defining data structures.html">Defining
+data structures</a>. Swing Applications use these <a href="api/de/must/dataobj/DataObject.html">data
+objects</a> to read and write database tables.
+<h2>
+Introduction</h2>
+To access large amounts of data, we typically need to navigate precisely
+through the data, select an entry and then modifying it. For to see what
+we are talking about: Get an overview about how the sample application
+"Marketing" is created. Browse the <a href="Swing-Screenshots.html">screenshots
+with links to source and super class Documentation</a>. To test the effect
+of the used instruction try to get the sample application "Marketing" in
+package <tt>mkt</tt>, class <tt>Main running</tt>.
+<br>&nbsp;
+<h2>
+Administrating big entities <font size=+0><a href="Swing-Screenshots.html#DataPropertyAdministration">(Screenshot)</a></font></h2>
+For navigating (enquiry plus selection of an entry) we use <a href="api/de/must/wuic/ColumnDataListFrame.html">de.must.wuic.ColumnDataListFrame</a>
+or <a href="api/de/must/wuic/SimpleDataListFrame.html">de.must.wuic.SimpleDataListFrame</a>
+- sample see <a href="src-html/mkt/FrKontaktSl.html">mkt.FrKontaktSl</a>.
+For changing, copying or inserting a new entry we use <a href="api/de/must/wuic/DataPropertyAdministration.html">de.must.wuic.DataPropertyAdministration</a>-
+sample see <a href="src-html/mkt/FrKontaktPr.html">mkt.FrKontaktPr</a>.
+<p>Important UI components for data input
+<ul>
+<li>
+<a href="api/de/must/wuic/DataTextField.html">de.must.wuic.DataTextField</a></li>
+
+<li>
+<a href="api/de/must/wuic/DataDateField.html">de.must.wuic.DataDateField</a></li>
+
+<li>
+<a href="api/de/must/wuic/DataComboBox.html">de.must.wuic.DataComboBox</a></li>
+</ul>
+and more of these components that implement the interface <a href="api/de/must/wuic/DataComponent.html">de.must.wuic.DataComponent.</a>
+<br>&nbsp;
+<h2>
+Administrating small entities <font size=+0><a href="Swing-Screenshots.html#DataTableAdministration">(Screenshot)</a></font></h2>
+Some entities have view rows and columns. They may be edited in a table
+sheet. In this case, use <a href="api/de/must/wuic/DataTableAdministration.html">de.must.wuic.DataTableAdministration</a>
+as done in <a href="src-html/mkt/FrGrPj.html">mkt.FrGrPj</a>.
+<br>&nbsp;
+<h2>
+Menu and Toolbar <font size=+0><a href="Swing-Screenshots.html#Menu">(Screenshot)</a></font></h2>
+To bring the user in touch with your application parts, offer your administrations
+as a menu item or / and as toolbar button. Menu frames are subclasses of
+<a href="api/de/must/wuic/MenuFrame.html">de.must.wuic.MenuFrame</a> like
+e.g. <a href="src-html/mkt/MainMenu.html">mkt.MainMenu</a>. You may control
+entitlements by grouping subject areas and users. See sample <a href="src-html/mkt/Entitlement.html">mkt.Entitlement</a>,
+which extends&nbsp; <a href="api/de/must/middle/EntitlementStd.html">de.must.middle.EntitlementStd</a>.
+For flexible access control implement <tt>isEntitled(),</tt> you may use
+the current user <a href="src-html/mkt/CurrentUser.html">mkt.CurrentUser</a>
+to check matching entitlements. Also, toolbar item definitions are used
+in the sample.
+<hr width="100%">
+<font size="-2">&copy; Copyright 2001-2004 Christoph
+M&uuml;ller, K&auml;rntner Str. 56, D-70469 Stuttgart, Germany, <a
+ href="http://www.must.de">http://www.must.de</a></font>
+</body>
+</html>

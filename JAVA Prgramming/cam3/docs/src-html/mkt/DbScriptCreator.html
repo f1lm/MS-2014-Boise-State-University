@@ -1,0 +1,85 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>DbScriptCreator</h1>
+package mkt;
+
+import java.io.IOException;
+
+import de.must.dataobj.*;
+import de.must.io.*;
+
+/**
+ * @author Christoph Mueller
+ */
+public final class DbScriptCreator {
+
+  public static void createScript() {
+    // MySql version
+    try {
+      Protocol out = new Protocol("createDB.sql");
+      out.addEntry("create database marketing;");
+      out.addEntry("use marketing;");
+      out.addEntry(MysqlDialect.getCreateStatement(DoIdent.tableName, DoIdent.attributes, DoIdent.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoUser.tableName, DoUser.attributes, DoUser.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoParam.tableName, DoParam.attributes, DoParam.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoKontakt.tableName, DoKontakt.attributes, DoKontakt.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoKontaktart.tableName, DoKontaktart.attributes, DoKontaktart.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoGrPj.tableName, DoGrPj.attributes, DoGrPj.indices) + ";");
+      out.addEntry(MysqlDialect.getCreateStatement(DoGzPj.tableName, DoGzPj.attributes, DoGzPj.indices) + ";");
+
+      out.addEntry("use mysql;");
+      out.addEntry("-- remove what you think you don't need and modify what you need --");
+      out.addEntry("insert into host (Host, Db, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost', 'marketing', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into host (Host, Db, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost.localdomain', 'marketing', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost', 'marketing', 'mktuser', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost.localdomain', 'marketing', 'mktuser', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('%', 'marketing', 'mktuser', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Reload_priv, Shutdown_priv, Process_priv, File_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('%', 'mktuser', password('mktpwd'), 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Reload_priv, Shutdown_priv, Process_priv, File_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost', 'mktuser', password('mktpwd'), 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Reload_priv, Shutdown_priv, Process_priv, File_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('localhost.localdomain', 'mktuser', password('mktpwd'), 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+      out.addEntry("-- don't forget mysqladmin reload! --");
+      out.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public DbScriptCreator() {
+  }
+
+  static public void main(String[] args) {
+    createScript();
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

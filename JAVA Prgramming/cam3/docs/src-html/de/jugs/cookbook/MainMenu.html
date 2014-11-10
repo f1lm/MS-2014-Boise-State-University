@@ -1,0 +1,79 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>MainMenu</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+
+package de.jugs.cookbook;
+
+import de.must.markup.*;
+
+/**
+ * Hierarchical menu definition. Declare your menu structur via addMenu,
+ * addMenuItem, addSubMenu and closeMenu. The framework will lead the user
+ * through the menu tree.
+ * @author Christoph Mueller
+ */
+public final class MainMenu extends MustMenuBar {
+
+  public MainMenu(SessionData sessionData) {
+    super(sessionData);
+    setRootMenuDescription(sessionData.getResourceString("TEXT_COOKBOOK_MAIN_MENU"));
+
+    addMenu(sessionData.getResourceString("TEXT_COOKBOOK"), Entitlement.AREA_COOKBOOK_GENERAL);
+    addMenuItem(sessionData.getResourceString("TEXT_COOKBOOK_ENQUIRY"), CookbookEnquiry.class);
+    addMenuItem(sessionData.getResourceString("TEXT_NEW_RECIPE"), CookbookAdministration.class);
+
+    addMenu(sessionData.getResourceString("TEXT_CATEGORY"), Entitlement.AREA_COOKBOOK_ORGANIZATION, Entitlement.LEVEL_CHANGE);
+    addMenuItem(sessionData.getResourceString("TEXT_RECIPE_TYPES"), TypeAdministration.class);
+
+    addMenu(sessionData.getResourceString("TEXT_ADMINISTRATION"), Entitlement.AREA_GLOBAL_ADMINISTRATION);
+    addSubMenu(sessionData.getResourceString("TEXT_USER_ADMINISTRATION"), Entitlement.AREA_GLOBAL_ADMINISTRATION);
+    addMenuItem(sessionData.getResourceString("TEXT_USER_ENQUIRY"), UserEnquiry.class);
+    addMenuItem(sessionData.getResourceString("TEXT_NEW_USER"), UserAdministration.class);
+    closeMenu();
+    // addMenuItem(sessionData.getResourceString("TEXT_CHANGE_LAYOUT"), LayoutChooser.class);
+    closeMenu();
+
+    addMenuItem(sessionData.getResourceString("TEXT_LOGIN_FOR_MORE_FUNCTIONALITY"), CookBookLogin.class);
+    addMenuItem(sessionData.getResourceString("TEXT_CHANGE_PASSWORD"), PasswordChangeDialog.class);
+    addMenuItem(sessionData.getResourceString("TEXT_HELP_INDEX"), new FreeAction("showHelpIndex()", sessionData.getResourceString("URI_HELP_INDEX")));
+    addMenuItem("Info", new Href("./../must.html"));
+    // addMenuItem(getResourceString(res, "TEXT_CHANGE_LANGUAGE"), LanguageChooser.class);
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

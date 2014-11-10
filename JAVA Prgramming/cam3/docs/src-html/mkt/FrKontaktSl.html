@@ -1,0 +1,328 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>FrKontaktSl</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code
+ */
+package mkt;
+
+import de.must.middle.InterruptibleBatchThread;
+import de.must.print.PageDrawerPrinting;
+import de.must.util.InteractiveWordProcessing;
+import de.must.wuic.*;
+import de.must.dataobj.*;
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+
+/**
+ * @author Christoph Mueller
+ */
+public class FrKontaktSl extends SimpleDataListFrame {
+  private DoKontaktJoined doKontaktForList = new DoKontaktJoined();
+  private DoKontakt doKontaktForActions = new DoKontakt(); // no duplicate identifier
+  private MustTextField tfFirma;
+  private MustTextField tfNachname;
+  private MustMultChoice groupChoice;
+  private HalfDataComboBox kontaktart;
+  private static final int LIST_BY_COMPANY = 0;
+  private static final int LIST_BY_LAST_NAME = 1;
+  private int listMode = LIST_BY_COMPANY;
+
+  public static void openMainInstance() {
+    getOrCreateMainInstance().open();
+  }
+  
+  public static FrKontaktSl getOrCreateMainInstance() {
+    return (FrKontaktSl)getOrCreateMainInstance(FrKontaktSl.class);
+  }
+
+  public FrKontaktSl() {
+    this(null);
+  }
+
+  public FrKontaktSl(Frame ownerFrame) {
+    super(ownerFrame);
+    setTitle("Kontaktauswahl");
+    setAutoInitialListFill(false);
+
+    newPanel("Namen");
+    tfFirma = createTextField("Firma", 20);
+    tfNachname = createTextField("Nachname", 20);
+    createTextFieldForGlobalSearch("Global", 30);
+
+    groupChoice = new MustMultChoice(new DoGrPj(), new String[] {"GRPJBZ"}, new String[] {"Bezeichnung"});
+    newPanel("Gruppen", groupChoice, new Dimension (200, 80));
+    groupChoice.setPreferedColumnSize(new int[] {30, 300});
+
+    newPanel("Kontaktart");
+    kontaktart = createComboBox("Kontaktart", new DoKontaktart(), "KontartBZ");
+
+    newPanelWithExpertSearchTextArea("Expertenrecherche");
+    if (!isLayouted()) this.setSize((int)this.getSize().getWidth(), 500);
+
+    setAssociatedPropertyAdministration(FrKontaktPr.class);
+    setListDataObject(doKontaktForList);
+
+    MustButton expButton = new MustButton("Exp"); expButton.setToolTipText("Export in Textdatei");
+    panelSelectButtons.add(expButton);
+    expButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent e) {
+        ExportFile thread = new ExportFile();
+        BatchThreadControllerFrame controller = new BatchThreadControllerFrame();
+        controller.setTitle("Erzeuge Datei");
+        thread.setThreadController(controller);
+        thread.start();
+      }
+    });
+
+    MustButton BufferButton = new MustButton("Puffer"); BufferButton.setToolTipText("Puffern für Serienbrief etc.");
+    panelSelectButtons.add(BufferButton);
+    BufferButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent e) {
+        Buffering buffering = new Buffering();
+        BatchThreadControllerFrame controller = new BatchThreadControllerFrame();
+        controller.setTitle("Auswahl in Puffer kopieren");
+        buffering.setThreadController(controller);
+        buffering.start();
+      }
+    });
+
+    MustButton EmailButton = new MustButton("@"); EmailButton.setToolTipText("e-mail verfassen");
+    panelButtons.add(EmailButton);
+    EmailButton.setSelectDependence(centerList);
+    EmailButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        doKontaktForActions.load(centerList.getSelectedIdentifier());
+        de.must.util.Mail.editMail(doKontaktForActions.getemail());
+      }
+    });
+
+    MustButton LetterButton;
+    panelButtons.add((LetterButton = new MustButton(new ImageIcon("./bin/images/ComposeMail24.gif"))));
+    LetterButton.setToolTipText("Einen Brief schreiben");
+    LetterButton.setPreferredSize(buttonProperties.getPreferredSize());
+    LetterButton.setSelectDependence(centerList);
+    LetterButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        try {
+          InteractiveWordProcessing iwp = new InteractiveWordProcessing();
+          doKontaktForActions.load(centerList.getSelectedIdentifier());
+          String[] Temp = doKontaktForActions.getAdresslines();
+          iwp.setNoteNotMatchingBookmarks(false);
+          iwp.createNewDocumentFromTemplateToSelectByUser();
+          for (int i = 0; i < Temp.length; i++) {
+            iwp.typeTextAtBookmark("AddressLine" + (i+1), Temp[i]);
+          }
+          iwp.typeTextAtBookmark("Salutation", doKontaktForActions.getSalutation());
+          for (int i = 0; i < Temp.length; i++) {
+            iwp.typeTextAtBookmark("AddressLine" + (i+1) + "b", Temp[i]);
+          }
+          iwp.exec();
+        } catch(java.io.IOException ioe) {
+          Global.getInstance().mainLogger.error(getClass(), ioe);
+        }
+      }
+    });
+
+    MustButton EtikButton = new MustButton("E"); EtikButton.setToolTipText("Etikett drucken");
+    panelButtons.add(EtikButton);
+    EtikButton.setSelectDependence(centerList);
+    EtikButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        boolean directPrint = true;
+        if (directPrint) {
+          doKontaktForActions.load(centerList.getSelectedIdentifier());
+          AddressDrawer drawer = new AddressDrawer();
+          drawer.setData(doKontaktForActions.getAdresslines());
+          PageDrawerPrinting print = new PageDrawerPrinting(drawer);
+          print.setPrinter("DYMO LabelWriter 400");
+          print.print();
+        } else {
+          try {
+            de.must.util.BatchWordProcessing wp = new de.must.util.BatchWordProcessing();
+            doKontaktForActions.load(centerList.getSelectedIdentifier());
+            String[] temp = doKontaktForActions.getAdresslines();
+            wp.createNewDocumentFromTemplate("MSEtikett");
+            // wp.createNewDocumentFromTemplate("PrivatEtikett");
+            for (int i = 0; i < temp.length; i++) {
+              wp.typeTextAtBookmark("AddressLine" + (i+1), temp[i]);
+            }
+            wp.printAndForget();
+            wp.exec();
+          } catch(java.io.IOException ioe) {
+            Global.getInstance().mainLogger.error(getClass(), ioe);
+          }
+        }
+      }
+    });
+
+    creationEnding();
+    jSplitPane1.setDividerLocation(150);
+  }
+
+  protected void delayedInititialActions() {
+    tfFirma.requestFocus(); // ??
+  }
+
+  protected void ChooseListDataObject() {
+    doKontaktForList.setAdditionalTables("");
+  }
+
+  public String getSelectionFields() {
+    return "Kontakt.KontaktNi, Firma, AKGRID, NAMNAC, NAMVOR, GESCID";
+  }
+
+  public String getWhereCondition() {
+    int countAddCon = -1;
+    String[] additionalConditions = new String[20];
+    listMode = LIST_BY_COMPANY;
+    if (tfFirma.getText().equals("") & !tfNachname.getText().equals("")) listMode = LIST_BY_LAST_NAME;
+    WhereCondition whereCondition = new WhereCondition(Global.getInstance().isMainConnOracle());
+    if (tfFirma.getText().length() > 0) {
+      whereCondition.append("Firma", "%" + tfFirma.getText() + "%");
+    }
+    if (tfNachname.getText().length() > 0) {
+      whereCondition.append("NAMNAC", tfNachname.getText() + "%");
+    }
+    String whereCondition2 = "";
+    if (countAddCon > -1) {
+      whereCondition2 += "(" + additionalConditions[0];
+    }
+    for (int i = 1; i <= countAddCon; i++) {
+      whereCondition2 += " or ";
+      whereCondition2 += additionalConditions[i];
+    }
+    if (countAddCon > -1) whereCondition2 += ")";
+    if (whereCondition2.length() > 0) {
+      whereCondition.append(whereCondition2);
+    }
+ 
+    String groupSelection = groupChoice.getModel().getSelectedIdentifierCondition("GRPJNI");
+
+    if (!groupSelection.equals("")) {
+      // doKontaktForList.setAdditionalTables("Gzpj"); // variant without "where in" for MySQL
+      // whereCondition += " and Kontakt.KontaktNi = Gzpj.KontaktNi and "; // variant without "where in" for MySQL
+      whereCondition.append("KontaktNi in (select KontaktNi from Gzpj where ");
+      whereCondition.append(groupSelection + ")");
+    }
+
+    if (kontaktart.isSpecialChoice()) {
+      whereCondition.append("KontartNI = " + kontaktart.getSelectedIdentifier());
+    }
+
+    return whereCondition.toString();
+  }
+
+  public String getOrderByFields() {
+    switch (listMode) {
+    case LIST_BY_LAST_NAME:
+      return "NAMNAC, NAMVOR";
+    }
+    return "Firma, NAMNAC, NAMVOR";
+  }
+
+  public String getRowString() {
+    String temp, temp2;
+    switch (listMode) {
+    case LIST_BY_COMPANY:
+      temp = doKontaktForList.getText("Firma");
+      if (temp.equals("")) temp = "privat";
+      return temp + " / " + doKontaktForList.getTitledFullName();
+    default:
+      temp = doKontaktForList.getTitledFullName();
+      temp2 = doKontaktForList.getText("Firma");
+      if (!temp2.equals("")) temp += " / " + temp2;
+      return temp;
+    }
+  }
+
+  class Buffering extends InterruptibleBatchThread {
+    protected void runCore() {
+      DoKontakt doKontakt = new DoKontakt();
+      DoAddressBuffer doAddressBuffer1 = new DoAddressBuffer();
+      doAddressBuffer1.clear();
+      doKontakt.select("*", getElaboratedWhereCondition(), "PLZ");
+      int counter = 0;
+      while (isToRun() && doKontakt.nextRow()) {
+        statusLabel.setStatus("Bearbeite Kontakt " + counter++ );
+        doAddressBuffer1.newRow();
+        DataUtil.moveCorr(doKontakt, doAddressBuffer1);
+        doAddressBuffer1.insert();
+      }
+      doKontakt.closeQuery();
+      statusLabel.resetDefault();
+    }
+  }
+
+  class ExportFile extends InterruptibleBatchThread {
+    DoKontakt doKontakt = new DoKontakt();
+    protected void runCore() {
+      String orderBy = "LANDID, PLZ";
+      // String orderBy = "Firma";
+      doKontakt.select("*", getElaboratedWhereCondition(), orderBy);
+      try {
+        de.must.io.Protocol out = new de.must.io.Protocol("Adressen.csv");
+        int counter = 0;
+        while (isToRun() && doKontakt.nextRow()) {
+          setMessage("Bearbeite Kontakt " + counter++ );
+          String land = doKontakt.getText("LANDID");
+          String plz = doKontakt.getText("PLZ");
+          if (plz.length() == 0) {
+            plz = doKontakt.getText("PLZPFC");
+          }
+          if (land.length() > 0) {
+            plz = land + "-" + plz;
+          }
+          /* String[] Temp = doAddressBuffer1.getAdresslines();
+          for (int i = 0; i < Temp.length; i++) {
+            out.addEntry(Temp[i]);
+          }
+          out.addEntry("---------------------------------"); */
+          out.addEntry("\"" + plz + "\";" + doKontakt.getText("refDarst"));
+        }
+        out.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      doKontakt.closeQuery();
+      clearMessage();
+    }
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

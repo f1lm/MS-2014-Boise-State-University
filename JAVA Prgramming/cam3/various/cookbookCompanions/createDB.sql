@@ -1,0 +1,17 @@
+create database cookbook;
+use cookbook;
+create table Identity (Entity char(10) NOT NULL, IdentNr INTEGER, Constraint Identity1 PRIMARY KEY(Entity));
+create table User (UserNi INTEGER NOT NULL, UserId char(20), Password char(20), GroupId char(1), UserState char(1), RegistDate date, Company varchar(60), AddrAdd1 varchar(40), AddrAdd2 varchar(40), LastName varchar(30), FirstName varchar(30), AcadTitle varchar(20), SexId char(1), HandyNbr varchar(20), Remark varchar(220), PhoneNbr varchar(20), FaxNbr varchar(20), PhonePriv varchar(20), FaxPriv varchar(20), URL varchar(120), email varchar(120), CountryId char(3), Country varchar(30), State varchar(30), ZipCode varchar(5), BoxZip varchar(5), City varchar(45), PoBox varchar(10), Street varchar(60), Notes TEXT, Constraint User1 PRIMARY KEY(UserNi));
+create index User2 on User (LastName, FirstName);
+create table Cookbook (RezeptNI INTEGER NOT NULL, RezeptBez varchar(80), Zutaten TEXT, Zubereit TEXT, Portionen INTEGER, Brennwert INTEGER, Garzeit INTEGER, Quelle varchar(254), Von varchar(60), Vom date, Typ INTEGER, Diabetiker enum('N','Y') default 'N', Constraint Cookbook1 PRIMARY KEY(RezeptNI));
+create table Type (TypNI INTEGER NOT NULL, TypBez varchar(60), position INTEGER, Constraint Type1 PRIMARY KEY(TypNI));
+create index Type2 on Type (position, TypBez);
+insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (1, 'admin', 'admin', '9', 'Armdran', 'Armin');
+insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (2, 'org', 'org', '5', 'Organ', 'Olga');
+insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (3, 'standard', 'standard', '2', 'Stanford', 'Stanley');
+insert into Identity (Entity, IdentNr) values ('User', 3);
+use mysql;
+insert into db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('%', 'cookbook', '', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');
+insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv) values ('localhost','cook',password('pwd1'),'Y','Y','Y','Y');
+insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv) values ('localhost.localdomain','cook',password('pwd1'),'Y','Y','Y','Y');
+flush privileges;

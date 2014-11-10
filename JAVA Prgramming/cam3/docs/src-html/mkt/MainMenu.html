@@ -1,0 +1,213 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>MainMenu</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+package mkt;
+
+import de.must.wuic.*;
+import de.must.util.*;
+import de.must.dataobj.*;
+import java.awt.event.*;
+import java.io.IOException;
+
+/**
+ * @author Christoph Mueller
+ */
+public class MainMenu extends MenuFrame {
+
+  private MustMenuBar menuBar = new MustMenuBar(new Entitlement());
+  private MainShortCuts mainShortCuts1 = new MainShortCuts();
+
+  public MainMenu() {
+    setTitle("up-to-date Marketing");
+
+    // new main menu -----------------------------------------------------------
+    menuBar.addMenu("Datei");
+    menuBar.addMenuItem("Beenden", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        MainMenu.this.closeRequest();
+      }
+    });
+
+    // new main menu -----------------------------------------------------------
+    menuBar.addMenu("Kontakte");
+    menuBar.addMenuItem("Bestehende Kontakte", Entitlement.AREA_REC, KeyEvent.VK_O, KeyEvent.CTRL_MASK).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrKontaktSl.openMainInstance();
+      }
+    });
+    menuBar.addMenuItem("Neuer Kontakt", Entitlement.AREA_REC, KeyEvent.VK_N, KeyEvent.CTRL_MASK).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrKontaktPr.getOrCreateMainInstance().newInputIfVacant();
+      }
+    });
+    menuBar.addMenuItem("Kontakt-Gruppen", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrGrPj.openMainInstance();
+      }
+    });
+    menuBar.addMenuItem("Kontakt-Arten", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrKontaktart.openMainInstance();
+      }
+    });
+    menuBar.addMenuItem("Adress-Puffer", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrAddrBufferSl.openMainInstance();
+      }
+    });
+
+    // new main menu -----------------------------------------------------------
+    menuBar.addMenu("Auswertung");
+    menuBar.addMenuItem("Telefonliste", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        DoKontakt doKontakt1 = new DoKontakt();
+        doKontakt1.select("*", "TELENR <> \'\'", "NAMNAC, NAMVOR");
+        try {
+          de.must.io.XmlFile XmlFile1 = new de.must.io.XmlFile("Fon", "Telefonliste", "MustMarketing");
+          XmlFile1.list(doKontakt1, new String[] {"NAMNAC", "NAMVOR", "TELENR", "FONPRV"});
+          XmlFile1.close();
+          XmlFile1.presentInBrowser();
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
+        doKontakt1.closeQuery();
+      }
+    });
+
+    // new main menu -----------------------------------------------------------
+    menuBar.addMenu("Administration");
+    menuBar.addMenuItem("Basis-Parameter", Entitlement.AREA_ADM).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        new FrParamBas(MainMenu.this).setVisible(true);
+      }
+    });
+    menuBar.addMenuItem("Anwendungsparameter", Entitlement.AREA_ADM).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        new FrParam(MainMenu.this).setVisible(true);
+      }
+    });
+    menuBar.addMenuItem("Benutzer", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrUserSl.openMainInstance();
+      }
+    });
+
+    // new main menu -----------------------------------------------------------
+    /* menuBar.addMenu("Import");
+    menuBar.addMenuItem("Former Data", Entitlement.AREA_ADM).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        new Util().importFormerMarketing();
+      }
+    }); */
+
+    // new main menu -----------------------------------------------------------
+    menuBar.addMenu("Hilfe");
+    menuBar.addMenuItem("Inhalt", Entitlement.AREA_REC, KeyEvent.VK_F1).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        Help.showTopic("Index");
+      }
+    });
+    menuBar.addMenuItem("Info", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        new FrInfo(MainMenu.this).setVisible(true);
+      }
+    });
+
+    this.setJMenuBar(menuBar);
+
+    // menu buttons ------------------------------------------------------------
+    MustButton.addNewInstanceToPanel("Bestehende Kontakte", toolbarPanel).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrKontaktSl.openMainInstance();
+      }
+    });
+
+    MustButton.addNewInstanceToPanel("Neuer Kontakt", toolbarPanel).addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        FrKontaktPr.getOrCreateMainInstance().newInputIfVacant();
+      }
+    });
+
+    packIfNotLayouted();
+
+    if (!Global.getInstance().mainConnectionHolder.isConnected()) {
+      HelpConn.open();
+    }
+  }
+
+  public void extendFunctions(int securityLevel) {
+    if (securityLevel == Main.SECURITY_EXTENDED) {
+      menuBar.addMenu("Spezial");
+      menuBar.addMenuItem("Freier Datenzugriff", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          FrDtaAcc frDtaAcc = new FrDtaAcc(Global.getInstance().getMainConnection());
+          frDtaAcc.setLocation(0, MainMenu.this.getSize().height);
+        }
+      });
+      menuBar.addMenuItem("Freies SQL", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          FrSqlExc frSqlExc1 = new FrSqlExc(Global.getInstance().getMainConnection());
+          frSqlExc1.setLocation(0, MainMenu.this.getSize().height);
+        }
+      });
+      menuBar.addMenuItem("Vergessene Tabelle neu erstellen", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          DbModifier dbModifier = new DbModifier();
+          dbModifier.setDropBeforeCreation(true);
+          dbModifier.createTable(Global.getInstance().getMainConnection(), new DoAddressBuffer());
+        }
+      });
+      menuBar.addMenuItem("Property-Instruktionen erzeugen", Entitlement.AREA_REC).addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          FormBuilder.createPropertyInstructions("mkt." + StandardDialog.getStringInput(MainMenu.this, "Klassenname des Datenobjekts eingeben"));
+        }
+      });
+    }
+  }
+
+  /* (non-Javadoc)
+   * @see de.must.wuic.MenuFrame#closeRequest()
+   */
+  protected void closeRequest() {
+    Global.getInstance().connectionPool.closeAllConnections();
+    super.closeRequest();
+  }
+
+}
+
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

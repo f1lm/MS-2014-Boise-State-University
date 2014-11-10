@@ -1,0 +1,1 @@
+The help directory is without images to keep the download small. But you may see how help context is realized.

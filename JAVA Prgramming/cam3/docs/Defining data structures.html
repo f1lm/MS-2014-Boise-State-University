@@ -1,0 +1,74 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Müller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <title>Defining data structures</title>
+<link REL ="stylesheet" TYPE="text/css" HREF="stylesheet.css" TITLE="Style">
+</head>
+<body>
+
+<h1>Defining data structures</h1>
+
+<h2>
+Introduction</h2>
+For building add-ons upon existing applications, it is possible to develop
+using an existing database. If a new project is started, it is recommended
+to define data structures in Java syntax and generate an arbitrary database
+out of these database neutral instructions.
+<br>&nbsp;
+<h2>
+Approach</h2>
+See samples like e.g. <a href="src-html/de/jugs/cookbook/DoCookbook.html">de.jugs.cookbook.DoCookbook</a>.
+Each of these <a href="api/de/must/dataobj/DataObject.html">DataObject</a>
+extending classes represents a table in the database.
+<ul>
+<li>
+tableName is the name of the table</li>
+
+<li>
+<tt>AbstractAttribute[] attributes</tt> is the list of the table columns,
+defining description, column names, type and length</li>
+
+<li>
+<tt>Index[] indices</tt> are the index definition to optimize the access
+time</li>
+</ul>
+Class <a href="src-html/mkt/TableCreator.html">mkt.TableCreator</a> is
+a sample for how to create tables dynamically when an empty database is
+found. It is extending <a href="api/de/must/dataobj/TableCreatorStd.html">de.must.dataobj.TableCreatorStd</a>.
+<br>Class <a href="src-html/de/jugs/cookbook/DbScriptCreator.html">de.jugs.cookbook.DbScriptCreator</a>
+is a sample for how to create a script to create a MySQL dialect.
+<p>However this is done, the principal is to define the database inside
+the application and then use it freely and expandable.
+<br>&nbsp;
+<h2>
+Attribute types (column types)</h2>
+
+<ul>
+<li>
+<a href="api/de/must/dataobj/CharAttribute.html">de.must.dataobj.CharAttribute</a></li>
+
+<li>
+<a href="api/de/must/dataobj/VarcharAttribute.html">de.must.dataobj.VarcharAttribute</a></li>
+
+<li>
+<a href="api/de/must/dataobj/NumericAttribute.html">de.must.dataobj.NumericAttribute</a></li>
+
+<li>
+<a href="api/de/must/dataobj/BooleanAttribute.html">de.must.dataobj.BooleanAttribute</a></li>
+
+<li>
+<a href="api/de/must/dataobj/DateAttribute.html">de.must.dataobj.DateAttribute</a></li>
+</ul>
+
+<p><br>See <a href="api/de/must/dataobj/Index.html">Index</a> and
+<a href="api/de/must/dataobj/IndexItem.html">IndexItem</a>
+for how to define indices.
+<hr width="100%">
+<font size="-2">&copy; Copyright 2001-2004 Christoph
+M&uuml;ller, K&auml;rntner Str. 56, D-70469 Stuttgart, Germany, <a
+ href="http://www.must.de">http://www.must.de</a></font>
+</body>
+</html>

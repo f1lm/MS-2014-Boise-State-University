@@ -1,0 +1,145 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>TableCreator</h1>
+//elementary!
+
+package mkt;
+
+import java.sql.SQLException;
+
+import de.must.dataobj.*;
+
+public class TableCreator extends TableCreatorStd {
+
+  public static final int UPDATE_UPDATEDAT = 1; // 2009
+  public static final int UPDATE_REFDARST = 2; // 12.2009
+  
+  public TableCreator() {
+    super(Global.getInstance());
+  }
+
+  protected EntityInfo[] getAllEntityInfos() {
+    return new EntityInfo[] {
+      new DoIdent(),
+      new DoParam(),
+      new DoUser(),
+      new DoKontakt(),
+      new DoGrPj(),
+      new DoGzPj(),
+      new DoKontaktart(),
+      new DoAddressBuffer(),
+    };
+  }
+
+  protected String getDatabaseName() {
+    return "Marketing";
+  }
+
+  protected boolean isCreationNecessary() {
+    boolean creationRequired = false;
+    DoKontakt doKontakt = new DoKontakt();
+    if (!doKontakt.openQuery("select * from " + doKontakt.getTableName())) {
+      creationRequired = true;
+    }
+    doKontakt.closeQuery();
+    return creationRequired;
+  }
+
+  protected int getUpdateLevel() {
+    // check in sequence from latest to earliest database modification! Thus, only one access is necessary in standard case.
+    int updateLevel = UPDATE_NONE;
+    // ------------------------------------------------
+    DoKontakt doKontakt = new DoKontakt();
+    if (!doKontakt.openQuery("select RefDarst from " + doKontakt.getTableName())) {
+      updateLevel = UPDATE_REFDARST;
+    } else doKontakt.closeQuery();
+    doKontakt.free();
+    doKontakt = null;
+    // ------------------------------------------------
+    if (updateLevel == UPDATE_NONE) return updateLevel; // Last modification was checked first. Thus, no further check is to be done here!
+    // ------------------------------------------------
+    doKontakt = new DoKontakt();
+    if (!doKontakt.openQuery("select UpdateDat from " + doKontakt.getTableName())) {
+      updateLevel = UPDATE_UPDATEDAT;
+    } else doKontakt.closeQuery();
+    doKontakt.free();
+    doKontakt = null;
+    // ------------------------------------------------
+    return updateLevel;
+  }
+  
+  protected void updateDatabase(DbModifier dbModifier, int updateLevel) {
+    if (updateLevel <= UPDATE_UPDATEDAT) {
+      inform("updating " + DoKontakt.tableName +  " ..."); 
+      dbModifier.updateTable(Global.getInstance().connectionSpecification, new DoKontakt());
+      inform("updating " + DoAddressBuffer.tableName +  " ..."); 
+      dbModifier.updateTable(Global.getInstance().connectionSpecification, new DoAddressBuffer());
+    }
+    if (updateLevel <= UPDATE_REFDARST) {
+      inform("updating " + DoKontakt.tableName +  " ..."); 
+      dbModifier.updateTable(Global.getInstance().connectionSpecification, new DoKontakt());
+      inform("updating " + DoAddressBuffer.tableName +  " ..."); 
+      dbModifier.updateTable(Global.getInstance().connectionSpecification, new DoAddressBuffer());
+      initialFillRefDarst();
+    }
+  }
+  
+  private void initialFillRefDarst() {
+    DoKontakt doKontakt;
+    try {
+      doKontakt = new DoKontakt(Global.getInstance().connectionSpecification.getConnection());
+      doKontakt.select("*");
+      while (doKontakt.nextRow()) {
+        String refDarst = doKontakt.getText("Firma");
+        String ort = doKontakt.getText("ORTSBZ");
+        if (refDarst.indexOf(ort) == -1) {
+          if (refDarst.length() > 0) {
+            refDarst += " - ";
+            refDarst += ort;
+          }
+        }
+        doKontakt.setText("RefDarst", refDarst);
+        doKontakt.save();
+      }
+      doKontakt.closeQuery();
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

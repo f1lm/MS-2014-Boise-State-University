@@ -1,0 +1,89 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>CookBookLogin</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+
+package de.jugs.cookbook;
+
+import de.must.markup.*;
+import de.must.util.Crypt;
+
+/**
+ * @author Christoph Mueller
+ */
+public final class CookBookLogin extends LoginDialog {
+
+  private DoUser doUser;
+
+  public CookBookLogin(SessionData sessionData) {
+    super(sessionData);
+    doUser = new DoUser(sessionData);
+    setSubTitle("(use \"standard\", \"org\" or \"admin\" with same password)<p>\n");
+    setHelpContext("Operate", "Login");
+  }
+
+  protected boolean isLoginAccepted() {
+    if (userIdField.getText().equals("")) {
+      setMessageToKeep("Enter a user ID");
+      return false;
+    }
+    doUser.select("UserNi, UserId, GroupId, Password, UserState", "UserId = '" + userIdField.getText() + "'");
+    if (!doUser.nextRow()) {
+      doUser.closeQuery();
+      setMessageToKeep(sessionData.getResourceString("TEXT_LOGIN_FAILED"));
+      return false;
+    }
+    doUser.closeQuery();
+    String storedPassword = doUser.getText("Password");
+    if (Global.getInstance().encryptPasswords) storedPassword = Crypt.decrypt(storedPassword);
+    if (!passwordField.getText().equals(storedPassword)) {
+      setMessageToKeep(sessionData.getResourceString("TEXT_LOGIN_FAILED"));
+      return false;
+    }
+    return true;
+  }
+
+  protected String getUserGroup() {
+    return doUser.getText("GroupId");
+  }
+
+  protected Class<? extends Invokable> getClassToInvokeIfLoginIsRootInvokable() {
+    return MainMenu.class;
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

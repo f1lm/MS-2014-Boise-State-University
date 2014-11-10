@@ -1,0 +1,85 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>CookbookAdministration</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+
+package de.jugs.cookbook;
+
+import de.must.markup.*;
+
+/**
+ * @author Christoph Mueller
+ */
+public final class CookbookAdministration extends DataPropertyAdministration {
+
+  public static final int subjectArea = Entitlement.AREA_COOKBOOK_GENERAL;
+  public static final int standardLevel = Entitlement.LEVEL_ADD;
+
+  private DataTextField Quelle;
+
+  public CookbookAdministration(SessionData sessionData) {
+    super(new DoCookbook(sessionData), sessionData);
+    setHelpContext("Operate", "newrec");
+    createTextField(sessionData.getResourceString("TEXT_RECIPE_TITLE"), "RezeptBez"); setRequired(true);
+    createComboBox(sessionData.getResourceString("TEXT_RECIPE_TYPE"), "Typ", new DoType(sessionData), "TypBez");
+    createCheckBox("Diabetiker", sessionData.getResourceString("TEXT_DIABETIC_RECOMMENDATION"));
+    createTextArea(sessionData.getResourceString("TEXT_INGREDIENTS"), "Zutaten"); setToolTipText(sessionData.getResourceString("TEXT_EVERYTHING_THAT_IS_PART_OF_THE_DISH"));
+    createTextArea(sessionData.getResourceString("TEXT_PREPARATION"), "Zubereit"); setToolTipText(sessionData.getResourceString("TEXT_THE_WAY_OF_PREPARING_THE_DISH"));
+    Quelle = createTextField(sessionData.getResourceString("TEXT_SOURCE"), "Quelle"); setToolTipText(sessionData.getResourceString("TEXT_THE_SOURCE_OF_THE_RECIPE"));
+    createDateField(sessionData.getResourceString("TEXT_OF_DATE"), "Vom");
+    if (isMultipartAvailable()) createFileUploader(sessionData.getResourceString("TEXT_SAMPLE_IMAGE"), Constants.SAMPLE_IMAGE_DIRECTORY);
+
+    setFrameUpdateTitleField(Quelle);
+    setFrameTitleNew(sessionData.getResourceString("TEXT_NEW_RECIPE"));
+  }
+  
+	/**
+	 * Returns true if multipart request can be handled because add-on is available.
+   * For easy demo installation only.
+	 * @return true if multipart request can be handled because add-on is available
+	 */
+  private boolean isMultipartAvailable() {
+		try {
+			Class.forName("com.oreilly.servlet.multipart.MultipartParser");
+		} catch (ClassNotFoundException e) {
+      return false;
+		}
+    return true;
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+    
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    
+  <meta name="Author" content="Christoph M&uuml;ller">
+    
+  <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+  <title>Creating Java Server Pages Applications</title>
+     
+  <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
+</head>
+ <body>
+  
+<h1>Creating Java Server Pages Applications</h1>
+  
+<h2> Precautions</h2>
+ Before you begin to use this JSP toolkit, you should have read <a href="Defining%20data%20structures.html">
+Defining data structures</a>
+. The toolkit uses these "data objects" to read and write database tables. 
+<h2> Introduction</h2>
+<h3>Encapsulation</h3>
+ There are lots of things in JSPs that may be encapsulated into Java objects. 
+Most of all, all INPUT elements are suitable to be mirrored by appropriate 
+objects. We do this analogously to the Swing JComponent objects. We group 
+this components as "markupables", which means, that they can represent themselves
+in markup languages by implementing the method <tt>getCreationTag()</tt>. 
+See <a href="api/de/must/markup/Markupable.html">de.must.markup.Markupable</a>
+. 
+<p>Concerning persistence, there is even much more benefit reachable by encapsulating
+logic. To avoid tiring and bug-causing getters and setters you may use database
+field connected markup components. See <a href="api/de/must/markup/Storable.html">
+de.must.markup.Storable</a>
+. Components implementing this interface are associated to a database field 
+by naming table and column name when constructed and by triggering the primary
+key when loaded. </p>
+<p>To delegate looping load and save methods over multiple components to the
+framework, grouping is supported. See <a href="api/de/must/markup/GroupOfStorables.html">
+de.must.markup.GroupOfStorables</a>
+ and <a href="api/de/must/markup/GroupOfMarkupables.html">de.must.markup.GroupOfMarkupables</a>
+.</p>
+<p> </p>
+<h3>The <i>Butler </i>Principle</h3>
+<p>JSP should use beans, we have been told. Right, let's give them a name.
+We could name them server, but this term is already in use. What about butler?
+A butler subserves its master, and that's what this bean should do for its
+JSP: Give him the insouciance only to care about design.</p>
+<p>Every JSP has one butler class. In the JSP, it's always called simply
+<i>butler</i>. Thus, we don't have to rename this object, if we reuse existing
+code for similar pages. These butler classes are associated via jspSession.getButler().
+Why not via useBean? Cameleon OSP provides control over all butlers in your
+session to create them in an arbitrary sequence and to destroy them. E.g.
+it's profitable to first create the butler class, give him initial values
+like e.g. a where condition, and then call the JSP to use the existing butler.<br>
+<br>
+ </p>
+<h2> Sample</h2>
+  
+<h3> JSP</h3>
+  
+<pre>&lt;%@ include file="header.inc" %&gt;<br><br>&lt;%@ page import = "de.jugs.cookbook.jsp.CbpropButler" %&gt;<br>&lt;% CbpropButler butler = (CbpropButler)jspSession.getButler(CbpropButler.class); %&gt;<br><br>&lt;%@ include file="afterbf.inc" %&gt;<br><br>&lt;html&gt;<br>&lt;head&gt;<br>&nbsp;&nbsp; &lt;title&gt;Rezept-Eingabe&lt;/title&gt;<br>&nbsp;&nbsp; &lt;meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"&gt;<br>&nbsp;&nbsp; &lt;meta name="Author" content="Christoph M&uuml;ller"&gt;<br>&nbsp;&nbsp; &lt;%@ include file="headtags.inc" %&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br><br>&lt;h2&gt;<br>Rezept-Eingabe&lt;/h2&gt;<br><br>&lt;table CELLSPACING=0 CELLPADDING=4 COLS=1 WIDTH="100%" &gt;<br>&lt;tr&gt;<br>&lt;td class="subtitle"&gt;Das geh&amp;ouml;rt alles dazu&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/table&gt;<br><br>&lt;p&gt;<br>&lt;form method="POST"&gt;<br>&lt;table COLS=2 WIDTH="100%" &gt;<br>&lt;tr&gt;<br>&lt;td&gt;Rezept-Bezeichung:&lt;/td&gt;&lt;td&gt;&lt;%=butler.rezeptBez%&gt;&lt;/td&gt;<br>&lt;/tr&gt;&lt;tr&gt;<br>&lt;td&gt;Rezept-Typ:&amp;nbsp;&lt;/td&gt;&lt;td&gt;&lt;%=butler.typ%&gt; &lt;%=butler.diabetiker%&gt;&lt;/td&gt;<br>&lt;/tr&gt;&lt;tr&gt;<br>&lt;td&gt;Zutaten:&lt;/td&gt;&lt;td&gt;&lt;%=butler.zutaten%&gt;&lt;/td&gt;<br>&lt;/tr&gt;&lt;tr&gt;<br>&lt;td&gt;Zubereitung:&lt;/td&gt;&lt;td&gt;&lt;%=butler.zubereit%&gt;&lt;/td&gt;<br>&lt;/tr&gt;&lt;tr&gt;<br>&lt;td&gt;Quelle:&lt;/td&gt;&lt;td&gt;&lt;%=butler.quelle%&gt;&lt;/td&gt;<br>&lt;/tr&gt;&lt;tr&gt;<br>&lt;td&gt;Vom:&lt;/td&gt;&lt;td&gt;&lt;%=butler.vom%&gt;&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/table&gt;<br><br>&lt;p&gt;&lt;%=butler.okButton%&gt; &lt;%=butler.cancelButton%&gt;<br>&lt;/form&gt;<br>&lt;/body&gt;<br>&lt;/html&gt;</pre>
+  
+<h3> <b>The associated (butler) class:</b></h3>
+  
+<pre>/*<br>&nbsp;* Public Domain Sample Code<br>&nbsp;*/<br>package de.jugs.cookbook.jsp;<br><br>import de.jugs.cookbook.DoCookbook;<br>import de.jugs.cookbook.DoType;<br>import de.must.markup.*;<br>import javax.servlet.http.HttpServletRequest;<br><br>/**<br>&nbsp;* Devoted butler of the cookbook property administration JSP.<br>&nbsp;* See super class JspButler for documentation.<br>&nbsp;* @author Christoph Mueller<br>&nbsp;*/<br>public class CbpropButler extends JspButler {<br><br>&nbsp; private DoCookbook doCookbook;<br>&nbsp; private GroupOfStorables storables;<br><br>&nbsp; public DataTextField rezeptBez;<br>&nbsp; public DataComboBox typ;<br>&nbsp; public DataCheckBox diabetiker;<br>&nbsp; public DataTextArea zutaten;<br>&nbsp; public DataTextArea zubereit;<br>&nbsp; public DataTextField quelle;<br>&nbsp; public DataDateField vom;<br>&nbsp; public OkButton okButton;<br>&nbsp; public CancelButton cancelButton;<br><br>&nbsp; private int counter;<br><br>&nbsp; public CbpropButler(SessionData sessionData) {<br>&nbsp;&nbsp;&nbsp; super(sessionData);<br>&nbsp;&nbsp;&nbsp; doCookbook = new DoCookbook();<br>&nbsp;&nbsp;&nbsp; storables = new GroupOfStorables(doCookbook, sessionData);<br>&nbsp;&nbsp;&nbsp; rezeptBez = storables.createTextField("RezeptBez");<br>&nbsp;&nbsp;&nbsp; typ = storables.createComboBox(sessionData, "Typ", new DoType(), "TypBez");<br>&nbsp;&nbsp;&nbsp; diabetiker = storables.createCheckBox("Diabetiker-Empfehlung", "Diabetiker");<br>&nbsp;&nbsp;&nbsp; zutaten = storables.createTextArea("Zutaten");<br>&nbsp;&nbsp;&nbsp; zubereit = storables.createTextArea("Zubereit");<br>&nbsp;&nbsp;&nbsp; quelle = storables.createTextField("Quelle");<br>&nbsp;&nbsp;&nbsp; vom = storables.createDateField("Vom");<br>&nbsp;&nbsp;&nbsp; okButton = storables.createOkButton(sessionData);<br>&nbsp;&nbsp;&nbsp; cancelButton = storables.createCancelButton(sessionData);<br>&nbsp; }<br><br>&nbsp; protected void handle(HttpServletRequest request) {<br>&nbsp;&nbsp;&nbsp; storables.fetchValuesFromRequest(request);<br>    if (okButton.wasPressed()) {<br>      if (storables.inputCheckOk() &amp;&amp; isInputAccepted()) {<br>        storables.save();<br>        goBack(); return;<br>      }<br>    } else if (cancelButton.wasPressed()) {<br>      goBack(); return;<br>    } else {<br>      String idString = request.getParameter("ID");<br>      if (idString != null) {<br>        storables.loadValues(Integer.parseInt(idString));<br>      } else {<br>        storables.newInput();<br>      }<br>    }<br>&nbsp; }<br><br>&nbsp; private boolean isInputAccepted() {<br>&nbsp;&nbsp;&nbsp; if (rezeptBez.getText().length() == 0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setMessageToKeep("Rezeptbezeichnung muss gef&uuml;llt sein.");<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; return true;<br>&nbsp; }<br><br>}</pre>
+  
+<h3> Explanations</h3>
+ The sample shows how to create text fields, text areas, combo boxes and check
+boxes, load their values from database tables, presenting them and supporting
+rewriting data as changed by the user. 
+<p>To support database connection please configure <tt><a href="src-html/de/jugs/cookbook/Global.html">
+Global</a>
+</tt>, it's a subclass of&nbsp; <tt><a href="api/de/must/middle/GlobalStd.html">
+de.must.middle.GlobalStd</a>
+</tt> containing the specification to connect to the database. </p>
+<hr width="100%">
+<font size="-2">&copy; Copyright 2001-2004 Christoph
+M&uuml;ller, K&auml;rntner Str. 56, D-70469 Stuttgart, Germany, <a
+ href="http://www.must.de">http://www.must.de</a></font>
+</body>
+</html>

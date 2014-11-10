@@ -1,0 +1,99 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>FrAddrBufferPr</h1>
+/*
+ * Public Domain Sample Code
+ */
+package mkt;
+
+import de.must.wuic.*;
+
+/**
+ * @author Christoph Mueller
+ */
+public class FrAddrBufferPr extends DataPropertyAdministration {
+
+  private DataTextField dtfFirma;
+  private DataTextField dtfPEJUKB;
+  private DataTextField dtfADRZS1;
+  private DataTextField dtfADRZS2;
+  private DataTextField dtfNAMNAC;
+  private DataTextField dtfNAMVOR;
+  private DataTextField dtfAKGRID;
+  private DataTextField dtfemail;
+  private DataTextField dtfLANDID;
+  private DataTextField dtfPLZ;
+  private DataTextField dtfPLZPFC;
+  private DataTextField dtfORTSBZ;
+  private DataTextField dtfPSTFCH;
+  private DataTextField dtfSTRASS;
+
+  public static FrAddrBufferPr getOrCreateMainInstance() {
+    return (FrAddrBufferPr)getOrCreateMainInstance(FrAddrBufferPr.class);
+  }
+
+  public FrAddrBufferPr() {
+    setTitle("Kontakt");
+    setMainDataObject(new DoAddressBuffer());
+
+    newPanel("Postadresse");
+    dtfFirma = createTextField("Firma", "Firma", 40);
+    dtfADRZS1 = createTextField("Zusatzzeile 1", "ADRZS1");
+    dtfADRZS2 = createTextField("Zusatzzeile 2", "ADRZS2");
+    dtfNAMNAC = createTextField("Name, Vorname", "NAMNAC",  25);
+    dtfNAMVOR = createTextField("NAMVOR", 20);
+    createTextCheck("Geschlecht / Grad", "GESCID", new String[] {" ", "M", "W"}, new String[] {"?", "männlich", "weiblich"});
+    dtfAKGRID = createTextField("AKGRID"); setToolTipText("z. B. Dr. oder Prof.");
+    dtfSTRASS = createTextField("Strasse", "STRASS", 50);
+    dtfLANDID = createTextField("Land/PLZ/Ort", "LANDID");
+    dtfPLZ = createTextField("PLZ");
+    dtfORTSBZ = createTextField("ORTSBZ");
+    dtfPLZPFC = createTextField("PLZ/Postfach", "PLZPFC");
+    dtfPSTFCH = createTextField("PSTFCH");
+
+    newPanel("e-mail / Fax");
+    createTextField("e-mail", "email");
+    createTextField("Fax", "FAXRNR");
+    createTextField("Fax privat", "FAXPRV");
+    createTextField("Bemerkung", "BMRKNG");
+    createDateField("Letztes Update", "UpdateDat");
+
+    newPanel("Notizen", new DataTextArea(dataObjects[0], "NOTIZ"));
+
+    setFrameUpdateTitleField(new DataTextField[] {dtfAKGRID, dtfNAMVOR, dtfNAMNAC});
+
+    creationEnding();
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <meta name="Author" content="Christoph M&uuml;ller">
+  <meta name="GENERATOR"
+ content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+  <title>How to use Cameleon</title>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"
+ title="Style">
+</head>
+<body>
+<h1>How to use the Cameleon <font color="#ffcc00">O</font>SP
+Components - an Overview</h1>
+<h2>
+Requirements</h2>
+Before you start using Cameleon OSP, you should be familiar with
+runtime
+configuration, writing, compiling and running java applications in
+general.
+If you want to develop server applications, we recommend to acquire
+basic
+knowledge on Unix and MySQL before you start.
+<br>
+&nbsp;
+<h2>Get the source</h2>
+Visit <a href="http://www.must.de/cameleon.html">http://www.must.de/cameleon.html</a>
+<br>
+&nbsp;
+<h2>Configurations</h2>
+Since the author uses JBuilder 3, paths often follow these conventions.
+The JBuilder project files are part of the distribution. To fit to
+other
+IDE's habits, copy the source (directory src) into the appropriate
+source
+directory of the IDE and import the files in the respective project
+files.
+<br>
+&nbsp;
+<h2>Run sample applications</h2>
+<h3>
+Client(-Server) applications</h3>
+<ul>
+  <li>
+Create an ODBC data source called "Marketing" based on MS Access Driver
+and create an (empty) mdb file by the ODBC administration functions.</li>
+  <li>
+Start the Main class</li>
+</ul>
+<h3>
+Server applications</h3>
+<ul>
+  <li>
+Generate the database creating script "createDB.sql" by the class
+de.jugs.cookbook.DbScriptCreator;
+adapt it to your environment and let it create the database "cookbook"
+(e.g. via command "mysql &lt; createDB.sql").</li>
+  <li>
+Put classes or jar files in the suitable directory and configure the
+application
+server. Don't forget to set up JDBC driver, e.g. MySQL driver.</li>
+  <li>
+Start the application server</li>
+  <li>
+http://&lt;YourServer&gt;:&lt;YourPort&gt;/YourPathToTheMainClass -
+sample: http://192.168.5.16:8080/cookbook/servlet/de.jugs.cookbook.Main</li>
+</ul>
+<h2>
+The paradigm of the Cameleon Open Source Project</h2>
+Edit your application in an abstract way and let the framework realize
+the concrete technical solution.
+<p><b>Sample:</b>
+<br>
+If the user is to be informed that an entry cannot be deleted, you
+could
+</p>
+<ul>
+  <li>
+fill the status label with this information by the method <tt>setText()</tt></li>
+  <li>
+open a dialog / modal window with the information and an Ok button</li>
+</ul>
+Instead we should use the method <tt>setMessageToKeep</tt> and let the
+framework decide in which way this is going to be realized. Maybe
+tomorrow
+something else is hip.
+<br>
+&nbsp;
+<h2>Swing / Servlet / JSP Decision</h2>
+At first: No matter how you start, your work is never useless, because
+many things are similar in this framework. Anyway, once you will decide
+which way to go. If you decided to create a server application: The
+advantage
+of the pure Servlet variant are few instructions, reliability and a
+great
+flexibility to change behaviour and layout retrospectively. The
+advantage
+of Java Server Pages is individuality and creativity.
+<br>
+&nbsp;
+<h2>Set up your own project</h2>
+<h3>
+What you should basically know</h3>
+<h3>
+Concerning database</h3>
+The database connection is specified in <a
+ href="api/de/must/dataobj/ConnectionSpecification.html">de.must.dataobj.ConnectionSpecification</a>,
+this class provides the connection via method getConnection(). It's
+recommended
+to make the main connection globaly available in a subclass of <a
+ href="api/de/must/middle/GlobalStd.html">de.must.middle.GlobalStd</a>
+for each application.
+<p>Tables are described in Objects extending <a
+ href="api/de/must/dataobj/DataObject.html">de.must.dataobj.DataObject</a>.
+If your database is already created, you need not more than defining
+the
+table name. If not, it is recommended to define your table as a
+subclass
+of <a href="api/de/must/dataobj/DataObject.html">DataObject</a> and
+generate
+creation scripts or the database itself out of these descriptions by
+sbuclasses
+of <a href="api/de/must/dataobj/TableCreatorStd.html">de.must.dataobj.TableCreatorStd</a>
+(see samples).
+</p>
+<p>The primary key is administrated by <a href="api/mkt/DoIdent.html">DoIdent</a>,
+a de.must.dataobj.DataObject. You need this object and the associated
+table
+"Identity" to insert records.
+<br>
+&nbsp;
+</p>
+<h3>Concerning Data Modification</h3>
+The concept to navigate through big amounts of data is:
+<ul>
+  <li>
+Specifiy the entry / entries to be modified by an enquiry with one or
+more
+criteria to reduce the search result significantly.</li>
+  <li>
+Browse the search result and switch to modify mode by doubleclick of a
+single entry.</li>
+  <li>
+Modify the entry and click Ok</li>
+</ul>
+<p><br>
+For Swing UI see <a href="api/de/must/wuic/SimpleDataListFrame.html">de.must.wuic.SimpleDataListFrame</a>
+and <a href="api/de/must/wuic/DataPropertyAdministration.html">de.must.wuic.DataPropertyAdministration</a>.
+<br>
+For HTML UI see <a href="api/de/must/markup/Enquiry.html">de.must.markup.Enquiry</a>,
+<a href="api/de/must/markup/DataList.html">de.must.markup.DataList</a>
+and <a href="api/de/must/markup/DataPropertyAdministration.html">de.must.markup.DataPropertyAdministration</a>.
+<br>
+Check out suitable sample applications.
+<br>
+&nbsp;
+</p>
+<h2>Resources</h2>
+<h3>
+Icon Repository</h3>
+We found a small icon repository at <a
+ href="http://developer.java.sun.com/developer/techDocs/hi/repository">http://developer.java.sun.com/developer/techDocs/hi/repository</a>.
+Sun allows to redistribute it.
+<br>
+&nbsp;
+<h2>Further Information</h2>
+<h3>
+Internet Information</h3>
+Look at <a href="http://www.must.de/cameleon.html">http://www.must.de/cameleon.html</a>
+for newer documentation.
+<br>
+&nbsp;
+<h3>API Documentation</h3>
+Check out the <a href="api/index.html" target="_top">API Documentation</a>.
+To understand the framework and its usage we recommend:
+<ul>
+  <li>
+Check sample applications functions by running the sample application
+and
+compare them to your needs.</li>
+  <li>
+Check the corresponding source code.</li>
+  <li>
+Use the <a href="api/index.html" target="_top">API Documentation</a>
+for
+detailed understanding of the framework and for using other framework
+functions
+as used in the sample application. In the API Documentation the sample
+classes are included into document the "Direct Known Subclasses".
+Anyway
+it's more helpful to read the sample source code itself rather than
+reading
+the sample API.</li>
+</ul>
+<h3>
+FAQ</h3>
+The first expected questions are answered in <a href="FAQ.html">FAQ.html</a>.
+You're welcome to join the Cameleon OSP and ask additional questions in
+the <a href="http://sourceforge.net/forum/forum.php?forum_id=111451"
+ target="_top">Cameleon
+help forum</a> to let the FAQ grow.
+<hr width="100%"><font size="-2">&copy; Copyright 2001-2004 Christoph
+M&uuml;ller, K&auml;rntner Str. 56, D-70469 Stuttgart, Germany, <a
+ href="http://www.must.de">http://www.must.de</a></font>
+</body>
+</html>

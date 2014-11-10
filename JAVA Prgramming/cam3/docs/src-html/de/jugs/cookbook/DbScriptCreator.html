@@ -1,0 +1,83 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>DbScriptCreator</h1>
+//elementary!
+
+/*
+ * Public Domain Sample Code 
+ */
+
+package de.jugs.cookbook;
+
+import de.must.dataobj.*;
+import de.must.io.*;
+
+/**
+ * Script creator to setup the cookbook database in MySQL.
+ * Call it to get createDB.sql, adapt it to your needs, and run it by calling
+ * mysql < createDB.sql on the server
+ * @see TableCreator
+ * @author Christoph Mueller
+ */
+public final class DbScriptCreator extends DbScriptCreatorStd {
+
+  protected String getDatabaseName() {
+    return "cookbook";
+  }
+
+  protected EntityInfo[] getAllEntityInfos() {
+    return new EntityInfo[] {
+      new DoIdent(null),
+      new DoUser(null),
+      new DoCookbook(null),
+      new DoType(null),
+    };
+  }
+
+  protected void outputIndividualStatements(Protocol out) {
+    out.addEntry("insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (1, 'admin', 'admin', '9', 'Armdran', 'Armin');");
+    out.addEntry("insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (2, 'org', 'org', '5', 'Organ', 'Olga');");
+    out.addEntry("insert into User (UserNi, UserId, Password, GroupId, LastName, FirstName) values (3, 'standard', 'standard', '2', 'Stanford', 'Stanley');");
+    out.addEntry("insert into Identity (Entity, IdentNr) values ('User', 3);");
+    out.addEntry("use mysql;");
+    out.addEntry("insert into db (Host, Db, User, Select_priv, Insert_priv, Update_priv, Delete_priv, Create_priv, Drop_priv, Grant_priv, References_priv, Index_priv, Alter_priv) values ('%', 'cookbook', '', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y');");
+    out.addEntry("insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv) values ('localhost','cook',password('pwd1'),'Y','Y','Y','Y');");
+    out.addEntry("insert into user (Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv) values ('localhost.localdomain','cook',password('pwd1'),'Y','Y','Y','Y');");
+  }
+
+  static public void main(String[] args) {
+    new DbScriptCreator();
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>

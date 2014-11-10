@@ -1,0 +1,105 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Source code of the sample server application Cookbook</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Christoph Mueller">
+   <meta name="GENERATOR" content="Mozilla/4.5 [de] (WinNT; I) [Netscape]">
+   <meta http-equiv="KEYWORDS" content="Source code, Server application, sample, Java, Linux, MySQL">
+   <meta name="Audience" content="IT, Software engineers, Programmer">
+   <meta name="Content-Language" content="en-US">
+   <meta http-equiv="AUTHOR" content="Christoph Mueller">
+   <meta name="COPYRIGHT" content="Christoph Mueller">
+   <meta http-equiv="Reply-to" content="CMueller@de.must.de">
+   <meta name="PUBLISHER" content="Christoph Mueller">
+   <meta name="PUBLISHER-EMAIL" content="CMueller@de.must.de">
+   <meta name="CREATION" content="Wdn, 13 Jun 2001">
+   <meta name="REVISON" content="Wdn, 15 Aug 2001">
+   <meta name="ROBOTS" content="INDEX, FOLLOW">
+   <meta name="REVISIT-AFTER" content="28 days">
+   <meta name="Description" content="Create reliable database applications easyly - swing and browser by identical concept">
+   <meta name="KeyWords" content="Source code, Server application, sample, Java, Linux, MySQL">
+</head>
+<body background="indtextb.jpg">
+
+<pre>
+<h1>CbsearchButler</h1>
+/*
+ * Public Domain Sample Code
+ */
+package de.jugs.cookbook.jsp;
+
+import de.jugs.cookbook.*;
+import de.must.markup.*;
+
+/**
+ * Devoted butler of the cookbook search JSP.
+ * See super class JspButler for documentation.
+ * @author Christoph Mueller
+ */
+public class CbsearchButler extends JspButler {
+
+  private GroupOfMarkupables markupables;
+
+  public MustTextField rezeptBez;
+  public HalfDataComboBox typ;
+  public MustTextField zutaten;
+  public SearchButton searchButton;
+
+  public CbsearchButler(SessionData sessionData) {
+    super(sessionData);
+    markupables = new GroupOfMarkupables(sessionData);
+    rezeptBez = markupables.createTextField(40);
+    zutaten = markupables.createTextField(40);
+    typ = markupables.createComboBox(sessionData, new DoType(sessionData), "TypBez", "TypBez", getAnySymbol());
+    searchButton = markupables.createSearchButton(sessionData);
+  }
+
+  /**
+   * Returns the symbol for "any".
+   * @return the symbol for "any"
+   */
+  private String getAnySymbol() {
+    return "< " + sessionData.getFrameworkResourceString("TEXT_ANY") + " >";
+  }
+
+  public void init() {
+    super.init();
+    markupables.init();
+  }
+
+  protected void handle(GeneralizedRequest request) {
+    markupables.fetchValuesFromRequest(request);
+    if (searchButton.wasPressed()) {
+      CblistButler listButler = (CblistButler)sessionData.jspSession.getButler(CblistButler.class);
+      listButler.setWhereCondition(getWhereCondition());
+      setUriToGo("cblist.jsp"); return;
+    }
+  }
+
+  private String getWhereCondition() {
+    String whereCondition = "";
+    if (typ.isSpecialChoice()) {
+      if (!whereCondition.equals("")) whereCondition += " and ";
+      whereCondition += " Typ = " + typ.getSelectedIdentifier();
+    }
+    if (!rezeptBez.getText().equals("")) {
+      if (!whereCondition.equals("")) whereCondition += " and ";
+      whereCondition += "RezeptBez like '%" + rezeptBez.getText() + "%'";
+    }
+    if (!zutaten.getText().equals("")) {
+      if (!whereCondition.equals("")) whereCondition += " and ";
+      whereCondition += "Zutaten like '%" + zutaten.getText() + "%'";
+    }
+    return whereCondition;
+  }
+
+}
+
+</pre>
+
+<hr WIDTH="100%">
+<center> Source is part of the <a href="http://www.must.de/Jacompe.htm" TARGET="_top">Open Source Project Cameleon OSP</a></center>
+
+</body>
+</html>
