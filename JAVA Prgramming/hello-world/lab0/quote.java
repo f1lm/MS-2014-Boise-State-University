@@ -1,5 +1,3 @@
-package lab0;
-
 
 public class quote {
 	public static void main(String[] args) 

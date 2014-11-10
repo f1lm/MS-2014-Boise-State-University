@@ -1,5 +1,3 @@
-package submit;
-
 import java.util.Scanner;
 
 /*
