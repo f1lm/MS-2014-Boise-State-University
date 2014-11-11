@@ -1,0 +1,1219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0082)http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" class="wf-pontanosans-n4-active wf-active"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks</title>
+    <link rel="pingback" href="http://behindtheracks.com/xmlrpc.php"> 
+    <link rel="alternate" type="application/rss+xml" title="Behind the Racks » Feed" href="http://behindtheracks.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Behind the Racks » Comments Feed" href="http://behindtheracks.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Behind the Racks » OpenStack Juno Scripted Installation on CentOS 7 Comments Feed" href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/feed/">
+	<script src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/cb=gapi.loaded_1" async=""></script><script src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/cb=gapi.loaded_0" async=""></script><script id="twitter-wjs" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/widgets.js"></script><script type="text/javascript" async="" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/plusone.js" gapi_processed="true"></script><script async="" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/analytics.js"></script><script src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/webfont.js" type="text/javascript" async=""></script><script type="text/javascript">
+	WebFontConfig = {
+		google: { families: ['Pontano+Sans::latin'] }
+	};
+	(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+	})(); 
+    </script>
+    <link rel="stylesheet" id="graphene-stylesheet-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/style.css" type="text/css" media="screen">
+<link rel="stylesheet" id="pptwj-widget-tab-css-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/tab.css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/jquery.js"></script><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Pontano+Sans&subset=latin"><style type="text/css"></style>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/jquery.tools.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var grapheneJS = {"templateUrl":"http:\/\/behindtheracks.com\/wp-content\/themes\/graphene","isSingular":"1","shouldShowComments":"1","commentsOrder":"newest","sliderDisable":"","sliderAnimation":"fade","sliderTransSpeed":"600","sliderInterval":"7000","sliderDisplay":"bgimage-excerpt","infScroll":"","infScrollClick":"","infScrollComments":"","totalPosts":"1","postsPerPage":"10","isPageNavi":"","infScrollMsgText":"Fetching window.grapheneInfScrollItemsPerPage more item from window.grapheneInfScrollItemsLeft left ...","infScrollMsgTextPlural":"Fetching window.grapheneInfScrollItemsPerPage more items from window.grapheneInfScrollItemsLeft left ...","infScrollFinishedText":"No more items to fetch","commentsPerPage":"50","totalComments":"0","infScrollCommentsMsg":"Fetching window.grapheneInfScrollCommentsPerPage more top level comment from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsMsgPlural":"Fetching window.grapheneInfScrollCommentsPerPage more top level comments from window.grapheneInfScrollCommentsLeft left ...","infScrollCommentsFinishedMsg":"No more comments to fetch"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/graphene.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var PPTWJ = {"ajaxUrl":"http:\/\/behindtheracks.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/tab.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://behindtheracks.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://behindtheracks.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="The Truth About Deduplication" href="http://behindtheracks.com/2014/08/the-truth-about-deduplication/">
+<meta name="generator" content="WordPress 4.0">
+<link rel="canonical" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks.html">
+<link rel="shortlink" href="http://wp.me/p38H42-cc">
+<style type="text/css">
+#header-menu > li > a{color: #ccc}#header-menu > li:hover,#header-menu > li.current-menu-item,#header-menu > li.current-menu-ancestor{ background: #dddddd; background: -moz-linear-gradient(#ddd, #dddddd); background: -webkit-linear-gradient(#ddd, #dddddd); background: -o-linear-gradient(#ddd, #dddddd); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ddd', EndColorStr='#dddddd')"; background: linear-gradient(#ddd, #dddddd); }#header-menu ul li:hover > a,#header-menu ul li.current-menu-item > a,#header-menu ul li.current-menu-ancestor > a,.primary-menu-preview.dropdown ul li.current-menu-item > a,.primary-menu-preview.dropdown ul li.current-menu-ancestor > a{color: #ccc}.sidebar h3{ background: #212121; background: -moz-linear-gradient(#666, #212121); background: -webkit-linear-gradient(#666, #212121); background: -o-linear-gradient(#666, #212121); -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#666', EndColorStr='#212121')"; background: linear-gradient(#666, #212121); }.header_title, .header_title a, .header_title a:visited, .header_title a:hover, .header_desc {color:#ededed}#sidebar_bottom .sidebar-wrap{width:293px}#nav li ul{width:200px} #nav li ul ul{margin-left:200px}#header-menu ul li a, #secondary-menu ul li a{width:180px}.post-title a, .post-title a:visited{display:block;margin-right:45px;padding-bottom:0}#header{height:125px}.container_16 {width:1000px}.container_16 .grid_1{width:42.5px}.container_16 .prefix_1{padding-left:62.5px}.container_16 .suffix_1{padding-right:62.5px}.container_16 .push_1{left:62.5px}.container_16 .pull_1{left:-62.5px}.container_16 .grid_2{width:105px}.container_16 .prefix_2{padding-left:125px}.container_16 .suffix_2{padding-right:125px}.container_16 .push_2{left:125px}.container_16 .pull_2{left:-125px}.container_16 .grid_3{width:167.5px}.container_16 .prefix_3{padding-left:187.5px}.container_16 .suffix_3{padding-right:187.5px}.container_16 .push_3{left:187.5px}.container_16 .pull_3{left:-187.5px}.container_16 .grid_4{width:230px}.container_16 .prefix_4{padding-left:250px}.container_16 .suffix_4{padding-right:250px}.container_16 .push_4{left:250px}.container_16 .pull_4{left:-250px}.container_16 .grid_5{width:292.5px}.container_16 .prefix_5{padding-left:312.5px}.container_16 .suffix_5{padding-right:312.5px}.container_16 .push_5{left:312.5px}.container_16 .pull_5{left:-312.5px}.container_16 .grid_6{width:355px}.container_16 .prefix_6{padding-left:375px}.container_16 .suffix_6{padding-right:375px}.container_16 .push_6{left:375px}.container_16 .pull_6{left:-375px}.container_16 .grid_7{width:417.5px}.container_16 .prefix_7{padding-left:437.5px}.container_16 .suffix_7{padding-right:437.5px}.container_16 .push_7{left:437.5px}.container_16 .pull_7{left:-437.5px}.container_16 .grid_8{width:480px}.container_16 .prefix_8{padding-left:500px}.container_16 .suffix_8{padding-right:500px}.container_16 .push_8{left:500px}.container_16 .pull_8{left:-500px}.container_16 .grid_9{width:542.5px}.container_16 .prefix_9{padding-left:562.5px}.container_16 .suffix_9{padding-right:562.5px}.container_16 .push_9{left:562.5px}.container_16 .pull_9{left:-562.5px}.container_16 .grid_10{width:605px}.container_16 .prefix_10{padding-left:625px}.container_16 .suffix_10{padding-right:625px}.container_16 .push_10{left:625px}.container_16 .pull_10{left:-625px}.container_16 .grid_11{width:667.5px}.container_16 .prefix_11{padding-left:687.5px}.container_16 .suffix_11{padding-right:687.5px}.container_16 .push_11{left:687.5px}.container_16 .pull_11{left:-687.5px}.container_16 .grid_12{width:730px}.container_16 .prefix_12{padding-left:750px}.container_16 .suffix_12{padding-right:750px}.container_16 .push_12{left:750px}.container_16 .pull_12{left:-750px}.container_16 .grid_13{width:792.5px}.container_16 .prefix_13{padding-left:812.5px}.container_16 .suffix_13{padding-right:812.5px}.container_16 .push_13{left:812.5px}.container_16 .pull_13{left:-812.5px}.container_16 .grid_14{width:855px}.container_16 .prefix_14{padding-left:875px}.container_16 .suffix_14{padding-right:875px}.container_16 .push_14{left:875px}.container_16 .pull_14{left:-875px}.container_16 .grid_15{width:917.5px}.container_16 .prefix_15{padding-left:937.5px}.container_16 .suffix_15{padding-right:937.5px}.container_16 .push_15{left:937.5px}.container_16 .pull_15{left:-937.5px}.container_16 .grid_16{width:980px}.container_16 .prefix_16{padding-left:1000px}.container_16 .suffix_16{padding-right:1000px}.container_16 .push_16{left:1000px}.container_16 .pull_16{left:-1000px}.header-img {margin-left: -500px}
+</style>
+		<link rel="icon" href="http://behindtheracks.com/wp-content/uploads/2013/02/favicon.ico" type="image/x-icon">
+		<!--[if lte IE 7]>
+      <style type="text/css" media="screen">
+      	#footer, div.sidebar-wrap, .block-button, .featured_slider, #slider_root, #nav li ul, .pie{behavior: url(http://behindtheracks.com/wp-content/themes/graphene/js/PIE.php);}
+        .featured_slider{margin-top:0 !important;}
+        #header-menu-wrap {z-index:5}
+      </style>
+    <![endif]-->
+    <script src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/secureAnonymousFramework"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/services.css"><style type="text/css">* html #li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link{height:1% !important;}#li_ui_li_gen_1415646799233_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1415646799233_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link:link, #li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link:visited, #li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link:hover, #li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1415646799233_0 a#li_ui_li_gen_1415646799233_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-logo, #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-logo{}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title, #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title{}.IN-shadowed #li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title{}.IN-shadowed #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title, .IN-shadowed #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title{}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text, #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title-text, #li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title-text *{color:#000 !important;}#li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title-text, #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title-text, #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title-text *, #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title-text *{color:#666 !important;}#li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title #li_ui_li_gen_1415646799233_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text, .success #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1415646799233_0 #li_ui_li_gen_1415646799233_0-title{}.success #li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title-text, .success #li_ui_li_gen_1415646799233_0.hovered #li_ui_li_gen_1415646799233_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title, .success #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title-text, .success #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title-text, .success #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title-text *, .success #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1415646799233_0.clicked #li_ui_li_gen_1415646799233_0-title, .IN-shadowed .success #li_ui_li_gen_1415646799233_0.down #li_ui_li_gen_1415646799233_0-title{}#li_ui_li_gen_1415646799257_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1415646799257_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1415646799257_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1415646799257_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1415646799257_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1415646799257_1-container.IN-hidden #li_ui_li_gen_1415646799257_1 {display:none !important;}</style><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head><body class="single single-post postid-756 single-format-standard two_col_left two-columns" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true"><br>
+<b>Warning</b>:  Invalid argument supplied for foreach() in <b>/home2/seltzer4/public_html/behindtheracks.com/wp-content/plugins/wp-twitter-timeline/wp-twitter-timeline.php</b> on line <b>236</b><br>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-51229726-1', 'behindtheracks.com');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div class="bg-gradient">
+
+
+<div id="container" class="container_16">
+    
+    
+        <div id="header">
+    	
+        <img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/techno.jpg" alt="" width="1000" height="125" class="header-img">        	       
+        		
+        			<h2 class="header_title push_1 grid_15">				<a href="http://behindtheracks.com/" title="Go back to the front page">					Behind the Racks				</a>			</h2>			
+            <h3 class="header_desc push_1 grid_15">				A Data Center Architect's View from the Hot Aisle			</h3>                
+		    </div>
+    <div id="nav">
+                <div id="header-menu-wrap" class="clearfix">
+			<ul id="header-menu" class="menu clearfix grid_12"><li id="menu-item-153" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home"><a href="http://behindtheracks.com/"><strong>Home</strong></a></li>
+<li id="menu-item-151" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-ancestor"><a href="http://behindtheracks.com/category/data-center-infrastructure/"><strong>Data Center Infrastructure</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-189" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://behindtheracks.com/category/converged-infrastructure/">Converged Infrastructure</a></li>
+	<li id="menu-item-184" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://behindtheracks.com/category/data-protection/">Data Protection</a></li>
+	<li id="menu-item-181" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://behindtheracks.com/category/enterprise-storage/">Enterprise Storage</a></li>
+	<li id="menu-item-183" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://behindtheracks.com/category/virtualization/">Virtualization</a></li>
+</ul>
+</li>
+<li id="menu-item-152" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-ancestor"><a href="http://behindtheracks.com/category/openstack/"><strong>OpenStack</strong></a>
+<ul class="sub-menu">
+	<li id="menu-item-711" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://behindtheracks.com/2013/05/openstack-list-of-helpful-resources/">Article List</a></li>
+	<li id="menu-item-712" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://behindtheracks.com/2014/04/openstack-high-availability-controller-stack/">High Availability Guide</a></li>
+	<li id="menu-item-714" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://behindtheracks.com/2013/08/openstack-active-directory-integration/">Active Directory Integration</a></li>
+	<li id="menu-item-715" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="http://behindtheracks.com/category/openstack/openstack-commentary/">OpenStack Commentary</a></li>
+</ul>
+</li>
+<li id="menu-item-154" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://behindtheracks.com/about/"><strong>About</strong></a></li>
+</ul>            
+            <div class="clear"></div>
+            
+			                <div id="top_search" class="grid_4">
+                    <form id="searchform" class="searchform" method="get" action="http://behindtheracks.com/">
+    <p class="clearfix default_searchform">
+        <input type="text" name="s" onblur="if (this.value == &#39;&#39;) {this.value = &#39;Search&#39;;}" onfocus="if (this.value == &#39;Search&#39;) {this.value = &#39;&#39;;}" value="Search">
+        <button type="submit"><span>Search</span></button>
+    </p>
+    </form>                                    </div>
+                        
+                    
+        </div>
+		
+                
+        <div class="menu-bottom-shadow">&nbsp;</div>
+
+
+        
+    </div>
+
+    
+    <div id="content" class="clearfix hfeed">
+                
+                
+        <div id="content-main" class="clearfix grid_11">
+        
+	
+	<div class="post-nav clearfix">
+		<p class="previous">« <a href="http://behindtheracks.com/2014/08/the-truth-about-deduplication/" rel="prev">The Truth About Deduplication</a></p>
+		<p class="next-post"></p>
+			</div>
+	        
+<div id="post-756" class="post-756 post type-post status-publish format-standard has-post-thumbnail hentry category-openstack tag-centos tag-cinder tag-glance tag-juno tag-keystone tag-mysql tag-nova tag-openstack-2 tag-rabbitmq clearfix nodate">
+	
+		
+	<div class="entry clearfix">
+    	
+                		
+        <div class="post-avatar-wrap gutter-left"><img alt="" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/743eca7a6a9d1f49e31cd1d95068c5da" class="avatar avatar-45 photo grav-hashed grav-hijack" height="45" width="45" id="grav-743eca7a6a9d1f49e31cd1d95068c5da-0"></div>        
+                
+                
+		        <h1 class="post-title entry-title">
+			OpenStack Juno Scripted Installation on CentOS 7			        </h1>
+		
+				<div class="post-meta clearfix">
+			
+									<span class="printonly">Categories: </span>
+			<p class="meta_categories"><a href="http://behindtheracks.com/category/openstack/" rel="category tag">OpenStack</a></p>
+						
+									
+						    	<p class="post-date-inline updated">
+        	<span class="value-title" title="2014-11-09T09:32"></span>
+            <abbr class="published" title="2014-11-09T09:32:57+00:00">November 9, 2014</abbr>
+                    </p>
+    			
+									<p class="post-author author vcard">
+				by <span class="fn nickname"><a href="http://behindtheracks.com/author/seltzerb/" class="url">Brian Seltzer</a></span>			</p>
+											
+						
+					</div>
+		
+				<div class="entry-content clearfix">
+							
+										
+						<center><script type="text/javascript"><!--
+google_ad_client = "ca-pub-5703538533812817";
+/* BehindRacks-Top-Post */
+google_ad_slot = "2302374586";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></center><p>This article shows how to install OpenStack Juno on CentOS 7 with a couple of scripts. If you’ve manually installed OpenStack by following the official documentation, you know that there are many steps: adding repositories, installing services, modifying configuration files. I can take all day just to get the core services up and running. Tiring and tedious. After many test installations, I decided to write a few scripts to build the basic environment.</p>
+<p>These scripts were built to deploy OpenStack on VMware virtual machines, but they should also work on physical machines. The scripts are basically a list of commands – no elaborate error checking. However, by keeping the scripts simple, they’re easier to read and understand.</p>
+<p>The goal of the scripts is to deploy a single OpenStack controller, which runs the core controller services: mysql, rabbit, glance, nova, and cinder; and to deploy one or more compute nodes, which run nova-compute, nova-network, nova-metadata-api, and cinder-volume. These core services are enough to start deploying instances.</p>
+<p>The controller requires one network interface (NIC), connected to the management network. Compute nodes require two NICs, one connected to the management network, and the other connected to another subnet that we’ll use for OpenStack instances (virtual machines). The compute node also needs a second hard disk to be used for cinder (/dev/sdb).&nbsp;The resulting configuration will look something like this.</p>
+<p><a href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/diagram.png"><img class="aligncenter wp-image-758 size-full" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/diagram.png" alt="diagram" width="413" height="330"></a></p>
+<p>So to get started we need two CentOS 7 64 bit machines. The basic text-only installation is what we need. I won’t go into detail here. As stated above, the controller needs one NIC. The compute node needs two NICs and an extra hard disk for cinder.</p>
+<p>Once these machines are built, we need to copy the scripts (shown below) to the machines, then we’ll customize the configuration and run the scripts.</p>
+<h2>Building the Controller</h2>
+<p>The first file is simply called config. This file will contain the specifics of the stack, and the IP configuration info for the node we are building.</p>
+<p><a href="http://pastebin.com/raw.php?i=kBcqQznR" target="_blank">[view raw text]</a></p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="0">#stack information
+CONTROLLER_IP=192.168.1.237
+ADMIN_TOKEN=ADMIN123
+SERVICE_PWD=Service123
+ADMIN_PWD=password
+
+#this host IP info
+THISHOST_NAME=juno-controller
+THISHOST_IP=192.168.1.237
+THISHOST_NETMASK=255.255.255.0
+THISHOST_GATEWAY=192.168.1.1
+THISHOST_DNS=192.168.1.1</pre>
+</div>
+<p>Save this file on the controller (in your home directory) and give it the filename: config</p>
+<p>Adjust the information accordingly. I’m using the IP address 192.168.1.237 for my controller. So both CONTROLLER_IP and THISHOST_IP are set to that address. I’ve also set the hostname, netmask, gateway, and DNS address accordingly. I’m also defining the admin token to be used in Keystone, the password to be used by the OpenStack services, and the password to be used by the OpenStack admin user.</p>
+<p>This next script simply writes the IP information from the config file to the if-config file for the primary NIC. Note that the script assumes that the primary NIC has an interface index of 2 (the local loopback adapter is 1). If you’re building a VM, this assumption is probably correct. However, if your machine has multiple NICs, or you’re using aliases or VLANs, your interface indexes may be different. You should inspect the NICs that your system sees by listing /sys/class/net and looking at the ifindex of the NICs in your system, then adjust the script accordingly.</p>
+<p><a href="http://pastebin.com/raw.php?i=bNATcKQ2" target="_blank">[view raw text]</a></p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto; ">
+<pre data-initialized="true" data-gclp-id="1">#!/bin/bash
+
+#get config info
+source config
+
+#enumerate NICs
+for i in $(ls /sys/class/net); do
+    NIC=$i
+    MY_MAC=$(cat /sys/class/net/$i/address)
+    if [ "$(cat /sys/class/net/$i/ifindex)" == '2' ]; then
+        #setup the IP configuration for 1st NIC
+        sed -i.bak "s/dhcp/none/g" /etc/sysconfig/network-scripts/ifcfg-$NIC
+        sed -i "s/HWADDR/#HWADDR/g" /etc/sysconfig/network-scripts/ifcfg-$NIC
+        sed -i "/#HWADDR/a HWADDR=\"$MY_MAC\"" /etc/sysconfig/network-scripts/ifcfg-$NIC
+        sed -i "s/UUID/#UUID/g" /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "IPADDR=\"$THISHOST_IP\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "NETMASK=\"$THISHOST_NETMASK\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "GATEWAY=\"$THISHOST_GATEWAY\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "DNS1=\"$THISHOST_DNS\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        mv /etc/sysconfig/network-scripts/ifcfg-$NIC.bak .
+    fi
+    if [ "$(cat /sys/class/net/$i/ifindex)" == '3' ]; then
+        #create config file for 2nd NIC
+        echo "HWADDR=\"$MY_MAC\"" &gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "TYPE=\"Ethernet\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "BOOTPROTO=\"none\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "IPV4_FAILURE_FATAL=\"no\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "NAME=\"$NIC\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+        echo "ONBOOT=\"yes\"" &gt;&gt; /etc/sysconfig/network-scripts/ifcfg-$NIC
+    fi        
+done
+
+#setup hostname
+echo "$THISHOST_NAME" &gt; /etc/hostname
+echo "$THISHOST_IP    $THISHOST_NAME" &gt;&gt; /etc/hosts
+
+reboot</pre>
+</div>
+<p>Save this file as ipconfig.sh and grant it execute permissions (chmod +x ipconfig.sh). Notice that if the system has a second NIC (ifindex = 3) then it will create a basic if-config file for that NIC, with no IP address. This won’t do anything on our controller (which has only one NIC), but it will be used when we build the compute node. When you run this script, the server will reboot and come up with the new IP address.</p>
+<p>&nbsp;</p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="2">sudo ./ipconfig.sh</pre>
+</div>
+<p>Now, we install and configure the OpenStack controller services.In the middle of this next script, the mysql_secure_installation routine will be called. You will be prompted for a password. The initial password is blank (just press enter). Then you can enter a new mysql root password of your choosing, and select the security defaults that you desire. Then the script will continue. Here’s the script:</p>
+<p><a href="http://pastebin.com/raw.php?i=JE8xPPuf" target="_blank">[view raw text]</a></p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="3">#!/bin/bash
+
+#get the configuration info
+source config
+
+#install ntp
+yum -y install ntp
+systemctl enable ntpd.service
+systemctl start ntpd.service
+
+#openstack repos
+yum -y install yum-plugin-priorities
+yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+yum -y install http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
+yum -y upgrade
+#yum -y install openstack-selinux
+
+#loosen things up
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+sed -i 's/enforcing/disabled/g' /etc/selinux/config
+echo 0 &gt; /sys/fs/selinux/enforce
+
+#install database server
+yum -y install mariadb mariadb-server MySQL-python
+
+#edit /etc/my.cnf
+sed -i.bak "10i\\
+bind-address = $CONTROLLER_IP\n\
+default-storage-engine = innodb\n\
+innodb_file_per_table\n\
+collation-server = utf8_general_ci\n\
+init-connect = 'SET NAMES utf8'\n\
+character-set-server = utf8\n\
+" /etc/my.cnf
+
+#start database server
+systemctl enable mariadb.service
+systemctl start mariadb.service
+
+echo 'now run through the mysql_secure_installation'
+mysql_secure_installation
+
+#create databases
+echo 'Enter the new MySQL root password'
+mysql -u root -p &lt;&lt;EOF
+CREATE DATABASE nova;
+CREATE DATABASE cinder;
+CREATE DATABASE glance;
+CREATE DATABASE keystone;
+GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '$SERVICE_PWD';
+GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY '$SERVICE_PWD';
+FLUSH PRIVILEGES;
+EOF
+
+#install messaging service
+yum -y install rabbitmq-server
+systemctl enable rabbitmq-server.service
+systemctl start rabbitmq-server.service
+
+#install keystone
+yum -y install openstack-keystone python-keystoneclient
+
+#edit /etc/keystone.conf
+sed -i.bak "s/#admin_token=ADMIN/admin_token=$ADMIN_TOKEN/g" /etc/keystone/keystone.conf
+
+sed -i "/\[database\]/a \
+connection = mysql://keystone:$SERVICE_PWD@$CONTROLLER_IP/keystone" /etc/keystone/keystone.conf
+
+sed -i "/\[token\]/a \
+provider = keystone.token.providers.uuid.Provider\n\
+driver = keystone.token.persistence.backends.sql.Token\n" /etc/keystone/keystone.conf
+
+#finish keystone setup
+keystone-manage pki_setup --keystone-user keystone --keystone-group keystone
+chown -R keystone:keystone /var/log/keystone
+chown -R keystone:keystone /etc/keystone/ssl
+chmod -R o-rwx /etc/keystone/ssl
+su -s /bin/sh -c "keystone-manage db_sync" keystone
+
+#start keystone
+systemctl enable openstack-keystone.service
+systemctl start openstack-keystone.service
+
+#schedule token purge
+(crontab -l -u keystone 2&gt;&amp;1 | grep -q token_flush) || \
+  echo '@hourly /usr/bin/keystone-manage token_flush &gt;/var/log/keystone/keystone-tokenflush.log 2&gt;&amp;1' \
+  &gt;&gt; /var/spool/cron/keystone
+  
+#create users and tenants
+export OS_SERVICE_TOKEN=$ADMIN_TOKEN
+export OS_SERVICE_ENDPOINT=http://$CONTROLLER_IP:35357/v2.0
+keystone tenant-create --name admin --description "Admin Tenant"
+keystone user-create --name admin --pass $ADMIN_PWD
+keystone role-create --name admin
+keystone user-role-add --tenant admin --user admin --role admin
+keystone role-create --name _member_
+keystone user-role-add --tenant admin --user admin --role _member_
+keystone tenant-create --name demo --description "Demo Tenant"
+keystone user-create --name demo --pass password
+keystone user-role-add --tenant demo --user demo --role _member_
+keystone tenant-create --name service --description "Service Tenant"
+keystone service-create --name keystone --type identity \
+  --description "OpenStack Identity"
+keystone endpoint-create \
+  --service-id $(keystone service-list | awk '/ identity / {print $2}') \
+  --publicurl http://$CONTROLLER_IP:5000/v2.0 \
+  --internalurl http://$CONTROLLER_IP:5000/v2.0 \
+  --adminurl http://$CONTROLLER_IP:35357/v2.0 \
+  --region regionOne
+unset OS_SERVICE_TOKEN OS_SERVICE_ENDPOINT
+
+#create credentials file
+echo "export OS_TENANT_NAME=admin" &gt; creds
+echo "export OS_USERNAME=admin" &gt;&gt; creds
+echo "export OS_PASSWORD=$ADMIN_PWD" &gt;&gt; creds
+echo "export OS_AUTH_URL=http://$CONTROLLER_IP:35357/v2.0" &gt;&gt; creds
+source creds
+
+#create keystone entries for glance
+keystone user-create --name glance --pass $SERVICE_PWD
+keystone user-role-add --user glance --tenant service --role admin
+keystone service-create --name glance --type image \
+  --description "OpenStack Image Service"
+keystone endpoint-create \
+  --service-id $(keystone service-list | awk '/ image / {print $2}') \
+  --publicurl http://$CONTROLLER_IP:9292 \
+  --internalurl http://$CONTROLLER_IP:9292 \
+  --adminurl http://$CONTROLLER_IP:9292 \
+  --region regionOne
+
+#install glance
+yum -y install openstack-glance python-glanceclient
+
+#edit /etc/glance/glance-api.conf
+sed -i.bak "/\[database\]/a \
+connection = mysql://glance:$SERVICE_PWD@$CONTROLLER_IP/glance" /etc/glance/glance-api.conf
+
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = glance\n\
+admin_password = $SERVICE_PWD" /etc/glance/glance-api.conf
+
+sed -i "/\[paste_deploy\]/a \
+flavor = keystone" /etc/glance/glance-api.conf
+
+sed -i "/\[glance_store\]/a \
+default_store = file\n\
+filesystem_store_datadir = /var/lib/glance/images/" /etc/glance/glance-api.conf
+
+#edit /etc/glance/glance-registry.conf
+sed -i.bak "/\[database\]/a \
+connection = mysql://glance:$SERVICE_PWD@$CONTROLLER_IP/glance" /etc/glance/glance-registry.conf
+
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = glance\n\
+admin_password = $SERVICE_PWD" /etc/glance/glance-registry.conf
+
+sed -i "/\[paste_deploy\]/a \
+flavor = keystone" /etc/glance/glance-registry.conf
+
+#start glance
+su -s /bin/sh -c "glance-manage db_sync" glance
+systemctl enable openstack-glance-api.service openstack-glance-registry.service
+systemctl start openstack-glance-api.service openstack-glance-registry.service
+
+#upload the cirros image to glance
+yum -y install wget
+wget http://cdn.download.cirros-cloud.net/0.3.3/cirros-0.3.3-x86_64-disk.img
+glance image-create --name "cirros-0.3.3-x86_64" --file cirros-0.3.3-x86_64-disk.img \
+  --disk-format qcow2 --container-format bare --is-public True --progress
+  
+#create the keystone entries for nova
+keystone user-create --name nova --pass $SERVICE_PWD
+keystone user-role-add --user nova --tenant service --role admin
+keystone service-create --name nova --type compute \
+  --description "OpenStack Compute"
+keystone endpoint-create \
+  --service-id $(keystone service-list | awk '/ compute / {print $2}') \
+  --publicurl http://$CONTROLLER_IP:8774/v2/%\(tenant_id\)s \
+  --internalurl http://$CONTROLLER_IP:8774/v2/%\(tenant_id\)s \
+  --adminurl http://$CONTROLLER_IP:8774/v2/%\(tenant_id\)s \
+  --region regionOne
+
+#install the nova controller components
+yum -y install openstack-nova-api openstack-nova-cert openstack-nova-conductor \
+  openstack-nova-console openstack-nova-novncproxy openstack-nova-scheduler \
+  python-novaclient
+
+#edit /etc/nova/nova.conf
+sed -i.bak "/\[database\]/a \
+connection = mysql://nova:$SERVICE_PWD@$CONTROLLER_IP/nova" /etc/nova/nova.conf
+
+sed -i "/\[DEFAULT\]/a \
+rpc_backend = rabbit\n\
+rabbit_host = $CONTROLLER_IP\n\
+auth_strategy = keystone\n\
+my_ip = $CONTROLLER_IP\n\
+vncserver_listen = $CONTROLLER_IP\n\
+vncserver_proxyclient_address = $CONTROLLER_IP\n\
+network_api_class = nova.network.api.API\n\
+security_group_api = nova" /etc/nova/nova.conf
+
+sed -i "/\[keystone_authtoken\]/i \
+[database]\nconnection = mysql://nova:Service123@$CONTROLLER_IP/nova" /etc/nova/nova.conf
+
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = nova\n\
+admin_password = $SERVICE_PWD" /etc/nova/nova.conf
+
+sed -i "/\[glance\]/a host = $CONTROLLER_IP" /etc/nova/nova.conf
+
+#start nova
+su -s /bin/sh -c "nova-manage db sync" nova
+
+systemctl enable openstack-nova-api.service openstack-nova-cert.service \
+  openstack-nova-consoleauth.service openstack-nova-scheduler.service \
+  openstack-nova-conductor.service openstack-nova-novncproxy.service
+systemctl start openstack-nova-api.service openstack-nova-cert.service \
+  openstack-nova-consoleauth.service openstack-nova-scheduler.service \
+  openstack-nova-conductor.service openstack-nova-novncproxy.service
+
+#install dashboard
+yum -y install openstack-dashboard httpd mod_wsgi memcached python-memcached
+
+#edit /etc/openstack-dashboard/local_settings
+sed -i.bak "s/ALLOWED_HOSTS = \['horizon.example.com', 'localhost'\]/ALLOWED_HOSTS = ['*']/" /etc/openstack-dashboard/local_settings
+sed -i 's/OPENSTACK_HOST = "127.0.0.1"/OPENSTACK_HOST = "'"$CONTROLLER_IP"'"/' /etc/openstack-dashboard/local_settings
+
+#start dashboard
+setsebool -P httpd_can_network_connect on
+chown -R apache:apache /usr/share/openstack-dashboard/static
+systemctl enable httpd.service memcached.service
+systemctl start httpd.service memcached.service
+
+#create keystone entries for cinder
+keystone user-create --name cinder --pass $SERVICE_PWD
+keystone user-role-add --user cinder --tenant service --role admin
+keystone service-create --name cinder --type volume \
+  --description "OpenStack Block Storage"
+keystone service-create --name cinderv2 --type volumev2 \
+  --description "OpenStack Block Storage"
+keystone endpoint-create \
+  --service-id $(keystone service-list | awk '/ volume / {print $2}') \
+  --publicurl http://$CONTROLLER_IP:8776/v1/%\(tenant_id\)s \
+  --internalurl http://$CONTROLLER_IP:8776/v1/%\(tenant_id\)s \
+  --adminurl http://$CONTROLLER_IP:8776/v1/%\(tenant_id\)s \
+  --region regionOne
+keystone endpoint-create \
+  --service-id $(keystone service-list | awk '/ volumev2 / {print $2}') \
+  --publicurl http://$CONTROLLER_IP:8776/v2/%\(tenant_id\)s \
+  --internalurl http://$CONTROLLER_IP:8776/v2/%\(tenant_id\)s \
+  --adminurl http://$CONTROLLER_IP:8776/v2/%\(tenant_id\)s \
+  --region regionOne
+
+#install cinder controller
+yum -y install openstack-cinder python-cinderclient python-oslo-db
+
+#edit /etc/cinder/cinder.conf
+sed -i.bak "/\[database\]/a connection = mysql://cinder:$SERVICE_PWD@$CONTROLLER_IP/cinder" /etc/cinder/cinder.conf
+
+sed -i "/\[DEFAULT\]/a \
+rpc_backend = rabbit\n\
+rabbit_host = $CONTROLLER_IP\n\
+auth_strategy = keystone\n\
+my_ip = $CONTROLLER_IP" /etc/cinder/cinder.conf
+
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = cinder\n\
+admin_password = $SERVICE_PWD" /etc/cinder/cinder.conf
+
+#start cinder controller
+su -s /bin/sh -c "cinder-manage db sync" cinder
+systemctl enable openstack-cinder-api.service openstack-cinder-scheduler.service
+systemctl start openstack-cinder-api.service openstack-cinder-scheduler.service
+</pre>
+</div>
+<p>That’s a lot of code, I know, but each section is fairly straightforward. Each section is commented to describe what it’s doing. Save the file as controller-node.sh, grant it execution rights (chmod +x controller-node.sh), and run the script like so:</p>
+<p>&nbsp;</p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="4">sudo ./controller-node.sh</pre>
+</div>
+<p>Your controller should now be ready to go.</p>
+<h2>Building the Compute Node</h2>
+<p>Again, our compute node should have two NICs and two hard disks. The second hard disk will be used for the cinder-volumes LVM volume group. If you have a different hard disk configuration, you can modify the script to deploy the cinder-volumes volume group onto a different location.</p>
+<p>As before, the first thing we need to do is modify the config file. In this case, the stack information remains the same as before, but we modify the IP address and hostname for this host as shown here.</p>
+<p>&nbsp;</p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="5">#stack information
+CONTROLLER_IP=192.168.1.237
+ADMIN_TOKEN=ADMIN123
+SERVICE_PWD=Service123
+ADMIN_PWD=password
+
+#this host IP info
+THISHOST_NAME=juno-compute
+THISHOST_IP=192.168.1.236
+THISHOST_NETMASK=255.255.255.0
+THISHOST_GATEWAY=192.168.1.1
+THISHOST_DNS=192.168.1.1</pre>
+</div>
+<p>Again, save this with the filename: config</p>
+<p>Next run the ipconfig.sh script on the compute node. In this case, the if-config files for both NICs will be modified. The second NIC will not receive an IP address. Instead, OpenStack will create a virtual bridge and connect it to the second NIC. When Instances (VMs) are created, they will be connected to this bridge.</p>
+<p>After the IP configuration is set and the system has been rebooted, we can run the script that installs the OpenStack compute node services.</p>
+<p><a href="http://pastebin.com/raw.php?i=qUUy8xPF" target="_blank">[view raw text]</a></p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="6">#!/bin/bash
+
+source config
+
+#install ntp
+yum -y install ntp
+systemctl enable ntpd.service
+systemctl start ntpd.service
+
+#openstack repos
+yum -y install yum-plugin-priorities
+yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-2.noarch.rpm
+yum -y install http://rdo.fedorapeople.org/openstack-juno/rdo-release-juno.rpm
+yum -y upgrade
+#yum -y install openstack-selinux
+
+#loosen things up
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+sed -i 's/enforcing/disabled/g' /etc/selinux/config
+echo 0 &gt; /sys/fs/selinux/enforce
+
+#get name of 2nd NIC
+for i in $(ls /sys/class/net); do
+    if [ "$(cat /sys/class/net/$i/ifindex)" == '3' ]; then
+        NIC=$i
+        MY_MAC=$(cat /sys/class/net/$i/address)
+        echo "$i ($MY_MAC)"
+    fi
+done
+
+#nova compute
+yum -y install openstack-nova-compute sysfsutils libvirt-daemon-config-nwfilter
+
+sed -i.bak "/\[DEFAULT\]/a \
+rpc_backend = rabbit\n\
+rabbit_host = $CONTROLLER_IP\n\
+auth_strategy = keystone\n\
+my_ip = $THISHOST_IP\n\
+vnc_enabled = True\n\
+vncserver_listen = 0.0.0.0\n\
+vncserver_proxyclient_address = $THISHOST_IP\n\
+novncproxy_base_url = http://$CONTROLLER_IP:6080/vnc_auto.html" /etc/nova/nova.conf
+
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = nova\n\
+admin_password = $SERVICE_PWD" /etc/nova/nova.conf
+
+sed -i "/\[glance\]/a host = $CONTROLLER_IP" /etc/nova/nova.conf
+
+#if compute node is virtual - change virt_type to qemu
+if [ $(egrep -c '(vmx|svm)' /proc/cpuinfo) == "0" ]; then
+    sed -i '/\[libvirt\]/a virt_type = qemu' /etc/nova/nova.conf
+fi
+
+systemctl enable libvirtd.service openstack-nova-compute.service
+systemctl start libvirtd.service
+systemctl start openstack-nova-compute.service
+
+yum -y install openstack-nova-network openstack-nova-api
+
+sed -i "/\[DEFAULT\]/a \
+network_api_class = nova.network.api.API\n\
+security_group_api = nova\n\
+firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver\n\
+network_manager = nova.network.manager.FlatDHCPManager\n\
+network_size = 254\n\
+allow_same_net_traffic = True\n\
+multi_host = True\n\
+send_arp_for_ha = True\n\
+share_dhcp_address = True\n\
+force_dhcp_release = True\n\
+flat_network_bridge = br100\n\
+flat_interface = $NIC\n\
+public_interface = $NIC" /etc/nova/nova.conf
+
+systemctl enable openstack-nova-network.service openstack-nova-metadata-api.service
+systemctl start openstack-nova-network.service openstack-nova-metadata-api.service
+
+#cinder storage node
+pvcreate /dev/sdb
+vgcreate cinder-volumes /dev/sdb
+
+yum -y install openstack-cinder targetcli python-oslo-db MySQL-python
+
+sed -i.bak "/\[database\]/a connection = mysql://cinder:$SERVICE_PWD@$CONTROLLER_IP/cinder" /etc/cinder/cinder.conf
+sed -i '0,/\[DEFAULT\]/s//\[DEFAULT\]\
+rpc_backend = rabbit\
+rabbit_host = '"$CONTROLLER_IP"'\
+auth_strategy = keystone\
+my_ip = '"$THISHOST_IP"'\
+iscsi_helper = lioadm/' /etc/cinder/cinder.conf
+sed -i "/\[keystone_authtoken\]/a \
+auth_uri = http://$CONTROLLER_IP:5000/v2.0\n\
+identity_uri = http://$CONTROLLER_IP:35357\n\
+admin_tenant_name = service\n\
+admin_user = cinder\n\
+admin_password = $SERVICE_PWD" /etc/cinder/cinder.conf
+
+systemctl enable openstack-cinder-volume.service target.service
+systemctl start openstack-cinder-volume.service target.service
+
+echo 'export OS_TENANT_NAME=admin' &gt; creds
+echo 'export OS_USERNAME=admin' &gt;&gt; creds
+echo 'export OS_PASSWORD='"$ADMIN_PWD" &gt;&gt; creds
+echo 'export OS_AUTH_URL=http://'"$CONTROLLER_IP"':35357/v2.0' &gt;&gt; creds
+source creds
+</pre>
+</div>
+<p>Save this file as compute-node.sh and grant it execute permissions (chmod +x compute-node.sh). Then run it:</p>
+<p>&nbsp;</p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="7">sudo ./compute-node.sh</pre>
+</div>
+<p>Notice that the script created a file called creds. Source this file before running any OpenStack command line utilities, as shown below.</p>
+<h2>Creating the VM Network</h2>
+<p>Finally, we need to create an OpenStack network object for the instances to connect to. In my case, I’m using the subnet 192.168.2.0/24. My router address on that subnet is 192.168.2.254.</p>
+<p>&nbsp;</p>
+<div style="border: #cccccc 1px dashed; padding: 5px; width: 95%; background: #f0f0f0; color: #000000; font-size: 12px; overflow: auto; height: auto;">
+<pre data-initialized="true" data-gclp-id="8">source creds
+
+nova network-create demo-net --bridge br100 --multi-host T \
+  --fixed-range-v4 192.168.2.0/24 --gateway 192.168.2.254 \
+  --dhcp-server 192.168.2.1 --dns1 192.168.1.1
+</pre>
+</div>
+<p>Finally, reboot the compute node and you should be ready to deploy instances. Enjoy!</p>
+<p>&nbsp;</p>
+<script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- BehindRacks-BottomPost -->
+<ins class="adsbygoogle" style="display:inline-block;width:468px;height:60px" data-ad-client="ca-pub-5703538533812817" data-ad-slot="3006704989"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li><a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#" class="sharing-anchor sd-button share-more"><span>Share</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter" id="sharing-twitter-756"><span>Twitter<span class="share-count">3</span></span></a></li><li class="share-linkedin"><a rel="nofollow" class="share-linkedin sd-button share-icon" href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn" id="sharing-linkedin-756"><span>LinkedIn<span class="share-count">7</span></span></a></li><li class="share-end"></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/?share=google-plus-1&nb=1" target="_blank" title="Click to share on Google+" id="sharing-google-756"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div></div></div>			
+						
+						
+		</div>
+		
+				<div class="entry-footer clearfix">
+									
+						
+					</div>
+	</div>
+</div>
+
+<h4 class="author_h4 vcard">About the author</h4>
+<div class="author-info clearfix">
+	<div class="author-avatar-wrap grid_2 alpha">
+	<img alt="" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/743eca7a6a9d1f49e31cd1d95068c5da(1)" class="avatar avatar-105 photo grav-hashed grav-hijack" height="105" width="105" id="grav-743eca7a6a9d1f49e31cd1d95068c5da-1">    </div>
+	<p class="author_name"><strong>Brian Seltzer</strong></p>
+	<div class="author_bio"><p>Author of BehindTheRacks.com and ITAdminTools.com.  Data Center Architect with 25 years in the IT world.  Windows, Linux, VMware, Storage, Blade Servers, and all big things taking up space on the raised floor.  Follow Brian on Twitter <a href="https://twitter.com/ITAdmnTools">@ITAdmnTools</a></p>
+</div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="comment-form-wrap" class="clearfix">
+							
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#respond" style="display:none;">Cancel reply</a></small></h3>
+			<div id="commentform" class="comment-form">
+				<iframe src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/saved_resource.html" allowtransparency="false" style="width: 100%; height: 58px; border: 0px;" frameborder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			<input id="ak_js" name="ak_js" type="hidden" value="1415646799001"></div>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="">
+
+			</div>
+    
+
+            
+  
+    </div><!-- #content-main -->
+    
+    	
+    
+<div id="sidebar1" class="sidebar grid_5">
+
+	
+    <div id="text-5" class="sidebar-wrap clearfix widget_text"><h3>Share This!</h3>			<div class="textwidget"><center><div style="padding-top:3px; padding-left:4px;"><script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/in.js"></script><span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415646799233_0"><a id="li_ui_li_gen_1415646799233_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1415646799233_0-logo">in</span><span id="li_ui_li_gen_1415646799233_0-title"><span id="li_ui_li_gen_1415646799233_0-mark"></span><span id="li_ui_li_gen_1415646799233_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415646799257_1-container" class="IN-right"><span id="li_ui_li_gen_1415646799257_1" class="IN-right"><span id="li_ui_li_gen_1415646799257_1-inner" class="IN-right"><span id="li_ui_li_gen_1415646799257_1-content" class="IN-right">7</span></span></span></span></span></span><script type="in/share+init" data-counter="right"></script><!-- Place this tag where you want the +1 button to render. -->
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 32px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 32px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1415646798925" name="I0_1415646798925" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div><!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script><script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/widgets.js"></script><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe></div></center></div>
+		</div><div id="text-7" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><center><a href="http://www.dpbolvw.net/tl68vpyvpxCKIJGEMFCEEJKLMHJ" target="_blank" onmouseover="window.status=&#39;http://www.vmware.com/vmwarestore/&#39;;return true;" onmouseout="window.status=&#39; &#39;;return true;">
+<img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/vmware-vsphere.jpg" alt="vmware" border="0"></a></center></div>
+		</div><div id="text-2" class="sidebar-wrap clearfix widget_text"><h3>About BehindTheRacks.com</h3>			<div class="textwidget">From the Author of ITAdminTools.com, BehindTheRacks.com brings you Brian's perspective on Data Center design, including servers, storage, converged networking, data protection and virtualization.  Follow us via ITAdmnTools on Twitter.
+<center><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/follow_button.21f7daa948263c3043bab783473c3475.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 146px; height: 20px;"></iframe>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></center></div>
+		</div><div id="text-3" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><center><script type="text/javascript"><!--
+google_ad_client = "ca-pub-5703538533812817";
+/* BehindRacks - SmTopSq */
+google_ad_slot = "7450282187";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></center></div>
+		</div>	
+			<div id="pptwj-2" class="sidebar-wrap clearfix pptwj">
+			
+			<div class="pptwj-tabs-wrap">
+	
+				<ul class="tab-links">
+										
+					<li class="popular"><a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#tab-pop" class="selected">Popular</a></li>										<li class="latest"><a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#tab-latest">Latest</a></li>				</ul>
+				
+				<div class="clear"></div>
+	
+				<div class="boxes box inside">
+	
+						
+										<div id="tab-pop" style="display: block;">
+						<ul class="tab-filter-list" data-type="popular">
+							<li>
+																	<a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#" data-time="day" data-numberposts="8" data-thumb="45" data-tab="popular">Today</a>
+																	<a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#" data-time="week" data-numberposts="8" data-thumb="45" data-tab="popular">Week</a>
+																	<a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#" data-time="month" data-numberposts="8" data-thumb="45" data-tab="popular">Month</a>
+																	<a href="http://behindtheracks.com/2014/11/openstack-juno-scripted-installation-on-centos7/#" data-time="all" data-numberposts="8" data-thumb="45" data-tab="popular">All</a>
+															</li>
+						</ul>
+						<ul class="list">
+									<li class="odd">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/04/redundant-load-balancers-haproxy-and-keepalived/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/loadBalancers-640-240-150x150.png" alt="Redundant Load Balancers – HAProxy and Keepalived" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="Redundant Load Balancers - HAProxy and Keepalived" href="http://behindtheracks.com/2014/04/redundant-load-balancers-haproxy-and-keepalived/">Redundant Load Balancers - HAProxy and Keepalived</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="even">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/04/openstack-high-availability-controller-stack/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/openstack-ha-controller-640x240-150x150.png" alt="OpenStack High Availability – Controller Stack" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack High Availability - Controller Stack" href="http://behindtheracks.com/2014/04/openstack-high-availability-controller-stack/">OpenStack High Availability - Controller Stack</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="odd">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/04/mysql-high-availability-with-galera-and-haproxy/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/mysql-cluster-640x240-150x150.png" alt="MySQL High Availability with Galera and HAProxy" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="MySQL High Availability with Galera and HAProxy" href="http://behindtheracks.com/2014/04/mysql-high-availability-with-galera-and-haproxy/">MySQL High Availability with Galera and HAProxy</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="even">
+										<a class="post-thumb" href="http://behindtheracks.com/2013/08/openstack-active-directory-integration/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/OpenStack_logo_cropped2-150x150.png" alt="OpenStack Active Directory Integration" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack Active Directory Integration" href="http://behindtheracks.com/2013/08/openstack-active-directory-integration/">OpenStack Active Directory Integration</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="odd">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-ceph-storage-for-cinder-and-glance/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/ceph-150x150.png" alt="OpenStack High Availability – Ceph Storage for Cinder and Glance" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack High Availability - Ceph Storage for Cinder and Glance" href="http://behindtheracks.com/2014/05/openstack-high-availability-ceph-storage-for-cinder-and-glance/">OpenStack High Availability - Ceph Storage for Cinder and Glance</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="even">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-keystone-and-rabbitmq/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/keystone-150x150.png" alt="OpenStack High Availability – Keystone and RabbitMQ" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack High Availability - Keystone and RabbitMQ" href="http://behindtheracks.com/2014/05/openstack-high-availability-keystone-and-rabbitmq/">OpenStack High Availability - Keystone and RabbitMQ</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="odd">
+										<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-glance-and-swift/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/glance-and-swift-640-240-150x150.png" alt="OpenStack High Availability – Glance and Swift" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack High Availability - Glance and Swift" href="http://behindtheracks.com/2014/05/openstack-high-availability-glance-and-swift/">OpenStack High Availability - Glance and Swift</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+				<li class="even" style="border-bottom-width: 0px;">
+										<a class="post-thumb" href="http://behindtheracks.com/2013/12/openstack-havana-flat-networking/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/havana-flat2-150x150.png" alt="OpenStack Havana – Flat Networking" width="45" height="45" style="width: 45px; height: 45px;"></a>
+						<a class="item-title" title="OpenStack Havana - Flat Networking" href="http://behindtheracks.com/2013/12/openstack-havana-flat-networking/">OpenStack Havana - Flat Networking</a>
+			<span class="meta"></span>			<div class="fix"></div>
+		</li>
+								</ul>
+					</div><!-- #tab-pop -->
+															<div id="tab-latest" style="display: none;">
+						<ul class="list">
+										<li class="odd">
+												<a class="post-thumb" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks.html"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/juno-slider-150x150.png" alt="OpenStack Juno Scripted Installation on CentOS 7" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack Juno Scripted Installation on CentOS 7" href="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks.html">OpenStack Juno Scripted Installation on CentOS 7</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="even">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/08/the-truth-about-deduplication/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/dedup-150x150.png" alt="The Truth About Deduplication" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="The Truth About Deduplication" href="http://behindtheracks.com/2014/08/the-truth-about-deduplication/">The Truth About Deduplication</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="odd">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/after-the-storm-bringing-up-your-openstack/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/lightning-150x150.png" alt="After the Storm – Bringing Up Your OpenStack" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="After the Storm – Bringing Up Your OpenStack" href="http://behindtheracks.com/2014/05/after-the-storm-bringing-up-your-openstack/">After the Storm – Bringing Up Your OpenStack</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="even">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-heat-orchestration-service/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/heat-150x150.png" alt="OpenStack High Availability – Heat Orchestration Service" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack High Availability – Heat Orchestration Service" href="http://behindtheracks.com/2014/05/openstack-high-availability-heat-orchestration-service/">OpenStack High Availability – Heat Orchestration Service</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="odd">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-my-test-lab/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/myTestLab-640-240-150x150.png" alt="OpenStack: My Test Lab" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack: My Test Lab" href="http://behindtheracks.com/2014/05/openstack-my-test-lab/">OpenStack: My Test Lab</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="even">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-booting-from-a-ceph-volume/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/openstack-ceph-volume-150x150.png" alt="OpenStack High Availability – Booting from a Ceph Volume" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack High Availability – Booting from a Ceph Volume" href="http://behindtheracks.com/2014/05/openstack-high-availability-booting-from-a-ceph-volume/">OpenStack High Availability – Booting from a Ceph Volume</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="odd">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-first-compute-node/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/supernova-150x150.png" alt="OpenStack High Availability – First Compute Node" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack High Availability – First Compute Node" href="http://behindtheracks.com/2014/05/openstack-high-availability-first-compute-node/">OpenStack High Availability – First Compute Node</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+					<li class="even" style="border-bottom-width: 0px;">
+												<a class="post-thumb" href="http://behindtheracks.com/2014/05/openstack-high-availability-nova-and-horizon/"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/binary-star-150x150.png" alt="OpenStack High Availability – Nova and Horizon" width="45" height="45" style="width: 45px; height: 45px;"></a>
+								
+				<a class="item-title" title="OpenStack High Availability – Nova and Horizon" href="http://behindtheracks.com/2014/05/openstack-high-availability-nova-and-horizon/">OpenStack High Availability – Nova and Horizon</a>
+
+				<span class="meta"></span>
+				<div class="fix"></div>
+			</li>
+								</ul>
+					</div><!-- #tab-latest -->
+															<div class="pptwj-loader" style="display: none;"><img src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/wpspin-2x.gif" alt="Ajax spinner"></div>
+				</div><!-- /.boxes -->
+			</div><!-- /pptwj-tabs-wrap -->
+
+			</div>			<div id="categories-2" class="sidebar-wrap clearfix widget_categories"><h3>Categories</h3>		<ul>
+	<li class="cat-item cat-item-55"><a href="http://behindtheracks.com/category/cloud/">Cloud</a>
+</li>
+	<li class="cat-item cat-item-76"><a href="http://behindtheracks.com/category/converged-infrastructure/">Converged Infrastructure</a>
+</li>
+	<li class="cat-item cat-item-38"><a href="http://behindtheracks.com/category/data-center-infrastructure/">Data Center Infrastructure</a>
+</li>
+	<li class="cat-item cat-item-25"><a href="http://behindtheracks.com/category/data-protection/">Data Protection</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://behindtheracks.com/category/enterprise-storage/">Enterprise Storage</a>
+</li>
+	<li class="cat-item cat-item-96"><a href="http://behindtheracks.com/category/linux-2/">Linux</a>
+</li>
+	<li class="cat-item cat-item-45"><a href="http://behindtheracks.com/category/openstack/">OpenStack</a>
+</li>
+	<li class="cat-item cat-item-126"><a href="http://behindtheracks.com/category/openstack/openstack-article-list/">OpenStack Article List</a>
+</li>
+	<li class="cat-item cat-item-127"><a href="http://behindtheracks.com/category/openstack/openstack-commentary/">OpenStack Commentary</a>
+</li>
+	<li class="cat-item cat-item-116"><a href="http://behindtheracks.com/category/openstack/openstack-high-availability/">OpenStack High Availability</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="http://behindtheracks.com/category/the-broad-view/">The Broad View</a>
+</li>
+	<li class="cat-item cat-item-60"><a href="http://behindtheracks.com/category/virtualization/">Virtualization</a>
+</li>
+		</ul>
+</div><div id="tag_cloud-2" class="sidebar-wrap clearfix widget_tag_cloud"><h3>Keyword Cloud</h3><div class="tagcloud"><a href="http://behindtheracks.com/tag/3par/" class="tag-link-17" title="1 topic" style="font-size: 8pt;">3par</a>
+<a href="http://behindtheracks.com/tag/7000/" class="tag-link-20" title="1 topic" style="font-size: 8pt;">7000</a>
+<a href="http://behindtheracks.com/tag/blades/" class="tag-link-42" title="2 topics" style="font-size: 10.4705882353pt;">blades</a>
+<a href="http://behindtheracks.com/tag/cache/" class="tag-link-22" title="1 topic" style="font-size: 8pt;">cache</a>
+<a href="http://behindtheracks.com/tag/centos/" class="tag-link-51" title="5 topics" style="font-size: 14.5882352941pt;">centos</a>
+<a href="http://behindtheracks.com/tag/ceph/" class="tag-link-103" title="3 topics" style="font-size: 12.1176470588pt;">ceph</a>
+<a href="http://behindtheracks.com/tag/cinder/" class="tag-link-102" title="4 topics" style="font-size: 13.4901960784pt;">cinder</a>
+<a href="http://behindtheracks.com/tag/cna/" class="tag-link-12" title="1 topic" style="font-size: 8pt;">cna</a>
+<a href="http://behindtheracks.com/tag/dedupe/" class="tag-link-27" title="2 topics" style="font-size: 10.4705882353pt;">dedupe</a>
+<a href="http://behindtheracks.com/tag/deduplication/" class="tag-link-28" title="2 topics" style="font-size: 10.4705882353pt;">deduplication</a>
+<a href="http://behindtheracks.com/tag/emc/" class="tag-link-7" title="1 topic" style="font-size: 8pt;">emc</a>
+<a href="http://behindtheracks.com/tag/fc/" class="tag-link-10" title="1 topic" style="font-size: 8pt;">FC</a>
+<a href="http://behindtheracks.com/tag/fcoe/" class="tag-link-9" title="2 topics" style="font-size: 10.4705882353pt;">FCoE</a>
+<a href="http://behindtheracks.com/tag/federated/" class="tag-link-14" title="1 topic" style="font-size: 8pt;">federated</a>
+<a href="http://behindtheracks.com/tag/fibre-channel/" class="tag-link-11" title="2 topics" style="font-size: 10.4705882353pt;">fibre channel</a>
+<a href="http://behindtheracks.com/tag/flash/" class="tag-link-15" title="1 topic" style="font-size: 8pt;">flash</a>
+<a href="http://behindtheracks.com/tag/galera/" class="tag-link-91" title="4 topics" style="font-size: 13.4901960784pt;">galera</a>
+<a href="http://behindtheracks.com/tag/glance/" class="tag-link-93" title="6 topics" style="font-size: 15.5490196078pt;">glance</a>
+<a href="http://behindtheracks.com/tag/haproxy/" class="tag-link-90" title="10 topics" style="font-size: 18.1568627451pt;">haproxy</a>
+<a href="http://behindtheracks.com/tag/havana/" class="tag-link-81" title="2 topics" style="font-size: 10.4705882353pt;">havana</a>
+<a href="http://behindtheracks.com/tag/high-availability/" class="tag-link-72" title="12 topics" style="font-size: 19.1176470588pt;">high availability</a>
+<a href="http://behindtheracks.com/tag/icehouse/" class="tag-link-101" title="13 topics" style="font-size: 19.6666666667pt;">icehouse</a>
+<a href="http://behindtheracks.com/tag/iscsi/" class="tag-link-13" title="1 topic" style="font-size: 8pt;">iscsi</a>
+<a href="http://behindtheracks.com/tag/keepalived/" class="tag-link-94" title="4 topics" style="font-size: 13.4901960784pt;">keepalived</a>
+<a href="http://behindtheracks.com/tag/keystone/" class="tag-link-77" title="4 topics" style="font-size: 13.4901960784pt;">keystone</a>
+<a href="http://behindtheracks.com/tag/linux/" class="tag-link-53" title="5 topics" style="font-size: 14.5882352941pt;">linux</a>
+<a href="http://behindtheracks.com/tag/mysql/" class="tag-link-70" title="6 topics" style="font-size: 15.5490196078pt;">mysql</a>
+<a href="http://behindtheracks.com/tag/netapp/" class="tag-link-6" title="1 topic" style="font-size: 8pt;">netapp</a>
+<a href="http://behindtheracks.com/tag/nexus/" class="tag-link-39" title="2 topics" style="font-size: 10.4705882353pt;">nexus</a>
+<a href="http://behindtheracks.com/tag/nfs/" class="tag-link-8" title="1 topic" style="font-size: 8pt;">NFS</a>
+<a href="http://behindtheracks.com/tag/nova/" class="tag-link-104" title="4 topics" style="font-size: 13.4901960784pt;">nova</a>
+<a href="http://behindtheracks.com/tag/openstack-2/" class="tag-link-46" title="20 topics" style="font-size: 22pt;">openstack</a>
+<a href="http://behindtheracks.com/tag/p10000/" class="tag-link-19" title="1 topic" style="font-size: 8pt;">P10000</a>
+<a href="http://behindtheracks.com/tag/private-cloud/" class="tag-link-86" title="3 topics" style="font-size: 12.1176470588pt;">private cloud</a>
+<a href="http://behindtheracks.com/tag/rabbitmq/" class="tag-link-95" title="3 topics" style="font-size: 12.1176470588pt;">rabbitmq</a>
+<a href="http://behindtheracks.com/tag/san/" class="tag-link-4" title="2 topics" style="font-size: 10.4705882353pt;">san</a>
+<a href="http://behindtheracks.com/tag/sas/" class="tag-link-21" title="1 topic" style="font-size: 8pt;">SAS</a>
+<a href="http://behindtheracks.com/tag/ssd/" class="tag-link-16" title="1 topic" style="font-size: 8pt;">ssd</a>
+<a href="http://behindtheracks.com/tag/storage/" class="tag-link-5" title="3 topics" style="font-size: 12.1176470588pt;">storage</a>
+<a href="http://behindtheracks.com/tag/storeserv/" class="tag-link-18" title="1 topic" style="font-size: 8pt;">StoreServ</a>
+<a href="http://behindtheracks.com/tag/swift/" class="tag-link-92" title="4 topics" style="font-size: 13.4901960784pt;">swift</a>
+<a href="http://behindtheracks.com/tag/ubuntu/" class="tag-link-52" title="4 topics" style="font-size: 13.4901960784pt;">ubuntu</a>
+<a href="http://behindtheracks.com/tag/vcloud/" class="tag-link-84" title="2 topics" style="font-size: 10.4705882353pt;">vCloud</a>
+<a href="http://behindtheracks.com/tag/virtualization-2/" class="tag-link-61" title="3 topics" style="font-size: 12.1176470588pt;">virtualization</a>
+<a href="http://behindtheracks.com/tag/vmware/" class="tag-link-63" title="3 topics" style="font-size: 12.1176470588pt;">vmware</a></div>
+</div><div id="text-4" class="sidebar-wrap clearfix widget_text">			<div class="textwidget"><center><a href="http://www.anrdoezrs.net/qn72hz74z6MUSTQOWPMONWQTRVQ" target="_blank" onmouseover="window.status=&#39;http://www.egnyte.com&#39;;return true;" onmouseout="window.status=&#39; &#39;;return true;">
+<img src="http://www.awltovhc.com/6p70snrflj4CAB86E7465E8B9D8" alt="1 TB Online Storage! Business-Class Storage &amp; Back" border="0" width="0" height="0" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 1px 1px;"></a></center></div>
+		</div><div id="text-6" class="sidebar-wrap clearfix widget_text"><h3>Free Whitepaper Downloads</h3>			<div class="textwidget"><style type="text/css">
+.TPtable_w_cnd02fs {width:250px;height:250px;border:0;}
+.TPheader_w_cnd02fs {font-family:arial,helvetica;font-size:12px;color:#000000;font-weight:bold;padding-bottom:5px;}
+.TPcell_w_cnd02fs {font-family:arial,helvetica;font-size:11px;color:#000000;font-weight:normal;}
+a.TPcell_w_cnd02fs {font-family:arial,helvetica;font-size:11px;color:#3D86C2;font-weight:bold;}
+a.TParrow_w_cnd02fs {font-family:arial,helvetica;font-size:11px;color:#0000ff;font-weight:bold;text-decoration:none;}</style><script language="javascript" src="http://cts.tradepub.com/cts4/?ptnr=behindtheracks&tm=w_cnd02fs&hicat=1084,1088&type=all&key=&trk="></script>
+</div>
+		</div><div id="rss-2" class="sidebar-wrap clearfix widget_rss"><h3><a class="rsswidget" href="http://www.itadmintools.com/rss.xml"><img style="border:0" width="14" height="14" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/rss.png" alt="RSS"></a> <a class="rsswidget" href="http://www.itadmintools.com/">Latest on ITAdminTools.com</a></h3><ul><li><a class="rsswidget" href="http://www.itadmintools.com/2014/10/powercli-search-and-destroy-old-vmware.html">PowerCLI: Search and Destroy Old VMware SnapShots</a> <span class="rss-date">October 5, 2014</span> <cite></cite></li><li><a class="rsswidget" href="http://www.itadmintools.com/2014/03/ubuntu-quick-start.html">Ubuntu Quick Start</a> <span class="rss-date">March 14, 2014</span> <cite></cite></li><li><a class="rsswidget" href="http://www.itadmintools.com/2014/01/user-provisioning-made-simple.html">Tools: User Provisioning Made Simple</a> <span class="rss-date">January 13, 2014</span> <cite></cite></li><li><a class="rsswidget" href="http://www.itadmintools.com/2013/12/cayo-admin-assistant.html">Tools: Active Directory Automation and Rules Enforcement</a> <span class="rss-date">December 3, 2013</span> <cite></cite></li><li><a class="rsswidget" href="http://www.itadmintools.com/2013/11/ubuntu-boot-disk-for-bios-update.html">Ubuntu - Boot Disk for BIOS Update</a> <span class="rss-date">November 24, 2013</span> <cite></cite></li></ul></div>    
+        
+    
+</div><!-- #sidebar1 -->    
+    
+</div><!-- #content -->
+
+
+
+<div id="footer" class="clearfix">
+    
+        <div id="copyright">
+    	<h3>Copyright</h3>
+		        	<p>© 2014 BehindTheRacks.com</p>
+ 	            
+        
+    	    </div>
+
+		
+        
+    </div><!-- #footer -->
+
+
+</div><!-- #container -->
+
+    </div><!-- .bg-gradient -->
+
+<script>function hefo_popup(url, width, height) {
+var left = Math.round(screen.width/2-width/2); var top = 0;
+if (screen.height > height) top = Math.round(screen.height/2-height/2);
+window.open(url, "share", "scrollbars=yes,resizable=yes,toolbar=no,location=yes,width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+return false;
+}</script>    <!-- Start of StatCounter Code -->
+    <script type="text/javascript">
+    <!-- 
+        var sc_project=8686408; 
+        var sc_security="858def0e"; 
+      var sc_invisible=1;
+        var scJsHost = (("https:" == document.location.protocol) ?
+        "https://secure." : "http://www.");
+    //-->
+document.write("<sc"+"ript type='text/javascript' src='" +scJsHost +"statcounter.com/counter/counter.js'></"+"script>");
+</script><script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/counter.js"></script>
+<noscript>&lt;div class="statcounter"&gt;&lt;a title="web analytics" href="http://statcounter.com/"&gt;&lt;img class="statcounter" src="http://c.statcounter.com/8686408/0/858def0e/1/" alt="web analytics" /&gt;&lt;/a&gt;&lt;/div&gt;</noscript>   
+    <!-- End of StatCounter Code -->
+	<div style="display:none">
+	<div class="grofile-hash-map-743eca7a6a9d1f49e31cd1d95068c5da">
+	</div>
+	</div>
+	<!--[if IE 8]>
+    <script type="text/javascript">
+        (function($) {
+            var imgs, i, w;
+            var imgs = document.getElementsByTagName( 'img' );
+            maxwidth = 0.98 * $( '.entry-content' ).width();
+            for( i = 0; i < imgs.length; i++ ) {
+                w = imgs[i].getAttribute( 'width' );
+                if ( w > maxwidth ) {
+                    imgs[i].removeAttribute( 'width' );
+                    imgs[i].removeAttribute( 'height' );
+                }
+            }
+        })(jQuery);
+    </script>
+    <![endif]-->
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/behindtheracks.com\/2014\/11\/openstack-juno-scripted-installation-on-centos7\/":756}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+		<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/form.js"></script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/wpgroho.js"></script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/comment-reply.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/sharing.js"></script>
+
+		<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=46401174&postid=756&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en-US&jetpack_version=3.2&sig=7a0afb6f68f2117f029d4475a07b4ca249404845#parent=http%3A%2F%2Fbehindtheracks.com%2F2014%2F11%2Fopenstack-juno-scripted-installation-on-centos7%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=46401174&postid=756&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en-US&jetpack_version=3.2&sig=7a0afb6f68f2117f029d4475a07b4ca249404845#parent=http%3A%2F%2Fbehindtheracks.com%2F2014%2F11%2Fopenstack-juno-scripted-installation-on-centos7%2F";
+				}
+			};
+
+	
+			if ( 'undefined' !== typeof addComment ) {
+				addComment._Jetpack_moveForm = addComment.moveForm;
+
+				addComment.moveForm = function( commId, parentId, respondId, postId ) {
+					var returnValue = addComment._Jetpack_moveForm( commId, parentId, respondId, postId ), cancelClick, cancel;
+
+					if ( false === returnValue ) {
+						cancel = document.getElementById( 'cancel-comment-reply-link' );
+						cancelClick = cancel.onclick;
+						cancel.onclick = function() {
+							var cancelReturn = cancelClick.call( this );
+							if ( false !== cancelReturn ) {
+								return cancelReturn;
+							}
+
+							if ( !comm_par ) {
+								return cancelReturn;
+							}
+
+							comm_par = 0;
+
+							tellFrameNewParent();
+
+							return cancelReturn;
+						};
+					}
+
+					if ( comm_par == parentId ) {
+						return returnValue;
+					}
+
+					comm_par = parentId;
+
+					tellFrameNewParent();
+
+					return returnValue;
+				};
+			}
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+
+	
+	<script src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/e-201446.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.2',blog:'46401174',post:'756',tz:'-5'});
+	var load_cmc = function(){linktracker_init(46401174,756,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/g.gif" alt="">
+
+<!-- Dynamic page generated in 0.840 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2014-11-10 14:00:52 -->
+
+<!-- Compression = gzip --><iframe name="oauth2relay436571131" id="oauth2relay436571131" src="./OpenStack Juno Scripted Installation on CentOS 7 » Behind the Racks_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 785.5px; top: 1202px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 785.5px; top: 1692px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 785.5px; top: 2504px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 785.5px; top: 2668px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 785.5px; top: 8069px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 785.5px; top: 8335px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 785.5px; top: 8753px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 785.5px; top: 10842px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 785.5px; top: 11062px; display: none;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div></body></html>

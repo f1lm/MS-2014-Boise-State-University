@@ -1,0 +1,508 @@
+
+<!-- saved from url=(0043)http://home.olympus.net/~7seas/recurse.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Stack Free Recursion</title>
+<style type="text/css"></style><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<center>(C)opyright 1995, Otto J. A. Smith  (206) 385-1956 <strong><a href="mailto:otto@olympus.net">  otto@olympus.net</a></strong></center>
+� <p>
+� </p><p>
+</p><p>
+</p><dl>
+<p>
+</p><dt></dt><dd>
+</dd><dt><center><h1>Stack Free Recursion</h1></center>
+</dt><dt><center><h2>Otto J. A. Smith</h2></center>
+</dt><dt><center><h3>Sept 29, 1995</h3></center>
+� <p>
+</p></dt></dl>
+<p>
+
+<font size="4"><b>Abstract:</b></font>  A method of building recursive functions in systems that don't have
+a data stack is presented.  We illustrate its use with a factorial function, the
+towers of hanoi puzzle and a recursive line drawing routine which we
+believe is presented here for the first time.
+  We reduce beautiful recursive code to unintelligible
+spaghetti code that uses less memory and sometimes is faster.
+  This method may speed up simple functions but 
+mostly it helps us to understand the nature of
+recursion and provides a method of deriving code.
+We also present a method that uses no return stack
+or data stack and we derive a simple line drawing function using the information
+presented herein.  All of the code presented here is available by anonymous ftp from olympus.net in pub/sites/7seas under the name <a href="http://home.olympus.net/~7seas/recurse.cpp"> recurse.cpp </a>.
+
+
+</p><p>
+<font size="4"><b>Introduction: </b></font> In the mid seventies I was working on the MicroData Reality computer and operating
+system.  This sported what would now be considered a primitive BASIC, but at
+that time was relatively sophisticated.  It was a compiled BASIC and like many BASICs both
+then and now, it did not support recursive function calls.    In that system
+it was possible for a routine to call itself but all variables passed were global because
+there was no data stack in the system.
+</p><p>
+I mentioned casually to a fellow system analyst that it was easy to
+write a factorial routine recursively on the system without emulating a data stack.
+He expressed doubt that this was possible. I won a fifty cent bet with the
+following routine.  The following routine does depend on there being a return
+stack in the system.  Since assembly language systems provide return stacks,
+this kind of routine works well in assembly language.  The following routine is written
+in C code with C++ comments.  We do not pass a parameter to the factorial routine, we set
+the parameter <b> x  </b> as a global value.   We then call <b> factorial() </b> to calculate <b> x </b> factorial.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="0"><b>
+<h4>/* STACKLESS FACTORIAL */</h4>
+int x;
+.
+.				//Set x to the value you wish to find the factorial of.
+.
+int factorial()			//Pass x as Global No data Stack
+{
+  int prod;
+  x = x-1;			//A function
+  if(x+1 &lt; = 0) prod = 1;
+  else prod = (x+1) * factorial();	//The recursive call
+  x = x+1;                          	//A function inverse
+return prod;
+}   
+</b></pre>
+<p>
+<font size="4"><b>Generalization: </b></font> We can generalize this technique and apply it to other recursive functions.
+</p><p>
+Note that we have commented the lines <b> x+1 </b> and <b> x-1 </b> as <b> "A function" </b> and <b> "A function inverse" </b>.
+Using functions and there inverses is a key to doing this kind of recursion.  
+Note that the sequence of statements <b> x = x-1 </b> and <b> x = x+1  </b> executed in that order leave the
+value of <b> x </b> unchanged.  The function <b> i(x) = x+1  </b> is the inverse of the function <b> f(x) = x-1 </b>.
+This is the key to data stackless recursion and is helpful in understanding regular
+recursion as well.
+The purpose of a stack in recursion is to create an inverse for any function by keying
+in time and space.
+If we have a function that is naturally invertible, that is if <b> f() </b> is a function and there
+exists a function <b> i() </b> that is its inverse, ( for all <b> x,  i(f(x)) = x </b> )
+and this function is used to alter the value of a passed variable
+in a recursive call, we can use the
+function and its inverse instead of a data stack.  For example:
+ given a <b> f() </b> and its inverse <b> i() </b> we can generate a sequence of <b> x's </b>.
+<b>  x1 = f(x),  x2 = f(x1), x3 = f(x2) </b> etc. We can either go
+backwards or forwards through the <b> xi's </b>.  in other words <b> x2 = i(x3), x1 = i(i(x3)), x = i(i(i(x3))) </b>
+etc.   We use this fact to generate a virtual data stack to recover old values as we
+exit each recursion level.  
+</p><p>
+If a recursive routine of a single variable is of the following
+form where <b> f() </b> is an invertible function with the inverse <b> i() </b> over the range of <b> x </b>, 
+then it can be translated into a stack free recursive function.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="1"><b>
+/***  THIS FORM OF ROUTINE CAN BE CHANGED TO STACK FREE RECURSION ***/
+/* line 1  */     function stackfree(x)
+/* line 2  */     {
+/* line 3  */        .
+/* line 4  */        .      //Anything goes here (except x = ...)
+/* line 5  */        .
+/* line 6  */    ....   stackfree(f(x))       // An expression containing a recursive call.
+/* line 7  */        .
+/* line 8  */        .      //Anything here also
+/* line 9  */        .
+/* line 10 */    return somevalue;
+/* line 11 */    }
+</b></pre>
+<p>
+
+Do the following:
+</p><ol>
+  <li>  Insert <b> x = f(x) </b> before the statement containing the recursive call (before line 6)
+  </li><li>  Insert <b> x = i(x) </b> after the statement containing the recursive call (after line 6)
+  </li><li>  Replace <b> stackfree(f(x)) </b> in line 6 with <b> stackfree() </b>.
+  </li><li>  Replace all other occurrences of <b> x </b> in the line containing the recursive call (line 6) with <b> i(x) </b>
+</li></ol>
+<p>
+Now the routine above becomes:
+</p><pre data-initialized="true" data-gclp-id="2"><b>
+/* line 1  */     function stackfree()
+/* line 2  */     {
+/* line 3  */        .
+/* line 4  */        .      //Anything goes here
+/* line 5  */        .
+/* line 6  */        x = f(x);
+/* line 7  (was line 6)  */    ....   stackfree()       // An expression containing a recursive call
+/* line 8  */        x = i(x)
+/* line 9  */        .
+/* line 10  */        .      //Anything here also
+/* line 11 */    return somevalue;
+/* line 12 */    }
+</b></pre>
+<p>
+
+<font size="3"><b>Example: </b></font> Convert the following routine for factorial <b> x </b>.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="3"><b>
+int factorial(x)
+{
+  int prod;
+  if(x &lt;= 0) prod = 1;
+  else prod = x * factorial( x-1 );
+  return prod;
+}
+</b></pre>
+<p>
+
+The new routine is then:
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="4"><b>
+int x;
+.
+.				//Set x to the value you wish to find the factorial of.
+.
+int factorial()			//Pass x as Global No data Stack
+{
+  int prod;
+  x = x-1;			//A function
+  if(x+1 &lt; = 0) prod = 1;		//The statement here is two lines long
+  else prod = (x+1) * factorial();	//The recursive call
+  x = x+1;				//A function inverse
+return prod;
+}   
+</b></pre>
+<p>
+
+It is easy to generalize this to functions of several variables.  In this case every variable
+passed in the recursive call must have a unique inverse. 
+As is traditional, "this is left as an exercise for the reader."  This is supposed to be a short
+article and we want to cover three more subjects.  First, we want to show how to
+completely corrupt a beautiful recursive routine and make it into spaghetti code that uses
+NO stack, either data or return.  Second, We wish to apply this technique to the
+"Towers of Hanoi" puzzle. Third we wish to give an example of the derivation of
+a fast line drawing routine using these techniques.
+</p><p>
+In the simple factorial routine given above, the only purpose of the return stack
+is to keep track of the number of times we have entered and exited the recursion.
+We could use a variable to count our level of recursion, but all we really need
+is an indication of when we get back to the outermost level.  In this case
+we can simply save the value of <b> x </b> itself and use it to detect when we are
+through with the recursion.
+</p><p>
+The following is the routine rewritten using goto's and using no stacks!
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="5"><b>
+int factorial(x)	//  This entry is used once. It is not a recursive entry.
+{			//   Note that within this routine we treat x as a global.
+  int prod;		//   Same as in routine above
+  int ox = x;		//   Original x
+
+  recursive_entry:	//A label we will return too
+     x = x-1;		//A function as above
+
+     if( x &lt; =0 ){ prod = 1; }
+     else { goto recursive_entry;  return_entry:  prod = (x+1) * prod;  }
+
+     x = x+1;		//Inverse
+     if( x != ox ) goto return_entry;
+ 
+    return prod;
+}
+</b></pre>
+<p>
+
+Simply by looking we can see ways to optimize this routine.
+We get the following which is surprisingly short and efficient.  It is not quite as good
+as a factorial routine done with a simple loop because we have to decrement
+ <b> x </b> all the way to zero before we can start doing the multiplies, but it was derived from a true recursive routine
+through a series of simple reductions. The code 
+is not obvious.  Would you like to see it on a test with the question
+"What does this code do?".
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="6"><b>
+int factorial(x)		//Not recursive entry
+{
+  int prod;
+  int ox = x;
+  recursive_entry:		//Recursive entry
+     x = x--;
+     if( x&lt;=0 ){ prod = 1; x++; }
+     else { goto recursive_entry;  return_entry:  prod = (x++) * prod;  }
+     if( x != ox ) goto return_entry;
+     return prod;
+}
+</b></pre><p>
+</p><h4>STACKLESS TOWERS OF HANOI</h4>
+<p>
+To give an idea of the elegant solutions available with this approach consider the famous
+"Towers of Hanoi" puzzle.  Briefly stated, there are three posts.  There is a group of disks.
+Each disk has a hole in it so that it can be put over a post.  All of the disks are of different sizes.
+No two disks are the same size.  In the beginning of the game the disks are arranged
+in a pyramid on one of the posts so that the smaller disks only rest on larger ones.  
+The problem is to move the disks one at a time from post to post until all the disks have
+ been moved to a new post, but with the constraint that it is never a legal move to put a
+larger disk on a smaller one.  The game is very old an steeped in lore.  Tradition has it
+that in one of the continuing simulations of Armageddon at the pentagon, an algorithm
+similar to the one presented below is used to determine the exact time of the 
+explosion that ends it all.
+</p><p>
+There is an elegant recursive way to define a function that will solve this problem.  In natural language
+the solution might be stated as follows.  There are three towers:  tower one, tower two
+and tower three.  Seven disks are on tower one.  If we know how to solve the problem
+of moving 6 disks from tower one to tower three, then we can solve the problem of moving
+seven disks from tower one to tower two.  First we move the six disks from tower one to tower three.
+We take the remaining largest disk and move it from tower one to tower two.  Now if we can
+move six disks from tower one to tower three, we can use the same algorithm to move the six
+disks from tower three to tower two.  We have reduced the problem of moving seven disks to one 
+of moving six disks.  Similarly we can reduce the problem of moving six disks to moving five disks.
+We continue in this way until we reduce the problem of moving two disks to that of moving one 
+disk.  Moving one disk is trivial. <a name="retfoot"></a><a href="http://home.olympus.net/~7seas/recurse.html#footnote"> Footnote: </a>
+</p><p>
+We can now move any number of disks, it merely becomes a matter of bookkeeping. 
+Computers are notoriously good at bookkeeping so here is some C++ code for the
+towers of Hanoi.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="7"><b>
+void Hanoi(int Number_of_Disks, char * fromTower, char * toTower, char * otherTower)
+{
+   if( Number_of_Disks &gt; 0 )
+   {
+     Hanoi( Number_of_Disks-1, fromTower, otherTower, toTower);
+     cout &lt; &lt; " MOVE 1 disk from " &lt; &lt; fromTower &lt; &lt; " TO " &lt; &lt; toTower;
+     Hanoi( Number_of_Disks-1, otherTower, toTower, fromTower);
+   }
+}
+</b></pre>
+<p>
+
+We invoke this function <b> Hanoi(7,"Tower 1","Tower 2","Tower 3") </b> and it prints
+out the instructions for moving seven disks from <b> Tower 1 </b>, to <b> Tower 2 </b>.
+</p><p>
+Not satisfied with this elegant recursive code, we decide to write this routine without
+using the data stack.
+</p><p>
+First eliminate the Number_of_Disks variable:
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="8"><b>
+int Number_of_Disks;    //Now a global value!!
+.
+.
+.
+void Hanoi(char * fromTower, char * toTower, char * otherTower)
+{
+   if( Number_of_Disks &gt; 0 )
+   {
+     Number_of_Disks = Number_of_Disks-1;
+     Hanoi(fromTower, otherTower, toTower);
+     cout &lt; &lt; " MOVE 1 disk from " &lt; &lt; fromTower &lt; &lt; " TO " &lt; &lt; toTower;
+     Hanoi(otherTower, toTower, fromTower);
+     Number_of_Disks = Number_of_Disks+1;
+   }
+}
+</b></pre>
+<p>
+
+Then eliminate the other variables, notice that the function simply exchanges pointers
+to strings.  The inverse is simply exchanging them back.  We use a temporary variable
+to do this.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="9"><b>
+int Number_of_Disks;    //Now a global value!!
+    char * fromTower,  toTower,  otherTower;
+.
+.
+.
+void Hanoi()
+{
+   char * TEMP;
+   if( Number_of_Disks &gt; 0 )
+   {
+     Number_of_Disks = Number_of_Disks-1;
+         TEMP = otherTower;        //These three lines are there own inverse
+         otherTower = toTower;
+         toTower = TEMP;
+     Hanoi();
+         TEMP = otherTower;        //See above
+         otherTower = toTower;
+         toTower = TEMP;
+     cout &lt; &lt; " MOVE 1 disk from " &lt; &lt; fromTower &lt; &lt; " TO " &lt; &lt; toTower;
+         TEMP = otherTower;
+         otherTower = fromTower;
+         fromTower = TEMP;
+     Hanoi();
+         TEMP = otherTower;
+         otherTower = fromTower;
+         fromTower = TEMP;
+     Number_of_Disks = Number_of_Disks+1;
+   }
+}
+</b></pre>
+<p>
+
+We have succeeded in reducing elegant recursive code to a combination of spaghetti 
+and recursion.
+We have succeeded in making this code non-data stack dependant and thereby reduced the space
+needed in the system.
+This code can be further reduced but we will not do so in this paper.
+</p><p>
+</p><h4>A LINE DRAWING ROUTINE</h4>
+<p>
+Let us derive a line drawing routine using these techniques.  To simplify the problem let us
+assume we are starting at pixel <b> (0,0) </b> and drawing to some point <b> (x,y) </b>  where <b> x </b> and <b> y </b> are both positive
+integers.  A line is then a set of connected points (either adjacent or on a diagonal) that
+connects <b> (0,0) </b> and <b> (x,y) </b>.  We will assume that <b> (0,0) </b> and <b> (x,y) </b> will both be included in the
+set of points in the line.  The technique we will use I have never seen anywhere else.  It
+is NOT a recommended technique for most applications, although it is fast.  The lines
+do not meet some of the most obvious criteria for good lines but they appear relatively
+straight for most applications.  They were used in an early 7Seas software product and no
+one ever complained or pointed out they were not generated with Bresenhams algorithm
+which for many applications is more suitable.
+</p><p>
+The technique is recursive and simple. We invoke the line draw routine with two points 
+<b> (a,b) </b> and <b> (c,d) </b>.  We guarantee that <b> a &lt; c </b> and <b> b &lt; d </b>.  Our first invocation is with <b> a = 0, b = 0, 
+c = x </b> and <b> d = y </b>.   <b> Line_Draw(0,0,x,y) </b> is how we invoke the function.
+</p><p>
+Then the algorithm for <b> Line_Draw(a,b,c,d) </b> is:
+</p><p>
+</p><ol>
+  <li> If <b> (a,b) </b> and <b> (c,d) </b> are the same point, then we color <b> (a,b) </b> and
+return, this is the termination condition.  That is:
+<pre data-initialized="true" data-gclp-id="10"><b>
+if( a==c &amp;&amp; b==d ){ color(a,b); return; }
+</b></pre>
+  </li><li>  if <b> (a,b) </b> and <b> (c,d) </b> are not the same point we draw two new lines.  <b> Line_Draw(a,b,w,x) </b>
+and <b> Line_Draw(y,z,c,d)</b>.  <b> w,x,y </b> and <b> z </b> are calculated as follows where the symbol <b> &gt; &gt; </b> represents shift right, that is divide by 2:
+<pre data-initialized="true"><b>
+  w = a+c &gt; &gt; 1
+  x = b+d &gt; &gt; 1
+  y = a+c+1 &gt; &gt; 1
+  z = b+d+1 &gt; &gt; 1 
+</b><pre data-initialized="true" data-gclp-id="11"></pre></pre></li></ol>
+The least significant bit is lost in the shift right operation.
+The recursive line drawing routine is then:
+<pre data-initialized="true" data-gclp-id="12"><b>
+Line_Draw(a,b,c,d)
+{
+  if( (a==c ) &amp;&amp; ( b==d ) )
+  {
+    color(a,b);
+  }
+  else
+  {
+   Line_Draw(     a,             b,      a+c &gt; &gt; 1, b+d &gt; &gt; 1);
+   Line_Draw(a+c+1 &gt; &gt; 1, b+d+1 &gt; &gt; 1,    c,           d     );
+  }
+  return;
+}
+</b></pre>
+<p>
+
+If we wish to eliminate the data stack we need to find an inverse for <b> a+c &gt; &gt; 1, b+d &gt; &gt; 1, a+c+1 &gt; &gt; 1
+</b> and <b> b+d+1 &gt; &gt; 1 </b>.
+The problem is that these functions do not have an inverse.  In order to find an inverse
+we will cheat and introduce our own data stack that is one bit wide and quite short.
+One 32 bit unsigned integer provides enough room for a screen that is 64K by 64K pixels.
+Here is a code fragment and its inverse used to implement <b> a+c &gt; &gt; 1 </b> and its inverse.
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="13"><b>
+/* Code Fragment */
+   c = a+c
+
+   stack = stack &lt; &lt; 1;		//Times 2
+   if( c &amp; 1 ) stack = stack + 1;   	//Check least significant bit 
+   c = c &gt; &gt; 1;			//Divide by 2
+
+
+/* Code Fragment Inverse */
+   c = c &lt; &lt; 1;			//Times by 2
+   if( stack &amp; 1 ) c = c + 1
+   stack = stack &gt; &gt; 1;		//Divide by 2		
+
+   c = c - a
+</b></pre>
+<p>
+
+
+In order to make this easier to read, we will do our shifts using
+a function and its inverse called <b> SR(x) </b> and <b> SL(x) </b>.  We could put
+all of the functions and inverses inline, but the code would
+not be as readable.  Although we do make calls to <b> SR() </b> and <b> SL() </b> with arguments
+none of the functions needs to be recursive.  The complete implementation
+is then:
+</p><p>
+</p><pre data-initialized="true" data-gclp-id="14"><b>
+unsigned long stack;       //These are all global values
+int a, b, c, d;
+.
+.
+.           //Set initial values of a, b, c, d here.
+.
+.
+
+int SR(X)
+{
+  stack = stack &lt; &lt; 1;
+  if( X &amp; 1 ) stack = stack + 1;
+  return X &gt; &gt; 1; 
+}
+
+int SL(X)
+{
+  X = X &lt; &lt; 1;
+  if( stack &amp; 1 ) X=X+1;
+  stack = stack &gt; &gt; 1;
+  return X;
+}
+
+Line_Draw()
+{
+  if( (a==c ) &amp;&amp; ( b==d )
+  {
+    color(a,b);
+  }
+  else
+  {
+   d = SR(b+d);
+   c = SR(a+c);
+     Line_Draw(a, b, c, d);
+   c = SL(c) - a;
+   d = SL(d) - b;
+
+   b = SR(b+d+1);
+   a = SR(a+c+1);
+     Line_Draw(a, b, c, d);
+   a = SL(a)-c-1;
+   b = SL(b)-d-1;
+  }
+  return;
+}
+</b></pre>
+<p>
+
+These routines can be further reduced and improved for speed by so doing.
+For instance, <b> SR </b> and <b> SL </b> are essentially the same routine and could easily
+be combined.  This particular form
+of a line is also easily expressed with a grammar.  Anyone interested in the other work I have done
+on this kind of plotting routine should contact me.
+The above routine produces a remarkably symmetrical line.
+</p><p>
+</p><h4>CONCLUSION:</h4>
+<p>
+
+It is possible to take some beautiful recursive routines and convert them
+to a form that doesn't use the data stack.  This results in a longer,
+more difficult to read routine that makes more efficient use of memory.
+It is sometimes possible through further reductions to remove the return stack
+making for efficient use of memory at the expense of creating true
+spaghetti code.
+</p><p>
+Comments, complaints, flames and complements should be directed to
+Otto
+</p><p>
+<strong><a href="mailto:otto@olympus.net">  otto@olympus.net</a></strong>
+</p><p>
+
+<a name="footnote"></a><a href="http://home.olympus.net/~7seas/recurse.html#footnote"><font size="4"><b>Footnote: </b></font></a> Trivial, unless you are a Tibetan monk playing with giant pieces made out of granite.
+The largest piece in one such game is 20 feet wide and three feet high.  The smallest piece in the same
+game is the size of a large washer.  When they finally move the biggest piece, it will probably be trivial.
+<a href="http://home.olympus.net/~7seas/recurse.html#retfoot"> Return to place in document. </a>
+
+</p><p>
+
+</p><hr>
+<center><b><a href="http://home.olympus.net/~7seas/7seas.html"> To MathVision Inc., (formerly 7seas software) Corporate page. </a></b></center>
+
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1311px; top: 536.5px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1311px; top: 1022.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1311px; top: 1389.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 1311px; top: 1634.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 1311px; top: 1804.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 1311px; top: 2186.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 1311px; top: 2527.0625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 1311px; top: 3013.59375px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 1311px; top: 3281.59375px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 1311px; top: 3571.59375px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 1311px; top: 4357.125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 1311px; top: 4537.125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 1311px; top: 4571.125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 1311px; top: 4867.125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 1311px; top: 5160.125px; display: none;"></div></body></html>
