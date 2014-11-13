@@ -1,0 +1,1 @@
+Tynt.sc({"d":true,"w":"IntertechInc","f":"Intertech"})

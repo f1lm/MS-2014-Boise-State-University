@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<!-- saved from url=(0161)http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML -->
+<html lang="en" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/ms2_blogs.js"></script><script type="text/javascript" async="" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/ms.js"></script><script type="text/javascript" async="" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/6ec96512cf1c17cc2254e9260dd0aa0e.js"></script><script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/serverComponent.php"></script><link href="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/b44607f49b943a551e3eec6f10de2fc0-7bec74c7837ea068a46086f908d883b4-RequestReducedStyle.css" rel="Stylesheet" type="text/css"><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/da.js" async=""></script><script id="facebook-jssdk" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/all.js"></script><script id="twitter-wjs" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/widgets.js"></script><script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/jquery-1.7.1.min.js" type="text/javascript" language="javascript"></script><style type="text/css"></style><link rel="shortcut icon" type="image/ico" href="http://blogs.technet.com/Themes/favicon.ico"><meta name="robots" content="index,follow"><meta name="keywords" content="Machine Learning, Azure ML"><meta name="GENERATOR" content="7.x Production"><link rel="pingback" href="http://blogs.technet.com/b/machinelearning/pingback.aspx">
+<link rel="alternate" type="application/rss+xml" title="Site Home (RSS 2.0)" href="http://blogs.technet.com/rss.aspx">
+<link rel="alternate" type="application/rss+xml" title="Machine Learning (RSS 2.0)" href="http://blogs.technet.com/b/machinelearning/rss.aspx">
+<link rel="alternate" type="application/atom+xml" title="Machine Learning (Atom 1.0)" href="http://blogs.technet.com/b/machinelearning/atom.aspx">
+<link rel="alternate" type="application/rss+xml" title="Machine Learning - All Comments (RSS 2.0)" href="http://blogs.technet.com/b/machinelearning/rsscomments.aspx">
+<link rel="alternate" type="application/rss+xml" title="How We Share Machine Learning Knowledge at Microsoft - Comments for this post (RSS 2.0)" href="http://blogs.technet.com/b/machinelearning/rsscomments.aspx?WeblogPostID=3640981">
+
+                    <script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/882c15308b94067e780847bea99822ca-9ebbacc21adc19297214b71092198a40-RequestReducedScript.js" type="text/javascript"></script><script type="text/javascript">
+// <![CDATA[
+try { jQuery.extend(jQuery.validator.messages,{required:'This field is required.',remote:'Please fix this field.',date:'Please enter a valid date.',dateISO:'Please enter a valid date (ISO).',number:'Please enter a valid number.',digits:'Please enter only digits.',creditcard:'Please enter a valid credit card number.',equalTo:'Please enter the same value again.',accept:'Please enter a value with a valid extension.',maxlength:jQuery.validator.format('Please enter no more than {0} characters.'),minlength:jQuery.validator.format('Please enter at least {0} characters.'),rangelength:jQuery.validator.format('Please enter a value between {0} and {1} characters long.'),range:jQuery.validator.format('Please enter a value between {0} and {1}.'),max:jQuery.validator.format('Please enter a value less than or equal to {0}.'),min:jQuery.validator.format('Please enter a value greater than or equal to {0}.')}); } catch(e) { };
+// ]]>
+</script><script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/3b989b6ff1c8202c8c7938900f73b19e-ff97bb072929eadc81395306c676d0a8-RequestReducedScript.js" type="text/javascript"></script><script type="text/javascript">
+// <![CDATA[
+try { jQuery.telligent.evolution.site.configure({baseUrl:'\/',monthNames:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],dayNames:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],authorizationCookieName:'AuthorizationCookie',defaultErrorMessage:'An error occurred.  Please try again or contact your administrator.',defaultMultiErrorMessagePrefix:'The following errors occurred:  ',silverlightFileUploadEnabled:true});
+jQuery.extend($.fn.evolutionUserFileTextBox.defaults,{removeText:'Remove',selectText:'Select\/Upload...',noFileText:'No File Selected'});
+jQuery.telligent.evolution.navigationConfirmation.configure({message:'==============================\r\nUnless you save before leaving this page, you will lose any changes you have made.\r\n=============================='});
+jQuery.telligent.evolution.validation.registerExtensions({passwordInvalidMessage:'Password contains invalid chars ...',passwordRegex:'^.*$',emailInvalidMessage:'Your email address is invalid.',emailRegex:'^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$',usernameInvalidMessage:'Your sign in name does not meet the requirements for this site.',usernameRegex:'^[a-zA-Z0-9_\\- @\\.]+$',emailsInvalidMessage:'One or more emails is invalid',urlInvalidMessage:'URL not in correct format',urlRegex:'^((http|https|mailto|mms):|\/|#|~\/)'});
+jQuery.extend(jQuery.fn.evolutionLike.defaults,{likeText:'Like',unlikeText:'Unlike',modalTitleText:'People who like this',modalShowMoreText:'Show More',whoLikesOtherText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> likes this',whoLikesOtherTwoText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> and <span class=\"who-likes\">1 other<\/span> like this',whoLikesOtherMultipleText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> and <span class=\"who-likes\">{count} others<\/span> like this',whoLikesAccessingText:'You like this',whoLikesAccessingTwoText:'You and <span class=\"who-likes\">1 other<\/span> like this',whoLikesAccessingMultipleText:'You and <span class=\"who-likes\">{count} others<\/span> like this'});
+jQuery.extend(jQuery.fn.evolutionInlineTagEditor.defaults,{editButtonText:'Edit tags',selectTagsText:'Select tags',saveTagsText:'Save',cancelText:'Cancel'});
+jQuery.extend(jQuery.fn.evolutionStarRating.defaults,{titles:['Terrible','Poor','Fair','Average','Good','Excellent'],ratingMessageFormat:'Average rating: {rating} out of {count} ratings.'});
+jQuery.extend(jQuery.fn.evolutionModerate.defaults,{moderateLinkText:'moderate',reportLinkText:'Flag as spam\/abuse',reportedLinkText:'Flagged as spam\/abuse',reportedNotificationMessageText:'{NAME}\'s post has been flagged. <strong>Thank you for your feedback.<\/strong>'});
+} catch(e) { };
+// ]]>
+</script> <script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/loader.js" type="text/javascript" language="javascript"></script>
+<script type="text/javascript">
+(function($){
+$.telligent.evolution.ui.components['wikipagestory-revisions']  = {
+	add: function(elm, options) {
+        var elm = $(elm), revisions;
+		elm.bind('click', function(e){
+			revisions = revisions || $('#' + elm.data('revisions'));
+            e.preventDefault();
+            if(revisions.is(':visible')) {
+                revisions.stop().slideUp(150);
+                elm.html('Show revision history');
+            } else {
+                revisions.stop().slideDown(150);
+                elm.html('Hide revision history');
+            }
+		});
+	}
+};
+}(jQuery));
+</script><script type="text/javascript">(function($){ $.telligent.evolution.media.defaults.endpoint = 'http://blogs.technet.com/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.FileViewerEndpoint%2C%20Telligent.Evolution.Api%2C%20Version%3D7.1.12.36162%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull'; }(jQuery));</script><script type="text/javascript">(function($){ $.telligent.evolution.preview.defaults.endpoint = 'http://blogs.technet.com/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.WebPreviewEndpoint%2C%20Telligent.Evolution.Api%2C%20Version%3D7.1.12.36162%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull'; }(jQuery));</script><script type="text/javascript">(function($){ $.telligent.evolution.language.defaults.dateEndpoint = 'http://blogs.technet.com/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.DateFormattingEndpoint%2C%20Telligent.Evolution.Api%2C%20Version%3D7.1.12.36162%2C%20Culture%3Dneutral%2C%20PublicKeyToken%3Dnull'; }(jQuery));</script>
+                  
+          <link type="text/css" rel="stylesheet" href="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/dynamic-style.aspx" media="screen,print">
+        <meta name="msvalidate.01" content="B717AD6FC29D3A844832AF011B5F9E4C">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blogs.technet.com/b/machinelearning/rsd.ashx">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" title="WLWManifest" href="http://blogs.technet.com/b/machinelearning/wlwmanifest.ashx">
+<title>
+	How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs
+</title><!--[if lt IE 9]><script>document.createElement('header');document.createElement('nav');document.createElement('section');document.createElement('article');document.createElement('aside');document.createElement('footer');document.createElement('hgroup');</script><![endif]--><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/Bootstrap.js"></script><script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link{height:1% !important;}#li_ui_li_gen_1415855000584_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1415855000584_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link:link, #li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link:visited, #li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link:hover, #li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1415855000584_0 a#li_ui_li_gen_1415855000584_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-logo, #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-logo{}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title, #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title{}.IN-shadowed #li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title{}.IN-shadowed #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title, .IN-shadowed #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title{}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text, #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title-text, #li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title-text *{color:#000 !important;}#li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title-text, #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title-text, #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title-text *, #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title-text *{color:#666 !important;}#li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title #li_ui_li_gen_1415855000584_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text, .success #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1415855000584_0 #li_ui_li_gen_1415855000584_0-title{}.success #li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title-text, .success #li_ui_li_gen_1415855000584_0.hovered #li_ui_li_gen_1415855000584_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title, .success #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title-text, .success #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title-text, .success #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title-text *, .success #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1415855000584_0.clicked #li_ui_li_gen_1415855000584_0-title, .IN-shadowed .success #li_ui_li_gen_1415855000584_0.down #li_ui_li_gen_1415855000584_0-title{}#li_ui_li_gen_1415855000614_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1415855000614_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1415855000614_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1415855000614_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1415855000614_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1415855000614_1-container.IN-hidden #li_ui_li_gen_1415855000614_1 {display:none !important;}</style><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/jquery.tmpl.min.js"></script><link href="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/UnifiedBaseballCard.css" rel="stylesheet" type="text/css"><link href="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/usercard.css" rel="stylesheet" type="text/css"><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/jquery.timeago.js"></script><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/jquery.textfill.js"></script><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/widgets(1).js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+	<body spellcheck="true" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true">
+		<form name="aspnetForm" method="post" action="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs.html" id="aspnetForm" novalidate="novalidate">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTM1MjQyMzYwMmRkZBUiXSFIVaD+v7Bq1RNhtW0mUJs=">
+</div>
+
+
+<script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/a5f868d003b28e18a18057fb232a282f-ddb73fb73149e701ac7db4222df3e8b7-RequestReducedScript.js" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="84C00179">
+</div>
+			
+                
+            
+            
+                <div class="header-fragments-header"></div>
+<div class="header-fragments minimal Chrome">   <div class="header-fragment-outer top-bar wireframe-header-fragment-outer wireframe-top-bar">       <div class="header-fragment-inner top-bar wireframe-header-fragment-inner wireframe-top-bar">           <div class="header-fragment welcome-message">               <!-- always render -->           </div>           <div class="header-fragment login-logout">               <div class="navigation-list-header"></div>               <ul class="navigation-list">                   <li class="navigation-item">                       <span class="internal-link live-id-button">                           <a class="scarabLink" href="https://login.live.com/login.srf?wa=wsignin1.0&wtrealm=blogs.technet.com&wreply=https%3a%2f%2fblogs.technet.com%2fb%2fmachinelearning%2farchive%2f2014%2f11%2f12%2fhow-we-share-machine-learning-knowledge-at-microsoft.aspx%3futm_source%3dMSDN%26utm_medium%3d%2523Azure%2b%2523ML%26stoAI%3d10&wp=MBI_FED_SSL&wlcxt=microsoft%24microsoft%24microsoft" title="Sign in">Sign in</a>                       </span>                   </li>               </ul>               <div class="navigation-list-footer"></div>           </div>           <div class="header-fragment user-welcome-without-login">               &nbsp;<!-- always render -->               <span class="user-name">                   <a class="internal-link view-user-profile" href="">                       <span></span>                   </a>               </span>                          </div>       </div>   </div><div class="header-fragment-outer wireframe-header-fragment-outer site-banner">    <div class="header-fragment-inner wireframe-header-fragment-inner site-banner">        <div class="header-fragment site-banner">            <div class="site-banner-header"></div>            <div class="site-banner"></div>            <div class="site-banner-footer"></div>        </div>    </div></div></div><div class="header-fragments-footer"></div>
+            
+			
+    <div class="content-fragment-page post" id="ctl00_content_ctl00_page"><div class="layout">
+<div class="layout-header"></div>
+<div class="layout-content header-top-content-left-sidebar-right" id="ctl00_content_ctl00_layout">
+<div class="layout-region header" id="ctl00_content_ctl00_header">
+<div class="layout-region-inner header"><div class="content-fragment blog-bread-crumbs no-wrapper-with-spacing" id="fragment-158073">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+
+
+
+<div class="breadcrumb-list-header"></div>
+<div class="breadcrumb-list">
+	<span class="breadcrumb-item"><a href="http://blogs.technet.com/" class="internal-link view-home"><span></span>TechNet Blogs</a></span>
+
+	
+			<span class="separator"> » </span>
+		<span class="breadcrumb-item"><a href="http://blogs.technet.com/b/machinelearning/default.aspx"><span></span>Machine Learning</a></span>
+	
+			<span class="separator"> » </span>
+		<span class="breadcrumb-item"><a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx"><span></span>How We Share Machine Learning Knowledge at Microsoft</a></span>
+	
+	</div>
+<div class="breadcrumb-list-footer"></div>
+			</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-158074">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><div id="stb-breadcrumbs">
+  <div class="breadcrumb-list">
+    <span class="breadcrumb-item"><a href="http://blogs.technet.com/b/serverandtools/">Server &amp; Tools Blogs</a></span>
+    <span class="separator"> &gt; </span>
+    <span class="breadcrumb-item"><a href="http://blogs.msdn.com/b/data-platform">Data Platform Blogs</a></span>
+    <span class="separator"> &gt; </span>
+    <span class="breadcrumb-item2">Machine Learning Blog</span>
+  </div>
+</div>
+<div id="stb-header">
+        <ul class="stb-nav"> 
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Data Development<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.msdn.com/b/adonet/">ADO.NET (Managed Providers, DataSet &amp; EF)</a></li>
+        <li><a href="http://blogs.msdn.com/b/astoriateam/">WCF Data Services</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlcat/">SQL Server Customer Advisory Team</a></li>
+        <li><a href="http://blogs.msdn.com/b/ssdt/">SQL Server Data Tools</a></li>
+        <li><a href="http://blogs.msdn.com/b/streaminsight/">StreamInsight</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Data Quality Services<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.msdn.com/b/sqlcat/">SQL Server Customer Advisory Team</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">OLTP<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.technet.com/b/dataplatforminsider/">SQL Server Team</a></li>
+        <li><a href="http://blogs.msdn.com/b/adonet/">ADO.NET (Managed Providers, DataSet &amp; EF)</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlcat/">SQL Server Customer Advisory Team</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlreleaseservices/">SQL Release Services</a></li>
+        <li><a href="http://blogs.msdn.com/b/saponsqlserver/">Running SAP on SQL Server</a></li>
+        <li><a href="http://blogs.msdn.com/b/conor_cunningham_msft/">Conor vs. SQL</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlalwayson/">SQL AlwaysOn Team</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Integration Services<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.msdn.com/b/sqlcat/">SQL Server Customer Advisory Team</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Data Security &amp; Storage<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.msdn.com/b/sqlsecurity/">SQL Server Security</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlserverstorageengine/">SQL Server Storage Engine</a></li>
+        <li><a href="http://blogs.msdn.com/b/sqlcat/">SQL Server Customer Advisory Team</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Data in the Cloud<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.msdn.com/b/windowsazure" target="_blank">Windows Azure</a></li>
+        <li><a href="http://blogs.technet.com/b/dataplatforminsider/">SQL Server Team</a></li>
+        <li><a href="http://blogs.msdn.com/b/silverlining/">Silver Lining</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="menu-title">Machine Learning<b><!--style element: drop-down arrow--></b></a>
+      <ul class="stb-nav-drop">
+        <b><!--style element: partial white border atop the drop-down menu--></b>					
+        <li><a href="http://blogs.technet.com/b/machinelearning">Machine Learning Blog</a></li>
+      </ul>
+    </li>
+  </ul><div class="description-container">
+    <div class="description">
+      <a href="http://blogs.technet.com/b/machinelearning/"><h2>Machine Learning Blog</h2></a>
+      
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+<!-- Begin drop-down menu -->
+  $("#stb-header > .stb-nav")
+    .mouseleave(function () {
+      $(this)
+        .find("a.menu-title")
+          .removeClass("expanded")
+        .end()
+        .find(".stb-nav-drop")
+          .removeClass("expanded");
+    })
+	.find("a.menu-title")
+	.click(function(e) {
+		  e.preventDefault();
+		  e.stopImmediatePropagation();
+		  
+		  $(this).parents('li:first').find(".stb-nav-drop")
+            .toggleClass("expanded")
+          .end()
+          .find("a.menu-title")
+            .toggleClass("expanded")
+          .end()
+          .siblings()
+            .find("a.menu-title")
+              .removeClass("expanded")
+            .end()
+            .find(".stb-nav-drop")
+              .removeClass("expanded");
+	  });
+
+    $(".stb-nav a[target='_blank']").click(function(e) {
+      window.open($(this).attr("href"), "popup", "width=980");
+      e.preventDefault();
+    });
+});  
+</script></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+</div>
+</div>
+<div class="layout-region right-sidebar" id="ctl00_content_ctl00_right-sidebar">
+<div class="layout-region-inner right-sidebar"><div class="content-fragment html-content no-wrapper with-header" id="fragment-158187">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-header"><div>
+Related Links
+	</div></div>
+<div class="content-fragment-content">
+
+<div class="user-defined-markup" style="">
+<p><a href="http://azure.microsoft.com/en-us/services/machine-learning/?WT.mc_id=Blog_MachLearn_General_DI">Microsoft Azure ML</a></p>
+<p><a href="http://blogs.technet.com/b/dataplatforminsider/">Microsoft Data Platform Insider Blog</a></p>
+<p><a href="http://www.microsoft.com/en-us/server-cloud/solutions/big-data.aspx">Microsoft Big Data Solutions</a></p>
+<p><a href="http://datasciencedojo.com/">Data Science Dojo</a></p>
+<p><a href="http://azure.microsoft.com/blog/topics/big-data/">Azure Big Data Blog</a></p>
+</div>
+		</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment tag-cloud no-wrapper-with-spacing with-header" id="fragment-158078">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-header"><div>
+Tags
+			</div></div>
+<div class="content-fragment-content">
+
+
+		
+
+			
+		
+				
+		
+	
+
+	<div class="tag-list-header"></div>
+	<ul class="tag-list">
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/ADF/default.aspx" rel="nofollow tag"><span></span>ADF</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Anomaly+Detection/default.aspx" rel="nofollow tag"><span></span>Anomaly Detection</a>
+			</li>
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/asa/default.aspx" rel="nofollow tag"><span></span>asa</a>
+			</li>
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+Data+Factory/default.aspx" rel="nofollow tag"><span></span>Azure Data Factory</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+Event+Hubs/default.aspx" rel="nofollow tag"><span></span>Azure Event Hubs</a>
+			</li>
+		<li class="tag-item level-2" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+Machine+Learning/default.aspx" rel="nofollow tag"><span></span>Azure Machine Learning</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+Marketplace/default.aspx" rel="nofollow tag"><span></span>Azure Marketplace</a>
+			</li>
+		<li class="tag-item level-1" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+ML/default.aspx" rel="nofollow tag"><span></span>Azure ML</a>
+			</li>
+		<li class="tag-item level-2" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+ML+Partners/default.aspx" rel="nofollow tag"><span></span>Azure ML Partners</a>
+			</li>
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+Stream+Analytics/default.aspx" rel="nofollow tag"><span></span>Azure Stream Analytics</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Computer+Vision/default.aspx" rel="nofollow tag"><span></span>Computer Vision</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Distributed+ML/default.aspx" rel="nofollow tag"><span></span>Distributed ML</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Fast+Learning/default.aspx" rel="nofollow tag"><span></span>Fast Learning</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Free+Tier/default.aspx" rel="nofollow tag"><span></span>Free Tier</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Hadoop/default.aspx" rel="nofollow tag"><span></span>Hadoop</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/KDD/default.aspx" rel="nofollow tag"><span></span>KDD</a>
+			</li>
+		<li class="tag-item level-1" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Machine+Learning/default.aspx" rel="nofollow tag"><span></span>Machine Learning</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Microsoft+Azure+Intelligent+Systems+Service/default.aspx" rel="nofollow tag"><span></span>Microsoft Azure Intelligent Systems Service</a>
+			</li>
+		<li class="tag-item level-1" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Microsoft+Azure+Machine+Learning/default.aspx" rel="nofollow tag"><span></span>Microsoft Azure Machine Learning</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Microsoft+Prediction+Lab/default.aspx" rel="nofollow tag"><span></span>Microsoft Prediction Lab</a>
+			</li>
+		<li class="tag-item level-6" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Online+learning/default.aspx" rel="nofollow tag"><span></span>Online learning</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Power+BI/default.aspx" rel="nofollow tag"><span></span>Power BI</a>
+			</li>
+		<li class="tag-item level-5" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Power+BI+for+Office+365/default.aspx" rel="nofollow tag"><span></span>Power BI for Office 365</a>
+			</li>
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/Vowpal+Wabbit/default.aspx" rel="nofollow tag"><span></span>Vowpal Wabbit</a>
+			</li>
+		<li class="tag-item level-3" style="display: none;">
+											
+				
+														<a href="http://blogs.technet.com/b/machinelearning/archive/tags/VW/default.aspx" rel="nofollow tag"><span></span>VW</a>
+			</li>
+	</ul>
+	<div class="tag-list-footer"></div>
+	</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-158079">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SIDEBAR: TAGS MORE/LESS SCRIPT -->
+<script>
+  $(document).ready(function() {
+    $('ul.tag-list > li.tag-item').hide();
+    if ($('ul.tag-list > li.tag-item').length < 1) {
+      $('#TagMoreLink,#TagLessLink').hide();
+    }
+    if ($('ul.tag-list > li.tag-item:visible').length == $('ul.tag-list > li.tag-item').length) {
+      $('#TagMoreLink,#TagLessLink').hide();
+    }
+  });
+</script>
+<a id="TagMoreLink" href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" onclick="$(&#39;ul.tag-list &gt; li.tag-item&#39;).show(); $(&#39;#TagLessLink&#39;).show(); $(&#39;#TagMoreLink&#39;).hide(); return false;"></a>More <span class="arrowhead">▼</span>
+<a id="TagLessLink" href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" style="display:none" onclick="$(&#39;ul.tag-list &gt; li.tag-item&#39;).hide(); $(&#39;#TagMoreLink&#39;).show(); $(&#39;#TagLessLink&#39;).hide(); return false;"></a>Less <span class="arrowhead">▲</span></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment html-content no-wrapper-with-spacing with-header" id="fragment-158075">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-header"><div>
+Top Server &amp; Tools Blogs
+	</div></div>
+<div class="content-fragment-content">
+
+<div class="user-defined-markup" style="">
+<div class="sxp-feed"><a href="http://weblogs.asp.net/scottgu">ScottGu's Blog</a></div>
+<div class="sxp-feed"><a href="http://blogs.msdn.com/b/somasegar/">Somasegar's Blog</a></div>
+<div class="sxp-feed"><a href="http://blogs.msdn.com/b/bharry/">Brian Harry's Blog</a></div>
+<div class="sxp-feed"><a href="http://blogs.msdn.com/b/stevengu/">Steve "Guggs" Guggenheimer's Blog</a></div>
+</div>
+		</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-158076">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SIDEBAR: METRO TILES -->
+<ul class="sidebar-tiles">
+  <li class="first">
+    <a href="http://blogs.technet.com/b/machinelearning/rss.aspx" class="sidebar-tile-subscribe">Subscribe</a>
+  </li>
+  <li class="mid">
+    <a href="https://twitter.com/SQLServer" class="sidebar-tile-twitter">Twitter</a>  </li>
+  <li class="last">
+    <a href="http://www.facebook.com/sqlserver" class="sidebar-tile-facebook">Facebook</a>
+  </li>
+</ul></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment blog-links no-wrapper-with-spacing with-header" id="fragment-158077">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-header"><div>
+Menu
+			</div></div>
+<div class="content-fragment-content">
+
+  
+<div class="navigation-list-header"></div>
+<ul class="navigation-list">
+															<li class="navigation-item"><a href="http://blogs.technet.com/b/machinelearning/atom.aspx" class="internal-link rss"><span></span>Atom</a></li>
+																																      																																																							</ul>
+<div class="navigation-list-footer"></div>
+			</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment blog-archive-list no-wrapper-with-spacing with-header" id="fragment-158080">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-header"><div>
+Archives
+	</div></div>
+<div class="content-fragment-content">
+
+
+
+<div class="content-list-header"></div>
+<div class="content-list-name">Archives</div>
+<ul class="content-list">
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/11.aspx">November 2014</a> (7)
+	</li>
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/10.aspx">October 2014</a> (13)
+	</li>
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/09.aspx">September 2014</a> (7)
+	</li>
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/08.aspx">August 2014</a> (5)
+	</li>
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/07.aspx">July 2014</a> (8)
+	</li>
+	<li class="content-item" style="display: none;">
+		<a class="internal-link view-post-archive-list" href="http://blogs.technet.com/b/machinelearning/archive/2014/06.aspx">June 2014</a> (2)
+	</li>
+</ul>
+<div class="content-list-footer"></div>
+
+	</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-158081">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><script>
+    $(document).ready(function() {
+      $('.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item').hide();
+      if ($('.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item').length < 1) {
+        $('#ArchiveMoreLink,#ArchiveLessLink').hide();
+      }
+      if ($('.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item:visible').length == $('.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item').length) {
+        $('#ArchiveMoreLink,#ArchiveLessLink').hide();
+      }
+    });
+</script>
+<a id="ArchiveMoreLink" href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" onclick="$(&#39;.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item&#39;).show(); $(&#39;#ArchiveLessLink&#39;).show(); $(&#39;#ArchiveMoreLink&#39;).hide(); return false;"></a>More <span class="arrowhead">▼</span>
+<a id="ArchiveLessLink" href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" style="display:none" onclick="$(&#39;.layout-region.right-sidebar .blog-archive-list ul.content-list li.content-item&#39;).hide(); $(&#39;#ArchiveMoreLink&#39;).show(); $(&#39;#ArchiveLessLink&#39;).hide(); return false;"></a>Less <span class="arrowhead">▲</span></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+</div>
+</div>
+<div class="layout-region content" id="ctl00_content_ctl00_content">
+<div class="layout-region-inner content"><div class="content-fragment blog-title full-border" id="fragment-158082">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+
+	
+	<h1 class="title">How We Share Machine Learning Knowledge at Microsoft</h1>
+		</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment blog-post no-wrapper-with-spacing" id="fragment-158083">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+
+
+
+<div class="full-post-header"></div>
+<div class="full-post">
+    <h3 class="post-name">How We Share Machine Learning Knowledge at Microsoft</h3>
+    <div class="post-rating">
+            <span class="ui-rate" data-contentid="fb143707-2e7d-4f66-9a25-a5d1faf79648" data-contenttypeid="f7d226ab-d59f-475c-9d22-4a79e3f0ec07" data-readonly="true" data-initialvalue="0" data-initialcount="0" data-configuration="ReadOnly=true"></span>
+        </div>    
+     <div class="post-author">      
+          <span class="avatar" style="height:32px;">                                          
+						  <img src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/avatar.jpg" style="width: 32px;height:0;padding:32px 0 0 0;overflow:hidden;background:url(&#39;http://i1.social.s-msft.com/profile/u/avatar.jpg?displayname=ml+blog+team&amp;size=large&#39;) center center no-repeat;background-size:cover;" border="0" alt="ML Blog Team">                                  
+					</span>	
+          <span class="profile-usercard-hover" data-profile-userid="5dd39178f71a41b189284824faff6997" data-profile-rendered="true">                     
+							<span class="user-name">
+								  <a href="http://social.technet.microsoft.com/profile/ML%20Blog%20Team">ML Blog Team</a>
+							</span>                 
+					<div class="profile-usercard">            <div class="profile-header">                <span class="profile-userimage">                                            <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAsACwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1PQdY1eLRmk1DT7qZIwPLmAAZhx94E5I5+8AeM+lb2tf8gHUf+vWT/wBBNPW9sruCbyLy3kVF+dkkDBAQeTg8dD+Vc2dTFvol7p1zqNpeZt5EguIplLPlSArLnO73Gc/Xr0255cyVtTj5vZQ5XK6tueeoxR1cYJU5G4Aj8jwa7jwjBpd3fR3tsTbXkKkS22cqwIxuXPOPxOPyrlP7F1X/AKBl7/4Dt/hWpoFtfaVqq3dxaSW6rG4WS5QxxhiMDLHoMkV6Ne0oOz1PGwvNConKOh2niqO0utAuUnkUMg3R45O8dBgevT8TRpfhfSrSwjje3hunI3NNIgbcT6egpmkvoelwvt1SzkuZTvnnadN0jHqevAz2rR/trSv+gnZf9/1/xrzW5xjyRvY9pRpyl7Sdr2PK5NSKaSmnW2UiY+ZO3Qyv6f7o7D15+mfXQ/8ACFa5/wA+8f8A39X/ABqG58KarZwtNcRxRxryWMgPbJ4HJ4BPHpXqRq0lomjwZ0a71lF6eRJ4d1LXfOGn6ZKWDg4WQbliH97npj/INdN4ksTZeErjzZ3uLl3QyzOeWO7OB6KMnAHAqDRNZ8NaJaeVDcSPK3MsphbLn8uB7U/W9bsNf0qWw0+UvcMQwDIVGFOSST04rkm5SqpqNlfsejTUI0HFzvJp2V9vQ8+qxBY3dyhe3tZ5UBwWjjLDPpxXQaf4I1C4uYjdbIrVvmaRJAxI9sevrVrV/DGrXF8RY2qRWcSiOFRKo+Udzz1JJPPPNdTxEL2TRwxwlXl5nFnc3Fy0EkKLbTzea23dGBhO+WyRgf59KxZ9K1G7fU7i8aF3e2eGzhjclU3A5zkD5jxz9e2K5u51i9n8eW6tLhILvyI1A4Cltp/Eg9a7jV3ePRb+SNmR1t5GVlOCCFOCDXmuDpctup7KqRr8172i/wBDxySN4pGjkRkdDtZWGCD6Gt/wV/yM8H+4/wD6Cap3d3Jqlg91dbWuYXSPzQuGcEH73Y4x16/Wrngr/kZ4P9x//QTXpVG3SlfszxaMVGvC210dtFp9vourieO5MNpdkxi2LHYJjggqOgyFI/QdcVHdeMtGtZzF57SkdWiXcv59/wAK3iqsVLKCVOVJHQ9P6mvNvFulWtnrWLdDGssYkKL0BJIOPTpXnUIxrStM9jFTnh4Xp2tc/9k=" alt="Avatar of ML Blog Team">                                    </span>                <div>                    <p title="ML Blog Team" class="profile-display-name">ML Blog Team</p>                                    <p class="profile-company">Microsoft</p>                                    <p class="profile-affiliations"></p>                </div>            </div>            <div class="profile-points-bar">                <span class="profile-points">4,562<span class="points-label"> Points</span></span>                <span class="profile-count profile-bronze-points"><span class="profile-bronze-img" title="Achievements Earned"></span><span>2</span></span>                <span class="profile-count profile-silver-points"><span class="profile-silver-img" title="Achievements Earned"></span><span>2</span></span>                <span class="profile-count profile-gold-points"><span class="profile-gold-img" title="Achievements Earned"></span><span>1</span></span>                        </div>            <div class="profile-achievements-header">                <span class="profile-achievements-title">Recent Achievements</span>            </div>            <div class="profile-achievements-recent">                <div class="profile-achievements-centering">                                                                <span class="profile-achievement profile-achievement-Gold"><span>Blog Party Starter</span></span>                                            <span class="profile-achievement profile-achievement-Silver"><span>Blog Conversation Starter</span></span>                                            <span class="profile-achievement profile-achievement-Silver"><span>Blogger II</span></span>                                                            </div>            </div>            <div class="profile-footer">                                <a href="https://social.technet.microsoft.com/profile/ml%20blog%20team/?ws=usercard-hover" class="profile-usercard-profileLink" target="_blank">View Profile</a>            </div>        </div></span>             
+    </div>
+    
+    
+
+    <div class="post-date">
+        <span class="value">
+                            12 Nov 2014 9:00 AM
+                    </span>
+    </div>
+    <div class="post-attributes">
+        <div class="attribute-list-header"></div>
+        <ul class="attribute-list">
+             <li class="attribute-item post-reply-count">
+                <span class="attribute-name">Comments</span>
+                <span class="attribute-value"><a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#comments" class="internal-link view-replies"><span></span>1</a></span>
+             </li>
+             <li class="attribute-item post-like-count">
+                <span class="attribute-name">Likes</span>
+                <span class="attribute-value"></span>
+             </li>
+        </ul>
+        <div class="attribute-list-footer"></div>
+    </div>
+    <div class="post-content user-defined-markup"><p>We recently concluded the Fall 2014 edition of our Practice of Machine Learning Conference (PMLC). Over 1,700 Microsoft employees attended the two day event, which featured 60 talks on a broad spectrum of areas ranging from new algorithms to ML applications such as anomaly detection and fraud. Tutorials covered such topics as feature engineering, labeling, <a href="http://azure.microsoft.com/en-us/services/machine-learning/"><span style="color:#0563c1;">Azure Machine Learning</span></a>, multi-world testing and more. A Poster &amp; Demo Reception saw more than 50 presenters. And our first-ever Azure ML Cloud App Contest featured many interesting contenders.</p>
+<p>To share a flavor of the event with you, we boiled our 2 day event into a 2 minute video:</p>
+<p><span style="font-family:Times New Roman;font-size:medium;">&nbsp;</span><iframe width="560" height="315" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/xn2KvuzzlV0.html" frameborder="0"></iframe></p>
+<p>The best part was that ML practitioners from dozens of teams and locations around the world got a chance to connect in person, discuss the latest advances in ML and learn from one another. Presenters from Beijing, Cambridge, Herzelia, Hyderabad and 15 other cities flew in to participate in person and share their work. Some of the most popular sessions included:</p>
+<ul>
+<li>
+<p>Automatic Image Captioning at a Human Level of Performance</p>
+</li>
+<li>
+<p>Beating Paul the Octopus: How Bing Uses Web and Social Data for Predictive Modeling</p>
+</li>
+<li>
+<p>Customer Churn Prediction Service on Azure ML</p>
+</li>
+<li>
+<p>Exploring ML with scikit-learn</p>
+</li>
+<li>
+<p>Introduction to Fireworks Algorithm Optimization</p>
+</li>
+<li>
+<p>Real-Time Stream Analytics Using <a href="http://azure.microsoft.com/en-us/services/stream-analytics/"><span style="color:#0563c1;">Azure Stream Analytics</span></a></p>
+</li>
+</ul>
+<p><img alt=" " src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/PMLC-Fall-_2D00_-2.jpg" border="0"></p>
+<p>At his keynote talk, <a href="https://social.technet.microsoft.com/Profile/Joseph%20Sirosh"><span style="color:#0563c1;">Joseph Sirosh</span></a>, Corporate Vice President of Information Management &amp; Machine Learning (IMML), talked about the newly emerging Data Science Economy and the opportunities afforded by Azure ML for data scientists, including the ability to self-publish and monetize their skills through the Azure Marketplace in a manner similar to how developers monetize their skills through app stores today. This <a href="http://blogs.technet.com/b/machinelearning/archive/2014/10/17/video-joseph-sirosh-keynote-quot-a-new-data-science-economy-quot-at-strata-hadoop-2014.aspx">echoed his message at the recent Strata + Hadoop 2014 event </a>which had a similar theme.</p>
+<p><img alt=" " src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/6237.PMLC-Fall-_2D00_-1.jpg" border="0"></p>
+<p>
+</p><p>In the first-ever Azure ML Cloud App Contest, participants built Azure ML apps of their choice that addressed real-world scenarios. The winning app, <i>Dr. Pig</i>, created by a Microsoft team in China, helps small-scale pig breeders forecast future prices and profits and mitigate risk by helping with decisions such as the type of pig to breed.</p>
+<p>The conference concluded with a closing panel designed to stimulate spirited discussion – in “<i>Are We at Peak ML? Hype vs. Reality of Machine Learning</i>”, John Platt, Distinguished Scientist at Microsoft Research, and Greg Buehrer, Partner Development Manager, joined Joseph to debate the future directions of ML.</p>
+<p><img alt=" " src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/PMLC-Fall-_2D00_-3.jpg" border="0"></p>
+<p>The PMLC is held twice a year. Between conferences, the Microsoft ML community gathers regularly for smaller in-person and online events where practitioners share their experience and expertise. Members also participate in <a href="http://blogs.technet.com/b/machinelearning/archive/2014/09/16/microsoft-machine-learning-hackathon-2014.aspx"><span style="color:#0563c1;">ML-focused hackathons</span></a>&nbsp;and internal forums, and have access to resources such as the online Machine Learning University, which pulls together course materials on the most-requested ML topics. These activities are designed to allow ML practitioners from around the world share their knowledge, help one another and make Microsoft products and services better through the power of ML.</p>
+<p>
+</p><p>To learn more about ML at Microsoft, you can <a href="http://blogs.technet.com/b/machinelearning/rss.aspx"><span style="color:#0563c1;">subscribe to our ML blog feed</span></a> or follow us on Twitter <a href="https://twitter.com/MLatMSFT"><span style="color:#0563c1;">@MLatMSFT</span></a>. And, for those of you practitioners who did not know yet, we recently made Azure ML available free of charge without a subscription or credit card – just click the blue “Get Started Now” button at the <a href="http://azure.microsoft.com/en-us/services/machine-learning/"><span style="color:#0563c1;">Azure ML Preview</span></a> page and get going today.</p>
+<p>
+</p><p><span style="font-family:Times New Roman;font-size:medium;"> </span>ML Blog Team</p><div style="clear:both;"></div></div>
+    <div class="post-attachment-viewer">
+            </div>
+    <div class="post-actions">
+        <div class="navigation-list-header"></div>
+        <ul class="navigation-list">            
+            <li class="navigation-item"><a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx#comments" class="internal-link view-replies"><span></span>1 Comments</a></li>
+                                </ul>
+        <div class="navigation-list-footer"></div>
+    </div>
+            <div class="post-tags">
+                        <span class="ui-tag" data-contentid="fb143707-2e7d-4f66-9a25-a5d1faf79648" data-contenttypeid="f7d226ab-d59f-475c-9d22-4a79e3f0ec07" data-urlformat="http://blogs.technet.com/b/machinelearning/archive/tags/{tag}/default.aspx" data-readonly="true" data-tags="Machine Learning,Azure ML" data-configuration=""><span><a rel="nofollow tag" href="http://blogs.technet.com/b/machinelearning/archive/tags/Machine+Learning/default.aspx">Machine Learning</a>, <a rel="nofollow tag" href="http://blogs.technet.com/b/machinelearning/archive/tags/Azure+ML/default.aspx">Azure ML</a></span></span>
+        </div>
+    
+			<div class="post-like">
+	    
+	</div>
+</div>
+<div class="full-post-footer"></div>
+        </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment raw-html no-wrapper" id="fragment-158084">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+<div class="user-defined-markup"><!-- SHARE WIDGETS -->
+<div class="share-widgets">
+  <div class="share-widget twitter">
+    <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 136px; height: 28px;"></iframe>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+  <div class="share-widget facebook">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/QjK2hWv6uak.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/QjK2hWv6uak(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="segoe ui" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;font=segoe%20ui&amp;href=http%3A%2F%2Fblogs.technet.com%2Fb%2Fmachinelearning%2Farchive%2F2014%2F11%2F12%2Fhow-we-share-machine-learning-knowledge-at-microsoft.aspx%3Futm_source%3DMSDN%26utm_medium%3D%2523Azure%2B%2523ML&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=450"><span style="vertical-align: bottom; width: 75px; height: 20px;"><iframe name="f5bdb9134" width="450px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/like.html" style="border: none; visibility: visible; width: 75px; height: 20px;" class=""></iframe></span></div>
+  </div>
+  <div class="share-widget linkedin">
+    <script src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/in.js" type="text/javascript"></script>
+    <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415855000584_0"><a id="li_ui_li_gen_1415855000584_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1415855000584_0-logo">in</span><span id="li_ui_li_gen_1415855000584_0-title"><span id="li_ui_li_gen_1415855000584_0-mark"></span><span id="li_ui_li_gen_1415855000584_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415855000614_1-container" class="IN-right"><span id="li_ui_li_gen_1415855000614_1" class="IN-right"><span id="li_ui_li_gen_1415855000614_1-inner" class="IN-right"><span id="li_ui_li_gen_1415855000614_1-content" class="IN-right">4</span></span></span></span></span></span><script type="IN/Share+init" data-counter="right"></script>
+  </div>
+  <div class="share-widget delicious">
+    <img src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/delicious.small.gif" height="10" width="10" alt="Delicious">
+    <a href="http://www.delicious.com/save" onclick="window.open(&#39;http://www.delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=&#39;+encodeURIComponent(location.href)+&#39;&amp;title=&#39;+encodeURIComponent(document.title), &#39;delicious&#39;,&#39;toolbar=no,width=550,height=550&#39;); return false;"> Save this on Delicious</a>
+  </div>
+</div></div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment blog-post-comment-form no-wrapper" id="fragment-158085">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content">
+
+
+
+
+
+<div id="fragment-158085_successMessage" class="message success">
+	Your comment has been posted. &nbsp;
+	<a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="internal-link close-message" title="Close"><span></span>Close</a>
+</div>
+
+<div id="fragment-158085_moderateMessage" class="message warning">
+	Thank you, your comment requires moderation so it may take a while to appear. &nbsp;
+	<a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" class="internal-link close-message" title="Close"><span></span>Close</a>
+</div>
+
+<div id="fragment-158085_errorMessage" class="message error" style="display: none;"></div>
+
+<div id="fragment-158085_form" class="captcha-blog-post-comment-form">
+	<div class="field-list-header"></div>
+	<fieldset class="field-list">
+		<legend class="field-list-description">Leave a Comment</legend>
+		<ul class="field-list">
+      			<li class="field-item post-authorname">
+          <label class="field-item-header" for="commentAuthorName">Name</label>
+          <span class="field-item-input author"><input type="text" id="commentAuthorName" size="60" name="commentAuthorName" class="author"></span>
+          <span class="field-item-validation" style="display: none;"></span>
+      </li>
+      			<li class="field-item post-body">
+        				<label class="field-item-header" for="post-body">Comment</label>
+        				<span class="field-item-input">
+					<textarea id="fragment-158085_body" rows="3" name="fragment-158085_body" style="resize: none; overflow-y: hidden;"></textarea>
+				</span>
+				<span class="field-item-validation" style="display: none;"></span>
+			</li>
+			<li class="field-item post-submit">
+				<span class="field-item-input">
+					<a href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#" onclick="return false;" class="internal-link add-reply submit-button" id="fragment-158085_save">
+						<span></span>Post
+					</a>
+					<span class="processing" style="visibility: hidden;"></span>
+				</span>
+			</li>
+		</ul>
+	</fieldset>
+	<div class="field-list-footer"></div>
+</div>
+
+			</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+<div class="content-fragment blog-feedback-list msdntechnet no-wrapper" id="fragment-158086">
+<div class="content-fragment-inner fiji-content-fragment-inner msdn-content-fragment-inner msdntechnet"><div class="content-fragment-top fiji-content-fragment-top msdn-content-fragment-top"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div><div class="content-fragment-content"><input type="hidden" id="bflBlogPostId" value="3640981">
+
+	<a name="comments"></a>
+	<div class="content-list-header"></div>
+	<div class="content-list-name">
+							<a class="internal-link rss" href="http://blogs.technet.com/b/machinelearning/rsscomments.aspx?WeblogPostID=3640981">
+				<span></span>
+				Comments
+			</a>
+			</div>
+
+	<ul id="commentList" class="content-list">
+			
+			<li id="commentItem495362" class="content-item anonymous" data-commentid="495362">    
+				<div class="full-post-outer wireframe-full-post-outer">				
+							<div class="full-post-header">
+					<div class="r wireframe-r"></div>
+				</div>         
+				<div class="full-post">
+								<div class="full-post-inner wireframe-full-post-inner">             
+						<div class="post-author">                 
+							<span class="avatar" style="height:32px;">                                          
+								<img src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/anonymous.gif" style="width: 32px;height:0;padding:32px 0 0 0;overflow:hidden;background:url(&#39;http://blogs.technet.com/utility/anonymous.gif&#39;) center center no-repeat;background-size:cover;" border="0" alt="Anonymous">                                  
+							</span>		
+													<span class="user-name">Aaron Graham</span>          
+					    						</div>              
+						<div class="post-date">                 
+							<span class="value">12 Nov 2014 9:07 PM</span>                   
+						</div>        
+													<a name="495362" style="padding-left:5px;" href="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN&utm_medium=%23Azure+%23ML#495362">#</a>             
+												<div class="post-content user-defined-markup">                 
+							<p>Any chance the Dr. Pig will be posted as an example in the AzureML samples?</p>
+							<div style="clear:both;"></div>             
+						</div>        
+						<div class="post-actions">                                  
+							<div class="navigation-list-header"></div>                 
+													</div>         						
+					</div> 
+					<div class="full-post-footer">                      
+						<div class="r wireframe-r"></div>         
+					</div>     
+				</div>
+			</div>
+		</li>	
+	</ul>	
+	<div class="content-list-footer"></div>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom fiji-content-fragment-bottom msdn-content-fragment-bottom msdntechnet"><div class="r1 fiji-r1 msdn-r1"></div><div class="r2 fiji-r2 msdn-r2"></div><div class="r3 fiji-r3 msdn-r3"></div><div class="r4 fiji-r4 msdn-r4"></div></div></div></div>
+</div>
+</div>
+</div>
+<div class="layout-footer"></div>
+</div></div>
+
+            
+			    <div class="footer-fragments-header"></div>
+<div class="footer-fragments minimal">    <div class="footer-fragment copyright-info"><ul class="footer-fragment-links"><li class="message copyright">© 2014 Microsoft Corporation.</li><li class="message termsOfService"><a href="http://technet.microsoft.com/en-US/cc300389.aspx">Terms of Use</a> </li><li class="message trademarks"><a href="http://www.microsoft.com/library/toolbar/3.0/trademarks/en-us.mspx">Trademarks</a> </li><li class="message privacy"><a href="http://go.microsoft.com/fwlink/?LinkId=248681">Privacy &amp; Cookies</a> </li><li class="message version">7.1.507.6741</li></ul>   </div>   <div class="footer-fragment omniture-footer-fragment"><script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/omni_rsid_technet_current.js"></script><noscript>&lt;a href="http://www.omniture.com" title="Web Analytics"&gt;&lt;img src="http://msstonojssocial.112.2O7.net/b/ss/msstonojssocial/1/H.20.2--NS/0" height="1" width="1" border="0"&gt;&lt;/a&gt;</noscript></div><script>var _daAnalytics = _daAnalytics || {}; _daAnalytics.init = function (d) {        _daAnalytics.Commands = _daAnalytics.Commands || [];        for (var a = function (a) { return function () { _daAnalytics.Commands.push([a].concat(Array.prototype.slice.call(arguments, 0))) } }, b = "siteId trackLinkClicks setUserId setProperty setView trackPage trackAction trackEvent trackView setAppId setAccountId setUserId".split(" "), c = 0; c < b.length; c++)            _daAnalytics[b[c]] = a(b[c]);        _daAnalytics.setAppId(d);        var a = document.createElement("script");        a.type = "text/javascript";        a.src = "//az416426.vo.msecnd.net/scripts/da.js";        a.async = !0;        var b = document.getElementsByTagName("script")[0];        b.parentNode.insertBefore(a, b); };_daAnalytics.init("cba10351-9818-4f0e-8a80-75fa43d96a51");_daAnalytics.trackPage();</script></div><div class="footer-fragments-footer"></div>
+            
+		
+<script type="text/javascript">
+// <![CDATA[
+ctl00_header_ctl00 = new ContentFragmentContainerCustomCallback('ctl00_header_ctl00',new Function('mode','parameters','callback','errorCallback','context','ctl00_header_ctl00_ctl00._doCallback(mode+\':\'+parameters,callback,context,errorCallback);'));
+// ]]>
+</script>	<script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/autoresize.jquery.min.js"></script>
+	<script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/ui.js"></script>
+	<script type="text/javascript">
+	jQuery(document).ready(function(j){
+		j.telligent.evolution.widgets.blogPostCommentForm.register({
+			wrapperId: 'fragment-158085',
+			blogId: 10252,
+			postId: 3640981,
+			publishErrorText: 'There was an error saving your comment.',
+			publishingText: 'Publishing',
+			publishText: 'Post',
+			bodyRequiredText: '* Please enter a comment',
+      nameRequiredText: '* Please enter a name',
+      commentTooLongText: 'Please shorten the content to 3072 or less.',
+			save: j('#fragment-158085_save'),
+			bodySelector: '#fragment-158085_body',
+			successMessage: j('#fragment-158085_successMessage'),
+			moderateMessage: j('#fragment-158085_moderateMessage'),
+			errorMessage: j('#fragment-158085_errorMessage')
+		});
+	});
+	</script>
+	<script type="text/javascript" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/ui(1).js"></script>
+	<script type="text/javascript">
+	//<![CDATA[
+	jQuery(document).ready(function()
+	{
+    var ctxt = {
+			wrapper:jQuery('#pi158086-paged-content'),
+			widget:jQuery('#fragment-158086'),
+			baseUrl:'/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx?utm_source=MSDN\u0026utm_medium=%23Azure+%23ML',
+			loadCommentsUrl:'/utility/scripted-file.ashx?WeblogApp=machinelearning\u0026y=2014\u0026m=11\u0026d=12\u0026WeblogPostName=how-we-share-machine-learning-knowledge-at-microsoft\u0026GroupKeys=\u0026utm_source=MSDN\u0026utm_medium=%23Azure+%23ML\u0026_cf=load.vm\u0026_fid=158086\u0026_ct=page\u0026_cp=post\u0026_ctt=a3b17ab0af5f11dda3501fcf55d89593\u0026_ctc=10252\u0026_ctn=bcea08641f214e839c2b31db680d7bfe\u0026_cc=0\u0026AppType=Weblog',
+			deleteVerificationText:'Are you sure you want to delete this comment?',
+			errorText:'There was an error saving your comment.',
+			loadingText:'Loading ...',
+			blogId: 10252,
+			blogPostId: 3640981,
+			pagedMessage: 'ui.page.pi158086.paged',
+			pageIndexQueryStringKey: 'pi158086'
+		};
+		jQuery.telligent.evolution.widgets.blogFeedbackList.register(ctxt);
+    jQuery.telligent.evolution.widgets.blogFeedbackList.loadContent(ctxt);
+	});
+	//]]>
+	</script>
+<script type="text/javascript">
+// <![CDATA[
+ctl00_content_ctl00 = new ContentFragmentContainerCustomCallback('ctl00_content_ctl00',new Function('mode','parameters','callback','errorCallback','context','ctl00_content_ctl00_ctl00._doCallback(mode+\':\'+parameters,callback,context,errorCallback);'));
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+ctl00_footer_ctl00 = new ContentFragmentContainerCustomCallback('ctl00_footer_ctl00',new Function('mode','parameters','callback','errorCallback','context','ctl00_footer_ctl00_ctl00._doCallback(mode+\':\'+parameters,callback,context,errorCallback);'));
+// ]]>
+</script>
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx"
+dc:identifier="http://blogs.technet.com/b/machinelearning/archive/2014/11/12/how-we-share-machine-learning-knowledge-at-microsoft.aspx"
+dc:title="How We Share Machine Learning Knowledge at Microsoft"
+trackback:ping="http://blogs.technet.com/b/machinelearning/trackback.ashx?WeblogPostID=3640981" />
+</rdf:RDF>
+-->
+<script type="text/javascript">
+// <![CDATA[
+window.ctl00_header_ctl00_ctl00 = new Telligent_CallbackManager('ctl00_header_ctl00_ctl00','ctl00$header$ctl00$ctl00','aspnetForm');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_content_ctl00_ctl00 = new Telligent_CallbackManager('ctl00_content_ctl00_ctl00','ctl00$content$ctl00$ctl00','aspnetForm');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl00_footer_ctl00_ctl00 = new Telligent_CallbackManager('ctl00_footer_ctl00_ctl00','ctl00$footer$ctl00$ctl00','aspnetForm');
+// ]]>
+</script></form>
+	
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div id="_WEDCSInsertedData" style="display: none;"><iframe id="_msnFrame" src="./How We Share Machine Learning Knowledge at Microsoft - Machine Learning - Site Home - TechNet Blogs_files/c.gif" style="z-index:-1;height:1px;width:1px;display:none;visibility:hidden;" onload="javascript:MscomBeacon();"></iframe></div></body></html>
