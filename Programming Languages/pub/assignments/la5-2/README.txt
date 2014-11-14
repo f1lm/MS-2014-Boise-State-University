@@ -1,0 +1,3 @@
+I have used  Visual Studio 2013 for porting Java to C# application. I found it more user friendly and all controls can be dragged and dropped easily rather creating them at run time and binding each events on those controls. I found syntactically C# and Java are almost identical. C# is better, mostly in terms of interoperability. I think c# is more appropriate for working with window form application like we did than Java. So for me C# is more powerful as language than Java. It is also easier to extend the existing system Class. We can attach any runtime event to the controls using EventHandler passing the object to this method.
+
+I have added some of the screen-shots of the output of my application.
