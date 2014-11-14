@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#" class=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Small Refactorings are OK - Simple Programmer</title>
+<script async="" src="./Small Refactorings are OK - Simple Programmer_files/saved_resource"></script><script src="./Small Refactorings are OK - Simple Programmer_files/0523.js" async="" type="text/javascript"></script><script type="text/javascript" defer="" async="" src="./Small Refactorings are OK - Simple Programmer_files/written-analytics.js"></script><script id="www-widgetapi-script" src="./Small Refactorings are OK - Simple Programmer_files/www-widgetapi.js" async=""></script><script type="text/javascript" async="" src="./Small Refactorings are OK - Simple Programmer_files/widgets.js"></script><script type="text/javascript" async="" src="./Small Refactorings are OK - Simple Programmer_files/widgets.js"></script><script type="text/javascript" async="" src="./Small Refactorings are OK - Simple Programmer_files/ga.js"></script><script async="" src="./Small Refactorings are OK - Simple Programmer_files/cloudflare.min.js"></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok2v=1613a3a185/"},atok:"e51cfae72416006e225a0756ef05d42c",petok:"b03ee19190cb14cd4af36328f1b27d448df40f6f-1415980881-1800",zone:"simpleprogrammer.com",rocket:"0",apps:0}];CloudFlare.push({"apps":{"ape":"f421fc72998d07b64cf0b90a14c98b1a"}});!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok2v=919620257c/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://simpleprogrammer.com/xmlrpc.php">
+<link href="./Small Refactorings are OK - Simple Programmer_files/overview.css" rel="stylesheet" type="text/css">
+<link href="./Small Refactorings are OK - Simple Programmer_files/lessframe.css" rel="stylesheet" type="text/css">
+<link href="./Small Refactorings are OK - Simple Programmer_files/css" rel="stylesheet" type="text/css">
+<!--[if lt IE 9]>
+<script src="http://simpleprogrammer.com/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="canonical" href="./Small Refactorings are OK - Simple Programmer_files/Small Refactorings are OK - Simple Programmer.html">
+ 
+<link rel="canonical" href="./Small Refactorings are OK - Simple Programmer_files/Small Refactorings are OK - Simple Programmer.html">
+<link rel="publisher" href="https://plus.google.com/b/116455763649556557414/116455763649556557414">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Small Refactorings are OK - Simple Programmer">
+<meta property="og:description" content="Tweet TweetMany programmers seems to get caught up on the idea of refactoring. Most of us are familiar with the Boy Scout rule which says: Always leave code better than when you found it But do you actually apply it in your day to day work? I’ve found that for myself the answer to this …">
+<meta property="og:url" content="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/">
+<meta property="og:site_name" content="Simple Programmer">
+<meta property="article:publisher" content="http://www.facebook.com/SimpleProgrammer">
+<meta property="article:tag" content="refactoring">
+<meta property="article:section" content="Best Practices">
+<meta property="article:section" content="Psychology">
+<meta property="article:section" content="Refactoring">
+<meta property="article:published_time" content="2012-03-03T14:37:57+00:00">
+<meta property="article:modified_time" content="2012-03-04T08:25:23+00:00">
+<meta property="og:updated_time" content="2012-03-04T08:25:23+00:00">
+<meta property="fb:admins" content="665244179">
+<meta property="og:image" content="http://simpleprogrammer.com/wp-content/uploads/2012/03/boyscout_thumb.jpg">
+<meta property="og:image" content="http://simpleprogrammer.com/wp-content/uploads/2012/03/rubix_thumb.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@jsonmez">
+<meta name="twitter:domain" content="Simple Programmer">
+<meta name="twitter:creator" content="@jsonmez">
+ 
+<link rel="alternate" type="application/rss+xml" title="Simple Programmer » Feed" href="http://simpleprogrammer.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Simple Programmer » Comments Feed" href="http://simpleprogrammer.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Simple Programmer » Small Refactorings are OK Comments Feed" href="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/feed/">
+<link rel="stylesheet" id="mediaelement-css" href="./Small Refactorings are OK - Simple Programmer_files/mediaelementplayer.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-mediaelement-css" href="./Small Refactorings are OK - Simple Programmer_files/wp-mediaelement.css" type="text/css" media="all">
+<link rel="stylesheet" id="yarppWidgetCss-css" href="./Small Refactorings are OK - Simple Programmer_files/widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="category-posts-css" href="./Small Refactorings are OK - Simple Programmer_files/cat-posts.css" type="text/css" media="all">
+<link rel="stylesheet" id="socialcountplus-style-css" href="./Small Refactorings are OK - Simple Programmer_files/counter.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-fonts-css" href="./Small Refactorings are OK - Simple Programmer_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-style-css" href="./Small Refactorings are OK - Simple Programmer_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="popular-widget-css" href="./Small Refactorings are OK - Simple Programmer_files/pop-widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="amazon-link-style-css" href="./Small Refactorings are OK - Simple Programmer_files/Amazon.css" type="text/css" media="all">
+<link rel="stylesheet" id="yarpp-thumbnails-yarpp-thumbnail-css" href="./Small Refactorings are OK - Simple Programmer_files/styles_thumbnails.css.php" type="text/css" media="all">
+<link rel="stylesheet" id="yarppRelatedCss-css" href="./Small Refactorings are OK - Simple Programmer_files/related.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Small Refactorings are OK - Simple Programmer_files/jetpack.css" type="text/css" media="all">
+<link rel="stylesheet" id="mediaelementjs-styles-css" href="./Small Refactorings are OK - Simple Programmer_files/mediaelementplayer.css" type="text/css" media="all">
+ 
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-9485805-2']);
+	_gaq.push(['_gat._forceSSL']);
+	_gaq.push(['_trackPageview']);
+
+	(function () {
+		var ga = document.createElement('script');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
+
+</script><style type="text/css"></style><style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style>
+ 
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/player.min.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/jquery.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/powerpress-mejs.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/pippity.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/sharebar.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/mediaelement-and-player.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://simpleprogrammer.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://simpleprogrammer.com/wp-includes/wlwmanifest.xml">
+<meta name="generator" content="WordPress 4.0">
+<link rel="shortlink" href="http://wp.me/p3pzCs-nP">
+<script type="text/javascript">
+				pippity_globals = function(jQuery){
+				window.$j = jQuery;
+				window.PTY_URL = "http://simpleprogrammer.com/wp-content/plugins/pippity";
+				window.PTY_DOM = "simpleprogrammer.com";
+				window.PTY_AJAX = "http://simpleprogrammer.com/wp-admin/admin-ajax.php";
+				window.PTY_ADM = "http://simpleprogrammer.com/wp-admin/admin.php?page=";
+				window.PTY_PAGE = "";
+				window.PTY_ISPOST = true;
+				window.PTY_KEY = "ZDY4ODQ3ZTA5YjcxNmVkY2JlZjk4MGM0ZjE4ZGJmNDA2MWEwMzM3NTQ5MzIxZGY0NWVmMDYyYzVkYjkwM2FhOWU5YzZlNjU0NDNmMTBjZDE=";
+				window.PTY_AFFLINK = "";
+				window.PTY_AFFTEXT = "";
+				window.PTY_NEWPOPUP = "false";
+				
+				}(jQuery)
+			</script> <script type="text/javascript"><!--
+function powerpress_pinw(pinw){window.open('http://simpleprogrammer.com/?powerpress_pinw='+pinw, 'PowerPressPlayer','toolbar=0,status=0,resizable=1,width=460,height=320');	return false;}
+powerpress_url = 'http://simpleprogrammer.com/wp-content/plugins/powerpress/';
+//-->
+</script>
+<link rel="stylesheet" href="./Small Refactorings are OK - Simple Programmer_files/sharebar.css" type="text/css" media="screen">
+<script type="text/javascript">jQuery(document).ready(function($) { $('.sharebar').sharebar({horizontal:'true',swidth:'65',minwidth:1000,position:'left',leftOffset:20,rightOffset:10}); });</script>
+ 
+ 
+<script type="text/javascript">
+            function wpSpoilerToggle(spoiler, link, showtext, hidetext) {
+                if (spoiler.style.display != 'none') {
+                    spoiler.style.display = 'none';
+                    link.innerHTML = showtext;
+                    link.className = 'spoiler_link_show';
+                } else {
+                    spoiler.style.display = 'block';
+                    link.innerHTML = hidetext;
+                    link.className = 'spoiler_link_hide';
+                }
+            }
+          </script>
+<style type="text/css">img#wpstats{display:none}</style><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript" async="" src="./Small Refactorings are OK - Simple Programmer_files/embed.js"></script><script async="" type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/count.js"></script><script type="text/javascript" async="" src="http://cdn1.developermedia.com/a.min.js"></script><script id="pty_w" src="./Small Refactorings are OK - Simple Programmer_files/admin-ajax.php">text/javascript</script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Small Refactorings are OK - Simple Programmer_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Small Refactorings are OK - Simple Programmer_files/services.css"><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><script async="" src="./Small Refactorings are OK - Simple Programmer_files/count-data.js"></script><script type="text/javascript" async="" src="http://cdn2.developermedia.com/a.min.js"></script><script async="true" type="text/javascript" src="http://a.adroll.com/j/roundtrip.js"></script><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="single single-post postid-1477 single-format-standard full-width custom-font-enabled" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true"><script type="text/javascript">
+//<![CDATA[
+try{(function(a){var b="http://",c="simpleprogrammer.com",d="/cdn-cgi/cl/",e="img.gif",f=new a;f.src=[b,c,d,e].join("")})(Image)}catch(e){}
+//]]>
+</script>
+<section id="wrapper">
+<div class="container">
+<header id="header">
+<div class="logo"><a href="http://simpleprogrammer.com/"><img style="max-width: 100%;height:auto" src="./Small Refactorings are OK - Simple Programmer_files/recolored.jpg" alt="Simple Programmer" title="Simple Programmer homepage"></a></div>
+<div class="header-right">
+<div class="top-box">
+<a href="http://feeds.feedblitz.com/makingthecomplexsimple"><div class="top-box-img"></div></a>
+</div><aside id="socialcountplus-2" class="widget widget_socialcountplus"><h3 class="widget-title"> </h3><div class="social-count-plus"><ul class="default"><li class="count-twitter"><a class="icon" href="http://twitter.com/jsonmez" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">9576</span><span class="label" style="color: #333333 !important;">followers</span></span></li><li class="count-facebook"><a class="icon" href="http://www.facebook.com/SimpleProgrammer" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">209</span><span class="label" style="color: #333333 !important;">likes</span></span></li><li class="count-youtube"><a class="icon" href="http://www.youtube.com/user/jsonmez" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">1934</span><span class="label" style="color: #333333 !important;">subscribers</span></span></li><li class="count-googleplus"><a class="icon" href="https://plus.google.com/116455763649556557414" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">611</span><span class="label" style="color: #333333 !important;">followers</span></span></li><li class="count-posts"><a class="icon" href="http://simpleprogrammer.com/" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">403</span><span class="label" style="color: #333333 !important;">posts</span></span></li><li class="count-comments"><a class="icon" href="http://simpleprogrammer.com/" target="_blank"></a><span class="items"><span class="count" style="color: #333333 !important;">4599</span><span class="label" style="color: #333333 !important;">comments</span></span></li></ul></div></aside>
+<div data-type="ad" data-publisher="dm.simpleprogrammer.site" data-zone="ron" data-format="728x90"></div>
+ 
+</div>
+<div class="nav-box">
+<div class="chromestyle" id="chromemenu">
+<nav class="clearfix " id="navbar">
+<ul>
+ 
+<div class="menu-main-menu-container"><ul id="menu-main-menu" class="nav-menu"><li id="menu-item-2333" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-2333"><a href="http://simpleprogrammer.com/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/&#39;, &#39;&#39;]);"><img src="./Small Refactorings are OK - Simple Programmer_files/home.png"></a></li>
+<li id="menu-item-2332" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2332"><a href="http://simpleprogrammer.com/about/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/about/&#39;, &#39;About&#39;]);">About</a></li>
+<li id="menu-item-11181" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11181"><a href="http://devcareerboost.com/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget&#39;, &#39;http://devcareerboost.com&#39;, &#39;Get A Raise Or Better Job&#39;]);">Get A Raise Or Better Job</a></li>
+<li id="menu-item-2330" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2330"><a href="http://simpleprogrammer.com/back-to-basics-series/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/back-to-basics-series/&#39;, &#39;Back to Basics Series&#39;]);">Back to Basics Series</a></li>
+<li id="menu-item-2329" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2329"><a href="http://simpleprogrammer.com/getting-up-to-bat-series/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/getting-up-to-bat-series/&#39;, &#39;Getting Up to BAT Series&#39;]);">Getting Up to BAT Series</a></li>
+</ul></div> </ul>
+</nav>
+<div class="search-box">
+<aside id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://simpleprogrammer.com/">
+<div>
+<label class="screen-reader-text" for="s">Search for:</label>
+<input type="text" value="" name="s" id="s">
+<input type="submit" id="searchsubmit" value="Search">
+</div>
+</form></aside> </div>
+</div>
+</div>
+</header>
+<div id="content-box">
+<div id="primary" class="site-content">
+<div id="content" role="main">
+<article id="post-1477" class="post-1477 post type-post status-publish format-standard hentry category-best-practices category-psychology category-refactoring tag-refactoring-2">
+<header class="entry-header">
+<h1 class="entry-title">Small Refactorings are OK</h1>
+<p>By John Sonmez</p>
+<div class="comments-link">
+<a href="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/#disqus_thread" title="Comment on Small Refactorings are OK" data-disqus-identifier="null"><span class="dsq-postid" data-dsqidentifier="1477 https://simpleprogrammer.com/?p=1477">5 Replies</span></a> </div> 
+</header> 
+<div class="entry-content">
+<div><ul id="sharebar" style="width: 65px; margin-left: -85px; display: block; position: fixed; top: 10px;">
+<li><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Small Refactorings are OK - Simple Programmer_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-vertical" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 55px; height: 62px;"></iframe><script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/widgets(1).js"></script></li><li><iframe src="./Small Refactorings are OK - Simple Programmer_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:45px; height:60px;" allowtransparency="true"></iframe></li><li><script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/button2.js"></script><iframe src="./Small Refactorings are OK - Simple Programmer_files/button2.html" height="69" width="51" scrolling="no" frameborder="0"></iframe></li><li><script language="javascript" src="./Small Refactorings are OK - Simple Programmer_files/zoneit.js"></script><iframe src="./Small Refactorings are OK - Simple Programmer_files/zoneit.html" height="70" width="50" scrolling="no" frameborder="0"></iframe></li><li><script src="./Small Refactorings are OK - Simple Programmer_files/hostedbadge.php"></script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Small Refactorings are OK - Simple Programmer_files/saved_resource(1).html" width="50" height="60" id="iframe-stmblpn-widget-1" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;"></iframe> <script type="text/javascript">   (function() {     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;     li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);   })(); </script></li></ul><ul id="sharebarx">
+<li><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./Small Refactorings are OK - Simple Programmer_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en(1).html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe><script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/widgets(1).js"></script></li><li><iframe src="./Small Refactorings are OK - Simple Programmer_files/like(1).html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:85px; height:21px;" allowtransparency="true"></iframe></li><li><script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/button1.js"></script><iframe src="./Small Refactorings are OK - Simple Programmer_files/button1.html" height="22" width="120" scrolling="no" frameborder="0"></iframe></li><li><script language="javascript" src="./Small Refactorings are OK - Simple Programmer_files/zoneit.js"></script><iframe src="./Small Refactorings are OK - Simple Programmer_files/zoneit.html" height="70" width="50" scrolling="no" frameborder="0"></iframe></li><li><script src="./Small Refactorings are OK - Simple Programmer_files/hostedbadge(1).php"></script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Small Refactorings are OK - Simple Programmer_files/saved_resource.html" width="65" height="18" id="iframe-stmblpn-widget-2" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;"></iframe> <script type="text/javascript">   (function() {     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;     li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);   })(); </script></li></ul><p>Many programmers seems to get caught up on the idea of refactoring.</p>
+<p>Most of us are familiar with the Boy Scout rule which says:</p>
+<blockquote><p>Always leave code better than when you found it</p></blockquote>
+<p>But do you actually apply it in your day to day work?</p>
+<p>I’ve found that for myself the answer to this question is sometimes “no.”</p>
+<p><a href="http://i2.wp.com/simpleprogrammer.com/wp-content/uploads/2012/03/boyscout.jpg" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-article-int&#39;, &#39;http://simpleprogrammer.com/wp-content/uploads/2012/03/boyscout.jpg&#39;, &#39;&#39;]);"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="boyscout" src="./Small Refactorings are OK - Simple Programmer_files/boyscout_thumb.jpg" alt="boyscout thumb Small Refactorings are OK" border="0" width="465" height="492"></a></p>
+<h2>Why we don’t follow the rule</h2>
+<p align="left">Personally, I know that there are many reasons why I have failed to follow the Boy Scout rule in my own day to day coding activities.</p>
+<p align="left">How often do you say to yourself something like:</p>
+<p align="left">“Yeah, I’ve just got to get this code checked in.&nbsp; I don’t have time to clean it up.”</p>
+<p align="left">Or</p>
+<p align="left">“Refactoring this correctly would take too long, and I want to make sure I do it right.”</p>
+<p align="left">At first glance, these seem like perfectly valid <strong>excuses</strong>, but the problem is that the cumulative effect of this kind of thinking is exactly what causes code rot.</p>
+<p align="left"><strong>“Code rot” is when code from your application begins to become brittle and hard to maintain.</strong></p>
+<p align="left">As software developers we should really strive to prevent code rot, and regularly refactoring and cleaning up code, is like brushing the teeth of our application.</p>
+<p align="left">There are definitely a large number of excuses I come up with for not refactoring code, but I would say that the number one mental block is this idea of perfection and needing to do it right.</p>
+<h2>Small refactorings are good!</h2>
+<p>One thing I try to tell myself is that small refactorings are good and I don’t need to solve the whole problem all at once.</p>
+<p>We shouldn’t let the fact that we can’t completely clean up a section of code or refactor it to the final structure we want, prevent us from putting that code on a bus headed that direction.</p>
+<p>Many programmers tend to have the perfect solution mindset which requires us to find the 100% best solution to a problem and think that the 95% effective one is no good.</p>
+<p><strong>This mindset can be a huge stumbling block</strong> to productivity and it can also be a big hindrance to keeping our campsite clean.</p>
+<p>It is often helpful to embrace that a series of small changes can be more beneficial than one large change of the same resulting magnitude, even if the small changes end up requiring more total work.</p>
+<p>The reason for this is two-fold:</p>
+<ol>
+<li>Big changes rarely actually get done, so they are put off</li>
+<li>Small changes usually are more natural and evolve the code in an organically correct direction.</li>
+</ol>
+<h2>Going backwards to go forwards</h2>
+<p>I even find that many times I take one step backwards in order to go two forwards.&nbsp; Refactoring sometimes has to just progress naturally as you make something clearer, only to undue it a bit later with another change that ends up making more sense once you can actually see the problem being solved more clearly.</p>
+ 
+<div style="float:none;margin:10px 0 10px 0;text-align:center;">
+<div data-type="ad" data-publisher="dm.simpleprogrammer.site" data-zone="ron" data-format="300x250"></div>
+</div>
+<p>Think about solving a Rubix Cube.&nbsp; If you have ever attempted to solve one of these things, you know that sometimes you have to wreck that perfect wall of green in order to start getting the white blocks in place.&nbsp; Many times it is impossible to solve a Rubix Cube without traversing backwards in the solution first.</p>
+<p><a href="http://i1.wp.com/simpleprogrammer.com/wp-content/uploads/2012/03/rubix.jpg" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-article-int&#39;, &#39;http://simpleprogrammer.com/wp-content/uploads/2012/03/rubix.jpg&#39;, &#39;&#39;]);"><img style="background-image:none;padding-left:0;padding-right:0;display:inline;padding-top:0;border:0;" title="rubix" src="./Small Refactorings are OK - Simple Programmer_files/rubix_thumb.jpg" alt="rubix thumb Small Refactorings are OK" border="0" width="492" height="338"></a></p>
+<p>The point is, don’t be afraid to get out there and make something clearer, or go a direction that seems like it will at least improve the code.</p>
+<p>You don’t have to find the perfect design pattern to refactor the code into in order to start making changes.</p>
+<ul>
+<li>Start by changing this variable name to be a bit more clear.</li>
+<li>Extract those lines of code into a method that makes that functionality more clear.</li>
+<li>Get rid of some duplication here and there.</li>
+</ul>
+<h2>The active code reader</h2>
+<p>When I am in my “zone” and doing things right, I am even refactoring code while I am reading it.</p>
+<p>There is no better way to understand some code than to refactor it.</p>
+<p>Think about it, how do we learn?</p>
+<p>We read something or are taught it and then we rephrase it differently to confirm understanding.</p>
+<p>“Let me get this straight, are you saying… blah blah blah?”</p>
+<p>“Oh, now I get it, if I do blah and blah then blah blah?”</p>
+<p>Why shouldn’t we do this with code?</p>
+<p>I know some of you are really scared by this idea, and you’re saying “nope, don’t just go touching code you don’t understand, John.&nbsp; You are not getting anywhere near my code base.”</p>
+<p>But, give it a shot, what is the worst that is going to happen?&nbsp; You are going to refactor yourself into a dead end and have to revert your changes?</p>
+<p>More likely than not, you will end up learning the code better and improving it.&nbsp; Two for one!</p>
+<h2>One more analogy then I’m done</h2>
+<p>I promise!</p>
+<p>Ever solved a crossword puzzle?</p>
+<p>Did you sit there and immediately fill in all the answers one by one?</p>
+<p>Perhaps you filled in some answers that you knew.&nbsp; Perhaps the short ones first, then you went back over all the clues again and suddenly found that with some letters filled in you could better guess the clues.</p>
+<p>Most likely you made several sweeps like this until you finally solved the puzzle or gave up in disgust wondering why you wasted an hour of your life and who the heck studies books on geography that could actually solve this puzzle.</p>
+<p>Do you think it would be any different with code?&nbsp; Making small refactorings is like filling in the clues you know the answer to in a crossword puzzle.&nbsp; As you keep refactoring, the answers to other puzzles about the code and which way it should go become clearer and clearer.</p>
+<p>Don’t try and solve the whole puzzle one by one in a single pass.</p>
+<span id="pty_trigger"></span>
+<div style="font-size:0px;height:0px;line-height:0px;margin:0;padding:0;clear:both"></div><div class="yarpp-related">
+<h3>Related posts:</h3>
+<div class="yarpp-thumbnails-horizontal">
+<a class="yarpp-thumbnail" href="http://simpleprogrammer.com/2010/10/01/living-dangerously-refactoring-without-a-safety-net/" title="Living Dangerously: Refactoring without a Safety Net">
+<img src="./Small Refactorings are OK - Simple Programmer_files/manonwire3.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="ManonWire3.jpg"><span class="yarpp-thumbnail-title">Living Dangerously: Refactoring without a Safety Net</span></a>
+<a class="yarpp-thumbnail" href="http://simpleprogrammer.com/2010/03/26/refactor-then-change-legacy-code/" title="Refactor then Change Legacy Code">
+<img src="./Small Refactorings are OK - Simple Programmer_files/legacy.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="legacy code"><span class="yarpp-thumbnail-title">Refactor then Change Legacy Code</span></a>
+<a class="yarpp-thumbnail" href="http://simpleprogrammer.com/2010/06/25/dont-chain-failure-states-in-returns/" title="Don’t Chain Failure States in Returns">
+<span class="yarpp-thumbnail-default"><img src="./Small Refactorings are OK - Simple Programmer_files/default.png" width="120" height="120"></span><span class="yarpp-thumbnail-title">Don’t Chain Failure States in Returns</span></a>
+<a class="yarpp-thumbnail" href="http://simpleprogrammer.com/2012/05/27/types-of-duplication-in-code/" title="Types of Duplication in Code">
+<span class="yarpp-thumbnail-default"><img src="./Small Refactorings are OK - Simple Programmer_files/default.png" width="120" height="120"></span><span class="yarpp-thumbnail-title">Types of Duplication in Code</span></a>
+</div>
+</div>
+</div>
+ 
+</div></article>
+  </div>
+ 
+<div class="contant-right-pannel">
+<div class="jsonmez">
+<aside id="text-9" class="widget widget_text"> <div class="textwidget"><ul class="wl-testimonial">
+<li style="list-style: none;">
+<img id="headshot-image" width="129" height="131" src="./Small Refactorings are OK - Simple Programmer_files/joshmez-img.jpg" class="attachment-full wp-post-image" alt="joshmez-img">
+<p>John Sonmez is the founder of Simple Programmer, a Pluralsight Author and Programmer, focused on making the complex simple..</p></li></ul></div>
+</aside>
+<div class="contact"><a href="http://simpleprogrammer.com/contact-me">Contact me</a></div>
+</div>
+<div class="featured-box">
+<a href="http://info.getzephyr.com/Simple-Programmer-Software-Developer_Reg.html">
+<img src="./Small Refactorings are OK - Simple Programmer_files/betterswd.jpg"></a>
+<h5 class="testi">Weekly Videos</h5>
+<br>
+<aside id="youtubechannelgallery_widget-2" class="widget youtubechannelgallery ytccf"><div class="ytcplayer-fixwidthwrapper"><div class="ytcplayer-wrapper ytc-player4x3"><iframe id="ytcplayer1" class="ytcplayer" allowfullscreen="" src="./Small Refactorings are OK - Simple Programmer_files/XHY5qsoKMic.html" frameborder="0"></iframe></div></div><ul class="ytchagallery ytccf ytc-table ytc-td-left ytc-columns1 ytc-thumb4x3">
+<div class="ytccf ytc-row ytc-r-1 ytc-r-odd ">
+<li class="ytccell-1 ytccell-last"><div class="ytcliinner"><div class="ytcthumb-cont" style="width: 90px; "><a class="ytcthumb ytclink" href="https://www.youtube.com/watch?v=XHY5qsoKMic" data-playerid="ytcplayer1" data-quality="default" title="I Quit My Job Because I Was Bored" style="background-image:url(http://i.ytimg.com/vi/XHY5qsoKMic/default.jpg)"><div class="ytcplay"></div></a></div><div class="ytctitledesc-cont"><h5 class="ytctitle"><a class="ytclink" href="https://www.youtube.com/watch?v=XHY5qsoKMic" data-playerid="ytcplayer1" data-quality="default" alt="I Quit My Job Because I Was Bored" title="I Quit My Job Because I Was Bored">I Quit My Job Because I Was Bored</a></h5><div class="ytctdescription">Sign up for the Simple Programmer Newsletter: http://eepurl.com/BlQH5 Simple Programmer…</div></div></div></li>
+</div>
+<div class="ytccf ytc-row ytc-r-2 ytc-r-even ">
+<li class="ytccell-1 ytccell-last"><div class="ytcliinner"><div class="ytcthumb-cont" style="width: 90px; "><a class="ytcthumb ytclink" href="https://www.youtube.com/watch?v=4oDN8uX4Ji0" data-playerid="ytcplayer1" data-quality="default" title="The Obstacle Is The Way" style="background-image:url(http://i.ytimg.com/vi/4oDN8uX4Ji0/default.jpg)"><div class="ytcplay"></div></a></div><div class="ytctitledesc-cont"><h5 class="ytctitle"><a class="ytclink" href="https://www.youtube.com/watch?v=4oDN8uX4Ji0" data-playerid="ytcplayer1" data-quality="default" alt="The Obstacle Is The Way" title="The Obstacle Is The Way">The Obstacle Is The Way</a></h5><div class="ytctdescription">The Obstacle Is The Way by Ryan Holiday: http://www.amazon.com/gp/product/1591846358/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=1591846358&amp;linkCode=as2&amp;tag=makithecompsi-20&amp;linkId=QYAOLJ4K2YGBEC62 The…</div></div></div></li>
+</div>
+<div class="ytccf ytc-row ytc-r-3 ytc-r-odd ">
+<li class="ytccell-1 ytccell-last"><div class="ytcliinner"><div class="ytcthumb-cont" style="width: 90px; "><a class="ytcthumb ytclink" href="https://www.youtube.com/watch?v=IBOlxH0deDQ" data-playerid="ytcplayer1" data-quality="default" title="Are You Living In The Past Or Future?" style="background-image:url(http://i.ytimg.com/vi/IBOlxH0deDQ/default.jpg)"><div class="ytcplay"></div></a></div><div class="ytctitledesc-cont"><h5 class="ytctitle"><a class="ytclink" href="https://www.youtube.com/watch?v=IBOlxH0deDQ" data-playerid="ytcplayer1" data-quality="default" alt="Are You Living In The Past Or Future?" title="Are You Living In The Past Or Future?">Are You Living In The Past Or Future?</a></h5><div class="ytctdescription">Are you living in the present? If you aren't, you…</div></div></div></li>
+</div>
+</ul></aside>
+</div>
+<div class="featured-box">
+<div class="main-post">
+<h5 style="font-size:13px;">Popular Posts</h5>
+<br>
+<aside id="popular-widget-3" class="widget popular-widget">
+<div class="pop-layout-v"><ul id="pop-widget-tabs-3" class="pop-widget-tabs pop-widget-tabs-2"><li><a href="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/#recent" rel="nofollow" class="active">Recent Posts</a></li><li><a href="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/#viewed" rel="nofollow">Most Viewed</a></li></ul><div class="pop-inside-3 pop-inside"><ul id="pop-widget-recent-3" style="display: block;"><li><a href="http://simpleprogrammer.com/2014/11/13/obstacle-way/" title="The Obstacle Is The Way" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/2014-11-14_10-28-11.png" class="attachment-yarpp-thumbnail wp-post-image" alt="2014-11-14_10-28-11"><span class="pop-overlay"><span class="pop-title">The Obstacle Is The Way</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2014/11/10/dont-enough-time/" title="Why You Don’t Have Enough Time (And How to Have More)" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/time-lost.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="Clock in trash, lost time concept"><span class="pop-overlay"><span class="pop-title">Why You Don’t Have Enough Time (And How to Have More)</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2014/11/06/chrome-plugins-apps-use-regularly/" title="Chrome Plugins and Apps I Use Regularly" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/chrome-plugins.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="chrome-plugins"><span class="pop-overlay"><span class="pop-title">Chrome Plugins and Apps I Use Regularly</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2014/11/03/create-simple-backup-solution-can-trust/" title="How to Create a Simple Backup Solution That You Can Trust" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/cloud-backup.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="Three copies of data, two local, one offsite or cloud"><span class="pop-overlay"><span class="pop-title">How to Create a Simple Backup Solution That You Can Trust</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2014/10/30/living-past-future/" title="Are You Living In The Past Or Future?" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/past-or-future.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="past-or-future"><span class="pop-overlay"><span class="pop-title">Are You Living In The Past Or Future?</span> </span></a><br class="pop-cl"></li></ul><ul id="pop-widget-viewed-3" style="display: none;"><li><a href="http://simpleprogrammer.com/2012/12/09/the-4-most-important-skills-for-a-software-developer/" title="The 4 Most Important Skills for a Software Developer" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/problems.jpg" class="attachment-yarpp-thumbnail" alt="problems.jpg"><span class="pop-overlay"><span class="pop-title">The 4 Most Important Skills for a Software Developer</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2012/12/01/why-c-is-not-back/" title="Why C++ Is Not “Back”" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/announcer.jpg" class="attachment-yarpp-thumbnail" alt="announcer.jpg"><span class="pop-overlay"><span class="pop-title">Why C++ Is Not “Back”</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2013/07/01/cross-platform-mobile-development/" title="Which Cross Platform Mobile Development Platform Should You Choose?" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/2013-06-28_12-49-18_thumb.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="Cross platform mobile development"><span class="pop-overlay"><span class="pop-title">Which Cross Platform Mobile Development Platform Should You Choose?</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2013/05/06/why-javascript-is-doomed/" title="Why JavaScript Is Doomed" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/bubble_thumb.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="bubble_thumb.jpg"><span class="pop-overlay"><span class="pop-title">Why JavaScript Is Doomed</span> </span></a><br class="pop-cl"></li><li><a href="http://simpleprogrammer.com/2013/08/19/software-development-career/" title="4 Things I Wish I Would Have Known When I Started My Software Development Career" rel="bookmark"><img src="./Small Refactorings are OK - Simple Programmer_files/community_thumb.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="community_thumb.jpg"><span class="pop-overlay"><span class="pop-title">4 Things I Wish I Would Have Known When I Started My Software Development Career</span> </span></a><br class="pop-cl"></li></ul></div> </div> </aside>
+</div>
+</div>
+<div class="subcribe">
+<aside id="category-posts-2" class="widget cat-post-widget"><h3 class="widget-title">RECENT PLURALSIGHT COURSES</h3><ul>
+<li class="cat-post-item">
+<a class="post-title" href="http://simpleprogrammer.com/2013/12/03/beginning-lua/" rel="bookmark" title="Permanent link to Beginning Lua">Beginning Lua</a>
+<a href="http://simpleprogrammer.com/2013/12/03/beginning-lua/" title="Beginning Lua">
+<img src="./Small Refactorings are OK - Simple Programmer_files/beginning-lua-front.png" class="attachment-cat_post_thumb_sizecategory-posts-2 wp-post-image" alt="beginning-lua-front"> </a>
+<p>Tweet TweetMy last Pluralsight course for this year is out! Beginning Lua I started out this year with the goal […]</p>
+</li>
+<li class="cat-post-item">
+<a class="post-title" href="http://simpleprogrammer.com/2013/10/28/beginning-html-5-game-development-quintus/" rel="bookmark" title="Permanent link to Beginning HTML 5 Game Development With Quintus">Beginning HTML 5 Game Development With Quintus</a>
+<a href="http://simpleprogrammer.com/2013/10/28/beginning-html-5-game-development-quintus/" title="Beginning HTML 5 Game Development With Quintus">
+<img src="./Small Refactorings are OK - Simple Programmer_files/2013-10-28_13-37-25.png" class="attachment-cat_post_thumb_sizecategory-posts-2 wp-post-image" alt="2013-10-28_13-37-25.png"> </a>
+<p>Tweet TweetI am super excited about my latest Pluralsight course: Beginning HTML 5 Game Development With Quintus I have been […]</p>
+</li>
+<li class="cat-post-item">
+<a class="post-title" href="http://simpleprogrammer.com/2013/10/18/beginning-html5-apps-firefox-os/" rel="bookmark" title="Permanent link to Beginning HTML5 Apps For Firefox OS">Beginning HTML5 Apps For Firefox OS</a>
+<a href="http://simpleprogrammer.com/2013/10/18/beginning-html5-apps-firefox-os/" title="Beginning HTML5 Apps For Firefox OS">
+<img src="./Small Refactorings are OK - Simple Programmer_files/2013-10-18_13-06-02.png" class="attachment-cat_post_thumb_sizecategory-posts-2 wp-post-image" alt="2013-10-18_13-06-02.png"> </a>
+<p>Tweet TweetMy latest course was just released on Pluralsight: Beginning HTML5 Apps For Firefox OS If you haven’t seen Firefox […]</p>
+</li>
+</ul>
+</aside><span><a id="all-courses" href="http://psight.me/simpleprogrammer">All courses</a></span>
+</div>
+<div class="subcribe">
+<p><a href="http://feeds.feedblitz.com/makingthecomplexsimple" class="subs12"><img src="./Small Refactorings are OK - Simple Programmer_files/subscribe-rss.jpg" alt="">Subscribe via RSS or Email</a></p>
+</div>
+<div class="facebook-box">
+<div class="catagory-box">
+<h2>My Most Popular Categories</h2>
+<ul class="catagory">
+<li class="cat-item cat-item-2185"><a href="http://simpleprogrammer.com/category/best-practices/">Best Practices</a>
+</li>
+<li class="cat-item cat-item-14560"><a href="http://simpleprogrammer.com/category/career/">Career</a>
+</li>
+<li class="cat-item cat-item-1"><a href="http://simpleprogrammer.com/category/uncategorized/">Uncategorized</a>
+</li>
+<li class="cat-item cat-item-4909"><a href="http://simpleprogrammer.com/category/psychology/">Psychology</a>
+</li>
+<li class="cat-item cat-item-148"><a href="http://simpleprogrammer.com/category/design/">Design</a>
+</li>
+<li class="cat-item cat-item-31679"><a href="http://simpleprogrammer.com/category/process-improvement/">Process Improvement</a>
+</li>
+<li class="cat-item cat-item-264"><a href="http://simpleprogrammer.com/category/learning/">Learning</a>
+</li>
+<li class="cat-item cat-item-11287"><a href="http://simpleprogrammer.com/category/agile/">Agile</a>
+</li>
+<li class="cat-item cat-item-5895"><a href="http://simpleprogrammer.com/category/self-improvement/">Self Improvement</a>
+</li>
+<li class="cat-item cat-item-2426"><a href="http://simpleprogrammer.com/category/c/">C#</a>
+</li>
+</ul>
+<span><a href="http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/?all_categories=1">More Categories</a></span>
+</div>
+<div class="facebook-box" style="width:320px;">
+<h6 style="font-size:15px;"><a href="http://getupandcode.com/">Get Up And CODE</a> - Latest Episode</h6>
+<a href="http://getupandcode.com/"><img src="./Small Refactorings are OK - Simple Programmer_files/Episode-1st.jpg"></a>
+<aside id="rss-2" class="widget widget_rss"><h3 class="widget-title"><a class="rsswidget" href="http://getupandcode.com/feed/podcast"><img style="border:0" width="14" height="14" src="./Small Refactorings are OK - Simple Programmer_files/rss.png" alt="RSS"></a> <a class="rsswidget" href="http://getupandcode.com/">Get up and CODE!</a></h3><ul><li><a class="rsswidget" href="http://getupandcode.com/2014/11/07/get-code-064-joggling-meteor-dean-radcliffe/">Get Up And Code 064: Joggling and Meteor with Dean Radcliffe</a> <span class="rss-date">November 7, 2014</span></li></ul></aside><aside id="text-10" class="widget widget_text"> <div class="textwidget"><div class="powerpress_player" id="powerpress_player_9247"><object type="application/x-shockwave-flash" data="http://simpleprogrammer.com/wp-content/plugins/powerpress/audio-player.swf" id="9247" height="24" width="290">
+<param name="movie" value="http://simpleprogrammer.com/wp-content/plugins/powerpress/audio-player.swf">
+<param name="FlashVars" value="playerID=9247&amp;soundFile=http%3A%2F%2Fmedia.signalleaf.com%2FGet-Up-And-CODE%2Flatest.mp3&amp;width=290&amp;transparentpagebg=yes&amp;lefticon=333333&amp;leftbg=CCCCCC&amp;bg=E5E5E5&amp;voltrack=F2F2F2&amp;volslider=666666&amp;rightbg=B4B4B4&amp;rightbghover=999999&amp;righticon=333333&amp;righticonhover=FFFFFF&amp;loader=009900&amp;track=FFFFFF&amp;tracker=DDDDDD&amp;border=CCCCCC&amp;skip=666666&amp;text=333333&amp;pagebg=&amp;noinfo=yes&amp;rtl=no&amp;titles=Blubrry PowerPress">
+<param name="quality" value="high">
+<param name="menu" value="false">
+<param name="wmode" value="transparent">
+<a href="http://media.signalleaf.com/Get-Up-And-CODE/latest.mp3" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget&#39;, &#39;http://media.signalleaf.com/Get-Up-And-CODE/latest.mp3&#39;, &#39;&#39;]);" title="Play" target="_blank"><img src="./Small Refactorings are OK - Simple Programmer_files/play_audio.png" title="Play" alt="Play" style="border:0;"></a></object>
+</div>
+</div>
+</aside>
+</div>
+<div class="facebook-box">
+<h6 style="font-size:15px;">blog archives</h6>
+<div class="listing-box">
+<aside id="jal_widget-2" class="widget widget_jal_widget"><h3 class="widget-title">Archives</h3><ul class="jaw_widget">
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2014/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2014/"> 2014 (118)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/11/">November (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/11/13/obstacle-way/">The Obstacle Is The Way</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/11/10/dont-enough-time/">Why You Don’t Have Enough Time (And How to Have More)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/11/06/chrome-plugins-apps-use-regularly/">Chrome Plugins and Apps I Use Regularly</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/11/03/create-simple-backup-solution-can-trust/">How to Create a Simple Backup Solution That You Can Trust</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/10/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/10/">October (6)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/30/living-past-future/">Are You Living In The Past Or Future?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/27/5-ways-software-developers-can-become-better-estimation/">5 Ways Software Developers Can Become Better at Estimation</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/20/4-biggest-reasons-software-developers-suck-estimation/">4 Biggest Reasons Why Software Developers Suck at Estimation</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/13/getting-started-meteor-tutorial-cloud/">Getting Started With Meteor Tutorial (In the Cloud)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/09/plan-week/">How I Plan My Week</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/10/07/treadmill-desk-walking/">The Complete Guide to Treadmill Desk Walking While Working</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/09/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/09/">September (7)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/29/ever-happened-founders-sierra-online/">What Ever Happened to the Founders of Sierra Online?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/22/caffeinated-coder-caffeine-good-bad/">The Caffeinated Coder: Is Caffeine Good or Bad?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/15/dontfocusonstengths/">Don't Focus on Your Strengths</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/11/soft-skills-manning-deal-day/">Soft Skills is the Manning Deal of the Day!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/11/open-many-doors-possible/">Open as Many Doors as Possible</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/08/worst-enemy/">Your Worst Enemy Is Yourself</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/09/01/soft-skills-software-developers-life-manual-early-access/">Soft Skills: The Software Developer’s Life Manual, Early Access</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/08/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/08/">August (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/08/25/anything-worth-worth-right/">Anything Worth Doing is Worth Doing Right</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/08/18/taking-action/">Taking Action</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/08/14/often-blog/">How Often Should I Blog</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/08/11/negotiate-salary/">How to Negotiate Your Salary</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/08/04/hate-astronomers/">I Hate Astronomers</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/07/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/07/">July (11)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/28/experience-paradox-get-job-without-experience/">The Experience Paradox--How to Get a Job Without Experience</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/24/make-2000-month-passive-income/">How Do I Make $2,000 A Month On Passive Income?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/21/net-neutrality/">Why I am AGAINST Net Neutrality</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/17/can-professional-mobile-developer-ios-android/">Can I Be A Professional Mobile Developer? (iOS / Android)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/15/whitepaper-getting-qa-developers-work-together-upcoming-webinar/">Whitepaper on Getting QA and Developers To Work Together and Upcoming Webinar</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/14/4-levels-freedom-software-developers/">The 4 Levels of Freedom For Software Developers</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/10/fitting-corporate-culture/">Fitting In With Corporate Culture</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/08/developer-productivity-tool-review-teleriks-devcraft/">Developer Productivity Tool Review: Telerik's Devcraft</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/07/software-developers-really-need-degrees/">Do Software Developers Really Need Degrees?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/03/bold/">Be Bold!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/07/01/new-entreprogrammers-episodes-18-19/">New Entreprogrammers Episodes: 18 and 19</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/06/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/06/">June (10)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/30/step-step-path-becoming-great-software-developer/">Step By Step Path to Becoming a Great Software Developer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/26/structure-business/">How I Structure My Business</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/23/dont-overwhelm-trying-learn-much/">Don't Overwhelm Yourself Trying to Learn Too Much</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/19/basic-financial-thinking/">My Basic Financial Thinking</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/16/follow-passion/">Stop Taking Yourself So Seriously</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/12/switching-videos-month/">Switching My Videos to Once a Month</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/09/one-path-success/">There is More Than One Path to Success</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/07/get-code-057-realistic-expectations/">Get Up And Code 057: Realistic Expectations</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/05/killing-cynic/">Killing The Cynic</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/06/02/market-software-developer/">How NOT to Market Yourself as a Software Developer</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/05/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/05/">May (17)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/31/get-code-056-angel-fitness-sensor-eugene-jorov/">Get Up And Code 056: Angel Fitness Sensor With Eugene Jorov</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/29/beat-laziness/">How To Beat Laziness</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/27/entreprogrammers-madness-episodes-7-12-now-live/">Entreprogrammers Madness! Episodes 7 - 12 Are Now Live!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/26/never-really-learn-something-teach/">You Never Really Learn Something Until You Teach It</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/25/get-code-055-staying-active-troy-hunt/">Get Up And Code 055: Staying Active With Troy Hunt</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/22/need-automation-testing-framework/">Why You Need An Automation Testing Framework</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/20/entreprogrammers-episodes-4-5-6-released/">More Entreprogrammers: Episodes 4, 5, and 6 Released</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/19/use-default-parameters-enumerations-make-apis-easier-use/">3 Simple Techniques to Make APIs Easier to Use and Understand</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/17/get-code-054-austin-dimmer-ergonomics/">Get Up And Code 054: Austin Dimmer On Ergonomics</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/15/quickest-way-pass-job-interview/">Quickest Way To Pass A Job Interview</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/12/actually/">What I Am Actually Doing and Why I Am Doing It</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/10/get-code-053-getting-back/">Get Up And Code 053: Getting Back Up</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/08/belief-determines-reality/">Your Belief Determines Your Reality</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/06/announcing-entreprogrammers-podcast/">Announcing the Entreprogrammers Podcast</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/05/software-developers-prepare-future/">How Should Software Developers Prepare For The Future?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/03/get-code-052-sport-parkour/">Get Up And Code 052: The Sport of Parkour</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/05/01/money-time/">Money Is Time</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/04/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/04/">April (12)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/28/well-biggest-mistake-make-software-development-career/">Not Doing THIS Could Very Well Be The Biggest Mistake You Make In Your Software Development Career</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/26/get-code-051-richard-campbell-climbs-mountains/">Get Up And Code 051: Richard Campbell Climbs Mountains</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/24/dont-wait-things-get-easier/">Don't Wait For Things To Get Easier</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/21/code-greener-side-cubicle/">The Code Is NOT Greener On The Other Side Of The Cubicle</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/19/get-code-50-fitness-life-change-miguel-carrasco/">Get Up And Code 50: Fitness Life Change With Miguel Carrasco</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/17/cross-platform-mobile-development-ios-android-wp8/">Cross Platform Mobile Development (iOS, Android, WP8)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/14/test-automation-framework-architecture/">Test Automation Framework Architecture</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/12/get-code-049-overcoming-fear-failure/">Get Up And Code 049: Overcoming Your Fear of Failure</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/10/need-start-writing/">Why You Need To Start Writing</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/07/makes-good-scrum-master/">Scrum Masters: What Makes a Good One?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/05/get-code-048-brian-lagunas-xaml-oats/">Get Up And Code 048: Brian Lagunas: XAML and Oats</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/04/03/get-started-programming/">How To Get Started Programming</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/03/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/03/">March (21)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/31/dont-feel-like-writing-nothing-say/">What to Do When You Don't Feel Like Writing and You Have Nothing to Say</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/29/get-code-047-miguel-castro-knows-stay-fit/">Get Up And Code 047: Miguel Castro Knows How To Stay Fit</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/27/market-software-developer-live/">How To Market Yourself as a Software Developer Is LIVE!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/27/views-test-driven-development/">My Views On Test Driven Development</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/24/stuck-career/">Why You Are "Stuck" In Your Career</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/22/get-code-046-checking-back-jessica/">Get Up And Code 046: Checking Back With Jessica</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/21/importance-community-cant-alone/">The Importance of Community: You Can't Do It Alone</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/20/dont-reward-earn/">Don't Reward Yourself Before You Earn It</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/19/hate-job-wish-work-anywhere-world/">I Hate My Job, I Wish I Could Work From Anywhere In The World</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/18/arent-paid-much-worth-get-paid/">Why You Aren't Paid as Much as You Are Worth (and how to get paid more)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/17/market-software-developer-course-almost-ready/">My How to Market Yourself as a Software Developer Course Is Almost Ready!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/15/get-code-045-john-sonmezs-fitness-routine/">Get Up And Code 045: John Sonmez's Fitness Routine</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/13/fit-body-fit-mind/">Fit Body, Fit Mind</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/10/ultimate-list-developer-podcasts/">The Ultimate List Of Developer Podcasts</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/08/get-code-044-eric-smith-loses-90-pounds/">Get Up And Code 044: Eric Smith Loses 90 Pounds</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/06/action-better-action/">Any Action Is Better Than No Action</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/06/24-hour-100-challenge-part-3-results/">Craziest Entrepreneur Challenge: Can 3 Devs Make $100 Each In 24 Hours? (3 of 3)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/05/24-hour-100-challenge-part-2-begins/">Craziest Entrepreneur Challenge: Can 3 Devs Make $100 Each In 24 Hours? (2 of 3)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/04/24-hour-100-challenge/">Craziest Entrepreneur Challenge: Can 3 Devs Make $100 Each In 24 Hours? (1 of 3)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/03/afraid-losing-job/">Are You Afraid Of Losing Your Job?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/03/01/get-code-43-diet-plan-basics/">Get Up and CODE 43: Diet Plan Basics</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/02/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/02/">February (12)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/27/head-higher-ground/">Head To Higher Ground</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/24/need-complex-programming-languages-yes-heard-right/">Why We Need More Complex Programming Languages (Yes, You Heard Me Right!)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/22/get-code-42-farewell-iris/">Get Up And Code 42: Farewell Iris</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/20/dont-want-win-lottery/">Why You Don't Want To Win The Lottery</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/17/secret-ridiculous-productivity-im-using-now/">My Secret To Ridiculous Productivity. (I'm Using It Now)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/15/get-code-41-north-pole-expedition-austin-dimmer/">Get Up And Code 41: North Pole Expedition With Austin Dimmer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/13/comment-code/">Should You Comment Your Code?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/10/building-personal-programmer-brand/">Building Your Personal Programmer Brand</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/08/get-code-40-interview-rami-alhamad-push/">Get Up And Code 40: Interview With Rami Alhamad From PUSH</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/06/burn-boats/">Burn The Boats!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/03/selenium-with-node-js/">Selenium With Node.js and Mocha: Automated Testing With JavaScript</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/02/01/get-code-39-interview-barry-burton-fitbit/">Get Up And Code 39: Interview With Barry Burton From Fitbit</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2014/01/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2014/01/">January (13)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/30/avoid-drama/">Avoid The Drama</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/27/better-indicator-success-quantity/">There Is No Better Indicator of Success Than Quantity</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/25/get-code-38-chatting-scott-hanselman/">Get Up And Code 38: Chatting With Scott Hanselman</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/23/suffer-fear-failure/">Do You Suffer From Fear of Failure?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/20/arent-making-money/">Why Aren't You Making More Money?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/18/get-code-37-food-politics-marion-nestle/">Get Up And Code 37: Food Politics With Marion Nestle</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/16/finding-right-pace/">Finding The Right Pace</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/13/get-jump-start-programming-career/">How To Get a Jump Start In Your Programming Career</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/11/get-code-36-competition-love-hate/">Get Up And Code 36: Competition...Love It Or Hate It?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/09/importance-finishing-started/">The Importance Of Finishing What You Started</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/06/better-software-developer-year/">How To Be A Better Software Developer This Year</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/04/get-code-35-new-years-resolutions/">Get Up And Code 35: New Year's Resolutions</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2014/01/02/habits-powerful-goals/">Habits Are More Powerful Than Goals</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2013/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2013/"> 2013 (76)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/12/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/12/">December (14)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/30/marketing-create-blog/">Marketing Yourself: How to Create a Blog</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/28/get-code-34-breaking-running-plateau/">Get Up And Code 34: Breaking Your Running Plateau</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/26/wasting-time/">How You Are Wasting Your Time</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/23/marketing-need-blog/">Marketing Yourself: Why You Need a Blog</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/21/get-code-33-thoughts-caffeine-sweeteners/">Get Up And Code 33: Our Thoughts On Caffeine And Sweeteners</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/19/importance-routine/">The Importance of Having a Routine</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/16/software-developer-tech-geek-christmas-gifts/">Software Developer Gifts (And Other Tech Geek Gifts)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/14/get-code-32-know-mq/">Get Up And Code 32: Do You Know What Your MQ Is?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/12/friends/">You Are Who Your Friends Are</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/09/wrong-javascript-responsive-design/">I Was Wrong About JavaScript and Responsive Design</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/07/get-code-31-building-fitness-plan-jessica-engstrom/">Get Up And Code 31: Building A Fitness Plan With Jessica Engstrom</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/05/power-batching/">The Power Of Batching</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/03/beginning-lua/">Beginning Lua</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/12/02/programming-language-learn/">What Programming Language Should I Learn?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/11/">November (9)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/30/get-code-30-screw/">Get Up And Code 30: What Do You Do When You Screw Up?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/28/strike-gold-keep-digging/">When You Strike Gold, Keep Digging! (True Grit)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/25/everything-80-20-dont-blindly-follow-paretos-law/">Not Everything Is 80-20, Don’t Blindly Follow Pareto’s Law</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/23/get-code-29-sit-matt-baxter-reynolds-author-death-pc/">Get Up And Code 29: Sit Down With Matt Baxter-Reynolds, Author Of Death Of The PC</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/20/don/">Don't Be Afraid To Look Like An Idiot</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/18/become-valuable-software-developer/">How to Become a More Valuable Software Developer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/15/get-code-28-alcohol-bad/">Get Up And Code 28: Alcohol Is Bad For You</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/11/seiki-se39uy04-39-inch-4k-ultra-hd-review-3840-x-2160/">Seiki SE39UY04 39-Inch 4K Ultra HD Review (3840 x 2160)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/11/04/want-quit-job/">So You Want To Quit Your Job (How To Do It)</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/10/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/10/">October (9)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/28/beginning-html-5-game-development-quintus/">Beginning HTML 5 Game Development With Quintus</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/28/so-you-want-to-quit-your-job-fantasy-versus-reality/">So, You Want To Quit Your Job? (Fantasy Versus Reality)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/21/so-you-want-to-quit-your-job-why-you-should/">So, You Want To Quit Your Job? (Why You Should)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/18/beginning-html5-apps-firefox-os/">Beginning HTML5 Apps For Firefox OS</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/14/leaky-abstractions-holding-us-back/">Leaky Abstractions Are Holding Us Back</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/12/developing-leap-motion-c/">Developing For Leap Motion in C#</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/11/beginning-ios-7-development/">Beginning iOS 7 Development</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/07/hacker-news-generation-part-2-responding-critics/">The Hacker News Generation (Part 2: Responding to Critics)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/10/03/meteor-js-fundamentals-single-page-applications/">Meteor.js Fundamentals for Single Page Applications</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/09/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/09/">September (7)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/30/11-influential-web-developers-following/">11 Influential Web Developers You Should Be Following</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/28/creating-automated-testing-framework-selenium/">Creating an Automated Testing Framework With Selenium</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/23/software-development-predictions/">My Software Development Predictions In The Next Few Years</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/21/creating-chrome-extension/">Creating A Chrome Extension</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/16/secret-non-software-developer-life-ive-never-told/">My Secret Non-Software Developer Life I’ve Never Told You About</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/09/dark-side-software-development-one-talks/">The Dark Side Of Software Development That No One Talks About</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/09/03/responsive-design-waste-time/">Why Responsive Design Is a Waste Of Time</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/08/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/08/">August (6)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/27/practical-ioc-asp-net-mvc-4/">Practical IoC With ASP.NET MVC 4</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/26/dont-code-katas/">Why I Don't Do Code Katas</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/19/an-mvc4-ios-and-android-app-with-servicestack-xamarin-and-c/">An MVC4, iOS And Android App With ServiceStack, Xamarin and C#</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/19/software-development-career/">4 Things I Wish I Would Have Known When I Started My Software Development Career</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/12/hard-work/">The Hacker News Generation (Afraid of Hard Work)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/08/05/what-is-computer-science/">Computer Science, What Is It?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/07/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/07/">July (7)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/31/introduction-to-hibernate/">Introduction To Hibernate</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/29/what-software-developers-can-learn-from-weiner/">What Software Developers Can Learn From Weiner</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/22/6-reasons-why-you-didnt-get-the-job/">6 Reasons Why You Didn’t Get The Developer Job</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/20/introduction-to-asp-net-web-services/">Introduction To ASP.NET Web Services</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/15/understanding-the-problem-domain-is-the-hardest-part-of-programming/">Understanding The Problem Domain Is The Hardest Part Of Programming</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/08/how-religion-destroys-programmers/">How Religion Destroys Programmers</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/07/01/cross-platform-mobile-development/">Which Cross Platform Mobile Development Platform Should You Choose?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/06/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/06/">June (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/06/24/3-easy-ways-to-market-yourself-as-a-software-developer/">3 Easy Ways To Market Yourself as a Software Developer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/06/17/dart-language/">Getting Started With Google’s Dart Language</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/06/09/selling/">The One Thing You Don't Know How To Do That You Do Every Day</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/06/02/after-completing-40-online-training-courses-for-pluralsight-what-have-i-learned/">After Completing 40 Online Training Courses for Pluralsight, What Have I Learned?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/05/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/05/">May (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/05/26/job-titles/">Your Job Title Is Wrong, Here Is What It Should Be</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/05/19/glimpse/">Getting Started With Glimpse In ASP.NET MVC</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/05/12/5-agile-development-failure-signs/">5 Things That Will Make Your Agile Development Project FAIL</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/05/10/introducing-the-get-up-and-code-podcast/">Introducing The Get Up And Code Podcast!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/05/06/why-javascript-is-doomed/">Why JavaScript Is Doomed</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/04/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/04/">April (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/04/28/how-to-deal-with-making-mistakes/">How To Deal With Making Mistakes</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/04/22/privacy-is-dead-time-to-prepare-for-the-future/">Privacy Is Dead, Time To Prepare For The Future</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/04/14/what-makes-code-readable-not-what-you-think/">What Makes Readable Code: Not What You Think</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/04/07/bad-advice-stop-working-so-hard/">Bad Advice: “Stop Working So Hard”</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/03/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/03/">March (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/03/31/everyone-should-learn-to-program-but-not-everyone-should-be-a-programmer/">Everyone Should Learn To Program, But Not Everyone Should Be A Programmer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/03/24/10-developer-job-interview-tips-to-land-the-best-job-you-can/">10 Developer Job Interview Tips To Land The Best Job You Can</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/03/10/7-reasons-why-you-should-tackle-hard-problems-last/">7 Reasons Why You Should Tackle Hard Problems Last</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/03/03/time-traveling-to-the-future-of-user-interfaces/">Time Traveling To The Future Of User Interfaces</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/02/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/02/">February (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/02/24/where-is-agile-now/">Where Is Agile Now?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/02/17/principles-are-timeless-best-practices-are-fads/">Principles Are Timeless Best Practices Are Fads</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/02/11/we-cant-measure-anything-in-software-development/">We Can’t Measure Anything in Software Development</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/02/02/leaving-the-safety-of-a-regular-job/">Leaving the Safety of a Regular Job</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2013/01/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2013/01/">January (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/01/26/building-a-game-guest-post/">Building a Game (Guest Post)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/01/20/implicit-and-explicit-conversion-operators-in-c/">Implicit and Explicit Conversion Operators in C#</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2013/01/13/so-you-think-you-can-polymorph/">So You Think You Can Polymorph?</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2012/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2012/"> 2012 (38)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/12/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/12/">December (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/12/23/my-end-of-the-world-post/">My End of the World Post</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/12/15/the-more-i-know-the-less-i-know/">The More I Know, the Less I Know</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/12/09/the-4-most-important-skills-for-a-software-developer/">The 4 Most Important Skills for a Software Developer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/12/08/winners-from-xna-contest/">Winners from XNA Contest</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/12/01/why-c-is-not-back/">Why C++ Is Not “Back”</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/11/">November (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/11/25/youre-only-a-beginner-once/">You’re Only a Beginner Once</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/11/18/my-virtualization-saga-continues/">My Virtualization Saga Continues</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/11/10/1-million-dollars-to-succeed/">1 Million Dollars to Succeed</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/11/03/why-my-kid-is-an-ikid/">Why My Kid is an iKid</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/10/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/10/">October (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/10/28/my-15-minute-rule-to-productivity/">My 15 Minute Rule to Productivity</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/10/21/there-are-only-two-roles-of-code/">There Are Only Two Roles of Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/10/14/the-why-is-more-important-than-the-what/">The Why is More Important Than the What</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/10/07/calling-someones-baby-ugly/">Calling Someone’s Baby Ugly</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/09/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/09/">September (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/09/29/learn-xna-win-an-ipad/">Learn XNA, Win an iPad!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/09/23/learning-to-learn/">Learning to Learn</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/09/16/have-strong-convictions-but-hold-on-to-them-loosely/">Have Strong Convictions, But Hold on to Them Loosely</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/09/08/tie-your-shoes-and-pull-up-your-pants/">Tie Your Shoes and Pull Up Your Pants</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/09/03/avoiding-procrastination-through-pairing/">Avoiding Procrastination Through Pairing</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/08/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/08/">August (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/08/26/going-backwards-to-go-forwards/">Going Backwards to Go Forwards</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/08/19/karma-is-real/">Karma is Real</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/08/12/the-myth-of-the-super-programmer/">The Myth of the Super Programmer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/08/05/introduction-to-monogame/">Introduction to MonoGame</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/07/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/07/">July (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/07/29/book-review-c-in-depth-second-edition/">Book Review: C# in Depth Second Edition</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/07/23/when-being-good-is-bad/">When Being Good is Bad</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/07/15/virtualization-experiment-reloaded/">Virtualization Experiment Reloaded</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/05/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/05/">May (2)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/05/27/types-of-duplication-in-code/">Types of Duplication in Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/05/06/wrapping-callbacks/">Wrapping Callbacks</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/04/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/04/">April (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/04/23/predicting-the-mobile-future/">Predicting the Mobile Future</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/04/16/validate-user-input-not-developer-input/">Validate User Input, Not Developer Input</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/04/01/deployment-made-simple/">Deployment Made Simple</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/03/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/03/">March (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/03/25/are-you-really-sure-you-want-to-make-a-cancel-button/">Are You Really Sure You Want to Make a Cancel Button?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/03/10/switching-gears-is-grinding-gears/">Switching Gears is Grinding Gears</a></li>
+<li class="jaw_posts" style="display:none;"><a href="./Small Refactorings are OK - Simple Programmer_files/Small Refactorings are OK - Simple Programmer.html">Small Refactorings are OK</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/02/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/02/">February (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/02/21/refactoring-switches-to-classes/">Refactoring Switches to Classes</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/02/16/pushing-through-the-pain/">Pushing Through the Pain</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/02/09/the-development-pendulum/">The Development Pendulum</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/02/02/the-power-of-delete/">The Power of Delete</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2012/01/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2012/01/">January (1)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2012/01/05/no-class-is-an-island/">No Class is an Island</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2011/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2011/"> 2011 (40)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/11/">November (2)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/11/21/understanding-the-vertical-slice/">Understanding the Vertical Slice</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/11/06/teaching-is-simplifying/">Teaching is Simplifying</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/10/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/10/">October (1)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/10/30/monotouch/">MonoTouch</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/09/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/09/">September (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/09/25/even-backlogs-need-grooming/">Even Backlogs Need Grooming</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/09/21/add-apply-to-your-tsql-tool-belt/">Add APPLY to Your TSQL Tool Belt</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/09/19/goal-setting-and-routines/">Goal Setting and Routines</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/08/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/08/">August (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/08/15/inversion-of-control-course-published-on-pluralsight/">Inversion of Control Course Published on Pluralsight</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/08/14/making-switch-refactorings-better-defaultable-dictionary/">Making Switch Refactorings Better - Defaultable Dictionary</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/08/08/how-to-break-down-a-backlog/">How to Break Down a Backlog</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/08/01/what-is-a-team/">What is a Team?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/07/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/07/">July (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/07/25/the-virtualization-experiment/">The Virtualization Experiment</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/07/17/making-scrum-meetings-effective/">Making Scrum Meetings Effective</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/07/11/ios-for-net-developers-course-published/">iOS For .NET Developers Course Published</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/07/10/taking-a-breather/">Taking a Breather</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/07/03/a-drawback-of-agile/">A Drawback of Agile</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/06/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/06/">June (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/06/27/be-teachable-be-command-able-be-critique-able/">Be Teachable, Be Command-able, Be Critique-able</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/06/17/the-debugger-mindset/">The Debugger Mindset</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/06/09/pacemaker-for-iphone-released/">PaceMaker for iPhone Released</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/06/04/oauth-and-rest-in-android-part-2/">OAuth and REST in Android: Part 2</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/05/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/05/">May (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/05/25/oauth-and-rest-in-android-part-1/">OAuth and REST in Android: Part 1</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/05/20/step-1-reproduce-the-problem/">Step 1: Reproduce the Problem</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/05/14/getting-up-to-bat-building-a-true-dsl/">Getting up to BAT: Building a True DSL</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/05/05/getting-up-to-bat-scaling-out/">Getting up to BAT: Scaling Out</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/04/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/04/">April (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/04/25/the-most-complex-program-of-all-time/">The Most Complex Program of All Time</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/04/12/getting-up-to-bat-adding-bats-to-your-acceptance-criteria/">Getting up to BAT: Adding BATs to Your Acceptance Criteria</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/04/12/published-my-first-course-on-pluralsight/">Published My First Course on Pluralsight</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/04/05/getting-up-to-bat-adding-smoke-tests-to-your-build/">Getting up to BAT: Adding Smoke Tests to Your Build</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/03/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/03/">March (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/03/28/getting-up-to-bat-creating-your-first-smoke-tests/">Getting up to BAT: Creating Your First Smoke Tests</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/03/22/guest-post-the-cross-browser-compatibility-myth/">Guest Post: The Cross-Browser Compatibility Myth</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/03/16/getting-up-to-bat-designing-an-automation-framework/">Getting Up to BAT: Designing an Automation Framework</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/03/06/getting-up-to-bat-picking-a-browser-automation-tool/">Getting Up to BAT: Picking a Browser Automation Tool</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/02/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/02/">February (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/02/23/getting-up-to-bat-hiring-an-automation-lead/">Getting Up to BAT: Hiring an Automation Lead</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/02/15/professionals-have-professional-looking-resumes/">Professionals Have Professional Looking Resumes</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/02/05/back-to-basics-becoming-bat-man/">Back to Basics: Becoming BAT Man</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/02/01/objective-c-here-i-come/">Objective-C Here I Come!</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2011/01/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2011/01/">January (5)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/01/26/back-to-basics-mock-eliminating-patterns/">Back to Basics: Mock Eliminating Patterns</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/01/23/back-to-basics-unit-testing-without-mocks/">Back To Basics: Unit Testing Without Mocks</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/01/14/back-to-basics-unit-testing-automated-blackbox-testing-and-conclusions/">Back to Basics: Unit Testing, Automated Blackbox Testing, and Conclusions!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/01/08/solving-problems-breaking-it-down/">Solving Problems, Breaking it Down</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2011/01/04/introducing-pacemaker-for-android/">Introducing PaceMaker for Android</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2010/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2010/"> 2010 (116)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/12/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/12/">December (4)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/12/22/solving-problems-you-better-learn-how/">Solving Problems, You Better Learn How</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/12/16/using-var-as-a-neat-little-trick/">Using Var + As, a Neat Little Trick</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/12/12/back-to-basics-why-unit-testing-is-hard/">Back to Basics: Why Unit Testing is Hard</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/12/07/back-to-basics-sorting/">Back To Basics: Sorting</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/11/">November (8)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/30/basic-to-basics-understanding-ioc-part-2-creation/">Basic to Basics: Understanding IoC Part 2 (Creation)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/23/back-to-basics-understanding-ioc/">Back to Basics: Understanding IoC</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/19/book-review-enterprise-integration-patterns/">Book Review: Enterprise Integration Patterns</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/16/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-2/">Basic to Basics: What is Dependency Inversion? Is it IoC? Part 2</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/13/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-1/">Basic to Basics: What is Dependency Inversion? Is it IoC? Part 1</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/09/back-to-basics-cohesion-and-coupling-part-2/">Back to Basics: Cohesion and Coupling Part 2</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/04/back-to-basics-cohesion-and-coupling-part-1/">Back to Basics: Cohesion and Coupling Part 1</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/11/02/back-to-basics-what-is-an-interface/">Back to Basics: What is an Interface?</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/10/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/10/">October (8)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/30/getting-back-to-basics-introduction-and-why/">Getting Back to the Basics: Introduction and Why</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/26/agile-contract-negotiation-dont-be-a-liar/">Agile Contract Negotiation, Don’t be a Liar</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/19/refactoring-switches-advanced/">Refactoring Switches Advanced</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/15/the-purpose-of-unit-testing/">The Purpose of Unit Testing</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/12/a-simple-wrapper-to-make-things-more-fluent/">A Simple Wrapper To Make Things More Fluent</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/09/aspect-oriented-programming-with-action/">Aspect Oriented Programming with Action&lt;&gt;</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/06/why-hard-interviews-are-good/">Why Hard Developer Interviews are Good</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/10/01/living-dangerously-refactoring-without-a-safety-net/">Living Dangerously: Refactoring without a Safety Net</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/09/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/09/">September (8)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/29/when-process-improvements-dont-make-sense/">When Process Improvements Don’t Make Sense</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/24/explaining-what-action-and-func-are/">Explaining What Action And Func Are</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/21/clean-code-saves-money-or-is-art/">Clean Code, Saves Money or Is Art?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/17/refactoring-step-wise-vs-wrapping-and-delegating/">Refactoring Static Methods Step-Wise vs Wrapping and Delegating</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/14/im-a-career-developer-and-thats-ok/">I’m a Career Developer and That’s OK</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/09/why-field-testing-changes-everything/">Why Field Testing Changes Everything</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/07/book-review-pro-android-2/">Book Review: Pro Android 2</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/09/03/one-build-to-rule-them-all/">One Software Build to Rule Them All</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/08/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/08/">August (9)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/31/when-to-build-the-sawhorse/">When to Build the Sawhorse</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/27/i-am-an-exception-extremist/">I am an Exception Extremist</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/24/programmer-fitness-journey-a-lifestyle-change-not-a-diet/">Programmer Fitness Journey: A Lifestyle Change not a Diet</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/19/android-presenter-to-activity-using-guice/">Android Presenter To Activity Using Guice</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/17/pulling-out-the-switch-its-time-for-a-whooping/">Pulling out the Switch: It’s Time for a Whooping</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/12/switch-is-just-a-fancy-if-else/">Switch is Just a Fancy If Else</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/10/book-review-the-pragmatic-programmer/">Book Review: The Pragmatic Programmer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/04/add-backlogs-not-requirements/">Add Backlogs, Not Requirements</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/08/03/why-the-ide-has-failed-us/">Why The IDE Has Failed Us</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/07/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/07/">July (9)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/29/the-best-way-to-unit-test-in-android-part-2/">The Best Way to Unit Test in Android: Part 2</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/27/the-best-way-to-unit-test-in-android/">The Best Way to Unit Test in Android: Part 1</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/22/news-flash-sql-server-paging-still-sucks/">News Flash: SQL Server Paging Still Sucks!</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/20/the-hardest-thing-i-struggle-with/">The Hardest Thing I Struggle With</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/16/if-you-like-living-dangerously-modify-your-hosts-file/">If You Like Living Dangerously Modify Your Hosts File</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/14/late-to-the-jquery-party/">Late to the JQuery Party</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/09/why-small-is-better/">Why Small is Better</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/07/book-review-scrumban/">Book Review: Scrumban</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/07/02/the-importance-of-always-reading/">The Importance of Always Reading</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/06/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/06/">June (12)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/30/parsing-columns-like-a-ninja/">Parsing Columns Like A Ninja</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/28/do-we-need-if-blocks/">Do We Need If Blocks?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/25/dont-chain-failure-states-in-returns/">Don’t Chain Failure States in Returns</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/23/self-localizing-error-messages/">Self-localizing Error Messages</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/21/kanban-story-sizing-elephants-and-mice/">Kanban Story Sizing, Elephants and Mice</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/18/the-power-of-func/">The Power of Func&lt;&gt;</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/16/agile-testing-is-different/">Agile Testing is Different</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/14/release-management-features-or-time/">Release Management, Features or Time</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/09/dont-snub-the-code-review/">Don’t Snub the Code Review</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/07/simple-branching-strategy-part-2-implementation/">Simple Branching Strategy Part 2: Implementation</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/04/simple-branching-strategy-part-1-back-to-basics/">Simple Branching Strategy Part 1: Back to Basics</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/06/02/merge-in-merge-out/">Merge Code In… Merge Code Out…</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/05/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/05/">May (9)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/31/powershell-is-pretty-cool/">Powershell is Pretty Cool</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/28/zero-configuration-development-environments/">Zero Configuration Development Environments</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/26/consultants-know-your-markup/">Consultants: Know Your Markup</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/24/developer-machine-considerations/">Developer Machine Considerations</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/12/dont-make-me-make-a-password/">Don't Make Me Make a Password</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/10/the-true-cost-of-quality/">The True Cost of Quality Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/07/drinking-from-the-firehose/">Drinking From the Information Firehose</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/05/do-you-have-a-case-of-var-guilt/">Do You Have a Case of var Guilt?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/05/03/mr-developer-prod-is-not-for-you/">Mr. Developer, Prod is Not For You</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/04/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/04/">April (13)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/30/the-scrum-bubble/">The Scrum Bubble</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/28/the-kanbandand-guide/">The Kanbanand Guide</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/26/kanbanand-the-new-agile-process-you-have-already-been-following/">Kanbanand, The New Agile Process You Have Already Been Following</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/23/extension-methods-are-helper-methods-that-taste-like-candy/">Extension Methods Are Helper Methods That Taste Like Candy</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/21/presentation-on-waterfall-vs-agile/">Presentation on Waterfall vs Agile</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/17/when-doing-the-right-thing-is-wrong/">When Doing the “Right” Thing is Wrong</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/16/book-review-the-definitive-antlr-reference-building-domain-specific-languages/">Book Review: The Definitive Antlr Reference: Building Domain-Specific Languages</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/14/how-to-refactor-the-helper-class/">How to Refactor the Helper Class</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/12/should-i-leave-that-helper-class/">Should I Leave That Helper Class?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/09/joining-elegant-coders/">Joining Elegant Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/07/dont-go-chasing-waterfalls-mini-waterfall-vs-agile/">Don't Go Chasing Waterfalls (Mini-waterfall vs Agile)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/05/ipad-is-punching-your-kindle-and-netbook-in-the-stomach/">iPad is Punching Your Kindle and Netbook in the Stomach</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/04/02/so-you-want-to-become-a-better-programmer-topcoder/">So You Want to Become a Better Programmer? (TopCoder)</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/03/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/03/">March (14)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/31/scrum-for-the-money/">Scrum For the Money... </a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/29/boise-code-camp-2010-presentations/">Boise Code Camp 2010 Presentations</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/26/refactor-then-change-legacy-code/">Refactor then Change Legacy Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/24/naming-database-columns-when-to-violate-dry/">Naming Database Columns, When to Violate DRY</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/22/what-to-automate/">What to Automate - Developer Tools</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/19/dude-wheres-my-code/">Dude, Where's my Code?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/17/moving-the-finish-line/">Moving the Finish Line</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/15/powerpoint-killer-prezi/">Powerpoint Killer: Prezi?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/12/when-scrum-hurts-mob-achitecture/">When Scrum Hurts: Mob Architecture</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/10/internal-dsl-becomes-external-dsl/">Internal DSL Becomes External DSL</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/09/return-of-the-fatlog/">Return of the Fatlog</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/05/the-ego-test/">The Ego Test - Test Cases That Just Won't Fail</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/02/how-to-hang-a-picture-agile-user-stories/">How to Hang a Picture: Agile User Stories</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/03/01/book-review-implementation-patterns/">Book Review: Implementation Patterns</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/02/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/02/">February (11)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/25/super-combo-map-function-pointer/">Super Combo: Map + Function Pointer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/23/scrum-will-die/">Scrum Will Die</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/19/c-vs-java-part-4-the-tools-final/">C# vs Java Part 4: The Tools (Final)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/17/using-sql-to-check-complicated-sql/">Using SQL to Check Complicated SQL</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/16/book-review-clean-code/">Book Review: Clean Code</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/12/c-vs-java-part-3-the-frameworks-network-reflection-security-text/">C# vs Java Part 3: The Frameworks (Network, Reflection, Security, Text)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/09/c-vs-java-part-3-the-frameworks-io-db-concurrency-collections/">C# vs Java Part 3: The Frameworks (IO, DB, Concurrency, Collections)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/08/c-vs-java-part-2-the-platforms-desktop-and-mobile/">C# vs Java Part 2: Desktop and Mobile Platforms</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/04/c-vs-java-part-2-the-platforms-web/">C# vs Java Part 2: Web Platforms</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/02/c-vs-java-part-1-the-languages-continued/">C# vs Java Part 1: The Languages (Continued)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/02/01/c-vs-java-part-1-the-languages/">C# vs Java Part 1: The Languages</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2010/01/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2010/01/">January (11)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/29/static-methods-will-shock-you/">Static Methods Will Shock You</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/27/refactoring-boolean-conditions-into-methods/">Refactoring Boolean Conditions Into Methods</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/26/scrum-backlogs-that-cover-too-much-and-are-not-thinly-sliced-enough-and-have-spreadsheets-attached-and-have-non-specific-things-like-fix-everything-on-this-page/">Scrum Sprint Backlogs That Cover too Much and Are Not Thinly Sliced Enough and Have Spreadsheets Attached and Have Non-Specific Things Like Fix Everything On This Page</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/22/call-for-a-programming-language/">Call for a Programming Language</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/20/199/">Pixel Pig, I Bought My Own Monitors</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/18/how-to-refactor-removal-of-conditions/">How to Refactor Removal of Conditions</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/15/inheritance-is-inherently-evil/">Inheritance is Inherently Evil</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/13/selling-yourself-how-part-2/">Selling Yourself: How (Part 2)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/12/selling-yourself/">Selling Yourself: Why? (Part 1)</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/07/i-am-assimilated-to-the-google-collective-droid/">I am Assimilated to the Google Collective... DROID</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2010/01/05/automated-ui-testing-framework-a-real-example/">Automated UI Testing Framework... A Real Example</a></li></ul></li></ul></li>
+<li class="jaw_years"><a class="jaw_years" href="http://simpleprogrammer.com/2009/"><span class="jaw_symbol">►</span></a><a href="http://simpleprogrammer.com/2009/"> 2009 (15)</a><ul>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2009/12/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2009/12/">December (12)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/30/continuous-integration-best-practices/">Continuous Integration Best Practices</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/23/do-you-ci-seeing-u-ciing-continuous-integration/">Do you CI seeing U CIing? Continuous Integration</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/19/lambda-extensible-fizzbuzz-2-0-with-linq/">Lambda Extensible FizzBuzz 2.0 With LINQ</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/18/automated-functional-testing-record-or-program/">Automated Functional Tests: Record or Program?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/14/kanbandwagon-kanban-vs-scrum/">Kanbandwagon? Kanban vs Scrum</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/11/pair-programming-why/">Pair Programming? Why?</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/09/tracking-a-change-on-a-column/">Database Design: Dealing With Database Metadata</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/08/great-developers-are-librarians/">Great Developers Are Librarians</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/05/scrumbut-double-fudge-sunday-and-scrummaster-personal-trainer/">Scrumbut = Double Fudge Sunday and ScrumMaster = Personal Trainer</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/03/dedicated-developer-tools-teams/">Dedicated Developer Tools Teams</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/02/difficult-watij-problem-that-wasnt-really-a-watij-problem/">Difficult Watij Problem That Wasn't Really A Watij Problem</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/12/01/book-review-user-stories-applied-mike-cohn/">Book Review: User Stories Applied - Mike Cohn</a></li></ul></li>
+<li class="jaw_months" style="display:none;"><a class="jaw_months" href="http://simpleprogrammer.com/2009/11/"><span class="jaw_symbol">►</span> </a><a href="http://simpleprogrammer.com/2009/11/">November (3)</a><ul>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/11/25/simplified-testing/">Simplified Testing</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/11/24/importunate-permutations/">Importunate Permutations</a></li>
+<li class="jaw_posts" style="display:none;"><a href="http://simpleprogrammer.com/2009/11/20/hello-world/">Making the Complex Simple</a></li></ul></li></ul></li></ul><input type="hidden" id="widget-jal_widget-2-fx_in" name="widget-jal_widget[2][fx_in]" class="fx_in" value="slideDown"><input type="hidden" id="widget-jal_widget-2-ex_sym" name="widget-jal_widget[2][ex_sym]" class="ex_sym" value="►"><input type="hidden" id="widget-jal_widget-2-con_sym" name="widget-jal_widget[2][con_sym]" class="con_sym" value="▼"><input type="hidden" id="widget-jal_widget-2-only_sym_link" name="widget-jal_widget[2][only_sym_link]" class="only_sym_link" value="1"></aside>
+</div>
+</div>
+</div>
+</div>
+   
+</div> 
+<div>
+<div id="disqus_thread"><iframe id="dsq-233" data-disqus-uid="233" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Small Refactorings are OK - Simple Programmer_files/saved_resource(2).html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 1260px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+<script type="text/javascript">
+var disqus_url = 'http://simpleprogrammer.com/2012/03/03/small-refactorings-are-ok/';
+var disqus_identifier = '1477 https://simpleprogrammer.com/?p=1477';
+var disqus_container_id = 'disqus_thread';
+var disqus_shortname = 'simpleprogrammer';
+var disqus_title = "Small Refactorings are OK";
+var disqus_config_custom = window.disqus_config;
+var disqus_config = function () {
+    /*
+    All currently supported events:
+    onReady: fires when everything is ready,
+    onNewComment: fires when a new comment is posted,
+    onIdentify: fires when user is authenticated
+    */
+    
+    
+    this.language = '';
+        this.callbacks.onReady.push(function () {
+
+        // sync comments in the background so we don't block the page
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '?cf_action=sync_comments&post_id=1477';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+    });
+    
+    if (disqus_config_custom) {
+        disqus_config_custom.call(this);
+    }
+};
+
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+</div>
+<footer id="footer">
+<div class="footer-text">Copyright © 2014 - Simple Programmer. All rights reserved</div>
+<ul class="footer-listing">
+<div class="menu-nav-container"><ul id="menu-nav" class="menu"><li id="menu-item-2057" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2057"><a href="http://simpleprogrammer.com/about/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/about/&#39;, &#39;About&#39;]);">About</a></li>
+<li id="menu-item-2055" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2055"><a href="http://simpleprogrammer.com/back-to-basics-series/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/back-to-basics-series/&#39;, &#39;Back to Basics Series&#39;]);">Back to Basics Series</a></li>
+<li id="menu-item-2056" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2056"><a href="http://simpleprogrammer.com/how-to-build-agile-software/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/how-to-build-agile-software/&#39;, &#39;How to Build Agile Software&#39;]);">How to Build Agile Software</a></li>
+<li id="menu-item-2054" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2054"><a href="http://simpleprogrammer.com/getting-up-to-bat-series/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/getting-up-to-bat-series/&#39;, &#39;Getting Up to BAT Series&#39;]);">Getting Up to BAT Series</a></li>
+<li id="menu-item-11289" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11289"><a href="http://simpleprogrammer.com/privacy-policy/" onclick="_gaq.push([&#39;_trackEvent&#39;, &#39;outbound-widget-int&#39;, &#39;http://simpleprogrammer.com/privacy-policy/&#39;, &#39;Privacy Policy&#39;]);">Privacy Policy</a></li>
+</ul></div></ul>
+</footer>
+<script type="text/javascript">
+        // <![CDATA[
+        var disqus_shortname = 'simpleprogrammer';
+        (function () {
+            var nodes = document.getElementsByTagName('span');
+            for (var i = 0, url; i < nodes.length; i++) {
+                if (nodes[i].className.indexOf('dsq-postid') != -1) {
+                    nodes[i].parentNode.setAttribute('data-disqus-identifier', nodes[i].getAttribute('rel'));
+                    url = nodes[i].parentNode.href.split('#', 1);
+                    if (url.length == 1) { url = url[0]; }
+                    else { url = url[1]; }
+                    nodes[i].parentNode.href = url + '#disqus_thread';
+                }
+            }
+            var s = document.createElement('script'); 
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+        // ]]>
+        </script>
+<div style="display:none">
+</div>
+<link rel="stylesheet" id="youtube-channel-gallery-css" href="./Small Refactorings are OK - Simple Programmer_files/styles.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var mejsL10n = {"language":"en","strings":{"Close":"Close","Fullscreen":"Fullscreen","Download File":"Download File","Download Video":"Download Video","Play\/Pause":"Play\/Pause","Mute Toggle":"Mute Toggle","None":"None","Turn off Fullscreen":"Turn off Fullscreen","Go Fullscreen":"Go Fullscreen","Unmute":"Unmute","Mute":"Mute","Captions\/Subtitles":"Captions\/Subtitles"}};
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/"};
+var mejsL10n = {"language":"en","strings":{"Close":"Close","Fullscreen":"Fullscreen","Download File":"Download File","Download Video":"Download Video","Play\/Pause":"Play\/Pause","Mute Toggle":"Mute Toggle","None":"None","Turn off Fullscreen":"Turn off Fullscreen","Go Fullscreen":"Go Fullscreen","Unmute":"Unmute","Mute":"Mute","Captions\/Subtitles":"Captions\/Subtitles"}};
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/mediaelement-and-player.min(1).js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/photon.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/comment-reply.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var popwid = {"postid":"1477","ajaxurl":"http:\/\/simpleprogrammer.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/pop-widget.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/player_api"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/scripts.js"></script>
+<script type="text/javascript" src="./Small Refactorings are OK - Simple Programmer_files/jal.js"></script>
+<script src="./Small Refactorings are OK - Simple Programmer_files/e-201446.js" type="text/javascript"></script>
+<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.2',blog:'50424132',post:'1477',tz:'-5'});
+	var load_cmc = function(){linktracker_init(50424132,1477,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="./Small Refactorings are OK - Simple Programmer_files/g.gif" alt="">
+ 
+<script type="text/javascript">
+		(function() {
+			var wa = document.createElement('script');
+			wa.type = 'text/javascript';
+			wa.defer = true; wa.async = true;
+			wa.src = "https://d3dcugpvnepf41.cloudfront.net/written-analytics.js";
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(wa, s);
+		})();
+	</script>
+</div>
+</div>
+
+</section>
+<script type="text/javascript">
+    function _dmBootstrap(file) { 
+        var _dma = document.createElement('script');  
+        _dma.type = 'text/javascript'; 
+        _dma.async = true;  
+        _dma.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + file; 
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(_dma);
+    }
+    function _dmFollowup(file) { if (typeof DMAds === 'undefined')  _dmBootstrap('cdn2.DeveloperMedia.com/a.min.js');}
+    (function () { _dmBootstrap('cdn1.DeveloperMedia.com/a.min.js'); setTimeout(_dmFollowup, 2000);})();
+</script>
+  <script>  window.amznpubstudioTag = "makithecompsi-20";  </script>   <script async="true" type="text/javascript" src="http://ps-us.amazon-adsystem.com/domains/makithecompsi-20_30a54c6c-340b-4daf-84f6-d3886265476b.js" charset="UTF-8"></script>  
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0020/0523.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+<script type="text/javascript">
+adroll_adv_id = "76ZHI3ZZUBDKFGT4WTVWPV";
+adroll_pix_id = "45TFBDLCVVFXLGHXK2ULGB";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript" src="http://ads.pro-market.net/ads/scripts/site-138722.js"></script>
+
+<div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div></body></html>

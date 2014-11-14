@@ -1,0 +1,1 @@
+/** Global asset is empty */
