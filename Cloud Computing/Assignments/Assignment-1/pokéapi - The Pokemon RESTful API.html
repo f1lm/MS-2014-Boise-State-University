@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<!-- saved from url=(0018)http://pokeapi.co/ -->
+<html lang="en" class=""><!-- Designed and built by Paul Hallett - http://phalt.co --><!-- All code and styling is copyright Paul Hallett 2014 --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>
+      pokéapi - The Pokemon RESTful API
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokeapi The Pokemon RESTful API">
+    <meta name="author" content="Paul Hallett">
+    <link href="http://pokeapi.co/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://pokeapi.co/static/css/custom.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+      </script>
+    <![endif]-->
+    <link rel="shortcut icon" href="http://pokeapi.co/static/favicon.ico">
+      <script async="" src="./pokéapi - The Pokemon RESTful API_files/analytics.js"></script><script id="twitter-wjs" src="./pokéapi - The Pokemon RESTful API_files/widgets.js"></script><script src="./pokéapi - The Pokemon RESTful API_files/jquery.js">
+    </script><style type="text/css"></style>
+    <script src="./pokéapi - The Pokemon RESTful API_files/bootstrap.min.js">
+    </script>
+  <link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true">
+    
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <div class="navbar-brand">
+            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./pokéapi - The Pokemon RESTful API_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+        </div>
+        <div class="collapse navbar-collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="http://pokeapi.co/#">Home</a></li>
+            <li><a href="http://pokeapi.co/about/">About</a></li>
+            <li><a href="http://pokeapi.co/docs/">Documentation</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+      <div class="header col-md-8">
+        <h1>Pokéapi - The Pokémon RESTful API</h1>
+        <p class="lead center">Finally; all the Pokémon data you'll ever need, in one place,<br> and easily accessible through a modern RESTful API.</p>
+        <p class="center">Over <b>11,851,900</b> API calls received!</p>
+      </div>
+      <div class="col-md-2">
+        </div>
+    </div><!-- /.header row -->
+    <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <div class="center">
+        <h1>
+            Try it now!
+        </h1>
+            <div class="input-group pad_top">
+              <span class="input-group-addon">http://pokeapi.co/api/v1/</span>
+              <input id="interactive" type="text" class="form-control" placeholder="pokemon/1/">
+              <span class="input-group-btn"><button onclick="interactive_call();return false;" class="btn btn-primary">submit</button></span>
+            </div>
+        </div>
+        <small>Need a hint? try <a href="http://pokeapi.co/#" onclick="update(&#39;pokemon/1/&#39;);return false;"><i>pokemon/1/</i></a> or <a href="http://pokeapi.co/#" onclick="update(&#39;type/3/&#39;);return false;"><i>type/3/</i></a> or <a href="http://pokeapi.co/#" onclick="update(&#39;ability/4/&#39;);return false;"><i>ability/4/</i></a></small>
+        <p class="lead pad_top">Resource for <span id="interactive_name">Bulbasaur</span></p>
+        <div class="well">
+        <pre id="interactive_output" class="pre-scrollable" data-initialized="true" data-gclp-id="0">{
+	"abilities": [
+		{
+			"name": "chlorophyll",
+			"resource_uri": "/api/v1/ability/34/"
+		},
+		{
+			"name": "overgrow",
+			"resource_uri": "/api/v1/ability/65/"
+		}
+	],
+	"attack": 49,
+	"catch_rate": 0,
+	"created": "2013-11-03T15:05:41.260678",
+	"defense": 49,
+	"descriptions": [
+		{
+			"name": "bulbasaur_gen_1",
+			"resource_uri": "/api/v1/description/4/"
+		},
+		{
+			"name": "bulbasaur_gen_1",
+			"resource_uri": "/api/v1/description/5/"
+		},
+		{
+			"name": "bulbasaur_gen_1",
+			"resource_uri": "/api/v1/description/6/"
+		},
+		{
+			"name": "bulbasaur_gen_2",
+			"resource_uri": "/api/v1/description/7/"
+		},
+		{
+			"name": "bulbasaur_gen_2",
+			"resource_uri": "/api/v1/description/8/"
+		},
+		{
+			"name": "bulbasaur_gen_3",
+			"resource_uri": "/api/v1/description/9/"
+		},
+		{
+			"name": "bulbasaur_gen_3",
+			"resource_uri": "/api/v1/description/10/"
+		},
+		{
+			"name": "bulbasaur_gen_3",
+			"resource_uri": "/api/v1/description/11/"
+		},
+		{
+			"name": "bulbasaur_gen_4",
+			"resource_uri": "/api/v1/description/12/"
+		},
+		{
+			"name": "bulbasaur_gen_4",
+			"resource_uri": "/api/v1/description/13/"
+		},
+		{
+			"name": "bulbasaur_gen_4",
+			"resource_uri": "/api/v1/description/14/"
+		},
+		{
+			"name": "bulbasaur_gen_5",
+			"resource_uri": "/api/v1/description/15/"
+		},
+		{
+			"name": "bulbasaur_gen_1",
+			"resource_uri": "/api/v1/description/2/"
+		},
+		{
+			"name": "bulbasaur_gen_1",
+			"resource_uri": "/api/v1/description/3/"
+		}
+	],
+	"egg_cycles": 0,
+	"egg_groups": [
+		{
+			"name": "Plant",
+			"resource_uri": "/api/v1/egg/7/"
+		},
+		{
+			"name": "Monster",
+			"resource_uri": "/api/v1/egg/1/"
+		}
+	],
+	"ev_yield": "1 special attack",
+	"evolutions": [
+		{
+			"level": 16,
+			"method": "level_up",
+			"resource_uri": "/api/v1/pokemon/2/",
+			"to": "Ivysaur"
+		}
+	],
+	"exp": 64,
+	"growth_rate": "medium slow",
+	"happiness": 0,
+	"height": "7",
+	"hp": 45,
+	"male_female_ratio": "87.5/12.5",
+	"modified": "2013-11-30T13:59:47.261100",
+	"moves": [
+		{
+			"learn_type": "tutor",
+			"name": "Bind",
+			"resource_uri": "/api/v1/move/20/"
+		},
+		{
+			"learn_type": "tutor",
+			"name": "Grass-pledge",
+			"resource_uri": "/api/v1/move/520/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Echoed-voice",
+			"resource_uri": "/api/v1/move/497/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Round",
+			"resource_uri": "/api/v1/move/496/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Venoshock",
+			"resource_uri": "/api/v1/move/474/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Power-whip",
+			"resource_uri": "/api/v1/move/438/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Sludge",
+			"resource_uri": "/api/v1/move/124/"
+		},
+		{
+			"learn_type": "tutor",
+			"name": "String-shot",
+			"resource_uri": "/api/v1/move/81/"
+		},
+		{
+			"learn_type": "tutor",
+			"name": "Knock-off",
+			"resource_uri": "/api/v1/move/282/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Grass-knot",
+			"resource_uri": "/api/v1/move/447/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Captivate",
+			"resource_uri": "/api/v1/move/445/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Leaf-storm",
+			"resource_uri": "/api/v1/move/437/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Energy-ball",
+			"resource_uri": "/api/v1/move/412/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 37,
+			"name": "Seed-bomb",
+			"resource_uri": "/api/v1/move/402/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 31,
+			"name": "Worry-seed",
+			"resource_uri": "/api/v1/move/388/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Natural-gift",
+			"resource_uri": "/api/v1/move/363/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Ingrain",
+			"resource_uri": "/api/v1/move/275/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Nature-power",
+			"resource_uri": "/api/v1/move/267/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Amnesia",
+			"resource_uri": "/api/v1/move/133/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Magical-leaf",
+			"resource_uri": "/api/v1/move/345/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Bullet-seed",
+			"resource_uri": "/api/v1/move/331/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Grasswhistle",
+			"resource_uri": "/api/v1/move/320/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Secret-power",
+			"resource_uri": "/api/v1/move/290/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Facade",
+			"resource_uri": "/api/v1/move/263/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Rock-smash",
+			"resource_uri": "/api/v1/move/249/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Sludge-bomb",
+			"resource_uri": "/api/v1/move/188/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Strength",
+			"resource_uri": "/api/v1/move/70/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Sunny-day",
+			"resource_uri": "/api/v1/move/241/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Hidden-power",
+			"resource_uri": "/api/v1/move/237/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 39,
+			"name": "Synthesis",
+			"resource_uri": "/api/v1/move/235/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 25,
+			"name": "Sweet-scent",
+			"resource_uri": "/api/v1/move/230/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Safeguard",
+			"resource_uri": "/api/v1/move/219/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Frustration",
+			"resource_uri": "/api/v1/move/218/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Return",
+			"resource_uri": "/api/v1/move/216/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Sleep-talk",
+			"resource_uri": "/api/v1/move/214/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Attract",
+			"resource_uri": "/api/v1/move/213/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Fury-cutter",
+			"resource_uri": "/api/v1/move/210/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Swagger",
+			"resource_uri": "/api/v1/move/207/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Charm",
+			"resource_uri": "/api/v1/move/204/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Endure",
+			"resource_uri": "/api/v1/move/203/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Giga-drain",
+			"resource_uri": "/api/v1/move/202/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Mud-slap",
+			"resource_uri": "/api/v1/move/189/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Protect",
+			"resource_uri": "/api/v1/move/182/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Curse",
+			"resource_uri": "/api/v1/move/174/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Snore",
+			"resource_uri": "/api/v1/move/173/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Flash",
+			"resource_uri": "/api/v1/move/148/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Skull-bash",
+			"resource_uri": "/api/v1/move/130/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Light-screen",
+			"resource_uri": "/api/v1/move/113/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Defense-curl",
+			"resource_uri": "/api/v1/move/111/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Petal-dance",
+			"resource_uri": "/api/v1/move/80/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Headbutt",
+			"resource_uri": "/api/v1/move/29/"
+		},
+		{
+			"learn_type": "egg move",
+			"name": "Razor-wind",
+			"resource_uri": "/api/v1/move/13/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Substitute",
+			"resource_uri": "/api/v1/move/164/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Rest",
+			"resource_uri": "/api/v1/move/156/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Bide",
+			"resource_uri": "/api/v1/move/117/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Reflect",
+			"resource_uri": "/api/v1/move/115/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Double-team",
+			"resource_uri": "/api/v1/move/104/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Mimic",
+			"resource_uri": "/api/v1/move/102/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Rage",
+			"resource_uri": "/api/v1/move/99/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Toxic",
+			"resource_uri": "/api/v1/move/92/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 41,
+			"name": "Sleep-powder",
+			"resource_uri": "/api/v1/move/79/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 20,
+			"name": "Poisonpowder",
+			"resource_uri": "/api/v1/move/77/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 48,
+			"name": "Solarbeam",
+			"resource_uri": "/api/v1/move/76/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 27,
+			"name": "Razor-leaf",
+			"resource_uri": "/api/v1/move/75/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 34,
+			"name": "Growth",
+			"resource_uri": "/api/v1/move/74/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 7,
+			"name": "Leech-seed",
+			"resource_uri": "/api/v1/move/73/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Mega-drain",
+			"resource_uri": "/api/v1/move/72/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 1,
+			"name": "Growl",
+			"resource_uri": "/api/v1/move/45/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Double-edge",
+			"resource_uri": "/api/v1/move/38/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Take-down",
+			"resource_uri": "/api/v1/move/36/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Body-slam",
+			"resource_uri": "/api/v1/move/34/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 1,
+			"name": "Tackle",
+			"resource_uri": "/api/v1/move/33/"
+		},
+		{
+			"learn_type": "level up",
+			"level": 13,
+			"name": "Vine-whip",
+			"resource_uri": "/api/v1/move/22/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Cut",
+			"resource_uri": "/api/v1/move/15/"
+		},
+		{
+			"learn_type": "machine",
+			"name": "Swords-dance",
+			"resource_uri": "/api/v1/move/14/"
+		}
+	],
+	"name": "Bulbasaur",
+	"national_id": 1,
+	"pkdx_id": 1,
+	"resource_uri": "/api/v1/pokemon/1/",
+	"sp_atk": 65,
+	"sp_def": 65,
+	"species": "seed pokemon",
+	"speed": 45,
+	"sprites": [
+		{
+			"name": "bulbasaur",
+			"resource_uri": "/api/v1/sprite/2/"
+		},
+		{
+			"name": "bulbasaur",
+			"resource_uri": "/api/v1/sprite/1/"
+		}
+	],
+	"total": 0,
+	"types": [
+		{
+			"name": "poison",
+			"resource_uri": "/api/v1/type/4/"
+		},
+		{
+			"name": "grass",
+			"resource_uri": "/api/v1/type/12/"
+		}
+	],
+	"weight": "69"
+}</pre>
+        </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+    </div><!--interactive row-->
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-3">
+            <p class="lead center">
+                What is this?
+            </p>
+            <div class="well">
+            <p>
+                This is a full RESTful API linked to an extensive database
+                detailing everything about the Pokémon main game series.</p><p>
+                We've covered Pokémon, types, abilities, moves, egg groups and more.
+            </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <p class="lead center">
+                How can I start using the API?
+            </p>
+            <div class="well">
+                <p>
+                    We have awesome <a href="http://pokeapi.co/docs/">documentation</a> on
+                    how to use this API. It takes minutes to get started.
+                </p>
+                <p>
+                    This API will always be publicly available and will
+                    never require any extensive setup process to consume.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <p class="lead center">
+                I want to help.
+            </p>
+            <div class="well">
+                <p>Amazing!</p>
+                <p>We really need help to keep this running.</p>
+                <p>First off, we need a few extra moderators to manage all the content, especially
+                   when big updates occur.</p>
+                <p>Secondly, we'd also love Sponsorship so we can scale and keep this site up!</p>
+                <p>We're running this out of our own pocket at the moment. We don't want to make a profit, just to keep it running for people!</p>
+                <p>Contact <a href="mailto:hello@phalt.co">Paul at hello@phalt.co</a> and let us
+                    know how you can help.</p>
+            </div>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div><!-- end bottom -->
+    <script>
+    function update(call){
+        jQuery('#interactive').val(call);
+        interactive_call();
+    }
+    function interactive_call(){
+        var content = jQuery('#interactive').val()
+        if(content == ''){
+            content = 'pokemon/1/';
+        }
+        var call_url = 'api/v1/' + content;
+        jQuery.ajax({
+      dataType: 'json',
+      url: call_url,
+      context: document.body
+    }).complete(function(data) {
+        if(data['status'] == 200){
+            var d = jQuery.parseJSON(data['responseText']);
+            jQuery('#interactive_name').html(d['name']);
+            jQuery('#interactive_output').text(JSON.stringify(d, null, '\t'));
+        }
+        else if (data['status'] == 404) {
+            jQuery('#interactive_output').text(data['status'] + ' ' + data['statusText']);
+        }
+    });
+    }
+    </script>
+
+    </div><!-- /.container -->
+
+
+  
+  <hr class="">
+
+  <div class="footer">
+    <p><a href="http://phalt.co/?ref=pokeapi" target="_blank">© Paul Hallett 2014</a>
+      <span class="pull-right">
+        <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./pokéapi - The Pokemon RESTful API_files/follow_button.21f7daa948263c3043bab783473c3475.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 60px; height: 20px;"></iframe>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<iframe src="./pokéapi - The Pokemon RESTful API_files/github-btn.html" allowtransparency="false" frameborder="0" scrolling="0" width="132" height="20"></iframe></span></p>
+  </div>
+
+      
+<!-- gauges tracking code -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53299289-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" style="left: 999.5px; top: 524px; display: none;" data-hasqtip="true"></div></body></html>
