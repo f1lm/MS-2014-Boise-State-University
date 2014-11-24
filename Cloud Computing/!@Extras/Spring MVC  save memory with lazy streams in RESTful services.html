@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!-- saved from url=(0196)https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class=" pw-locale-en ra1-pw-desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <title>Spring MVC: save memory with lazy streams in RESTful services</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Java expert Marko Topolnik shows how Java 8 Streams can be leveraged to improve the scalability of Spring-based RESTful Web Services.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Spring MVC: save memory with lazy streams in RESTful services">
+  <meta property="og:description" content="Java expert Marko Topolnik shows how Java 8 Streams can be leveraged to improve the scalability of Spring-based RESTful Web Services.">
+  <meta property="og:image" content="http://i.imgur.com/OQK9mHx.png">
+  <meta property="og:url" content="http://www.airpair.com/java/posts/spring-streams-memory-efficiency">
+  <link rel="canonical" href="http://www.airpair.com/java/posts/spring-streams-memory-efficiency">
+
+  <link rel="stylesheet" id="google-font-css" href="./Spring MVC  save memory with lazy streams in RESTful services_files/css" type="text/css" media="all">
+  <link rel="stylesheet" href="./Spring MVC  save memory with lazy streams in RESTful services_files/libs-d05987ac.css" type="text/css">
+  <link rel="stylesheet" href="./Spring MVC  save memory with lazy streams in RESTful services_files/index-2d6f0030.css" type="text/css">
+  
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style><link rel="stylesheet" type="text/css" href="./Spring MVC  save memory with lazy streams in RESTful services_files/r1post.css" media="all"><link rel="stylesheet" type="text/css" href="./Spring MVC  save memory with lazy streams in RESTful services_files/r1post_retina.css" media="all"><script async="true" type="text/javascript" src="https://s.adroll.com/j/roundtrip.js"></script></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<header>
+  <a href="https://www.airpair.com/" tile="airpair.com pair programming"></a>
+  <ul>
+    <li><a href="https://www.airpair.com/privacy" target="_blank" class="pp">Privacy</a></li>
+    <li><a href="https://www.airpair.com/posts" target="_self">Posts</a></li>
+    <li><a href="https://www.airpair.com/workshops" target="_self" class="wk">Workshops</a></li>
+    <li><b><a href="https://www.airpair.com/find-an-expert" target="_self" class="btn" style="width:104px;padding:2px 6px;font-size:11px;margin-top:-2px">Get Expert Help!</a></b></li>
+  </ul>
+</header>
+
+<div class="main-wrap">
+  <main ng-view="">
+    <header class="entry-header">
+      <p class="entry-meta">
+        <a href="https://www.airpair.com/posts">Posts</a>
+        &nbsp; &gt; &nbsp;
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="//schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Marko Topolnik</span>
+        </span>
+        &nbsp; &gt; &nbsp;
+        <time class="entry-time" itemprop="datePublished" datetime="2014-11-11T23:21:34.762Z">11 Nov, 2014
+        </time>
+
+      </p>
+    </header>
+    <article class="blogpost">
+      <h1 class="entry-title" itemprop="headline">Spring MVC: More Efficient RESTful Web Services Using Java Streams</h1>
+      <div class="railCTA1Holder"></div>
+      <div class="share" style="top: 2830px;">
+        <div class="pw pw-widget ra1-pw-classicWidget ra1-pw_size_small pw-layout-horizontal pw-counter-vertical pw-widget-look-native" pw:twitter-via="airpair">
+          <a class="pw-button pw-button-facebook button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">7</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-facebook"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+          <a class="pw-button pw-button-twitter button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">0</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-twitter"></span><span class="pw-button-type-looknative__txt">Tweet</span></span></a>
+          <a class="pw-button pw-button-linkedin button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">11</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-linkedin"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+        </div>
+      </div>
+
+      <h4 id="table-of-contents" style="top: 2820px;">Table of Contents</h4>
+      <ul style="top: 2820px;">
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#1-the-role-of-spring-mvc-in-restful-services">1 The role of Spring MVC in RESTful services</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#2-flow-of-control-between-controller-and-view">2 Flow of control between Controller and View</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#3-implicit-change-of-workflow-using-java-8-streams">3 Implicit change of workflow using Java 8 Streams</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#4-setting-up-the-springhibernate-project-for-holdable-result-sets">4 Setting up the Spring+Hibernate project for holdable result sets</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#5-resultstream--get-the-result-of-a-hibernate-query-in-a-stream">5 resultStream(): get the result of a Hibernate query in a Stream</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#6-http-message-converters-for-streams">6 HTTP message converters for Streams</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#7-support-for-cursor-holdability-in-mainstream-database-jdbc-implementations">7 Support for cursor holdability in mainstream database/JDBC implementations</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#8-testing-it-out-with-visualgc">8 Testing it out with VisualGC</a></li>
+<li><a href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#9-conclusion">9 Conclusion</a></li>
+</ul>
+
+      <div class="railCTA3Holder"></div>
+      <figure class="author">
+        <img alt="Marko Topolnik" src="./Spring MVC  save memory with lazy streams in RESTful services_files/84b1acc3351c02f560dea7ac7f76ac8d">
+        <figcaption>
+          Marko Topolnik, PhD. is a Java professional and an active contributor on Stack Overflow. Here he builds upon his previous article on Java 8 Streams to show how they can be leveraged to improve the scalability of your Spring-based RESTful Web Services.
+        </figcaption>
+        <hr>
+      </figure>
+      <p class="asset"><img src="./Spring MVC  save memory with lazy streams in RESTful services_files/OQK9mHx.png"></p>
+      <hr>
+      <p>Web applications have recently settled on the "rich client" type of architecture, which means that the V part of the MVC pattern (the View) runs on the client side. A corollary of this is that the server side can now focus on pure data model, a further consequence being that the Web landscape is arriving at something that was a buzzword ten years ago in the Enterprise segment: service-oriented architecture (SOA). </p>
+<p>The server side today is almost invariably defined in terms of RESTful web services it provides; well-defined over-the-wire APIs are the norm. I find this development great: all that server-side HTML templating business never found a sweet spot in my heart. In the big picture this means that the focus of the Web is shifting from offering <em>end products</em> to providing <em>value-adding services</em> which the customers can mix and match in creating their own customized user-visible products.</p>
+<h2 id="1-the-role-of-spring-mvc-in-restful-services">1 The role of Spring MVC in RESTful services</h2>
+<p>In the realm of server-side Java Spring has always been my favorite choice. It has had strong support for the previous-generation HTML web applications, defining a well-sliced framework where the concerns of model, view, and controller are effortlessly separated. This framework had to be just slightly adapted to accommodate RESTful services: the concept of an <em>HTTP message converter</em> was introduced, which is a strategy object handling the concern of conversion between POJOs and the raw HTTP request/response body. </p>
+<p>HTTP responses are generated by message converters sitting inside a fully automated view layer where they are dispatched based on the requested MIME content type on the one end and the type of the POJO representing the response on the other. The application writer is mostly concerned with providing <em>controller</em> classes which handle the concern of routing HTTP requests to Java methods (including the dissection of the HTTP request into method arguments), and <em>service</em> classes which implement HTTP-agnostic business logic.</p>
+<h2 id="2-flow-of-control-between-controller-and-view">2 Flow of control between Controller and View</h2>
+<p>On the response side the key point of integration between the controller method and the message converter is its <em>return value</em>; in other words, the view will <em>pull</em> data from the controller. There is nothing wrong with this in principle, but there is one area where it may cause trouble if specific care is not applied: generating huge responses. Even though most web service requests are lightweight in terms of data volume (some query parameters are passed in and typically a JSON object is returned), almost every application also has a few tougher ones: services returning arbitrarily large results of queries on customer's data. </p>
+<p>Whatever service you provide to the customer, the volume of their data hosted on your server is probably getting larger each day and the customer occasionally wants that data in bulk to process (or simply keep) offline.</p>
+<p>Traditionally, the best-practice workflow of a request would go as follows:</p>
+<ol>
+<li>make one or more database queries;</li>
+<li>retrieve the data;</li>
+<li>transform the data into the final form as required by the API;</li>
+<li>accumulate the result into the return value;</li>
+<li>commit and release the database connection;</li>
+<li>hand over the data to the message converter.</li>
+</ol>
+<p>Clearly, for large responses the above creates an O(n) demand on the JVM heap memory: the more data you serve, the closer you get to an out-of-memory condition. This doesn't only put a hard limit on the size of your response; it also clogs up the JVM for everyone else, putting all other concurrent requests in danger of draining the heap, even if their individual demands are modest.</p>
+<p>One crude approach to working around this issue has been to break the view-controller barrier and have the controller take over the concern of generating the HTTP response, pushing data directly from the database into the raw HTTP response stream. The controller had to either dispense with all the flexibility offered by the standard view layer, or waste the project's complexity budget on reimplementing it on the wrong side. </p>
+<p>Another workaround was to simply refuse to serve large responses, requiring the client to issue requests for a limited range of data, issuing as many requests as needed to retrieve the whole dataset. This resulted both in the loss of atomicity (data rows could be repeated or missing) and an overall <em>increase</em> of the server load because the database must compute all the result rows preceding the first row of the requested range.</p>
+<h2 id="3-implicit-change-of-workflow-using-java-8-streams">3 Implicit change of workflow using Java 8 Streams</h2>
+<p>The proper way to handle the above issues is rearranging the workflow this way:</p>
+<ol>
+<li>issue the query;</li>
+<li>acquire a <em>cursor</em> over the result set without consuming it;</li>
+<li>package the cursor together with the transforming logic;</li>
+<li>commit the transaction, holding the cursor;</li>
+<li>pass the cursor+logic to the view layer as the return value;</li>
+<li>in the view layer, produce the HTTP response by consuming the result set and applying the logic to each row;</li>
+<li>release the cursor and database connection.</li>
+</ol>
+<p>Note that the above uses a feature not required by the "eager" scenario: holdable result sets. Database and JDBC implementations vary on how they achieve holdability and we'll give an overview for some mainstream databases towards the end of this article.</p>
+<p>With Java 8 streams the best part is that the above rearrangement of workflow can happen while the code stays almost exactly the same — no part of it must migrate to another layer. For the case of Hibernate queries, compare</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="0"><code class="  language-java" data-language="java"><span class="token keyword">public</span> List<span class="token operator">&lt;</span>UserDto<span class="token operator">&gt;</span> <span class="token function">userList<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> sf<span class="token punctuation">.</span><span class="token function">getCurrentSession<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">createQuery<span class="token punctuation">(</span></span><span class="token string">"select new UserDto(name, email) from User"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">list<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>with</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="1"><code class="  language-java" data-language="java"><span class="token keyword">public</span> Stream<span class="token operator">&lt;</span>UserDto<span class="token operator">&gt;</span> <span class="token function">userStream<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">resultStream<span class="token punctuation">(</span></span>sf<span class="token punctuation">.</span><span class="token function">getCurrentSession<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">createQuery<span class="token punctuation">(</span></span><span class="token string">"select new UserDto(name, email) from User"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>The code looks almost exactly the same, but the workflow implied by it changed from eager to lazy. As always, the stream can be automatically parallelized at the flick of a switch; just keep in mind that this pays off only if your transformation logic is substantial enough to make CPU the bottleneck, as opposed to I/O.</p>
+<p>If you are interested in bringing this kind of change to your application, read on to learn about the setup and support code you'll need.</p>
+<h2 id="4-setting-up-the-spring-hibernate-project-for-holdable-result-sets">4 Setting up the Spring+Hibernate project for holdable result sets</h2>
+<p>At the moment of this writing the latest Spring release still makes it a bit difficult to fully support result sets whose holdability extends into the View layer; however thanks to the great Spring team, this will be improved almost immediately, as tracked by the issue <a href="https://jira.spring.io/browse/SPR-12349">SPR-12349</a>. I shall therefore skip the workarounds that have been necessary so far. As of Spring 4.1.2 you'll have to set up only two things to make this work:</p>
+<ul>
+<li><p>install the <code>OpenSessionInViewInterceptor</code> to extend the lifetime of the Hibernate session into the View layer;</p>
+</li>
+<li><p>achieve result set holdability by enabling the newly-added property on your <code>HibernateTransactionManager</code>: <code>allowResultSetAccessAfterCompletion</code>.</p>
+</li>
+</ul>
+<p>Here's a quick JavaConfig example for the <code>OpenSessionInViewInterceptor</code> part. Typically you already have a <code>WebMvcConfig</code> class or its equivalent, so merge these details into it.</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="2"><code class="  language-java" data-language="java">@Configuration
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebMvcConfig</span> <span class="token keyword">extends</span> <span class="token class-name">WebMvcConfigurationSupport</span> <span class="token punctuation">{</span>
+
+  @Autowired <span class="token keyword">private</span> OpenSessionInViewInterceptor osivInterceptor<span class="token punctuation">;</span>
+
+  @Autowired @Bean
+  <span class="token keyword">public</span> OpenSessionInViewInterceptor <span class="token function">osivInterceptor<span class="token punctuation">(</span></span>SessionFactory sf<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    OpenSessionInViewInterceptor osiv <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OpenSessionInViewInterceptor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    osiv<span class="token punctuation">.</span><span class="token function">setSessionFactory<span class="token punctuation">(</span></span>sf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> osiv<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @Override
+  <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">addInterceptors<span class="token punctuation">(</span></span>InterceptorRegistry registry<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    registry<span class="token punctuation">.</span><span class="token function">addWebRequestInterceptor<span class="token punctuation">(</span></span>osivInterceptor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>And here's the setup you need for the <code>HibernateTransactionManager</code>. Your application should already have the transaction manager bean configured, so just enable the mentioned property on it:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="3"><code class="  language-java" data-language="java">@Configuration
+@EnableTransactionManagement
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DataConfig</span> <span class="token punctuation">{</span>
+
+  @Autowired @Bean
+  <span class="token keyword">public</span> PlatformTransactionManager <span class="token function">txManager<span class="token punctuation">(</span></span>SessionFactory sf<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    HibernateTransactionManager mgr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HibernateTransactionManager</span><span class="token punctuation">(</span>sf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    mgr<span class="token punctuation">.</span><span class="token function">setAllowResultAccessAfterCompletion<span class="token punctuation">(</span></span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> mgr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span>the rest of your data config<span class="token punctuation">,</span> including the LocalSessionFactoryBean<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><h2 id="5-resultstream-get-the-result-of-a-hibernate-query-in-a-stream">5 resultStream(): get the result of a Hibernate query in a Stream</h2>
+<p>In my <a href="http://www.airpair.com/java/posts/parallel-processing-of-io-based-data-with-java-streams">previous post</a> I presented the abstract class <code>FixedBatchSpliteratorBase</code> which makes it easy to implement any spliterator of a sequential data source. Here's the specialization to Hibernate query results:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="4"><code class="  language-java" data-language="java"><span class="token keyword">import</span> <span class="token keyword">static</span> org<span class="token punctuation">.</span>hibernate<span class="token punctuation">.</span>ScrollMode<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span>non<span class="token operator">-</span><span class="token keyword">static</span> imports elided<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ScrollableResultsSpliterator</span><span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token keyword">extends</span> <span class="token class-name">FixedBatchSpliteratorBase</span><span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> ScrollableResults results<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">boolean</span> closed<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> Boolean canUnwrap<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token function">ScrollableResultsSpliterator<span class="token punctuation">(</span></span>
+      Class<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> clazz<span class="token punctuation">,</span> <span class="token keyword">int</span> batchSize<span class="token punctuation">,</span> ScrollableResults results<span class="token punctuation">)</span> 
+  <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>ORDERED <span class="token operator">|</span> NONNULL<span class="token punctuation">,</span> batchSize<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>results <span class="token operator">==</span> null<span class="token punctuation">)</span> 
+      <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token string">"ScrollableResults must not be null"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>results <span class="token operator">=</span> results<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @<span class="token function">SuppressWarnings<span class="token punctuation">(</span></span><span class="token string">"unchecked"</span><span class="token punctuation">)</span> 
+  @Override <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryAdvance<span class="token punctuation">(</span></span>Consumer<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> T<span class="token operator">&gt;</span> action<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>closed<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>results<span class="token punctuation">.</span><span class="token function">next<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">close<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>canUnwrap <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      Object<span class="token punctuation">[</span><span class="token punctuation">]</span> r <span class="token operator">=</span> results<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      canUnwrap <span class="token operator">=</span> r<span class="token punctuation">.</span>length <span class="token operator">==</span><span class="token number"> 1</span><span class="token punctuation">;</span>
+      action<span class="token punctuation">.</span><span class="token function">accept<span class="token punctuation">(</span></span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">(</span>canUnwrap <span class="token operator">?</span> r<span class="token number">[0</span><span class="token punctuation">]</span> <span class="token operator">:</span> r<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      action<span class="token punctuation">.</span><span class="token function">accept<span class="token punctuation">(</span></span><span class="token punctuation">(</span>T<span class="token punctuation">)</span> <span class="token punctuation">(</span>canUnwrap <span class="token operator">?</span> results<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>0<span class="token punctuation">)</span> <span class="token operator">:</span> results<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">close<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>closed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      results<span class="token punctuation">.</span><span class="token function">close<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      closed <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>Now we add convenience factory methods:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="5"><code class="  language-java" data-language="java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> Stream<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token function">resultStream<span class="token punctuation">(</span></span>
+    Class<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> clazz<span class="token punctuation">,</span> <span class="token keyword">int</span> batchSize<span class="token punctuation">,</span> Query query<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">resultStream<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">ScrollableResultsSpliterator</span><span class="token operator">&lt;</span>T<span class="token operator">&gt;</span><span class="token punctuation">(</span>clazz<span class="token punctuation">,</span> batchSize<span class="token punctuation">,</span> query<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> Stream<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> <span class="token function">resultStream<span class="token punctuation">(</span></span>
+    ScrollableResultsSpliterator<span class="token operator">&lt;</span>T<span class="token operator">&gt;</span> spliterator<span class="token punctuation">)</span> 
+<span class="token punctuation">{</span>
+  <span class="token keyword">return</span> StreamSupport<span class="token punctuation">.</span><span class="token function">stream<span class="token punctuation">(</span></span>spliterator<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">onClose<span class="token punctuation">(</span></span>spliterator<span class="token operator">:</span><span class="token operator">:</span>close<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>and that's it. Depending on need we may add more convenience, including factories/constructors for <code>Criteria</code> in addition to the presented <code>Query</code>, using the default batch size, etc.</p>
+<p>Note that I have submitted the equivalent of the above class for inclusion into the Spring Framework. It is being considered for version 4.2 as a part of the wider package of Spring's support for Java 8 Streams. The state of this proposal is tracked by the Spring issue <a href="https://jira.spring.io/browse/SPR-12388">SPR-12388</a></p>
+<h2 id="6-http-message-converters-for-streams">6 HTTP message converters for Streams</h2>
+<p>By now we have gone through all the setup needed to deliver a Stream to the view layer, but by default there will be no message converters set up to support it. For potentially huge result sets one of the better choices of wire format is the plain-old CSV because it can be parsed line by line without involving any long-term parser state. </p>
+<p>This is different from XML or JSON, which both need the large collection to be couched inside an overarching structure. The client side will probably have an easier time handling CSV than the other options. However, for API consistency you may want to use the format used for everything else in your app/service.</p>
+<p>Here is my message converter which can convert a stream of <code>CsvRecord</code>s into an HTTP response with the content type "text/csv". It has the <code>opencsv</code> library as its dependency.</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="6"><code class="  language-java" data-language="java"><span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>charset<span class="token punctuation">.</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token keyword">static</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>core<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>AnnotationUtils<span class="token punctuation">.</span>findAnnotation<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span>non<span class="token operator">-</span><span class="token keyword">static</span> imports elided<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CsvMessageWriter</span>
+    <span class="token keyword">extends</span> <span class="token class-name">AbstractHttpMessageConverter</span><span class="token operator">&lt;</span>Stream<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">CsvRecord</span><span class="token operator">&gt;&gt;</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> MediaType MEDIA_TYPE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MediaType</span><span class="token punctuation">(</span><span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token string">"csv"</span><span class="token punctuation">,</span> UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">char</span> separator<span class="token punctuation">,</span> quote<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token function">CsvMessageWriter<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">(</span>CSVWriter<span class="token punctuation">.</span>DEFAULT_SEPARATOR<span class="token punctuation">,</span> CSVWriter<span class="token punctuation">.</span>DEFAULT_QUOTE_CHARACTER<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token function">CsvMessageWriter<span class="token punctuation">(</span></span><span class="token keyword">char</span> separator<span class="token punctuation">,</span> <span class="token keyword">char</span> quote<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>MEDIA_TYPE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>separator <span class="token operator">=</span> separator<span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>quote <span class="token operator">=</span> quote<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @Override
+  <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">canRead<span class="token punctuation">(</span></span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> clazz<span class="token punctuation">,</span> MediaType mediaType<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+  @Override <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">canWrite<span class="token punctuation">(</span></span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> clazz<span class="token punctuation">,</span> MediaType mediaType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Stream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">isAssignableFrom<span class="token punctuation">(</span></span>clazz<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">canWrite<span class="token punctuation">(</span></span>mediaType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @Override
+  <span class="token keyword">protected</span> <span class="token keyword">boolean</span> <span class="token function">supports<span class="token punctuation">(</span></span>Class<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> clazz<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// should not be called, since we override canRead/Write
+</span>    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @Override <span class="token keyword">protected</span> Stream<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">CSVRecord</span><span class="token operator">&gt;</span> <span class="token function">readInternal<span class="token punctuation">(</span></span>
+      Class<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Stream</span><span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">CSVRecord</span><span class="token operator">&gt;&gt;</span> clazz<span class="token punctuation">,</span> HttpInputMessage inputMessage<span class="token punctuation">)</span>
+  <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UnsupportedOperationException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  @Override <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">writeInternal<span class="token punctuation">(</span></span>
+      Stream<span class="token operator">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">CSVRecord</span><span class="token operator">&gt;</span> stream<span class="token punctuation">,</span> HttpOutputMessage m<span class="token punctuation">)</span>
+  <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> HttpMessageNotWritableException
+  <span class="token punctuation">{</span>
+    m<span class="token punctuation">.</span><span class="token function">getHeaders<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setContentType<span class="token punctuation">(</span></span><span class="token function">getSupportedMediaTypes<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span>0<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">final</span> <span class="token keyword">boolean</span> headerDone<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token boolean">false</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">(</span>CSVWriter out <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CSVWriter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">OutputStreamWriter</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span><span class="token function">getBody<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> UTF_8<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        separator<span class="token punctuation">,</span> quote<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+      stream<span class="token punctuation">.</span><span class="token function">forEachOrdered<span class="token punctuation">(</span></span>rec <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>headerDone<span class="token number">[0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          headerDone<span class="token number">[0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+          Optional<span class="token punctuation">.</span><span class="token function">ofNullable<span class="token punctuation">(</span></span><span class="token function">findAnnotation<span class="token punctuation">(</span></span>rec<span class="token punctuation">.</span><span class="token function">getClass<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> CsvHeader<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map<span class="token punctuation">(</span></span>CsvHeader<span class="token operator">:</span><span class="token operator">:</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ifPresent<span class="token punctuation">(</span></span>out<span class="token operator">:</span><span class="token operator">:</span>writeNext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        out<span class="token punctuation">.</span><span class="token function">writeNext<span class="token punctuation">(</span></span>rec<span class="token punctuation">.</span><span class="token function">toStringArray<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>The configuration needed to register the above with Spring MVC is here:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="7"><code class="  language-java" data-language="java">@Configuration
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebMvcConfig</span> <span class="token keyword">extends</span> <span class="token class-name">WebMvcConfigurationSupport</span> <span class="token punctuation">{</span>
+
+  @Override
+   <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configureMessageConverters<span class="token punctuation">(</span></span>List<span class="token operator">&lt;</span>HttpMessageConverter<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;&gt;</span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      converters<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">CsvMessageWriter</span><span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">,</span> <span class="token string">'"'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">addDefaultHttpMessageConverters<span class="token punctuation">(</span></span>converters<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>The <code>CsvRecord</code> type is our custom interface:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="8"><code class="  language-java" data-language="java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">CsvRecord</span> <span class="token punctuation">{</span>
+  String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">toStringArray<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>The intent is to implement this interface in any class you choose to be the carrier of your result data. <code>opencsv</code>'s CSV writer takes a string array as the representation of a CSV row, so the <code>toStringArray()</code> method must provide that. </p>
+<p>To handle the concern of the CSV header row, I have chosen to define a custom class-level annotation:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="9"><code class="  language-java" data-language="java"><span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>ElementType<span class="token punctuation">.</span>TYPE<span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token keyword">static</span> java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RetentionPolicy<span class="token punctuation">.</span>RUNTIME<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">(</span>non<span class="token operator">-</span><span class="token keyword">static</span> imports elided<span class="token punctuation">)</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+
+@<span class="token function">Retention<span class="token punctuation">(</span></span>RUNTIME<span class="token punctuation">)</span>
+@<span class="token function">Target<span class="token punctuation">(</span></span>TYPE<span class="token punctuation">)</span>
+<span class="token keyword">public</span> @<span class="token keyword">interface</span> <span class="token class-name">CsvHeader</span> <span class="token punctuation">{</span>
+  String<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">value<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>If you want your HTTP response to contain a CSV header row, annotate the stream element class with <code>@CsvHeader("COL_1", "COL_2", ...)</code>. Note that the restriction of this design is that an empty result set will not have the header row because I read this off the first instance in the Stream.</p>
+<p>To output a Stream as a JSON array, we can add a custom serializer to the Jackson-based JSON infrastructure offered by the Spring framework. This shows a factory method which will instantiate the standard Spring converter and add a Stream serializer to its <code>ObjectMapper</code>:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="10"><code class="  language-java" data-language="java"><span class="token keyword">private</span> MappingJackson2HttpMessageConverter <span class="token function">jackson2HttpMessageConverter<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  MappingJackson2HttpMessageConverter jackson <span class="token operator">=</span> 
+      <span class="token keyword">new</span> <span class="token class-name">MappingJackson2HttpMessageConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ObjectMapper om <span class="token operator">=</span> jackson<span class="token punctuation">.</span><span class="token function">getObjectMapper<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  JsonSerializer<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> streamSer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StdSerializer</span><span class="token operator">&lt;</span>Stream<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span>Stream<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    @Override <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">serialize<span class="token punctuation">(</span></span>
+        Stream<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;</span> stream<span class="token punctuation">,</span> JsonGenerator jgen<span class="token punctuation">,</span> SerializerProvider provider
+    <span class="token punctuation">)</span> <span class="token keyword">throws</span> IOException<span class="token punctuation">,</span> JsonGenerationException
+    <span class="token punctuation">{</span>
+      provider<span class="token punctuation">.</span><span class="token function">findValueSerializer<span class="token punctuation">(</span></span>Iterator<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">serialize<span class="token punctuation">(</span></span>stream<span class="token punctuation">.</span><span class="token function">iterator<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> jgen<span class="token punctuation">,</span> provider<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  om<span class="token punctuation">.</span><span class="token function">registerModule<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">SimpleModule</span><span class="token punctuation">(</span><span class="token string">"Streams API"</span><span class="token punctuation">,</span> <span class="token function">unknownVersion<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">asList<span class="token punctuation">(</span></span>streamSer<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> jackson<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>We register this with the framework the same way as shown above for the CSV converter:</p>
+<!--code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="11"><code class="  language-java" data-language="java">@Override
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configureMessageConverters<span class="token punctuation">(</span></span>List<span class="token operator">&lt;</span>HttpMessageConverter<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">&gt;&gt;</span> converters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  converters<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token function">jackson2HttpMessageConverter<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>A further possible option with XML/JSON is delivering a series of XML documents/JSON objects, each representing one row of data, instead of one large entity. This would help to simplify parsing, but it would be quite non-standard: for example, I am not aware of a standard MIME type for such content.</p>
+<h2 id="7-support-for-cursor-holdability-in-mainstream-database-jdbc-implementations">7 Support for cursor holdability in mainstream database/JDBC implementations</h2>
+<p>Each database has a different story for cursor holdability. Consult the below list to see how your target database fares:</p>
+<ul>
+<li>Oracle supports nothing <em>but</em> holdable cursors.</li>
+<li>MS SQL Server supports non-holdability, but prefers holdability.</li>
+<li>PostgreSQL implements holdability as an afterthought, copying the entire result set into a temporary area.</li>
+<li>PostgreSQL JDBC driver doesn't even make use of that afterthought: it creates a non-holdable cursor and eagerly prefetches the entire result set into JVM heap (so-called "client-side" cursor).</li>
+<li>MySQL flat-out does not support holdability.</li>
+</ul>
+<p>So, with MySQL you are out of luck and with PostgreSQL there is still an associated O(n) cost in heap usage. This may be improved if the protocol used by the JDBC driver (the "frontend/backend" protocol) is extended to support the creation of holdable cursors. In a typical scenario the allocation in the JDBC driver will be less than the allocation of DTOs in the service layer, but this concern must be kept in mind.</p>
+<h2 id="8-testing-it-out-with-visualgc">8 Testing it out with VisualGC</h2>
+<p>Let us now verify our theoretical predictions on a real system. For this I have used an existing Spring project; I chose a Stream-returning method and added another which is exactly the same in every respect, except it returns a List. The RESTful service responds with identical JSON in both cases. I also took care to disable the <code>OpenSessionInViewInterceptor</code> for the list-returning method to get the realistic setting for a project without holdable result sets. I used VisualVM and its VisualGC plugin to monitor the heap activity while the REST request was in progress.</p>
+<p>This is what the activity looks like with the list-returning method:</p>
+<p><img src="./Spring MVC  save memory with lazy streams in RESTful services_files/qVIIDBS.png" alt="image"></p>
+<p>First, let's spend some time getting to know all the panes here. On the left side are the Spaces — the regions of JVM memory. The diagrams reflect the current size and occupancy of each space. Ignore Metaspace (it's not a part of the heap); we have the Old generation as a monolithic block and the New generation divided into three parts: Eden, S0, and S1 (S stands for Survivor). </p>
+<p>Once an object reaches the Old generation, it's stuck there until a Major garbage collection cycle occurs (an expensive operation, "stopping the world" for at least half a second, often as much as 2 seconds). An important goal for application architecture is preventing objects from being "tenured" into the Old generation. </p>
+<p>New objects are born into the Eden space; when Eden is full, a Minor GC occurs (a very fast operation, could take under a millisecond). Live objects go to the current Survivor space (only one of S0 and S1 is "current" at any time). On the next Minor GC, the still-surviving objects are copied to the other Survivor space (which has become the "current" one at that point), together with those coming fresh from Eden. Objects surviving a few Minor GCs are finally tenured to the Old generation. Tenuring may also happen when running out of Survivor space.</p>
+<p>The right-hand pane shows the Graphs. For each item in the Space pane there is a corresponding item here (plus some more, which we shall not deal with), showing the history of its state. The state is updated at a chosen interval; these pictures were made using the highest setting (10 times per second).</p>
+<p>Let us focus on the Eden graph. The request started close to the left edge of the graph. The initial period was quiet: the database was preparing the result set. Then the transfer began and the allocation rate immediately surged to a very high level: the typical see-saw pattern shows the Eden being filled up to the top, a Minor GC occurring, Eden being evacuated, then again filling over just a few tenths of a second. </p>
+<p>Now follow along to the Survivor spaces: the very first Minor GC (the first dent in Eden's see-saw pattern) immediately filled Survivor 0 all the way to the top: a lot of objects are being retained. The next Minor GC copied the entire Survivor 0 to Survivor 1 (no survivors died in the meantime) and the new survivors from Eden had to overflow directly to the Old generation (that's the first step in the staircase pattern of the Old generation). </p>
+<p>The same sequence of events keeps going on for another five Minor GC cycles and the Old generation fills almost to the top. The Eden fills up again, but a Minor GC will not cut it anymore because there's no more room in the Old generation. So a Major GC hits in (recognizable by the thick slab in the GC Time graph). The result is only a partial cleanup within Eden; all the objects in the Old generation are still reachable. We are now on the verge of an out-of-memory event. </p>
+<p>Luckily, the response is now prepared and begins to be served to the client. Heap stays clogged up for the entire duration of the transfer of the HTTP response to the client. If any other HTTP requests arrive during this critical period, they will quite probably fail with an <code>OutOfMemoryError</code>.</p>
+<p>Now let's move on to the graphs for the stream-returning method:</p>
+<p><img src="./Spring MVC  save memory with lazy streams in RESTful services_files/naPJpo4.png" alt="image"></p>
+<p>The pattern is markedly different: the Old generation is a flat line (no objects are getting tenured); the Survivor spaces show partial occupancy; and the see-saw pattern in Eden has a significantly lower density, which means that the allocation rate is much lower. That's because objects are being allocated only as the client consumes the response, which means that the I/O transfer rate directly steers the Eden allocation rate. If other requests arrived while serving this one, the see-saw pattern would simply intensify; the Old generation would stay as flat as here.</p>
+<p>Also note the initial, gentler slope in Eden: I have performed my tests with PostgreSQL which, as explained, uses a "client-side" cursor when holdability is requested. This initial slope indicates data being transferred into the JDBC driver. Even though the rate of transfer in terms of rows per second is much higher than during the HTTP transfer, memory allocation rate is much lower. </p>
+<p>I specifically chose such a web service where the data volume in the HTTP response is much larger than in the database result set in order to suppress the effects of this particularity of PostgreSQL. The height of that gentler slope is exactly the height of the slabs in the Survivor spaces (the result set is retained by the JDBC driver throughout the response delivery phase).</p>
+<p>Finally, compare the Spaces panes on the two pictures above. Note how large the Survivor spaces are in the first picture: they grew in order to adapt to the high rate of object retention. I executed the same type of request about ten times before taking the screenshot, so the picture shows the steady state for that case. This arrangement is detrimental to overall performance because Minor GCs will happen more often with the shrunken Eden space.</p>
+<h2 id="9-conclusion">9 Conclusion</h2>
+<p>In this article we have both explained and experimentally confirmed the advantages of lazy streams applied to the MVC pattern in Spring RESTful services. Java 8 gives us an easy way to write code whose shape stays the same as with eager evaluation. Separation of concerns between layers is preserved and automatic parallelization is just a flick of a switch away. One caveat remains: do check the policy employed by your JDBC driver for holdable result sets. </p>
+<p>PostgreSQL's driver uses a client-side cursor, which in the worst case may entail more retention than in the case of eager evaluation. Even though that worst case is quite unlikely in practice (you would have to fetch more than you deliver to the client), it is something to keep an eye on. I will try to raise an issue with the PostgreSQL team to support native holdable cursors over JDBC.</p>
+
+
+      <div class="island ng-scope" ng-app="APLite" ng-strict-di="">
+        <nav id="side" class="collapse" side-nav="" style="top: 0px;"><header>
+  <img id="sideNavToggle" track-click="SideNav" data="Show" track-click-if="!session._id" ng-click="sideNav.toggle()" src="./Spring MVC  save memory with lazy streams in RESTful services_files/toggle.png">
+</header>
+
+<!-- ngIf: session.authenticated == false --><section class="welcome ng-scope" ng-if="session.authenticated == false">
+
+  <figure><a id="navWelcomeAvatar" track-click="SideNav" ng-click="openProfile()"><img class="avatar" ng-src="/v1/img/css/sidenav/default-cat.png" src="./Spring MVC  save memory with lazy streams in RESTful services_files/default-cat.png"></a></figure>
+
+  <ul class="main">
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope">Want your real face?</li><!-- end ngIf: !session.email -->
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope"><a id="navEditProfile" href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#" track-click="SideNav" ng-click="openProfile()">Edit your profile</a></li><!-- end ngIf: !session.email -->
+    <!-- ngIf: session.email -->
+    <!-- ngIf: session.email -->
+    <li>Already in the tribe?</li>
+    <li><a id="navLogin" href="https://www.airpair.com/v1/auth/login" track-click="SideNav">Login</a></li>
+    <li>Why join?</li>
+  </ul>
+  <a id="navAbout" track-click="SideNav" href="https://www.airpair.com/about" class="icon">
+    <span>Read about AirPair</span><img src="./Spring MVC  save memory with lazy streams in RESTful services_files/airpair.png">
+  </a>
+</section><!-- end ngIf: session.authenticated == false -->
+
+
+<!-- ngIf: session._id -->
+
+<!-- ngIf: session._id -->
+
+
+<section class="stack"> <label>Stack</label>
+  <ul>
+    <!-- ngRepeat: tag in session.tags | orderBy:'sort' -->
+  </ul>
+  <a id="navStackToggle" track-click="SideNav" href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#" ng-click="openStack()" class="icon">
+    <span>Customize</span><img src="./Spring MVC  save memory with lazy streams in RESTful services_files/stack.png"><i class="ng-binding">0</i>
+  </a>
+</section>
+
+
+<section class="bookmarks"> <label>Bookmarks</label>
+  <ul class="bookmarks">
+    <!-- ngRepeat: bookmark in session.bookmarks | orderBy:'sort' -->
+  </ul>
+  <a id="navBookmarksToggle" track-click="SideNav" href="https://www.airpair.com/java/posts/spring-streams-memory-efficiency?utm_term=spring-mvc-restful-java-8-streams&utm_content=buffer93542&utm_medium=social&utm_source=linkedin.com&utm_campaign=buffer#" ng-click="openBookmarks()" class="icon"><span> Manage </span> <img src="./Spring MVC  save memory with lazy streams in RESTful services_files/bookmark.png"><i class="ng-binding">0</i></a>
+</section>
+
+<div stack=""></div>
+</nav>
+
+
+        <div class="rail">
+          <div class="rail1CTA railCTA" style="top: 0px;">
+            <h6>Like this article?</h6>
+            <div>
+              <img src="./Spring MVC  save memory with lazy streams in RESTful services_files/84b1acc3351c02f560dea7ac7f76ac8d">
+              <p>Save this post to your bookmarks</p>
+              <div bookmarker="" type="post" class="bookmark ng-isolate-scope"><img class="bookmark" ng-click="bookmark(post._id)" ng-src="/v1/img/css/bookmark.png" src="./Spring MVC  save memory with lazy streams in RESTful services_files/bookmark(1).png">
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bodyCTA1 bodyCTA">
+        <h6>Want to keep track of more java posts on AirPair?</h6>
+        <div>
+          <a href="https://twitter.com/airpair" class="twitter-follow-button" data-show-count="true">Follow @airpair</a>
+
+        </div>
+      </div>
+
+      <div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Spring MVC  save memory with lazy streams in RESTful services_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 594px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+    </article>
+
+    <section id="posts" class="similar">
+      <hr>
+      <section id="allposts">
+        <h3>Similar posts<span><a href="https://www.airpair.com/posts" target="_self">Recent posts</a></span></h3>
+        <div class="posts recent">
+          <article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+  <a href="http://www.airpair.com/java/posts/spring-streams-memory-efficiency" title="Spring MVC: More Efficient RESTful Web Services Using Java Streams" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Spring MVC  save memory with lazy streams in RESTful services_files/OQK9mHx.png" align="left">
+      <span class="entry-categories">
+        
+          <em>java</em><br>
+
+          <em>spring</em><br>
+      </span>
+
+      <p class="entry-meta">
+
+
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Marko Topolnik</span>
+          <img class="entry-author-image" itemprop="image" src="./Spring MVC  save memory with lazy streams in RESTful services_files/84b1acc3351c02f560dea7ac7f76ac8d(1)" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2014-11-11T23:21:34.762Z">11 Nov, 2014</time>
+
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Spring MVC: More Efficient RESTful Web Services Using Java Streams</h2>
+      <p>Java expert Marko Topolnik shows how Java 8 Streams can be leveraged to improve the scalability of Spring-based RESTful Web Services.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+     <img class="bookmark bookmark545f350cb41f300b001f96b0" data-id="545f350cb41f300b001f96b0" data-type="post" src="./Spring MVC  save memory with lazy streams in RESTful services_files/bookmark(1).png" onclick="toggleBookmark(this)">
+
+  </footer>
+</article>
+<article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+  <a href="http://www.airpair.com/java/posts/parallel-processing-of-io-based-data-with-java-streams" title="Faster parallel processing in Java using Streams and a spliterator" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Spring MVC  save memory with lazy streams in RESTful services_files/OQK9mHx.png" align="left">
+      <span class="entry-categories">
+        
+          <em>java</em><br>
+      </span>
+
+      <p class="entry-meta">
+
+
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Marko Topolnik</span>
+          <img class="entry-author-image" itemprop="image" src="./Spring MVC  save memory with lazy streams in RESTful services_files/84b1acc3351c02f560dea7ac7f76ac8d(1)" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2014-09-24T07:50:26.681Z">24 Sep, 2014</time>
+
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Faster parallel processing in Java using Streams and a spliterator</h2>
+      <p>Java expert Marko Topolnik details a way to process I/O-based data much more efficiently using batched streams.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+     <img class="bookmark bookmark5421b892c22dd00b00142675" data-id="5421b892c22dd00b00142675" data-type="post" src="./Spring MVC  save memory with lazy streams in RESTful services_files/bookmark(1).png" onclick="toggleBookmark(this)">
+
+  </footer>
+</article>
+
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+</div>
+
+
+<script type="text/javascript" async="" src="./Spring MVC  save memory with lazy streams in RESTful services_files/mixpanel-2.2.min.js"></script><script type="text/javascript" async="" src="./Spring MVC  save memory with lazy streams in RESTful services_files/analytics.js"></script><script src="./Spring MVC  save memory with lazy streams in RESTful services_files/1713.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Spring MVC  save memory with lazy streams in RESTful services_files/embed.js"></script><script type="text/javascript" async="" src="./Spring MVC  save memory with lazy streams in RESTful services_files/post-widget.js"></script><script type="text/javascript" id="analytics-js" async="" src="./Spring MVC  save memory with lazy streams in RESTful services_files/analytics.min.js"></script><script type="text/javascript" src="./Spring MVC  save memory with lazy streams in RESTful services_files/index-6ac370be.js"></script>
+<script type="text/javascript">
+
+  function bindTracking() {
+    ga('send', 'pageview')
+
+    $.each($('.trackPostCTA'), function(idx,el){
+      $(el).click(function (e) {
+        analytics.track('Click', { type: 'Post CTA', unit: 'code footer', idx: idx, text: el.innerHTML, location: window.location.pathname });
+
+        setTimeout(function () {
+          window.location.href = $(el).attr('href');
+        }, 350);
+
+        return false;
+      });
+    })
+  }
+
+  function loadDisqus()
+  {
+    window.disqus_url = 'http://www.airpair.com/java/posts/spring-streams-memory-efficiency';
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = 'https://airpairblog.disqus.com/embed.js';
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(dsq, x);
+  }
+
+  $(function() {
+    pageHlpr.fixPostRail();
+    pageHlpr.highlightSyntax({ addCtrs: true });
+    pageHlpr.loadPoSt();
+    loadDisqus();
+  });
+
+
+  window.viewData = { post: { _id: '545f350cb41f300b001f96b0' } }
+
+</script>
+
+<script type="text/javascript">
+
+  window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+  window.analytics.load("0xxx5xrw5q");
+
+
+  window.analytics.ready(function() {
+
+    if (!window.bindTracking)
+      window.bindTracking = function() {};
+
+    var mixId = mixpanel.get_distinct_id()
+
+    var email = null;
+    var anonymousId = 'pUlk4txR-Bv5WBVTFgNCW8V97JkyxpIE';
+
+    //console.log('userEmail', email, 'mixId', mixId, 'anonymousId', anonymousId)
+
+    var ident = function() {
+      //console.log('identify', email || anonymousId)  //-- could be from a different session.
+      window.analytics.identify(email || anonymousId, { id: email || anonymousId });
+    }
+
+
+    // If they're signed in
+    if (email && mixId != email) ident()
+
+    // If they didn't already identify their email and log out
+    else if (mixId.indexOf("@") == -1 && anonymousId != mixId)
+    {
+      mixpanel.alias(anonymousId)
+      setTimeout(ident,200)
+    }
+
+    bindTracking();
+  });
+
+</script>
+
+<script type="text/javascript">
+adroll_adv_id = "XF634YIRAZHM5AG2HSQDII";
+adroll_pix_id = "RJLKZHU5IFD2NP5M3C6X35";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+
+<script type="text/javascript">setTimeout(function(){var a=document.createElement("script");var b=document.getElementsByTagName("script")[0];a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/1713.js?"+Math.floor(new Date().getTime()/3600000);a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+
+
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 834.5px; top: 3079px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 834.5px; top: 3248px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 834.5px; top: 4073px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 834.5px; top: 4530px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 834.5px; top: 5031px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 834.5px; top: 5447px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 834.5px; top: 6343px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 834.5px; top: 6759px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 834.5px; top: 7038px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 834.5px; top: 7307px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 834.5px; top: 7762px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 834.5px; top: 8191px; display: none;"></div></body></html>
