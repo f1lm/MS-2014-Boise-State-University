@@ -1,0 +1,20 @@
+var LGP_DEMS = 'country=US';
+var LGP_PROFILE = {"website_publication_id":"17","has_cookie":false,"dems":{"country":"US"},"subscriptions":[]}; 
+LGP_PROFILE.subscribedTo = function(pub) {
+    if (this.website_publication_id && this.signups) {
+      for (var k=0; k<this.signups.length; k++) {
+        if (this.website_publication_id === this.signups[k]) {
+          return true;
+        }
+      }
+    }
+    if (this.subscriptions) {
+      pub = pub.toLowerCase().replace(/\W+/,"");
+      for (var i=0; i<this.subscriptions.length; i++) {
+        if (this.subscriptions[i].toLowerCase().replace(/\W+/,"") === pub) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
