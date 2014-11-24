@@ -1,4 +1,4 @@
-{ fpc -oclosure2 closure2.p }
+{ fpc -oclosure2 closure2.p && ./closure2 }
 
 {$modeswitch nestedprocvars}
 

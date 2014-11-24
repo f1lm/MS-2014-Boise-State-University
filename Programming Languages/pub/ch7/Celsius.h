@@ -11,11 +11,11 @@ using namespace std;
 class Fahrenheit;
 
 class Celsius {
+  int c;
 public:
   Celsius(int c);
   operator Fahrenheit();
   friend ostream& operator<<(ostream &os, const Celsius& o);
-private: int c;
 };
 
 #endif

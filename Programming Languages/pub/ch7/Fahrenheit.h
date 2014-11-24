@@ -9,11 +9,11 @@ class Fahrenheit;
 using namespace std;
 
 class Fahrenheit {
+  int f;
 public:
   Fahrenheit(int f);
   operator Celsius();
   friend ostream& operator<<(ostream &os, const Fahrenheit& o);
-private: int f;
 };
 
 #endif
