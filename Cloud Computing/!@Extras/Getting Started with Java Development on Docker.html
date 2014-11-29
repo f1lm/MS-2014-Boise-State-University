@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<!-- saved from url=(0130)http://blog.giantswarm.io/getting-started-with-java-development-on-docker?utm_content=9971642&utm_medium=social&utm_source=twitter -->
+<html class="no-js" lang="en"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>a#cta_button_430224_86cf521f-fd16-4e4f-9e14-00b5e388b77e {
+  -webkit-font-smoothing:antialiased !important; 
+  cursor:pointer !important; 
+  -moz-user-select:none !important; 
+  -webkit-user-select:none !important; 
+  -o-user-select:none !important; 
+  user-select:none !important; 
+  display:inline-block !important; 
+  font-weight:bold !important; 
+  text-align:center !important; 
+  text-decoration:none !important; 
+  font-family:sans-serif !important; 
+  border-radius:6px !important; 
+  background-color:rgb(53,116,227) !important; 
+  background-image:-webkit-linear-gradient(top, rgb(53,116,227), rgb(39,87,170)) !important; 
+  background-image :-moz-linear-gradient(top, rgb(53,116,227), rgb(39,87,170)) !important; 
+  box-shadow:inset 0px 1px rgb(66,145,255) !important; 
+  -webkit-box-shadow:inset 0px 1px rgb(66,145,255) !important; 
+  -moz-box-shadow:inset 0px 1px rgb(66,145,255) !important; 
+  color:rgb(255, 255, 255) !important; 
+  border:2px solid rgb(26,58,113) !important; 
+  text-shadow:0px -1px rgb(15,34,68) !important; 
+  line-height:1.5em !important; 
+  padding:6px 18px !important; 
+}
+a#cta_button_430224_86cf521f-fd16-4e4f-9e14-00b5e388b77e:hover {
+background-color:rgb(58,127,249) !important; 
+background-image:-webkit-linear-gradient(top, rgb(58,127,249), rgb(39,87,170)) !important; 
+background-image :-moz-linear-gradient(top, rgb(58,127,249), rgb(39,87,170)) !important; 
+box-shadow:inset 0px 1px rgb(71,156,255), 0px 1px 8px rgba(0, 0, 0, 0.3) !important; 
+-webkit-box-shadow:inset 0px 1px rgb(71,156,255), 0px 1px 8px rgba(0, 0, 0, 0.3) !important; 
+-moz-box-shadow:inset 0px 1px rgb(71,156,255), 0px 1px 8px rgba(0, 0, 0, 0.3) !important; 
+color:rgb(255,255,255) !important; 
+border:2px solid rgb(31,69,136) !important; 
+}
+a#cta_button_430224_86cf521f-fd16-4e4f-9e14-00b5e388b77e:active, #cta_button_430224_86cf521f-fd16-4e4f-9e14-00b5e388b77e:active:hover {
+background-color:rgb(39,87,170) !important; 
+background-image:-webkit-linear-gradient(top, rgb(39,87,170), rgb(53,116,227)) !important; 
+background-image :-moz-linear-gradient(top, rgb(39,87,170), rgb(53,116,227)) !important; 
+box-shadow:inset 0px 1px 10px rgba(0, 0, 0, 0.5) !important; 
+-webkit-box-shadow:inset 0px 1px 10px rgba(0, 0, 0, 0.5) !important; 
+-moz-box-shadow:inset 0px 1px 10px rgba(0, 0, 0, 0.5) !important; 
+color:rgb(244,244,244) !important; 
+}
+
+</style><script src="./Getting Started with Java Development on Docker_files/cb=gapi.loaded_1" async=""></script><script src="./Getting Started with Java Development on Docker_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./Getting Started with Java Development on Docker_files/analytics.js"></script><script async="" src="./Getting Started with Java Development on Docker_files/fbds.js"></script><script id="twitter-wjs" src="./Getting Started with Java Development on Docker_files/widgets.js"></script><script type="text/javascript" async="" src="./Getting Started with Java Development on Docker_files/platform.js" gapi_processed="true"></script><script id="facebook-jssdk" src="./Getting Started with Java Development on Docker_files/all.js"></script><script id="hs-analytics" src="./Getting Started with Java Development on Docker_files/430224.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Giant Swarm GmbH">
+    <meta name="description" content="Introduction to Java Development on Docker using an example with Spark and Maven ">
+    <meta name="generator" content="HubSpot">
+    <title>Getting Started with Java Development on Docker</title>
+    <link rel="shortcut icon" href="http://cdn2.hubspot.net/hub/430224/file-1614352382-ico/favicon32.ico?t=1416843886395">
+
+    
+    
+    <script async="" src="./Getting Started with Java Development on Docker_files/gtm.js"></script><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/jquery-1.7.1.js"></script><style type="text/css"></style>
+    <script type="text/javascript">hsjQuery = window['jQuery']</script>
+    <link href="http://static.hsstatic.net/content_shared_assets/static-1.3867/css/public_common.css" rel="stylesheet">
+    <meta property="og:description" content="Introduction to Java Development on Docker using an example with Spark and Maven ">
+    <meta property="og:title" content="Getting Started with Java Development on Docker">
+    <meta name="twitter:description" content="Introduction to Java Development on Docker using an example with Spark and Maven ">
+    <meta name="twitter:title" content="Getting Started with Java Development on Docker">
+
+
+    <!--[if lt IE 9]>
+    <script src="https://static.hsstatic.net/content_shared_assets/static-1.3867/js/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width">
+
+<!-- Google Tag Manager -->
+<noscript></noscript><script src="./Getting Started with Java Development on Docker_files/secureAnonymousFramework"></script><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">* html #li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link{height:1% !important;}#li_ui_li_gen_1416963195063_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1416963195063_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link:link, #li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link:visited, #li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link:hover, #li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1416963195063_0 a#li_ui_li_gen_1416963195063_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-logo, #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-logo{}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title, #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title{}.IN-shadowed #li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title{}.IN-shadowed #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title, .IN-shadowed #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title{}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text, #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title-text, #li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title-text *{color:#000 !important;}#li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title-text, #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title-text, #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title-text *, #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title-text *{color:#666 !important;}#li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title #li_ui_li_gen_1416963195063_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text, .success #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1416963195063_0 #li_ui_li_gen_1416963195063_0-title{}.success #li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title-text, .success #li_ui_li_gen_1416963195063_0.hovered #li_ui_li_gen_1416963195063_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title, .success #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title-text, .success #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title-text, .success #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title-text *, .success #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1416963195063_0.clicked #li_ui_li_gen_1416963195063_0-title, .IN-shadowed .success #li_ui_li_gen_1416963195063_0.down #li_ui_li_gen_1416963195063_0-title{}#li_ui_li_gen_1416963195074_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1416963195074_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1416963195074_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1416963195074_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1416963195074_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1416963195074_1-container.IN-hidden #li_ui_li_gen_1416963195074_1 {display:none !important;}</style><style type="text/css">.hs-form fieldset{border:0;padding:0;margin:0;max-width:500px}.hs-form fieldset.form-columns-1 .hs-input{width:95%}.hs-form fieldset.form-columns-1 .input{margin-right:8px}.hs-form fieldset.form-columns-1 input[type=checkbox],.hs-form fieldset.form-columns-1 input[type=radio]{width:auto}.hs-form fieldset.form-columns-2 .hs-form-field{width:50%;float:left}.hs-form fieldset.form-columns-2 .input{margin-right:8px}.hs-form fieldset.form-columns-3 .hs-form-field{width:32.7%;float:left}.hs-form fieldset.form-columns-3 .input{margin-right:8px}.hsformerror{margin:0 0 2px;padding:2px 6px;height:auto;background-color:#fdd2d0;font-size:11px;border:1px solid #fcb3af;padding:4px 16px 4px 10px;color:#000;display:none;background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmVmZSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZkZDJkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);background-size:100%;background-image:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#fefefe),color-stop(100%,#fdd2d0));background-image:-moz-linear-gradient(#fefefe,#fdd2d0);background-image:-webkit-linear-gradient(#fefefe,#fdd2d0);background-image:linear-gradient(#fefefe,#fdd2d0);-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;-moz-box-shadow:0 0 6px #ddd;-webkit-box-shadow:0 0 6px #ddd;box-shadow:0 0 6px #ddd;z-index:99999}.hsformerror em{border:10px solid;border-color:#fdd2d0 transparent transparent;bottom:-17px;display:block;height:0;left:60px;position:absolute;width:0}.hsformerror p{font-family:Lucida Grande,Lucida Sans Unicode,bitstream vera sans,trebuchet ms,verdana,sans-serif;margin:0;float:left;margin-right:8px}.hsformerror:hover{cursor:default}.hsformerror .close-form-error{float:right;display:inline;top:3px;position:absolute;font-family:Verdana!important;color:#b17c79!important;cursor:pointer!important;font-size:11px!important;font-weight:400!important}.hsformerror .close-form-error:hover{color:#cc8884}#calroot{z-index:10000;margin-top:-1px;width:198px;padding:2px;background-color:#fff;font-size:11px;border:1px solid #ccc;-moz-border-radius:5px;-webkit-border-radius:5px;-moz-box-shadow:0 0 15px #666;-webkit-box-shadow:0 0 15px #666}#calroot p,#calroot div,#calroot a{font-family:Lucida Grande,Lucida Sans Unicode,bitstream vera sans,trebuchet ms,verdana,sans-serif}#calroot #calhead{padding:2px 0;height:22px}#calroot #caltitle{font-size:14px;color:#0150D1;float:left;text-align:center;width:155px;line-height:20px;text-shadow:0 1px 0 #ddd}#calroot #calnext,#calroot #calprev{display:block;margin:5px 7px;width:0;height:0;float:left;cursor:pointer}#calroot #calnext{float:right;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:5px solid #666}#calroot #calprev{border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:5px solid #666}#calroot #calprev.caldisabled,#calroot #calnext.caldisabled{visibility:hidden}#calroot #caltitle select{font-size:10px}#calroot #caldays{height:14px;border-bottom:1px solid #ddd}#calroot #caldays span{display:block;float:left;width:28px;text-align:center}#calroot #calweeks{background-color:#fff;margin-top:4px}#calroot .calweek{clear:left;height:22px}#calroot .calweek a{display:block;float:left;width:27px;height:20px;text-decoration:none;font-size:11px;margin-left:1px;text-align:center;line-height:20px;color:#666;-moz-border-radius:3px;-webkit-border-radius:3px}#calroot .calweek a:hover{background-color:#ddd}#calroot .calfocus{background-color:#ddd}#calroot a.calsun{color:red}#calroot a.caloff{color:#ccc}#calroot a.caloff:hover{background-color:#f5f5fa}#calroot a.caldisabled{background-color:#efefef!important;color:#ccc!important;cursor:default}#calroot #calcurrent{background-color:#498CE2;color:#fff}#calroot #caltoday{background-color:#333;color:#fff}@media (max-width:400px),(min-device-width:320px) and (max-device-width:480px){form.hs-form .form-columns-2 .hs-form-field,form.hs-form .form-columns-3 .hs-form-field{float:none;width:100%}form.hs-form .form-columns-2 .hs-form-field .hs-input,form.hs-form .form-columns-3 .hs-form-field .hs-input{width:95%}}</style><style type="text/css">.comment-reply-to{background:url(https://static2cdn.hubspot.com/pictos_images/static-1.6/img/pictos-1-png/16/pictos-set1-21.png) no-repeat 5px;border:0;padding-left:25px;color:#333}.replying{padding-left:2em}.comment-from,.comment-date{display:inline-block}.comment-from h4{font-size:1.2em;font-weight:700}.comment-date{font-size:.8em;color:#666}#comment-form h4{font-size:1.4em}.comment.depth-0{border-top:2px solid #eee;padding-top:2em;margin-top:2em}.comment.depth-0:first-child{margin-top:0}.comment.depth-1{padding-left:2em}.comment.depth-2{padding-left:4em}.comment.depth-3{padding-left:6em}.comment.depth-4{padding-left:8em}.comment.depth-5{padding-left:10em}.comment.depth-6{padding-left:12em}.comment.depth-7{padding-left:14em}.comment.depth-8{padding-left:16em}.comment.depth-9{padding-left:18em}.shuffle{display:none}.hs_subscribe ul{padding-left:0}.hs_subscribe li{list-style:none}</style><script type="text/javascript" async="" src="./Getting Started with Java Development on Docker_files/loader-v2.js"></script><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/challenge"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style><style type="text/css">.your-custom-css {background-color: #fe7722}.hs-form fieldset{border:0;padding:0;margin:0;max-width:500px}.hs-form fieldset.form-columns-1 .hs-input{width:95%}.hs-form fieldset.form-columns-1 .input{margin-right:8px}.hs-form fieldset.form-columns-1 input[type=checkbox],.hs-form fieldset.form-columns-1 input[type=radio]{width:auto}.hs-form fieldset.form-columns-2 .hs-form-field{width:50%;float:left}.hs-form fieldset.form-columns-2 .input{margin-right:8px}.hs-form fieldset.form-columns-3 .hs-form-field{width:32.7%;float:left}.hs-form fieldset.form-columns-3 .input{margin-right:8px}.hsformerror{margin:0 0 2px;padding:2px 6px;height:auto;background-color:#fdd2d0;font-size:11px;border:1px solid #fcb3af;padding:4px 16px 4px 10px;color:#000;display:none;background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmVmZSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZkZDJkMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==);background-size:100%;background-image:-webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,#fefefe),color-stop(100%,#fdd2d0));background-image:-moz-linear-gradient(#fefefe,#fdd2d0);background-image:-webkit-linear-gradient(#fefefe,#fdd2d0);background-image:linear-gradient(#fefefe,#fdd2d0);-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;-moz-box-shadow:0 0 6px #ddd;-webkit-box-shadow:0 0 6px #ddd;box-shadow:0 0 6px #ddd;z-index:99999}.hsformerror em{border:10px solid;border-color:#fdd2d0 transparent transparent;bottom:-17px;display:block;height:0;left:60px;position:absolute;width:0}.hsformerror p{font-family:Lucida Grande,Lucida Sans Unicode,bitstream vera sans,trebuchet ms,verdana,sans-serif;margin:0;float:left;margin-right:8px}.hsformerror:hover{cursor:default}.hsformerror .close-form-error{float:right;display:inline;top:3px;position:absolute;font-family:Verdana!important;color:#b17c79!important;cursor:pointer!important;font-size:11px!important;font-weight:400!important}.hsformerror .close-form-error:hover{color:#cc8884}#calroot{z-index:10000;margin-top:-1px;width:198px;padding:2px;background-color:#fff;font-size:11px;border:1px solid #ccc;-moz-border-radius:5px;-webkit-border-radius:5px;-moz-box-shadow:0 0 15px #666;-webkit-box-shadow:0 0 15px #666}#calroot p,#calroot div,#calroot a{font-family:Lucida Grande,Lucida Sans Unicode,bitstream vera sans,trebuchet ms,verdana,sans-serif}#calroot #calhead{padding:2px 0;height:22px}#calroot #caltitle{font-size:14px;color:#0150D1;float:left;text-align:center;width:155px;line-height:20px;text-shadow:0 1px 0 #ddd}#calroot #calnext,#calroot #calprev{display:block;margin:5px 7px;width:0;height:0;float:left;cursor:pointer}#calroot #calnext{float:right;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:5px solid #666}#calroot #calprev{border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:5px solid #666}#calroot #calprev.caldisabled,#calroot #calnext.caldisabled{visibility:hidden}#calroot #caltitle select{font-size:10px}#calroot #caldays{height:14px;border-bottom:1px solid #ddd}#calroot #caldays span{display:block;float:left;width:28px;text-align:center}#calroot #calweeks{background-color:#fff;margin-top:4px}#calroot .calweek{clear:left;height:22px}#calroot .calweek a{display:block;float:left;width:27px;height:20px;text-decoration:none;font-size:11px;margin-left:1px;text-align:center;line-height:20px;color:#666;-moz-border-radius:3px;-webkit-border-radius:3px}#calroot .calweek a:hover{background-color:#ddd}#calroot .calfocus{background-color:#ddd}#calroot a.calsun{color:red}#calroot a.caloff{color:#ccc}#calroot a.caloff:hover{background-color:#f5f5fa}#calroot a.caldisabled{background-color:#efefef!important;color:#ccc!important;cursor:default}#calroot #calcurrent{background-color:#498CE2;color:#fff}#calroot #caltoday{background-color:#333;color:#fff}@media (max-width:400px),(min-device-width:320px) and (max-device-width:480px){form.hs-form .form-columns-2 .hs-form-field,form.hs-form .form-columns-3 .hs-form-field{float:none;width:100%}form.hs-form .form-columns-2 .hs-form-field .hs-input,form.hs-form .form-columns-3 .hs-form-field .hs-input{width:95%}}</style><script type="text/javascript" charset="UTF-8" src="./Getting Started with Java Development on Docker_files/x4vu_i36O8Q_egs9aEZLmGoLuyQqGeKoFG0uEPCNQoQ.js"></script><style type="text/css">.recaptchatable td img{display:block}.recaptchatable .recaptcha_r1_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') 0 -63px no-repeat;width:318px;height:9px}.recaptchatable .recaptcha_r2_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -18px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r2_c2{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -27px 0 no-repeat;width:9px;height:57px}.recaptchatable .recaptcha_r3_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') 0 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r3_c2{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -18px -57px no-repeat;width:300px;height:6px}.recaptchatable .recaptcha_r3_c3{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -9px 0 no-repeat;width:9px;height:63px}.recaptchatable .recaptcha_r4_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -43px 0 no-repeat;width:171px;height:49px}.recaptchatable .recaptcha_r4_c2{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -36px 0 no-repeat;width:7px;height:57px}.recaptchatable .recaptcha_r4_c4{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -214px 0 no-repeat;width:97px;height:57px}.recaptchatable .recaptcha_r7_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -43px -49px no-repeat;width:171px;height:8px}.recaptchatable .recaptcha_r8_c1{background:url('http://www.google.com/recaptcha/api/img/white/sprite.png') -43px -49px no-repeat;width:25px;height:8px}.recaptchatable .recaptcha_image_cell center img{height:57px}.recaptchatable .recaptcha_image_cell center{height:57px}.recaptchatable .recaptcha_image_cell{background-color:white;height:57px}#recaptcha_area,#recaptcha_table{width:318px!important}.recaptchatable,#recaptcha_area tr,#recaptcha_area td,#recaptcha_area th{margin:0!important;border:0!important;padding:0!important;border-collapse:collapse!important;vertical-align:middle!important}.recaptchatable *{margin:0;padding:0;border:0;font-family:helvetica,sans-serif;font-size:8pt;color:black;position:static;top:auto;left:auto;right:auto;bottom:auto}.recaptchatable #recaptcha_image{position:relative;margin:auto}.recaptchatable #recaptcha_image #recaptcha_challenge_image{display:block}.recaptchatable #recaptcha_image #recaptcha_ad_image{display:block;position:absolute;top:0}.recaptchatable img{border:0!important;margin:0!important;padding:0!important}.recaptchatable a,.recaptchatable a:hover{cursor:pointer;outline:none;border:0!important;padding:0!important;text-decoration:none;color:blue;background:none!important;font-weight:normal}.recaptcha_input_area{position:relative!important;width:153px!important;height:45px!important;margin-left:7px!important;margin-right:7px!important;background:none!important}.recaptchatable label.recaptcha_input_area_text{margin:0!important;padding:0!important;position:static!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;background:none!important;height:auto!important;width:auto!important}.recaptcha_theme_red label.recaptcha_input_area_text,.recaptcha_theme_white label.recaptcha_input_area_text{color:black!important}.recaptcha_theme_blackglass label.recaptcha_input_area_text{color:white!important}.recaptchatable #recaptcha_response_field{width:153px!important;position:relative!important;bottom:7px!important;padding:0!important;margin:15px 0 0 0!important;font-size:10pt}.recaptcha_theme_blackglass #recaptcha_response_field,.recaptcha_theme_white #recaptcha_response_field{border:1px solid gray}.recaptcha_theme_red #recaptcha_response_field{border:1px solid #cca940}.recaptcha_audio_cant_hear_link{font-size:7pt;color:black}.recaptchatable{line-height:1!important}#recaptcha_instructions_error{color:red!important}.recaptcha_only_if_privacy{float:right;text-align:right}#recaptcha-ad-choices{position:absolute;height:15px;top:0;right:0}#recaptcha-ad-choices img{height:15px}.recaptcha-ad-choices-collapsed{width:30px;height:15px;display:block}.recaptcha-ad-choices-expanded{width:75px;height:15px;display:none}#recaptcha-ad-choices:hover .recaptcha-ad-choices-collapsed{display:none}#recaptcha-ad-choices:hover .recaptcha-ad-choices-expanded{display:block}
+
+.recaptcha_is_showing_audio .recaptcha_only_if_image,.recaptcha_isnot_showing_audio .recaptcha_only_if_audio,.recaptcha_had_incorrect_sol .recaptcha_only_if_no_incorrect_sol,.recaptcha_nothad_incorrect_sol .recaptcha_only_if_incorrect_sol{display:none !important}</style><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/reload"></script></head><body class="  hs-content-id-2047830161 hs-blog-post hs-content-path-getting-started-with-java-development-on-docker hs-content-name-getting-started-with-java-development-on-docker hs-blog-name-giant-swarm-blog hs-blog-id-1452010059" style="" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true"><iframe src="./Getting Started with Java Development on Docker_files/ns.html" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PKX87P');</script>
+<!-- End Google Tag Manager -->
+
+<meta property="og:image" content="http://cdn2.hubspot.net/hub/430224/file-2051050612-png/blog_images/articles/Java_Development_Docker.png#keepProtocol">
+<meta name="twitter:image:src" content="http://cdn2.hubspot.net/hub/430224/file-2051050612-png/blog_images/articles/Java_Development_Docker.png#keepProtocol">
+<meta name="twitter:creator" content="@luebken">
+
+<link rel="canonical" href="http://blog.giantswarm.io/getting-started-with-java-development-on-docker">
+
+<meta property="og:type" content="article">
+<link rel="alternate" type="application/rss+xml" href="http://blog.giantswarm.io/rss.xml">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:domain" content="blog.giantswarm.io">
+<meta name="twitter:site" content="@giantswarm">
+
+<link href="http://cdn2.hubspot.net/hub/-1/hub_generated/style_manager/1414174168696/hubspot_default/shared/responsive/layout.min.css" rel="stylesheet">
+<link href="http://cdn2.hubspot.net/hub/430224/hub_generated/style_manager/1412183499907/custom/styles/default/hs_default_custom_style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://cdn2.hubspot.net/hub/430224/hub_generated/style_manager/1411643526057/custom/page/GiantSwarm-Sep2014-theme/GiantSwarm-Sep2014-style.min.css">
+<link rel="stylesheet" href="http://cdn2.hubspot.net/hub/430224/hub_generated/style_manager/1412683549969/custom/page/web_page_basic/giantswarm_column_right.min.css">
+
+
+    <!-- The style tag has been deprecated. Attached stylesheets are included in the required_head_tags page variable. -->
+
+
+
+
+    <div class="header-container-wrapper">
+    <div class="header-container container-fluid">
+
+        <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+        <div class="row-fluid ">
+            <div class="span12 widget-span widget-type-cell header-container" style="" data-widget-type="cell" data-x="0" data-w="12">
+
+                <div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+                <div class="row-fluid ">
+                    <div class="span4 widget-span widget-type-rich_text blog_logo" style="" data-widget-type="rich_text" data-x="0" data-w="4">
+                        <div class="cell-wrapper layout-widget-wrapper">
+                            <span id="hs_cos_wrapper_module_14101850272711596" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><img src="./Getting Started with Java Development on Docker_files/giantswarm_blog.png" alt="giantswarm_blog"></span>
+                        </div><!--end layout-widget-wrapper -->
+                    </div><!--end widget-span -->
+                    <div class="span4 widget-span widget-type-linked_image giantswarm-logo-img" style="text-align: center;" data-widget-type="linked_image" data-x="4" data-w="4">
+                        <div class="cell-wrapper layout-widget-wrapper">
+                            <span id="hs_cos_wrapper_module_14107882489124832" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_linked_image" style="" data-hs-cos-general-type="widget" data-hs-cos-type="linked_image"><a href="http://giantswarm.io/" id="hs-link-module_14107882489124832" style="border-width:0px;border:0px;"><img src="./Getting Started with Java Development on Docker_files/logo_blog.png" class="hs-image-widget " style="width:304px;border-width:0px;border:0px;" width="304" alt="logo_blog.png" title="logo_blog.png"></a></span>
+                        </div><!--end layout-widget-wrapper -->
+                    </div><!--end widget-span -->
+                    <div class="span4 widget-span widget-type-menu " style="" data-widget-type="menu" data-x="8" data-w="4">
+                        <div class="cell-wrapper layout-widget-wrapper">
+                            <span id="hs_cos_wrapper_module_14103597888344960" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="widget" data-hs-cos-type="menu"><div id="hs_menu_wrapper_module_14103597888344960" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" data-sitemap-name="blog_navi">
+ <ul>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="http://giantswarm.io/">Start</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="http://blog.giantswarm.io/">Blog</a></li>
+  <li class="hs-menu-item hs-menu-depth-1"><a href="http://giantswarm.io/contact/">Contact</a></li>
+ </ul>
+</div></span>
+                        </div><!--end layout-widget-wrapper -->
+                    </div><!--end widget-span -->
+                </div><!--end row-->
+                </div><!--end row-wrapper -->
+            </div><!--end widget-span -->
+    </div><!--end row-->
+    </div><!--end row-wrapper -->
+
+    </div><!--end header -->
+</div><!--end header wrapper -->
+
+<div class="body-container-wrapper">
+    <div class="body-container container-fluid">
+
+        <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+        <div class="row-fluid ">
+            <div class="span9 widget-span widget-type-cell span9" style="" data-widget-type="cell" data-x="0" data-w="9">
+
+                <div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+                <div class="row-fluid ">
+                    <div class="span12 widget-span widget-type-blog_content " style="" data-widget-type="blog_content" data-x="0" data-w="12">
+<div class="blog-section">
+    <div class="blog-post-wrapper cell-wrapper">
+        <div class="section post-header">
+            <h2>
+                <a href="http://blog.giantswarm.io/getting-started-with-java-development-on-docker" id="hubspot-name" class="link hubspot-editable" data-hubspot-form-id="name" data-hubspot-name="Blog Title"><span id="hs_cos_wrapper_name" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="text">Getting Started with Java Development on Docker</span></a>
+            </h2>
+            <p id="hubspot-author_data" class="hubspot-editable" data-hubspot-form-id="author_data" data-hubspot-name="Blog Author">
+                    
+                        Nov 7, 2014 12:02:45 PM by <a class="author-link" href="http://blog.giantswarm.io/author/matthias-l-uuml-bken">Matthias Lübken</a>
+                    
+            </p>
+        </div>
+        <div class="section post-body">
+            <span id="hs_cos_wrapper_post_body" class="hs_cos_wrapper hs_cos_wrapper_meta_field hs_cos_wrapper_type_rich_text" style="" data-hs-cos-general-type="meta_field" data-hs-cos-type="rich_text"><p>This week <a href="https://twitter.com/teemow/status/529220516998316032" target="_blank">Anna</a>, <a href="https://twitter.com/zeisss_public" target="_blank">Stephan</a>, <a href="https://twitter.com/aschmidt75/status/529280430454079489" target="_blank">Timo</a> and <a href="https://twitter.com/aschmidt75/status/529219622697185280" target="_blank">myself</a> were at <a href="http://wjax.de/" target="_blank">W-Jax</a> a big conference in Munich on enterprise technologies and especially Java. The interest in Docker and Giant Swarm was astonishing. One question that came up quite often was: How do I get started with Java development on Docker? Personally, I'm a friend of small examples - leveraging a minimal framework with a couple of files and off you go. Unfortunately this is hard to find in the Java world, since most examples require some sort of IDE and deep knowledge in the appropriate web framework. With this article I try to fill this gap. It gets you started with Docker and Java with minimal overhead and upfront knowledge.<!--more--></p>
+<h2><span><span>The Setup</span></span></h2>
+<p><span><span>There are tons of Java web stacks and we are not picking sides here. But we wanted a very minimal framework and chose Spark, a tiny Sinatra inspired framework for Java 8. If you look at the documentation of Spark it uses Maven as its build tool.</span></span></p>
+<div><img src="./Getting Started with Java Development on Docker_files/Java_Development_Docker.png" alt="Java_Development_Docker" title="Java_Development_Docker" width="800" style="width: 800px; display: block; margin-left: auto; margin-right: auto;"></div>
+<p><span><span>In our example we will leverage Maven and Docker’s layered file system to install everything from scratch and at the same time have small turn around times when recompiling changes.</span></span></p>
+<p><span><span>So the prerequisites you need: no Java, no Maven, just Docker. Crazy, eh? ;-)</span></span></p>
+<h2><span><span>The Source and Config Files</span></span></h2>
+<p><span><span>For our example you have to add three files:</span></span></p>
+<ul>
+<li><span><span>The Maven config: pom.xml</span></span></li>
+<li><span><span>A Java class: Hello.java</span></span></li>
+<li><span><span>The Dockerfile</span></span></li>
+</ul>
+<p><span><span>The TL;DR readers who can’t wait, can just clone this repo:</span></span></p>
+<p><span><span><a href="https://github.com/giantswarm/sparkexample">https://github.com/giantswarm/sparkexample</a></span></span></p>
+<p><span><span>For the rest we will go into some detail on the structure of these three files below. You can also go through the ASCII cast for&nbsp;</span></span>a quick overview:</p>
+<p>
+<script id="asciicast-13671" src="./Getting Started with Java Development on Docker_files/13671.js" async="" type="text/javascript"></script><div id="asciicast-container-13671" class="asciicast" style="display: block; float: none; overflow: hidden; padding: 0px; margin: 20px 0px;"><iframe src="./Getting Started with Java Development on Docker_files/13671.html" id="asciicast-iframe-13671" name="asciicast-iframe-13671" scrolling="no" allowfullscreen="true" style="overflow: hidden; margin: 0px; border: 0px; display: inline-block; width: 705px; float: none; visibility: visible; height: 499px;"></iframe></div>
+</p>
+<h2><span><span>pom.xml</span></span></h2>
+<p><span><span>The pom.xml contains a very basic Maven configuration. It configures the Spark dependencies using a Java 1.8 compiler and creates a fat jar with all the dependencies. I'm in no way a Maven expert so pull requests to make this example simpler and more streamlined are more than welcome.</span></span></p>
+<p><span><span>
+<script src="./Getting Started with Java Development on Docker_files/47e4befe7a402ebdfe32.js" type="text/javascript"></script><link rel="stylesheet" href="https://gist-assets.github.com/assets/embed-e65f76999671dabc47e697590ecf8c45.css"></span></span></p><div id="gist15754553" class="gist">
+        <div class="gist-file">
+          <div class="gist-data gist-syntax">
+            
+
+
+
+    <div class="file-data">
+      <table cellpadding="0" cellspacing="0" class="lines highlight">
+        <tbody><tr>
+          <td class="line-numbers">
+            <span class="line-number" id="file-pom-xml-L1" rel="file-pom-xml-L1">1</span>
+            <span class="line-number" id="file-pom-xml-L2" rel="file-pom-xml-L2">2</span>
+            <span class="line-number" id="file-pom-xml-L3" rel="file-pom-xml-L3">3</span>
+            <span class="line-number" id="file-pom-xml-L4" rel="file-pom-xml-L4">4</span>
+            <span class="line-number" id="file-pom-xml-L5" rel="file-pom-xml-L5">5</span>
+            <span class="line-number" id="file-pom-xml-L6" rel="file-pom-xml-L6">6</span>
+            <span class="line-number" id="file-pom-xml-L7" rel="file-pom-xml-L7">7</span>
+            <span class="line-number" id="file-pom-xml-L8" rel="file-pom-xml-L8">8</span>
+            <span class="line-number" id="file-pom-xml-L9" rel="file-pom-xml-L9">9</span>
+            <span class="line-number" id="file-pom-xml-L10" rel="file-pom-xml-L10">10</span>
+            <span class="line-number" id="file-pom-xml-L11" rel="file-pom-xml-L11">11</span>
+            <span class="line-number" id="file-pom-xml-L12" rel="file-pom-xml-L12">12</span>
+            <span class="line-number" id="file-pom-xml-L13" rel="file-pom-xml-L13">13</span>
+            <span class="line-number" id="file-pom-xml-L14" rel="file-pom-xml-L14">14</span>
+            <span class="line-number" id="file-pom-xml-L15" rel="file-pom-xml-L15">15</span>
+            <span class="line-number" id="file-pom-xml-L16" rel="file-pom-xml-L16">16</span>
+            <span class="line-number" id="file-pom-xml-L17" rel="file-pom-xml-L17">17</span>
+            <span class="line-number" id="file-pom-xml-L18" rel="file-pom-xml-L18">18</span>
+            <span class="line-number" id="file-pom-xml-L19" rel="file-pom-xml-L19">19</span>
+            <span class="line-number" id="file-pom-xml-L20" rel="file-pom-xml-L20">20</span>
+            <span class="line-number" id="file-pom-xml-L21" rel="file-pom-xml-L21">21</span>
+            <span class="line-number" id="file-pom-xml-L22" rel="file-pom-xml-L22">22</span>
+            <span class="line-number" id="file-pom-xml-L23" rel="file-pom-xml-L23">23</span>
+            <span class="line-number" id="file-pom-xml-L24" rel="file-pom-xml-L24">24</span>
+            <span class="line-number" id="file-pom-xml-L25" rel="file-pom-xml-L25">25</span>
+            <span class="line-number" id="file-pom-xml-L26" rel="file-pom-xml-L26">26</span>
+            <span class="line-number" id="file-pom-xml-L27" rel="file-pom-xml-L27">27</span>
+            <span class="line-number" id="file-pom-xml-L28" rel="file-pom-xml-L28">28</span>
+            <span class="line-number" id="file-pom-xml-L29" rel="file-pom-xml-L29">29</span>
+            <span class="line-number" id="file-pom-xml-L30" rel="file-pom-xml-L30">30</span>
+            <span class="line-number" id="file-pom-xml-L31" rel="file-pom-xml-L31">31</span>
+            <span class="line-number" id="file-pom-xml-L32" rel="file-pom-xml-L32">32</span>
+            <span class="line-number" id="file-pom-xml-L33" rel="file-pom-xml-L33">33</span>
+            <span class="line-number" id="file-pom-xml-L34" rel="file-pom-xml-L34">34</span>
+            <span class="line-number" id="file-pom-xml-L35" rel="file-pom-xml-L35">35</span>
+            <span class="line-number" id="file-pom-xml-L36" rel="file-pom-xml-L36">36</span>
+            <span class="line-number" id="file-pom-xml-L37" rel="file-pom-xml-L37">37</span>
+            <span class="line-number" id="file-pom-xml-L38" rel="file-pom-xml-L38">38</span>
+            <span class="line-number" id="file-pom-xml-L39" rel="file-pom-xml-L39">39</span>
+            <span class="line-number" id="file-pom-xml-L40" rel="file-pom-xml-L40">40</span>
+            <span class="line-number" id="file-pom-xml-L41" rel="file-pom-xml-L41">41</span>
+            <span class="line-number" id="file-pom-xml-L42" rel="file-pom-xml-L42">42</span>
+            <span class="line-number" id="file-pom-xml-L43" rel="file-pom-xml-L43">43</span>
+            <span class="line-number" id="file-pom-xml-L44" rel="file-pom-xml-L44">44</span>
+            <span class="line-number" id="file-pom-xml-L45" rel="file-pom-xml-L45">45</span>
+            <span class="line-number" id="file-pom-xml-L46" rel="file-pom-xml-L46">46</span>
+            <span class="line-number" id="file-pom-xml-L47" rel="file-pom-xml-L47">47</span>
+            <span class="line-number" id="file-pom-xml-L48" rel="file-pom-xml-L48">48</span>
+            <span class="line-number" id="file-pom-xml-L49" rel="file-pom-xml-L49">49</span>
+            <span class="line-number" id="file-pom-xml-L50" rel="file-pom-xml-L50">50</span>
+            <span class="line-number" id="file-pom-xml-L51" rel="file-pom-xml-L51">51</span>
+            <span class="line-number" id="file-pom-xml-L52" rel="file-pom-xml-L52">52</span>
+            <span class="line-number" id="file-pom-xml-L53" rel="file-pom-xml-L53">53</span>
+            <span class="line-number" id="file-pom-xml-L54" rel="file-pom-xml-L54">54</span>
+            <span class="line-number" id="file-pom-xml-L55" rel="file-pom-xml-L55">55</span>
+            <span class="line-number" id="file-pom-xml-L56" rel="file-pom-xml-L56">56</span>
+            <span class="line-number" id="file-pom-xml-L57" rel="file-pom-xml-L57">57</span>
+            <span class="line-number" id="file-pom-xml-L58" rel="file-pom-xml-L58">58</span>
+            <span class="line-number" id="file-pom-xml-L59" rel="file-pom-xml-L59">59</span>
+            <span class="line-number" id="file-pom-xml-L60" rel="file-pom-xml-L60">60</span>
+            <span class="line-number" id="file-pom-xml-L61" rel="file-pom-xml-L61">61</span>
+            <span class="line-number" id="file-pom-xml-L62" rel="file-pom-xml-L62">62</span>
+            <span class="line-number" id="file-pom-xml-L63" rel="file-pom-xml-L63">63</span>
+            <span class="line-number" id="file-pom-xml-L64" rel="file-pom-xml-L64">64</span>
+            <span class="line-number" id="file-pom-xml-L65" rel="file-pom-xml-L65">65</span>
+            <span class="line-number" id="file-pom-xml-L66" rel="file-pom-xml-L66">66</span>
+            <span class="line-number" id="file-pom-xml-L67" rel="file-pom-xml-L67">67</span>
+            <span class="line-number" id="file-pom-xml-L68" rel="file-pom-xml-L68">68</span>
+            <span class="line-number" id="file-pom-xml-L69" rel="file-pom-xml-L69">69</span>
+          </td>
+          <td class="line-data">
+            <pre class="line-pre" data-initialized="true" data-gclp-id="0"><div class="line" id="file-pom-xml-LC1">&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s1"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> encoding</span>=<span class="pl-s1"><span class="pl-pds">"</span>UTF-8<span class="pl-pds">"</span></span>?&gt;
+</div><div class="line" id="file-pom-xml-LC2">&lt;<span class="pl-ent">project</span> <span class="pl-e">xmlns</span>=<span class="pl-s1"><span class="pl-pds">"</span>http://maven.apache.org/POM/4.0.0<span class="pl-pds">"</span></span> <span class="pl-e">xmlns</span><span class="pl-e">:</span><span class="pl-e">xsi</span>=<span class="pl-s1"><span class="pl-pds">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="pl-pds">"</span></span>
+</div><div class="line" id="file-pom-xml-LC3">	xsi:schemaLocation=<span class="pl-s1"><span class="pl-pds">"</span>http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd<span class="pl-pds">"</span></span>&gt;
+</div><div class="line" id="file-pom-xml-LC4">	&lt;<span class="pl-ent">modelVersion</span>&gt;4.0.0&lt;/<span class="pl-ent">modelVersion</span>&gt;
+</div><div class="line" id="file-pom-xml-LC5">&nbsp;
+</div><div class="line" id="file-pom-xml-LC6">	&lt;<span class="pl-ent">groupId</span>&gt;sparkle&lt;/<span class="pl-ent">groupId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC7">	&lt;<span class="pl-ent">artifactId</span>&gt;sparkle&lt;/<span class="pl-ent">artifactId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC8">	&lt;<span class="pl-ent">version</span>&gt;1.0-SNAPSHOT&lt;/<span class="pl-ent">version</span>&gt;
+</div><div class="line" id="file-pom-xml-LC9">&nbsp;
+</div><div class="line" id="file-pom-xml-LC10">&nbsp;
+</div><div class="line" id="file-pom-xml-LC11">	&lt;<span class="pl-ent">dependencies</span>&gt;
+</div><div class="line" id="file-pom-xml-LC12">		&lt;<span class="pl-ent">dependency</span>&gt;
+</div><div class="line" id="file-pom-xml-LC13">			&lt;<span class="pl-ent">groupId</span>&gt;com.sparkjava&lt;/<span class="pl-ent">groupId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC14">			&lt;<span class="pl-ent">artifactId</span>&gt;spark-core&lt;/<span class="pl-ent">artifactId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC15">			&lt;<span class="pl-ent">version</span>&gt;2.0.0&lt;/<span class="pl-ent">version</span>&gt;
+</div><div class="line" id="file-pom-xml-LC16">		&lt;/<span class="pl-ent">dependency</span>&gt;
+</div><div class="line" id="file-pom-xml-LC17">	&lt;/<span class="pl-ent">dependencies</span>&gt;
+</div><div class="line" id="file-pom-xml-LC18">	&lt;<span class="pl-ent">build</span>&gt;
+</div><div class="line" id="file-pom-xml-LC19">		&lt;<span class="pl-ent">plugins</span>&gt;
+</div><div class="line" id="file-pom-xml-LC20">			&lt;<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC21">				&lt;<span class="pl-ent">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="pl-ent">groupId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC22">				&lt;<span class="pl-ent">artifactId</span>&gt;maven-jar-plugin&lt;/<span class="pl-ent">artifactId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC23">				&lt;<span class="pl-ent">version</span>&gt;2.4&lt;/<span class="pl-ent">version</span>&gt;
+</div><div class="line" id="file-pom-xml-LC24">				&lt;<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC25">					&lt;<span class="pl-ent">finalName</span>&gt;sparkexample&lt;/<span class="pl-ent">finalName</span>&gt;
+</div><div class="line" id="file-pom-xml-LC26">					&lt;<span class="pl-ent">archive</span>&gt;
+</div><div class="line" id="file-pom-xml-LC27">						&lt;<span class="pl-ent">manifest</span>&gt;
+</div><div class="line" id="file-pom-xml-LC28">							&lt;<span class="pl-ent">addClasspath</span>&gt;true&lt;/<span class="pl-ent">addClasspath</span>&gt;
+</div><div class="line" id="file-pom-xml-LC29">							&lt;<span class="pl-ent">mainClass</span>&gt;sparkexample.Hello&lt;/<span class="pl-ent">mainClass</span>&gt;
+</div><div class="line" id="file-pom-xml-LC30">							&lt;<span class="pl-ent">classpathPrefix</span>&gt;dependency-jars/&lt;/<span class="pl-ent">classpathPrefix</span>&gt;
+</div><div class="line" id="file-pom-xml-LC31">						&lt;/<span class="pl-ent">manifest</span>&gt;
+</div><div class="line" id="file-pom-xml-LC32">					&lt;/<span class="pl-ent">archive</span>&gt;
+</div><div class="line" id="file-pom-xml-LC33">				&lt;/<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC34">			&lt;/<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC35">			&lt;<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC36">				&lt;<span class="pl-ent">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="pl-ent">groupId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC37">				&lt;<span class="pl-ent">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="pl-ent">artifactId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC38">				&lt;<span class="pl-ent">version</span>&gt;3.1&lt;/<span class="pl-ent">version</span>&gt;
+</div><div class="line" id="file-pom-xml-LC39">				&lt;<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC40">					&lt;<span class="pl-ent">source</span>&gt;1.8&lt;/<span class="pl-ent">source</span>&gt;
+</div><div class="line" id="file-pom-xml-LC41">					&lt;<span class="pl-ent">target</span>&gt;1.8&lt;/<span class="pl-ent">target</span>&gt;
+</div><div class="line" id="file-pom-xml-LC42">				&lt;/<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC43">			&lt;/<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC44">			&lt;<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC45">				&lt;<span class="pl-ent">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="pl-ent">groupId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC46">				&lt;<span class="pl-ent">artifactId</span>&gt;maven-assembly-plugin&lt;/<span class="pl-ent">artifactId</span>&gt;
+</div><div class="line" id="file-pom-xml-LC47">				&lt;<span class="pl-ent">executions</span>&gt;
+</div><div class="line" id="file-pom-xml-LC48">					&lt;<span class="pl-ent">execution</span>&gt;
+</div><div class="line" id="file-pom-xml-LC49">						&lt;<span class="pl-ent">goals</span>&gt;
+</div><div class="line" id="file-pom-xml-LC50">							&lt;<span class="pl-ent">goal</span>&gt;attached&lt;/<span class="pl-ent">goal</span>&gt;
+</div><div class="line" id="file-pom-xml-LC51">						&lt;/<span class="pl-ent">goals</span>&gt;
+</div><div class="line" id="file-pom-xml-LC52">						&lt;<span class="pl-ent">phase</span>&gt;package&lt;/<span class="pl-ent">phase</span>&gt;
+</div><div class="line" id="file-pom-xml-LC53">						&lt;<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC54">							&lt;<span class="pl-ent">finalName</span>&gt;sparkexample&lt;/<span class="pl-ent">finalName</span>&gt;
+</div><div class="line" id="file-pom-xml-LC55">							&lt;<span class="pl-ent">descriptorRefs</span>&gt;
+</div><div class="line" id="file-pom-xml-LC56">								&lt;<span class="pl-ent">descriptorRef</span>&gt;jar-with-dependencies&lt;/<span class="pl-ent">descriptorRef</span>&gt;
+</div><div class="line" id="file-pom-xml-LC57">							&lt;/<span class="pl-ent">descriptorRefs</span>&gt;
+</div><div class="line" id="file-pom-xml-LC58">							&lt;<span class="pl-ent">archive</span>&gt;
+</div><div class="line" id="file-pom-xml-LC59">								&lt;<span class="pl-ent">manifest</span>&gt;
+</div><div class="line" id="file-pom-xml-LC60">									&lt;<span class="pl-ent">mainClass</span>&gt;sparkexample.Hello&lt;/<span class="pl-ent">mainClass</span>&gt;
+</div><div class="line" id="file-pom-xml-LC61">								&lt;/<span class="pl-ent">manifest</span>&gt;
+</div><div class="line" id="file-pom-xml-LC62">							&lt;/<span class="pl-ent">archive</span>&gt;
+</div><div class="line" id="file-pom-xml-LC63">						&lt;/<span class="pl-ent">configuration</span>&gt;
+</div><div class="line" id="file-pom-xml-LC64">					&lt;/<span class="pl-ent">execution</span>&gt;
+</div><div class="line" id="file-pom-xml-LC65">				&lt;/<span class="pl-ent">executions</span>&gt;
+</div><div class="line" id="file-pom-xml-LC66">			&lt;/<span class="pl-ent">plugin</span>&gt;
+</div><div class="line" id="file-pom-xml-LC67">		&lt;/<span class="pl-ent">plugins</span>&gt;
+</div><div class="line" id="file-pom-xml-LC68">	&lt;/<span class="pl-ent">build</span>&gt;
+</div><div class="line" id="file-pom-xml-LC69">&lt;/<span class="pl-ent">project</span>&gt;
+</div></pre>
+          </td>
+        </tr>
+      </tbody></table>
+    </div>
+
+          </div>
+          <div class="gist-meta">
+            <a href="https://gist.github.com/luebken/47e4befe7a402ebdfe32/raw/pom.xml" style="float:right">view raw</a>
+            <a href="https://gist.github.com/luebken/47e4befe7a402ebdfe32#file-pom-xml">pom.xml</a>
+            hosted with ❤ by <a href="https://github.com/">GitHub</a>
+          </div>
+        </div>
+</div>
+
+</span><p></p>
+<h2><span><span>Hello.java</span></span></h2>
+<p><span><span>The assembly section of the pom.xml defines a main class that is called when the app starts: `sparkexample.Hello`. Lets create this file in the subdirectory `src/main/java/sparkexample/`:</span></span></p>
+<p><span><span>
+<script src="./Getting Started with Java Development on Docker_files/195ddeb12a045da93b9f.js" type="text/javascript"></script><link rel="stylesheet" href="https://gist-assets.github.com/assets/embed-e65f76999671dabc47e697590ecf8c45.css"></span></span></p><div id="gist15754585" class="gist">
+        <div class="gist-file">
+          <div class="gist-data gist-syntax">
+            
+
+
+
+    <div class="file-data">
+      <table cellpadding="0" cellspacing="0" class="lines highlight">
+        <tbody><tr>
+          <td class="line-numbers">
+            <span class="line-number" id="file-hello-java-L1" rel="file-hello-java-L1">1</span>
+            <span class="line-number" id="file-hello-java-L2" rel="file-hello-java-L2">2</span>
+            <span class="line-number" id="file-hello-java-L3" rel="file-hello-java-L3">3</span>
+            <span class="line-number" id="file-hello-java-L4" rel="file-hello-java-L4">4</span>
+            <span class="line-number" id="file-hello-java-L5" rel="file-hello-java-L5">5</span>
+            <span class="line-number" id="file-hello-java-L6" rel="file-hello-java-L6">6</span>
+            <span class="line-number" id="file-hello-java-L7" rel="file-hello-java-L7">7</span>
+            <span class="line-number" id="file-hello-java-L8" rel="file-hello-java-L8">8</span>
+            <span class="line-number" id="file-hello-java-L9" rel="file-hello-java-L9">9</span>
+            <span class="line-number" id="file-hello-java-L10" rel="file-hello-java-L10">10</span>
+            <span class="line-number" id="file-hello-java-L11" rel="file-hello-java-L11">11</span>
+            <span class="line-number" id="file-hello-java-L12" rel="file-hello-java-L12">12</span>
+          </td>
+          <td class="line-data">
+            <pre class="line-pre" data-initialized="true" data-gclp-id="1"><div class="line" id="file-hello-java-LC1"><span class="pl-k">package</span> <span class="pl-smp">sparkexample</span>;
+</div><div class="line" id="file-hello-java-LC2">&nbsp;
+</div><div class="line" id="file-hello-java-LC3"><span class="pl-k">import static</span> <span class="pl-smi">spark.Spark.get</span>;
+</div><div class="line" id="file-hello-java-LC4">&nbsp;
+</div><div class="line" id="file-hello-java-LC5"><span class="pl-s">public</span> <span class="pl-s">class</span> <span class="pl-en">Hello</span> {
+</div><div class="line" id="file-hello-java-LC6">&nbsp;
+</div><div class="line" id="file-hello-java-LC7">    <span class="pl-s">public</span> <span class="pl-s">static</span> <span class="pl-st">void</span> <span class="pl-en">main</span>(<span class="pl-st">String</span>[] <span class="pl-v">args</span>) {
+</div><div class="line" id="file-hello-java-LC8">        get(<span class="pl-s1"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>, (req, res) <span class="pl-k">-</span><span class="pl-k">&gt;</span> {
+</div><div class="line" id="file-hello-java-LC9">            <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-pds">"</span>hello from sparkjava.com<span class="pl-pds">"</span></span>;
+</div><div class="line" id="file-hello-java-LC10">        });
+</div><div class="line" id="file-hello-java-LC11">    }
+</div><div class="line" id="file-hello-java-LC12">}
+</div></pre>
+          </td>
+        </tr>
+      </tbody></table>
+    </div>
+
+          </div>
+          <div class="gist-meta">
+            <a href="https://gist.github.com/luebken/195ddeb12a045da93b9f/raw/Hello.java" style="float:right">view raw</a>
+            <a href="https://gist.github.com/luebken/195ddeb12a045da93b9f#file-hello-java">Hello.java</a>
+            hosted with ❤ by <a href="https://github.com/">GitHub</a>
+          </div>
+        </div>
+</div>
+
+<p></p>
+<p>As you can see this is modern Java code: it uses static imports and lambda expressions, which makes this example quite compact. The class contains a main method, with a response to a root request ("/"). As <span>common&nbsp;</span>with HelloWorld this response is just a simple string. Please consult the <a href="http://sparkjava.com/documentation.html" target="_blank">Spark documentation</a> for further information on expressing different routes.</p>
+<h2>Dockerfile</h2>
+<p>Finally we have our Dockerfile:</p>
+<p>
+<script src="./Getting Started with Java Development on Docker_files/86d5f3fc8855e0d49743.js" type="text/javascript"></script><link rel="stylesheet" href="https://gist-assets.github.com/assets/embed-e65f76999671dabc47e697590ecf8c45.css"></p><div id="gist15754492" class="gist">
+        <div class="gist-file">
+          <div class="gist-data gist-syntax">
+            
+
+
+
+    <div class="file-data">
+      <table cellpadding="0" cellspacing="0" class="lines highlight">
+        <tbody><tr>
+          <td class="line-numbers">
+            <span class="line-number" id="file-dockerfile-L1" rel="file-dockerfile-L1">1</span>
+            <span class="line-number" id="file-dockerfile-L2" rel="file-dockerfile-L2">2</span>
+            <span class="line-number" id="file-dockerfile-L3" rel="file-dockerfile-L3">3</span>
+            <span class="line-number" id="file-dockerfile-L4" rel="file-dockerfile-L4">4</span>
+            <span class="line-number" id="file-dockerfile-L5" rel="file-dockerfile-L5">5</span>
+            <span class="line-number" id="file-dockerfile-L6" rel="file-dockerfile-L6">6</span>
+            <span class="line-number" id="file-dockerfile-L7" rel="file-dockerfile-L7">7</span>
+            <span class="line-number" id="file-dockerfile-L8" rel="file-dockerfile-L8">8</span>
+            <span class="line-number" id="file-dockerfile-L9" rel="file-dockerfile-L9">9</span>
+            <span class="line-number" id="file-dockerfile-L10" rel="file-dockerfile-L10">10</span>
+            <span class="line-number" id="file-dockerfile-L11" rel="file-dockerfile-L11">11</span>
+            <span class="line-number" id="file-dockerfile-L12" rel="file-dockerfile-L12">12</span>
+            <span class="line-number" id="file-dockerfile-L13" rel="file-dockerfile-L13">13</span>
+            <span class="line-number" id="file-dockerfile-L14" rel="file-dockerfile-L14">14</span>
+            <span class="line-number" id="file-dockerfile-L15" rel="file-dockerfile-L15">15</span>
+            <span class="line-number" id="file-dockerfile-L16" rel="file-dockerfile-L16">16</span>
+            <span class="line-number" id="file-dockerfile-L17" rel="file-dockerfile-L17">17</span>
+            <span class="line-number" id="file-dockerfile-L18" rel="file-dockerfile-L18">18</span>
+            <span class="line-number" id="file-dockerfile-L19" rel="file-dockerfile-L19">19</span>
+          </td>
+          <td class="line-data">
+            <pre class="line-pre" data-initialized="true" data-gclp-id="2"><div class="line" id="file-dockerfile-LC1"><span class="pl-k">FROM</span> dockerfile/java:oracle-java8 
+</div><div class="line" id="file-dockerfile-LC2">&nbsp;
+</div><div class="line" id="file-dockerfile-LC3"><span class="pl-c"># Install maven</span>
+</div><div class="line" id="file-dockerfile-LC4"><span class="pl-k">RUN</span> apt-get update
+</div><div class="line" id="file-dockerfile-LC5"><span class="pl-k">RUN</span> apt-get install -y maven
+</div><div class="line" id="file-dockerfile-LC6">&nbsp;
+</div><div class="line" id="file-dockerfile-LC7"><span class="pl-k">WORKDIR</span> /code
+</div><div class="line" id="file-dockerfile-LC8">&nbsp;
+</div><div class="line" id="file-dockerfile-LC9"><span class="pl-c"># Prepare by downloading dependencies</span>
+</div><div class="line" id="file-dockerfile-LC10"><span class="pl-k">ADD</span> pom.xml /code/pom.xml
+</div><div class="line" id="file-dockerfile-LC11"><span class="pl-k">RUN</span> [<span class="pl-s1">"mvn"</span>, <span class="pl-s1">"dependency:resolve"</span>]
+</div><div class="line" id="file-dockerfile-LC12"><span class="pl-k">RUN</span> [<span class="pl-s1">"mvn"</span>, <span class="pl-s1">"verify"</span>]
+</div><div class="line" id="file-dockerfile-LC13">&nbsp;
+</div><div class="line" id="file-dockerfile-LC14"><span class="pl-c"># Adding source, compile and package into a fat jar</span>
+</div><div class="line" id="file-dockerfile-LC15"><span class="pl-k">ADD</span> src /code/src
+</div><div class="line" id="file-dockerfile-LC16"><span class="pl-k">RUN</span> [<span class="pl-s1">"mvn"</span>, <span class="pl-s1">"package"</span>]
+</div><div class="line" id="file-dockerfile-LC17">&nbsp;
+</div><div class="line" id="file-dockerfile-LC18"><span class="pl-k">EXPOSE</span> 4567
+</div><div class="line" id="file-dockerfile-LC19"><span class="pl-k">CMD</span> [<span class="pl-s1">"java"</span>, <span class="pl-s1">"-jar"</span>, <span class="pl-s1">"target/sparkexample-jar-with-dependencies.jar"</span>]
+</div></pre>
+          </td>
+        </tr>
+      </tbody></table>
+    </div>
+
+          </div>
+          <div class="gist-meta">
+            <a href="https://gist.github.com/luebken/86d5f3fc8855e0d49743/raw/Dockerfile" style="float:right">view raw</a>
+            <a href="https://gist.github.com/luebken/86d5f3fc8855e0d49743#file-dockerfile">Dockerfile</a>
+            hosted with ❤ by <a href="https://github.com/">GitHub</a>
+          </div>
+        </div>
+</div>
+
+<p></p>
+<p>The Dockerfile uses a plain Java image (<a href="https://github.com/dockerfile/java/blob/master/oracle-java8/Dockerfile" target="_blank">java:oracle-java8</a>) and starts with installing Maven. In the next step it only installs the project dependencies. We do this by adding the pom.xml and resolving the dependencies. As you will see, this allows Docker to cache the dependencies. In the next step we actually compile and package our app, and start it.&nbsp;</p>
+<p>If we now rebuild the app without any changes to the pom.xml, the previous steps are cached &nbsp;and only the last steps are run. This makes turnaround times much faster.</p>
+<h2>Building and Running</h2>
+<p>Once you have these three files in place, it is very easy to build the Docker image:</p>
+<span><span><span><code>$ docker build -t giantswarm/sparkexample .</code></span></span></span>
+<p>Note that this will take a while when you start it for the first time since it downloads and installs Maven and downloads all the project’s dependencies. Every subsequent start of this build will only take a few seconds, as again everything will be already cached.</p>
+<p>Once the image is built, start it with:</p>
+<span><span><span><code>$ docker run -d -p 4567:4567 giantswarm/sparkexample</code></span></span></span>
+<p>And test it with:</p>
+<span><span><span><code>$ curl localhost:4567<br>hello from sparkjava.com</code></span></span></span>
+<p>Now go ahead and change something in the source (like returning your own message) and rebuild this.... Isn't it great!?</p>
+<h2>Conclusion</h2>
+<p>Although this a very basic example. I hope I got you started and hooked with Java development on Docker. I am looking forward to your comments and thoughts. What should we add to this example? Meanwhile get your hands dirty, fool around with the files, and leave comments and <a href="https://github.com/giantswarm/sparkexample/pulls" target="_blank">pull requests</a> with improvement suggestions.</p>
+<p>Bringing more realistic/complex examples into production (and scaling them) requires some more thought. We at Giant Swarm are working hard to make this next step as seamless as what you saw above. If you want to be one of the first to play around with it, sign up for our private beta list now.</p>
+<p><!--HubSpot Call-to-Action Code --> 
+<span class="hs-cta-wrapper" id="hs-cta-wrapper-ac9aaac4-122f-44c4-9235-8b31b8143f32"> <span class="hs-cta-node hs-cta-ac9aaac4-122f-44c4-9235-8b31b8143f32" id="hs-cta-ac9aaac4-122f-44c4-9235-8b31b8143f32" style="visibility: visible;"><a id="cta_button_430224_86cf521f-fd16-4e4f-9e14-00b5e388b77e" class="cta_button " href="http://cta-service-cms2.hubspot.com/cs/c/?&cta_guid=86cf521f-fd16-4e4f-9e14-00b5e388b77e&placement_guid=ac9aaac4-122f-44c4-9235-8b31b8143f32&portal_id=430224&redirect_url=o8EgpGO8hCfnIm6p541WFH8C3DjOoVxgXqV1r2U0e3vUmSolK1K3HQ%3D%3D&iv=7llmp5zJkgE%3D&hsutk=&canon=http%3A%2F%2Fblog.giantswarm.io%2Fgetting-started-with-java-development-on-docker&__hstc=170634879.4a362e80460ff35510424f5114d41691.1416963197747.1416963197747.1416963197747.1&__hssc=170634879.1.1416963197747&__hsfp=1144110066" target="_blank" style="" cta_dest_link="http://giantswarm.io" title="Request Private Beta Invite">
+  <span style="color: #ffffff; font-size: 24px; font-family: sans-serif; line-height: 1.5em;">Request Private Beta Invite</span>
+</a></span> <script charset="utf-8" src="./Getting Started with Java Development on Docker_files/current.js"></script> <script type="text/javascript">
+            hbspt.cta.load(430224, 'ac9aaac4-122f-44c4-9235-8b31b8143f32');
+        </script> </span> 
+<!-- end HubSpot Call-to-Action Code --></p>
+        </div>
+        
+             <p id="hubspot-topic_data"> <strong>Related topics:</strong>
+                
+                    <a class="topic-link" href="http://blog.giantswarm.io/topic/dev">Dev</a>
+                
+             </p>
+        
+        <span id="hs_cos_wrapper_blog_social_sharing" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_blog_social_sharing" style="" data-hs-cos-general-type="widget" data-hs-cos-type="blog_social_sharing">
+<div class="hs-blog-social-share">
+    <ul class="hs-blog-social-share-list">
+        
+        <li class="hs-blog-social-share-item hs-blog-social-share-item-twitter">
+            <!-- Twitter social share -->
+            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Getting Started with Java Development on Docker_files/tweet_button.2dbfc52aff624254c17d0ae518d60e15.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe>
+        </li>
+        
+
+        
+        <li class="hs-blog-social-share-item hs-blog-social-share-item-linkedin">
+            <!-- LinkedIn social share -->
+            <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1416963195063_0"><a id="li_ui_li_gen_1416963195063_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1416963195063_0-logo">in</span><span id="li_ui_li_gen_1416963195063_0-title"><span id="li_ui_li_gen_1416963195063_0-mark"></span><span id="li_ui_li_gen_1416963195063_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1416963195074_1-container" class="IN-right"><span id="li_ui_li_gen_1416963195074_1" class="IN-right"><span id="li_ui_li_gen_1416963195074_1-inner" class="IN-right"><span id="li_ui_li_gen_1416963195074_1-content" class="IN-right">4</span></span></span></span></span></span><script type="IN/Share+init" data-url="http://blog.giantswarm.io/getting-started-with-java-development-on-docker" data-showzero="true" data-counter="right"></script>
+        </li>
+        
+
+        
+        <li class="hs-blog-social-share-item hs-blog-social-share-item-facebook">
+            <!-- Facebook share -->
+            <div class="fb-like fb_iframe_widget" data-href="http://blog.giantswarm.io/getting-started-with-java-development-on-docker" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true" data-width="120" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;href=http%3A%2F%2Fblog.giantswarm.io%2Fgetting-started-with-java-development-on-docker&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=false&amp;width=120"><span style="vertical-align: bottom; width: 120px; height: 20px;"><iframe name="f24da9172" width="120px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Getting Started with Java Development on Docker_files/like.html" style="border: none; visibility: visible; width: 120px; height: 20px;" class=""></iframe></span></div>
+        </li>
+        
+
+        
+        <li class="hs-blog-social-share-item hs-blog-social-share-item-google-plus">
+            <!-- Google +1 -->
+            <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1416963194543" name="I0_1416963194543" src="./Getting Started with Java Development on Docker_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+        </li>
+        
+    </ul>
+ </div>
+
+</span>
+        
+        <div class="author-content clearfix">
+            
+                <div class="span2 author-image">
+                    <img width="100%" src="./Getting Started with Java Development on Docker_files/mdl.jpg"> 
+                </div>
+            
+                <div class="span10">
+                    <h3>Written by <a class="author-link" href="http://blog.giantswarm.io/author/matthias-l-uuml-bken">Matthias Lübken</a></h3>
+                    <p>Product developer guy</p>
+                    
+                    <div class="hs-author-social-section">
+                        <div class="hs-author-social-links">
+                            
+                            
+                                <a href="https://www.linkedin.com/in/luebken" target="_blank" class="hs-author-social-link hs-social-linkedin">LinkedIn</a>
+                            
+                            
+                                <a href="http://twitter.com/luebken" target="_blank" class="hs-author-social-link hs-social-twitter">Twitter </a>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            
+        </div>
+    </div>
+</div>
+<!--
+<div class="blog-pagination row-fluid clearfix">
+    <div class="span4" style="text-align:left;">
+        <a class="previous-posts-link" href="http://blog.giantswarm.io">&raquo; Blog Home</a>
+    </div>
+    <div class="span4">
+    </div>
+    <div class="span4">
+    </div>
+</div>
+-->
+<div class="custom_listing_comments clearfix span12">
+<strong>
+    
+    <a href="http://blog.giantswarm.io/getting-started-with-java-development-on-docker#comments-listing">13 <span>Comments</span></a></strong>
+</div></div>
+
+                </div><!--end row-->
+                </div><!--end row-wrapper -->
+                <div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+                <div class="row-fluid ">
+                    <div class="span12 widget-span widget-type-blog_comments clearfix" style="" data-widget-type="blog_comments" data-x="0" data-w="12">
+                        <div class="cell-wrapper layout-widget-wrapper">
+                            <span id="hs_cos_wrapper_blog_comments" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_blog_comments" style="" data-hs-cos-general-type="widget" data-hs-cos-type="blog_comments">
+<div class="section post-footer">
+    <div id="comments-listing" class="new-comments">
+    
+    
+    <div class="comment depth-0" data-threadid="0001.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            chris
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/8/2014, 4:01:17 PM</div>
+        <div class="comment-body"><p>I'm not sure I like this approach because you are compiling and building the code on the target machine.  This may be appropriate in some circumstances (perhaps as a basic dev oriented CI machine ), but I personally like the idea of building a single artifact (a jar or war file ), testing it thoroughly (a release oriented QA cycle), and deploying that SAME artifact onto the target machine.     By doing this we remove the possibility the small differences in build tools between the testing machine and target machine cause weird problems.   
+<br>
+<br>Since tools like maven already provide a wonderful ability to compile and version artifacts I would use it!
+<br>
+<br>So instead of utilizing maven, I would utilize something like SCP  or CURL  to pull the built artifact from a known repository.
+<br>
+<br>There is an added advantage to the single artifact technique in that it's fast to actually spin up a new instance of the target machine.  In the case of rapidly expanding system load, being able to get a machine from nonexistent to "alive" is important.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>chris</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0002.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://giantswarm.io/" rel="nofollow" target="_blank">Matthias Lübken</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/9/2014, 1:08:50 AM</div>
+        <div class="comment-body"><p>Hey Chris
+<br>
+<br>thanks for your reply.
+<br>
+<br>I like your idea about having a single artifact. And putting the same artifact through development, testing, qa and finally in production. But what if that artifact wasn’t a jar or a war but a Docker image?
+<br>
+<br>Matthias</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Matthias Lübken</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0003.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="https://giantswarm.io/" rel="nofollow" target="_blank">Timo Derstappen</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/9/2014, 2:25:48 AM</div>
+        <div class="comment-body"><p>Chris, this is exactly what Matthias is doing here. Your repository is the docker registry. You will have close to zero overhead building, distributing and starting the docker images compared to creating your jar artifact alone. And the benefit is that much more of the environment is build into your artifact so that you really minimize divergence between development, testing and production.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Timo Derstappen</em></button>
+        
+      </div>
+
+    <div class="comment depth-1" data-threadid="0003.0001.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://about.me/stheinze" rel="nofollow" target="_blank">Stephan Heinze</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/10/2014, 3:33:33 AM</div>
+        <div class="comment-body"><p>What about image size? You really need each dependency package twice - one in the fat jar and one in the local maven repository? Building lightwight containers vs. divergence between build and runtime envs ... I'd choose lightweight containers. Make it easy for the user (operator) over make it easy for the developer.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Stephan Heinze</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0004.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://giantswarm.io/" rel="nofollow" target="_blank">Matthias Lübken</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/10/2014, 8:04:31 AM</div>
+        <div class="comment-body"><p>Hey Stephan
+<br>
+<br>you are right: Having a repository in the deliverable seems wrong. Without knowing your setup I would argue for a build container and a run container. I count this as a vote for a Part 2 blogpost. ;-)
+<br>
+<br>Matthias</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Matthias Lübken</em></button>
+        
+      </div>
+
+    <div class="comment depth-1" data-threadid="0004.0001.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://about.me/stheinze" rel="nofollow" target="_blank">Stephan Heinze</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/10/2014, 8:13:24 AM</div>
+        <div class="comment-body"><p>Full ACK.
+<br>Another hint: consider a gradle based build - far less boiler plate.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Stephan Heinze</em></button>
+        
+      </div>
+
+    <div class="comment depth-1" data-threadid="0004.0002.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            José Miguel Sanz
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/13/2014, 3:29:31 AM</div>
+        <div class="comment-body"><p>Having a repo in the deliverable seems wrong to me too. But I like the idea of having a docker image that makes the build. This way it doesn't matter how the developers machines have installed on them and will always be a clean build.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>José Miguel Sanz</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0005.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://q31.info/" rel="nofollow" target="_blank">Jothi San</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/12/2014, 2:05:56 PM</div>
+        <div class="comment-body"><p>That was an interesting article. Reminds me of the Docker file that I wrote to install a Play framework based Webapp on Ubuntu. 
+<br>
+<br>With the above docker file, the abstraction is just at the Software level as the docker file or more precisely, the docker image assumes that the underlying host is any flavor of Linux that understands apt-get. Would modularizing the docker file be much more elegant? I mean especially with the line that installs Maven? What are your suggestions?</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Jothi San</em></button>
+        
+      </div>
+
+    <div class="comment depth-1" data-threadid="0005.0001.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://giantswarm.io/" rel="nofollow" target="_blank">Matthias Luebken</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/13/2014, 2:17:25 AM</div>
+        <div class="comment-body"><p>Hi Jothi San
+<br>
+<br>as I am using the official Java8 I know that I can use apt-get. But you are right we could strive for a smaller image. Another suggestion for part 2. ;-
+<br>
+<br>As for the Maven installation part this could be easily be done in one line. To only create one Docker layer.
+<br>
+<br>Matthias</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Matthias Luebken</em></button>
+        
+      </div>
+
+    <div class="comment depth-2" data-threadid="0005.0001.0001.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://q31.info/" rel="nofollow" target="_blank">Jothi San</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/13/2014, 3:14:21 AM</div>
+        <div class="comment-body"><p>My point was if the docker file above would work on a Windows OS with the boot2docker installed?</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Jothi San</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0006.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://www.tfnico.com/" rel="nofollow" target="_blank">Thomas Ferris Nicolaisen</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/12/2014, 3:27:21 PM</div>
+        <div class="comment-body"><p>I've just been playing with these kinds of builds a couple of days, but from the get-go I started by pulling the Java application from our Nexus (central maven repo) in the Dockerfile:
+<br>
+<br>FROM registry.ourcompany.com/eseclog/java8:latest
+<br>RUN wget -O app-web.tar --user=thomas --password=secret 'https://repo.ourcompany.com/nexus/service/local/artifact/maven/redirect?r=snapshots&amp;g=de.viaboxx.eseclog&amp;a=web&amp;v=LATEST&amp;e=tar'
+<br>RUN tar xvf app-web.tar
+<br>CMD app/bin/app-web
+<br>
+<br>.. or something like that. I'd build the tar.gz above using either maven-appassembler-plugin or Gradle's Application plugin. If I wanted to build the artifact in a Docker image, I would have one Dockerfile for building and deploying the tar.gz to Nexus, and then a second one for (downloading, expanding and) running the app.</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Thomas Ferris Nicolaisen</em></button>
+        
+      </div>
+
+    <div class="comment depth-1" data-threadid="0006.0001.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://giantswarm.io/" rel="nofollow" target="_blank">Matthias Luebken</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/13/2014, 2:28:55 AM</div>
+        <div class="comment-body"><p>Hey Thomas
+<br>
+<br>great seeing you playing around with Docker. For our polyglott scenarios Git and a private Docker registry seems sufficient. But I am eager to hear about your experience with a central Maven repo in combination with a Docker registry. When you start pushing more and more images: How much more does the Maven repo give you?
+<br>
+<br>Matthias</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Matthias Luebken</em></button>
+        
+      </div>
+
+    <div class="comment depth-0" data-threadid="0007.0000.0000.0000.0000.0000.0000.0000.0000.0000">
+        <div class="comment-from">
+          <h4>
+            
+            <a href="http://www.tfnico.com/" rel="nofollow" target="_blank">Thomas Ferris Nicolaisen</a>
+            
+          </h4>
+        </div>
+        <div class="comment-date">11/13/2014, 2:57:34 AM</div>
+        <div class="comment-body"><p>@Matthias: You want to drop the company maven repo because you've got a company Docker registry? Hmm, that sounds a bit extreme for a maven-shop like ours..
+<br>
+<br>Most of our Jenkins-jobs and deploy tasks upload small &gt;1 MB artifacts into Nexus. It's all very modular, for better and worse. If I imagined that we built all our in-house deps and the applications in one big build which directly gathered everything into a docker-image, it would work great if we just had one or a few products/apps. The disadvantages would be:
+<br>
+<br>* Can't re-use artifacts/libraries in other builds, need to build them from scratch in each one
+<br>* Some builds would take much longer (say when there's only a few superficial changes, although modern build-tools are getting better at only re-building what's necessary)
+<br>*  Release management would move in the direction of having all modules following the same rhythm/version, which again would move us into having everything in one huge Git repo. Again, for better or worse.
+<br>
+<br>I like the hybrid model that I see naturally coming for us: We keep building libraries/JARs as small modules that we push into Nexus. When we want to build the end-product that pull all our libraries together, say a WAR, or an application in tar.gz/zip/dmg/whatever, we first build it, and then pack it into a Docker image. Optionally (like I suggested in prev comment), upload the the tar.gz into Nexus if we don't want to build the docker image in the same build (some times it's nice to have the artifact readily archived in there, for later inspection, etc).</p></div>
+        
+          <button class="comment-reply-to hs-button secondary">Reply to <em>Thomas Ferris Nicolaisen</em></button>
+        
+      </div>
+
+</div><div id="comment-form" class="new-comments">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+<form accept-charset="UTF-8" enctype="multipart/form-data" id="hsForm_604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" class="hs-form stacked" action="https://api.hubapi.com/comments/v3/comment?portalId=430224" method="POST" novalidate="novalidate"><fieldset class="form-columns-2"><div class="hs_firstName field hs-form-field"><label placeholder="Enter your First Name" for="firstName-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb">First Name<span class="hs-form-required"> * </span></label><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="text" required="required" id="firstName-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" name="firstName" value="" placeholder="First Name*"></div></div><div class="hs_lastName field hs-form-field"><label placeholder="Enter your Last Name" for="lastName-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb">Last Name</label><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="text" id="lastName-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" name="lastName" value="" placeholder="Last Name"></div></div></fieldset><fieldset class="form-columns-2"><div class="hs_email field hs-form-field"><label placeholder="Enter your E-mail" for="email-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb">E-mail<span class="hs-form-required"> * </span></label><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="email" required="required" id="email-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" name="email" value="" placeholder="E-mail"></div></div><div class="hs_website field hs-form-field"><label placeholder="Enter your Website" for="website-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb">Website</label><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="text" id="website-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" name="website" value="" placeholder="Website"></div></div></fieldset><fieldset class="form-columns-1"><div class="hs_comment field hs-form-field"><label placeholder="Enter your Comment" for="comment-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb">Comment<span class="hs-form-required"> * </span></label><div class="hs-field-desc" style="display: none;"></div><div class="input"><textarea class="hs-input" required="required" id="comment-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb" name="comment" value="" placeholder="Comment*"></textarea></div></div></fieldset><fieldset class="form-columns-1"><div class="hs_subscribe field hs-form-field"><label placeholder="Enter your Subscribe to follow-up comments for this post" for="subscribe-604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb"></label><div class="hs-field-desc" style="display: none;"></div><ul class="inputs-list"><li class="hs-form-booleancheckbox"><label class="hs-form-booleancheckbox-display" for="subscribe"><input type="checkbox" value="true" name="subscribe" id="subscribe" class="hs-input">Subscribe to follow-up comments for this post</label></li></ul></div></fieldset><fieldset class="form-columns-1"><div class="hs_lifecyclestage field hs-form-field" style="display: none;"><div class="hs-field-desc" style="display: none;"></div><div class="input"></div></div></fieldset><div class="hs_submit"><div class="hs-field-desc" style="display: none;"></div><div class="actions"><div class="field hs-form-field">
+      <div id="captcha_wrapper" class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio"><div id="recaptcha_area"><table id="recaptcha_table" class="recaptchatable recaptcha_theme_white"> <tbody><tr> <td colspan="6" class="recaptcha_r1_c1"></td> </tr> <tr> <td class="recaptcha_r2_c1"></td> <td colspan="4" class="recaptcha_image_cell"><center><div id="recaptcha_image" style="width: 300px; height: 57px;"><img id="recaptcha_challenge_image" alt="reCAPTCHA challenge image" height="57" width="300" src="./Getting Started with Java Development on Docker_files/image"></div></center></td> <td class="recaptcha_r2_c2"></td> </tr> <tr> <td rowspan="6" class="recaptcha_r3_c1"></td> <td colspan="4" class="recaptcha_r3_c2"></td> <td rowspan="6" class="recaptcha_r3_c3"></td> </tr> <tr> <td rowspan="3" class="recaptcha_r4_c1" height="49"> <div class="recaptcha_input_area"> <span id="recaptcha_challenge_field_holder" style="display: none;"><input type="hidden" name="recaptcha_challenge_field" id="recaptcha_challenge_field" value="03AHJ_VusbjMketIm_RCBVfiVBolV9KrBeQnXxY5KlY8kAOm6fVytEWg3vQxgjT2t3StXKxt9gXgdZG03tcxQqQ_cqMF9vtgZTikihJcyr3E-OFtcE8KTLgGU4TMGX-VellvslG2SPnoK4HWqphVeHWFqEEnUdYdKNunNX7SeV5yIx6wn0eKJ4sDk1cPdP58ge2u0z8Bt3YVf7zbPeDSeGjs8Z2UG6FBR6mbNxzpXJ7x_6sulDwNCEbcTA_wOIqoO_bs0KNy5aOvlSnNMWAilFN-3EpwUOBYwUq5flh1hTzOLktZtWkPSE6Do"></span><input name="recaptcha_response_field" id="recaptcha_response_field" type="text" autocorrect="off" autocapitalize="off" placeholder="Type the text" autocomplete="off"> <span id="recaptcha_privacy" class="recaptcha_only_if_privacy"><a href="http://www.google.com/intl/en/policies/" target="_blank">Privacy &amp; Terms</a></span> </div> </td> <td rowspan="4" class="recaptcha_r4_c2"></td> <td><a id="recaptcha_reload_btn" title="Get a new challenge"><img id="recaptcha_reload" width="25" height="17" src="./Getting Started with Java Development on Docker_files/refresh.gif" alt="Get a new challenge"></a></td> <td rowspan="4" class="recaptcha_r4_c4"></td> </tr> <tr> <td><a id="recaptcha_switch_audio_btn" class="recaptcha_only_if_image" title="Get an audio challenge"><img id="recaptcha_switch_audio" width="25" height="16" alt="Get an audio challenge" src="./Getting Started with Java Development on Docker_files/audio.gif"></a><a id="recaptcha_switch_img_btn" class="recaptcha_only_if_audio" title="Get a visual challenge"><img id="recaptcha_switch_img" width="25" height="16" alt="Get a visual challenge" src="./Getting Started with Java Development on Docker_files/text.gif"></a></td> </tr> <tr> <td><a id="recaptcha_whatsthis_btn" title="Help"><img id="recaptcha_whatsthis" width="25" height="16" src="./Getting Started with Java Development on Docker_files/help.gif" alt="Help"></a></td> </tr> <tr> <td class="recaptcha_r7_c1"></td> <td class="recaptcha_r8_c1"></td> </tr> </tbody></table> </div></div>
+    </div><input class="hs-button primary" type="submit" value="Submit Comment"></div></div><input type="hidden" id="id_portalId" name="portalId" value="430224"><input type="hidden" id="id_contentId" name="contentId" value="2047830161"><input type="hidden" id="id_collectionId" name="collectionId" value="1452010059"><input type="hidden" id="id_contentAuthorEmail" name="contentAuthorEmail" value="matthias@giantswarm.io"><input type="hidden" id="id_contentAuthorName" name="contentAuthorName" value="Matthias Lübken"><input type="hidden" id="id_comment_verification_text" name="comment_verification_text" value="Your comment has been received."><input type="hidden" id="id_contentTitle" name="contentTitle" value="Getting Started with Java Development on Docker"><input type="hidden" id="id_contentPermalink" name="contentPermalink" value="http://blog.giantswarm.io/getting-started-with-java-development-on-docker"><input type="hidden" id="id_contentCreatedAt" name="contentCreatedAt" value="1415358165000"><input type="hidden" id="id_formGuid" name="formGuid" value="604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb"><input class="hs-input" type="hidden" name="lifecyclestage" value="subscriber"></form></div><!-- end comment-form -->
+
+
+
+    <script type="text/javascript">
+        (function($) {
+            var commentsEmbedContext = {
+                portalId: 430224,
+                collectionId: 1452010059,
+                contentId: 2047830161,
+                target: '#comments-listing.new-comments',
+                showComments: true,
+                showForm: true,
+                commentVerificationText: "Your comment has been received.",
+                embedScriptEnv: "prod",
+                apiEnv: "prod",
+                contentTitle: "Getting Started with Java Development on Docker",
+                contentCreatedAt: "1415358165000",
+                contentPermalink: "http:\/\/blog.giantswarm.io\/getting-started-with-java-development-on-docker",
+                contentAuthorEmail: "matthias@giantswarm.io",
+                contentAuthorName: "Matthias L\u00FCbken",
+                captchaRequired: true,
+                captchaKey: "6Lc3uMsSAAAAAMjk4NIvPQK9_-ZLk2wBokFCo5Qt",
+                maxThreadDepth: 3,
+                formId: "604c7d6e-1fd4-4c63-96e8-e9c0b44fc7fb"
+            };
+            function loadComments() {
+                if (window.hubspot && typeof window.hubspot.loadCommentsEmbed === 'function') {
+                    hubspot.loadCommentsEmbed(commentsEmbedContext.embedScriptEnv, function() {
+                        if (typeof window.hsEmbedComments === 'function') {
+                            window.hsEmbedComments(commentsEmbedContext);
+                        }
+                    });
+                } else {
+                  setTimeout(loadComments, 50);
+                }
+            }
+            loadComments();
+        })(window.hsjQuery || jQuery);
+    </script>
+</div>
+
+</span>
+                        </div><!--end layout-widget-wrapper -->
+                    </div><!--end widget-span -->
+                </div><!--end row-->
+                </div><!--end row-wrapper -->
+            </div><!--end widget-span -->
+        <div class="span3 widget-span widget-type-cell right_column" style="" data-widget-type="cell" data-x="9" data-w="3">
+
+            <div class="row-fluid-wrapper row-depth-1 row-number-4 ">
+            <div class="row-fluid ">
+                <div class="span12 widget-span widget-type-cell " style="" data-widget-type="cell" data-x="0" data-w="12">
+
+                    <div class="row-fluid-wrapper row-depth-2 row-number-1 ">
+                    <div class="row-fluid ">
+                        <div class="span12 widget-span widget-type-blog_subscribe " style="" data-widget-type="blog_subscribe" data-x="0" data-w="12">
+                            <div class="cell-wrapper layout-widget-wrapper">
+                                <span id="hs_cos_wrapper_module_14105159055324266" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_blog_subscribe" style="" data-hs-cos-general-type="widget" data-hs-cos-type="blog_subscribe"><h3 id="hs_cos_wrapper_module_14105159055324266_title" class="hs_cos_wrapper form-title" data-hs-cos-general-type="widget_field" data-hs-cos-type="text">Subscribe to Giant Swarm Articles by E-Mail</h3>
+
+<div id="hs_form_target_module_14105159055324266"><form accept-charset="UTF-8" enctype="multipart/form-data" id="hsForm_45209225-55f6-4975-a172-916d1a7f550b_7917" class="hs-form stacked" action="https://forms.hubspot.com/uploads/form/v2/430224/45209225-55f6-4975-a172-916d1a7f550b" method="POST" novalidate="novalidate"><div class="hs_email field hs-form-field"><label placeholder="Enter your E-Mail" for="email-45209225-55f6-4975-a172-916d1a7f550b_7917">E-Mail<span class="hs-form-required"> * </span></label><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="email" required="required" id="email-45209225-55f6-4975-a172-916d1a7f550b_7917" name="email" value="" placeholder="E-Mail"></div></div><div class="hs_blog_default_hubspot_blog_subscription field hs-form-field" style="display: none;"><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="hidden" name="blog_default_hubspot_blog_subscription" value=""></div></div><div class="hs_lifecyclestage field hs-form-field" style="display: none;"><div class="hs-field-desc" style="display: none;"></div><div class="input"><input class="hs-input" type="hidden" name="lifecyclestage" value="subscriber"></div></div><div class="hs_submit"><div class="hs-field-desc" style="display: none;"></div><div class="actions"><input class="hs-button primary large" type="submit" value="Subscribe"></div></div></form></div>
+<script charset="utf-8" src="./Getting Started with Java Development on Docker_files/current(1).js"></script>
+<script>
+    hbspt.forms.create({
+        portalId: '430224',
+        formId: '45209225-55f6-4975-a172-916d1a7f550b',
+        formInstanceId: '7917',
+        pageId: 2047830161,
+        pageName: 'Getting Started with Java Development on Docker',
+        redirectUrl: 'http://blog.giantswarm.io/getting-started-with-java-development-on-docker?hsFormKey=788a4789e02990a797c27cada5c1c03a#module_14105159055324266',
+        css: '',
+        target: '#hs_form_target_module_14105159055324266',
+        
+        formData: {
+          cssClass: 'hs-form stacked'
+        }
+    });
+</script></span>
+                            </div><!--end layout-widget-wrapper -->
+                        </div><!--end widget-span -->
+                    </div><!--end row-->
+                    </div><!--end row-wrapper -->
+                </div><!--end widget-span -->
+        </div><!--end row-->
+        </div><!--end row-wrapper -->
+        <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+        <div class="row-fluid ">
+            <div class="span12 widget-span widget-type-raw_html " style="" data-widget-type="raw_html" data-x="0" data-w="12">
+                <div class="cell-wrapper layout-widget-wrapper">
+                    <span id="hs_cos_wrapper_module_141053168001314269" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_raw_html" style="" data-hs-cos-general-type="widget" data-hs-cos-type="raw_html"><h3>Follow Giant Swarm</h3>
+<div>
+<a class="facebook-button" href="http://www.facebook.com/giantswarm" target="_blank"></a>
+          <a class="twitter-button" href="http://www.twitter.com/giantswarm" taget="_blank"></a>
+          <a class="linkedin-button" href="https://www.linkedin.com/company/giant-swarm" target="_blank"></a>
+          <a class="googleplus-button" href="https://plus.google.com/117315999979228308375" target="_blank"></a>
+         
+          <a class="angellist-button" href="https://angel.co/giant-swarm" target="_blank"></a>
+          <a class="github-button" href="https://github.com/giantswarm/" target="_blank"></a>
+</div></span>
+                </div><!--end layout-widget-wrapper -->
+            </div><!--end widget-span -->
+        </div><!--end row-->
+        </div><!--end row-wrapper -->
+        <div class="row-fluid-wrapper row-depth-1 row-number-2 ">
+        <div class="row-fluid ">
+            <div class="span12 widget-span widget-type-post_filter " style="" data-widget-type="post_filter" data-x="0" data-w="12">
+                <div class="cell-wrapper layout-widget-wrapper">
+                    <span id="hs_cos_wrapper_module_14105160431185928" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_post_filter" style="" data-hs-cos-general-type="widget" data-hs-cos-type="post_filter"><div class="block">
+  <h3>Browse topics</h3>
+  <div class="widget-module">
+    <ul>
+      
+        <li>
+          <a href="http://blog.giantswarm.io/topic/team">Team (7)</a>
+        </li>
+      
+        <li>
+          <a href="http://blog.giantswarm.io/topic/dev">Dev (3)</a>
+        </li>
+      
+        <li>
+          <a href="http://blog.giantswarm.io/topic/history">History (2)</a>
+        </li>
+      
+        <li>
+          <a href="http://blog.giantswarm.io/topic/hosting">Hosting (1)</a>
+        </li>
+      
+        <li>
+          <a href="http://blog.giantswarm.io/topic/management">Management (1)</a>
+        </li>
+      
+    </ul>
+    
+  </div>
+</div>
+</span>
+                </div><!--end layout-widget-wrapper -->
+            </div><!--end widget-span -->
+        </div><!--end row-->
+        </div><!--end row-wrapper -->
+        <div class="row-fluid-wrapper row-depth-1 row-number-3 ">
+        <div class="row-fluid ">
+            <div class="span12 widget-span widget-type-post_listing " style="" data-widget-type="post_listing" data-x="0" data-w="12">
+                <div class="cell-wrapper layout-widget-wrapper">
+                    <span id="hs_cos_wrapper_module_14105160230155441" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_post_listing" style="" data-hs-cos-general-type="widget" data-hs-cos-type="post_listing"><div class="block">
+  <h3>Featured articles</h3>
+  <div class="widget-module">
+    <ul>
+      
+      <li><a href="http://blog.giantswarm.io/communications-is-about-conversations">Communications is About Conversations</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/getting-started-with-java-development-on-docker">Getting Started with Java Development on Docker</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/what-happens-when-you-put-the-whole-giant-swarm-team-in-a-house-for-a-week">What happens when you put the whole Giant Swarm team in a house for a week?</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/how-i-became-giant-swarm-ux-guy">How I Became Giant Swarm’s UX Guy</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/how-we-get-things-done-at-giant-swarm-productivity-stacks-for-tech-startups">How We Get Things Done - Productivity Stacks For Tech Startups</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/coreos-meetup-cologne-october-14-2014-recap">CoreOS Meetup Cologne, October 14, 2014 Recap</a></li>
+      
+      <li><a href="http://blog.giantswarm.io/the-history-and-future-of-hosting">The History and Future of Hosting</a></li>
+      
+    </ul>
+  </div>
+</div></span>
+                </div><!--end layout-widget-wrapper -->
+            </div><!--end widget-span -->
+        </div><!--end row-->
+        </div><!--end row-wrapper -->
+    </div><!--end widget-span -->
+</div><!--end row-->
+</div><!--end row-wrapper -->
+
+    </div><!--end body -->
+</div><!--end body wrapper -->
+
+<div class="footer-container-wrapper">
+    <div class="footer-container container-fluid">
+
+        <div class="row-fluid-wrapper row-depth-1 row-number-1 ">
+        <div class="row-fluid ">
+            <div class="span12 widget-span widget-type-custom_widget " style="" data-widget-type="custom_widget" data-x="0" data-w="12">
+                <div class="cell-wrapper layout-widget-wrapper">
+                    <span id="hs_cos_wrapper_module_14104278751511172" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_custom_widget" style="" data-hs-cos-general-type="widget" data-hs-cos-type="custom_widget"><!-- footer_blog -->
+<footer class="clearfix">
+  <div class="links span8">
+    <p>
+      <a href="http://giantswarm.io/">Giant Swarm</a>
+      <a href="http://giantswarm.io/contact/">Contact</a>
+      <a href="http://giantswarm.io/imprint/">Imprint</a>
+      <a href="http://giantswarm.io/privacypolicy/">Privacy Policy</a>
+    </p>
+    <p class="dark">Proudly hosted on Giant Swarm Alpha. Copyright © 2014 Giant Swarm GmbH. All rights reserved.</p>
+  </div>
+  <div class="social-media span4">
+    <a class="facebook-button" href="http://www.facebook.com/giantswarm" target="_blank"></a>
+    <a class="twitter-button" href="http://www.twitter.com/giantswarm" taget="_blank"></a>
+    <a class="linkedin-button" href="https://www.linkedin.com/company/giant-swarm" target="_blank"></a>
+    <a class="googleplus-button" href="https://plus.google.com/117315999979228308375" target="_blank"></a>
+    <a class="angellist-button" href="https://angel.co/giant-swarm" target="_blank"></a>
+    <a class="github-button" href="https://github.com/giantswarm/" target="_blank"></a>
+    <a class="blog-button" href="http://blog.giantswarm.io/" target="_blank"></a>
+  </div>
+</footer></span>
+                </div><!--end layout-widget-wrapper -->
+            </div><!--end widget-span -->
+        </div><!--end row-->
+        </div><!--end row-wrapper -->
+
+    </div><!--end footer -->
+</div><!--end footer wrapper -->
+
+
+    
+
+<script type="text/javascript" src="./Getting Started with Java Development on Docker_files/public_common.js"></script>
+
+<!-- Start of Async HubSpot Analytics Code -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+_hsq.push(["setCanonicalUrl", "http:\/\/blog.giantswarm.io\/getting-started-with-java-development-on-docker"]);
+_hsq.push(["setPageId", "2047830161"]);
+_hsq.push(["setContentMetadata", {
+    "contentPageId": 2047830161,
+    "legacyPageId": "2047830161",
+    "contentGroupId": 1452010059,
+    "abTestId": null
+}]);
+_hsq.push(["setTargetedDefinitionMeta", {"matchedDefinitionIds":null,"definitionIds":null}]);
+(function(d,s,i,r) {
+    if (d.getElementById(i)){return;}
+    var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+    n.id=i;n.src='//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/430224.js';
+    e.parentNode.insertBefore(n, e);
+})(document,"script","hs-analytics",300000);
+</script>
+<!-- End of Async HubSpot Analytics Code -->
+
+
+<script type="text/javascript">
+var hsVars = {
+    ticks: 1416963192235,
+    page_id: 2047830161,
+    content_group_id: 1452010059,
+    portal_id: 430224,
+    app_hs_base_url: "https://app.hubspot.com"
+}
+</script>
+
+
+
+
+<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Getting Started with Java Development on Docker_files/7r8gQb8MIqE.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Getting Started with Java Development on Docker_files/7r8gQb8MIqE(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+ <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script src="./Getting Started with Java Development on Docker_files/in.js" type="text/javascript">
+    lang: en_US
+</script>
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+ <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+ 
+
+
+    <!-- Generated by the HubSpot Template Builder - template version 1.03 -->
+
+<!-- end coded_template: id:1611474999 path:generated_layouts/1611474984.html -->
+<script type="text/javascript" id="">(function(){var a=window._fbq||(window._fbq=[]);if(!a.loaded){var b=document.createElement("script");b.async=!0;b.src="//connect.facebook.net/en_US/fbds.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);a.loaded=!0}a.push(["addPixelId","1535843739963384"])})();window._fbq=window._fbq||[];window._fbq.push(["track","PixelInitialized",{}]);</script>
+<noscript>&lt;img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=1535843739963384&amp;amp;ev=PixelInitialized"&gt;</noscript><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><iframe name="oauth2relay297182049" id="oauth2relay297182049" src="./Getting Started with Java Development on Docker_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/recaptcha_ajax.js"></script><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/current(2).js"></script><script type="text/javascript" src="./Getting Started with Java Development on Docker_files/embed.js"></script><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 837.453125px; top: 2123px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 375.453125px; top: 3428px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 527.453125px; top: 3885px; display: none;"></div><iframe src="about:blank" style="height: 0px; width: 0px; visibility: hidden; border: none;">This frame prevents back/forward cache problems in Safari.</iframe></body></html>
