@@ -1,0 +1,1 @@
+!function(i){if(i.Raven&&i.viipg&&i.viipg.cfg)try{Raven.config(i.viipg.cfg.sentry,i.viipg&&i.viipg.raven_options||{}).install()}catch(t){}i.viipg.asap.emit(),i.viipg.load(function(){i.viipg.lazy.timeout=i.setTimeout(i.viipg.lazy.emit,200)})}(window,document);

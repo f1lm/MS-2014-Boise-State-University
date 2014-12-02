@@ -1,0 +1,1 @@
+Tynt.sc({"ap":"Read more: ","as":"From: www.ITProPortal.com","st":true})
