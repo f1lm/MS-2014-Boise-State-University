@@ -12,16 +12,16 @@ public class Excep {
 	if (i<1)
 	    throw new ArgsException("too few args");
 	// much more code
-	System.err.println("foo() done");
+	System.out.println("foo() done");
     }
 
     public static void main(String[] args) {
 	try {
 	    foo(args.length);
 	    // much more code
-	    System.err.println("ok");
+	    System.out.println("ok");
 	} catch (ArgsException e) {
-	    System.err.println("not ok: "+e);
+	    System.out.println("not ok: "+e);
 	}
     }
 

@@ -18,7 +18,7 @@ class Value : Constraint<Value <Item> > {
   virtual Value foo() {
     return *this;		// do something foo-ish
   }
-  friend ostream& operator<<(ostream &os, const Value& v) {
+  friend ostream& operator<<(ostream& os, const Value& v) {
     return os << v.item;
   }
 };

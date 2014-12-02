@@ -1,10 +1,20 @@
 #!/bin/bash
 
-prg=${0##*/}
-tmp=/tmp/$prg.$$
+Error() {
+    echo "not ok"
+    exit 1;
+}
 
-trap "rm -f $tmp $tmp.*" EXIT
+trap "Error" SIGUSR1
 
-> $tmp
-> $tmp.1
-> $tmp.2
+foo() {
+    if [ $# -lt 1 ] ; then
+	kill -SIGUSR1 $$
+    fi
+    # much more code
+    echo "foo() done"
+}
+
+foo "$@"
+# much more code
+echo "ok"

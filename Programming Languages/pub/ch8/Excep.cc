@@ -9,7 +9,7 @@ class ArgsException {
   string msg;
 public:
   ArgsException(string msg) : msg(msg) {}
-  friend ostream& operator<<(ostream &os, const ArgsException& e) {
+  friend ostream& operator<<(ostream& os, const ArgsException& e) {
     return os << e.msg;
   }
 };
@@ -20,16 +20,16 @@ public:
     if (i<2)
       throw ArgsException("too few args");
     // much more code
-    cerr << "foo() done" << endl;
+    cout << "foo() done" << endl;
   }
 };
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   try {
     Excep::foo(argc);
     // much more code
-    cerr << "ok" << endl;
+    cout << "ok" << endl;
   } catch (ArgsException e) {
-    cerr << "not ok: " << e << endl;
+    cout << "not ok: " << e << endl;
   }
 }
