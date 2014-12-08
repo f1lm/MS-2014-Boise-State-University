@@ -1,0 +1,825 @@
+
+<!-- saved from url=(0074)http://www.cs.nyu.edu/courses/fall09/G22.2110-001/lectures/lecture-03.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>PL Lecture #3</title>
+    <!-- The following is std, but needs access to cs.nyu.edu -->
+    <link rel="stylesheet" type="text/css" href="./PL Lecture #3_files/courses.css">
+    <!-- Firefox treats the next as relative; I use it when off the net -->
+    <link rel="stylesheet" type="text/css" href="./PL Lecture #3_files/courses(1).css">
+<style type="text/css"></style><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+
+<h1 align="center">Programming Languages</h1>
+
+<p class="startLecture">Start Lecture #3</p> <!-- MARKER -->
+
+<h1>Chapter 6: Control Flow</h1>
+
+<p><strong>Remark</strong>: We <strong>will</strong> have a midterm.
+  It will be 1 hour, during recitation.
+  It will <strong>not</strong> be either next monday or the monday
+  after.
+
+</p><h2>6.1: Expression Evaluation</h2>
+<p>Most languages use infix notation for built in operators.
+  Scheme is an exception (+ 2 (/ 9 x)).
+  </p><pre class="right" data-initialized="true" data-gclp-id="0">    function "*" (A, B: Vector) return Float is
+      Result: Float :=0.0;
+    begin
+      for I in A'Range loop
+        Result := Result + A(I)*B(I);
+      end loop;
+      return Result;
+    end "*";
+  </pre>
+<p>Some languages permit the programmer to extend the infix operators.
+  An example from Ada is at right.
+  This example assumes Vector has already been declared as a
+  one-dimensional array of floats.
+  A'R gives the range of the legal subscripts, i.e. the bounds of the
+  array.
+  With loops like this it is not possible to access the array out of
+  bounds.</p>
+
+<h3>6.1.1: Precedence and Associativity</h3>
+<p>Most languages agree on associativity, but APL is strictly right to
+  left (no precedence, either).
+  Normal is for most binary operators to be left associative, but
+  exponentiation is right associative (also true in math).
+  Why?
+</p><p>Languages differ considerably in precedence (see figure 6.1 in 3e).
+  The safest rule is to use parentheses unless certain.</p>
+<p><strong>Homework:</strong> 1.
+  We noted in Section 6.1.1 that most binary arithmetic operators are
+  left-associative in most programming languages.
+  In Section 6.1.4, however, we also noted that most compilers are
+  free to evaluate the operands of a binary operator.
+  Are these statements contradictory?
+  Why or why not?</p>
+
+<h3>6.1.2: Assignments</h3>
+<p>Assignment statements are the dominant example of side effects,
+  where execution does more that compute values.
+  Side effects change the behavior of subsequent statements and
+  expressions.</p>
+
+<h4>References and Values</h4>
+<p>There is a distinction between the container for a value
+  (the <q>memory location</q>) and the value itself.
+  Some values, e.g., 3+4, do not have corresponding containers and,
+  among other things, cannot appear on the left hand side of an
+  assignment.
+  Otherwise said <q>3+4</q> is a legal r-value, but not a legal
+  l-value.
+  Given an l-value, the corresponding r-value can be obtained by
+  <em>dereferencing</em>.
+  In most languages, this dereferencing is automatic.
+  Consider
+  </p><pre class="compact" data-initialized="true" data-gclp-id="1">    a := a + 1;
+  </pre>
+  the first a gives the l-value; the second the r-value.
+<p></p>
+
+<div class="optional">
+  <h4>Boxing</h4>
+</div>
+
+<pre class="right" data-initialized="true" data-gclp-id="2">  begin
+    a := if b &lt; c then d else c;
+    a := begin f(b); g(c) end;
+    g(d);
+    2+3
+  end
+</pre>
+<h4>Orthogonality</h4>
+<p>The goal of orthogonality of features is to permit the features in
+  any combination possible.
+  Algol 68 emphasized orthogonality.
+  Since it was an expression-oriented language, expressions could
+  appear almost anywhere.
+  There was no separate notion of statement.
+  An example appears on the right.
+  I have heard and read that this insistence on orthogonality lead to
+  significant implementation difficulties.</p>
+
+<h4>Combination Assignment Operators</h4>
+<p>I suspect you all know the C syntax
+  </p><pre class="compact" data-initialized="true" data-gclp-id="3">    a += 4;
+  </pre>
+  It is no doubt often convenient, but its major significance is that
+  in statements like
+  <pre class="cpt" data-initialized="true" data-gclp-id="4">    a[f(i)] += 4;
+  </pre>
+  it <strong>guarantees</strong> that f(i) is evaluated only once.
+  The importance of this guarantee becomes apparent if f(i) has side
+  effects, e.g., if f(i) modifies i or prints.<p></p>
+
+<h4>Multiway Assignment (and Tuples)</h4>
+<p>Some languages, e.g., Perl and Python, permit tuples to be assigned
+  and returned by functions, giving rise to code such as
+  </p><pre class="compact" data-initialized="true" data-gclp-id="5">    a, b  :=  b, a    -- swapping w/o an explicit temporary
+    x, y  :=  f(5);   -- this f takes one argument and returns two results
+  </pre>
+<p></p>
+
+<h3>6.1.3: Initialization</h3>
+<p>Avoids the problem where an uninitialized variable has different
+  values in different runs causing non-reproducible results.
+  Some systems provide default initialization, for example C
+  initializes external variables to zero.
+</p><p>To initialize aggregates requires a way to specify aggregate
+  constants.</p>
+
+<h4>Dynamic Checks</h4>
+<p>An alternative to have the system check during execution if a
+  variable is uninitialized.
+  For IEEE floating point this is free, since there are invalid bit
+  patterns (NaN) that are checked by conforming hardware.
+  To do this in general needs special hardware or expensive software
+  checking.</p>
+
+<h4>Definite Assignment</h4>
+<p>Some languages, e.g., Java and C#, specify that the compiler must
+  be able to show that no variable is used before given a value.
+  If the compiler cannot confirm this, a warning/error message is
+  produced.</p>
+
+<h4>Constructors</h4>
+<p>Some languages, e.g., Java, C++, and C# permit the program to
+  provide constructors that automatically initialize dynamically
+  allocated variables.</p>
+
+<h3>6.1.4: Ordering within Expressions</h3>
+<p>Which addition is done first when you evaluate X+Y+Z?
+  This is not trivial: one order might overflow or give a less precise
+  result.
+  For expressions such as f(x)+g(x) the evaluation order matters if
+  the functions have side effects.</p>
+
+<div class="optional">
+  <h4>Applying Mathematical Identities</h4>
+</div>
+
+<h3>6.1.5: Short-Circuit Evaluation</h3>
+<p>Sometimes the value of the first operand determines the value of
+  the entire binary operation.
+  For example 0*x is 0 for any x; <q>True or X</q> is True for any X.
+  Not evaluating the second operand in such cases is called a
+  short-circuit evaluation.
+  Note that this is not just a performance improvement; short-circuit
+  evaluation changes the meaning of some programs: Consider 0*f(x),
+  when f has side effects (e.g. modifying x or printing).
+  We treat this issue in 6.4.1 (short-circuited conditions) when
+  discussing control statements for selection.
+
+</p><p><strong>Homework:</strong> CYU 7.
+  What is an l-value? An r-value?
+  CYU 11.
+  What are the advantages of updating a variable with an
+  <em>assignment operator</em>, rather than with a regular assignment
+  in which the variable appears on both the left- and right-hand
+  sides?</p>
+
+<h2>6.2: Structured and Unstructured Flow</h2>
+<p>Early languages, in particular, made heavy use of unstructured
+  control flow, especially goto's.
+  Much evidence was accumulated to show that the great reliance on
+  goto's both increased the bug density and decreased the readability
+  (these are <strong>not</strong> unrelated consequences) so today
+  structured alternatives dominate.
+</p><p>A famous article (actually a letter to the editor) by Dijkstra
+  entitled
+  <q>Go To Statement Considered Harmful</q> put the case before the
+  computing public.
+</p><p>Common today are
+  </p><ul>
+    <li>Selection
+      <ul>
+        <li>if statement
+        </li><li>case statement
+      </li></ul>
+    </li><li>Iteration
+      <ul>
+        <li>while and repeat loops
+        </li><li>for loops
+        </li><li>iterators (looping over a collection)
+      </li></ul>
+    </li><li>Other
+      <ul>
+        <li>goto: Only when necessary.
+        </li><li>call/return: Accomplishes more than flow control
+        </li><li>exceptions
+        </li><li>continuations: normally in functional languages
+      </li></ul>
+  </li></ul>
+<p></p>
+
+<h3>6.2.1: Structured Alternatives to goto</h3>
+<p>Common uses of goto have been captured by newer control statements.
+  For example, Fortran had a DO loop (similar to C's for), but had no
+  way other that GOTO to exit the loop early.
+  C has a break statement for that purpose.
+</p><p><strong>Homework:</strong> 24.
+  Rubin [Rub87] used the following example (rewritten here in C) to
+  argue in favor of a goto statement.
+  </p><pre data-initialized="true" data-gclp-id="6">    int first_zero_row = -1     /* none */
+    int i, j;
+    for (i=0; i&lt;n; i++) {
+      for (j=0; j&lt;n; j++) {
+        if (A[i][j]) goto next;
+      }
+      first_zero_row = i;
+      break;
+    next:;
+    }
+  </pre>
+  The intent of the code is to find the first all-zero row, if any, of
+  an n×n matrix.
+  Do you find the example convincing?
+  Is there a good structured alternative in C?
+  In any language?<p></p>
+
+<div class="optional">
+  <h4>Multilevel Returns</h4>
+</div>
+
+<h3>Errors and Other Exceptions</h3>
+<pre class="right" id="ada-exception" data-initialized="true" data-gclp-id="7">  begin                              begin
+    x := y/z;                          x := y/z;
+    z := F(y,z); -- function call      z := F(y,z);
+    z := G(y,z); -- array ref          z := G(y,z);
+  end;                               exception   -- handlers
+                                       when Constraint_Error =&gt;
+                                         -- do something
+                                     end;
+</pre>
+<p>The Ada code on the right illustrates exception handling.
+  An Ada <q>constraint error</q> signifies using an incorrect value,
+  e.g., dividing by zero, accessing an array out of bounds, assigning
+  a negative value to a variable declared <q>positive</q>, etc.
+</p><p>Ada is statically scoped but constraints have a dynamic flavor.
+  If G raises a constraint error and does not have its own handler,
+  then the constraint error is propagated back to the caller of G, in
+  our case the anonymous block on the right.
+  Note that G is not lexically inside the block so the constraint
+  error is propagating via the call chain not scoping.</p>
+
+<div class="optional" id="for-ben">
+  <pre class="right" data-initialized="true" data-gclp-id="8">    (define f
+      (lambda (c)
+        (c)))
+    (define g
+      (lambda ()
+        ;; beginning of g
+        (call-with-current-continuation f)
+        ;; more of g
+        ))
+  </pre>
+  <h3>6.2.2 Continuations</h3>
+  <p>A continuation encapsulates the current context, including the
+    current location counter and bindings.
+    Scheme contains a function
+    </p><pre class="compact" data-initialized="true" data-gclp-id="9">      (call-with-current-continuation f)
+    </pre>
+    that invokes f, passing to it the current continuation c.
+    The simplest case occurs if a function g executes the invocation
+    above and then f immediately calls c.
+    The result is the same as if f returned to g.
+    This example is shown on the right.
+  <p>However, the continuation is a object that can be further passed
+    on and can be saved and reused.
+    Hence one can get back to a given context multiple times.
+    Moreover, if f calls h giving it c and h calls c, we are back in g
+    without having passed through f.
+  </p><p>One more subtlety: The binding that contained in c
+    is <q>writable</q>.
+    That is, the binding is from name to memory-location-storing-the
+    name, not just from name to current-value.
+    So in the example above, if f changes the value of a name in the
+    binding, and then calls c, g will see the change.
+  </p><p>Continuations are actually quite powerful and can be used to
+    implement quite a number of constructs, but the power comes with a
+    warning: It is easy to (mis-)use continuations to create extremely
+    obscure programs.
+</p></div>
+
+<h2>6.3: Sequencing</h2>
+<p>
+  </p><pre class="right" data-initialized="true" data-gclp-id="10">    for I in 1..N loop
+      -- loop body
+    end loop;
+  </pre>
+  Many languages have a means of grouping several statements together
+  to form a <q>compound statement</q>.
+  Pascal used begin-end pairs to form compound statements, C shortened
+  it to {}.
+  Ada doesn't need {} because the language syntax already contains
+  bracketing constructs.
+  As an example, the code on the right is the Ada version of a simple
+  C for loop.
+  Note that the <q>end</q> is part of the for statement and not a
+  separate begin-end compound.
+<p>When declarations are combined with a sequence the result is a
+  block.
+  A block is written
+  </p><pre class="compact" data-initialized="true" data-gclp-id="11">    { declarations / statements }   declare declarations begin statements end
+  </pre>
+  in C and Ada respectively.
+  As usual C is more compact, Ada more readable.<p></p>
+<p>Another alternative is make indentation significant.
+  I often use this is pseudo-code; B2/ABC/Python and Haskell use it
+  for real.
+
+</p><pre class="right" data-initialized="true" data-gclp-id="12">  if condition then statements
+  if (condition) statement
+
+  if condition then
+    statements_1
+  else
+    statements_2
+  end if
+
+  if condition_1 {
+    statements_1 }
+  else if condition_2 {
+    statements_2}
+  else {
+    statements_3}
+
+  if condition_1 then
+    statements_1
+  elsif condition_2 then
+    statements_2
+  ...
+  elsif condition_n then
+    statements_n
+  end if
+</pre>
+<h2>6.4: Selection</h2>
+<p>Essentially every language has an if statement to use for selection.
+  The simplest case is shown in the first two lines on the right.
+  Something is needed to separate the condition from the statement.
+  In Pascal and Ada it is the <strong>then</strong> keyword;
+  in C/C++/Java it is the parentheses surrounding the condition.
+</p><p>The next step up is if-then-else, introduced in Algol 60.
+  We have already seen the infamous <q>dangling else</q> problem that
+  can occur if statements_1 is an <strong>if</strong>.
+  If the language uses end markers like <strong>end if</strong>, the
+  problem disappears; Ada uses this approach, which is shown on the
+  right.
+  Another solution, used by Algol 60, is to forbid a
+  <strong>then</strong> to be followed immediately by
+  an <strong>if</strong> (you can follow <strong>then</strong> by a
+  <strong>begin</strong> block starting with <strong>if</strong>).
+</p><p>When there are more than 2 possibilities, it is common to employ
+  <strong>else if</strong>.
+  The C/C++/Java syntax is shown on the right.
+  This same idea could be used in languages featuring
+  <strong>end if</strong>, but the result would be a bunch
+  of <strong>end if</strong> statements at the end.
+  To avoid requiring this somewhat ugly code, languages like Ada
+  include an <strong>elsif</strong> which continues the
+  existing <strong>if</strong> rather than starting a new one.
+  Thus only one <strong>end if</strong> is required as we see in the
+  bottom right example.</p>
+
+<h3>6.4.1: Short-Circuit Conditions (and Evaluation)</h3>
+<p>Can <q>if (y==0 || 1/y &lt; 100)</q> ever divide by zero?<br>
+  Not in C which <strong>requires</strong> short-circuit evaluation.
+</p><p>In addition to divide by zero cases, short-circuit evaluation is
+  helpful when searching a null-terminated list in C.
+  In that situation the idiom is
+  </p><pre class="compact" data-initialized="true" data-gclp-id="13">    while (ptr &amp;&amp; ptr-&gt;val != value)
+  </pre>
+  The short circuit evaluation of &amp;&amp; guarantees that we will
+  never execute <tt>null-&gt;val</tt>.
+<p>But sometimes we do not want to short-circuit the evaluation.
+  For example, consider f(x)&amp;&amp;g(x) where g(x) has a desirable
+  side effect that we want to employ even when f(x) is false.
+  In C this cannot be done directly.</p>
+<pre class="right" data-initialized="true" data-gclp-id="14">  if C1 and C2  -- always eval C2
+  if C1 and then C2 -- not always
+</pre>
+<p>Ada has both possibilities.
+  The operator <strong>or</strong> always evaluates both arguments;
+  whereas, the operator <strong>or else</strong> does a short circuit
+  evaluation.</p>
+<p><strong>Homework:</strong> 12.
+  Neither Algol 60 nore Algol 68 employs short-circuit evaluation for
+  Boolean expressions.
+  In both languages, however, an
+  <tt>if...then...else</tt> construct can be used as an expression.
+  Show how to use <tt>if...then...else</tt> to achieve the effect of
+  short-circuit evaluations.</p>
+
+<pre class="right" data-initialized="true" data-gclp-id="15">  case nextChar is
+    when 'I'    =&gt; Value := 1;
+    when 'V'    =&gt; Value := 5;
+    when 'X'    =&gt; Value := 10;
+    when 'C'    =&gt; Value := 100;
+    when 'D'    =&gt; Value := 500;
+    when 'M'    =&gt; Value := 1000;
+    when others =&gt; raise InvalidRomanNumeral;
+  end case;
+</pre>
+<h3>6.4.2 Case/Switch Statements</h3>
+<p>Most modern languages have a case or switch statement where the
+  selection is based on the value of a single expression.
+  The code on the right was written in Ada by a student of ancient
+  Rome.
+  The raise instruction causes an exception to be raised and thus
+  control is transferred to the
+  <a href="http://www.cs.nyu.edu/courses/fall09/G22.2110-001/lectures/lecture-03.html#ada-exception">appropriate handler</a>.
+</p><p>A case statement can always be simulated by a sequence of if
+  statements, but the case statement is clearer.</p>
+
+<h4>(Alternative) Implementations</h4>
+<p>In addition to increased clarity over multiple if statements, the
+  case statement can, in many situations be compiled into better code.
+  Most languages having this construct require that the tested for
+  values ('I', 'V', 'X', 'C', 'D', and 'M' above) must be computable
+  at compile time.
+  For example in Ada, they must be manifest constants, or ranges such
+  as 5..8 composed of manifest constants, or a disjunction of these
+  (e.g., 6 | 9..20 | 8).</p>
+<div class="optional">
+  <p>In the simplest case where each choice is a constants, a jump
+    table can be constructed and just two jumps are executed,
+    independent of the number of cases.
+    The size of the jump table is the range of choices so would be
+    impractical if the case expression was an arbitrary integer.
+    If the when arms formed consecutive integers, the implementation
+    would jump to others if out of range (using comparison operators)
+    and then use a jump table for the when arms.
+  </p><p>Hashing techniques are also used (see 3e).
+    In the general case the code produced is a bunch of tests and
+    tables.
+  </p>
+</div>
+
+<h4>Syntax and Label Semantics</h4>
+<p>The languages differ in details.
+  The words <q>case</q> and <q>when</q> in Ada become <q>switch</q>
+  and <q>case</q> in C.
+  Ada requires that all possible values of the case expression be
+  accounted for (the <strong>others</strong> construct makes this
+  easy).
+  C and Fortran 90 simply do nothing when the expression does not
+  match any arm even though C does support a <strong>default</strong>
+  arm.</p>
+
+<pre class="right" data-initialized="true" data-gclp-id="16">  switch (x+3) {
+    case 2:  statements_2
+             break;
+    case 1:  statements_1
+             break;
+    case 6:  statements_6   // NO break between
+    case 5:  statements_5   // cases 6 and 5
+             break;
+    default: something
+  }
+</pre>
+<h4>The C switch Statement</h4>
+<p>The C switch statement is rather peculiar.
+  There are no ranges allowed and the cases flow from one to the other
+  unless there is a break, a common cause of errors for beginners.
+  So if x is 3, x+3 is 6 and both statements_6 and statements_5 are
+  executed.
+</p><p>Indeed, the cases are really just statement labels.
+  This can lead to quite unstructured code including the infamous ...</p>
+
+<h5>Duff's Device (R Rated—Don't Show This to Minors)</h5>
+<pre class="compactRight" data-initialized="true" data-gclp-id="17">  void send (int *to, int *from, int count) {
+    int n = (count + 7) /8;
+    switch (count % 8) {
+      case 0: do { *to++ = *from++;
+      case 7:      *to++ = *from++;
+      case 6:      *to++ = *from++;
+      case 5:      *to++ = *from++;
+      case 4;      *to++ = *from++;
+      case 3:      *to++ = *from++;
+      case 2:      *to++ = *from++;
+      case 1:      *to++ = *from++;
+                 } while (--n &gt; 0);
+    }
+  }
+</pre>
+<p>This function is actually perfectly legal C code.
+  It was discovered by Tom Duff, a very strong graphics programmer,
+  formerly at Bell Labs now at Pixar.
+  The normal way to copy n integers is to loop n times.
+  But that requires n tests and n jumps.
+</p><p>Duff <q>unrolled</q> the loop 8 times meaning that he looped n/8
+  times with each body copying 8 integers.
+  Unrolling is a well known technique, nothing new yet.
+  But, if n is say 804, then after doing 100 iterations with 8 copies,
+  you need to do one extra iteration to copy the last 4.
+  The standard technique is to write two loops, one does n/8
+  iterations with 8 copies, the other does n%8 iterations with one
+  copy.
+  Duff's device uses only one loop.
+</p><p>Compiler technology has improved since Duff created the device and
+  Wikipedia says that when it was removed from part of the
+  X-window system, performance increased.</p>
+
+<h2>6.5: Iteration</h2>
+
+<pre class="right" data-initialized="true" data-gclp-id="18">  for I in A..N loop statements end loop;
+  for (int i=A; i&lt;n; i++) { statements }
+</pre>
+<h3>6.5.1: Enumeration-Controlled Loops</h3>
+<p>On the right we see the basic for loop from Ada and C.</p>
+
+<div class="optional">
+  <h4>Code Generation For for Loops</h4>
+</div>
+
+<h4>Possibilities / Design Issues (Semantic Complications)</h4>
+<p>There is a tension between flexibility and clarity.
+  An Ada advocate would say that for loops are just for iterating
+  over a domain; there are other (e.g., <strong>while</strong>) loops
+  that should be used for other cases.
+  A C advocate finds the for(;;) construct an expressive and concise
+  way to implement important idioms.
+</p><p>This tension leads to different answers for several design
+  questions.
+  </p><ul>
+    <li>Evaluation of loop bounds:<br>
+      Many languages evaluate the bounds only once, before the
+      iterations start; however, C and successors evaluate the clauses
+      in the for statement each iteration.
+    </li><li>Scope and mutability of loop index:<br>
+      Many languages have the index (I above) automatically declared
+      to be local to the loop.
+      In the example C loop, I explicitly declared the index to be
+      local.
+      One difference between the two examples is that in Ada the index
+      I is a constant, which prevents both accidental and deliberate
+      change of the index by the statements in the loop body.
+    </li><li>Non-unit Increments:<br>
+      Many languages, including C, permit the increment to be an arbitrary
+      value.
+      Indeed, in C the <q>increment clause</q> need not increment at
+      all.
+      In Ada the increment is implicit; the result is that the loop
+      travels through the entire range specified after
+      <strong>in</strong>.
+    </li><li>Reverse Order Iterations:<br>
+      One possibility that Ada does
+      offer is to travel backwards through the range using
+      <pre class="cpt" data-initialized="true" data-gclp-id="19">        for i in reverse A..N loop statements end loop;
+      </pre>
+    </li><li>Non-numeric domains:<br>
+      <pre class="right" data-initialized="true" data-gclp-id="20">        declare
+          type Weekday is (Mon, Tues, Wed, Thurs, Fri);
+          I : Integer -- **NOT** used in loop below
+        begin
+          for I in Weekday loop
+            statements
+          end loop;
+        end
+        </pre>
+      Many languages, including Ada, permit the range to be any
+      discrete set.
+      So an enumeration type is permitted as shown on the right, but a
+      range of Floats is not.
+    </li><li>Null Loops:<br>
+      What happens if N &lt; A?
+      Nearly all languages execute <em>no</em> iterations.
+      That is, the termination test is performed before the body
+      executes.
+      A famous exception is Fortran, which tests at the bottom of the
+      loop and hence always executes at least one iteration.
+  </li></ul>
+<p></p>
+
+<pre class="right" data-initialized="true" data-gclp-id="21">  <strong>for</strong> (expr1; expr2; expr3) statements;
+
+  expr1;
+  <strong>while</strong> (expr2); {
+    statements;
+  }
+  expr3;
+</pre>
+<h3>6.5.2: Combination Loops</h3>
+<p>The C <strong>for</strong> loop is actually quite close to the
+  <strong>while</strong> loops we discuss below since the three clause
+  within the <strong>for</strong> can be arbitrary expressions,
+  including assignments and other side-effects.
+  Indeed the for loop on the right is defined by C to have the same
+  semantics as the while loop below it unless the statements in the
+  body include a <strong>continue</strong> statement.
+</p><p>Loops combining both enumeration and logical control are also found
+  in Algol 60 and Common Lisp.</p>
+
+<h3>6.5.3: Iterators</h3>
+<p>We saw above an example of a loop with range an enum
+  Weekday=(Mon,Tues,Wed,Thurs,Fri).
+  More generally, some languages, e.g., Clu, Python, Ruby, C++,
+  Euclid, and C# permit the programmer to provide an <em>iterator</em>
+  with any <em>container</em> (an object of a discrete type).
+  </p><pre class="right" data-initialized="true" data-gclp-id="22">    <strong>for</strong> (thing=first(); anyMore(); thing=next()); {
+      statements
+    };
+  </pre>
+<p>The programmer then writes <q>first</q>, <q>next</q>, and
+  <q>anyMore</q> operators that in succession yield all elements of
+  the container.
+  So the generalization of the C <strong>for</strong> loop becomes
+  something like the code on the right.
+</p><p>As an example imagine a binary tree considered as a container of
+  nodes.
+  One could write three different iterators: preorder, postorder, and
+  inorder.
+  Then, using the appropriate iterator in the loop shown above would
+  perform a preorder/postorder/inorder traversal of the tree.</p>
+
+<div class="optional">
+  <h4>True Iterators</h4>
+
+  <h4>Iterator Objects</h4>
+
+  <h4>Iterating with First-Class Functions</h4>
+
+  <h4>Iterating without Iterators</h4>
+
+  <h3>Generators in Icon</h3>
+</div>
+
+<h3>6.5.5: Logically Controlled Loops</h3>
+<p>Essentially all languages have <strong>while</strong> loops of the
+  general form
+  </p><pre class="compact" data-initialized="true" data-gclp-id="23">    while condition loop statements end loop;
+  </pre>
+  In while loops the condition is tested each iteration before the
+  statements are executed.
+  In particular, if the condition is initially false,
+  <strong>no</strong> iterations are executed.
+<p>In fact all loops can be expressed using this form, for suitable
+  conditions and statements.
+  This <q>universality</q> proves useful when performing
+  invariant/assertion reasoning and proving programs consistent with
+  their specifications.</p>
+
+<pre class="right" data-initialized="true" data-gclp-id="24">  <strong>repeat</strong> statements <strong>until</strong> condition;
+  <strong>do</strong> { statements } <strong>while</strong> (condition);
+
+  first := true;
+  <strong>while</strong> (first <strong>or else</strong> condition) loop
+    statements
+    first := false;
+  <strong>end loop;</strong>
+</pre>
+<h4>Post-test Loops</h4>
+<p>Sometimes we want to perform the test at the bottom of the loop
+  (and thus execute the body at least once).
+  The first two lines on the right show how this is done in Pascal and
+  C respectively.
+  The difference between the two is that the repeat-until construct
+  terminates when the condition is true; whereas, the do-while
+  terminates when the condition is false.
+</p><p>The do-while is more popular.
+  One language that has neither is Ada so code like the bottom right
+  is needed to simulate do-while.</p>
+
+<pre class="right" data-initialized="true" data-gclp-id="25">  Outer: <strong>while</strong> C1 <strong>loop</strong>
+    statements_1a
+    Mid: <strong>while</strong> C2 <strong>loop</strong>
+      statements_2a
+      <strong>exit</strong> outer <strong>when</strong> condition_fini;
+      inner:<strong>while</strong> C3 <strong>loop</strong>
+        statements_3
+        <strong>exit when</strong> condition_2b;
+        <strong>exit</strong> mid <strong>when</strong> condition_1b;
+      <strong>end loop</strong> inner;
+      statements_2b
+    <strong>end loop</strong> mid;
+    statements_1b
+  <strong>end loop</strong> outer;
+</pre>
+<h4>Midtest Loops</h4>
+<p>More generally, we might want to break out of a loop somewhere
+  <q>in the middle</q>, that is, at an arbitrary point in the body.
+  Many languages offer this ability, in C/C++ it is the
+  <strong>break</strong> statement.
+</p><p>Even more generally, we might want to break out of a nested loop.
+  Indeed, if we are nested three deep, we might want to end the two
+  innermost loops and continue with the outer loop at the point where
+  the middle loop ends.
+</p><p>In C/C++ a <strong>goto</strong> is needed to break out of several
+  layers; Java extends the C/C++ <strong>break</strong> with labels to
+  support multi-level breaks; and Ada uses <strong>exit</strong> to
+  break out and a labeled exit (as shown on the right) for multi-level
+  breaks.
+</p><p>For example, if condition_fini evaluates <strong>true</strong>, the
+  entire loop nest is exited; if condition_2b evaluates
+  <strong>true</strong>, statements_2b is executed; and if condition_1b
+  evaluates <strong>true</strong>, statements_1b is executed.</p>
+
+<!-- Formatting checked up to here -->
+
+<h2>6.6: Recursion</h2>
+<p>We will discuss recursion again when we study subprograms.
+  Here we just want to illustrate its relationship to iteration.
+
+</p><h3>6.6.1: Iteration and Recursion</h3>
+<p>Although iteration is indicated by a keyword statement such as
+  <q>while</q>, <q>for</q>, or <q>loop</q>, and recursion is indicated
+  by a procedure/function invocation, the concepts are more closely
+  related than the divergent syntax suggests.
+  Both iteration and recursion are used to enable a section to be
+  executed repeatedly.</p>
+<pre class="right" data-initialized="true" data-gclp-id="26">  #include &lt;stdio.h&gt;
+  int summation (int (*f)(int x), int low, int high) {
+      int total = 0;
+      int i;
+      for (i = low; i &lt;= high; i++) {
+          total += (*f)(i);
+      }
+      return total;
+  }
+  int square(int x) {
+      return x * x;
+  }
+  int main (int argc, char *argv[]) {
+      printf ("Ans is %d", summation(&amp;square,1,3));
+      return 0;
+  }
+
+  (define square (lambda (x) (* x x)))
+  (define summation
+    (lambda (f lo hi)
+      (cond
+       ((&gt; lo hi) 0)
+       ((= lo hi) (f lo))
+     (else (+ (summation f lo (- hi 1)) (f hi))))))
+  (summation square 1 3)
+
+  (summation (lambda (x) (* x x)) 1 3)
+</pre>
+<p>On the right we see three versions of a function to compute
+  </p><pre class="compact" data-initialized="true" data-gclp-id="27">    Sum (from i = lo) (to i = hi) f(i)
+  </pre>
+  given three parameters, lo, hi, and (a pointer to) f.
+  <ol>
+    <li>The first version uses iteration.
+      It is written in C, which does not support passing functions as
+      parameters, but does support passing pointers to functions.
+      This explains the specification of the first parameter of
+      summation.
+      As an aside, C is willing to do some automatic type conversions
+      (called coercions) so the &amp; could be omitted and the loop
+      body could say f(i).
+      However, it is important to note that the first argument to
+      summation is a pointer <strong>not</strong> a function.<br><br>
+    </li><li>The second version is in scheme and uses recursion.
+      The reason the recursion goes down from hi rather than up from
+      lo is so that the arithmetic is done in the same order as with
+      the iterative version.<br><br>
+    </li><li>The third version uses the same definition of summation as
+      does the second, but uses the anonymous function directly and
+      thus doesn't need (or have) any mention of the name square.
+  </li></ol>
+<p></p>
+
+<h4>Tail Recursion</h4>
+<p>A recursive function is called <em class="def">tail recursive</em>
+  if the <strong>last</strong> thing it does before returning is to
+  invoke itself recursively.
+</p><p>In this case we do <strong>not</strong> need to keep multiple
+  copies of the local variables since, when one invocation calls the
+  next, the first is <q>finished with</q> its copy of the variables
+  and the second one can reuse them rather than pushing another set of
+  local variables on the stack.
+  This is very helpful for for performance.</p>
+<pre class="right" data-initialized="true" data-gclp-id="28">  int gcc (int a, int b) {               int gcc (int a, int b) {
+    				         start:
+    if (a == b) return a;      	           if (a == b) return a;
+    if (a &gt; b) return gcd(a-b,b);          if (a &gt; b) {
+                                             a = a-b; goto start; }
+    return gcd(a,b-a); }                   b = b-a; goto start; }
+</pre>
+<p>The two examples on the right are from the book and show equivalent
+  C programs for gcd: the left (tail-) recursive, the right iterative.
+  Both versions assume the parameters are positive.
+  Good compilers (especially, those for <q>functional languages</q>
+  will automatically convert tail recursive functions into equivalent
+  iterative form.</p>
+
+<h4>Thinking Recursively</h4>
+<p>I very much recommend the book <em>The Little Schemer</em> by
+  Friedman and Felleisen.
+
+</p><div class="optional">
+  <h3>6.6.2: Applicative and Normal-Order Evaluation</h3>
+
+  <h4>Lazy Evaluation</h4>
+
+  <h2>6.7: Nondeterminacy</h2>
+</div>
+
+
+
+
+<div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" style="left: 1865.0625px; top: 291.515625px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="1" style="left: 1865px; top: 633.234375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="2" style="left: 1865.28125px; top: 716.234375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="3" style="left: 1865px; top: 864.578125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="4" style="left: 1865px; top: 900.109375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="5" style="left: 1865px; top: 1010.515625px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="6" style="left: 1865px; top: 2092.71875px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="7" style="left: 1864.703125px; top: 2372.109375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="8" style="left: 1401.5px; top: 2494.828125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="9" style="left: 1865px; top: 2539.4375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="10" style="left: 1864.75px; top: 2784.078125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="11" style="left: 1865px; top: 2847.484375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="12" style="left: 1864.5625px; top: 2946.015625px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="13" style="left: 1865px; top: 3243.453125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="14" style="left: 1865.125px; top: 3341.984375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="15" style="left: 1865.359375px; top: 3427.984375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="16" style="left: 1865.0625px; top: 3808.84375px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="17" style="left: 1516.421875px; top: 3906.71875px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="18" style="left: 1864.953125px; top: 4144.421875px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="19" style="left: 1865px; top: 4534.28125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="20" style="left: 1864.875px; top: 4582.8125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="21" style="left: 1459.109375px; top: 4670.8125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="22" style="left: 1865.46875px; top: 4862.65625px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="23" style="left: 1865px; top: 5169.78125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="24" style="left: 1865.390625px; top: 5268.3125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="25" style="left: 1579.921875px; top: 5388.78125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="26" style="left: 1865.03125px; top: 5759.28125px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="27" style="left: 1865px; top: 5770.6875px; display: none;" data-hasqtip="true"></div><div class="gclp-code-grabber" data-gclp-id="28" style="left: 1466.140625px; top: 6097.6875px; display: none;" data-hasqtip="true"></div></body></html>
