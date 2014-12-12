@@ -1,0 +1,5 @@
+//tealium universal tag - utag.1274 ut4.0.201411200315, Copyright 2014 Tealium.com Inc. All Rights Reserved.
+try{(function(id,loader,u){u=utag.o[loader].sender[id]={};u.ev={'view':1};u.data={};u.data.client_id="765";u.map={};u.extend=[];u.send=function(a,b){if(u.ev[a]||typeof u.ev.all!="undefined"){var c,d,e,f;for(d in utag.loader.GV(u.map)){if(typeof b[d]!="undefined"&&b[d]!=""){e=u.map[d].split(",");for(f=0;f<e.length;f++){u.data[e[f]]=b[d];}}}
+u.data.order_id=u.data.order_id||b._corder;u.data.amount=u.data.amount||b._csubtotal||"";u.data.email=u.data.email||b._ccustid||"";if(u.data.order_id){window.bxAsyncInit=function(){bouncex.report_conversion({order_id:u.data.order_id,amount:u.data.amount,email:u.data.email});};}
+u.base_url="//bounceexchange.com/bounce/i.js?client_id="+u.data.client_id;u.s=document.getElementsByTagName("script")[0];u.scr=document.createElement("script");u.scr.type="text/javascript";u.scr.src=u.base_url;u.s.parentNode.insertBefore(u.scr,u.s);}}
+utag.o[loader].loader.LOAD(id);})('1274','cbsi.zdnetglobalsite');}catch(e){}

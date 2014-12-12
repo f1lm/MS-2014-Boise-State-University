@@ -1,0 +1,47 @@
+Type.registerNamespace('Microsoft.Mtps.Web.WebServices');
+Microsoft.Mtps.Web.WebServices.CCWebService=function() {
+Microsoft.Mtps.Web.WebServices.CCWebService.initializeBase(this);
+this._timeout = 0;
+this._userContext = null;
+this._succeeded = null;
+this._failed = null;
+}
+Microsoft.Mtps.Web.WebServices.CCWebService.prototype={
+_get_path:function() {
+ var p = this.get_path();
+ if (p) return p;
+ else return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_path();},
+AddTags:function(userID,contentUrl,tagText,annotationIndex,browseByTagTooltip,removeTagTooltip,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'AddTags',false,{userID:userID,contentUrl:contentUrl,tagText:tagText,annotationIndex:annotationIndex,browseByTagTooltip:browseByTagTooltip,removeTagTooltip:removeTagTooltip},succeededCallback,failedCallback,userContext); },
+DeleteAnnotation:function(userID,contentUrl,annotationIndex,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'DeleteAnnotation',false,{userID:userID,contentUrl:contentUrl,annotationIndex:annotationIndex},succeededCallback,failedCallback,userContext); },
+RemoveTag:function(userID,contentUrl,tagName,annotationIndex,browseByTagTooltip,removeTagTooltip,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'RemoveTag',false,{userID:userID,contentUrl:contentUrl,tagName:tagName,annotationIndex:annotationIndex,browseByTagTooltip:browseByTagTooltip,removeTagTooltip:removeTagTooltip},succeededCallback,failedCallback,userContext); },
+UpdateAnnotation:function(userID,contentUrl,annotationIndex,content,title,tags,browseByTagTooltip,removeTagTooltip,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'UpdateAnnotation',false,{userID:userID,contentUrl:contentUrl,annotationIndex:annotationIndex,content:content,title:title,tags:tags,browseByTagTooltip:browseByTagTooltip,removeTagTooltip:removeTagTooltip},succeededCallback,failedCallback,userContext); }}
+Microsoft.Mtps.Web.WebServices.CCWebService.registerClass('Microsoft.Mtps.Web.WebServices.CCWebService',Sys.Net.WebServiceProxy);
+Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance = new Microsoft.Mtps.Web.WebServices.CCWebService();
+Microsoft.Mtps.Web.WebServices.CCWebService.set_path = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_path(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_path = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_path(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_timeout = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_timeout(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_timeout = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_timeout(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_defaultUserContext = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_defaultUserContext(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_defaultUserContext = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_defaultUserContext(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_defaultSucceededCallback = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_defaultSucceededCallback(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_defaultSucceededCallback = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_defaultSucceededCallback(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_defaultFailedCallback = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_defaultFailedCallback(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_defaultFailedCallback = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_defaultFailedCallback(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_enableJsonp = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_enableJsonp(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_enableJsonp = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_enableJsonp(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_jsonpCallbackParameter = function(value) { Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.set_jsonpCallbackParameter(value); }
+Microsoft.Mtps.Web.WebServices.CCWebService.get_jsonpCallbackParameter = function() { return Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.get_jsonpCallbackParameter(); }
+Microsoft.Mtps.Web.WebServices.CCWebService.set_path("/Platform/Controls/CCTagEditor/CCWebService.asmx");
+Microsoft.Mtps.Web.WebServices.CCWebService.AddTags= function(userID,contentUrl,tagText,annotationIndex,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext) {Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.AddTags(userID,contentUrl,tagText,annotationIndex,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext); }
+Microsoft.Mtps.Web.WebServices.CCWebService.DeleteAnnotation= function(userID,contentUrl,annotationIndex,onSuccess,onFailed,userContext) {Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.DeleteAnnotation(userID,contentUrl,annotationIndex,onSuccess,onFailed,userContext); }
+Microsoft.Mtps.Web.WebServices.CCWebService.RemoveTag= function(userID,contentUrl,tagName,annotationIndex,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext) {Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.RemoveTag(userID,contentUrl,tagName,annotationIndex,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext); }
+Microsoft.Mtps.Web.WebServices.CCWebService.UpdateAnnotation= function(userID,contentUrl,annotationIndex,content,title,tags,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext) {Microsoft.Mtps.Web.WebServices.CCWebService._staticInstance.UpdateAnnotation(userID,contentUrl,annotationIndex,content,title,tags,browseByTagTooltip,removeTagTooltip,onSuccess,onFailed,userContext); }
+var gtc = Sys.Net.WebServiceProxy._generateTypedConstructor;
+if (typeof(Microsoft.Mtps.Web.WebServices.UpdatedAnnotation) === 'undefined') {
+Microsoft.Mtps.Web.WebServices.UpdatedAnnotation=gtc("Microsoft.Mtps.Web.WebServices.UpdatedAnnotation");
+Microsoft.Mtps.Web.WebServices.UpdatedAnnotation.registerClass('Microsoft.Mtps.Web.WebServices.UpdatedAnnotation');
+}
