@@ -1,0 +1,528 @@
+/* GLOBAL */
+.reg-form{
+	margin-top:5px;
+}
+
+textarea {
+	resize: none;
+}
+
+button[type=submit] {
+	text-shadow: none;
+}
+
+form input.form-control,
+form textarea.form-control/*,
+form select.form-control*/ {
+	position: relative;
+	z-index: 10;
+	background-color: transparent;
+}
+
+form input.form-control:focus,
+form textarea.form-control:focus {
+	/*background-color: white;*/
+}
+
+form label.placeholder-label {
+	position: absolute;
+	z-index: 0;
+	left: 25px;
+	top: 5px;
+	color: #A9A9A9;
+	cursor: text;
+	font-weight: normal; 
+	right: 25px;
+	white-space: nowrap;
+}
+form label.placeholder-label span.data-label{
+	max-width: 100%;
+	float: left;
+	overflow: hidden;  
+	text-overflow: ellipsis;
+}
+
+span.required {
+	color: red;
+}
+
+.enable-cookies-msg{
+	color: red;
+	display: none; /*Hided by default*/
+}
+
+/* BOOTSTRAP OVERRIDES */
+.tooltip-inner {
+	max-width: 350px;
+}
+
+.has-error .tooltip-inner {
+	background-color: #900000;
+	opacity: 0.9;
+}
+
+.has-error .tooltip.top .tooltip-arrow {
+	border-top-color: #900000;
+	opacity: 0.9;
+}
+
+.has-error .tooltip.bottom .tooltip-arrow {
+	border-bottom-color: #900000;
+	opacity: 0.9;
+}
+
+.has-error .tooltip.bottom {
+	left: auto !important;
+	right: 20px !important;
+}
+
+.has-error .tooltip.top {
+	top: -25px !important;
+	left: auto !important;
+	right: auto !important;
+}
+
+.has-error.checkbox-list label {
+	color: black;
+}
+
+.has-error.radio-list label {
+	color: black;
+}
+
+.has-feedback select.form-control {
+	padding-right: 5px;
+}
+
+textarea.form-control {
+	height: 88px;
+}
+
+.form-horizontal .control-label, .form-horizontal .radio, .form-horizontal .checkbox, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline {
+	padding-top: 0px; 
+}
+
+/* MAIN LAYOUT */
+@media screen and (min-width: 769px) {
+	.right-col-border{
+		border-left: 1px solid rgb(200,200,200);
+	}
+	.left-col-border{
+		border-right: 1px solid rgb(200,200,200);
+	}
+}
+
+#main-container {
+	max-width: 990px;
+}
+
+#banner-container {
+	margin-bottom: 20px;
+}
+
+#banner-container img{
+	display: block;
+	max-width: 100%;
+	margin: auto;
+}
+
+/* FOOTER */
+#footer {
+	display: none; /* We just show the footer when all views are loaded*/
+	position: relative;
+	height: 60px
+}
+
+#footer img {
+	position: absolute;
+	top: 0px;
+	right: 5px;
+}
+
+/* LOGIN & ERRORS CONTAINER*/
+div.login,
+div.error { /*We need to specify "div" to override Bootstrap's "container" styles*/
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	z-index: 1050; /*Above tooltips*/
+}
+
+.login .content,
+.error .content {
+	position: relative;
+	max-width: 550px;
+	margin: auto;
+	padding: 20px;
+	background: rgb(255,255,255);
+	
+	margin-top: 110px;
+}
+
+.login .login-fields,
+.error .error-fields {
+	border-radius: 4px;
+	box-shadow: 5px 5px 9px #333;
+}
+
+.login .login-field {
+	position: relative;
+}
+
+.login .email-label,
+.error .error-label {
+	width: 100%;
+}
+
+.login form label.placeholder-label {
+	left: 10px;
+}
+
+@media screen and (min-width: 769px) {
+	.login .submit-container {
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+	}
+}
+.error .ok-container {
+	position: relative;
+	min-height: 30px;
+	margin-top: 10px;
+}
+
+.error .ok-button {
+	position: absolute;
+	right: 0px;
+	min-width: 65px;
+}
+
+.login .close-btn,
+.error .close-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 19px;
+	height: 19px;
+	border: none;
+	background: url('../images/close_x.png') no-repeat;
+}
+
+.login .content .login-field {
+	margin-bottom: 20px;
+}
+
+/* BROWSER WARNING */
+.browser-warning {
+	position: fixed;
+	display: table;
+	z-index: 10;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.7);
+	color: white;
+}
+
+.browser-warning h3 {
+	margin-top: 10px;
+}
+
+.browser-warning .close-btn {
+	position: absolute;
+	cursor: pointer;
+	margin-top: 15px;
+	right: 15px;
+}
+
+.browser-warning .content {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+.browser-warning .chrome-title-wrap {
+	padding: 0 15px;
+}
+
+.browser-warning .chrome-title {
+	border-bottom: 3px solid red;
+	padding: 20px 10px;
+}
+
+.browser-warning  .h-separator {
+	/*height: 3px;
+	width: 220px;
+	background-color: red;
+	margin-left: auto;
+	margin-right: auto;
+	*/
+	padding-bottom:5px;
+}
+
+.browser-warning  .browser-icon {
+	background-image: url('../images/chrome.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	height: 120px;
+	margin: 0 auto;
+	width: 120px;
+}
+
+/* SECTIONS */
+.section {
+	margin-bottom: 34px;
+}
+
+.section-header {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	color: #147cc9;
+	margin-bottom: 20px;
+	line-height: 1;
+}
+
+/* OVERVIEW SECTION */
+.overview-section p {
+	margin-bottom: 12px;
+}
+
+
+/* REGISTRATION SECTION */
+.registration-section {
+	max-width: 464px;
+}
+
+.registration-section .header-container {
+	position: relative;
+}
+
+.registration-section .header-container > div {
+	display: inline-block;
+}
+
+.registration-section .login-link-container {
+	position: absolute;
+	right: 0px;
+	bottom: 20px;
+}
+
+.registration-section .reg-field {
+	margin-bottom: 10px;
+}
+
+.registration-section a.already-registered {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.registration-section a.already-registered div {
+	font-size: 12px;
+	text-decoration: underline;
+	display: inline-block;
+	vertical-align: top
+}
+
+.registration-section .checkboxes-container > label,
+.registration-section .radios-container > label {
+	margin-right: 10px;
+	margin-left: 0px;
+}
+
+.registration-section label.drop-down-label{
+	max-width: 100%;
+	word-wrap:break-word;
+}
+
+.registration-section label.checkbox-list-label{
+	display: inline;
+	margin-bottom: 0px;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.registration-section label.field-list-label{
+	margin-bottom: 0px;
+	max-width: 100%;
+	word-wrap:break-word;
+	/*margin-top: 17px;*/
+}
+
+.registration-section .single-checkbox .field-list-label {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.registration-section .single-checkbox .checkboxes-container {
+	display: inline-block;
+	vertical-align: text-bottom;
+}
+
+.registration-section .submit-container {
+	margin-top: 20px;
+}
+
+.registration-section .submit-btn {
+	margin-bottom: 10px;
+}
+
+.registration-section .cookies-msg{
+	color: #b2b2b2;
+}
+
+/* SEAMLESS LOGIN SECTION */
+.seamless-login-section {
+	max-width: 464px;
+}
+
+.seamless-login-section .row {
+	margin-bottom: 10px;
+}
+
+.seamless-login-section .row input[type=password]{
+	margin-top: 10px;
+}
+
+.seamless-login-section .login-field {
+	position: relative;
+}
+
+.seamless-login-section .email-label {
+	margin-bottom: 5px;
+}
+
+.seamless-login-section .placeholder-label {
+	left: 10px;
+}
+
+/* SUMMARY SECTION */
+.summary{
+	word-wrap:break-word;
+}
+
+.summary img.size-limited{
+	max-width: 100% !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+/* SPEAKER BIO SECTION */
+.speaker-fields-container{
+	padding-top: 5px;
+}
+
+.sp-description li {
+	margin-left: 25px;
+}
+
+.sp-image-container{
+	width:86px;
+	height:auto !important;
+	float:left;
+	margin-right:12px;
+	
+}
+
+.sp-begin,.sp-end{
+	clear:both;
+	font:arial;
+	font-size:14px;
+	color:#000;
+	tect-align:left;
+}
+
+.sp-end{
+	padding-top:12px;
+	word-wrap: break-word;
+}
+
+.sp-image-container img {
+	max-width: 86px !important;
+	height:auto !important;
+	width:auto !important;
+	
+}
+
+.listenByPhoneOption {
+	background-color: #f1f1f1;
+    float: left;
+    font-size: 11px;
+    height: 102px;
+    padding: 20px 5px 5px;
+    width: 127px;
+    float:left;
+    border: 1px solid #e2e2e2;
+    text-align:center;
+}
+
+.attend-section div {
+	margin-bottom:10px;	
+	clear:both;
+}
+
+.listen-by-phone-container div{
+	clear:none;
+	
+
+}
+
+
+.listen-by-phone-options-container {
+	margin-top:10px;
+	height:100px;
+
+	margin-bottom:15px !important;
+}
+
+.arrow-img-single-layout{
+	background:url('../images/arrow.png');
+	height:30px;
+	width:12px;
+	margin-top:46px;
+	float:left
+}
+	
+.arrow-img-double-layout{
+	background:url('../images/arrow_horizontal.png');
+    display: block;
+    height: 12px;
+    margin-bottom: 0px !important;
+    margin-left: 175px;
+    width: 34px;
+}
+
+.launchBtn{
+	font-weight:bold;
+}
+
+.attend-section a {
+	text-decoration:underline;
+}
+
+.attend-section .js-submit {
+	background:none !important;
+	margin-bottom:25px;
+	margin-top:25px;
+	width:0px;
+	
+}
+
+.add-to-calendar {
+	display:none;
+}
+
+.rowLeftAlign {
+	float:left;
+}
+
+
+.summary-section a {
+	color:inherit !important;
+}
