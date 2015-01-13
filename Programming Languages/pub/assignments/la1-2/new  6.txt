@@ -1,0 +1,31 @@
+;Start with a list. 
+;If it's empty, leave it. 
+;If the first element is a list, then you want to call your function recursively. 
+;If the first element is equal to what your searching for, cons the replacement onto a recursive call of your function on the rest of the list- you need to keep searching. 
+;If none of the earlier conditions are true, cons the first element on to a recursive call of your function for the rest of the list.
+
+(define (replace lambda(ls with for)
+	(cond
+		((null? ls) '())
+		((list? (car ls)) (cons(replace (car ls) a b) (replace((cdr ls) a b))))
+		((eq?(car ls) a) (cons b (replace (cdr ls) a b)))
+		(else
+			(cons(car ls)(replace(cdr ls) a b)))))
+			
+(let ((copy (assq ls a-list)))
+  (if lookup
+      (cadr lookup)
+      ls))
+	  
+	  
+	  (define (replacedeep ls a-list) 
+	  (cond 
+	  ((null? ls) '() ) 
+	  ((assoc ls a-list) 
+	  (let ((lookup (assoc ls a-list))) (
+	  if lookup (cadr lookup) ls))) 
+	  ((not (list? ls)) 
+	  (let ((lookup (assoc ls a-list))) 
+	  (if lookup (cadr lookup) ls))) 
+	  (else (cons (replacedeep (car ls) a-list) 
+	  (replacedeep (cdr ls) a-list))))) 

@@ -1,0 +1,109 @@
+Java Developers I am not a good class designer but i have tried to design hop it'll be usefull for you. import java.util.Date;
+
+/**
+* Created by Ravi Tiwari on 03-Nov-14.
+*/
+public class Bus {
+private final String mBusNumber;
+private Driver mDriver;
+private String mCurrentLocation;
+private Date mLastServiceDate;
+
+private Bus(final String busNumber) {
+mBusNumber = busNumber;
+}
+
+public static Bus getInstance(final String busNumber) {
+Bus newBus = null;
+if(busNumber != null && !busNumber.equals("")) {
+newBus = new Bus(busNumber);
+}
+return newBus;
+}
+
+public String getBusNumber() {
+return mBusNumber;
+}
+
+public Driver getDriver() {
+return mDriver;
+}
+
+public void setDriver(Driver mDriver) {
+this.mDriver = mDriver;
+}
+
+public String getCurrentLocation() {
+return mCurrentLocation;
+}
+
+public void setCurrentLocation(String mCurrentLocation) {
+this.mCurrentLocation = mCurrentLocation;
+}
+
+public Date getLastServiceDate() {
+return mLastServiceDate;
+}
+
+public void setLastServiceDate(Date mLastServiceDate) {
+this.mLastServiceDate = mLastServiceDate;
+}
+}
+import java.util.UUID;
+
+/**
+* Created by Ravi Tiwari on 03-Nov-14.
+*/
+public class Driver {
+private final String mName;
+private final UUID mId;
+private float mSalary;
+//Add other fields as requirement
+
+private Driver(final String name) {
+mName = name;
+mId = UUID.randomUUID();
+}
+
+public static Driver getInstance(final String driverName) {
+Driver newDriver = null;
+if(driverName != null && !driverName.equals(""))
+newDriver = new Driver(driverName);
+
+return newDriver;
+}
+
+public String getName() {
+return mName;
+}
+
+public UUID getId() {
+return mId;
+}
+
+public float getSalary() {
+return mSalary;
+}
+
+public void setSalary(float mSalary) {
+this.mSalary = mSalary;
+}
+
+@Override
+public String toString() {
+return getId() + " " + getName();
+}
+}
+/**
+* Created by Ravi Tiwari on 03-Nov-14.
+*/
+public class BusManager {
+public static void main(String[] args) {
+Driver abc = Driver.getInstance("Abc");
+Bus newBus = Bus.getInstance("UK-4290");
+newBus.setCurrentLocation("Nainital");
+newBus.setDriver(abc);
+
+System.out.println(newBus.getBusNumber() + " " + newBus.getDriver() + " " + newBus.getCurrentLocation());
+}
+}

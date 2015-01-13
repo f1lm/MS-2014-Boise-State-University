@@ -1,0 +1,1230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0093)http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+Remoting Technology: Distributed Computing
+</title> <title>Remoting Technology: Distributed Computing</title> <meta name="Keywords" content="Remoting,Remoting Architecture,Remoting Server"> <meta name="DESCRIPTION" content="This article shows how cross-process and cross-machine interaction of applications are developed with the .NET Framework work."> <meta name="Search.TopicType" content="kbArticle"> <meta name="Search.PublishDate" content="04 Nov 2014 12:00:00 GMT"> <meta name="Search.RevisedDate" content="04 Nov 2014 01:25:34 GMT"> <meta name="Search.UserRating" content="0%"> <meta name="CODE_LANGUAGE" content="C#"> <meta name="MS.LOCALE" content="en-US">  <meta name="Author" content="Ajay Yadav"> <link rel="stylesheet" type="text/css" href="./Remoting Technology  Distributed Computing_files/csharp_articles_20092014.css"><link href="./Remoting Technology  Distributed Computing_files/SyntaxHighlighter.css" rel="stylesheet" type="text/css"><link rel="Shortcut Icon" href="http://www.c-sharpcorner.com/Images/McnIcon.ico"><meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.3)"><meta property="fb:app_id" content="440531902678919"> <script src="./Remoting Technology  Distributed Computing_files/cb=gapi.loaded_1" async=""></script><script src="./Remoting Technology  Distributed Computing_files/cb=gapi.loaded_0" async=""></script><script src="./Remoting Technology  Distributed Computing_files/in.js"></script><script src="./Remoting Technology  Distributed Computing_files/widgets.js"></script><script type="text/javascript" async="" src="./Remoting Technology  Distributed Computing_files/client-plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./Remoting Technology  Distributed Computing_files/all.js"></script><script type="text/javascript" async="" src="./Remoting Technology  Distributed Computing_files/ga.js"></script><script src="./Remoting Technology  Distributed Computing_files/jquery.TrendingNow_09032014.js"></script><script src="./Remoting Technology  Distributed Computing_files/MindcrackerJScript.js"></script><script src="./Remoting Technology  Distributed Computing_files/jquery.min.js" type="text/javascript"></script><style type="text/css"></style> <script type="text/javascript">
+var $j = jQuery.noConflict();
+</script> <style type="text/css">.fancybox-margin{margin-right:0px;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fbpluginrecommendationsbarleft,.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}.fbpluginrecommendationsbarleft{left:10px}.fbpluginrecommendationsbarright{right:10px}</style><script src="./Remoting Technology  Distributed Computing_files/secureAnonymousFramework"></script><style type="text/css">* html #li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link{height:1% !important;}#li_ui_li_gen_1415209267559_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1415209267559_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link:link, #li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link:visited, #li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link:hover, #li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1415209267559_0 a#li_ui_li_gen_1415209267559_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-logo, #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-logo{}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title, #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title{}.IN-shadowed #li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title{}.IN-shadowed #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title, .IN-shadowed #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title{}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text, #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title-text, #li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title-text *{color:#000 !important;}#li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title-text, #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title-text, #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title-text *, #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title-text *{color:#666 !important;}#li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title #li_ui_li_gen_1415209267559_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text, .success #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1415209267559_0 #li_ui_li_gen_1415209267559_0-title{}.success #li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title-text, .success #li_ui_li_gen_1415209267559_0.hovered #li_ui_li_gen_1415209267559_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title, .success #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title-text, .success #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title-text, .success #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title-text *, .success #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1415209267559_0.clicked #li_ui_li_gen_1415209267559_0-title, .IN-shadowed .success #li_ui_li_gen_1415209267559_0.down #li_ui_li_gen_1415209267559_0-title{}#li_ui_li_gen_1415209267571_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1415209267571_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1415209267571_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1415209267571_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1415209267571_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1415209267571_1-container.IN-hidden #li_ui_li_gen_1415209267571_1 {display:none !important;}</style></head> <body id="MasterBody" data-gclp-initialized="true" data-gistbox-initialized="true" data-twttr-rendered="true"> <form name="aspnetForm" method="post" action="http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx" id="aspnetForm"> <div> <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""> <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""> <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1Mg9kFgJmDw8WDh4IQXV0aG9ySUQFCmFqeWFkYXYxMjMeDUN1cnJlbnRSYXRpbmcFATAeBlN0YXR1cwUBMh4LSGFzRmVlZGJhY2toHglBcnRpY2xlSUQFJDJiMjI4MzFhLWEwMDktNDk4ZS1iZTEzLWY3ZTVjMWI4MmM1NB4PTWlub3JDYXRlZ29yeUlkBQI3MB4OVHdpdHRlckhhbmRsZXJlZBYCAgEPZBYmZg9kFgYCAQ9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAxYGZg9kFgJmDxUCaWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vQmxvZ3MvNDY3MDkvY29uZ3JhdHVsYXRpb25zLWRpcGFsLWNob2tzaS1mb3ItY29tcGxldGluZy0xMDAtYXJ0aWNsZXMtb24uYXNweEZDb25ncmF0dWxhdGlvbnMgRGlwYWwgQ2hva3NpIGZvciBDb21wbGV0aW5nIDEwMCsgQXJ0aWNsZXMgb24gQyMgQ29ybmVyZAIBD2QWAmYPFQJSaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9uZXdzLzQwOTgvc2VwdGVtYmVyLTIwMTQtbW9udGgtd2lubmVycy1hbm5vdW5jZWQuYXNweDdDT05HUkFUVUxBVElPTlM6IFNlcHRlbWJlciAyMDE0IE1vbnRoIFdpbm5lcnMgQW5ub3VuY2VkZAICD2QWAmYPFQJfaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlL21haGVzaC90b3AtMTAtdGhpbmdzLXlvdS1zaG91bGQtbmV2ZXItc2F5LXRvLXlvdXItYm9zcy8+Q2FyZWVyIEFkdmljZTogVG9wIDEwIFRoaW5ncyBZb3UgU2hvdWxkIE5ldmVyIFNheSBUbyBZb3VyIEJvc3NkAgMPZBYSAgIPFgIeB1Zpc2libGVnFgQCAQ8PFgIeCEltYWdlVXJsBVZodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvQXV0aG9ySW1hZ2UvYTQ4Zjc4LnBuZy5hc2h4P3dpZHRoPTI1JmhlaWdodD0yNWRkAgMPDxYCHgRUZXh0BQhNaWxzdGVpbmRkAgMPDxYCHgtOYXZpZ2F0ZVVybAVLaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9Vc2VyUmVnaXN0cmF0aW9uL1VzZXJSZWdpc3RyYXRpb24uYXNweD9jaGVjaz1yZGQCBw8WBB4FdGl0bGUFH1lvdSBoYXZlIDAgbmV3IGFydGljbGUgY29tbWVudHMfCGdkAgkPFgIfBwIBFgJmD2QWAmYPFQg/aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9hdXRob3JzL2ZmMGQwZi9hYmhpc2hlay15YWRhdi5hc3B4DkFiaGlzaGVrIFlhZGF2TGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS9BdXRob3JJbWFnZS9mZjBkMGYyMDE0MDMyMTAyMDQxMC5qcGcySGF0cyBvZmYgdG8gb3VyIEMjIENvcm5lciB0ZWFtLi4uR3JlYXQgU3RlcCAhISEgOikMY29tbWVudGVkIG9ubWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8xODEwMzEvcHJheWFuLWEtQy1TaGFycC1jb3JuZXItaW5pdGlhdGl2ZS1vZmZpY2lhbC1yZWNhcC9EZWZhdWx0LmFzcHguUHJheWFuLCBBIEMjIENvcm5lciBJbml0aWF0aXZlOiBPZmZpY2lhbCBSZWNhcAxPY3QgMDksIDIwMTRkAgsPFgIfCGdkAgwPDxYCHwhnZGQCDw8PFgIfCGhkZAIRDxYCHgRocmVmBRxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tZAISD2QWAgIBDw8WAh8IaGRkAgUPZBYCZg9kFgICAQ88KwAJAQAPFgQeCERhdGFLZXlzFgAfBwJFZBaKAWYPZBYCZg8VAi9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM3L25ldC00LTUuYXNweAguTkVUIDQuNWQCAQ9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83MC9uZXQtcmVtb3RpbmcuYXNweA0uTkVUIFJlbW90aW5nZAICD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzEzMS9hZG8tbmV0LmFzcHgHQURPLk5FVGQCAw9kFgJmDxUCLGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNzYvYWpheC5hc3B4BEFKQVhkAgQPZBYCZg8VAjxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNTYvYWxnb3JpdGhtcy1pbi1DLVNoYXJwLmFzcHgQQWxnb3JpdGhtcyBpbiBDI2QCBQ9kFgJmDxUCO2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNDcvYW5kcm9pZC1wcm9ncmFtbWluZy5hc3B4E0FuZHJvaWQgUHJvZ3JhbW1pbmdkAgYPZBYCZg8VAjRodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMzA3L2FuZHJvaWQtd2Vhci5hc3B4DEFuZHJvaWQgV2VhcmQCBw9kFgJmDxUCMWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMDIvYW5ndWxhcmpzLmFzcHgJQW5ndWxhckpTZAIID2QWAmYPFQI4aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE3Mi9hcnRpY2xlcy1DLVNoYXJwLmFzcHgLQXJ0aWNsZXMgQyNkAgkPZBYCZg8VAjdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzUvQXNwLU5ldC1jb250cm9scy5hc3B4EEFTUC5ORVQgQ29udHJvbHNkAgoPZBYCZg8VAjNodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjI2L0FzcC1OZXQtbXZjLmFzcHgLQVNQLk5FVCBNVkNkAgsPZBYCZg8VAjtodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjI0L0FzcC1OZXQtcHJvZ3JhbW1pbmcuYXNweBNBU1AuTkVUIFByb2dyYW1taW5nZAIMD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwMy9iYWNrYm9uZWpzLmFzcHgKQmFja2JvbmVqc2QCDQ9kFgJmDxUCMGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMTQvYmlnLWRhdGEuYXNweAhCaWcgRGF0YWQCDg9kFgJmDxUCNmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMDUvYml6dGFsay1zZXJ2ZXIuYXNweA5CaXpUYWxrIFNlcnZlcmQCDw9kFgJmDxUCOGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNDQvQy1TaGFycC1sYW5ndWFnZS5hc3B4C0MjIExhbmd1YWdlZAIQD2QWAmYPFQI5aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE2OC9DLVNoYXJwLXR1dG9yaWFscy5hc3B4DEMjIFR1dG9yaWFsc2QCEQ9kFgJmDxUCMWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODIvYy1jcHAtbWZjLmFzcHgLQywgQysrLCBNRkNkAhIPZBYCZg8VAjVodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM4L2NhcmVlci1hZHZpY2UuYXNweA1DYXJlZXIgQWR2aWNlZAITD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI4MC9jaGFwdGVycy5hc3B4CENoYXB0ZXJzZAIUD2QWAmYPFQI1aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIyMC9kYXRhYmFzZXMtZGJhLmFzcHgPRGF0YWJhc2VzICYgREJBZAIVD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE0NS9kZXBsb3ltZW50LmFzcHgKRGVwbG95bWVudGQCFg9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS82Mi9kZXNpZ24tYXJjaGl0ZWN0dXJlLmFzcHgVRGVzaWduICYgQXJjaGl0ZWN0dXJlZAIXD2QWAmYPFQI0aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI5My9keW5hbWljcy1jcm0uYXNweAxEeW5hbWljcyBDUk1kAhgPZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjA2L2ZzaGFycC5hc3B4AkYjZAIZD2QWAmYPFQI3aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI5NC9ncmFwaGljcy1kZXNpZ24uYXNweA9HcmFwaGljcyBEZXNpZ25kAhoPZBYCZg8VAjBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTQzL2hvdy1kby1pLmFzcHgJSG93IGRvIEkgZAIbD2QWAmYPFQIuaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI0NC9odG1sLTUuYXNweAZIVE1MIDVkAhwPZBYCZg8VAjNodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMzEwL2h5YnJpZC1hcHBzLmFzcHgLSHlicmlkIEFwcHNkAh0PZBYCZg8VAjNodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNjYvaW50ZXJuZXQtd2ViLmFzcHgOSW50ZXJuZXQgJiBXZWJkAh4PZBYCZg8VAitodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM1L2lvcy5hc3B4A2lPU2QCHw9kFgJmDxUCLGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNTgvamF2YS5hc3B4BEphdmFkAiAPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjMzL2phdmFzY3JpcHQuYXNweApKYXZhU2NyaXB0ZAIhD2QWAmYPFQIuaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIzNi9qcXVlcnkuYXNweAZKUXVlcnlkAiIPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjc4L2xlYWRlcnNoaXAuYXNweApMZWFkZXJzaGlwZAIjD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE4MC9saW5xLmFzcHgETElOUWQCJA9kFgJmDxUCOWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODcvbWljcm9zb2Z0LXN1cmZhY2UuYXNweBFNaWNyb3NvZnQgU3VyZmFjZWQCJQ9kFgJmDxUCL2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMDQvbm9kZS1qcy5hc3B4B05vZGUuanNkAiYPZBYCZg8VAjNodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjg4L29mZmljZS0yMDEzLmFzcHgLT2ZmaWNlIDIwMTNkAicPZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjA4L29vcG9vZC5hc3B4B09PUC9PT0RkAigPZBYCZg8VAjlodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjIyL29wZXJhdGluZy1zeXN0ZW1zLmFzcHgRT3BlcmF0aW5nIFN5c3RlbXNkAikPZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjk5L29yYWNsZS5hc3B4Bk9yYWNsZWQCKg9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMTEvcGhpbG9zb3BoeS5hc3B4ClBoaWxvc29waHlkAisPZBYCZg8VAitodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjc5L3BocC5hc3B4A1BIUGQCLA9kFgJmDxUCMGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMDgvcG93ZXItYmkuYXNweAhQb3dlciBCSWQCLQ9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS82OS9wcmludGluZy1pbi1DLVNoYXJwLmFzcHgOUHJpbnRpbmcgaW4gQyNkAi4PZBYCZg8VAjBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjgzL3Byb2R1Y3RzLmFzcHgIUHJvZHVjdHNkAi8PZBYCZg8VAj1odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTg4L3JlcG9ydHMtdXNpbmctQy1TaGFycC5hc3B4EFJlcG9ydHMgdXNpbmcgQyNkAjAPZBYCZg8VAjZodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzEvc2VjdXJpdHktaW4tbmV0LmFzcHgQU2VjdXJpdHkgaW4gLk5FVGQCMQ9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xODMvc2hhcmVwb2ludC5hc3B4ClNoYXJlUG9pbnRkAjIPZBYCZg8VAjVodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTU4L3NtYXJ0LWRldmljZXMuYXNweA1TbWFydCBEZXZpY2VzZAIzD2QWAmYPFQIraHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIxNi9zcWwuYXNweANTUUxkAjQPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTg3L3NxbC1zZXJ2ZXIuYXNweApTUUwgU2VydmVyZAI1D2QWAmYPFQI4aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI3Ny92aXN1YWwtYmFzaWMtbmV0LmFzcHgRVmlzdWFsIEJhc2ljIC5ORVRkAjYPZBYCZg8VAjRodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvOS92aXN1YWwtQy1TaGFycC5hc3B4CVZpc3VhbCBDI2QCNw9kFgJmDxUCOWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xMzkvdmlzdWFsLXN0dWRpby1uZXQuYXNweBJWaXN1YWwgU3R1ZGlvIC5ORVRkAjgPZBYCZg8VAjpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjgxL3Zpc3VhbC1zdHVkaW8tMjAxMi5hc3B4ElZpc3VhbCBTdHVkaW8gMjAxMmQCOQ9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yOTYvdmlzdWFsLXN0dWRpby0yMDEzLmFzcHgSVmlzdWFsIFN0dWRpbyAyMDEzZAI6D2QWAmYPFQI4aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE5Mi93Y2Ytd2l0aC1DLVNoYXJwLmFzcHgLV0NGIHdpdGggQyNkAjsPZBYCZg8VAjdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTU0L3dlYi1kZXZlbG9wbWVudC5hc3B4D1dlYiBEZXZlbG9wbWVudGQCPA9kFgJmDxUCP2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xMzMvd2ViLXNlcnZpY2VzLWluLUMtU2hhcnAuYXNweBJXZWIgU2VydmljZXMgaW4gQyNkAj0PZBYCZg8VAjFodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjc1L3dpbmRvd3MtOC5hc3B4CVdpbmRvd3MgOGQCPg9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzIvd2luZG93cy1henVyZS5hc3B4DVdpbmRvd3MgQXp1cmVkAj8PZBYCZg8VAjxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzYvd2luZG93cy1mb3Jtcy1DLVNoYXJwLmFzcHgRV2luZG93cyBGb3JtcyBDIyBkAkAPZBYCZg8VAjVodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjQ1L3dpbmRvd3MtcGhvbmUuYXNweA1XaW5kb3dzIFBob25lZAJBD2QWAmYPFQI6aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzEzOC93aW5kb3dzLXN0b3JlLWFwcHMuYXNweBJXaW5kb3dzIFN0b3JlIEFwcHNkAkIPZBYCZg8VAitodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTkxL3dwZi5hc3B4A1dQRmQCQw9kFgJmDxUCLGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xOTAveGFtbC5hc3B4BFhBTUxkAkQPZBYCZg8VAipodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzkveG1sLmFzcHgDWE1MZAIBD2QWAgIBDxYCHwcCChYUZg9kFgJmDxUCamh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS82MzgxMjIvZm9ybXMtYXV0aGVudGljYXRpb24tZm9ybS1hdXRob3JpemF0aW9uLWFuZC1zdG9yaW5nLWVuY3J5cC8nRm9ybSBBdXRoZW50aWNhdGlvbiwgRm9ybSBBdXRob3JpemEgLi4uZAIBD2QWAmYPFQJEaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlL2E5ZDk2MS9hLXF1aWNrLXN0YXJ0LW9uLW12Yy8UQSBRdWljayBTdGFydCBvbiBNVkNkAgIPZBYCZg8VAkZodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDBhOGI3L0FzcC1OZXQtbXZjLWxpZmUtY3ljbGUvFkFTUC5OZXQgTVZDIExpZmUgQ3ljbGVkAgMPZBYCZg8VAl9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvbWFoZXNoL3RvcC0xMC10aGluZ3MteW91LXNob3VsZC1uZXZlci1zYXktdG8teW91ci1ib3NzLydUb3AgMTAgVGhpbmdzIFlvdSBTaG91bGQgTmV2ZXIgU2F5ICAuLi5kAgQPZBYCZg8VAmxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvYmQ4YjBiL2hvdy10by1jcmVhdGUtdGhlLW11bHRpbGFuZ3VhZ2UtYXBwbGljYXRpb24taW4tQXNwLU5ldC1hcHBsaS8nSG93IHRvIENyZWF0ZSB0aGUgTXVsdGlsYW5ndWFnZSBBcHAgLi4uZAIFD2QWAmYPFQJGaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzJlZDdhZS9qc29ucmVzdWx0LXR5cGUtaW4tbXZjLxZKc29uUmVzdWx0IFR5cGUgaW4gTVZDZAIGD2QWAmYPFQJtaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzBmNjhmMi9lbWJlZGRpbmctY2FsZW5kYXItZGF0ZXRpbWVwaWNrZXItY29udHJvbC1pbnRvLWRhdGFncmlkdmllNTg2LydFbWJlZGRpbmcgQ2FsZW5kYXIgKERhdGVUaW1lUGlja2VyKSAuLi5kAgcPZBYCZg8VAmpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvNjU3OTRlL2ludGVydmlldy1xdWVzdGlvbnMtYW5kLWFuc3dlcnMtZm9yLTMteWVhci1uZXQtZXhwZXJpZW5jZWQvJ0ludGVydmlldyBRdWVzdGlvbnMgRm9yIDMgWWVhciAuTkVUIC4uLmQCCA9kFgJmDxUCamh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8wMjBmOGYvd2luZG93cy1waG9uZS04LWFwcC1kZXZlbG9wbWVudC11c2luZy1waG9uZWdhcC1jb3Jkb3ZhLXBhci8nV2luZG93cyBQaG9uZSA4IEFwcCBEZXZlbG9wbWVudCBVc2kgLi4uZAIJD2QWAmYPFQJpaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlLzAyMGY4Zi93aW5kb3dzLXBob25lLTgtYXBwLWRldmVsb3BtZW50LXVzaW5nLXBob25lZ2FwLWNvcmRvdmEtcGEvJ1dpbmRvd3MgUGhvbmUgOCBBcHAgRGV2ZWxvcG1lbnQgVXNpIC4uLmQCAg9kFgICAQ8PFgYeCENzc0NsYXNzBRtzcHJpdGUgZGV0YWlscyBpbnRlcm1lZGlhdGUeB1Rvb2xUaXAFDEludGVybWVkaWF0ZR4EXyFTQgICZGQCBQ8WAh8NBT9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL2F1dGhvcnMvYWp5YWRhdjEyMy9hamF5LXlhZGF2LmFzcHgWAgIBDw8WBB8JBVBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvQXV0aG9ySW1hZ2UvYWp5YWRhdjEyMzIwMTQxMDE4MTAyNDAzLmpwZx8QBQpBamF5IFlhZGF2ZGQCBg8WAh8IZxYEAgEPZBYCAgEPDxYCHwoFAzM0MmRkAgMPFgIeCWlubmVyaHRtbAV7PGEgY2xhc3M9IkxpbmtOb3JtYWxTdHlsZU9yYW5nZSIgaHJlZj1odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL0F1dGhvcnMvQXV0aG9yUmFua2luZy5hc3B4P0F1dGhvcklkPWFqeWFkYXYxMjMgPiA4MjA8L2E+ZAIHDxYCHxIFKlJlbW90aW5nIFRlY2hub2xvZ3k6IERpc3RyaWJ1dGVkIENvbXB1dGluZ2QCCA8WBB8NBT9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL2F1dGhvcnMvYWp5YWRhdjEyMy9hamF5LXlhZGF2LmFzcHgfEgUKQWpheSBZYWRhdmQCCg8WBB8NBTNodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzAvbmV0LXJlbW90aW5nLmFzcHgfEgUNLk5FVCBSZW1vdGluZ2QCCw8PFgIfCgURTm92ZW1iZXIgMDQsIDIwMTRkZAIMDxYCHxIFwwI8YSBjbGFzcz0nTGlua05vcm1hbEdyYXlMaWdodCcgaHJlZj0naHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS90YWdzL1JlbW90aW5nJz5SZW1vdGluZzwvYT4sIDxhIGNsYXNzPSdMaW5rTm9ybWFsR3JheUxpZ2h0JyBocmVmPSdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL3RhZ3MvUmVtb3RpbmctQXJjaGl0ZWN0dXJlJz5SZW1vdGluZyBBcmNoaXRlY3R1cmU8L2E+LCA8YSBjbGFzcz0nTGlua05vcm1hbEdyYXlMaWdodCcgaHJlZj0naHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS90YWdzL1JlbW90aW5nLVNlcnZlcic+UmVtb3RpbmcgU2VydmVyPC9hPmQCDQ8WAh8SBX5UaGlzIGFydGljbGUgc2hvd3MgaG93IGNyb3NzLXByb2Nlc3MgYW5kIGNyb3NzLW1hY2hpbmUgaW50ZXJhY3Rpb24gb2YgYXBwbGljYXRpb25zIGFyZSBkZXZlbG9wZWQgd2l0aCB0aGUgLk5FVCBGcmFtZXdvcmsgd29yay5kAhUPDxYGHw8FF3Nwcml0ZSBkZXRhaWxzIGZlYXR1cmVkHxAFGk1ha2UgdGhpcyBhcnRpY2xlIGZlYXR1cmVkHxECAmRkAhkPDxYCHxAFCVNhbSBIb2Jic2RkAhsPDxYCHwoFATFkZAIcDxYCHxIFAzk0NGQCHQ8WAh4Fc3R5bGUFL21hcmdpbi10b3A6MTBweDttYXJnaW4tYm90dG9tOjBweDtkaXNwbGF5Om5vbmU7FgICAQ8WAh8IaGQCHw9kFgICAw8WAh8IaGQCIQ8PFgYeCUNvbnRlbnRJZAUkMmIyMjgzMWEtYTAwOS00OThlLWJlMTMtZjdlNWMxYjgyYzU0Hg1Db250ZW50VXNlcklkBQphanlhZGF2MTIzHgxDb250ZW50VGl0bGUFKlJlbW90aW5nIFRlY2hub2xvZ3k6IERpc3RyaWJ1dGVkIENvbXB1dGluZ2QWBGYPZBYCAgEPEA9kFgIeB29uY2xpY2sFKkNvbW1lbnRzX2FydGljbGUuVXBkYXRlRm9sbG93U3RhdHVzKHRoaXMpO2RkZAIBDxYCHwhnZAIiD2QWAgIBD2QWAmYPZBYCAgEPDxYCHwhoZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFHmN0bDAwJENvbW1lbnRzMSRGb2xsb3dDaGVja0JveJwTljj3piMWcl1mH1cSPNyDoW58"> </div> <script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+theForm.__EVENTTARGET.value = eventTarget;
+theForm.__EVENTARGUMENT.value = eventArgument;
+theForm.submit();
+}
+}
+//]]> </script> <div class="master"> <a name="Top"></a> <div class="header"> <script type="text/javascript" language="javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JavaScripts/MindcrackerJScript.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+</script> <script type="text/javascript">
+var winHe = $j(window).height();
+$j(document).ready(function() {
+// footer js start here 
+if (winHe >= $j(document).height()) {
+$j(".footer").css({ "position": "fixed", "bottom": 0 });
+}
+// footer js end here 
+});
+$j(window).scroll(function() {
+var topS = $j(window).scrollTop();
+var winWidth = $j(window).width();
+var headerHe = $j(".topHeaderConainer").height() - $j(".HeadermenuStripBlue").height();
+// header js 
+if (topS > headerHe) {
+$j(".HeadermenuStripBlue").css({ "position": "fixed", "top": 0 });
+$j(".main").css("margin-top", 50 + 'px');
+}
+else if (topS <= (headerHe + $j(".HeadermenuStripBlue").height())) {
+$j(".HeadermenuStripBlue").css("position", "relative");
+$j(".main").css("margin-top", 5 + 'px');
+}
+});
+</script> <div class="topHeaderConainer" style="width: 100%; float: left;"> <script>
+$j(document).ready(function() {
+$j.getScript('/JQuery/ticker_21122013.js', function() {
+$j('#js-news').ticker();
+});
+});
+</script> <style>
+.ticker
+{
+width: 585px;
+height: 30px;
+display: block;
+position: relative;
+overflow: hidden;
+}
+.ticker-title
+{
+padding-top: 9px;
+color: #900;
+font-weight: bold;
+text-transform: uppercase;
+}
+.ticker-content
+{
+margin: 0;
+padding-top: 9px;
+position: absolute;
+color: #1f527b;
+overflow: hidden;
+white-space: nowrap;
+line-height: 1.2em;
+}
+.ticker-content a:hover
+{
+text-decoration: none;
+color: #0d3059;
+}
+.ticker-swipe
+{
+padding-top: 9px;
+position: absolute;
+top: 0;
+background-color: #f60;
+display: block;
+width: 800px;
+height: 23px;
+}
+.ticker-swipe span
+{
+margin-left: 1px;
+border-bottom: 1px solid #fff;
+height: 14px;
+width: 7px;
+display: block;
+}
+.js-hidden
+{
+display: none;
+}
+.ticker-controls
+{
+padding: 8px 0 0 0;
+list-style-type: none;
+float: left;
+}
+.left .ticker-controls, .left .ticker-content, .left .ticker-title, .left .ticker
+{
+float: left;
+}
+</style> <div class="InFocusNews" id="InFocus"> <div class="page" style="position: relative;"> <h2>
+In Focus</h2> <div class="rightNew" style="display: inline;"> <div id="ticker-wrapper-1415209266556" class="ticker-wrapper has-js left"><div id="ticker-1415209266556" class="ticker"><div id="ticker-title-1415209266556" class="ticker-title"><span></span></div><p id="ticker-content-1415209266556" class="ticker-content" style="display: block; opacity: 1; left: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/mahesh/top-10-things-you-should-never-say-to-your-boss/" style="color: White;" rel="nofollow">
+Career Advice: Top 10 Things You Should Never Say To Your Boss</a></p><div id="ticker-swipe-1415209266556" class="ticker-swipe" style="left: 0px; margin-left: 386.2px;"><span style="display: block;"><!-- --></span></div></div><ul id="ticker-controls-1415209266556" class="ticker-controls"><li id="play-pause-1415209266556" class="jnt-play-pause controls"><a href=""><!-- --></a></li><li id="prev-1415209266556" class="jnt-prev controls"><a href=""><!-- --></a></li><li id="next-1415209266556" class="jnt-next controls"><a href=""><!-- --></a></li></ul></div> </div> </div> </div> <script type="text/javascript">
+$j(document).ready(function() {
+var flag;
+var textBoxClientId = '#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId';
+var value = $j(textBoxClientId).val();
+$j(textBoxClientId).click(function() {
+if (value == "Invalid ID / Password")
+$j(textBoxClientId).val('');
+});
+//login popup js start here//
+$j('#ctl00_HeaderWithoutAjax1_Login1_loginBtn').click(function() {
+flag = 1;
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').slideToggle("slow");
+$j('#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId').focus();
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+});
+$j('.loginPopup.loggedIn').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+$j('.userdetailCntr').addClass('hover');
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+});
+$j('.loginPopup.loggedIn').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+$j('.userdetailCntr').removeClass('hover');
+});
+$j('.loginPopup').click(function() {
+flag = 1;
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').click(function() {
+flag = 1;
+});
+$j(document).click(function() {
+if (flag != 1) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').hide();
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+}
+flag = 0;
+});
+//login popup js end here//
+});
+</script> <script>
+$j(document).ready(function() {
+var flag = true;
+var close = true;
+$j('.notificationMessageCntr').click(function() {
+$j('.msg_container').hide();
+$j('.notificationMessageCntr .arrow').hide();
+flag = false;
+close = false;
+$j(this).find('.arrow').show();
+$j(this).next().show();
+ResetNotificationCount(this);
+});
+$j('.msg_container').click(function() {
+close = false;
+});
+$j(document).click(function() {
+if (close) {
+$j('.notificationMessageCntr .arrow').hide();
+$j('.msg_container').hide();
+flag = true;
+}
+close = true;
+});
+});
+//Reset notification count
+//type: 1- Message Notification, 2- Comment Notification
+function ResetNotificationCount(container) {
+var type;
+if ($j(container).attr('id') == 'messageNotification')
+type = 1
+else if ($j(container).attr('id') == 'commentNotification')
+type = 2
+if ($j(container).find('.messageCount').is(":visible")) {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=reset_notification_message_count&type=" + type,
+type: "POST",
+async: false,
+success: function(response) {
+if (parseInt(response) == 1) {
+$j(container).find('.messageCount').hide();
+}
+}
+});
+}
+}
+</script> <div class="page" style="position: relative; z-index: 9999999;"> <div class="loginControl"> <div id="ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer" class="userdetailCntr"> <div class="image"> <img id="ctl00_HeaderWithoutAjax1_Login1_UserImage" src="./Remoting Technology  Distributed Computing_files/a48f78.png.ashx" style="border-width:0px;"> </div> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelUserName">Milstein</span> </div> <div id="commentNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonComments" class="icons comments" title="You have 0 new article comments"> </span><span class="arrow">&nbsp;</span> </div> <div id="userCommentBox" class="msg_container" style="display: none;"> <ul> <li><a href="http://www.c-sharpcorner.com/authors/ff0d0f/abhishek-yadav.aspx" title="Abhishek Yadav"> <img src="./Remoting Technology  Distributed Computing_files/ff0d0f20140321020410.jpg.ashx" alt=""></a> <div class="right_content"> <div> <label style="font-family: Calibri; font-size: 14px; font-style: italic;">
+Hats off to our C# Corner team...Great Step !!! :)</label></div> <div class="LinkNormalGrayLight">
+commented on
+<a href="http://www.c-sharpcorner.com/UploadFile/181031/prayan-a-C-Sharp-corner-initiative-official-recap/Default.aspx#ReadAndPostComment" class="LinkNormalGray">
+Prayan, A C# Corner Initiative: Official Recap</a> <span class="floatRight" style="font-size: 11px;"><span class="watchICon"></span>
+Oct 09, 2014</span> </div> </div> </li> </ul> <a class="LinkNormalBlue" style="margin-right: 10px; float: right; margin-top: 10px; font-size:13px;" href="http://www.c-sharpcorner.com/notification/">Go to all article comments &gt;&gt;</a> </div> <div id="messageNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonMessages" class="icons message"> </span><span class="arrow">&nbsp;</span> </div> <div id="userMsgBox" class="msg_container" style="display: none;"> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelNoData" style="color:Red;display: block; text-align: center;">No new messages.</span> <ul> </ul> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonAllMessages" class="LinkNormalBlue" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonAllMessages','')" style="margin-right: 10px;
+float: right; margin-top: 10px;">Go to all messages &gt;&gt;</a> </div> </div> <div id="ctl00_HeaderWithoutAjax1_Login1_LogoutSpan" class="loginPopup loggedIn" style="position: absolute;
+right: 0px; top: 0px; display: none;"> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonMyAccount" class="myac" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonMyAccount','')">My Account</a> </li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonProfile" class="profileview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonProfile','')">View Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonEditProfile" class="editprofile" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonEditProfile','')">Edit Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonChangePassword" class="changepassword" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonChangePassword','')">Change Password</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonSetting" class="setting" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonSetting','')">Settings</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonLogout" class="signout" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$ImageButtonLogout','')">Logout</a> </li> </ul> </div> </div> <div class="Header"> <div class="page"> <a href="http://www.c-sharpcorner.com/" id="ctl00_HeaderWithoutAjax1_Login1_LogoLink"> <span id="ctl00_HeaderWithoutAjax1_Login1_LogoImage" class="logo"></span> </a> <div class="headerBanner"> </div> <div id="ctl00_HeaderWithoutAjax1_Login1_ContributionLinks"> <div class="contributeList"> <a href="http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/#" class="contributeOnHeader">Contribute</a> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostArticle" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostArticle','')">An Article</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonCodeSnippet" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonCodeSnippet','')">A Code Snippet</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostBlog" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostBlog','')">A Blog</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostNews" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostNews','')">A News</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostVideo" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostVideo','')">A Video</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostResource" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostResource','')">A Link</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_PostInterview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostInterview','')">An Interview Question</a></li> </ul> </div> <a id="ctl00_HeaderWithoutAjax1_Login1_PostForum" class="askQuestionOnHeader" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostForum','')">Ask a Question</a> </div> </div> </div> <input type="hidden" id="HiddenErrorMessage" value="Unable to fetch your account data!"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldUserId" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldEmail" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldFirstName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldLastName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldType" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType"> <input type="submit" name="ctl00$HeaderWithoutAjax1$Login1$ButtonLoginSocial" value="" id="ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial" style="display: none;"> <script>
+function FacebookLogin() {
+FB.login(function(response) {
+if (response.authResponse) {
+FB.api('/me', function(response) {
+try {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId').val(response.id.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(response.email.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(response.first_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(response.last_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('facebook');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+});
+} else {
+console.log('User cancelled login or did not fully authorize.');
+}
+}, { scope: 'publish_actions, email' });
+}
+</script> <script>
+$j(document).ready(function() {
+function signinCallback(authResult) {
+if (authResult['status']['signed_in']) {
+try {
+gapi.client.load('plus', 'v1', function() {
+var request = gapi.client.plus.people.get({
+'userId': 'me'
+});
+request.execute(function(resp) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(resp.emails[0].value.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(resp.name.givenName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(resp.name.familyName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('google');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+});
+});
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+} else {
+console.log('Sign-in state: ' + authResult['error']);
+}
+}
+var additionalParams = {
+'callback': signinCallback
+};
+var signinButton = document.getElementById('googleLoginHeader');
+if (signinButton != null) {
+signinButton.addEventListener('click', function() {
+gapi.auth.signIn(additionalParams);
+console.log(gapi);
+});
+}
+});
+</script> <div id="ctl00_HeaderWithoutAjax1_HeaderMenu" class="HeadermenuStripBlue" style="position: fixed; top: 0px;"> <div class="page" style="position: relative;"> <ul class="headerMenu"> <li style="background: none;"><a href="http://www.c-sharpcorner.com/" class="csharpHome" title="C# Corner Home">&nbsp;</a></li> <li class="first"><a href="http://www.c-sharpcorner.com/pulse/" title="C# Corner Pulse" class="pulse"></a></li> <li><a href="javascript:void(0);" class="show-dropdown menuLinkBlue">TECHNOLOGIES </a> <div class="dropDownMenu" id="dropDown"> <div id="ctl00_HeaderWithoutAjax1_divTechnology" style="overflow: hidden; margin-bottom: 10px;"> <span id="ctl00_HeaderWithoutAjax1_DataListTechnologyTop"><span> <a href="http://www.c-sharpcorner.com/1/237/net-4-5.aspx">
+.NET 4.5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/205/biztalk-server.aspx">
+BizTalk Server
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/310/hybrid-apps.aspx">
+Hybrid Apps
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/311/philosophy.aspx">
+Philosophy
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/281/visual-studio-2012.aspx">
+Visual Studio 2012
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/70/net-remoting.aspx">
+.NET Remoting
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/144/C-Sharp-language.aspx">
+C# Language
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/66/internet-web.aspx">
+Internet &amp; Web
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/279/php.aspx">
+PHP
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/296/visual-studio-2013.aspx">
+Visual Studio 2013
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/131/ado-net.aspx">
+ADO.NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/168/C-Sharp-tutorials.aspx">
+C# Tutorials
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/235/ios.aspx">
+iOS
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/308/power-bi.aspx">
+Power BI
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/192/wcf-with-C-Sharp.aspx">
+WCF with C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/176/ajax.aspx">
+AJAX
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/282/c-cpp-mfc.aspx">
+C, C++, MFC
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/258/java.aspx">
+Java
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/69/printing-in-C-Sharp.aspx">
+Printing in C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/154/web-development.aspx">
+Web Development
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/56/algorithms-in-C-Sharp.aspx">
+Algorithms in C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/238/career-advice.aspx">
+Career Advice
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/233/javascript.aspx">
+JavaScript
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/283/products.aspx">
+Products
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/133/web-services-in-C-Sharp.aspx">
+Web Services in C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/247/android-programming.aspx">
+Android Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/280/chapters.aspx">
+Chapters
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/236/jquery.aspx">
+JQuery
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/188/reports-using-C-Sharp.aspx">
+Reports using C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/275/windows-8.aspx">
+Windows 8
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/307/android-wear.aspx">
+Android Wear
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/220/databases-dba.aspx">
+Databases &amp; DBA
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/278/leadership.aspx">
+Leadership
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/71/security-in-net.aspx">
+Security in .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/232/windows-azure.aspx">
+Windows Azure
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/302/angularjs.aspx">
+AngularJS
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/145/deployment.aspx">
+Deployment
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/180/linq.aspx">
+LINQ
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/183/sharepoint.aspx">
+SharePoint
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/76/windows-forms-C-Sharp.aspx">
+Windows Forms C# 
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/172/articles-C-Sharp.aspx">
+Articles C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/62/design-architecture.aspx">
+Design &amp; Architecture
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/287/microsoft-surface.aspx">
+Microsoft Surface
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/158/smart-devices.aspx">
+Smart Devices
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/245/windows-phone.aspx">
+Windows Phone
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/75/Asp-Net-controls.aspx">
+ASP.NET Controls
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/293/dynamics-crm.aspx">
+Dynamics CRM
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/304/node-js.aspx">
+Node.js
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/216/sql.aspx">
+SQL
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/138/windows-store-apps.aspx">
+Windows Store Apps
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/226/Asp-Net-mvc.aspx">
+ASP.NET MVC
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/206/fsharp.aspx">
+F#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/288/office-2013.aspx">
+Office 2013
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/187/sql-server.aspx">
+SQL Server
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/191/wpf.aspx">
+WPF
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/224/Asp-Net-programming.aspx">
+ASP.NET Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/294/graphics-design.aspx">
+Graphics Design
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/208/oopood.aspx">
+OOP/OOD
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/277/visual-basic-net.aspx">
+Visual Basic .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/190/xaml.aspx">
+XAML
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/303/backbonejs.aspx">
+Backbonejs
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/143/how-do-i.aspx">
+How do I 
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/222/operating-systems.aspx">
+Operating Systems
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/9/visual-C-Sharp.aspx">
+Visual C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/79/xml.aspx">
+XML
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/314/big-data.aspx">
+Big Data
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/244/html-5.aspx">
+HTML 5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/299/oracle.aspx">
+Oracle
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/139/visual-studio-net.aspx">
+Visual Studio .NET
+</a> </span></span> </div> <div style="position: absolute; bottom: 0px; left: 0px;"> <a href="http://www.c-sharpcorner.com/ContactUs.aspx?type=7" class="LinkNormalBlue" style="color: #ff6600; background: none; text-transform: none; float: left;">Request
+a new Category</a><span style="float: left; color: #8D8D8D; margin-top: 4px;">|</span> <a href="http://www.c-sharpcorner.com/Category/" class="LinkNormalBlue viewAll" style="color: #36c; background: none!important; text-transform: none; float: left;">
+View All</a> </div> </div> </li> <li><a href="http://www.c-sharpcorner.com/Forums/" title="Ask a Question">ANSWERS</a></li> <li><a href="http://www.c-sharpcorner.com/Blogs/" title="Share a Blog">BLOGS</a></li> <li><a href="http://www.c-sharpcorner.com/Videos/" title="Share a Video">VIDEOS</a></li><li> <a href="http://www.c-sharpcorner.com/interviews/" title="Ask an Interview Question">
+INTERVIEWS</a></li><li><a href="http://www.c-sharpcorner.com/ebooks/" title="Share a Book">
+BOOKS</a></li> <li><a href="http://www.c-sharpcorner.com/news/" title="Submit a News">NEWS</a></li> <li><a href="http://www.c-sharpcorner.com/Chapters/" title="Attend an Event">
+CHAPTERS</a></li> <li><a href="http://www.c-sharpcorner.com/CareerAdvice/" title="Get career advice">
+CAREER ADVICE</a></li> <li><a href="http://www.c-sharpcorner.com/jobs/" title="Get Jobs">Jobs</a></li> </ul> </div> </div> </div> </div> <div class="page"> <div class="clear"> </div> <div class="main" style="margin-top: 50px;"> <div class="leftCntr"> <div class="trendingNowBox"> <div class="left" id="example1_wrap"> <div class="bx_wrap"><a href="" class="prev"></a><a href="" class="next"></a><div class="bx_container" style="position: relative; width: 275px; overflow: hidden;"><ul id="example1" style="width: 999999px; position: relative; left: -275px;"><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/020f8f/windows-phone-8-app-development-using-phonegap-cordova-pa/" class="LinkNormalStyle" style="color: Gray;">
+Windows Phone 8 App Development Usi ...</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/638122/forms-authentication-form-authorization-and-storing-encryp/" class="LinkNormalStyle" style="color: Gray;">
+Form Authentication, Form Authoriza ...</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/a9d961/a-quick-start-on-mvc/" class="LinkNormalStyle" style="color: Gray;">
+A Quick Start on MVC</a></li></ul></div></div> </div> <div class="right"> <div id="ctl00_TrendingNow1_Panal1" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_TrendingNow1_searchImageButton&#39;)"> <input name="ctl00$TrendingNow1$searchTextBox" type="text" id="ctl00_TrendingNow1_searchTextBox" class="searchTextBox" placeholder="C# Corner Search" style="font-family:Calibri;"> <input type="submit" name="ctl00$TrendingNow1$searchImageButton" value="" id="ctl00_TrendingNow1_searchImageButton" class="button">  </div> </div> </div> <div class="article"> <div class="HeadingAr" id="div1"> <div class="floatRight marginTop" style="font-size: 12px;"> <div id="ctl00_AuthorRank" class="AuthorRank" style="width: 140px; text-align: left;">
+Reader Level:
+<span id="ctl00_ImageReaderLevel" title="Intermediate" class="sprite details intermediate"></span> </div> </div> <span id="ctl00_spanArticle" class="floatLeft">ARTICLE</span></div> <div class="clear"> </div> <div class="image"> <a href="http://www.c-sharpcorner.com/authors/ajyadav123/ajay-yadav.aspx" id="ctl00_AnchorAuthorImage"> <img id="ctl00_imgAuthor" title="Ajay Yadav" class="image90" src="./Remoting Technology  Distributed Computing_files/ajyadav12320141018102403.jpg" style="border-width:0px;"></a> <div id="ctl00_divRankPoints" style="text-align: center;
+width: 91px;"> <span class="rankDotBlue"></span><span id="ctl00_spanRanks" title="Ranked"> <a id="ctl00_LabelRank" class="LinkNormalStyleOrange" href="http://www.c-sharpcorner.com/Members/rank/">342</a> </span><span class="rankDot"></span><span id="ctl00_AuthorPoints" title="Points"><a class="LinkNormalStyleOrange" href="http://www.c-sharpcorner.com/Authors/AuthorRanking.aspx?AuthorId=ajyadav123"> 820</a></span> </div> </div> <div class="detail"> <div class="grayText"> <h1> <span id="ctl00_LabelArticleTitle" cssclass="BlogsWelcomeHeading">Remoting Technology: Distributed Computing</span> </h1> </div> <div class="LinkNormalGrayLight">
+Posted by <span><a href="http://www.c-sharpcorner.com/authors/ajyadav123/ajay-yadav.aspx" id="ctl00_AuthorLink" class="LinkBlack">Ajay Yadav</a> </span> <label>
+in</label> <span class="LinkRed"><a href="http://www.c-sharpcorner.com/Articles/" id="ctl00_AnchorArticles" class="LinkRed">Articles</a> </span>| <span class="LinkNormalBlue"> <a href="http://www.c-sharpcorner.com/1/70/net-remoting.aspx" id="ctl00_AnchorCategory" class="LinkNormalBlue">.NET Remoting</a> </span> <label>
+on</label> <span id="ctl00_LabelDate">November 04, 2014</span> </div> <div class="LinkNormalGrayLight" style="margin-bottom: 5px; display: none;"> <span style="color: Black;">Tags:</span> <span id="ctl00_spanTags"><a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Remoting">Remoting</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Remoting-Architecture">Remoting Architecture</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Remoting-Server">Remoting Server</a></span> </div> <div style="position: relative; margin: 2px 0px 2px 0px; width: 100%; float: left;
+border-bottom: solid 1px #d7d7d7;"> </div> <div id="ctl00_DivDescription" class="normalGray" style="padding: 5px 0 0;">This article shows how cross-process and cross-machine interaction of applications are developed with the .NET Framework work.</div> </div> <div class="clear"> </div> <div class="tweetIcon" style="padding-bottom: 10px;"> <ul> <li><a href="https://twitter.com/" class="twitter-follow-button" data-show-count="false" data-lang="en" style="display: none" data-twttr-rendered="true">
+Follow @</a> </li> <li><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Remoting Technology  Distributed Computing_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe></li> <li> <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415209267559_0"><a id="li_ui_li_gen_1415209267559_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1415209267559_0-logo">in</span><span id="li_ui_li_gen_1415209267559_0-title"><span id="li_ui_li_gen_1415209267559_0-mark"></span><span id="li_ui_li_gen_1415209267559_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1415209267571_1-container" class="IN-right IN-hidden"><span id="li_ui_li_gen_1415209267571_1" class="IN-right"><span id="li_ui_li_gen_1415209267571_1-inner" class="IN-right"><span id="li_ui_li_gen_1415209267571_1-content" class="IN-right">0</span></span></span></span></span></span><script type="in/share+init" data-counter="right"></script> </li> <li> <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1415209267192" name="I0_1415209267192" src="./Remoting Technology  Distributed Computing_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div> </li> <li> <div class="fb-like fb_iframe_widget" data-send="false" data-layout="button_count" data-width="120" data-show-faces="false" data-font="tahoma" data-href="http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=440531902678919&amp;font=tahoma&amp;href=http%3A%2F%2Fwww.c-sharpcorner.com%2Fuploadfile%2Fajyadav123%2Fremoting-technology-distributed-computing%2FDefault.aspx&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=120"><span style="vertical-align: bottom; width: 82px; height: 20px;"><iframe name="f2f4f72de" width="120px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Remoting Technology  Distributed Computing_files/like.html" style="border: none; visibility: visible; width: 82px; height: 20px;" class=""></iframe></span></div> </li> </ul> </div> </div> <div class="clear"> </div> <div> <span id="ctl00_LabelMessageBox" style="color:Red;"></span> </div> <div class="contentHeaderArticle"> <ul style="width: 380px"> <li> <a id="ctl00_ImageButtonEmail" title="Email this article to friend" class="sprite details email" href="javascript:__doPostBack('ctl00$ImageButtonEmail','')"></a> </li> <li> <a id="ctl00_ImageButtonAddToMyBookmarks" title="Bookmark this article" class="sprite details bookmark" href="javascript:__doPostBack('ctl00$ImageButtonAddToMyBookmarks','')"></a> </li> <li><a href="javascript:void(GetPrintVersion())" class="sprite details print"></a> </li> <li><a href="http://www.c-sharpcorner.com/Authors/ajyadav123/articles/" id="ctl00_AuthorsOtherArticles" title="Author&#39;s other article" class="sprite details authorOthers"></a></li> <li><a href="http://www.c-sharpcorner.com/Articles/Default.aspx?ArticleId=2b22831a-a009-498e-be13-f7e5c1b82c54" id="ctl00_AnchorSimilarArticles" title="Similar articles" class="sprite details similar"></a></li> <li> </li> <li> </li> <li> </li> <li> <a id="ctl00_ImageButtonModerator" title="Article History" class="sprite details history" href="javascript:__doPostBack('ctl00$ImageButtonModerator','')"></a></li> <li> </li> <li> </li> <li> </li> <li> </li> </ul> <ul style="width: 280px" class="right"> <li><a title="Like it" onclick="Like();" class="sprite details like"></a><span class="ponit" style="float: left;"> <span id="ctl00_LabelLikeCount">1</span> </span></li> <li><a href="http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/#ReadAndPostComment"><span class="sprite details comments" title="Comments"> </span><span class="ponit"><span id="spanComments">1</span></span></a></li> <li><span class="sprite details views" title="Views"></span><span class="ponit"><span id="ctl00_spanArticleViews">944</span></span></li> </ul> </div> <div class="clear"> </div> <div id="ctl00_downloadFiles" class="ratingTilte" style="margin-top:10px;margin-bottom:0px;display:none;">
+&nbsp;
+</div> <div id="div2" class="PaddingLeft5"><p align="justify"></p><p><strong>Abstract</strong><br><br>This article shows how cross-process and cross-machine interaction of applications are developed with the .NET Framework work. This snippet especially provides you with an in-depth understanding of the remoting capabilities that are built into the .NET framework. It presents some scenarios in which .NET Remoting can be employed and includes historical background on the progress and development of various remoting frameworks. This peices get you started with your first remoting application by creating and configuring its corresponding server and client modules using HTTP, TCP and IPC channels. At the end of this, you will be able to design and develop remotable components under the CLR context. <br><br><strong>Why Remoting</strong><br><br>Remoting was typically used for accessing a server's resources at the beginning of the Microsoft client/server era. Every file server or database is an implementation of some tactics that allows code to be executed remotely. Nowadays the building of distributed applications is feasible to distributed business logics among diverse machines to improve performance, maintainability and scalability. There are a couple of other distributed architecture implementations introduced and used frequently such as Web Services, COM ,COM+, DCOM, RMI, CORBA and EJB. The following point poses the need for remoting technology and the advantages over such inherent technology.<br><strong><br>Cross-platform Communication<br></strong><br>You will typically encounter a heterogeneous combination of various platforms, such as Windows, LAMP, Mac programming languages like, C++, PHP, cold fusion and frameworks for instance .NET, Java in a larger or mid-size enterprise. So, integration of these technologies could be a daunting task for system architects. Remoting technology like .NET Remoting, CORBA and SOAP are an absolute necessity in large-scale enterprise application integrations for building scalable applications.<br><br><strong>Centralized business logic<br></strong><br>One of the key scenarios for implementing Remoting technology is the concentration of business logic on a central server that considerably simplifies the maintainability and operability of large scale applications because we need to update one single server rather&nbsp;than a number of users separately. When this centralized architecture is shared among various applications, it reduces the huge programming labor.<br><br><strong>Remoting Architecture</strong><br><br>The .NET Remoting is a process of program or components interacting across certain application domains. The communication between application domains can happen inside the same process, between processes on a single system or between processes on different machines. It provides a faster format for communication between .NET applications on both the client and server side. All in all, .NET Remoting is a perfect paradigm that is only possible over a LAN (intranet), not the internet. In the .NET Framework, this technology provides the foundation for distributed computing; it simply replaces DCOM technology. <br><br>Remoting implementations typically distinguish between mobile objects and remote objects. The mobile objects provide the ability to execute methods on remote servers, passing parameters and receiving return values whereas the remote objects will always be located at the server and only a reference to it will be passed around among other machines.<br><br>The following figure depicts a simplified view of remoting technology. Whenever a client application holds a reference to a remote object, it would be represented by a TransparentProxy object, that masquerades as the destination object. This proxy will allow the entire target objects instance methods to be called upon it. Whenever a method call is presented to the proxy, it will be converted into a message and the message will pass using various layers.<br><br><img alt="Remoting Architecture" src="./Remoting Technology  Distributed Computing_files/Remoting Architecture.jpg"><br><br><strong>Remoting characteristics</strong></p> <ul type="square"> <li>It gives you a flexible and extensible framework that allows for different transfer mechanism such as HTTP and TCP, encoding (binary and SOAP) and security setting such as SSL and IIS security.<br><br> </li><li>We can use this technology anywhere such as on console application, Windows application, COM components or Windows services applications.<br><br> </li><li>.NET Remoting enable to work with stateful objects.<br><br> </li><li>When we use remote objects, the .NET automatically tracks where they originated. So a client can ask one server to create an object and safely pass this as methods parameters to another server. </li></ul> <p><strong>Remoting in Action<br><br></strong>The Remoting classes can be found in the namespace System.Runtime.Remoting and some of its core classes can be found in mscorlib.dll. When using remote objects, both the client and the server must have access to the same interface definitions and serializable objects that are passed by value. This leads to the general requirement that at least three assemblies are needed for any .NET Remoting project.</p> <ul type="square"> <li>General Assembly (Class library project): it represents a shared assembly that contains the interface and serializable object.<br><br> </li><li>Server Assembly (Console application): it contains the server-side implementation of MarshalByRefObjects.<br><br> </li><li>Client Assembly (Console application): this consumes the general assembly methods implementations. </li></ul><strong>General Assembly (Interface Definition)<br><br></strong>For the first step, create a C# base class library project where you must define the interface ICustManager that will be implemented by the server. In this interface, you'll define a single method. getCust(), that returns a Customer object to the caller as in the following:<br> <div class="dp-highlighter"> <div class="bar"></div> <ol class="dp-c"> <li class="alt"><span><span class="keyword">namespace</span><span>&nbsp;Rem_GeneralLib&nbsp;&nbsp;</span></span> </li><li><span>{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">interface</span><span>&nbsp;ICustManager&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer&nbsp;getCust(<span class="keyword">int</span><span>&nbsp;id);&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div>You now need to define the customer that will hold the customer data. This class must be serialized because its object needs to be passed as a copy. Here, we are declaring Name, address and calculating the present age as in the following:<br> <div class="dp-highlighter"> <div class="bar"></div> <ol class="dp-c"> <li class="alt"><span><span class="keyword">using</span><span>&nbsp;System;&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span><span class="keyword">namespace</span><span>&nbsp;Rem_GeneralLib&nbsp;&nbsp;</span></span> </li><li><span>{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;[Serializable]&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;Customer&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Name;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;Age;&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">string</span><span>&nbsp;Address;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;DateTime&nbsp;dt;&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Customer()&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="string">"Customer&nbsp;Object&nbsp;Created......"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">int</span><span>&nbsp;getAge()&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="string">"-----Customer&nbsp;Data-----"</span><span>);&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(Name);&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(dt.ToShortDateString());&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(Address);&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TimeSpan&nbsp;ts=DateTime.Today.Subtract(dt);&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;ts.Days&nbsp;/&nbsp;365;&nbsp;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div>Finally, compile this class library project and its corresponding Rem_GeneralLib.dll file is created in the Bin folder that will be referenced in the Remoting Server project later.<br><br><strong>Remoting Server Implementation<br></strong><br>The Remoting server application would be a console based application. On the server, you need to provide an implementation of ICustManager that will allow you to load a customer from a fictitious database. This implementation will only fill in the Customer object with static data.<br><br>To implement the server application, first add the reference of Rem_GeneralLib.dll and System.Runtime.Remoting.dll files. Now add these following lines to the declaration as in the following:<br> <div class="dp-highlighter"> <div class="bar"></div> <ol class="dp-c"> <li class="alt"><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting;&nbsp;&nbsp;</span></span> </li><li><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels;&nbsp;&nbsp;</span></span> </li><li class="alt"><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels.Http;&nbsp;&nbsp;</span></span></li></ol></div>Thereafter, you will need to implement an ICustManager in an object derived from MarshalByRefObject. The method getCust() will just return a dummy Customer object. Finally, register a HTTP channel that listens on port 7861. This channel is registered in the Remoting system that will allow incoming requests to be forwarded to the corresponding object as in the following.<br> <div class="dp-highlighter"> <div class="bar"></div> <ol class="dp-c"> <li class="alt"><span><span class="keyword">using</span><span>&nbsp;System;&nbsp;&nbsp;</span></span> </li><li><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting;&nbsp;&nbsp;</span></span> </li><li class="alt"><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels;&nbsp;&nbsp;</span></span> </li><li><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels.Http;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span><span class="keyword">using</span><span>&nbsp;Rem_GeneralLib;&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span><span class="keyword">namespace</span><span>&nbsp;Rem_Server&nbsp;&nbsp;</span></span> </li><li class="alt"><span>{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;</span><span class="keyword">class</span><span>&nbsp;CustomerManager:&nbsp;MarshalByRefObject,&nbsp;ICustManager&nbsp;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;CustomerManager()&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="string">"Customer&nbsp;Manager&nbsp;Object&nbsp;Created......"</span><span>);&nbsp;&nbsp;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public</span><span>&nbsp;Customer&nbsp;getCust(</span><span class="keyword">int</span><span>&nbsp;id)&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer&nbsp;cst&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;Customer();&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cst.Name&nbsp;=&nbsp;<span class="string">"Ajay&nbsp;Yadav"</span><span>;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cst.dt&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;DateTime(1982,10,9);&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cst.Address&nbsp;=&nbsp;<span class="string">"India"</span><span>;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span><span>&nbsp;cst;&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span><span>&nbsp;RemServer&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Main(</span><span class="keyword">string</span><span>[]&nbsp;args)&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpChannel&nbsp;chn&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;HttpChannel(7861);&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ChannelServices.RegisterChannel(chn,&nbsp;<span class="keyword">false</span><span>);&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RemotingConfiguration.RegisterWellKnownServiceType(&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">typeof</span><span>(CustomerManager),&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"RemotingServer"</span><span>,&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WellKnownObjectMode.Singleton);&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.ReadLine();&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div>The class CustomerManager is registered as a WellKnownServiceType, that allows the client to remotely call its methods. The URL will be “RemotingServer”. The object mode is set to singleton to ensure that only one instance will exist at any given time.<br><br><strong>Service Consuming (Client Implementation)<br></strong><br>The Remoting client project will connect the server and ask for a Customer object. For the Client project, you also need to add a reference of System.Runtime.Remoting.dll and compile the Gen_Remoting.dll file again.<br><br>Therefore, you must register the channel, you don't need to specify the port number because client-side ports are assigned automatically. Then create a proxy class that will support the ICustManager that will be passed in the Activator class as a parameter and specify the URL to the server type. Finally call the Customer class method in order to populate the Customer class data.<br> <div class="dp-highlighter"> <div class="bar"></div> <ol class="dp-c"> <li class="alt"><span><span class="keyword">using</span><span>&nbsp;System;&nbsp;&nbsp;</span></span> </li><li><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting;&nbsp;&nbsp;</span></span> </li><li class="alt"><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels;&nbsp;&nbsp;</span></span> </li><li><span><span class="keyword">using</span><span>&nbsp;System.Runtime.Remoting.Channels.Http;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span><span class="keyword">using</span><span>&nbsp;Rem_GeneralLib;&nbsp;&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span><span class="keyword">namespace</span><span>&nbsp;Remoting_Client&nbsp;&nbsp;</span></span> </li><li class="alt"><span>{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span><span>&nbsp;ClientStartup&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">static</span><span>&nbsp;</span><span class="keyword">void</span><span>&nbsp;Main(</span><span class="keyword">string</span><span>[]&nbsp;args)&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpChannel&nbsp;chn&nbsp;=&nbsp;<span class="keyword">new</span><span>&nbsp;HttpChannel();&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ChannelServices.RegisterChannel(chn,<span class="keyword">false</span><span>);&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICustManager&nbsp;mgr&nbsp;=&nbsp;(ICustManager)Activator.GetObject(&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">typeof</span><span>(ICustManager),&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"http://localhost:7861/RemotingServer"</span><span>);&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(<span class="string">"Connecting&nbsp;to&nbsp;Server.....\n\n"</span><span>);&nbsp;&nbsp;</span></span> </li><li class="alt"><span>&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer&nbsp;cust&nbsp;=&nbsp;mgr.getCust(101);&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">int</span><span>&nbsp;age&nbsp;=&nbsp;cust.getAge();&nbsp;&nbsp;</span></span> </li><li><span>&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.WriteLine(age);&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Console.ReadLine();&nbsp;&nbsp;&nbsp;</span> </li><li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span> </li><li class="alt"><span>}&nbsp;&nbsp;</span></li></ol></div>After finishing with the coding, compile the client project. Remember one thing, first run the server project console application that will listen on port 7861 then start the client console application that will produce the following output.<br><br><strong>Note: </strong>The system firewall echoes an alert because initially, it won't allow any communication on port 7861 for security reasons. So allow an ad-hoc communication on port 7861. <br><br><img alt="customer data" src="./Remoting Technology  Distributed Computing_files/customer data.jpg"><br><br>Notice at the server console, it will notify that the CustomerManager constructor has been called, right after displaying the output in the client project as in the following:<br><br><img alt="Customer Manager" src="./Remoting Technology  Distributed Computing_files/CCustomer Manager.jpg"><br><br>We can also the confirm whether or not the socket is created on port 7861 by encountering the netstat command as in the following:<br><br><img alt="active connections" src="./Remoting Technology  Distributed Computing_files/active connections.jpg"><br><br><strong>Summary</strong><br><br>This article provided an introduction to .NET Remoting, one of the Distributed Computing technologies. We are now familiar with the various aspects in which .NET Remoting fits in and is applied. We dug deeper into remoting concepts and&nbsp;its advantages in detail. We also came to understand with a live example of remoting technology by creating three assemblies that encapsulated a general assembly, server program and client application.
+<p></p></div> <div class="clear"> </div> <div class="clear"> </div> <div id="ctl00_RelatedArticles" class="relatedArticle"> <h3>
+Related Articles</h3> <ul> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl00_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/amit_agrl/DistributedComputing11232005043409AM/DistributedComputing.aspx">Distributed Computing Using .NET Remoting</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl01_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/d.dobric/RemotingCallsRecm11192005003343AM/RemotingCallsRecm.aspx">Remoting Calls Recommendation</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl02_HyperLinkTitle" href="http://www.c-sharpcorner.com/uploadfile/john_charles/distributed-database-technologies-to-share-data-between-database-systems/default.aspx">Distributed database technologies to share data between database systems</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl03_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/rupadhyaya/RemotingIndotNET11232005070330AM/RemotingIndotNET.aspx">Remoting in .NET</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl04_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/84c85b/net-web-services/">.NET Web Services</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl05_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/subcom/accessing-remote-sql-server-by-remoting-tcp/">Accessing Rmote SQL server by Remoting (TCP)</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl06_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/5eae74/prerequirement-of-remoting/">Prerequirement of REMOTING</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl07_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/rahul4_saxena/Remoting04252007233559PM/Remoting.aspx">.NET Remoting in a Simple Way </a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl08_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/cd7c2e/how-to-configure-dtc-security-to-allow-local-transactions-on/">How to Configure DTC Security to Allow Local Transactions on Your System</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl09_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/pk_khuman/RMIto.NETRemoting01162006052210AM/RMIto.NETRemoting.aspx">Migrating Java RMI to .NET Remoting</a> </li> </ul> </div> <script src="./Remoting Technology  Distributed Computing_files/jquery-Mention-Combined.js" type="text/javascript"></script> <script type="text/javascript">
+var mentionarraydata=[];
+var Comments_article = (function () {
+var pageSize = 10;
+var rootClass = '.article ';
+return {
+//Get Comments
+GetComments: function (parent_id) {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var rootComments = $j(rootClass + '#RootComments');
+var items = 0;
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'2b22831a-a009-498e-be13-f7e5c1b82c54','type':'article','pageNumber':'" + pageNumber + "', 'pageSize':'" + pageSize + "', 'parentId':" + parent_id + "}",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#mainLoader').show();
+},
+success: function (d) {
+var data = d[0];
+var totalComments;
+$j.each(data, function (index) {
+rootComments.prepend(BuildComment(data[index])); //Prepend root comments
+if (pageNumber == 1 && index == 0) {
+$j(rootClass + '#HiddenTotalComments').val(data[index].TotalComments);
+if (d[2][index] == null || d[2][index] == undefined) {
+totalComments = data[index].TotalComments;
+}
+else {
+totalComments = parseFloat(data[index].TotalComments) + parseFloat(d[2][index].TotalComments);
+}
+$j(rootClass + '#TotalComments').text(totalComments); //set total comments only once.
+$j('#spanComments').text(totalComments); //Manages Header Comment Count
+}
+items = parseFloat(items) + 1; //track for number of comments to show
+ManageAlternateColor();
+});
+//Reply Binding starts here
+var reply = d[1];
+var element;
+$j.each(reply, function (index) {
+element = $j(rootClass + '#CommentReplies_' + reply[index].ParentId);
+element.prepend(BulildCommentReply(reply[index]));
+items = parseFloat(items) + 1;
+});
+//Reply Binding ends here
+//Manage paging
+{
+if (items != 0 && parseFloat(pageNumber) >= 1) {
+if (parseFloat(pageNumber) == 1)
+$j(rootClass + '#CommentCount').text(items);
+else
+$j(rootClass + '#CommentCount').text(parseFloat($j(rootClass + '#CommentCount').text()) + items);
+}
+else {
+$j(rootClass + '#Paging').hide();
+}
+ManageViewMoreVisibility();
+}
+$j(rootClass + '#mainLoader').hide();
+}
+});
+},
+//Like Comment
+LikeComment: function (id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=like_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+},
+Error: ShowError
+});
+if (status == '1') {
+var likes = $j(rootClass + '#Likes_' + id).text();
+$j(rootClass + '#Likes_' + id).text(parseFloat(likes) + 1);
+}
+else if (status == '2') {
+}
+},
+//Delete Comment
+DeleteComment: function (id, parent_id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=delte_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+success: function (response) {
+status = response;
+},
+Error: ShowError
+});
+if (status == '1') {
+var count = $j(rootClass + '#Replies_' + id).text();
+$j(rootClass + '#comment_' + id).remove();
+if (parent_id == 0) {
+ManageAlternateColor();
+ManagePaging('d', count);
+if (GetParentCommentsCount() == 0)
+Comments_article.GetComments(0);
+}
+else {
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) - 1);
+totalComments.text(parseFloat(totalComments.text()) - 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+}
+},
+//Post Comment
+PostComment: function (parent_id, e) {
+if (e.keyCode == 13) {
+var rootComments = $j(rootClass + '#RootComments');
+var totalComments = $j(rootClass + '#HiddenTotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var comment = null;
+$j('textarea.mention').mentionsInput('val', function(text) {
+comment=text;
+});
+comment=FormatText(comment);
+comment=GetCommentData(comment,'textarea.mention');
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'2b22831a-a009-498e-be13-f7e5c1b82c54','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0]; 
+var mailtosendids=[];
+var mailtobesendids=null;
+$j('textarea.mention').mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+mailtosendids.push(obj.id);
+});
+});
+$j('textarea.mention').mentionsInput('reset', function(data) {
+});                          
+rootComments.append(BuildComment(data));
+ManageAlternateColor();
+$j(rootClass + '#InputCommentText_' + parent_id).val('').trigger('autosize.resize');
+//if (!(parseFloat(totalComments.val()) == parseFloat(commentCount.text()) && parseFloat($j('#HiddenPageNumber_article').val()) > 1))
+if (parseFloat(GetParentCommentsCount()) > parseFloat(pageSize))
+rootComments.find('div').first().remove();
+ManagePaging('i', 0);
+SendMail(comment, '0', data.ParentUserId, data.CommentId);
+mailtobesendids=mailtosendids.join(",");
+SendNotification(comment,mailtobesendids)
+$j(rootClass + '#PostLoader').hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Reply TextBox
+ShowReplyBox: function (id) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+if ($j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).length)
+{ $j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).toggle(); }
+else {
+var postReply = '<div id="ReplyContainer_' + id + '" class="ReplyComment" style="width:614px; padding-bottom:5px;">\
+<div class="image level1"><img src="http://www.c-sharpcorner.com/UploadFile/AuthorImage/a48f78.png" alt=""></div>\
+<div class="commentcontent">\
+<textarea id="ReplyComment_' + id + '" onkeypress="Comments_article.PostCommentReply(' + id + ',event);" class="mention" style="height:18px;" spellcheck="true" placeholder="Type your comment here and press Enter Key...."></textarea>\
+</div>\
+<img id="PostLoader_' + id + '" src="/Images/csharp/ajax-loader_12x9.gif"\
+style="margin: 5px 7px 0px 0px; clear:both; float:right; display:none;" />\
+</div>';
+element.append(postReply);
+$j(rootClass + 'textarea#ReplyComment_' + id).elastic();
+GetValueAtTheRate(rootClass + 'textarea#ReplyComment_' + id);
+$j(rootClass + '#ReplyComment_' + id).focus();
+}
+$j(rootClass + '#CommentReplies_' + id).show();
+},
+//Show Replies
+ShowReplies: function (id, anchr) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+var commentCount = $j(rootClass + '#CommentCount');
+//if (element.is(":visible") &&  == '')
+var pageSize = 50;
+if ($j(rootClass + '#Replies_' + id).text() != '0') {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'2b22831a-a009-498e-be13-f7e5c1b82c54','type':'article','pageNumber':'1', 'pageSize':'" + pageSize + "', 'parentId':" + id + "}",
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (d) {
+element.html('');
+var data = d[0];
+$j.each(data, function (index) {
+data[index].CommentId;
+element.prepend(BulildCommentReply(data[index])); //Prepend root comments
+});
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+$j(anchr).remove();
+$j('#CommentReplies_' + id).show();
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+}
+});
+}
+},
+//Expend/Collapse Comment Replies
+ToggleReplies: function (id) {
+$j(rootClass + '#CommentReplies_' + id).toggle();
+},
+//Post Comment Reply
+PostCommentReply: function (parent_id, e) {
+if (e.keyCode == 13) {
+var replyContainer = $j(rootClass + '#ReplyContainer_' + parent_id);
+//var comment = FormatText($j(rootClass + '#ReplyComment_' + parent_id).val());
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+$j(rootClass + '#ReplyComment_' + parent_id).mentionsInput('val', function(text) {
+comment=text;
+});
+comment =FormatText(comment);
+comment=GetCommentData(comment,rootClass + '#ReplyComment_' + parent_id);
+$j(rootClass +'#ReplyComment_' + parent_id).mentionsInput('reset', function(data) {
+});
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'2b22831a-a009-498e-be13-f7e5c1b82c54','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader_' + parent_id).show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0];
+replyContainer.before(BulildCommentReply(data));
+$j(rootClass + '#ReplyComment_' + parent_id).val('').trigger('autosize.resize');
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) + 1);
+totalComments.text(parseFloat(totalComments.text()) + 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+SendMail(comment, '1', data.ParentUserId, data.CommentId); //SendMail(comment, is_child_comment, parent_user_id)
+$j(rootClass + '#PostLoader_' + parent_id).hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Edit Panel
+ShowEditView: function (commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var editView = '<textarea id="CommentToEdit_' + commentId + '" onkeypress="Comments_article.EditComment(' + commentId + ',event);" class="inputText" style="width:95%;  height:16px; font-size:12px; margin: 5px 0px;" spellcheck="true"  ></textarea>\
+<img id="ajaxLoaderEdit_' + commentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />';
+editButton.hide();
+content.after(editView);
+var edittext=content.html();
+var existingusers= edittext.match(/<a[^>]+>([^<]+)<\/a>/g);
+var hyperlink=null;
+var username=null;
+//var userid=null;
+//var pieces=null;
+if(existingusers)
+{
+for(var i=0;i<=existingusers.length-1;i++)
+{
+hyperlink= $j(existingusers[i]).attr('href');
+//pieces=hyperlink.split('/');
+//userid=pieces[pieces.length-2];
+username=existingusers[i].match(/<a[^>]+>([^<]+)<\/a>/)[1];           
+mentionarraydata.push(username+'/^g*~o0#g*^/'+hyperlink);
+edittext=edittext.replace(existingusers[i],username);
+}
+}
+$j(rootClass + '#CommentToEdit_' + commentId).val(edittext);
+$j(rootClass + '#CommentToEdit_' + commentId).focus();
+content.hide();
+$j(rootClass + 'textarea#CommentToEdit_' + commentId).elastic();
+},
+//Edit Comment
+EditComment: function (commentId, e) {
+if (e.keyCode == 13) {  
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+textBox.val(textBox.val().replace('\n', ''));
+var comment = $j(rootClass + '#CommentToEdit_' + commentId).val().trim();
+comment = GetEditData(comment); 
+if (comment == content.text() || comment == '') {
+RemoveEditView(commentId);
+PreventDefault(e);
+}
+else {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=edit_comment&id=" + commentId + "&type=article",
+type: "POST",
+async: false,
+data: { description: FormatText(comment) },
+beforeSend: function () {
+$j(rootClass + '#ajaxLoaderEdit_' + commentId).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+PreventDefault(e);
+mentionarraydata.length=0;
+},
+Error: ShowError
+});
+if (status == '1') {
+content.html(decodeURIComponent(comment));
+RemoveEditView(commentId);
+}
+}
+}
+else if (e.keyCode == 27) {
+RemoveEditView(commentId);
+}
+},
+//Update Comment Follow Status
+UpdateFollowStatus: function (checkBox) {
+var status;
+status = ($j(checkBox).is(':checked'))?true:false;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=comment_follow_status&id=2b22831a-a009-498e-be13-f7e5c1b82c54&type=article&status=" + status,
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+if(response=='1')
+$j(rootClass + '#PostLoader').hide();
+},
+Error: ShowError
+});
+},
+//View Previous Comments
+ViewPreviousComments: function () {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var totalComment = $j(rootClass + '#HiddenTotalComments').val();
+if (parseFloat(totalComment) > (parseFloat(pageNumber) * pageSize)) {
+$j('#HiddenPageNumber_article').val(parseFloat(pageNumber) + 1);
+}
+else {
+$j(rootClass + '#RootComments').text('');
+$j('#HiddenPageNumber_article').val('1');
+}
+Comments_article.GetComments(0);
+}
+}// End of return
+function PreventDefault(e)//Function to prevent Default Events. Working in IE8
+{
+if (e.preventDefault)
+e.preventDefault();
+else
+e.returnValue = false;
+}
+function BuildComment(obj) {
+var authorUrl = obj.AuthorUrl;
+var desc=unescape(obj.Description);
+var commentHtml;
+commentHtml = '<div id="comment_' + obj.CommentId + '" class="pulsecomment">';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDelete">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level0"><a href="' + authorUrl + '"><img alt="" src="' + obj.PhotoUrl + '" /></a></div>\
+<div class="commentcontent">\
+<a class="LinkNormalBlue" href="' + authorUrl + '">' + obj.FullName + '</a>\
+<div>' + desc + '</div>\
+<div>\
+<span class="floatRight"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.LikeComment(' + obj.CommentId + ')"><span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.ToggleReplies(' + obj.CommentId + ')" ><span id="Replies_' + obj.CommentId + '">' + obj.Replies + '</span> Reply</a>';
+if ('True' == 'True')
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplyBox(' + obj.CommentId + ')">Post Reply</a>';
+if (parseFloat(obj.Replies) > 3)
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplies(' + obj.CommentId + ', this)">Show All</a>';
+commentHtml += '<img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+<div class="clear"></div>\
+<div id="CommentReplies_' + obj.CommentId + '"></div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function BulildCommentReply(obj) {
+var authorUrl = obj.AuthorUrl;
+var commentHtml = '<div id="comment_' + obj.CommentId + '" class="ReplyComment" style="width:612px;">';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDeleteReply">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level1"><a href="' + authorUrl + '"><img src="' + obj.PhotoUrl + '" alt="" /></a></div>\
+<div class="commentcontent"><a href="' + authorUrl + '" class="LinkNormalBlue">' + obj.FullName + '</a>\
+<div>' + unescape(obj.Description) + '</div>\
+<div><span class="floatRight"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span><a onclick="Comments_article.LikeComment(' + obj.CommentId + ')" class="commnetLinkSecondStep"> <span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a>\
+<img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function GetParentCommentsCount() {
+var count = 0;
+//$j(rootClass + '#RootComments > div.pulsecomment').each(function () {
+//    count = count + 1;
+//});
+count = $j(rootClass + '#RootComments > div.pulsecomment').size();
+return count;
+}
+function GetChildCommentsCount() {
+var childNodes = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent div div.ReplyComment').size();
+var textareas = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent textarea').size();
+if (childNodes > 0)
+return childNodes - textareas;
+else return 0;
+}
+function ManageAlternateColor() {
+$j(rootClass + '#RootComments > div').removeClass("BackgroundWhite");
+$j(rootClass + '#RootComments > div:odd').addClass("BackgroundWhite");
+}
+//        function FormatTextToInsert(text) {
+//            return escape(($j.trim(text)).replace('<', '&lt;').replace('>', '&gt;').replace('/', '&#47;').replace('"', '&quot;').replace('\n', ''));
+//        }
+function SendMail(comment, is_child_comment, parent_user, commentId) {
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_mail&type=article",
+data: { description: unescape(comment),
+content_title:'Remoting Technology: Distributed Computing',
+content_user_id:'ajyadav123',
+is_child_comment:is_child_comment,
+content_id: '2b22831a-a009-498e-be13-f7e5c1b82c54',
+parent_user_id: parent_user,
+request_url:'http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx',
+content_url:'',
+content_user_email:'',
+comment_id:commentId
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function SendNotification(comment,mailtosendids)
+{
+var pathname = 'http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx';
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_notification&type=article",
+data: { description: unescape(comment),
+mailtosend:mailtosendids,
+currenturl:pathname
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function VerifyUser() {
+var data;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=current_user",
+type: "GET",
+async: false,
+success: function (response) {
+data = $j.parseJSON(response)[0].user_name;
+}
+});
+if (data == null || data == '') {
+var url = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx';
+window.location = url;
+}
+}
+function ManagePaging(action, count) {
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var total_comments = $j.trim($j(rootClass + '#HiddenTotalComments').val());
+switch (action) {
+case 'i': //increase
+total_comments = parseFloat(total_comments) + 1;
+if ($j.trim(totalComments.text()) == '')
+totalComments.text('1');
+else
+totalComments.text(parseFloat(totalComments.text()) + 1);
+$j(rootClass + '#Paging').show();
+break;
+case 'd': //decrease
+if (parseFloat(total_comments) <= 0) {
+totalComments.text('');
+commentCount.text('');
+$j(rootClass + '#Paging').hide();
+}
+else {
+totalComments.text(parseFloat(totalComments.text()) - (1 + parseFloat(count)));
+total_comments = parseFloat(total_comments) - 1;
+}
+break;
+}
+var parentComments = parseFloat(GetParentCommentsCount());
+commentCount.text(parentComments + parseFloat(GetChildCommentsCount()));
+$j(rootClass + '#HiddenTotalComments').val(total_comments);
+$j('#HiddenPageNumber_article').val(parseInt((parentComments - 1) / pageSize) + 1);
+ManageViewMoreVisibility();
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+function ManageViewMoreVisibility() {
+var previousComments = $j(rootClass + '#ViewPreviousComments');
+if (parseFloat($j(rootClass + '#HiddenTotalComments').val()) > parseFloat(GetParentCommentsCount()))
+previousComments.show();
+else
+previousComments.hide();
+}
+function RemoveEditView(commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+var ajaxLoader = $j(rootClass + '#ajaxLoaderEdit_' + commentId);
+editButton.show();
+textBox.val('');
+textBox.remove();
+ajaxLoader.remove();
+content.show();
+}
+function ShowError() {
+alert('There is some error processing your request');
+}
+}());
+$j(document).ready(function () {
+$j.ajaxSetup({ cache: false });
+if ('True' == 'False') {
+$j('#RootPostComment').remove();
+}
+Comments_article.GetComments(0);
+GetValueAtTheRate('textarea.mention');
+$j(document).on("click",function(event) {
+var classname = event.target.className;
+if(classname=== 'mention')
+{
+$j('.mentions-autocomplete-list').has('ul').show();
+}
+else
+{
+$j('.mentions-autocomplete-list').hide();
+}
+});
+});    
+function GetValueAtTheRate(id) {
+$j(id).mentionsInput({
+minChars:1,
+onDataRequest:function (mode, query, callback) {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/CSharpSearch.asmx/GetAllFriendsFollowers",
+data: "{'name':'"+query+"','user_id':'a48f78','content_id':'2b22831a-a009-498e-be13-f7e5c1b82c54','type':'article'}",
+async:false,
+success: function(data) {
+var jasondata= [];
+var Id=null,Name=null,Avatar=null,Type=null;
+for(var i=0;i<=data.length-1;i++)
+{
+Id= data[i].Id
+Name= data[i].Name;
+Avatar=data[i].PhotoUrl;
+Type=data[i].AuthorUrl;
+var jasonobj= new JasonObj(Id,Name,Avatar,Type);
+jasondata.push(jasonobj);
+}
+//jasondata = _.filter(jasondata, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+callback.call(this, jasondata);
+}
+});
+}
+});
+}
+var JasonObj =function(Id, Name, Avatar,Type){
+this.id = Id;
+this.name = Name;
+this.avatar= Avatar;
+this.type = Type;
+};
+function GetCommentData(comment,id)
+{
+var value=null;
+var valuetobereplaced=null; 
+var userURL=null;
+$j(id).mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+value = '@['+obj.value+']('+obj.type+':'+obj.id+')';
+valuetobereplaced=FormatText(value);
+userURL= '<a target=_blank class=LinkNormalBlue href='+decodeURIComponent(obj.type)+'>'+obj.value+'</a>';
+comment=comment.replace(valuetobereplaced, userURL);
+});
+});
+return comment;            
+}
+function FormatText(text) {
+return escape(($j.trim(text)).replace('/</g', '&lt;').replace('/>/g', '&gt;').replace('/\//g', '&#47;').replace('/"/g', '&quot;').replace('/\n/g', ''));
+}  
+function GetEditData(comment) {
+if (mentionarraydata) {
+var username = null;
+var userlink = null;
+for (var i = 0; i <= mentionarraydata.length - 1; i++) {
+username = mentionarraydata[i].split('/^g*~o0#g*^/')[0];
+userlink = mentionarraydata[i].split('/^g*~o0#g*^/')[1];
+if (comment.indexOf(username) !== -1) {
+comment = comment.replace(username, '<a target=_blank class=LinkNormalBlue href=' + userlink + '>' + username + '</a>')
+}
+}
+mentionarraydata.length = 0;
+}
+return comment;
+}
+</script> <div class="clear"> </div> <div style="position: relative;" class="article"> <a name="ReadAndPostComment"></a> <div class="postHeader"> <span class="post_C">comments</span> <img id="mainLoader" src="./Remoting Technology  Distributed Computing_files/ajax-loader_12x9.gif" style="position: absolute; left: 315px; top: 26px; display: none;"> <div id="Paging" style="position: absolute; right: 1px; top: 16px;"> <div style="background: #f3f3f3; height: 15px; padding: 7px; float: right;"> <label id="TotalComments" class="floatRight" style="margin-right: 3px;">1</label> <label class="floatRight" style="margin-right: 3px;">
+of
+</label> <label id="CommentCount" class="floatRight" style="margin-right: 3px;">1</label> <input id="HiddenPageNumber_article" type="hidden" value="1"> <input id="HiddenTotalComments" type="hidden" value="1"> </div> <a id="ViewPreviousComments" class="previousComments" style="display: none; margin-right: 10px; margin-top: 7px; float: right;" onclick="Comments_article.ViewPreviousComments();return false;">
+View Previous Comments &gt;&gt;</a> </div> </div> <div class="clear"> </div> <div id="ctl00_Comments1_Panel1" class="pulseMainComment" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_Button1&#39;)"> <div class="pulseCommentSectionMain" style="padding: 0px;overflow:inherit"> <div class="pulseCommentSection"> <div id="RootComments"><div id="comment_49828" class="pulsecomment"><div class="image level0"><a href="http://www.c-sharpcorner.com/authors/758620/arun-yadav.aspx"><img alt="" src="./Remoting Technology  Distributed Computing_files/DefaultAuthorImage.gif"></a></div><div class="commentcontent"><a class="LinkNormalBlue" href="http://www.c-sharpcorner.com/authors/758620/arun-yadav.aspx">Arun Yadav</a><div>this article defined and good described by demo . Congrats ajay sir, thankyou for keep posting good stuffs</div><div><span class="floatRight" style="font-size: 11px;"><span class="watchICon"></span>Nov 04, 2014</span><a class="commnetLinkSecondStep" onclick="Comments_article.LikeComment(49828)"><span id="Likes_49828">0</span> Like</a><a class="commnetLinkSecondStep" onclick="Comments_article.ToggleReplies(49828)"><span id="Replies_49828">0</span> Reply</a><a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplyBox(49828)">Post Reply</a><img id="ajaxLoader_49828" src="./Remoting Technology  Distributed Computing_files/ajax-loader_12x9.gif" style="margin:4px 0px 0px 5px; display:none;"></div><div class="clear"></div><div id="CommentReplies_49828"></div></div></div> </div> <div class="pulsecomment borderNone" id="RootPostComment"> <div class="image level0"> <img src="./Remoting Technology  Distributed Computing_files/a48f78.png" alt=""> </div> <div id="ctl00_Comments1_PanelPostComment" class="commentcontent" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_ButtonPost&#39;)"> <div class="mentions-input-box"><div class="mentions"><div></div></div><textarea id="InputCommentText_0" style="height: 30px; overflow: hidden;" onkeypress="Comments_article.PostComment(&#39;0&#39;,event);" class="mention" spellcheck="true" placeholder="Type your comment here and press Enter Key...." data-mentions-input="true"></textarea><div style="position: absolute; display: none; word-wrap: break-word; white-space: pre-wrap; border: 1px solid rgb(220, 220, 220); font-weight: normal; width: 602px; font-family: pt_sansregular; line-height: normal; font-size: 14px; padding: 5px;">&nbsp;</div><div class="mentions-autocomplete-list"></div></div> <input type="submit" name="ctl00$Comments1$ButtonPost" value="" id="ctl00_Comments1_ButtonPost" style="display: none;"> </div> <span title="If checked, you&#39;ll get email notification for any comment posted" style="display: inline-block;
+margin-left: 11px; margin-top: 6px; clear: both;"><input id="ctl00_Comments1_FollowCheckBox" type="checkbox" name="ctl00$Comments1$FollowCheckBox" checked="checked" onclick="Comments_article.UpdateFollowStatus(this);"><label for="ctl00_Comments1_FollowCheckBox">Follow Comments</label></span> <img id="PostLoader" src="./Remoting Technology  Distributed Computing_files/ajax-loader_12x9.gif" style="clear: both; margin: 10px 5px 0px 0px; float: right; display: none;"> </div> </div> </div> <input type="submit" name="ctl00$Comments1$Button1" value="" onclick="return false;" id="ctl00_Comments1_Button1" style="display: none;"> <input type="hidden" name="ctl00$Comments1$HiddenFieldEmailComment" id="ctl00_Comments1_HiddenFieldEmailComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldIsChildComment" id="ctl00_Comments1_HiddenFieldIsChildComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldParentUserId" id="ctl00_Comments1_HiddenFieldParentUserId"> </div> <div class="clear"> </div> <div id="ctl00_Comments1_SocialComments"> <div class="headerGray marginTop"> <span class="HeaderSpanFirstBlue"></span><span class="HeaderSpanSecond">COMMENT USING
+</span><span class="facebookComments" style="margin: 3px 5px;"></span> </div> <div class="fb-comments fb_iframe_widget" data-href="http://www.c-sharpcorner.com/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx" data-width="675" data-num-posts="5" fb-xfbml-state="rendered"><span style="height: 114px; width: 675px;"><iframe id="f30ddf59a" name="f299b5aff8" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./Remoting Technology  Distributed Computing_files/comments.html" style="border: none; overflow: hidden; height: 114px; width: 675px;"></iframe></span></div> </div> </div> </div> <div class="rightCntr"> <div class="clear"> </div> <div style="width: 336px; margin-bottom: 10px;"> </div> <h2 class="headerControls">
+Trending up <a href="http://www.c-sharpcorner.com/RSS/TopArticles.aspx" id="ctl00_RightBar_ArticleDetailRightBar1_TrendingUp1_RssEnabledImageButton" class="headerRss" target="_blank"></a> </h2> <div class="rightBox"> <ul class="trendingBox"> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+01</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/638122/forms-authentication-form-authorization-and-storing-encryp/">
+Form Authentication, Form Authorization and Storing Encrypted Values in Database</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+02</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/a9d961/a-quick-start-on-mvc/">
+A Quick Start on MVC</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+03</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/00a8b7/Asp-Net-mvc-life-cycle/">
+ASP.Net MVC Life Cycle</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+04</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/mahesh/top-10-things-you-should-never-say-to-your-boss/">
+Top 10 Things You Should Never Say To Your Boss</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+05</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/bd8b0b/how-to-create-the-multilanguage-application-in-Asp-Net-appli/">
+How to Create the Multilanguage Application in ASP.Net</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+06</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/2ed7ae/jsonresult-type-in-mvc/">
+JsonResult Type in MVC</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+07</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/0f68f2/embedding-calendar-datetimepicker-control-into-datagridvie586/">
+Embedding Calendar (DateTimePicker) Control Into DataGridView Cell</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+08</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/65794e/interview-questions-and-answers-for-3-year-net-experienced/">
+Interview Questions For 3 Year .NET Professionals</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+09</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/020f8f/windows-phone-8-app-development-using-phonegap-cordova-par/">
+Windows Phone 8 App Development Using PhoneGap (Cordova): Part 1</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+10</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/020f8f/windows-phone-8-app-development-using-phonegap-cordova-pa/">
+Windows Phone 8 App Development Using PhoneGap (Cordova): Part 2</a> </div> </li> </ul> <a href="http://www.c-sharpcorner.com/Articles/TopArticles.aspx" class="viewAllLink">
+View All</a> </div> <div style="padding-bottom: 10px;"> <iframe id="twitter-widget-2" scrolling="no" frameborder="0" allowtransparency="true" src="./Remoting Technology  Distributed Computing_files/follow_button.21f7daa948263c3043bab783473c3475.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 100%; height: 20px;"></iframe> </div> <div id="fb-root" class=" fb_reset"> <div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Remoting Technology  Distributed Computing_files/QjK2hWv6uak.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Remoting Technology  Distributed Computing_files/QjK2hWv6uak(1).html" style="border: none;"></iframe></div></div></div> <div class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/pages/C-Corner/194086953935286" data-width="336px" data-show-faces="true" data-stream="false" data-header="true" data-border-color="#c6c6c6" data-max-rows="2" style="padding-bottom: 10px;
+border: none 0px" async="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=440531902678919&amp;header=true&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC-Corner%2F194086953935286&amp;locale=en_US&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=336"><span style="vertical-align: bottom; width: 336px; height: 271px;"><iframe name="f252a1a3d" width="336px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like_box Facebook Social Plugin" src="./Remoting Technology  Distributed Computing_files/like_box.html" style="border: none; visibility: visible; width: 336px; height: 271px;" class=""></iframe></span></div> <div class="clear"> </div> </div> </div> </div> <div class="footer"> <div class="menuStripGray"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/Members/mvps/">MVPs</a></li> <li><a href="http://www.c-sharpcorner.com/Articles/mostviewed.aspx">MOST VIEWED</a></li> <li><a href="http://www.c-sharpcorner.com/Members/legend/">LEGENDS</a></li> <li><a href="http://www.c-sharpcorner.com/articles/">NOW</a></li> <li><a href="http://www.c-sharpcorner.com/prizes/">PRIZES</a></li> <li><a href="http://www.c-sharpcorner.com/prizes/">AWARDS</a></li> <li><a href="http://www.c-sharpcorner.com/reviews/">REVIEWS</a></li> <li><a href="http://www.c-sharpcorner.com/survey/">SURVEY</a></li> <li><a href="http://www.c-sharpcorner.com/exam/">CERTIFICATIONS</a></li> <li><a href="http://www.c-sharpcorner.com/downloads/">DOWNLOADS</a></li> </ul> <div class="rightlink"> <a href="http://www.cbeyond.net/" target="_blank"><span class="hosted">Hosted By </span>
+CBeyond Cloud Services</a></div> </div> </div> <div class="menuStripBlue"> <div class="page"> <div class="menu"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/photos/">PHOTOS</a></li> <li><a href="http://www.c-sharpcorner.com/code/">CODE SNIPPETS</a> </li> <li><a href="http://www.c-sharpcorner.com/consulting/">CONSULTING</a> </li> <li><a href="http://www.c-sharpcorner.com/training/">TRAINING</a> </li> <li><a href="http://www.c-sharpcorner.com/beginners/">STUDENTS</a> </li> <li><a href="http://www.c-sharpcorner.com/Members/">MEMBERS</a> </li> <li><a href="http://www.c-sharpcorner.com/media/ContactUs.aspx">MEDIA KIT</a></li> <li><a href="http://www.c-sharpcorner.com/resources/aboutus.aspx">ABOUT US</a></li> <li><a href="http://www.c-sharpcorner.com/resources/">LINKS</a></li> <li><a href="http://www.c-sharpcorner.com/ideas/">IDEAS</a> </li> </ul> </div> </div> </div> <div class="footerBottom"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/contactus.aspx">CONTACT
+US</a></li> <li><a href="http://www.c-sharpcorner.com/privacypolicy.aspx">PRIVACY POLICY</a></li> <li><a href="http://www.c-sharpcorner.com/termsconditions.aspx">TERMS &amp;
+CONDITIONS</a></li> <li><a href="http://www.c-sharpcorner.com/sitemap/">SITEMAP</a></li> <li><a href="http://www.c-sharpcorner.com/contactus.aspx?Type=6">REPORT ABUSE</a></li> </ul> <div class="social_link"> <ul> <li><a target="_blank" href="http://www.facebook.com/pages/C-Corner/194086953935286" class="facebook">facebook</a></li> <li><a target="_blank" href="http://twitter.com/csharpcorner" class="twitter">twitter</a></li> <li><a target="_blank" href="https://plus.google.com/u/0/114221266846457741050/posts" class="google">google</a></li> <li><a target="_blank" href="http://www.youtube.com/user/CsharpCorner1/" class="media">
+media</a></li> </ul> <p class="copyright">
+©2014
+C# Corner. All contents are copyright of their authors.</p> </div> </div> </div> </div> </div> <input type="hidden" name="ctl00$hiddenFieldNext" id="ctl00_hiddenFieldNext"> <input type="hidden" name="ctl00$hiddenFieldPrevious" id="ctl00_hiddenFieldPrevious"> <meta name="google-signin-clientid" content="1008907732563-jaf78g0pj7k52q8efh0r22c58iol91cg.apps.googleusercontent.com"> <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read profile"> <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity"> <meta name="google-signin-cookiepolicy" content="single_host_origin"> <script type="text/javascript">
+$j(window).load(function() {
+window.fbAsyncInit = function() {
+// init the FB JS SDK
+FB.init({
+appId: '440531902678919', // App ID from the App Dashboard
+//channelUrl: "//connect.facebook.net/en_US/all.js", // Channel File for x-domain communication
+status: true, // check the login status upon init?
+cookie: true, // set sessions cookies to allow your server to access the session?
+xfbml: true  // parse XFBML tags on this page?
+});
+// Additional initialization code such as adding Event Listeners goes here
+};
+// Load the SDK's source Asynchronously
+(function(d, debug) {
+var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+if (d.getElementById(id)) { return; }
+js = d.createElement('script'); js.id = id; js.async = true;
+js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+ref.parentNode.insertBefore(js, ref);
+} (document, /*debug*/false));
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/client:plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.twitter.com/widgets.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.linkedin.com/in.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+});
+</script> <div id="fb-root"> </div> <div> <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWIwLClunDCAL5qLTNDwLHr/20AwLB4Z3HDQLWs6KhCQLB6efVDwKzz+rpBQLA16yLBAKYs5+LBALmtZ3cBQKLvuG4CQLvh5yoAwL25sacAQKMoJapAwLhoICGCQLWhpmdAgKszb2PCwKH1sfsBwKn347uAwLFh6i2DgLfxO3mCALFstzxDQKTxvebBQL6mL6/DQK6mby0DQKM08bkCAK/zYnfBQLpwuC/CwL1zrz+AQLrua7/DwKsyaD8BwLdoKjrDQKmldaNCQKc3rDeDAKayJrtBdAMOFO7MnUtIXXadmMaJ3q70CRJ"> </div> <script src="./Remoting Technology  Distributed Computing_files/WebResource.axd" type="text/javascript"></script> </form> <script type="text/javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JQuery/jquery.TrendingNow_09032014.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+function Like() {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=like_content&type=Article",
+data: { article_id: '2b22831a-a009-498e-be13-f7e5c1b82c54' },
+type: "POST",
+async: false,
+success: function(response) {
+var label = $j('#ctl00_LabelLikeCount');
+if (response == "login")
+window.location = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/uploadfile/ajyadav123/remoting-technology-distributed-computing/Default.aspx';
+else if (parseInt(response) == 1) {
+label.text(parseInt(label.text()) + 1);
+label.css('color', 'green');
+}
+else {
+label.css('color', 'red');
+}
+}
+});
+}
+</script> <script type="text/javascript">
+$j(document).ready(function() {
+$j('a.show-dropdown').mouseover(function() {
+//get the height position of the current object
+var elementHeight = $j(this).height();
+var offsetWidth = 10;
+var offsetHeight = 10;
+//Get the tool tip container width adn height
+var toolTipWidth = $j("#dropDown").width();
+var toolTipHeight = $j("#dropDown").height();
+//Get the HTML document width and height
+var documentWidth = $j(document).width();
+var documentHeight = $j(document).height();
+//Set top and bottom position of the tool tip
+var top = $j(this).offset().top;
+if (top + toolTipHeight > documentHeight) {
+top = documentHeight - toolTipHeight - offsetHeight - (2 * elementHeight);
+}
+var left = $j(this).offset().left + offsetWidth;
+if (left + toolTipWidth > documentWidth) {
+left = documentWidth - toolTipWidth - (2 * offsetWidth);
+}
+$j('#dropDown').show();
+});
+$j('a.show-dropdown').mouseout(function() {
+$j("#dropDown").hide();
+});
+$j('#dropDown').mouseover(function() {
+$j('#dropDown').show();
+});
+$j('#dropDown').mouseout(function() {
+$j('#dropDown').hide();
+});
+});
+</script> <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-535360-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>  <iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><iframe name="oauth2relay298551910" id="oauth2relay298551910" src="./Remoting Technology  Distributed Computing_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>
