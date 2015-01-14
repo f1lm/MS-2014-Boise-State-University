@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<!-- saved from url=(0099)https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04 -->
+<html class="m-pikabu-transitions m-pikabu-translate3d wf-proximanova-i4-active wf-proximanova-n1-active wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>How To Install MoinMoin with Nginx on Ubuntu 14.04 | DigitalOcean</title>
+
+<meta name="description" content="MoinMoin is a high performance open source Wiki Engine that is written in Python. It provides a feature-rich wiki that has a large community of users, and is very customizable and easy to use. MoinMoin is used by several organizations for their public">
+<meta name="keywords" content="Ubuntu NGINX">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="How To Install MoinMoin with Nginx on Ubuntu 14.04 | DigitalOcean">
+<meta name="twitter:description" content="MoinMoin is a high performance open source Wiki Engine that is written in Python. It provides a feature-rich wiki that has a large community of users, and is very customizable and easy to use. MoinMoin is used by several organizations for their public">
+
+<meta name="og:title" content="How To Install MoinMoin with Nginx on Ubuntu 14.04 | DigitalOcean">
+<meta name="og:description" content="MoinMoin is a high performance open source Wiki Engine that is written in Python. It provides a feature-rich wiki that has a large community of users, and is very customizable and easy to use. MoinMoin is used by several organizations for their public">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/nginx-bf8fd79b6bbf881889132cd11ed1e5fa.png">
+
+    <link href="https://www.digitalocean.com/assets/community/application-25abf775c78bbc737146b86de10b9cc5.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="i8gwIBwe7D1JF4i1tsrAJRqK/H5KEUd/b3cuCVTEMPE=" name="csrf-token">
+    <script src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/quant.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="https://s.adroll.com/j/roundtrip.js"></script><script type="text/javascript" async="" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/analytics.js"></script><script type="text/javascript" async="" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/track.js" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script async="" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/gtm.js"></script><script type="text/javascript" async="" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/analytics.min.js"></script><script type="text/javascript" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/njm7orv.js"></script><style type="text/css"></style>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/2a8893/1w;proxima-nova,2,b5x:R:i4,b5r:R:n1,b5t:R:n3,b5w:R:n4,b5y:R:n6,bBh:R:n7/d?3bb2a6e53c9684ffdc9a9eff135b2a62e364df7385cc768b6d19389933bfe4b61940c281a85730e8b879dfc55594dd9005d38c59bea362fa6ff7b5fe87256a7cc7355dc3eccfb9b9c64ae9f4efed398ee1360c25a18a88f25ab828391070b914fa991d081d44fa9b17076e8a52ab9ef3873aa2005bb3b080557bc12f4c767d7d057916d84164093777619f575af05b9dd3954f202f2c3086c81b4ca0198a78048a4fbc6983dcd8ac54523d3d369a80f202580cad3dfef20fe9afb16bc8fbe5f3d60cb7cac0daf40474e17002398c44c0e1becce8368e032c03c9fc86ea0c12b2e8fa24556d4b5eeb8dab4aef99a09c981fcde0850158ac7dd0604f2666c4c886232b051ac4991455fb2d9b6c4bb4c757b5339608aa9104d594c3fcc227d977dfc46e8ef7c92dc9d0b8056d251d9c1739bf4367db49cd5f291c3022acea47de81d9e038b850788f4154d5cc5e212fceffdf7db6edfd8ad0e2d73a0bf35976ed21b905b9d2f068c574dbddd518ed3faca79543851974d6e18e60d88c15a555b32b24d1137f5d3ca292c1c4eda076bf51d38ef3cdeb6fbbd11cd9bb7d024668b4dcad03a5437afb472934b5a7946497b4ae0f234c489f0be146ba00003c7ba8b565536482ccc78604d0610e82504555caefd4869910fd72ce9eaa8b331d2fccf6cdead55523c9fb3823fc27bcb03e9256b459e4a5"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/701281621.js"></script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/application-5d8f73247edc1669761e0bce36e2bea1.js"></script>
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 255px;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 255px;
+}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body class="tutorials-controller" data-env="production" style="" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <script>
+//<![CDATA[
+
+    $(function() {
+      dataLayer = [$.parseJSON('{\"user_id\":\"\",\"is_community_page\":true,\"content_type\":\"tutorial\",\"author\":\"Mitchell Anicas\",\"difficulty\":\"beginner\",\"created_at\":\"2014-11-19T18:13:59.325Z\",\"published_at\":\"2014-11-19T18:14:42.898Z\",\"updated_at\":\"2014-11-19T18:14:42.826Z\",\"article_tags\":\"Ubuntu, NGINX\"}')];
+    });
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div id="table-of-contents" class="hide-on-pikabu tocify absolute" style="top: 463px; display: block;">
+  <div id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#">
+      <div class="title">Contents
+      	<span class="icon">
+      		<span class="close icon-arrow-up"></span>
+      		<span class="open icon-arrow-down"></span>
+      	</span>
+      </div>
+    </a>
+  </div>
+<ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="prerequisites"><a>Prerequisites</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="install-uwsgi"><a>Install uWSGI</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="install-moinmoin"><a>Install Moinmoin</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="configure-moinmoin-application"><a>Configure MoinMoin Application</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="configure-wiki"><a>Configure Wiki</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="install-and-configure-nginx"><a>Install and Configure Nginx</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="create-wiki-superuser"><a>Create Wiki Superuser</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+
+
+    </div>
+
+    <div class="m-pikabu-viewport" style="width: auto;">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" id="search" method="get"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+        
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+    
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <div class="header-search">
+  <input class="header-search-input" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086" data-algolia-application-id="6ZHEUVKJ88" id="query" name="query" placeholder="Search the community" type="text">
+  <input id="dropdown" name="dropdown" type="hidden" value="true">
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button>
+  <div id="search-results" data-root-path="https://www.digitalocean.com/community">
+  <div id="search-result-count">
+    <div class="inner-search">
+      <span class="icon icon-mag"></span>
+      <h3>There are <span class="header-results-count"></span> Results for ‘<span class="results-query"></span>’</h3>
+    </div>
+  </div>
+
+  <div class="header-search-results-list"></div>
+
+  <div id="btn-wrap">
+    <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+      <span class="icon-mag"></span>
+      View All Results
+</a>  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="search-result" id="search-{{type}}">
+    <div class="inner-search">
+      <span class="icon icon-{{type}}"></span>
+      <ul>
+          {{#hits}}
+            <li>
+              <a href="{{url}}">{{{_highlightResult.title.value}}}</a>
+            </li>
+          {{/hits}}
+      </ul>
+    </div>
+  </div>
+</script>
+</div>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+      <p class="sidebar-avatar">
+        <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-large" height="80" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+      </p>
+
+      <p class="sidebar-author">
+        <a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a>
+      </p>
+      
+
+    
+    <p class="sidebar-date">
+        November 19, 2014
+    </p>
+
+
+    <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1384&upvote%5Bupvotable_type%5D=Tutorial" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="tutorial" data-upvotable="tutorial_1384" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="i8gwIBwe7D1JF4i1tsrAJRqK/H5KEUd/b3cuCVTEMPE="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+    <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscribe">Subscribe</span>
+    <span class="subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a class="mini-switch-container" data-target="#sign-in-modal" data-toggle="modal" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+    <span class="meta-section">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value">Beginner</span>
+    </span>
+    
+    
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a class="share" href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#">
+      <span class="icon icon-share-square"></span>  
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=How%20To%20Install%20MoinMoin%20with%20Nginx%20on%20Ubuntu%2014.04&url=https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04&t=How%20To%20Install%20MoinMoin%20with%20Nginx%20on%20Ubuntu%2014.04" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+    <h1 class="content-title">How To Install MoinMoin with Nginx on Ubuntu 14.04</h1>
+
+    <div class="tut-meta">
+      <div class="feedable-info">
+          <span class="meta-section meta-author">
+            <span class="meta-label">Author:</span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+        <span class="meta-section meta-date">
+            <span class="meta-label">Date:</span>
+            <span class="meta-value">November 19, 2014</span>
+        </span>
+
+
+        <br>
+
+          <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscribe">Subscribe</span>
+    <span class="subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a class="mini-switch-container" data-target="#sign-in-modal" data-toggle="modal" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+          <span class="meta-section">
+            <span class="meta-label">Tagged In: </span>
+            <span class="meta-value"><a class="" href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a class="" href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+          <span class="meta-section">
+            <span class="meta-label">Difficulty: </span>
+            <span class="meta-value">Beginner</span>
+          </span>
+
+      </div>
+    </div>
+
+    
+
+    
+
+    <div class="content-body tutorial-content">
+      <h3 id="introduction">Introduction</h3>
+
+<p>MoinMoin is a high performance open source Wiki Engine that is written in Python. It provides a feature-rich wiki that has a large community of users, and is very customizable and easy to use. MoinMoin is used by several organizations for their public wikis, such as Ubuntu, Apache, FreeBSD, and more.</p>
+
+<p>In this tutorial, we will show you how to set up your own MoinMoin wiki on a fresh Ubuntu 14.04 server, using Nginx as the web server and uWSGI as the application engine. This particular setup is for a single wiki, and it is very fast and memory-efficient.</p>
+
+<div name="prerequisites" data-unique="prerequisites"></div><h2 id="prerequisites">Prerequisites</h2>
+
+<p>Before you begin with this guide, you should have a separate, non-root user account set up on your server. You can learn how to do this by completing steps 1-4 in the <a href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04">initial server setup for Ubuntu 14.04</a>.</p>
+
+<p>This guide assumes that you have a fresh Ubuntu 14.04 server.</p>
+
+<p>This tutorial uses <code>vi</code> to open and edit files. If you prefer a different editor, feel free to use it in place of <code>vi</code> where applicable.</p>
+
+<p>Let's get started!</p>
+
+<div name="install-uwsgi" data-unique="install-uwsgi"></div><h2 id="install-uwsgi">Install uWSGI</h2>
+
+<p>To get started, let's install uWSGI, which we will use as the application server.</p>
+
+<p>First, update your Apt database with this command:</p>
+<pre data-initialized="true" data-gclp-id="0"><code lang="">sudo apt-get update
+</code></pre>
+<p>An easy way to install uWSGI is to use the Python package manager, <code>pip</code>. Install Python-pip and the Python libraries now:</p>
+<pre data-initialized="true" data-gclp-id="1"><code lang="">sudo apt-get install python-pip python-dev
+</code></pre>
+<p>With the pip installed, we can use it to install the latest stable release of uWSGI with this command:</p>
+<pre data-initialized="true" data-gclp-id="2"><code lang="">sudo pip install http://projects.unbit.it/downloads/uwsgi-lts.tar.gz
+</code></pre>
+<p>If uWSGI is installed successfully, you will see a message that looks like this:</p>
+<pre data-initialized="true" data-gclp-id="3"><code lang="">    ############## end of uWSGI configuration #############
+    total build time: 36 seconds
+    *** uWSGI is ready, launch it with /usr/local/bin/uwsgi ***
+
+Successfully installed uWSGI
+Cleaning up...
+</code></pre>
+<p>Now that the uWSGI application server is installed, we are ready to download and install MoinMoin.</p>
+
+<div name="install-moinmoin" data-unique="install-moinmoin"></div><h2 id="install-moinmoin">Install Moinmoin</h2>
+
+<p>Before installing MoinMoin, look up version that you want to install here: <a href="http://moinmo.in/MoinMoinDownload">MoinMoin Releases</a>. You will probably want to use the latest general release.</p>
+
+<p>Find the latest general release of MoinMoin and copy its URL to your clipboard:</p>
+
+<p><img src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/download.png" alt="MoinMoin Download"></p>
+
+<p>The latest available general release when this tutorial written was 1.9.8, so the example URL refers to the 1.9.8 version. Use this <code>wget</code> command to download the MoinMoin archive to your home directory (substitute the download URL that you copied):</p>
+<pre data-initialized="true" data-gclp-id="4"><code lang="">cd ~
+wget <span class="highlight">http://static.moinmo.in/files/moin-1.9.8.tar.gz</span>
+</code></pre>
+<p>Now extract the archive with tar:</p>
+<pre data-initialized="true" data-gclp-id="5"><code lang="">tar zxvf moin-1.9.8.tar.gz
+</code></pre>
+<p>Change to the directory that was created by extracting the MoinMoin archive:</p>
+<pre data-initialized="true" data-gclp-id="6"><code lang="">cd moin-*
+</code></pre>
+<p>To build the MoinMoin Python application and copy it to <code>/usr/local</code>, run this command:</p>
+<pre data-initialized="true" data-gclp-id="7"><code lang="">sudo python setup.py install --prefix=/usr/local
+</code></pre>
+<p>Assuming you are on Python 2.7, the Python script installs the MoinMoin code package to <code>/usr/local/lib/<span class="highlight">python2.7</span>/dist-packages/</code>, and the rest of the MoinMoin data to <code>/usr/local/share/moin</code>.</p>
+
+<p>Now the MoinMoin Python Application is installed but it is not yet configured. Let's configure it now.</p>
+
+<div name="configure-moinmoin-application" data-unique="configure-moinmoin-application"></div><h2 id="configure-moinmoin-application">Configure MoinMoin Application</h2>
+
+<p>Before actually starting the MoinMoin application, we need to prepare its configuration files.</p>
+
+<p>Change to the installation directory:</p>
+<pre data-initialized="true" data-gclp-id="8"><code lang="">cd /usr/local/share/moin
+</code></pre>
+<p>Then copy the sample server configuration file, <code>moin.wsgi</code>, to the current directory:</p>
+<pre data-initialized="true" data-gclp-id="9"><code lang="">sudo cp server/moin.wsgi .
+</code></pre>
+<p>Open the server configuration file for editing:</p>
+<pre data-initialized="true" data-gclp-id="10"><code lang="">sudo vi moin.wsgi
+</code></pre>
+<p>Below the <code>import sys, os</code> line, insert the following lines:</p>
+<pre data-initialized="true" data-gclp-id="11"><code lang="">sys.path.insert(0, '/usr/local/lib/python2.7/dist-packages/')
+sys.path.insert(0, '/usr/local/share/moin/')
+</code></pre>
+<p>Save and exit. This configures the application with the location of the MoinMoin code and the location of where the wiki configuration files will be located.</p>
+
+<p>Next, create and open <code>uwsgi.ini</code>:</p>
+<pre data-initialized="true" data-gclp-id="12"><code lang="">sudo vi uwsgi.ini
+</code></pre>
+<p>Insert the following lines into the file:</p>
+<pre data-initialized="true" data-gclp-id="13"><code lang="">[uwsgi]
+uid = www-data
+gid = www-data
+socket = /usr/local/share/moin/moin.sock
+chmod-socket = 660
+logto = /var/log/uwsgi/uwsgi.log
+
+chdir = /usr/local/share/moin/
+wsgi-file = moin.wsgi
+
+master
+workers = 3
+max-requests = 200
+harakiri = 30
+die-on-term
+</code></pre>
+<p>Save and exit. The <code>uwsgi.ini</code> file will be used to load the MoinMoin application with the uWSGI application server. Here, we are specifying the user, socket, and server configuration and log files that the application should use, among other things. Feel free to adjust the number of workers, max-requests, or acceptable session duration (harakiri).</p>
+
+<p>Now create the <code>/var/log/uwsgi</code> directory, which is the where we configured the uWSGI application to write its logs to:</p>
+<pre data-initialized="true" data-gclp-id="14"><code lang="">sudo mkdir -p /var/log/uwsgi
+sudo chown www-data /var/log/uwsgi
+</code></pre>
+<p>Next, let's create an initctl script that will be used to start the our MoinMoin application. This script will enable MoinMoin on server boot and allow you to control the uWSGI application with <code>start moin</code> and <code>stop moin</code>.</p>
+
+<p>Create and open <code>moin.conf</code> with the following command:</p>
+<pre data-initialized="true" data-gclp-id="15"><code lang="">sudo vi /etc/init/moin.conf
+</code></pre>
+<p>Insert the following configuration lines:</p>
+<pre data-initialized="true" data-gclp-id="16"><code lang="">description "moin uwsgi service"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+chdir /usr/local/share/moin
+exec /usr/local/bin/uwsgi /usr/local/share/moin/uwsgi.ini
+respawn
+</code></pre>
+<p>Save and exit. It is important that the paths in the <code>chdir</code> and <code>exec</code> lines accurately reflect where MoinMoin was installed, and where the <code>uwsgi</code> binary and <code>uwsgi.ini</code> file exist.</p>
+
+<p>You may start the application server now (<code>sudo start moin</code>) but we will make a few changes to the Wiki configuration first.</p>
+
+<div name="configure-wiki" data-unique="configure-wiki"></div><h2 id="configure-wiki">Configure Wiki</h2>
+
+<p>Now that the uWSGI application server is ready, we will want to configure the actual Wiki.</p>
+
+<p>Change to the MoinMoin installation directory and copy the sample <code>wikiconfig.py</code> file:</p>
+<pre data-initialized="true" data-gclp-id="17"><code lang="">cd /usr/local/share/moin
+sudo cp config/wikiconfig.py .
+</code></pre>
+<p>Now open the file for editing:</p>
+<pre data-initialized="true" data-gclp-id="18"><code lang="">sudo vi wikiconfig.py
+</code></pre>
+<p>Here we can configure various aspects of the Wiki. At a minimum, we want to configure the following items:</p>
+
+<ul>
+<li>
+<code>sitename</code>: The title of your Wiki</li>
+<li>
+<code>page_front_page</code>: Uncomment this line to enable a normal front page</li>
+<li>
+<code>superuser</code>: The name of the user that you want to use as the admin of the Wiki. This item must also be uncommented</li>
+</ul>
+<p>Find the following lines (and uncomment them if necessary, by deleting the <code>#</code>), and change the highlighted values to your liking:</p>
+<pre data-initialized="true" data-gclp-id="19"><code lang="">    sitename = u'<span class="highlight">My First Wiki</span>'
+
+    page_front_page = u"FrontPage"
+
+    superuser = [u"<span class="highlight">WikiAdmin</span>", ]
+</code></pre>
+<p>Save and exit. This is a Python file, so be sure to preserve any indentations that already exist.</p>
+
+<p>Before starting the application, let's change the ownership and permissions of the MoinMoin directories:</p>
+<pre data-initialized="true" data-gclp-id="20"><code lang="">sudo chown -R www-data: /usr/local/share/moin
+sudo chmod -R o-rwx /usr/local/share/moin
+</code></pre>
+<p>Start the uWSGI application server with this command:</p>
+<pre data-initialized="true" data-gclp-id="21"><code lang="">sudo start moin
+</code></pre>
+<p>MoinMoin is now running but we need to install configure Nginx, the web server, before you can use it.</p>
+
+<div name="install-and-configure-nginx" data-unique="install-and-configure-nginx"></div><h2 id="install-and-configure-nginx">Install and Configure Nginx</h2>
+
+<p>We will be using Nginx as our web server, so let's install and configure it now.</p>
+
+<p>Install Nginx with apt:</p>
+<pre data-initialized="true" data-gclp-id="22"><code lang="">sudo apt-get install nginx
+</code></pre>
+<p>Now change to the <code>sites-available</code> directory, and create a new server block configuration file for the Wiki. We will call ours <code>moin</code>:</p>
+<pre data-initialized="true" data-gclp-id="23"><code lang="">cd /etc/nginx/sites-available
+sudo vi moin
+</code></pre>
+<p>In the file, insert the following lines (replace the highlighted parts with your own information):</p>
+<pre data-initialized="true" data-gclp-id="24"><code lang="">server {
+    server_name <span class="highlight">wiki.example.com</span>;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:///usr/local/share/moin/moin.sock;
+        uwsgi_modifier1 30;
+    }
+}
+</code></pre>
+<p>This is a bare bones Nginx configuration. Feel free to make any changes that you feel are appropriate for your server.</p>
+
+<p>Now, let's create a symbolic link to our new server block configuration file in the <code>sites-enabled</code> directory:</p>
+<pre data-initialized="true" data-gclp-id="25"><code lang="">cd /etc/nginx/sites-enabled
+sudo ln -s ../sites-available/moin .
+</code></pre>
+<p>And delete the symbolic link to the <code>default</code> server block:</p>
+<pre data-initialized="true" data-gclp-id="26"><code lang="">sudo rm default
+</code></pre>
+<p>Now the <code>moin</code> server block will be the default.</p>
+
+<p>Restart Nginx to load the new settings:</p>
+<pre data-initialized="true" data-gclp-id="27"><code lang="">sudo service nginx restart
+</code></pre>
+<p>Your new Wiki is up and running! It is available at your server's IP address or hostname.</p>
+
+<div name="create-wiki-superuser" data-unique="create-wiki-superuser"></div><h2 id="create-wiki-superuser">Create Wiki Superuser</h2>
+
+<p>The last thing you will want to do before using your Wiki is create the Superuser account. This account has admin privileges to the blog. We configured the name of this user in the <code>superuser</code> field of in the <code>wikiconfig.py</code> file, in the <strong>Configure Wiki</strong> section of this tutorial, so make sure you use the same name here.</p>
+
+<p>Connect to your server in a web browser, via its IP address or hostname: <code>http://<span class="highlight">wiki.example.com</span></code></p>
+
+<p>You will be greeted by the following front page:</p>
+
+<p><img src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/welcome.png" alt="Frontpage"></p>
+
+<p>Click the <strong>Login</strong> link at the top of the page.</p>
+
+<p><img src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/login.png" alt="Login"></p>
+
+<p>At the Login page, click the <strong>you can create one now</strong> link.</p>
+
+<p><img src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/create.png" alt="Create"></p>
+
+<p>At the Create Account page, enter the name that matches your superuser configuration (the example used "WikiAdmin"), with your password and email address, then click the <strong>Create Profile</strong> button.</p>
+
+<p>If all went well, you should see the following success message:</p>
+
+<p><img src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/created.png" alt="User created"></p>
+
+<p>That's it! Your wiki is now ready to be used.</p>
+
+<div name="conclusion" data-unique="conclusion"></div><h2 id="conclusion">Conclusion</h2>
+
+<p>Now that you have your MoinMoin wiki up and running, you are ready to use it to collaborate! Feel free to add content and users, or change its configuration and themes.</p>
+
+      <span class="meta-section tags">
+        <span class="meta-label">Tagged In: </span>
+        <span class="meta-value"><a class="" href="https://www.digitalocean.com/community/tags/ubuntu?primary_filter=tutorials">Ubuntu</a>, <a class="" href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a></span>
+      </span>
+
+      <div class="row boxes">
+        <div class="half">
+          <div class="box author">
+            <a href="https://www.digitalocean.com/community/users/manicas"><img alt="manicas" class="avatar avatar-large" height="80" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/695da9dd73504edfc622c9be380cb3cb" width="80"></a>
+            <div class="info">
+              <div class="label">Written By:</div>
+              <div class="name"><a href="https://www.digitalocean.com/community/users/manicas">Mitchell Anicas</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="half">
+          <div class="box hearting secondary-tutorial-upvote ">
+            <div class="heart">
+              <span class="icon-upvote-heart-full upvote-heart" data-original-title="Do you find this post helpful? Heart it! This will count as a point toward the author of this tutorial."></span>
+            </div>
+            <div class="info">
+              <span class="empty">Do you find this post helpful?<br>Show the author by Hearting it!</span>
+              <div class="hearted">Thanks!<br>A heart has been given to the author.</div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+
+                
+        <div class="clear"></div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+    
+
+
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-martini-to-serve-go-applications-behind-an-nginx-server-on-ubuntu">How To Use Martini to Serve Go Applications Behind an Nginx Server on Ubuntu</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-http-authentication-with-nginx-on-ubuntu-12-10">How To Set Up HTTP Authentication With Nginx On Ubuntu 12.10</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-the-latest-version-of-nginx-on-ubuntu-12-10">How To Install The Latest Version Of Nginx On Ubuntu 12.10</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-multiple-ssl-certificates-on-one-ip-with-nginx-on-ubuntu-12-04">How To Set Up Multiple SSL Certificates on One IP with Nginx on Ubuntu 12.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-nginx-for-ubuntu-12-04">How To Create a SSL Certificate on nginx for Ubuntu 12.04</a></li>
+    </ul>
+  </div>
+
+
+    <div class="content-comments">
+      <div class="tutorial commentable" id="tutorial_1384">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>0 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="comments">
+    <ul class="response-list">
+    </ul>
+
+  </div>
+
+
+  <div class="load-more-container"></div>
+</div>
+
+    </div>
+
+    <div id="creative-commons">
+      <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="./How To Install MoinMoin with Nginx on Ubuntu 14.04   DigitalOcean_files/creativecommons-b4540f6e3875bceed5e8823eb0c597a2.png"></a>
+        <br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+
+
+          <div class="clearfix"></div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+        <li><a href="https://www.digitalocean.com/help/">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+        <li class="meetup"><a href="http://www.meetup.com/DigitalOcean_Community/" target="_blank">Meetup</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">3,458,386</span> Droplets Launched
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+    <div id="sign-in-modal" class="modal fade" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Sign Up</h1>
+        <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Not so fast, you must have an account before you can do that.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Create Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 713px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/how-to-install-moinmoin-with-nginx-on-ubuntu-14-04#top" style="position: fixed; z-index: 2147483647; display: none;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1033.5px; top: 1020px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1033.5px; top: 1173px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1033.5px; top: 1298px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 1033.5px; top: 1423px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 1033.5px; top: 2149px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 1033.5px; top: 2295px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 1033.5px; top: 2420px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 1033.5px; top: 2545px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 1033.5px; top: 2928px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 1033.5px; top: 3053px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 1033.5px; top: 3178px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 1033.5px; top: 3303px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 1033.5px; top: 3527px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 1033.5px; top: 3652px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 1033.5px; top: 4233px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="15" data-hasqtip="true" style="left: 1033.5px; top: 4485px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="16" data-hasqtip="true" style="left: 1033.5px; top: 4610px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="17" data-hasqtip="true" style="left: 1033.5px; top: 5140px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="18" data-hasqtip="true" style="left: 1033.5px; top: 5286px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="19" data-hasqtip="true" style="left: 1033.5px; top: 5677px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="20" data-hasqtip="true" style="left: 1033.5px; top: 5936px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="21" data-hasqtip="true" style="left: 1033.5px; top: 6082px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="22" data-hasqtip="true" style="left: 1033.5px; top: 6359px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="23" data-hasqtip="true" style="left: 1033.5px; top: 6512px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="24" data-hasqtip="true" style="left: 1033.5px; top: 6658px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="25" data-hasqtip="true" style="left: 1033.5px; top: 7120px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="26" data-hasqtip="true" style="left: 1033.5px; top: 7266px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="27" data-hasqtip="true" style="left: 1033.5px; top: 7441px; display: none;"></div><script type="text/javascript" id="">adroll_custom_data={user_id:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199328'),article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199329'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199330'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199331'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199332'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1418441199333')};</script>
+<script type="text/javascript" id="">var _qevents=_qevents||[];(function(){var a=document.createElement("script");a.src=("https:"==document.location.protocol?"https://secure":"http://edge")+".quantserve.com/quant.js";a.async=!0;a.type="text/javascript";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();_qevents.push({qacct:"p-ezk6DY8pwNxCt",labels:"_fp.event.Community"});</script>
+<noscript>
+&lt;img src="//pixel.quantserve.com/pixel/p-ezk6DY8pwNxCt.gif?labels=_fp.event.Community" style="display: none;" border="0" height="1" width="1" alt="Quantcast"&gt;
+</noscript>
+</body></html>

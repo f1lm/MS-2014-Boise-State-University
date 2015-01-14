@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<!-- saved from url=(0084)http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome -->
+<html lang="en" dir="ltr" prefix="fb: http://www.facebook.com/2008/fbml content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema# schema: http://schema.org/" class="js"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/cb=gapi.loaded_1" async=""></script><script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/plusone.js" gapi_processed="true"></script>
+  <meta charset="utf-8">
+<link rel="shortlink" href="http://opensource.com/node/18863">
+<link rel="shortcut icon" href="http://opensource.com/sites/all/themes/opensource/favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="canonical" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/Experience the cloud on the desktop with ownCloud   Opensource.com.html">
+<meta name="revisit-after" content="1 day">
+<link href="http://opensource.com/rss.xml" rel="alternate" title="Opensource.com RSS">
+<meta name="description" content="In this short tutorial, learn how to integrate ownCloud with the Gnome desktop and then add your favorite cloud providers to use all of your cloud accounts in one place just as easily as if they were local drives.">
+<meta name="generator" content="Drupal 7 (http://drupal.org)">
+  <title>Experience the cloud on the desktop with ownCloud | Opensource.com</title>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cleartype" content="on">
+
+  <link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_ogjvJnfni1_P_WxvXAHlUOgCs860b3ip9DNMapcIGeM.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_dGYDLbc-S6u7-47scH4T23mAMlhJc2u-kQAy1pGqLjw.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_e9EthfzfOsLgkeWLu6fehfwGP2evNXHdW1FfFtjQd50.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_OzqImALqFRlUguqPjZoeX_H0w2bnpYOhGq_13-ds3wc.css" media="all">
+<link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_sAvvVHg8PUWryUL9ng9rNal0QDvDBpjNztmZQxJHVIs.css" media="all">
+
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="http://opensource.com/profiles/panopoly/modules/panopoly/panopoly_core/css/panopoly-fonts-ie-open-sans.css?nf9i1k" media="all" />
+<![endif]-->
+
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="http://opensource.com/profiles/panopoly/modules/panopoly/panopoly_core/css/panopoly-fonts-ie-open-sans-bold.css?nf9i1k" media="all" />
+<![endif]-->
+
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="http://opensource.com/profiles/panopoly/modules/panopoly/panopoly_core/css/panopoly-fonts-ie-open-sans-italic.css?nf9i1k" media="all" />
+<![endif]-->
+
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="http://opensource.com/profiles/panopoly/modules/panopoly/panopoly_core/css/panopoly-fonts-ie-open-sans-bold-italic.css?nf9i1k" media="all" />
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/css_wigS70piKQxAQ-PhuV0Kv5yYuTDEoD4yq0VyEj5L7HY.css" media="all">
+  <script type="text/javascript" async="" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/elqCfg.min.js"></script><script type="text/javascript" async="" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/widgets.js"></script><script type="text/javascript" async="" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/widgets.js"></script><script id="twitter-wjs" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/widgets(1).js"></script><script type="text/javascript" async="" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/ga.js"></script><script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_0gj6QcpfRH2jzTbCQqf7kEkm4MXY0UA_sRhwPc8jC1o.js"></script><style type="text/css"></style>
+<script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_4wOQcqOVDmFmvPC1Ho1n-lV8n36ZZmX4FyVzT-1g_SU.js"></script>
+<script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_a2lKa8Jp-oi7iYJtuAj6yqziOl3tblsKWBxkWmDAzqg.js"></script>
+<script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_yovikteKacjCP5USGblBh3A4Gm1nl1m8CTeYl8PNaUU.js"></script>
+<script>var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-33294138-1"]);_gaq.push(["_setDomainName", ".opensource.com"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();</script>
+<script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_uVgd4-9yIbwheYQCBcm4HXkUlMT2C5CeLHhMKkf_B9w.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"opensource","theme_token":"UF6gvuzKriNI4WlIt88vIaVLsTwWX9yQPZAFeBWw8g8","js":{"profiles\/panopoly\/modules\/panopoly\/panopoly_widgets\/panopoly-widgets.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/jquery\/1.7\/jquery.min.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.core.min.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.widget.min.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.tabs.min.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/ui\/ui\/minified\/jquery.ui.accordion.min.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/ui\/external\/jquery.cookie.js":1,"profiles\/panopoly\/modules\/contrib\/jquery_update\/replace\/misc\/jquery.form.min.js":1,"misc\/ajax.js":1,"sites\/all\/modules\/contrib\/comment_notify\/comment_notify.js":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_admin\/panopoly-admin.js":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_magic\/panopoly-magic.js":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_theme\/js\/panopoly-accordion.js":1,"profiles\/panopoly\/modules\/contrib\/caption_filter\/js\/caption-filter.js":1,"sites\/all\/modules\/contrib\/loginlogout\/loginlogout.js":1,"sites\/all\/modules\/custom\/os_events\/os_events.js":1,"profiles\/panopoly\/modules\/contrib\/panels\/js\/panels.js":1,"sites\/all\/modules\/contrib\/pollanon\/js\/jquery.cookie.min.js":1,"sites\/all\/modules\/contrib\/pollanon\/js\/pollanon.pack.js":1,"misc\/progress.js":1,"sites\/all\/modules\/contrib\/fivestar\/js\/fivestar.ajax.js":1,"sites\/all\/modules\/contrib\/fivestar\/js\/fivestar.js":1,"misc\/textarea.js":1,"profiles\/panopoly\/modules\/contrib\/ctools\/js\/ajax-responder.js":1,"modules\/filter\/filter.js":1,"sites\/all\/modules\/contrib\/mollom\/mollom.js":1,"sites\/all\/modules\/contrib\/google_analytics\/googleanalytics.js":1,"0":1,"sites\/all\/themes\/opensource\/js\/script.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"misc\/ui\/jquery.ui.core.css":1,"misc\/ui\/jquery.ui.theme.css":1,"misc\/ui\/jquery.ui.tabs.css":1,"misc\/ui\/jquery.ui.accordion.css":1,"sites\/all\/modules\/contrib\/comment_notify\/comment_notify.css":1,"sites\/all\/modules\/contrib\/calendar\/css\/calendar_multiday.css":1,"profiles\/panopoly\/modules\/contrib\/date\/date_api\/date.css":1,"profiles\/panopoly\/modules\/contrib\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/contrib\/logintoboggan\/logintoboggan.css":1,"sites\/all\/modules\/contrib\/mollom\/mollom.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/custom\/osratings\/hide.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_admin\/panopoly-admin.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-fonts.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-dropbutton.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_magic\/css\/panopoly-magic.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_magic\/css\/panopoly-modal.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_theme\/css\/panopoly-featured.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_theme\/css\/panopoly-accordian.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_widgets\/panopoly-widgets.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_wysiwyg\/panopoly-wysiwyg.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/workflow\/workflow_admin_ui\/workflow_admin_ui.css":1,"profiles\/panopoly\/modules\/contrib\/views\/css\/views.css":1,"profiles\/panopoly\/modules\/contrib\/caption_filter\/caption-filter.css":1,"profiles\/panopoly\/modules\/contrib\/ctools\/css\/ctools.css":1,"public:\/\/css\/menu_icons.css":1,"profiles\/panopoly\/modules\/contrib\/panels\/css\/panels.css":1,"sites\/all\/modules\/contrib\/pollanon\/pollanon.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_theme\/plugins\/layouts\/burr_flipped\/burr-flipped.css":1,"sites\/all\/modules\/contrib\/fivestar\/css\/fivestar.css":1,"sites\/all\/modules\/custom\/osratings\/widgets\/osratings\/osratings.css":1,"modules\/comment\/comment.css":1,"modules\/filter\/filter.css":1,"sites\/all\/modules\/contrib\/vote_up_down\/widgets\/upanddown\/upanddown.css":1,"sites\/all\/modules\/contrib\/vote_up_down\/vud_comment\/vud_comment.css":1,"profiles\/panopoly\/modules\/contrib\/field_group\/field_group.field_ui.css":1,"sites\/all\/themes\/opensource\/system.menus.css":1,"sites\/all\/themes\/opensource\/system.messages.css":1,"sites\/all\/themes\/opensource\/system.theme.css":1,"sites\/all\/themes\/opensource\/dist\/css\/styles.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-fonts-ie-open-sans.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-fonts-ie-open-sans-bold.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-fonts-ie-open-sans-italic.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_core\/css\/panopoly-fonts-ie-open-sans-bold-italic.css":1,"profiles\/panopoly\/modules\/panopoly\/panopoly_images\/panopoly-images.css":1}},"loginlogout":{"urls":{"\/user\/login":"\/user\/login?destination=node\/18863","\/user":"\/user?destination=node\/18863"}},"CToolsModal":{"modalSize":{"type":"scale","width":".9","height":".9","addWidth":0,"addHeight":0,"contentRight":25,"contentBottom":75},"modalOptions":{"opacity":".55","background-color":"#FFF"},"animationSpeed":"fast","modalTheme":"CToolsModalDialog","throbberTheme":"CToolsModalThrobber"},"ajax":{"edit-vote--2":{"callback":"fivestar_ajax_submit","event":"change","url":"\/system\/ajax","submit":{"_triggering_element_name":"vote"}}},"tagmap":[],"spotlight_settings":{"rotation_time":4000},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip","trackDomainMode":"1"}});</script>
+      <!--[if lt IE 9]>
+    <script src="/sites/all/themes/zen/js/html5-respond.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" type="text/css" href="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/widget007.old.css" media="all"><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-18863 node-type-article region-content section-life page-panels" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/hub.fe4e93d64f1afc988e99833088f71057(1).html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/hub.fe4e93d64f1afc988e99833088f71057.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe>
+      <p id="skip-link">
+      <a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+      
+<div id="page">
+
+  <header class="header" id="header" role="banner">
+
+    
+      <div class="region region-navigation-top">
+    <div id="block-menu-menu-about-menu" class="block block-menu first odd" role="navigation">
+
+      
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://opensource.com/about" class="menu__link">About</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/resources/" class="menu__link">Resources</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/should-be" title="What should Opensource.com be?" class="menu__link">Community</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/participate" class="menu__link">Participate</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/how-submit-article" class="menu__link">Submit your story</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/open-source-way" class="menu__link">The open source way</a></li>
+<li class="menu__item is-leaf last leaf"><a href="http://opensource.org/" class="menu__link">Visit opensource.org</a></li>
+</ul>
+</div>
+<div id="block-system-user-menu" class="block block-system block-menu last even" role="navigation">
+
+      
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://opensource.com/user/login?destination=node/18863" class="menu__link">Log in</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/user/register" title="Sign Up" class="menu__link">Sign Up</a></li>
+<li class="menu__item is-leaf last leaf"><a href="http://opensource.com/feed" title="Feeds" class="menu__link">Feed</a></li>
+</ul>
+</div>
+  </div>
+
+    <div class="header-banner">
+                  <div class="header__name-and-slogan" id="name-and-slogan">
+                          <div class="header__site-name" id="site-name">
+                <a href="http://opensource.com/" title="Home" class="header__site-link" rel="home"><span>Opensource.com</span></a>
+<a href="http://www.redhat.com/" title="Home" class="red__site-link" rel="home" style=" "><span>redhat.com</span></a>"
+              </div>
+            
+                      </div>
+        
+        
+          <div class="header__region region region-header">
+    <div id="block-search-form" class="block block-search first last odd" role="search">
+
+      
+  <form action="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/Experience the cloud on the desktop with ownCloud   Opensource.com.html" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" placeholder="Search opensource.com">
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--3" name="op" value="Search" class="form-submit"></div><input type="hidden" name="form_build_id" value="form-CwNw0mTD0pAsxDLiT0LZ_hMrWlekuYuLUYhOhZgdbY0">
+<input type="hidden" name="form_id" value="search_block_form">
+</div>
+</div></form>
+</div>
+  </div>
+    </div>
+
+  </header>
+
+  <div id="main">
+
+    <div id="content" class="column" role="main">
+                  <a id="main-content"></a>
+                    <h1 class="page__title title" id="page-title">Using ownCloud to integrate Dropbox, Google Drive, and more in Gnome | Opensource.com</h1>
+                                          
+
+
+
+<div class="panel-display burr-flipped clearfix " id="article-template">
+
+  <div class="burr-flipped-container burr-flipped-content-container clearfix">
+    <div class="burr-flipped-content burr-flipped-content-region panel-panel">
+      <div class="burr-flipped-content-inner burr-flipped-content-region-inner panel-panel-inner">
+        <div class="panel-pane pane-custom pane-1 article-title">
+  
+      
+  
+  <p>Using ownCloud to integrate Dropbox, Google Drive, and more in Gnome</p>
+
+  
+  </div>
+<div class="panel-pane pane-custom pane-2 author-feed">
+  
+      
+  
+  <p>Posted <span class="created-date">04 Dec 2014 by&nbsp;</span></p>
+
+  
+  </div>
+<div class="panel-pane pane-node-author">
+  
+      
+  
+  <a href="http://opensource.com/users/jfolta" title="View user profile." class="username" xml:lang="" about="/users/jfolta" typeof="sioc:UserAccount" property="foaf:name" datatype=""></a><a href="http://opensource.com/users/jfolta" class="username">Jiri Folta</a>
+  
+  </div>
+<div class="panel-pane pane-custom pane-3">
+  
+      
+  
+  <p><span><a href="http://opensource.com/user/12164/feed">Feed</a></span></p>
+
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-field-rating">
+  
+      
+  
+  <div class="field field-name-field-rating field-type-fivestar field-label-inline clearfix"><div class="field-label">Rating:&nbsp;</div><div class="field-items"><div class="field-item even" property="schema:aggregateRating" typeof="schema:AggregateReview"><form class="fivestar-widget" action="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/Experience the cloud on the desktop with ownCloud   Opensource.com.html" method="post" id="fivestar-custom-widget" accept-charset="UTF-8"><div><div class="clearfix fivestar-average-text fivestar-average-stars fivestar-form-item fivestar-open source ratings fivestar-processed"><div class="form-item form-type-fivestar form-item-vote">
+ <div class="form-item form-type-select form-item-vote">
+ <select id="edit-vote--2" name="vote" class="form-select ajax-processed" style="display: none;"><option value="-">Select rating</option><option value="20">Give it 1/5</option><option value="40">Give it 2/5</option><option value="60">Give it 3/5</option><option value="80">Give it 4/5</option><option value="100" selected="selected">Give it 5/5</option></select><div class="fivestar-widget clearfix fivestar-widget-5"><div class="star star-1 odd star-first on"><a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#20" title="Give it 1/5">Give it 1/5</a></div><div class="star star-2 even on"><a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#40" title="Give it 2/5">Give it 2/5</a></div><div class="star star-3 odd on"><a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#60" title="Give it 3/5">Give it 3/5</a></div><div class="star star-4 even on"><a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#80" title="Give it 4/5">Give it 4/5</a></div><div class="star star-5 odd star-last on"><a href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#100" title="Give it 5/5">Give it 5/5</a></div></div>
+<div class="description"><div class="fivestar-summary fivestar-summary-average-count"> <span class="total-votes">(<span>9</span> votes)</span></div><meta property="schema:average" content="4.6"><meta property="schema:count" content="9"></div>
+</div>
+
+</div>
+</div><input class="fivestar-submit form-submit" type="submit" id="edit-fivestar-submit" name="op" value="Rate"><input type="hidden" name="form_build_id" value="form-Obzk07JuxnT8vHzPIEdtuIoChc3ho9mx2bJD2tgFkfw">
+<input type="hidden" name="form_id" value="fivestar_custom_widget">
+</div></form></div></div></div>
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-field-lead-image">
+  
+      
+  
+  <div class="field field-name-field-lead-image field-type-image field-label-hidden"><div class="field-items"><div class="field-item even" rel="schema:contentUrl" resource="http://opensource.com/sites/default/files/styles/image-full-size/public/images/business/business_clouds.png?itok=aPa7lPIn"><img class="image-full-size" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/business_clouds.png" width="520" height="292"></div></div></div>
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-file-field-file-image-caption">
+  
+      
+  
+  <div class="field field-name-field-file-image-caption field-type-text-long field-label-inline clearfix"><div class="field-label">Image by :&nbsp;</div><div class="field-items"><div class="field-item even"><p>opensource.com</p>
+</div></div></div>
+  
+  </div>
+<div class="panel-pane pane-block pane-os-core-opensource-article-share">
+  
+      
+  
+  
+  <script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/addthis_widget.js"></script>
+  ​<script type="text/javascript">
+    var addthis_config = addthis_config||{};
+    addthis_config.data_track_clickback = false;
+  </script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/tweet_button.ff7d9077a26377d36b6a53b1a95be617.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe> <a href="http://reddit.com/submit?url=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&title=Using%20ownCloud%20to%20integrate%20Dropbox,%20Google%20Drive,%20and%20more%20in%20Gnome" onclick="window.location = &#39;http://reddit.com/submit?url=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&amp;title=Using ownCloud to integrate Dropbox, Google Drive, and more in Gnome&#39;; return false"><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/spreddit7.gif" alt="submit to reddit" border="0"></a> <script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/hostedbadge.php"></script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/saved_resource.html" width="74" height="18" id="iframe-stmblpn-widget-1" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;"></iframe> <script type="text/javascript">   (function() {     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;     li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);   })(); </script><a class="addthis_button_facebook_like at300b" addthis:url="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" fb:like:layout="button_count"><div class="fb-like fb_iframe_widget" data-ref="" data-layout="button_count" data-show_faces="false" data-action="like" data-width="90" data-font="arial" data-href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" data-send="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=172525162793917&amp;font=arial&amp;href=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=90"><span style="vertical-align: bottom; width: 79px; height: 20px;"><iframe name="f330e92b8c" width="90px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/like(1).html" style="border: none; visibility: visible; width: 79px; height: 20px;" class=""></iframe></span></div></a><a class="addthis_button_google_plusone at300b" addthis:url="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" g:plusone:size="medium"><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1417793176008" name="I0_1417793176008" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></a>
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-body">
+  
+      
+  
+  <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="schema:articleBody content:encoded"><p>I was looking for an easy way how to have all my online storage services, such as&nbsp;<a href="https://www.google.com/drive/" target="_blank" title="Google Drive">Google Drive</a> and <a href="https://dropbox.com/" target="_blank" title="Dropbox">Dropbox</a>, integrated with my Linux desktop without using some nasty hack, and I finally have a solution that works. I'm here to share it with you. This is not rocket science really, all I did was a little bit of documentation reading, and a couple of clicks.</p>
+<!--break--><p></p>
+<p>All of the technologies used are for free for personal use. Each of them has some pros and cons, and the beauty of the solution is that I can now use this as one virtual storage integrated in my desktop.</p>
+<p>To get started with <a href="http://owncloud.org/" target="_blank" title="ownCloud">ownCloud</a>, you can choose from a <a href="https://owncloud.org/providers/" target="_blank" title="OwnCloud providers">list of providers</a>, many of which offer a free plan. You can also host ownCloud in your own infrastructure. For this example, we will be using <a href="https://openshift.com/" style="line-height:1.538em">OpenShift</a>&nbsp;Online free plan, but any hosting solution will work for a single user.</p>
+<p>Within OpenShift Online, in the main menu, click on the <strong style="line-height:1.538em">Add application </strong>button, and search for ownCloud if&nbsp;you do not see it on the list.&nbsp;Choose the URL of your application, and then starting the application in the cloud usually took OpenShift about 30 seconds. Then, it is time to login to your app using the generated password. For safety, make sure that you change the password during your first login. Now, you are good to go, you have 1 GB of online storage for free!</p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift4.png" alt="ownCloud" title="ownCloud" class="media-element file-default" height="356" width="520"></p>
+<p>Now, it is time to do the integration on the desktop side. In Gnome, go to <strong>Settings</strong> -&gt;<strong>Online Accounts</strong> -&gt; <strong>Add.</strong></p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift6.png" alt="ownCloud" title="ownCloud" style="line-height:1.538em" class="media-element file-default" height="284" width="520"></p>
+<p>Choose ownCloud service and put the info in (URL, user name and password) and you have integrated ownCloud into your Linux desktop! Now, you can work with files, calendar, and notes that are automatically synchronized.</p>
+<p>You can stop right here and enjoy the ride, or you can push it to the next level and integrate more services into ownCloud. At the moment it supports multiple platforms such as Amazon Drive, OpenStack object storage, FTP, and more.</p>
+<p>We will take a look at integrating Google Drive and Dropbox; choose which one you want to start with. Dropbox&nbsp;is much easier, because it requires much less configuration!&nbsp;Google Drive is a little complicated, so check out the <a href="http://doc.owncloud.org/server/6.0/user_manual/external_storage/google_drive.html" target="_blank" title="Google Drive" style="line-height:1.538em">official tutorial</a>.</p>
+<h2>Dropbox</h2>
+<p>Login to you Dropbox account and go to the developers <a href="https://www.dropbox.com/developers/apps/create" target="_blank" title="Application creation">application creation</a> page.&nbsp;Choose <strong style="line-height:1.538em">Dropbox API app </strong>and fill in the details.&nbsp;Fill in the <strong style="line-height:1.538em">Redirect URIs,</strong> which is myCloud URL.</p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift8.png" alt="ownCloud" title="ownCloud" style="line-height:1.538em" class="media-element file-default" height="575" width="520"></p>
+<p>The final stage is the configuration on the <a href="http://owncloud.org/">ownCloud</a> side. First you need to enable the external storage support, because it is not supported out of the box (at least not with my version) <strong>Apps</strong> -&gt; <strong>Apps</strong> -&gt; <strong>External storage support</strong> -&gt; <strong>Enable.</strong></p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift9.png" alt="ownCloud" title="ownCloud" style="line-height:1.538em" class="media-element file-default" height="332" width="520"></p>
+<p>And then <strong>Admin</strong> -&gt; <strong>Admin</strong> -&gt; <strong>External storage</strong>. Enter <strong>App key</strong> and <strong>App secret </strong>and you are all set!</p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift10.png" alt="ownCloud" title="ownCloud" style="line-height:1.538em" class="media-element file-default" height="300" width="520"></p>
+<p>This is what it looks like in the file browser. The great thing about this solution is that you can easily work with the online files stored in different services from one place!</p>
+<p><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/owncloudopenshift11.png" alt="ownCloud" title="ownCloud" class="media-element file-default" height="605" width="426"></p>
+<p>Hope you will find this useful, took me a bit of googling and clicking before it all worked for me!</p>
+<p><em>Originally published on <a href="http://i-pholta.rhcloud.com/?p=168" target="_blank" title="Jiri&#39;s blog">Jiri's blog</a>. Republished under Creative Commons.</em></p>
+</div></div></div>
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-field-default-license">
+  
+      
+  
+  <div class="field field-name-field-default-license field-type-text field-label-hidden"><div class="field-items"><div class="field-item even" property="schema:license"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+        <img alt="Creative Commons License" style="border-width:0" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/cc-by-sa-4.png" title="This work is licensed under a Creative Commons Attribution-Share Alike 4.0 International License."></a></div></div></div>
+  
+  </div>
+<div class="panel-pane pane-views-panes pane-related-articles-panel-pane-1">
+  
+        <h2 class="pane-title">Related content</h2>
+    
+  
+  <div class="view view-related-articles view-id-related_articles view-display-id-panel_pane_1 related-content view-dom-id-2d4379d865b4cba808aa188928361441">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://opensource.com/business/14/12/linux-philosophy"><img class="related-content-lead-thumbnail" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/OSDC_Penguin_Image_520x292_12324207_0714_mm_v1a.png" width="140" height="79" alt="Penguins gathered together in the Artic" title="Penguins gathered together: Linux for the win"><br>
+The impact of the Linux philosophy</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://opensource.com/life/14/11/linux-lettuce-open-food-seeds"><img class="related-content-lead-thumbnail" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/open_food_lettuce_lead.jpg" width="140" height="79" alt="Lettuce farming field for Open Food Week" title="Lettuce farming field for Open Food Week"><br>
+Linux for lettuce</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd views-row-last">
+      
+  <div class="views-field views-field-title">        <span class="field-content"><a href="http://opensource.com/life/14/11/open-gaming-november-7"><img class="related-content-lead-thumbnail" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/this-week-open-source-games.png" width="140" height="79" alt="This week in open source games" title="This week in open source games"><br>
+New games on Linux, OpenGL graphics driver, Coco2d-x game engine, and more</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+  
+  </div>
+<div class="panel-pane pane-entity-field pane-node-field-tags">
+  
+        <h2 class="pane-title">Tags</h2>
+    
+  
+  <div class="field field-name-field-tags field-type-taxonomy-term-reference field-label-hidden"><div class="field-items"><div class="field-item even" rel="schema:keywords"><a href="http://opensource.com/tags/owncloud" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">owncloud</a></div><div class="field-item odd" rel="schema:keywords"><a href="http://opensource.com/tags/openshift" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">openshift</a></div><div class="field-item even" rel="schema:keywords"><a href="http://opensource.com/tags/dropbox" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">dropbox</a></div><div class="field-item odd" rel="schema:keywords"><a href="http://opensource.com/tags/google-drive" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">google drive</a></div><div class="field-item even" rel="schema:keywords"><a href="http://opensource.com/tags/linux" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">linux</a></div><div class="field-item odd" rel="schema:keywords"><a href="http://opensource.com/tags/gnome" typeof="skos:Concept" property="rdfs:label skos:prefLabel" datatype="">gnome</a></div></div></div>
+  
+  </div>
+<div class="panel-pane pane-block pane-os-core-opensource-article-share">
+  
+      
+  
+  
+  <script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/addthis_widget.js"></script>
+  ​<script type="text/javascript">
+    var addthis_config = addthis_config||{};
+    addthis_config.data_track_clickback = false;
+  </script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/tweet_button.ff7d9077a26377d36b6a53b1a95be617.en(1).html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 107px; height: 20px;"></iframe> <a href="http://reddit.com/submit?url=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&title=Using%20ownCloud%20to%20integrate%20Dropbox,%20Google%20Drive,%20and%20more%20in%20Gnome" onclick="window.location = &#39;http://reddit.com/submit?url=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&amp;title=Using ownCloud to integrate Dropbox, Google Drive, and more in Gnome&#39;; return false"><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/spreddit7.gif" alt="submit to reddit" border="0"></a> <script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/hostedbadge.php"></script><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/saved_resource.html" width="74" height="18" id="iframe-stmblpn-widget-2" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;"></iframe> <script type="text/javascript">   (function() {     var li = document.createElement('script'); li.type = 'text/javascript'; li.async = true;     li.src = window.location.protocol + '//platform.stumbleupon.com/1/widgets.js';     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(li, s);   })(); </script><a class="addthis_button_facebook_like at300b" addthis:url="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" fb:like:layout="button_count"><div class="fb-like fb_iframe_widget" data-ref="" data-layout="button_count" data-show_faces="false" data-action="like" data-width="90" data-font="arial" data-href="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" data-send="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=172525162793917&amp;font=arial&amp;href=http%3A%2F%2Fopensource.com%2Flife%2F14%2F12%2Fusing-owncloud-integrate-dropbox-google-drive-gnome&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;show_faces=false&amp;width=90"><span style="vertical-align: bottom; width: 79px; height: 20px;"><iframe name="f1325e3fe4" width="90px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/like.html" style="border: none; visibility: visible; width: 79px; height: 20px;" class=""></iframe></span></div></a><a class="addthis_button_google_plusone at300b" addthis:url="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" g:plusone:size="medium"><div id="___plusone_1" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I1_1417793176014" name="I1_1417793176014" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/fastbutton(1).html" data-gapiattached="true" title="+1"></iframe></div></a>
+  
+  </div>
+<div class="panel-pane pane-node-comments" id="comments">
+  
+        <h2 class="pane-title">7 Comments</h2>
+    
+  
+  <a id="comment-40763"></a>
+<div class="comment first odd clearfix" about="/comment/40763#comment-40763" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/picture-420-43d21d07879f65200ca9dbd2fcb04803.jpg" alt="dragonbite" title="dragonbite">    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-62 open-source-evangelist" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_role_open_evangelist_sm.png" alt="Open Source Evangelist" title="Open Source Evangelist"></div></div></dd>
+  </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40763#comment-40763" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-04T10:12:15-05:00" datatype="xsd:dateTime" rel="sioc:has_creator"><a href="http://opensource.com/users/dragonbite" class="username">Drew Kwashnak</a> on 04 Dec 2014</span>    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-69 founding-member" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_badge_founding_member_sm.png" alt="Founding Member" title="Founding Member"></div><div class="badge_blue"><img class="badge badge-80 conversation-starter-award-2013" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_award_conversation_starter_2013_sm.png" alt="Conversation Starter Award 2013" title="Conversation Starter Award 2013"></div><div class="badge_role"><img class="badge badge-72 top-contributor" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_badge_topcontributor_sm.png" alt="Top Contributor" title="Top Contributor"></div></div></dd>
+  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>So ownCloud works to redirect requests to-and-from the user (Gnome) and the alternative services (Google Drive, Dropbox) but doesn't actually store the files in the ownCloud directory (which your example has a 1GB limit)?</p>
+<p>Brilliant!  I'm going to have to look into this!  </p>
+<p>btw, thanks for the screenshots.. I am a visual person and seeing the screenshots makes more sense to me than if it was all text (unless they are all command to run only)</p>
+<p>I'm the kind of person that has files in multiple cloud sites and access them through the computers (Windows and Linux ) as well as a browser (such as when at work).  So far no one service has done everything I need but if this works as I suspect (hope) it works it just may help fill in the gaps!</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40763">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40763">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">3</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+
+<div class="indented"><a id="comment-40765"></a>
+<div class="comment comment-by-node-author even clearfix" about="/comment/40765#comment-40765" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/1e5476c.jpg" alt="jfolta" title="jfolta">    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-64 open-enthusiast" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_role_enthusiast_sm.png" alt="Open Enthusiast" title="Open Enthusiast"></div></div></dd>
+  </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40765#comment-40765" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-04T10:37:57-05:00" datatype="xsd:dateTime" rel="sioc:has_creator"><a href="http://opensource.com/users/jfolta" class="username">Jiri Folta</a> on 04 Dec 2014</span>    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-68 author" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_badge_author_sm.png" alt="Author" title="Author"></div></div></dd>
+  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><span rel="sioc:reply_of" resource="/comment/40763#comment-40763" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>Hey Drew, Seems like ownCloud does not store the data from the other services, just works as an interface for them, but I have not done serious testing on that yet; great point though, I will look into that.<br>
+So far, I have been very happy with ownCloud for my personal use, calendar seems to work nicely and it integrates with mobile too (personally tested on Android). I saw a howto for a Windows client, but have not tested it yet. </p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40765">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40765">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">3</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+</div><a id="comment-40767"></a>
+<div class="comment odd clearfix" about="/comment/40767#comment-40767" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_default_avatar.png" alt="toby" title="toby">    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-66 newbie" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_role_newbie_sm.png" alt="Newbie" title="Newbie"></div></div></dd>
+  </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40767#comment-40767" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-04T14:49:58-05:00" datatype="xsd:dateTime" rel="sioc:has_creator"><a href="http://opensource.com/users/toby" class="username">Toby</a> on 04 Dec 2014</span>    <dt></dt>
+<dd></dd>
+  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>Great idea! I've been planning to set up a NAS with OwnCloud for a while now but never thought about hosting it with OpenShift in the meantime. As an avid Android user I make lots of use of Google Drive but the lack of a Linux plugin has been a real pain!</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40767">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40767">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">2</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+
+<div class="indented"><a id="comment-40768"></a>
+<div class="comment comment-by-node-author even clearfix" about="/comment/40768#comment-40768" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/1e5476c.jpg" alt="jfolta" title="jfolta">    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-64 open-enthusiast" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_role_enthusiast_sm.png" alt="Open Enthusiast" title="Open Enthusiast"></div></div></dd>
+  </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40768#comment-40768" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-04T16:19:19-05:00" datatype="xsd:dateTime" rel="sioc:has_creator"><a href="http://opensource.com/users/jfolta" class="username">Jiri Folta</a> on 04 Dec 2014</span>    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-68 author" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_badge_author_sm.png" alt="Author" title="Author"></div></div></dd>
+  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><span rel="sioc:reply_of" resource="/comment/40767#comment-40767" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>I was facing the same problem, this seems like a great workaround so far.</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40768">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40768">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">1</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+</div><a id="comment-40771"></a>
+<div class="comment comment-by-anonymous odd clearfix" about="/comment/40771#comment-40771" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_default_avatar.png" alt="Robert Delaney" title="Robert Delaney">      </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40771#comment-40771" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-04T21:18:22-05:00" datatype="xsd:dateTime" rel="sioc:has_creator">Robert Delaney on 04 Dec 2014</span>      </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>The option for ownCloud isnt in ubuntu 14.10 online accounts. Any way to add it?</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40771">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40771">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">1</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+
+<div class="indented"><a id="comment-40774"></a>
+<div class="comment comment-by-node-author even clearfix" about="/comment/40774#comment-40774" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/1e5476c.jpg" alt="jfolta" title="jfolta">    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-64 open-enthusiast" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_role_enthusiast_sm.png" alt="Open Enthusiast" title="Open Enthusiast"></div></div></dd>
+  </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40774#comment-40774" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-05T05:58:35-05:00" datatype="xsd:dateTime" rel="sioc:has_creator"><a href="http://opensource.com/users/jfolta" class="username">Jiri Folta</a> on 05 Dec 2014</span>    <dt></dt>
+<dd><div class="user_badges"><div class="badge_role"><img class="badge badge-68 author" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_badge_author_sm.png" alt="Author" title="Author"></div></div></dd>
+  </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><span rel="sioc:reply_of" resource="/comment/40771#comment-40771" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>You can also use a native client for ownCloud in Ubuntu, you can download it from the official page: <a href="https://owncloud.org/install/">https://owncloud.org/install/</a>  Hope it helps</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40774">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40774">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">1</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+</div><a id="comment-40772"></a>
+<div class="comment comment-by-anonymous last odd clearfix" about="/comment/40772#comment-40772" typeof="sioc:Post sioct:Comment">
+
+  <div class="user-picture-badges">
+    <img class="comment-avatar" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_default_avatar.png" alt="Ash McConnell" title="Ash McConnell">      </div>
+
+  
+  <div class="submitted">
+    <a href="http://opensource.com/comment/40772#comment-40772" class="permalink" rel="bookmark">Permalink</a>    <span property="dc:date dc:created" content="2014-12-05T00:57:48-05:00" datatype="xsd:dateTime" rel="sioc:has_creator">Ash McConnell on 05 Dec 2014</span>      </div>
+
+  <div class="content">
+    <span rel="sioc:reply_of" resource="/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome" class="rdf-meta"></span><div class="field field-name-comment-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><p>you need tu use ubuntu gnome</p>
+</div></div></div>      </div>
+
+  <ul class="links inline"><li class="comment-reply first last"><a href="http://opensource.com/comment/reply/18863/40772">reply</a></li>
+</ul>    <div class="vud-widget vud-widget-upanddown" id="widget-comment-40772">
+  <div class="up-score clear-block">
+                    <div class="up-active" title="Vote up!"></div>
+          <div class="element-invisible">Vote up!</div>
+              <span class="up-current-score">0</span>
+  </div>
+
+  <div class="down-score clear-block">
+                    <div class="down-active" title="Vote down!"></div>
+          <div class="element-invisible">Vote down!</div>
+              <span class="down-current-score">0</span>
+  </div>
+  </div>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-node-comment-form">
+  
+        <h2 class="pane-title">Comment now</h2>
+    
+  
+  <form class="comment-form user-info-from-cookie" action="http://opensource.com/life/14/12/using-owncloud-integrate-dropbox-google-drive-gnome#comment-form" method="post" id="comment-form" accept-charset="UTF-8"><div><div id="edit-login-register" class="form-item form-type-item">
+ <a href="http://opensource.com/user?destination[destination]=node/18863">Login or Register</a> to earn points for your comments.
+</div>
+<div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Your name <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="30" maxlength="60" class="form-text required">
+</div>
+<div class="form-item form-type-textfield form-item-mail">
+  <label for="edit-mail">E-mail <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-mail" name="mail" value="" size="30" maxlength="64" class="form-text required">
+<div class="description">The content of this field is kept private and will not be shown publicly.</div>
+</div>
+<input type="hidden" name="form_build_id" value="form-BC6tYiGrkor0aphnCAezcK8z-Ay0SXG5YhnMU2RCn-4">
+<input type="hidden" name="form_id" value="comment_node_article_form">
+<div class="form-item form-type-checkbox form-item-legal-checkbox">
+ <input type="checkbox" id="edit-legal-checkbox" name="legal_checkbox" value="1" class="form-checkbox required">  <label class="option" for="edit-legal-checkbox">Accept the <a href="http://opensource.com/legal">Terms of Use</a> to continue.  You are licensing your contribution(s) as CC-BY-SA. <span class="form-required" title="This field is required.">*</span></label>
+
+</div>
+<div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body"><div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+  <label for="edit-comment-body-und-0-value">Comment <span class="form-required" title="This field is required.">*</span></label>
+ <div class="form-textarea-wrapper resizable textarea-processed resizable-textarea"><textarea class="text-full form-textarea required" id="edit-comment-body-und-0-value" name="comment_body[und][0][value]" cols="60" rows="5"></textarea><div class="grippie"></div></div>
+</div>
+<div class="clearfix"><div class="format-toggle"></div></div></div>
+</div></div><input class="mollom-content-id" type="hidden" name="mollom[contentId]" value="">
+<input class="mollom-captcha-id" type="hidden" name="mollom[captchaId]" value="">
+<div style="display: none;"><div class="form-item form-type-textfield form-item-mollom-homepage">
+ <input autocomplete="off" type="text" id="edit-mollom-homepage" name="mollom[homepage]" value="" size="60" maxlength="128" class="form-text">
+</div>
+</div><div class="description mollom-privacy">By submitting this form, you accept the <a href="https://mollom.com/web-service-privacy-policy" class="mollom-target" rel="nofollow">Mollom privacy policy</a>.</div><div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Save" class="form-submit"><input type="submit" id="edit-preview" name="op" value="Preview" class="form-submit"></div></div></form>
+  
+  </div>
+      </div>
+    </div>
+    <div class="burr-flipped-sidebar burr-flipped-content-region panel-panel">
+      <div class="burr-flipped-sidebar-inner burr-flipped-content-region-inner panel-panel-inner">
+        <div class="panel-pane pane-views-panes pane-author-info-panel-pane-1 box-wrapper">
+  
+      
+  
+  <div class="view view-author-info view-id-author_info view-display-id-panel_pane_1 view-dom-id-784107aa129e7885b4138757d33924d3">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+      
+  <div class="views-field views-field-field-user-picture">        <div class="field-content"><img class="profile-pictures" typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/1e5476c(1).jpg" width="100" height="100" alt=""></div>  </div>  
+  <div class="views-field views-field-field-user-about">        <div class="field-content"><p>Jiri Folta is a Senior Corporate Recruiter working for Red Hat in Brno, Czech Republic, covering Engineering and support roles in the EMEA region.</p>
+</div>  </div>  
+  <div class="views-field views-field-nothing">        <span class="field-content"><a href="http://opensource.com/users/jfolta">» More about me</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+  
+  </div>
+<div class="panel-pane pane-custom pane-4 box-wrapper">
+  
+      
+  
+  <p></p>
+<p><a href="http://opensource.com/life/14/10/reviewing-new-raspberry-pi-b-board?sc_cid=70160000000c9ptAAA" title=" Raspberry Pi B+"><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_readerfav_life_raspberrypi.png" alt=" Raspberry Pi B+" title=" Raspberry Pi B+" class="media-element file-default" height="125" width="325"></a></p>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-bean-contest-promo-site-wide-on-art">
+  
+      
+  
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/contest-promo---site-wide-on-art" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://opensource.com/2014-gift-guide-giveaway-announcement" target="_blank" title="A chance to win a 3D printer! Enter the 2014 open source holiday giveaway"><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_giftgiveaway_325x125.png" alt="Holiday gift guide promo" title="Holiday gift guide promo" class="media-element file-default" height="125" width="325"></a></p>
+</div></div></div>  </div>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-panels-mini pane-common-1">
+  
+      
+  
+  <div class="panel-pane pane-menu-tree pane-menu-monthly-favorites box-wrapper">
+  
+        <h2 class="pane-title">Monthly favorites</h2>
+    
+  
+  <div class="menu-block-wrapper menu-block-ctools-menu-monthly-favorites-1 menu-name-menu-monthly-favorites parent-mlid-menu-monthly-favorites:0 menu-level-1">
+  <ul class="menu"><li class="menu__item is-leaf first leaf menu-mlid-1850"><a href="http://opensource.com/life/14/11/open-source-holiday-gift-guide" title="" class="menu__link">2014 Holiday Gift Guide for open source enthusiasts</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1609"><a href="http://opensource.com/business/14/1/top-project-management-tools-2014" title="" class="menu__link">Top 5 open source project management tools in 2014</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1610"><a href="http://opensource.com/business/14/10/taiga-open-source-project-management-tool" title="" class="menu__link">Taiga, a new open source project management tool with focus on usability</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1613"><a href="http://opensource.com/life/14/10/reviewing-new-raspberry-pi-b-board" title="" class="menu__link">New open hardware: Raspberry Pi B+</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1611"><a href="http://opensource.com/life/14/10/five-open-source-alternatives-popular-web-apps" title="" class="menu__link">Five open source alternatives to popular web apps</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1612"><a href="http://opensource.com/business/14/7/top-5-open-source-crm-tools" title="" class="menu__link">  Top 5 open source customer relationship management tools</a></li>
+<li class="menu__item is-leaf leaf menu-mlid-1706"><a href="http://opensource.com/education/14/1/teaching-kids-linux" title="" class="menu__link">Four Linux distros for kids</a></li>
+<li class="menu__item is-leaf last leaf menu-mlid-1614"><a href="http://opensource.com/business/14/6/three-open-source-business-tools" title="" class="menu__link">Top 3 open source business intelligence and reporting tools</a></li>
+</ul></div>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-bean-new-to-open-source box-wrapper">
+  
+      
+  
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/new-to-open-source" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://opensource.com/node/17753"><img class="media-element file-default" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/OSDC_New_to_Open_Source_Promo_gray.png" title="New to open source?" alt="New to open source?" height="125" width="325"></a></p>
+</div></div></div>  </div>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-bean-submit-an-article box-wrapper">
+  
+      
+  
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/submit-an-article" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://opensource.com/node/17733"><img class="media-element file-default" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/OSDC_Submit_Article_Promo_0.png" title="Submit an article" alt="Submit an article" height="125" width="325"></a></p>
+</div></div></div>  </div>
+</div>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-os-core-opensource-social-links box-wrapper signup-email">
+  
+      
+  
+  <ul class="social-links inline"><li class="twitter first"><a href="http://twitter.com/opensourceway" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/twitter.jpg" alt=""></a></li>
+<li class="facebook"><a href="http://facebook.com/pages/opensourcecom/162962298056" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/facebook.jpg" alt=""></a></li>
+<li class="gplus"><a href="https://plus.google.com/108750398488318674353" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/gplus.png" alt=""></a></li>
+<li class="flickr"><a href="http://www.flickr.com/photos/opensourceway" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/flickr_24x24.jpg" alt=""></a></li>
+<li class="youtube"><a href="http://www.youtube.com/opensourceway" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/youtube.jpg" alt=""></a></li>
+<li class="pinterest"><a href="http://pinterest.com/opensourceway/" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/pinterest.png" alt=""></a></li>
+<li class="linkedin"><a href="http://www.linkedin.com/groups/Open-Source-Professionals-Advocates-2769297?gid=2769297" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/in.jpg" alt=""></a></li>
+<li class="rss last"><a href="http://opensource.com/feed" target="_blank"><img typeof="foaf:Image" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_rss_24x24.png" alt=""></a></li>
+</ul><div class="signup-email-title">Sign-up for weekly email</div><form action="https://secure.eloqua.com/e/f2.aspx" method="post" id="opensourcedotcom-subscription" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-C-EmailAddress">
+ <input type="text" id="edit-c-emailaddress" name="C_EmailAddress" value="" size="24" maxlength="96" class="form-text">
+</div>
+<input type="hidden" name="elqFormName" value="opensourcedotcom-subscription">
+<input type="hidden" name="elqSiteID" value="1795">
+<input type="hidden" name="sendToURL" value="http://opensource.com/thank-you-subscription">
+<input type="submit" id="edit-submit--2" name="op" value="Sign Up" class="form-submit"><input type="hidden" name="form_build_id" value="form-47Cw0hnqZi_B1dV5xHKFUYNQJAzs-mXD12EyoEL_Uqc">
+<input type="hidden" name="form_id" value="os_core_eloqua_form">
+</div></form>
+  
+  </div>
+
+  
+  </div>
+<div class="panel-pane pane-block pane-bean-contest-promo-site-wide-on-art">
+  
+      
+  
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/contest-promo---site-wide-on-art" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><a href="http://opensource.com/2014-gift-guide-giveaway-announcement" target="_blank" title="A chance to win a 3D printer! Enter the 2014 open source holiday giveaway"><img src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/osdc_giftgiveaway_325x125.png" alt="Holiday gift guide promo" title="Holiday gift guide promo" class="media-element file-default" height="125" width="325"></a></p>
+</div></div></div>  </div>
+</div>
+
+  
+  </div>
+      </div>
+    </div>
+  </div>
+    
+</div><!-- /.burr-flipped -->
+          </div>
+
+    <div id="navigation">
+
+              <nav id="main-menu" role="navigation" tabindex="-1">
+          <h2 class="element-invisible">Main menu</h2><ul class="links inline clearfix"><li class="menu-1119 first"><a href="http://opensource.com/" title="">Open*</a></li>
+<li class="menu-1261"><a href="http://opensource.com/business" title="Open Business">Business</a></li>
+<li class="menu-1262"><a href="http://opensource.com/education" title="Open Education">Education</a></li>
+<li class="menu-1263"><a href="http://opensource.com/government" title="Open Government">Government</a></li>
+<li class="menu-1264"><a href="http://opensource.com/health" title="Open Health">Health</a></li>
+<li class="menu-1265"><a href="http://opensource.com/law" title="Open Law">Law</a></li>
+<li class="menu-1266 active-trail last"><a href="http://opensource.com/life" title="Open Life" class="active-trail">Life</a></li>
+</ul>        </nav>
+      
+      
+    </div>
+
+    
+    
+  </div>
+
+    <footer id="footer" class="region region-footer">
+    <div id="block-bean-copyrigt-block" class="block block-bean first odd">
+
+      
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/copyrigt-block" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p>For more discussion on open source and the role of the CIO in the enterprise, join us at <a href="http://enterprisersproject.com/">The EnterprisersProject.com</a>.</p>
+<p>The opinions expressed on this website are those of each author, not of the author's employer or of Red Hat.</p>
+<p>Opensource.com aspires to publish all content under a <a href="http://creativecommons.org/licenses/">Creative Commons license</a> but may not be able to do so in all cases. You are responsible for ensuring that you have the necessary permission to reuse any work on this site. Red Hat and the Shadowman logo are trademarks of Red Hat, Inc., registered in the United States and other countries.</p>
+</div></div></div>  </div>
+</div>
+
+</div>
+<div id="block-menu-menu-footer" class="block block-menu even" role="navigation">
+
+      
+  <ul class="menu"><li class="menu__item is-leaf first leaf"><a href="http://opensource.com/privacy-policy" class="menu__link">Privacy Policy</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/legal" class="menu__link">Terms of Use</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/contact" class="menu__link">Contact</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/opensourcecom-team" class="menu__link">Meet the Moderators</a></li>
+<li class="menu__item is-leaf leaf"><a href="http://opensource.com/media-kit" class="menu__link">Media Kit</a></li>
+<li class="menu__item is-leaf last leaf"><a href="http://opensource.com/colophon" class="menu__link">Colophon</a></li>
+</ul>
+</div>
+<div id="block-bean-social-media" class="block block-bean last odd">
+
+      
+  <div class="entity entity-bean bean-generic-block clearfix" about="/block/social-media" typeof="">
+
+  <div class="content">
+    <div class="field field-name-field-body field-type-text-long field-label-hidden"><div class="field-items"><div class="field-item even"><p><span>Find us:</span> <a class="footer-youtube" href="http://www.youtube.com/opensourceway" title="Youtube">Youtube</a> <a class="footer-flickr" href="http://www.flickr.com/photos/opensourceway" title="Flickr">Flickr</a> <a class="footer-gplus" href="https://plus.google.com/108750398488318674353" title="Google Plus">Google Plus</a> <a class="footer-facebook" href="https://www.facebook.com/opensourceway" title="Facebook">Facebook</a> <a class="footer-twitter" href="https://twitter.com/OpenSourceWay" title="Twitter">Twitter</a></p>
+</div></div></div>  </div>
+</div>
+
+</div>
+  </footer>
+
+</div><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe id="_atssh789" title="AddThis utility frame" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/sh180.html" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0px; left: 0px; top: 0px;"></iframe></div><script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/core165.js"></script>
+
+    <div class="region region-page-bottom">
+    <!-- begin Eloqua tracking -->
+<script type="text/javascript" language="JavaScript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/elqCfg.js"></script>
+<script type="text/javascript" language="JavaScript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/elqImg.js"></script>
+<!-- end Eloqua tracking -->
+<!-- begin Adobe Analytics -->
+<script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/s_code.js"></script>
+<script type="text/javascript" language="JavaScript"><!--
+
+s.pageName="opensource|life|article|using-owncloud-to-integrate-dropbox,-google-drive,-and-more-in-gnome";
+s.server="opensource.com";
+s.channel="opensource";
+s.prop13="osdc 18863";
+s.eVar26="osdc 18863";
+s.prop14="life";
+s.eVar27="life";
+s.prop61="2014-12-04";
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+//--></script><script type="text/javascript" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/rh_omni_footer.js"></script>
+<script language="JavaScript" type="text/javascript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript>&lt;img src="https://smtrcs.redhat.com/b/ss/redhatglobal,redhatopensourcecom/1/H.25--NS/0?[AQB]&amp;amp;amp;amp;cdp=3&amp;amp;amp;amp;[AQE]" height="1" width="1" border="0" alt="" /&gt;</noscript><!--/DO NOT REMOVE/-->
+<!-- end Adobe Analytics1 --><!-- begin Google Remarketing -->
+<img height="0" width="0" style="border-style: none; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 1px 1px;" alt="" src="http://googleads.g.doubleclick.net/pagead/viewthroughconversion/990030321/?value=0&label=rxV4CN_35QQQ8dOK2AM&guid=ON&script=0"><!-- end Google Remarketing -->
+  </div>
+<script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/js_XpJuEKzwvbEEeDS1Lpt_uOwmb3E94ioLvpFlps8O3rA.js"></script>
+
+
+<div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><div id="fb-root" class=" fb_reset"><script src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/all.js" async=""></script><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="f3134d6104" frameborder="0" allowtransparency="true" scrolling="no" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/ping.html" style="display: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/7r8gQb8MIqE.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/7r8gQb8MIqE(1).html" style="border: none;"></iframe></div></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><iframe name="oauth2relay606549394" id="oauth2relay606549394" src="./Experience the cloud on the desktop with ownCloud   Opensource.com_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div></body></html>

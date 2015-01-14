@@ -1,0 +1,1 @@
+Bootstrapper.bindImmediate(function(){var Bootstrapper=window["Bootstrapper"];var ensightenOptions=Bootstrapper.ensightenOptions;Bootstrapper.insertScript("//ib.adnxs.com/px?id\x3d441893\x26t\x3d1")},616776,279240);

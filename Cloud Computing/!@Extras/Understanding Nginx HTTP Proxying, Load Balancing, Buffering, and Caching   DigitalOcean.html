@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching -->
+<html class="m-pikabu-transitions m-pikabu-translate3d wf-proximanova-i4-active wf-proximanova-n3-active wf-proximanova-n4-active wf-proximanova-n6-active wf-proximanova-n7-active wf-proximanova-n1-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching | DigitalOcean</title>
+
+<meta name="description" content="Nginx is a high performance reverse proxy server and web server. In this guide, we will explore Nginx&#39;s http proxying and load balancing capabilities. We will cover how Nginx can use buffers and caching to improve the proxying experience for clients.">
+<meta name="keywords" content="Load Balancing NGINX Caching Scaling">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:title" content="Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching | DigitalOcean">
+<meta name="twitter:description" content="Nginx is a high performance reverse proxy server and web server. In this guide, we will explore Nginx&#39;s http proxying and load balancing capabilities. We will cover how Nginx can use buffers and caching to improve the proxying experience for clients.">
+
+<meta name="og:title" content="Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching | DigitalOcean">
+<meta name="og:description" content="Nginx is a high performance reverse proxy server and web server. In this guide, we will explore Nginx&#39;s http proxying and load balancing capabilities. We will cover how Nginx can use buffers and caching to improve the proxying experience for clients.">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/tags/nginx-bf8fd79b6bbf881889132cd11ed1e5fa.png">
+
+    <link href="https://www.digitalocean.com/assets/community/application-f7ed7f0be9843b1febedc9c8d09acedf.css" media="all" rel="stylesheet">
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0=" name="csrf-token">
+    <script src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/quant.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="https://s.adroll.com/j/roundtrip.js"></script><script type="text/javascript" async="" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/analytics.js"></script><script type="text/javascript" async="" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/track.js" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script async="" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/gtm.js"></script><script type="text/javascript" async="" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/analytics.min.js"></script><script type="text/javascript" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/njm7orv.js"></script><style type="text/css"></style>
+    <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><link rel="stylesheet" href="https://use.typekit.net/c/2a8893/1w;proxima-nova,2,b5x:R:i4,b5r:R:n1,b5t:R:n3,b5w:R:n4,b5y:R:n6,bBh:R:n7/d?3bb2a6e53c9684ffdc9a9efe135b2a62ccbfeb2638961e3cd6d5df10095149079ee97f0843207f85652e80d5fcc2de48e667655f3bf1504e145029cccddbd9de7ab99911efa01d6dc06ff35e907912cd5a3c373f47f300374310abc27428ea8a01f31fd185ee65dfc6ad6c4fb9820de92ae6c521e24492d231f0e4c65a5549450877f0a664726624efe00da7a615acf4f7c490af24f4d23c952cff7116b96823222ba8766d9d6b7281a06f80ab5fcf7cdb897199ce3fba1f416a2285cc949497311186251a7e35ef391e046a2962afc0bf0e8b4659d673b2a7bda5b20ed23f7b18be041c3448f0d31e8f62fab702d499ef19de243e3cc0b1d055300a84ad1612c9941e7687db25a6a70f5bd045fc9548be032adb31a0ff72d804cc74ee21ddb679f7b5c088e6007037b2f0ae0a1f1969dd1d79fdd1528cdc1ed6424bf1124ee2b09829ce2277fc1121c162a90db844859b631bda6cf7e9ccfdde38e998e619a78f972149a71d991faca485cbe5ab727a9c3f107cff3bdf87cebd9a2c0ee0e23f702cef1d4310842996557ebed015788d9738b939506487546d78ebc8c9b94d59f7ae1e2a643464e565bbf9a4cb736b5b12a35c0a4255b2a0971f8ec12a7f02adad57167ed5e03892b166521c1c7bc02cdd870a6aff75184825168e7b06052aa5083ce15241cdca869b"><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/701281621.js"></script>
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <script src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/application-acef81ba4eadb6d163653e34553438fd.js"></script>
+  <style>
+.m-pikabu-sidebar, 
+.m-pikabu-container {
+-webkit-transition: -webkit-transform 0.2s ease-in;
+-moz-transition: -moz-transform 0.2s ease-in;
+-ms-transition: -ms-transform 0.2s ease-in;
+-o-transition: -o-transform 0.2s ease-in;
+transition: transform 0.2s ease-in;
+}
+.m-pikabu-left-visible .m-pikabu-left {
+	width: 255px;
+}
+.m-pikabu-right-visible .m-pikabu-right {
+	width: 255px;
+}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+  <body class="tutorials-controller" data-env="production" style="" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <script>
+//<![CDATA[
+
+    $(function() {
+      dataLayer = [$.parseJSON('{\"user_id\":\"\",\"is_community_page\":true,\"content_type\":\"tutorial\",\"author\":\"Justin Ellingwood\",\"difficulty\":\"intermediate\",\"created_at\":\"2014-11-25T19:53:29.174Z\",\"published_at\":\"2014-11-25T22:19:36.567Z\",\"updated_at\":\"2015-01-05T20:43:40.587Z\",\"article_tags\":\"Load Balancing, NGINX, Caching, Scaling\"}')];
+    });
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+    
+
+    <div class="outside_viewport">
+        <div id="table-of-contents" class="hide-on-pikabu tocify fixed" style="top: auto; display: block;">
+  <div id="toc-trigger">
+    <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">
+      <div class="title">Contents
+      	<span class="icon">
+      		<span class="close icon-arrow-up"></span>
+      		<span class="open icon-arrow-down"></span>
+      	</span>
+      </div>
+    </a>
+  </div>
+<ul id="tocify-header0" class="tocify-header" style="display: none;"><li class="tocify-item tocify-focus" data-unique="general-proxying-information"><a>General Proxying Information</a></li></ul><ul id="tocify-header1" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="deconstructing-a-basic-http-proxy-pass"><a>Deconstructing a Basic HTTP Proxy Pass</a></li></ul><ul id="tocify-header2" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="understanding-how-nginx-processes-headers"><a>Understanding How Nginx Processes Headers</a></li></ul><ul id="tocify-header3" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="setting-or-resetting-headers"><a>Setting or Resetting Headers</a></li></ul><ul id="tocify-header4" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="defining-an-upstream-context-for-load-balancing-proxied-connections"><a>Defining an Upstream Context for Load Balancing Proxied Connections</a></li></ul><ul id="tocify-header5" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="using-buffers-to-free-up-backend-servers"><a>Using Buffers to Free Up Backend Servers</a></li></ul><ul id="tocify-header6" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="configuring-proxy-caching-to-decrease-response-times"><a>Configuring Proxy Caching to Decrease Response Times</a></li></ul><ul id="tocify-header7" class="tocify-header" style="display: none;"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+
+
+    </div>
+
+    <div class="m-pikabu-viewport" style="width: auto;">
+      <div class="mobile-nav">
+  <div class="m-pikabu-sidebar m-pikabu-left m-pikabu-hidden">
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+      
+    <a class="close-panel icon-close" href="javascript:void(0);"></a>
+
+    <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/search" id="search" method="get"><div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="query" name="query" placeholder="Search the community" type="text">
+
+      <button class="icon-btn" name="button" type="submit">
+        <span class="icon-arrow-down"></span>
+</button></form>
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+  </div>
+</div>
+
+      <div class="m-pikabu-container"><div class="m-pikabu-overlay"></div>
+        
+      	<header>
+  <div class="wrapper">
+    <a class="logo" href="https://www.digitalocean.com/community"></a>
+    
+    <a class="m-pikabu-nav-toggle icon-navicon" data-role="left">
+      <span>Menu</span>
+    </a>
+
+    <nav>
+  <ul>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+    
+    
+<div class="account-buttons">
+    <div id="entrance">
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register" id="sign-up">Sign Up</a>
+      <a class="button" href="https://www.digitalocean.com/community/auth/digitalocean" id="log-in">Log In</a>
+    </div>
+</div>
+    <div class="header-search">
+  <input autocomplete="off" class="header-search-input" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086" data-algolia-application-id="6ZHEUVKJ88" id="query" name="query" placeholder="Search the community" spellcheck="off" type="text">
+  <input id="dropdown" name="dropdown" type="hidden" value="true">
+  <button class="icon-btn" name="button" type="submit">
+    <span class="icon-arrow-down"></span>
+</button>
+  <div id="search-results" data-root-path="https://www.digitalocean.com/community">
+  <div id="search-result-count">
+    <div class="inner-search">
+      <span class="icon icon-mag"></span>
+      <h3>There are <span class="header-results-count"></span> Results for ‘<span class="results-query"></span>’</h3>
+    </div>
+  </div>
+
+  <div class="header-search-results-list"></div>
+
+  <div id="btn-wrap">
+    <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+      <span class="icon-mag"></span>
+      View All Results
+</a>  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="search-result" id="search-{{type}}">
+    <div class="inner-search">
+      <span class="icon icon-{{type}}"></span>
+      <ul>
+          {{#hits}}
+            <li>
+              <a href="{{url}}">{{{_highlightResult.title.value}}}</a>
+            </li>
+          {{/hits}}
+      </ul>
+    </div>
+  </div>
+</script>
+</div>
+  </div>
+</header>
+        
+
+        <div class="wrapper tutorial-single">
+          <div class="flash-container"></div>
+          
+
+
+
+
+
+<div class="section section-primary">
+  <div class="sidebar main-sidebar" data-sticky-sidebar="" data-sticky-content=".section-content">
+
+      <p class="sidebar-avatar">
+        <a href="https://www.digitalocean.com/community/users/jellingwood"><img alt="jellingwood" class="avatar avatar-large" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80"></a>
+      </p>
+
+      <p class="sidebar-author">
+        <a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a>
+      </p>
+      
+
+    
+    <p class="sidebar-date">
+        
+        Nov 25, 2014
+    </p>
+
+      <p class="sidebar-date updated-at">Updated Jan  5, 2015</p>
+
+    <div class="upvotes upvoted"><div class="upvote-count ">17</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=1395&upvote%5Bupvotable_type%5D=Tutorial" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="tutorial" data-upvotable="tutorial_1395" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+    <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscribe">Subscribe</span>
+    <span class="subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a class="mini-switch-container" data-target="#sign-in-modal" data-toggle="modal" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+    <span class="meta-section">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value">Intermediate</span>
+    </span>
+    
+    
+
+    <div class="sidebar-button">
+    </div>
+
+  </div>
+
+  <div class="section-content content">
+
+    <ul class="social-sharing">
+  <li class="shareBtn sbMain">
+    <a class="share" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">
+      <span class="icon icon-share-square"></span>  
+    </a>
+  </li>
+  
+  <li class="shareBtn" id="sbTwitter">
+    <a href="http://twitter.com/share?text=Understanding%20Nginx%20HTTP%20Proxying,%20Load%20Balancing,%20Buffering,%20and%20Caching&url=https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" target="_blank" title="Share on Twitter">
+      <span class="sIcon icon-bird"></span>  
+      TWEET
+    </a>
+  </li>
+
+  <li class="shareBtn" id="sbFacebook">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" target="_blank" title="Share on Facebook">
+      <span class="sIcon icon-facebook-B"></span>
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbGoogle">
+    <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching" target="_blank" title="Share on Google+">
+      <span class="sIcon icon-google-plus-B"></span>  
+      SHARE
+    </a>
+  </li>
+  <li class="shareBtn" id="sbYC">
+    <a href="https://news.ycombinator.com/submitlink?u=https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching&t=Understanding%20Nginx%20HTTP%20Proxying,%20Load%20Balancing,%20Buffering,%20and%20Caching" target="_blank" title="Submit to Hacker News">
+      <span class="sIcon icon-hacker-news"></span>  
+      SHARE
+    </a>
+  </li>
+</ul>
+    <h1 class="content-title">Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching</h1>
+
+    <div class="tut-meta">
+      <div class="feedable-info">
+          <span class="meta-section meta-author">
+            <span class="meta-label">Author:</span>
+            <span class="meta-value"><a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+        <span class="meta-section meta-date">
+            <span class="meta-label">Published:</span>
+            <span class="meta-value">Nov 25, 2014</span>
+        </span>
+
+          <span class="meta-section meta-date">
+            <span class="meta-separator">•</span>
+            <span class="meta-label">Updated:</span>
+            <span class="meta-value">Jan  5, 2015</span>
+          </span>
+
+        <br>
+
+          <span class="meta-section opt-in-switch off signed-out-subscribe">
+  <span class="meta-label subscribe-label">
+    <span class="subscribe">Subscribe</span>
+    <span class="subscribed">Subscribed</span>
+  </span>
+  <span class="meta-value"><a class="mini-switch-container" data-target="#sign-in-modal" data-toggle="modal" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a></span>
+</span>
+
+          <span class="meta-section">
+            <span class="meta-label">Tagged In: </span>
+            <span class="meta-value"><a class="" href="https://www.digitalocean.com/community/tags/load-balancing?primary_filter=tutorials">Load Balancing</a>, <a class="" href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a class="" href="https://www.digitalocean.com/community/tags/caching?primary_filter=tutorials">Caching</a>, <a class="" href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+            <span class="meta-separator">•</span>
+          </span>
+
+          <span class="meta-section">
+            <span class="meta-label">Difficulty: </span>
+            <span class="meta-value">Intermediate</span>
+          </span>
+
+      </div>
+    </div>
+
+    
+
+    
+
+    <div class="content-body tutorial-content">
+      <h3 id="introduction">Introduction</h3>
+
+<p>In this guide, we will discuss Nginx's http proxying capabilities, which allow Nginx to pass requests off to backend http servers for further processing. Nginx is often set up as a reverse proxy solution to help scale out infrastructure or to pass requests to other servers that are not designed to handle large client loads.</p>
+
+<p>Along the way, we will discuss how to scale out using Nginx's built-in load balancing capabilities.  We will also explore buffering and caching to improve the performance of proxying operations for clients.</p>
+
+<div name="general-proxying-information" data-unique="general-proxying-information"></div><h2 id="general-proxying-information">General Proxying Information</h2>
+
+<p>If you have only used web servers in the past for simple, single server configurations, you may be wondering why you would need to proxy requests.</p>
+
+<p>One reason to proxy to other servers from Nginx is the ability to scale out your infrastructure.  Nginx is built to handle many concurrent connections at the same time.  This makes it ideal for being the point-of-contact for clients.  The server can pass requests to any number of backend servers to handle the bulk of the work, which spreads the load across your infrastructure.  This design also provides you with flexibility in easily adding backend servers or taking them down as needed for maintenance.</p>
+
+<p>Another instance where an http proxy might be useful is when using an application servers that might not be built to handle requests directly from clients in production environments.  Many frameworks include web servers, but most of them are not as robust as servers designed for high performance like Nginx.  Putting Nginx in front of these servers can lead to a better experience for users and increased security.</p>
+
+<p>Proxying in Nginx is accomplished by manipulating a request aimed at the Nginx server and passing it to other servers for the actual processing.  The result of the request is passed back to Nginx, which then relays the information to the client.  The other servers in this instance can be remote machines, local servers, or even other virtual servers defined within Nginx.  The servers that Nginx proxies requests to are known as <em>upstream servers</em>.</p>
+
+<p>Nginx can proxy requests to servers that communicate using the http(s), FastCGI, SCGI, and uwsgi, or memcached protocols through separate sets of directives for each type of proxy.  In this guide, we will be focusing on the http protocol.  The Nginx instance is responsible for passing on the request and massaging any message components into a format that the upstream server can understand.</p>
+
+<div name="deconstructing-a-basic-http-proxy-pass" data-unique="deconstructing-a-basic-http-proxy-pass"></div><h2 id="deconstructing-a-basic-http-proxy-pass">Deconstructing a Basic HTTP Proxy Pass</h2>
+
+<p>The most straight-forward type of proxy involves handing off a request to a single server that can communicate using http.  This type of proxy is known as a generic "proxy pass" and is handled by the aptly named <code>proxy_pass</code> directive.</p>
+
+<p>The <code>proxy_pass</code> directive is mainly found in location contexts.  It is also valid in <code>if</code> blocks within a location context and in <code>limit_except</code> contexts.  When a request matches a location with a <code>proxy_pass</code> directive inside, the request is forwarded to the URL given by the directive.</p>
+
+<p>Let's take a look at an example:</p>
+<pre class="" data-initialized="true" data-gclp-id="0"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">location</span> /match/here {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com</span>;
+}
+
+. . .
+
+</code></pre>
+<p>In the above configuration snippet, no URI is given at the end of the server in the <code>proxy_pass</code> definition.  For definitions that fit this pattern, the URI requested by the client will be passed to the upstream server as-is.</p>
+
+<p>For example, when a request for <code>/match/here/please</code> is handled by this block, the request URI will be sent to the <code>example.com</code> server as <code>http://example.com/match/here/please</code>.</p>
+
+<p>Let's take a look at the alternative scenario:</p>
+<pre class="" data-initialized="true" data-gclp-id="1"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">location</span> /match/here {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com/new/prefix</span>;
+}
+
+. . .
+</code></pre>
+<p>In the above example, the proxy server is defined with a URI segment on the end (<code>/new/prefix</code>).  When a URI is given in the <code>proxy_pass</code> definition, the portion of the request that matches the <em>location</em> definition is replaced by this URI during the pass.</p>
+
+<p>For example, a request for <code>/match/here/please</code> on the Nginx server will be passed to the upstream server as <code>http://example.com/new/prefix/please</code>.  The <code>/match/here</code> is replaced by <code>/new/prefix</code>.  This is an important point to keep in mind.</p>
+
+<p>Sometimes, this kind of replacement is impossible.  In these cases, the URI at the end of the <code>proxy_pass</code> definition is ignored and either the original URI from the client or the URI as modified by other directives will be passed to the upstream server.</p>
+
+<p>For instance, when the location is matched using regular expressions, Nginx cannot determine which part of the URI matched the expression, so it sends the original client request URI.  Another example is when a rewrite directive is used within the same location, causing the client URI to be rewritten, but still handled in the same block.  In this case, the rewritten URI will be passed.</p>
+
+<div name="understanding-how-nginx-processes-headers" data-unique="understanding-how-nginx-processes-headers"></div><h2 id="understanding-how-nginx-processes-headers">Understanding How Nginx Processes Headers</h2>
+
+<p>One thing that might not be immediately clear is that it is important to pass more than just the URI if you expect the upstream server handle the request properly.  The request coming from Nginx on behalf of a client will look different than a request coming directly from a client.  A big part of this is the headers that go along with the request.</p>
+
+<p>When Nginx proxies a request, it automatically makes some adjustments to the request headers it receives from the client:</p>
+
+<ul>
+<li>Nginx gets rid of any empty headers.  There is no point of passing along empty values to another server; it would only serve to bloat the request.</li>
+<li>Nginx, by default, will consider any header that contains underscores as invalid.  It will remove these from the proxied request.  If you wish to have Nginx interpret these as valid, you can set the <code>underscores_in_headers</code> directive to "on", otherwise your headers will never make it to the backend server.</li>
+<li>The "Host" header is re-written to the value defined by the <code>$proxy_host</code> variable.  This will be the IP address or name and port number of the upstream, directly as defined by the <code>proxy_pass</code> directive.</li>
+<li>The "Connection" header is changed to "close".  This header is used to signal information about the particular connection established between two parties.  In this instance, Nginx sets this to "close" to indicate to the upstream server that this connection will be closed once the original request is responded to.  The upstream should not expect this connection to be persistent.</li>
+</ul>
+<p>The first point that we can extrapolate from the above is that any header that you <em>do not</em> want passed should be set to an empty string.  Headers with empty values are completely removed from the passed request.</p>
+
+<p>The next point to glean from the above information is that if your backend application will be processing non-standard headers, you must make sure that they <em>do not</em> have underscores.  If you need headers that use an underscore, you can set the <code>underscores_in_headers</code> directive to "on" further up in your configuration (valid either in the http context or in the context of the default server declaration for the IP address/port combination).  If you do not do this, Nginx will flag these headers as invalid and silently drop them before passing to your upstream.</p>
+
+<p>The "Host" header is of particular importance in most proxying scenarios.  As stated above, by default, this will be set to the value of <code>$proxy_host</code>, a variable that will contain the domain name or IP address and port taken directly from the <code>proxy_pass</code> definition.  This is selected by default as it is the only address Nginx can be sure the upstream server responds to (as it is pulled directly from the connection info).</p>
+
+<p>The most common values for the "Host" header are below:</p>
+
+<ul>
+<li>
+<code>$proxy_host</code>: This sets the "Host" header to the domain name or IP address and port combo taken from the <code>proxy_pass</code> definition.  This is the default and "safe" from Nginx's perspective, but not usually what is needed by the proxied server to correctly handle the request.</li>
+<li>
+<code>$http_host</code>: Sets the "Host" header to the "Host" header from the client request.  The headers sent by the client are always available in Nginx as variables.  The variables will start with an <code>$http_</code> prefix, followed by the header name in lowercase, with any dashes replaced by underscores.  Although the <code>$http_host</code> variable works most of the time, when the client request does not have a valid "Host" header, this can cause the pass to fail.</li>
+<li>
+<code>$host</code>: This variable is set, in order of preference to: the host name from the request line itself, the "Host" header from the client request, or the server name matching the request.</li>
+</ul>
+<p>In most cases, you will want to set the "Host" header to the <code>$host</code> variable.  It is the most flexible and will usually provide the proxied servers with a "Host" header filled in as accurately as possible.</p>
+
+<div name="setting-or-resetting-headers" data-unique="setting-or-resetting-headers"></div><h2 id="setting-or-resetting-headers">Setting or Resetting Headers</h2>
+
+<p>To adjust or set headers for proxy connections, we can use the <code>proxy_set_header</code> directive.  For instance, to change the "Host" header as we have discussed, and add some additional headers common with proxied requests, we could use something like this:</p>
+<pre class="" data-initialized="true" data-gclp-id="2"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">location</span> /match/here {
+    <span class="hljs-title">proxy_set_header</span> HOST <span class="hljs-variable">$host</span>;
+    <span class="hljs-title">proxy_set_header</span> X-Forwarded-Proto <span class="hljs-variable">$scheme</span>;
+    <span class="hljs-title">proxy_set_header</span> X-Real-IP <span class="hljs-variable">$remote_addr</span>;
+    <span class="hljs-title">proxy_set_header</span> X-Forwarded-For <span class="hljs-variable">$proxy_add_x_forwarded_for</span>;
+
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com/new/prefix</span>;
+}
+
+. . .
+</code></pre>
+<p>The above request sets the "Host" header to the <code>$host</code> variable, which should contain information about the original host being requested.  The <code>X-Forwarded-Proto</code> header gives the proxied server information about the schema of the original client request (whether it was an http or an https request).</p>
+
+<p>The <code>X-Real-IP</code> is set to the IP address of the client so that the proxy can correctly make decisions or log based on this information.  The <code>X-Forwarded-For</code> header is a list containing the IP addresses of every server the client has been proxied through up to this point.  In the example above, we set this to the <code>$proxy_add_x_forwarded_for</code> variable.  This variable takes the value of the original <code>X-Forwarded-For</code> header retrieved from the client and adds the Nginx server's IP address to the end.</p>
+
+<p>Of course, we could move the <code>proxy_set_header</code> directives out to the server or http context, allowing it to be referenced in more than one location:</p>
+<pre class="" data-initialized="true" data-gclp-id="3"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">proxy_set_header</span> HOST <span class="hljs-variable">$host</span>;
+<span class="hljs-title">proxy_set_header</span> X-Forwarded-Proto <span class="hljs-variable">$scheme</span>;
+<span class="hljs-title">proxy_set_Header</span> X-Real-IP <span class="hljs-variable">$remote_addr</span>;
+<span class="hljs-title">proxy_set_header</span> X-Forwarded-For <span class="hljs-variable">$proxy_add_x_forwarded_for</span>;
+
+<span class="hljs-title">location</span> /match/here {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com/new/prefix</span>;
+}
+
+<span class="hljs-title">location</span> /different/match {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com</span>;
+}
+</code></pre>
+<div name="defining-an-upstream-context-for-load-balancing-proxied-connections" data-unique="defining-an-upstream-context-for-load-balancing-proxied-connections"></div><h2 id="defining-an-upstream-context-for-load-balancing-proxied-connections">Defining an Upstream Context for Load Balancing Proxied Connections</h2>
+
+<p>In the previous examples, we demonstrated how to do a simple http proxy to a single backend server.  Nginx allows us to easily scale this configuration out by specifying entire pools of backend servers that we can pass requests to.</p>
+
+<p>We can do this by using the <code>upstream</code> directive to define a pool of servers.  This configuration assumes that any one of the listed servers is capable of handling a client's request.  This allows us to scale out our infrastructure with almost no effort.  The <code>upstream</code> directive must be set in the http context of your Nginx configuration.</p>
+
+<p>Let's look at a simple example:</p>
+<pre class="" data-initialized="true" data-gclp-id="4"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># http context</span>
+
+<span class="hljs-title">upstream</span> <span class="highlight">backend_hosts</span> {
+    <span class="hljs-title">server</span> host1.example.com;
+    <span class="hljs-title">server</span> host2.example.com;
+    <span class="hljs-title">server</span> host3.example.com;
+}
+
+<span class="hljs-title">server</span> {
+    <span class="hljs-title">listen</span> <span class="hljs-number">80</span>;
+    <span class="hljs-title">server_name</span> example.com;
+
+    <span class="hljs-title">location</span> /proxy-me {
+        <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://</span><span class="highlight"><span class="hljs-url">backend_hosts</span></span>;
+    }
+}
+</code></pre>
+<p>In the above example, we've set up an upstream context called <code>backend_hosts</code>.  Once defined, this name will be available for use within proxy passes as if it were a regular domain name.  As you can see, within our server block we pass any request made to <code>example.com/proxy-me/...</code> to the pool we defined above.  Within that pool, a host is selected by applying a configurable algorithm.  By default, this is just a simple round-robin selection process (each request will be routed to a different host in turn).</p>
+
+<h3 id="changing-the-upstream-balancing-algorithm">Changing the Upstream Balancing Algorithm</h3>
+
+<p>You can modify the balancing algorithm used by the upstream pool by including directives or flags within the upstream context:</p>
+
+<ul>
+<li>
+<strong>(round robin)</strong>: The default load balancing algorithm that is used if no other balancing directives are present.  Each server defined in the upstream context is passed requests sequentially in turn.</li>
+<li>
+<strong><code>least_conn</code></strong>: Specifies that new connections should always be given to the backend that has the least number of active connections.  This can be especially useful in situations where connections to the backend may persist for some time.</li>
+<li>
+<strong><code>ip_hash</code></strong>: This balancing algorithm distributes requests to different servers based on the client's IP address.  The first three octets are used as a key to decide on the server to handle the request.  The result is that clients tend to be served by the same server each time, which can assist in session consistency.</li>
+<li>
+<strong><code>hash</code></strong>: This balancing algorithm is mainly used with memcached proxying.  The servers are divided based on the value of an arbitrarily provided hash key.  This can be text, variables, or a combination.  This is the only balancing method that requires the user to provide data, which is the key that should be used for the hash.</li>
+</ul>
+<p>When changing the balancing algorithm, the block may look something like this:</p>
+<pre class="" data-initialized="true" data-gclp-id="5"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># http context</span>
+
+<span class="hljs-title">upstream</span> <span class="highlight">backend_hosts</span> {
+
+    least_conn;
+
+    <span class="hljs-title">server</span> host1.example.com;
+    <span class="hljs-title">server</span> host2.example.com;
+    <span class="hljs-title">server</span> host3.example.com;
+}
+
+. . .
+
+</code></pre>
+<p>In the above example, the server will be selected based on which one has the least connections.  The <code>ip_hash</code> directive could be set in the same way to get a certain amount of session "stickiness".</p>
+
+<p>As for the <code>hash</code> method, you must provide the key to hash against.  This can be whatever you wish:</p>
+<pre class="" data-initialized="true" data-gclp-id="6"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># http context</span>
+
+<span class="hljs-title">upstream</span> <span class="highlight">backend_hosts</span> {
+
+    <span class="hljs-title">hash</span> <span class="hljs-variable">$remote_addr</span><span class="hljs-variable">$remote_port</span> consistent;
+
+    <span class="hljs-title">server</span> host1.example.com;
+    <span class="hljs-title">server</span> host2.example.com;
+    <span class="hljs-title">server</span> host3.example.com;
+}
+
+. . .
+
+</code></pre>
+<p>The above example will distribute requests based on the value of the client ip address and port.  We also added the optional parameter <code>consistent</code>, which implements the ketama consistent hashing algorithm.  Basically, this means that if your upstream servers change, there will be minimal impact on your cache.</p>
+
+<h3 id="setting-server-weight-for-balancing">Setting Server Weight for Balancing</h3>
+
+<p>In declarations of the backend servers, by default, each servers is equally "weighted".  This assumes that each server can and should handle the same amount of load (taking into account the effects of the balancing algorithms).  However, you can also set an alternative weight to servers during the declaration:</p>
+<pre class="" data-initialized="true" data-gclp-id="7"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># http context</span>
+
+<span class="hljs-title">upstream</span> <span class="highlight">backend_hosts</span> {
+    <span class="hljs-title">server</span> host1.example.com weight=<span class="hljs-number">3</span>;
+    <span class="hljs-title">server</span> host2.example.com;
+    <span class="hljs-title">server</span> host3.example.com;
+}
+
+. . .
+
+</code></pre>
+<p>In the above example, <code>host1.example.com</code> will receive three times the traffic as the other two servers.  By default, each server is assigned a weight of one.</p>
+
+<div name="using-buffers-to-free-up-backend-servers" data-unique="using-buffers-to-free-up-backend-servers"></div><h2 id="using-buffers-to-free-up-backend-servers">Using Buffers to Free Up Backend Servers</h2>
+
+<p>One issue with proxying that concerns many users is the performance impact of adding an additional server to the process.  In most cases, this can be largely mitigated by taking advantage of Nginx's buffering and caching capabilities.</p>
+
+<p>When proxying to another server, the speed of two different connections will affect the client's experience:</p>
+
+<ul>
+<li>The connection from the client to the Nginx proxy.</li>
+<li>The connection from the Nginx proxy to the backend server.</li>
+</ul>
+<p>Nginx has the ability to adjust its behavior based on whichever one of these connections you wish to optimize. </p>
+
+<p>Without buffers, data is sent from the proxied server and immediately begins to be transmitted to the client.  If the clients are assumed to be fast, buffering can be turned off in order to get the data to the client as soon as possible.  With buffers, the Nginx proxy will temporarily store the backend's response and then feed this data to the client.  If the client is slow, this allows the Nginx server to close the connection to the backend sooner.  It can then handle distributing the data to the client at whatever pace is possible.</p>
+
+<p>Nginx defaults to a buffering design since clients tend to have vastly different connection speeds.  We can adjust the buffering behavior with the following directives.  These can be set in the http, server, or location contexts.  It is important to keep in mind that the sizing directives are configured <em>per request</em>, so increasing them beyond your need can affect your performance when there are many client requests:</p>
+
+<ul>
+<li>
+<strong><code>proxy_buffering</code></strong>: This directive controls whether buffering for this context and child contexts is enabled.  By default, this is "on".</li>
+<li>
+<strong><code>proxy_buffers</code></strong>: This directive controls the number (first argument) and size (second argument) of buffers for proxied responses.  The default is to configure 8 buffers of a size equal to one memory page (either <code>4k</code> or <code>8k</code>).  Increasing the number of buffers can allow you to buffer more information.</li>
+<li>
+<strong><code>proxy_buffer_size</code></strong>: The initial portion of the response from a backend server, which contains headers, is buffered separately from the rest of the response.  This directive sets the size of the buffer for this portion of the response.  By default, this will be the same size as <code>proxy_buffers</code>, but since this is used for header information, this can usually be set to a lower value.</li>
+<li>
+<strong><code>proxy_busy_buffers_size</code></strong>: This directive sets the maximum size of buffers that can be marked "client-ready" and thus busy.  While a client can only read the data from one buffer at a time, buffers are placed in a queue to send to the client in bunches.  This directive controls the size of the buffer space allowed to be in this state.</li>
+<li>
+<strong><code>proxy_max_temp_file_size</code></strong>: This is the maximum size, per request, for a temporary file on disk. These are created when the upstream response is too large to fit into a buffer.</li>
+<li>
+<strong><code>proxy_temp_file_write_size</code></strong>: This is the amount of data Nginx will write to the temporary file at one time when the proxied server's response is too large for the configured buffers.</li>
+<li>
+<strong><code>proxy_temp_path</code></strong>: This is the path to the area on disk where Nginx should store any temporary files when the response from the upstream server cannot fit into the configured buffers.</li>
+</ul>
+<p>As you can see, Nginx provides quite a few different directives to tweak the buffering behavior.  Most of the time, you will not have to worry about the majority of these, but it can be useful to adjust some of these values.  Probably the most useful to adjust are the <code>proxy_buffers</code> and <code>proxy_buffer_size</code> directives.</p>
+
+<p>An example that increases the number of available proxy buffers for each upstream request, while trimming down the buffer that likely stores the headers would look like this:</p>
+<pre class="" data-initialized="true" data-gclp-id="8"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">proxy_buffering</span> <span class="hljs-built_in">on</span>;
+<span class="hljs-title">proxy_buffer_size</span> <span class="hljs-number">1k</span>;
+<span class="hljs-title">proxy_buffers</span> <span class="hljs-number">24</span> <span class="hljs-number">4k</span>;
+<span class="hljs-title">proxy_busy_buffers_size</span> <span class="hljs-number">8k</span>;
+<span class="hljs-title">proxy_max_temp_file_size</span> <span class="hljs-number">2048m</span>;
+<span class="hljs-title">proxy_temp_file_write_size</span> <span class="hljs-number">32k</span>;
+
+<span class="hljs-title">location</span> / {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com</span>;
+}
+</code></pre>
+<p>In contrast, if you have fast clients that you want to immediately serve data to, you can turn buffering off completely.  Nginx will actually still use buffers if the upstream is faster than the client, but it will immediately try to flush data to the client instead of waiting for the buffer to pool.  If the client is slow, this can cause the upstream connection to remain open until the client can catch up.  When buffering is "off" only the buffer defined by the <code>proxy_buffer_size</code> directive will be used:</p>
+<pre class="" data-initialized="true" data-gclp-id="9"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">proxy_buffering</span> <span class="hljs-built_in">off</span>;
+<span class="hljs-title">proxy_buffer_size</span> <span class="hljs-number">4k</span>;
+
+<span class="hljs-title">location</span> / {
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://example.com</span>;
+}
+</code></pre>
+<div name="configuring-proxy-caching-to-decrease-response-times" data-unique="configuring-proxy-caching-to-decrease-response-times"></div><h2 id="configuring-proxy-caching-to-decrease-response-times">Configuring Proxy Caching to Decrease Response Times</h2>
+
+<p>While buffering can help free up the backend server to handle more requests, Nginx also provides a way to cache content from backend servers, eliminating the need to connect to the upstream at all for many requests.</p>
+
+<h3 id="configuring-a-proxy-cache">Configuring a Proxy Cache</h3>
+
+<p>To set up a cache to use for proxied content, we can use the <code>proxy_cache_path</code> directive.  This will create an area where data returned from the proxied servers can be kept.  The <code>proxy_cache_path</code> directive must be set in the http context.</p>
+
+<p>In the example below, we will configure this and some related directives to set up our caching system.</p>
+<pre class="" data-initialized="true" data-gclp-id="10"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># http context</span>
+
+<span class="hljs-title">proxy_cache_path</span> /var/lib/nginx/cache levels=<span class="hljs-number">1</span>:<span class="hljs-number">2</span> keys_zone=backcache:<span class="hljs-number">8m</span> max_size=<span class="hljs-number">50m</span>;
+<span class="hljs-title">proxy_cache_key</span> <span class="hljs-string">"<span class="hljs-variable">$scheme</span><span class="hljs-variable">$request_method</span><span class="hljs-variable">$host</span><span class="hljs-variable">$request_uri</span><span class="hljs-variable">$is_args</span><span class="hljs-variable">$args</span>"</span>;
+<span class="hljs-title">proxy_cache_valid</span> <span class="hljs-number">200</span> <span class="hljs-number">302</span> <span class="hljs-number">10m</span>;
+<span class="hljs-title">proxy_cache_valid</span> <span class="hljs-number">404</span> <span class="hljs-number">1m</span>;
+</code></pre>
+<p>With the <code>proxy_cache_path</code> directive, we have have defined a directory on the filesystem where we would like to store our cache.  In this example, we've chosen the <code>/var/lib/nginx/cache</code> directory.  If this directory does not exist, you can create it with the correct permission and ownership by typing:</p>
+<pre data-initialized="true" data-gclp-id="11"><code langs="">sudo mkdir -p /var/lib/nginx/cache
+sudo chown www-data /var/lib/nginx/cache
+sudo chmod 700 /var/lib/nginx/cache
+</code></pre>
+<p>The <code>levels=</code> parameter specifies how the cache will be organized.  Nginx will create a cache key by hashing the value of a key (configured below).  The levels we selected above dictate that a single character directory (this will be the last character of the hashed value) with a two character subdirectory (taken from the next two characters from the end of the hashed value) will be created.  You usually won't have to be concerned with the specifics of this, but it helps Nginx quickly find the relevant values.</p>
+
+<p>The <code>keys_zone=</code> parameter defines the name for this cache zone, which we have called <code>backcache</code>.  This is also where we define how much metadata to store.  In this case, we are storing 8 MB of keys.  For each megabyte, Nginx can store around 8000 entries.  The <code>max_size</code> parameter sets the maximum size of the actual cached data.</p>
+
+<p>Another directive we use above is <code>proxy_cache_key</code>.  This is used to set the key that will be used to store cached values.  This same key is used to check whether a request can be served from the cache.  We are setting this to a combination of the scheme (http or https), the HTTP request method, as well as the requested host and URI.</p>
+
+<p>The <code>proxy_cache_valid</code> directive can be specified multiple times.  It allows us to configure how long to store values depending on the status code.  In our example, we store successes and redirects for 10 minutes, and expire the cache for 404 responses every minute.</p>
+
+<p>Now, we have configured the cache zone, but we still need to tell Nginx when to use the cache.</p>
+
+<p>In locations where we proxy to a backend, we can configure the use of this cache:</p>
+<pre class="" data-initialized="true" data-gclp-id="12"><code class="code-highlight language-nginx hljs "><span class="hljs-comment"># server context</span>
+
+<span class="hljs-title">location</span> /proxy-me {
+    <span class="hljs-title">proxy_cache</span> backcache;
+    <span class="hljs-title">proxy_cache_bypass</span> <span class="hljs-variable">$http_cache_control</span>;
+    <span class="hljs-title">add_header</span> X-Proxy-Cache <span class="hljs-variable">$upstream_cache_status</span>;
+
+    <span class="hljs-title">proxy_pass</span> <span class="hljs-url">http://backend</span>;
+}
+
+. . .
+
+</code></pre>
+<p>Using the <code>proxy_cache</code> directive, we can specify that the <code>backcache</code> cache zone should be used for this context.  Nginx will check here for a valid entry before passing to the backend.</p>
+
+<p>The <code>proxy_cache_bypass</code> directive is set to the <code>$http_cache_control</code> variable.  This will contain an indicator as to whether the client is explicitly requesting a fresh, non-cached version of the resource.  Setting this directive allows Nginx to correctly handle these types of client requests.  No further configuration is required.</p>
+
+<p>We also added an extra header called <code>X-Proxy-Cache</code>.  We set this header to the value of the <code>$upstream_cache_status</code> variable.  Basically, this sets a header that allows us to see if the request resulted in a cache hit, a cache miss, or if the cache was explicitly bypassed.  This is especially valuable for debugging, but is also useful information for the client.</p>
+
+<h3 id="notes-about-caching-results">Notes about Caching Results</h3>
+
+<p>Caching can improve the performance of your proxy enormously.  However, there are definitely considerations to keep in mind when configuring cache.</p>
+
+<p>First, any user-related data should <em>not</em> be cached.  This could result in one user's data being presented to another user.  If your site is completely static, this is probably not an issue. </p>
+
+<p>If your site has some dynamic elements, you will have to account for this in the backend servers.  How you handle this depends on what application or server is handling the backend processing.  For private content, you should set the <code>Cache-Control</code> header to "no-cache", "no-store", or "private" depending on the nature of the data:</p>
+
+<ul>
+<li>
+<strong>no-cache</strong>: Indicates that the response shouldn't be served again without first checking that the data hasn't changed on the backend.  This can be used if the data is dynamic and important.  An ETag hashed metadata header is checked on each request and the previous value can be served if the backend returns the same hash value.</li>
+<li>
+<strong>no-store</strong>: Indicates that at no point should the data received ever be cached.  This is the safest option for private data, as it means that the data must be retrieved from the server every time.</li>
+<li>
+<strong>private</strong>: This indicates that no shared cache space should cache this data.  This can be useful for indicating that a user's browser can cache the data, but the proxy server shouldn't consider this data valid for subsequent requests.</li>
+<li>
+<strong>public</strong>: This indicates that the response is public data that can be cached at any point in the connection.</li>
+</ul>
+<p>A related header that can control this behavior is the <code>max-age</code> header, which indicates the number of seconds that any resource should be cached.</p>
+
+<p>Setting these headers correctly, depending on the sensitivity of the content, will help you take advantage of cache while keeping your private data safe and your dynamic data fresh.</p>
+
+<p>If your backend also uses Nginx, you can set some of this using the <code>expires</code> directive, which will set the <code>max-age</code> for <code>Cache-Control</code>:</p>
+<pre class="" data-initialized="true" data-gclp-id="13"><code class="code-highlight language-nginx hljs "><span class="hljs-title">location</span> / {
+    <span class="hljs-title">expires</span> <span class="hljs-number">60m</span>;
+}
+
+<span class="hljs-title">location</span> /check-me {
+    <span class="hljs-title">expires</span> -<span class="hljs-number">1</span>;
+}
+</code></pre>
+<p>In the above example, the first block allows content to be cached for an hour.  The second block sets the <code>Cache-Control</code> header to "no-cache".  To set other values, you can use the <code>add_header</code> directive, like this:</p>
+<pre class="" data-initialized="true" data-gclp-id="14"><code class="code-highlight language-nginx hljs "><span class="hljs-title">location</span> /private {
+    <span class="hljs-title">expires</span> -<span class="hljs-number">1</span>;
+    <span class="hljs-title">add_header</span> Cache-Control <span class="hljs-string">"no-store"</span>;
+}
+</code></pre>
+<div name="conclusion" data-unique="conclusion"></div><h2 id="conclusion">Conclusion</h2>
+
+<p>Nginx is first and foremost a reverse proxy, which also happens to have the ability to work as a web server.  Because of this design decision, proxying requests to other servers is fairly straight forward.  Nginx is very flexible though, allowing for more complex control over your proxying configuration if desired.</p>
+
+      <span class="meta-section tags">
+        <span class="meta-label">Tagged In: </span>
+        <span class="meta-value"><a class="" href="https://www.digitalocean.com/community/tags/load-balancing?primary_filter=tutorials">Load Balancing</a>, <a class="" href="https://www.digitalocean.com/community/tags/nginx?primary_filter=tutorials">NGINX</a>, <a class="" href="https://www.digitalocean.com/community/tags/caching?primary_filter=tutorials">Caching</a>, <a class="" href="https://www.digitalocean.com/community/tags/scaling?primary_filter=tutorials">Scaling</a></span>
+      </span>
+
+      <div class="row boxes">
+        <div class="half">
+          <div class="box author">
+            <a href="https://www.digitalocean.com/community/users/jellingwood"><img alt="jellingwood" class="avatar avatar-large" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80"></a>
+            <div class="info">
+              <div class="label">Written By:</div>
+              <div class="name"><a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="half">
+          <div class="box hearting secondary-tutorial-upvote ">
+            <div class="heart">
+              <span class="icon-upvote-heart-full upvote-heart" data-original-title="Do you find this post helpful? Heart it! This will count as a point toward the author of this tutorial."></span>
+            </div>
+            <div class="info">
+              <span class="empty">Do you find this post helpful?<br>Show the author by Hearting it!</span>
+              <div class="hearted">Thanks!<br>A heart has been given to the author.</div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+
+                
+        <div class="clear"></div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="content-primary-actions hidden">
+      <a class="share" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#"><span class="icon-share"></span>Share Tutorial</a>
+      <a class="improve" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#"><span class="icon-edit"></span>Improve Tutorial</a>
+      <a class="write" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#"><span class="icon-edit"></span>Write Tutorial</a>
+    </div>
+
+    
+
+
+
+      <div class="related">
+    <h2>Related Tutorials</h2>
+
+    <ul>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-configure-redis-caching-to-speed-up-wordpress-on-ubuntu-14-04">How To Configure Redis Caching to Speed Up WordPress on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/understanding-and-implementing-fastcgi-proxying-in-nginx">Understanding and Implementing FastCGI Proxying in Nginx</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04">How To Set Up a Node.js Application for Production on Ubuntu 14.04</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/5-configuracoes-comuns-de-servidor-para-sua-aplicacao-web-pt">5 configurações comuns de servidor para sua aplicação Web</a></li>
+          <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/5-configuraciones-comunes-para-tus-aplicaciones-web-es">5 Configuraciones Comunes para tus Aplicaciones Web</a></li>
+    </ul>
+  </div>
+
+
+    <div class="content-comments">
+      <div class="tutorial commentable" id="tutorial_1395">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>8 Comments</span></h4>
+  </div>
+
+  <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled" style="overflow: hidden; word-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" data-remote="true" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching/comments" rel="nofollow">Load</a>
+    <li class="response    " id="comment_23302">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_23302" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23302&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_23302" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23302" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/chrishaas"><img alt="chrishaas" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/860cd8e5ee5064509d0ef587159804eb" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/chrishaas">chrishaas</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23302" rel="nofollow">November 26, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>Very, very, very well written and thorough!</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_23302">
+
+    <div id="form_comment_23302" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23302/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_23302" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23302/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_23302"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response deleted-response   " id="comment_23680">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_23680" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23680&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_23680" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23680" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/ivanmaglica"><img alt="IvanMaglica" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/d5dcc68f64993eed2e5e66d42b7791fa" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/ivanmaglica">IvanMaglica</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23680" rel="nofollow">December  3, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body ">[deleted]</div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_23680">
+
+    <div id="form_comment_23680" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23680/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_23680" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23680/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_23680"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_23681">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_23681" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23681&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_23681" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23681" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/ivanmaglica"><img alt="IvanMaglica" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/d5dcc68f64993eed2e5e66d42b7791fa" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/ivanmaglica">IvanMaglica</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23681" rel="nofollow">December  3, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>Little correction: "key<em>zone" must be corrected to "keys</em>zone". Nginx does not very much information in errors.log</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_23681">
+
+    <div id="form_comment_23681" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23681/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+
+    <li class="response    " id="comment_23682">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_23682" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23682&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_23682" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23682" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/ivanmaglica"><img alt="IvanMaglica" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/d5dcc68f64993eed2e5e66d42b7791fa" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/ivanmaglica">IvanMaglica</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23682" rel="nofollow">December  3, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>with underscores between keys and zone</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_23682">
+
+    <div id="form_comment_23682" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23682/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_23682" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23682/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_23682"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_23683">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_23683" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=23683&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_23683" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23683" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jellingwood"><img alt="jellingwood" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jellingwood">jellingwood</a><div class="staff-tag"><span class="staff-tag-text">Mod</span></div></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=23683" rel="nofollow">December  3, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>Ah, nice catch.  I've updated the article.  Thanks <a href="https://www.digitalocean.com/community/users/IvanMaglica" class="username-tag">@IvanMaglica</a>!</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_23683">
+
+    <div id="form_comment_23683" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23683/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_23683" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23683/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_23683"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+
+
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_23681" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/23681/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_23681"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_24669">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_24669" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=24669&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_24669" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24669" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jonathanwexler"><img alt="jonathanwexler" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/d4fbea357f316e2428f3ea03235fb443" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jonathanwexler">jonathanwexler</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24669" rel="nofollow">December 21, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>Hi Justin - really great tutorial.</p>
+
+<p>Actually, what I am specifically trying to get running well is <em>NGINX server blocks using Docker containers</em> - with NGINX as both the host reverse proxy, and the web server inside the Docker containers - which are in turn all running Wordpress.</p>
+
+<p>It would be great for me - and I suspect a lot of Digital Ocean users - if you could write such a tutorial - so basically <em>we could run many Wordpress Docker containers inside a single Droplet</em>.</p>
+
+<p>If this can add some good luck - my best friend is also a technical writer named Justin - though he is from Montreal. Thanks profusely.</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_24669">
+
+    <div id="form_comment_24669" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24669/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+
+    <li class="response    " id="comment_24736">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_24736" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes upvoted"><div class="upvote-count ">1</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=24736&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_24736" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24736" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jellingwood"><img alt="jellingwood" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jellingwood">jellingwood</a><div class="staff-tag"><span class="staff-tag-text">Mod</span></div></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24736" rel="nofollow">December 22, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p><a href="https://www.digitalocean.com/community/users/jonathanwexler" class="username-tag">@jonathanwexler</a>:  Although we don't have a guide for that configuration specifically, we do have one that covers <a href="https://www.digitalocean.com/community/tutorials/docker-explained-how-to-containerize-and-use-nginx-as-a-proxy" rel="nofollow">how to use Nginx as a containerized reverse proxy</a>.</p>
+
+<p>Take a look through that guide and let us know what parts of the setup you want to try still need explanation.  That would help us try to narrow the scope for a potential article.</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_24736">
+
+    <div id="form_comment_24736" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24736/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_24736" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24736/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_24736"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_24783">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_24783" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=24783&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_24783" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24783" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jonathanwexler"><img alt="jonathanwexler" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/d4fbea357f316e2428f3ea03235fb443" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jonathanwexler">jonathanwexler</a></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24783" rel="nofollow">December 22, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p>Thanks <a href="https://www.digitalocean.com/community/users/jellingwood" class="username-tag">@jellingwood</a> —  I am working on notes to send you (I too am a technical writer!) - can you tell me where it is best to post them?</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_24783">
+
+    <div id="form_comment_24783" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24783/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_24783" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24783/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_24783"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+    <li class="response    " id="comment_24822">
+  <div class="moderation-actions small comment-moderation inline">
+    <ul id="moderate_24822" class="">
+      
+
+
+
+
+    </ul>
+  </div>
+
+  <div class="upvotes "><div class="upvote-count hidden">0</div><form accept-charset="UTF-8" action="https://www.digitalocean.com/community/upvotes/toggle?upvote%5Bupvotable_id%5D=24822&upvote%5Bupvotable_type%5D=Comment" class="upvote-form upvote signed-out-upvote" data-remote="true" data-upvotable-type="comment" data-upvotable="comment_24822" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="/ic9FzfqTZPCb6p11oH7tyasvKrWObMmsF3PmqM5eL0="></div>
+    <button type="submit" disabled="disabled" data-toggle="modal" data-target="#sign-in-modal"><span class="icon-upvote-heart-small upvote-heart" data-toggle="modal" data-target="#sign-in-modal" data-return-url="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24822" title="Do you find this post helpful? Show the author by Hearting it!"></span></button>
+
+</form></div>
+
+
+  <div class="response-avatar">
+    <a href="https://www.digitalocean.com/community/users/jellingwood"><img alt="jellingwood" class="avatar avatar-small" height="80" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/60d901f61a6146e14a3e989bc1f4ef11" width="80"></a>
+  </div>
+
+  <div>
+    <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/jellingwood">jellingwood</a><div class="staff-tag"><span class="staff-tag-text">Mod</span></div></span>
+    <span class="response-time"><a class="post-time-link" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching?comment=24822" rel="nofollow">December 23, 2014</a></span>
+
+    
+  </div>
+
+      <div class="response-body content-body "><p><a href="https://www.digitalocean.com/community/users/jonathanwexler" class="username-tag">@jonathanwexler</a>: Oh, that's awesome! We have a page for suggestions <a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas" rel="nofollow">here</a>.  We have a bit of a backlog at the moment, but that's the best way to get your idea onto our list of topics to cover.</p>
+
+<p>Thanks again for the suggestions!</p></div>
+
+  <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+  <div class="content-actions">
+
+  
+</div>
+
+
+  <div class="response-comments">
+    <div class="comment commentable" id="comment_24822">
+
+    <div id="form_comment_24822" class="hidden">
+      <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24822/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+    </div>
+
+  <div class="comments">
+    <ul class="response-list">
+
+      
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_24822" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24822/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_24822"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li>
+
+
+
+    </ul>
+  </div>
+
+
+      <div id="secondary_form_comment_24669" class="hidden secondary-comment-form">
+        <div class="response no-avatar  response-form">
+  <div class="response-user-details">
+      <div class="flash notice log-in-notice">You must be logged in to comment. <a href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a></div>
+  </div>
+
+  <div class="js-display-on-error flash error hidden"></div>
+  <form accept-charset="UTF-8" action="https://www.digitalocean.com/community/comments/24669/comments" class="content-form disabled-form" data-remote="true" id="new_comment" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓" disabled="disabled"></div>
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea class="js-comment-content comment-comment-field meltdown_editor" data-markdown="true" id="comment_content" name="comment[content]" placeholder="Leave a comment..." disabled="disabled"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="subscribe-to-post">
+        <input checked="checked" id="comment_subscribe" name="comment[subscribe]" type="checkbox" disabled="disabled">
+        <label for="comment_subscribe">Notify me of replies to my comment</label>
+      </div>
+
+    <button type="submit" id="submit-comment" data-disable-with="Submitting..." disabled="disabled">
+      Submit Comment
+      <span class="icon-arrow-right"></span>
+    </button>
+</form></div>
+      </div>
+
+
+  <div id="reply_anchor_comment_24669"></div>
+</div>
+  </div>
+
+  <div class="clear"></div>
+</li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+
+  <div class="load-more-container"></div>
+</div>
+
+    </div>
+
+    <div id="creative-commons">
+      <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" rel="license" src="./Understanding Nginx HTTP Proxying, Load Balancing, Buffering, and Caching   DigitalOcean_files/creativecommons-b4540f6e3875bceed5e8823eb0c597a2.png"></a>
+        <br>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+
+
+          <div class="clearfix"></div>
+      	</div>
+
+      	<footer id="footer">
+  <div class="wrapper">
+    <div id="column-main" class="footer-column">
+
+      <a class="cloud-icon" href="https://www.digitalocean.com/"></a>
+
+      <div id="copyright">
+
+        Copyright © 2014<br>
+        DigitalOcean ™ Inc.
+      </div>
+      <a href="http://nytm.org/made-in-nyc/" id="made-in-ny">Proudly Made in NY</a>
+
+      <div id="privacy">
+        <a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a>
+        <a href="https://www.digitalocean.com/security/">Security</a>
+      </div>
+
+    </div>
+
+    <div id="column-product" class="footer-column">
+      <h3>Product</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/pricing/">Pricing</a></li>
+        <li><a href="https://www.digitalocean.com/features/control-panel/">Features</a></li>
+        <li><a href="https://www.digitalocean.com/customers/">Customers</a></li>
+        <li><a href="https://www.digitalocean.com/features/one-click-apps/">One-Click Apps</a></li>
+        <li><a href="https://developers.digitalocean.com/">API</a></li>
+      </ul>
+    </div>
+
+    <div id="column-company" class="footer-column">
+      <h3>Company</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/company/about/">About Us</a></li>
+        <li><a href="https://www.digitalocean.com/company/blog/">Blog</a></li>
+        <li><a href="https://www.digitalocean.com/company/careers/">Jobs</a></li>
+        <li><a href="https://www.digitalocean.com/company/press/">Press</a></li>
+        <li><a href="https://www.digitalocean.com/company/logos-and-badges/">Logos &amp; Badges</a></li>
+        <li><a href="https://www.digitalocean.com/company/events/">Events</a></li>
+        <li><a href="https://www.digitalocean.com/company/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="column-help" class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/help/">Knowledgebase</a></li>
+        <li><a href="https://www.digitalocean.com/help/getting-started/setting-up-your-server/">Getting Started</a></li>
+        <li><a href="https://digitalocean.uservoice.com/forums/136585-digitalocean" target="_blank">Feedback</a></li>
+        <li><a href="https://www.digitalocean.com/referral-program/">Referral Program</a></li>
+        <li><a href="https://status.digitalocean.com/" target="_blank">Network Status</a></li>
+        <li><a href="https://www.digitalocean.com/help/">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div id="column-community" class="footer-column">
+      <h3>Community</h3>
+      <ul>
+        <li><a href="https://www.digitalocean.com/community">Dashboard</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+        <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+        <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+        <li><a href="https://www.digitalocean.com/community/tutorials/digitalocean-community-article-suggestions-and-ideas">Tutorial Suggestions</a></li>
+        <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+      </ul>
+    </div>
+
+    <div id="column-connect" class="footer-column">
+      <h3>Connect</h3>
+      <ul>
+        <li class="twitter"><a href="https://twitter.com/digitalocean" target="_blank">Twitter</a></li>
+        <li class="facebook"><a href="https://www.facebook.com/DigitalOceanCloudHosting" target="_blank">Facebook</a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/digitalocean" target="_blank">LinkedIn</a></li>
+        <li class="google"><a href="https://plus.google.com/+Digitalocean/posts" target="_blank">Google+</a></li>
+        <li class="instagram"><a href="http://instagram.com/thedigitalocean" target="_blank">Instagram</a></li>
+        <li class="meetup"><a href="http://www.meetup.com/DigitalOcean_Community/" target="_blank">Meetup</a></li>
+      </ul>
+    </div>
+
+    <div id="droplet-count">
+      <span class="count">3,700,218</span> Droplets Launched
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+</footer>
+
+      </div>
+    </div>
+
+    <div id="sign-in-modal" class="modal fade" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Sign Up</h1>
+        <a class="close-button" data-dismiss="modal" href=""><span class="icon icon-close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Not so fast, you must have an account before you can do that.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Create Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+  
+
+<textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: proxima-nova, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 713px;" class="autosizejs" id="autosizejs"></textarea><a id="scrollUp" href="https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top-width: 1px; border-top-style: dotted; border-top-color: rgb(0, 255, 255); z-index: 2147483647;"></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><script type="text/javascript" id="">adroll_custom_data={user_id:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625502'),article_tag:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625503'),tutorial_difficulty:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625504'),content_type:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625505'),author:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625506'),is_community_page:google_tag_manager["GTM-KHWBBT"].macro('gtm1420677625507')};</script>
+<script type="text/javascript" id="">var _qevents=_qevents||[];(function(){var a=document.createElement("script");a.src=("https:"==document.location.protocol?"https://secure":"http://edge")+".quantserve.com/quant.js";a.async=!0;a.type="text/javascript";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})();_qevents.push({qacct:"p-ezk6DY8pwNxCt",labels:"_fp.event.Community"});</script>
+<noscript>
+&lt;img src="//pixel.quantserve.com/pixel/p-ezk6DY8pwNxCt.gif?labels=_fp.event.Community" style="display: none;" border="0" height="1" width="1" alt="Quantcast"&gt;
+</noscript>
+<form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1033.5px; top: 1568px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1033.5px; top: 2024px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1033.5px; top: 4379px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 1033.5px; top: 5031px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 1033.5px; top: 5763px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 1033.5px; top: 6923px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 1033.5px; top: 7378px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 1033.5px; top: 7975px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 1033.5px; top: 9797px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 1033.5px; top: 10265px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 1033.5px; top: 10859px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 1033.5px; top: 11145px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 1033.5px; top: 11898px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 1033.5px; top: 13498px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 1033.5px; top: 13805px; display: none;"></div></body></html>

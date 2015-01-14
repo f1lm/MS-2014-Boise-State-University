@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<!-- saved from url=(0208)https://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality?utm_term=elasticsearch-functionality&utm_content=buffer93660&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" ng-app="AP" ng-strict-di="" class="ng-scope pw-locale-en ra1-pw-desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <title>How We Used ElasticSearch to Build Robust Search Functionality Into Savvy1.com</title>
+  <meta name="description" content="In this article, Ram demonstrates a simple but scalable search system based on ElasticSearch.">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How We Used ElasticSearch to Build Robust Search Functionality Into Savvy1.com">
+  <meta property="og:description" content="In this article, Ram walks through the reasons that Savvy chose ElasticSearch over alternatives and demonstrates a way to build a simple but scalable search system based on it.">
+  <meta property="og:image" content="https://i.imgur.com/GFVRpqK.jpg">
+  <meta property="og:url" content="http://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality">
+  <link rel="canonical" href="http://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" id="google-font-css" href="./Thinking with Type   Contents_files/css" type="text/css" media="all">
+  <link rel="stylesheet" href="./Thinking with Type   Contents_files/libs-c49bcb3a.css" type="text/css">
+  <link rel="stylesheet" href="./Thinking with Type   Contents_files/index-76502f57.css" type="text/css">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss" title="AirPair Rss">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss/posts" title="AirPair Posts">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss/workshops" title="AirPair Workshops">
+  <!--<base href="/">--><base href=".">
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style><link rel="stylesheet" type="text/css" href="./Thinking with Type   Contents_files/r1post.css" media="all"><link rel="stylesheet" type="text/css" href="./Thinking with Type   Contents_files/r1post_retina.css" media="all"><script async="true" type="text/javascript" src="https://s.adroll.com/j/roundtrip.js"></script></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<header>
+  <a href="https://www.airpair.com/" tile="airpair.com pair programming"></a>
+
+
+  <ul>
+    <li><a href="https://www.airpair.com/rss" target="_self" class="rss">Rss</a></li>
+    <li><a href="https://www.airpair.com/privacy" target="_blank" class="pp">Privacy</a></li>
+    <li><a href="https://www.airpair.com/posts">Posts</a></li>
+    <li><a href="https://www.airpair.com/workshops" target="_self" class="wk">Workshops</a></li>
+    <li><b><a id="headerGetHelp" href="https://www.airpair.com/find-an-expert" track-click="request" target="_self" class="btn">Get Expert Help!</a></b></li>
+  </ul>
+</header>
+
+<div class="main-wrap">
+  <div notifications="" class="notify"><!-- ngIf: serverErrors.length > 0 -->
+<!-- ngIf: (!serverErrors || serverErrors.length==0) && notifications -->
+</div>
+  <!-- ngView:  --><main ng-view="" class="ng-scope">
+        <header class="entry-header ng-scope">
+  <ol class="entry-meta breadcrumb">
+    <li><a href="https://www.airpair.com/learn">Learn</a></li>
+    <li><a href="https://www.airpair.com/posts">Posts</a></li>
+    <li>elasticsearch</li>
+    <li>
+      <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="//schema.org/Person">
+        <span class="entry-author-name" itemprop="name">Ram Viswanadha</span>
+      </span>
+    </li>
+  </ol>
+</header>
+
+<article class="blogpost ng-scope">
+  <h1 class="entry-title" itemprop="headline">Building Scalable Search from Scratch with ElasticSearch</h1>
+
+  <div class="railMarker"></div>
+
+  <h4 id="table-of-contents" style="top: 1175px;">Table of Contents</h4>
+  <ul style="top: 1175px;">
+<li><a href="https://www.airpair.com/#1-introduction">1 Introduction</a></li>
+<li><a href="https://www.airpair.com/#2-requirements">2 Requirements</a></li>
+<li><a href="https://www.airpair.com/#3-savvy1-tech-stack">3 Savvy1 tech stack</a></li>
+<li><a href="https://www.airpair.com/#4-how-to-build-it">4 How to build it</a><ul>
+<li><a href="https://www.airpair.com/#4-1-launch-the-elasticsearch-server">4.1.  Launch the ElasticSearch server</a></li>
+<li><a href="https://www.airpair.com/#4-2-generate-boilerplate-code">4.2 Generate boilerplate code</a></li>
+<li><a href="https://www.airpair.com/#4-3-add-a-route-to-the-server">4.3 Add a route to the server</a><ul>
+<li><a href="https://www.airpair.com/#4-3-1-add-external-dependencies">4.3.1 Add external dependencies</a></li>
+<li><a href="https://www.airpair.com/#4-3-2-create-a-new-resource">4.3.2 Create a new resource</a></li>
+<li><a href="https://www.airpair.com/#4-3-3-configure-the-service-class">4.3.3 Configure the service class</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#4-4-create-the-angularjs-app">4.4 Create the AngularJS app</a><ul>
+<li><a href="https://www.airpair.com/#4-4-1-update-assets">4.4.1 Update assets</a></li>
+<li><a href="https://www.airpair.com/#4-4-2-update-app-js-">4.4.2 Update <code>app.js</code></a></li>
+<li><a href="https://www.airpair.com/#4-4-3-update-index-html-">4.4.3 Update <code>index.html</code></a></li>
+<li><a href="https://www.airpair.com/#4-4-4-create-the-main-controller">4.4.4 Create the main controller</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#latest-products">Latest Products</a><ul>
+<li><a href="https://www.airpair.com/#-product-description-" class="ng-binding"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#5-autocomplete">5 Autocomplete</a><ul>
+<li><a href="https://www.airpair.com/#5-1-1-add-the-resource">5.1.1 Add the resource</a></li>
+<li><a href="https://www.airpair.com/#5-1-2-add-the-controller">5.1.2 Add the controller</a></li>
+<li><a href="https://www.airpair.com/#5-1-3-add-the-search-box">5.1.3 Add the Search Box</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#6-search-improvement">6 Search Improvement</a><ul>
+<li><a href="https://www.airpair.com/#6-1-analyzers-tokenizers-and-token-filters">6.1 analyzers, tokenizers and token filters</a></li>
+<li><a href="https://www.airpair.com/#6-2-ngram">6.2 nGram</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#7-data-ingestion-strategies">7 Data ingestion strategies</a><ul>
+<li><a href="https://www.airpair.com/#7-1-pusher">7.1 Pusher</a></li>
+<li><a href="https://www.airpair.com/#7-2-feeder">7.2 Feeder</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#8-references">8. References</a></li>
+</ul>
+
+  <div class="rail2CTA"></div>
+  <figure class="author">
+    <img alt="Ram Viswanadha" src="./Thinking with Type   Contents_files/16d45c03c7e437b3715dfba4aea40a8e">
+    <figcaption>
+      Ram Viswanadha is a hands-on architect and a full stack web engineer experienced in designing, developing, deploying and maintaining scalable architectures for web products. His products include AdSavvy, Savvy1, Twyxt and AdTouch Suite.
+    </figcaption>
+    <hr>
+  </figure>
+  <p class="asset"><img src="./Thinking with Type   Contents_files/GFVRpqK.jpg"></p>
+  <hr>
+
+
+  <post no-compile=""><div class="workshop-cta">
+        <b>FREE WORKSHOP: Robust Search with ElasticSearch</b>Ram Viswanadha is giving a free virtual workshop on the fundamentals of building out robust search functionality through ElasticSearch.
+        <a href="http://docs.google.com/a/airpair.com/forms/d/1qHqm3I3zFZYar2Zd5_xwD6y_PsT0y9eHrHnwld4xEcw/viewform?embedded=true" class="trackPostCTA">&gt;&gt; Sign up to secure a spot</a>
+</div>
+
+
+<h2 id="1-introduction">1 Introduction</h2>
+<p>Savvy is an online community for the world’s product enthusiasts. Our communities are the product trendsetters that the rest of the world follows. Across the site, our users are able to compare products, ask and answer product questions, share product reviews, and generally share their product interests with one another. Savvy1.com boasts a vibrant community that save products on the site at the rate of 1 product every second. We wanted to provide a search bar that can search across various entities in the system - users, products, coupons, collections, etc. - and return the results in a timely fashion. </p>
+<h2 id="2-requirements">2 Requirements</h2>
+<p>The search server should satisfy the following requirements:</p>
+<ol>
+<li>Full Text Search: The ability to not only return documents that contain the exact keywords, but also documents that contain words that are related or relevant to the keywords.</li>
+<li>Clustering: The ability to distribute data across multiple nodes for load balancing and efficient searching.</li>
+<li>Horizontal Scalability: The ability to increase the capacity of the cluster by adding more nodes.</li>
+<li>Read and Write Efficiency: Since our application is both read and write heavy, we need a system that allows for high write loads and efficient read times on heavy read loads.</li>
+<li>Fault Tolerant: The loss of any node in the cluster should not affect the stability of the cluster.</li>
+<li>REST API with JSON: The server should support a REST API using JSON for input and output.</li>
+</ol>
+<p>At the time, we looked at Sphinx, Solr and ElasticSearch. The only system that satisfied all of the above requirements was ElasticSearch, and — to sweeten the deal — ElasticSearch provided a way to efficiently ingest and index data in our MongoDB database via the River API so we could get up and running quickly.</p>
+<blockquote>
+<p><strong>Heads Up:</strong> The river API is being deprecated in ElasticSearch.  You shouldn't use it anymore in production systems; see <a href="http://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality#7-data-ingestion-strategies">Data Ingestion Strategies</a> for an alternative and scalable way to push data into ElasticSearch.</p>
+</blockquote>
+<h2 id="3-savvy1-tech-stack">3 Savvy1 tech stack</h2>
+<p>Savvy1.com was built with Ruby on Rails on the backend, jQuery and Handlebars on the client side, and MongoDB backing it up. We are using ElasticSearch as the search index, while MongoDB is the main database and the source of truth. The general architecture is as follows:</p>
+<p><img src="./Thinking with Type   Contents_files/savvy1-arch.png"></p>
+<p>The WWW cluster serves as both the API server and the UI server. Every node on the cluster is stateless, and so is capable of serving any load balanced request. The cluster talks to MongoDB for performing CRUD operations, and to the ElasticSearch cluster for querying information requested from the front end. It acts as the single entry point for the whole application.</p>
+<p>The ElasticSearch cluster consists of 6 nodes — 3 data nodes, 2 dedicated master nodes and 1 search load balancer node. We deployed 2 dedicated master nodes to prevent the famous split brain problem with ElasticSearch. </p>
+<p><img src="./Thinking with Type   Contents_files/es-cluster.png"></p>
+<p>In a classic 3 node deployment of ElasticSearch in the EC2 environment, all nodes act as master nodes <em>and</em> data nodes by default. In EC2, the network connection between nodes is sometimes lost, even when the nodes are deployed in the same region. When that happens, each node in the cluster assumes the master role. As a result, the data that is indexed is one node will not be replicated to the other nodes, resulting in index corruption and cluster failure. This is referred to as the split brain problem. To prevent the split brain issue from happening, it is recommended that a set of dedicated master nodes be deployed.</p>
+<p>The data from MongoDB is pulled into ElasticSearch via ElasticSearch MongoDB river. This river plugin follows the operations log (<code>oplog.rs</code>) on MongoDB and updates the ElasticSearch indices directly. Finally, the API layer abstracts out the search DSL and exposes endpoints that can be invoked from the client side. Because it is very risky to open port 9200 to the internet, we use the API to manage the validation, authentication and authorization of incoming requests. This also allows us to keep the query DSL isolated in the API layer.</p>
+<blockquote>
+<p><strong>Pro Tip:</strong> If the search load is not high and the data being indexed is small, you can deploy a 3 node cluster and scale it up later. To prevent the split brain issue, make sure that the minimum number of master eligible nodes is set to <code>(|n/2|+1)</code>, e.g.: <code>discovery.zen.minimum_master_nodes: 2</code> for a cluster with 3 nodes</p>
+</blockquote>
+<h2 id="4-how-to-build-it">4 How to build it</h2>
+<p>Let's build an application that emulates <a href="https://savvy1.com/">Savvy1.com</a>, but only provides search functionality, from scratch. We will first add a naive search system, then optimize it to improve search performance. The tools we will use for this tutorial are listed below — please follow the instructions on the setting up their prerequisites as described on each tool's page.</p>
+<ol>
+<li><a href="http://nodejs.org/">Node.js</a> <a href="http://npmjs.org/">NPM</a> for installing dependencies.</li>
+<li><a href="http://yeoman.io/">Yeoman</a>, <a href="http://bower.io/">Bower</a>, and <a href="http://gruntjs.com/">Grunt</a> for automating the boilerplate code generation.</li>
+<li><a href="http://angularjs.org/">AngularJS</a> for building the UI and displaying the data retrieved.</li>
+<li><a href="http://dropwizard.github.io/dropwizard/">Dropwizard</a> for building the API layer.</li>
+<li><a href="http://elasticsearch.org/">ElasticSearch</a> for setting up the search cluster.</li>
+<li><a href="https://github.com/eriky/ESClient">ESClient</a> for loading data into ElasticSearch.</li>
+<li><a href="https://github.com/rayokota/generator-angular-dropwizard">generator-angular-dropwizard</a> for generating the boiler plate code for <a href="http://dropwizard.github.io/dropwizard/">Dropwizard</a> and  <a href="http://angularjs.org/">AngularJS</a>.</li>
+<li><a href="https://s3.amazonaws.com/savvy_cse_data/testdata.tgz">Test Data</a> to import into ElasticSearch. Download and unzip the data.</li>
+</ol>
+<blockquote>
+<p>Note: The source code is in <a href="https://github.com/ramv/tutorials/tree/master/elasticsearch">my Github repository</a></p>
+</blockquote>
+<h3 id="4-1-launch-the-elasticsearch-server">4.1.  Launch the ElasticSearch server</h3>
+<ol>
+<li><p>Download the the latest distribution of <a href="http://www.elasticsearch.org/overview/elkdownloads/">ElasticSearch</a>. </p>
+</li>
+<li><p>Extract the contents and start the server:</p>
+</li>
+</ol>
+<!-- code lang=bash linenums=true -->
+
+<pre class="line-numbers  language-bash" data-initialized="true" data-gclp-id="0"><code class="  language-bash" data-language="bash">$ tar <span class="token operator">-</span>xzvf elasticsearch<span class="token number">-1.3</span><span class="token punctuation">.</span><span class="token number">2</span><span class="token punctuation">.</span>tgz
+$ cd elasticsearch<span class="token number">-1.3</span><span class="token punctuation">.</span><span class="token number">2</span>
+$ bin<span class="token operator">/</span>elasticsearch
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=bash">bash help</a></footer></pre><ol>
+<li><p>In a different terminal window, unzip the test data.</p>
+</li>
+<li><p>Use the <code>esimport</code> tool to import the data into ElasticSearch:</p>
+</li>
+</ol>
+<!-- code lang=bash linenums=true -->
+
+<pre class="line-numbers  language-bash" data-initialized="true" data-gclp-id="1"><code class="  language-bash" data-language="bash">$ esimport <span class="token operator">-</span>u http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">9200</span><span class="token operator">/</span> <span class="token operator">-</span>f collections<span class="token operator">-</span>anon<span class="token punctuation">.</span>txt 
+$ esimport <span class="token operator">-</span>u http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">9200</span><span class="token operator">/</span> <span class="token operator">-</span>f products<span class="token operator">-</span>anon<span class="token punctuation">.</span>txt 
+$ esimport <span class="token operator">-</span>u http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">9200</span><span class="token operator">/</span> <span class="token operator">-</span>f users<span class="token operator">-</span>anon<span class="token punctuation">.</span>txt 
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=bash">bash help</a></footer></pre><h3 id="4-2-generate-boilerplate-code">4.2 Generate boilerplate code</h3>
+<!-- code lang=bash linenums=true -->
+
+<pre class="line-numbers  language-bash" data-initialized="true" data-gclp-id="2"><code class="  language-bash" data-language="bash">$ mkdir es<span class="token operator">-</span>tutorial
+$ cd es<span class="token operator">-</span>tutorial<span class="token operator">/</span>
+$ yo angular<span class="token operator">-</span>dropwizard
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=bash">bash help</a></footer></pre><p>The <code>angular-dropwizard</code> generator creates the directory structure, the required files and modules to enable us to start development. It generates 3 <code>dropwizard</code> apps - <code>tutorial-client</code>, <code>tutorial-api</code> and <code>tutorial-service</code>. For this tutorial we will be using only the <code>tutorial-service</code> app. You can import the whole project, starting with the <code>pom.xml</code> in the <code>es-tutorial</code> directory, to your favorite IDE and start hacking. </p>
+<p>Open 2 terminal windows, one for <code>grunt</code> and the other for <code>mvn</code>. Run <code>grunt server</code> in one terminal and <code>mvn compile exec:exec -pl es-tutorial</code> in the other.</p>
+<p>The reason we need use both the <code>grunt</code> and <code>dropwizard</code> servers is to enable rapid development. For <code>dropwizard</code> to serve the modified HTML, JS, CSS files, these files need to be copied to the <code>target</code> directory that contains all the classes. Frequently compiling the Java code to see the changes made slows down development.</p>
+<h3 id="4-3-add-a-route-to-the-server">4.3 Add a route to the server</h3>
+<h4 id="4-3-1-add-external-dependencies">4.3.1 Add external dependencies</h4>
+<p>Modify the <code>pom.xml</code> file of <code>tutorial-service</code> and add the following dependencies:</p>
+<!-- code lang=xml linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="3"><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.bazaarvoice.dropwizard&lt;/groupId&gt;
+    &lt;artifactId&gt;dropwizard-redirect-bundle&lt;/artifactId&gt;
+    &lt;version&gt;0.3.0&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.elasticsearch&lt;/groupId&gt;
+    &lt;artifactId&gt;elasticsearch&lt;/artifactId&gt;
+    &lt;version&gt;1.3.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><h4 id="4-3-2-create-a-new-resource">4.3.2 Create a new resource</h4>
+<p>Add a new Java class <code>SearchResrouce.java</code> to <code>src/main/java/tutorials/elasticsearch/resources/</code>:</p>
+<!-- code lang=java linenums=true -->
+
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="4"><code class="  language-java" data-language="java">@GET
+@<span class="token function">Produces<span class="token punctuation">(</span></span>MediaType<span class="token punctuation">.</span>APPLICATION_JSON<span class="token punctuation">)</span>
+@Timed 
+<span class="token keyword">public</span> Response <span class="token function">get<span class="token punctuation">(</span></span>@Context UriInfo uriInfo<span class="token punctuation">,</span> @Context HttpServletRequest request<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    sb<span class="token punctuation">.</span><span class="token function">append<span class="token punctuation">(</span></span><span class="token string">"Received parameters:\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    MultivaluedMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">&gt;</span> qp <span class="token operator">=</span> uriInfo<span class="token punctuation">.</span><span class="token function">getQueryParameters<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    String sort <span class="token operator">=</span> qp<span class="token punctuation">.</span><span class="token function">getFirst<span class="token punctuation">(</span></span><span class="token string">"sort"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    SearchRequestBuilder searchRequestBuilder <span class="token operator">=</span> esClient<span class="token punctuation">.</span><span class="token function">prepareSearch<span class="token punctuation">(</span></span><span class="token string">"products"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setTypes<span class="token punctuation">(</span></span><span class="token string">"product"</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setSearchType<span class="token punctuation">(</span></span>SearchType<span class="token punctuation">.</span>DFS_QUERY_THEN_FETCH<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setSize<span class="token punctuation">(</span></span>20<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    SearchResponse response <span class="token operator">=</span> searchRequestBuilder<span class="token punctuation">.</span><span class="token function">execute<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">actionGet<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    SearchHits hits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    ArrayList<span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;&gt;</span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>SearchHit hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> result <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSource<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        ObjectWriter ow <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">writer<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withDefaultPrettyPrinter<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String json <span class="token operator">=</span> ow<span class="token punctuation">.</span><span class="token function">writeValueAsString<span class="token punctuation">(</span></span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Response<span class="token punctuation">.</span><span class="token function">ok<span class="token punctuation">(</span></span>json<span class="token punctuation">,</span> MediaType<span class="token punctuation">.</span>APPLICATION_JSON_TYPE<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">catch</span><span class="token punctuation">(</span>JsonProcessingException ex<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//log the error
+</span>       LOG<span class="token punctuation">.</span><span class="token function">error<span class="token punctuation">(</span></span>String<span class="token punctuation">.</span><span class="token function">format<span class="token punctuation">(</span></span><span class="token string">"Could not process the returned doc: %s. %s"</span><span class="token punctuation">,</span> ex<span class="token punctuation">.</span><span class="token function">getMessage<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getStackTrace<span class="token punctuation">(</span></span>ex<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> Response<span class="token punctuation">.</span><span class="token function">serverError<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><p>This route fetches the product data from ElasticSearch and returns the results.</p>
+<h4 id="4-3-3-configure-the-service-class">4.3.3 Configure the service class</h4>
+<p>The main service class for the sever is <code>TutorialService.java</code>. Let's configure it thusly:</p>
+<ol>
+<li>Make the class implement the <code>Managed</code> interface.  This enables the app to be started and stopped along with the application.</li>
+</ol>
+<!-- code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="5"><code class="  language-java" data-language="java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TutorialService</span> <span class="token keyword">extends</span> <span class="token class-name">Application</span><span class="token operator">&lt;</span>TutorialConfiguration<span class="token operator">&gt;</span> <span class="token keyword">implements</span> <span class="token class-name">Managed</span> <span class="token punctuation">{</span>
+<span class="line-numbers-rows"><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><ol>
+<li>Update the <code>initialize</code> method, adding redirections and assets folder for static serving.</li>
+</ol>
+<!-- code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="6"><code class="  language-java" data-language="java">@Override
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">initialize<span class="token punctuation">(</span></span>Bootstrap<span class="token operator">&lt;</span>TutorialConfiguration<span class="token operator">&gt;</span> bootstrap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    bootstrap<span class="token punctuation">.</span><span class="token function">addBundle<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">RedirectBundle</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">UriRedirect</span><span class="token punctuation">(</span><span class="token string">"/favicon.ico"</span><span class="token punctuation">,</span> <span class="token string">"/assets/app/favicon.ico"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">UriRedirect</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">,</span>  <span class="token string">"/app/"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">UriRedirect</span><span class="token punctuation">(</span><span class="token string">"/index.html"</span><span class="token punctuation">,</span>  <span class="token string">"/app/index.html"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    bootstrap<span class="token punctuation">.</span><span class="token function">addBundle<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">AssetsBundle</span><span class="token punctuation">(</span><span class="token string">"/assets/app/"</span><span class="token punctuation">,</span> <span class="token string">"/app"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    bootstrap<span class="token punctuation">.</span><span class="token function">addBundle<span class="token punctuation">(</span></span>hibernateBundle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    mapper <span class="token operator">=</span> bootstrap<span class="token punctuation">.</span><span class="token function">getObjectMapper<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    mapper<span class="token punctuation">.</span><span class="token function">disable<span class="token punctuation">(</span></span>SerializationFeature<span class="token punctuation">.</span>WRITE_DATES_AS_TIMESTAMPS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//this.esNode = nodeBuilder().client(true).node();
+</span>    <span class="token keyword">this</span><span class="token punctuation">.</span>esClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TransportClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addTransportAddress<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">InetSocketTransportAddress</span><span class="token punctuation">(</span><span class="token string">"localhost"</span><span class="token punctuation">,</span><span class="token number"> 9300</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><ol>
+<li>Configure Cross Origin Request Sharing (CORS) </li>
+</ol>
+<!-- code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="7"><code class="  language-java" data-language="java"><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">configureCors<span class="token punctuation">(</span></span>Environment environment<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Dynamic filter <span class="token operator">=</span> environment<span class="token punctuation">.</span><span class="token function">servlets<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addFilter<span class="token punctuation">(</span></span><span class="token string">"CORS"</span><span class="token punctuation">,</span> CrossOriginFilter<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">addMappingForUrlPatterns<span class="token punctuation">(</span></span>EnumSet<span class="token punctuation">.</span><span class="token function">allOf<span class="token punctuation">(</span></span>DispatcherType<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token string">"/*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">setInitParameter<span class="token punctuation">(</span></span>CrossOriginFilter<span class="token punctuation">.</span>ALLOWED_METHODS_PARAM<span class="token punctuation">,</span> <span class="token string">"GET,PUT,POST,DELETE,OPTIONS"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">setInitParameter<span class="token punctuation">(</span></span>CrossOriginFilter<span class="token punctuation">.</span>ALLOWED_ORIGINS_PARAM<span class="token punctuation">,</span> <span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">setInitParameter<span class="token punctuation">(</span></span>CrossOriginFilter<span class="token punctuation">.</span>ACCESS_CONTROL_ALLOW_ORIGIN_HEADER<span class="token punctuation">,</span> <span class="token string">"*"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">setInitParameter<span class="token punctuation">(</span></span><span class="token string">"allowedHeaders"</span><span class="token punctuation">,</span> <span class="token string">"Content-Type,Authorization,X-Requested-With,Content-Length,Accept,Origin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    filter<span class="token punctuation">.</span><span class="token function">setInitParameter<span class="token punctuation">(</span></span><span class="token string">"allowCredentials"</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><ol>
+<li>Add the <code>SearchResource</code> object to the environment. This line is needed so that the environment knows which route to respond to and how to respond to it.</li>
+</ol>
+<!-- code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="8"><code class="  language-java" data-language="java">@Override
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run<span class="token punctuation">(</span></span>TutorialConfiguration configuration<span class="token punctuation">,</span>
+                Environment environment<span class="token punctuation">)</span> <span class="token keyword">throws</span> Exception <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Register the route. Without this, the route will not recognized by the framework
+</span>    environment<span class="token punctuation">.</span><span class="token function">jersey<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">register<span class="token punctuation">(</span></span><span class="token keyword">new</span> <span class="token class-name">SearchResource</span><span class="token punctuation">(</span>configuration<span class="token punctuation">,</span>  esClient<span class="token punctuation">,</span> mapper<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">configureCors<span class="token punctuation">(</span></span>environment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><ol>
+<li>Compile the code with <code>mvn compile</code>.</li>
+</ol>
+<h3 id="4-4-create-the-angularjs-app">4.4 Create the AngularJS app</h3>
+<h4 id="4-4-1-update-assets">4.4.1 Update assets</h4>
+<ol>
+<li><p>Add images to <code>src/main/resources/assets/app/images</code> directory.</p>
+</li>
+<li><p>Add CSS files to <code>src/main/resources/assets/app/css</code> directory.</p>
+</li>
+</ol>
+<h4 id="4-4-2-update-app-js-">4.4.2 Update <code>app.js</code></h4>
+<p>Edit <code>src/main/resources/assets/app/js/app.js</code>, which creates the main application object:</p>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="9"><code class="  language-javascript" data-language="javascript"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//create the cseApp module. We will use this object to attach controllers
+</span><span class="token keyword">var</span> cseapp <span class="token operator">=</span> angular<span class="token punctuation">.</span><span class="token function">module<span class="token punctuation">(</span></span><span class="token string">'cseApp'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+  <span class="token string">'ngCookies'</span><span class="token punctuation">,</span>
+  <span class="token string">'ngResource'</span><span class="token punctuation">,</span>
+  <span class="token string">'ngSanitize'</span><span class="token punctuation">,</span>
+  <span class="token string">'ngRoute'</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+cseapp<span class="token punctuation">.</span><span class="token function">config<span class="token punctuation">(</span></span><span class="token punctuation">[</span><span class="token string">'$routeProvider'</span><span class="token punctuation">,</span> <span class="token string">'$locationProvider'</span><span class="token punctuation">,</span>  configureApp<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">configureApp<span class="token punctuation">(</span></span>$routeProvider<span class="token punctuation">,</span>$locationProvider<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  $routeProvider
+    <span class="token punctuation">.</span><span class="token function">when<span class="token punctuation">(</span></span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      templateUrl<span class="token punctuation">:</span> <span class="token string">'views/home/main.html'</span><span class="token punctuation">,</span>
+      controller<span class="token punctuation">:</span> <span class="token string">'MainCtrl'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">otherwise<span class="token punctuation">(</span></span><span class="token punctuation">{</span>
+      redirectTo<span class="token punctuation">:</span> <span class="token string">'/'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><h4 id="4-4-3-update-index-html-">4.4.3 Update <code>index.html</code></h4>
+<ol>
+<li>Allow the app to be loaded:</li>
+</ol>
+<!-- code lang=html linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="10"><code class="language-html">&lt;html lang="en" ng-app="cseApp"&gt;
+</code></pre><ol>
+<li>Replace the CSS and font:</li>
+</ol>
+<!-- code lang=html linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="11"><code class="language-html">  &lt;link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,700,500|Roboto+Condensed:400,700" type="text/css"&gt;
+  &lt;link rel="stylesheet" href="css/website.css"&gt;
+  &lt;link rel="stylesheet" href="css/cse.css"&gt;
+</code></pre><ol>
+<li>Add the top bar code:</li>
+</ol>
+<!-- code lang=html linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="12"><code class="language-html">&lt;!--[if lt IE 9]&gt;
+&lt;script src="js/es5-shim/es5-shim.js"&gt;&lt;/script&gt;
+&lt;script src="js/json3/lib/json3.min.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+
+&lt;!-- Add your site or application content here --&gt;
+&lt;div class="header"&gt;
+
+  &lt;section class="top-bar" style="min-width: 960px;"&gt;
+    &lt;div class="row"&gt;
+      &lt;a class="left logo" href="/"&gt;&lt;img src="/images/logo.png" alt=""&gt;&lt;/a&gt;
+
+      &lt;ul class="inline-list actions-list left"&gt;
+
+        &lt;li class="autocomplete" ng-controller="AutocompleteCtrl"&gt;
+          &lt;form ng-submit="submit()"&gt;
+             &lt;div  style="position: absolute; top: 0px;" class="search left icon icon-magnifier"&gt;
+                 &lt;input  ng-model="typeahead" class="left wide" autocomplete="off" type="text"  placeholder="Search on Savvy"&gt;
+             &lt;/div&gt;
+          &lt;/form&gt;
+          &lt;div class="submenu {{searchSubmenuView}}" id="autoSearchResultsContainer" style="background: #fff; z-index: 9999999999999999;  padding: 10px; position: absolute; top: 40px; width: 460px;"&gt;
+              &lt;div auto-complete="typeahead"&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/li&gt;
+       &lt;!--
+        &lt;div ng-controller="DemoController"&gt;
+              Date format: &lt;input ng-model="format"&gt; &lt;hr/&gt;
+              Current time is: &lt;span my-type-ahead="format"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        --&gt;
+      &lt;/ul&gt;
+
+      &lt;ul class="inline-list actions-list right"&gt;
+          &lt;form style="margin: 0px;padding:0px;height:0px;width:0px;" id="logoutForm" method="post" action="/users/sign_out"&gt;
+            &lt;input type="hidden" name="authenticity_token" value="XrRJvLAnihfO1xNADm1v0Gy4rZEKqlvizOKwpr5BEvI="&gt;
+          &lt;/form&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+&lt;div class="container" id="mainContainer" ng-cloak class="ng-cloak" ng-view=""&gt;&lt;/div&gt;
+</code></pre><ol>
+<li>Add the main controller:</li>
+</ol>
+<!-- code lang=html linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="13"><code class="language-html">&lt;script src="js/home/main.js"&gt;&lt;/script&gt;
+</code></pre><h4 id="4-4-4-create-the-main-controller">4.4.4 Create the main controller</h4>
+<ol>
+<li>Add the controller code to <code>src/main/java/resources/assets/app/css/home/main.js</code>:</li>
+</ol>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="14"><code class="  language-javascript" data-language="javascript"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//retrieve a module object named cseApp
+</span><span class="token keyword">var</span> cseapp <span class="token operator">=</span> angular<span class="token punctuation">.</span><span class="token function">module<span class="token punctuation">(</span></span><span class="token string">'cseApp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+cseapp<span class="token punctuation">.</span><span class="token function">controller<span class="token punctuation">(</span></span><span class="token string">'MainCtrl'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'$scope'</span><span class="token punctuation">,</span> <span class="token string">'$http'</span><span class="token punctuation">,</span> <span class="token string">'$location'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>$scope<span class="token punctuation">,</span> $http<span class="token punctuation">,</span> $location<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  $scope<span class="token punctuation">.</span>categories <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> url <span class="token operator">=</span> <span class="token string">'http://localhost:8080/api/v1/search'</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> sortingMenu <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string">"oldest_first"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token string">"newest_first"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    <span class="token string">"highest_rated"</span> <span class="token punctuation">:</span> <span class="token string">"current"</span><span class="token punctuation">,</span>
+    <span class="token string">"lowest_rated"</span> <span class="token punctuation">:</span> <span class="token string">""</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  $<span class="token function">http<span class="token punctuation">(</span></span><span class="token punctuation">{</span>method<span class="token punctuation">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> url<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">success<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">var</span> res <span class="token operator">=</span> response<span class="token punctuation">;</span>
+      console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      $scope<span class="token punctuation">.</span>products <span class="token operator">=</span> res<span class="token punctuation">;</span>
+      $scope<span class="token punctuation">.</span>sortingMenu <span class="token operator">=</span> sortingMenu<span class="token punctuation">;</span>
+      $scope<span class="token punctuation">.</span>urlPrefix <span class="token operator">=</span> $location<span class="token punctuation">.</span><span class="token function">path<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><ol>
+<li>Add the template to <code>src/main/resources/assets/app/views/home/main.html</code>:</li>
+</ol>
+<!-- code lang=html linenums=true -->
+
+<pre class="line-numbers" data-initialized="true" data-gclp-id="15"><code class="language-html">&lt;div role="main"&gt;
+    &lt;header class="page-header"&gt;
+        &lt;h1&gt;Latest Products&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;div class="row"&gt;
+        &lt;div class="column"&gt;
+            &lt;div class="row results-list block-view vertical-grid product-listing"&gt;
+                &lt;ul id="pgrid" class="large-block-grid-4" style="height: 2429px;"&gt;
+                    &lt;li ng-repeat="product in products" class="productSnippet" style="width: 230px;  float: left" id="product-snippet-"&gt;
+                        &lt;article class="box" style="padding-bottom: 0px;"&gt;
+                            &lt;a href="/#/products/{{product._id}}"&gt;
+                                &lt;figure style="text-align:center;"&gt;
+                                    &lt;img style="max-height: 160px; max-width: 100%; width: auto; height: auto;" src="{{product.image_url}}" alt=""&gt;
+                                &lt;/figure&gt;
+                                &lt;h4 style="max-height:90px;overflow: hidden;"&gt;{{product.description}}&lt;/h4&gt;
+                            &lt;/a&gt;
+                            &lt;footer&gt;
+                                &lt;div class="price-box cf"&gt;
+                                    &lt;div class="price"&gt;{{product.price}}&lt;/div&gt;
+                                    &lt;div class="buy"&gt;
+                                        &lt;a class="button tiny radius tertiary" data-source="{{product.source}}" data-productid="5260fa3c971c41fc53000032" data-price="{{product.price}}" data-description="{{product.description}}" data-image="{{product.image_url}}" href="{{product.source}}"&gt;See It&lt;/a&gt;
+                                    &lt;/div&gt;
+                                &lt;/div&gt;
+
+                             &lt;/footer&gt;
+                        &lt;/article&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="5-autocomplete">5 Autocomplete</h2>
+<p>Now, we built the system to pull top products from the ElasticSearch index and display them in a webpage. But ElasticSearch is used for searching, so let's build a search box and wire it up to pull search results from the server and display them.</p>
+<h4 id="5-1-1-add-the-resource">5.1.1 Add the resource</h4>
+<p>We'll implement a <code>MultiSearchResoruce.java</code> route that queries multiple indices in ElasticSearch and returns the aggregated results. We search each index separately, aggregate all the results in the response object and return. We do this instead of running one query across all indices because we need results from all the indices, not just one.</p>
+<!-- code lang=java linenums=true -->
+
+<pre class="line-numbers  language-java" data-initialized="true" data-gclp-id="16"><code class="  language-java" data-language="java"><span class="token keyword">private</span>  HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> <span class="token function">getResultsMap<span class="token punctuation">(</span></span>String index<span class="token punctuation">,</span> String kws<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+    ArrayList<span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;&gt;</span> list <span class="token operator">=</span> <span class="token function">getResultsList<span class="token punctuation">(</span></span>index<span class="token punctuation">,</span> kws<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    map<span class="token punctuation">.</span><span class="token function">put<span class="token punctuation">(</span></span><span class="token string">"index"</span><span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    map<span class="token punctuation">.</span><span class="token function">put<span class="token punctuation">(</span></span><span class="token string">"results"</span><span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> map<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">private</span>  ArrayList<span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">&gt;&gt;</span> <span class="token function">getResultsList<span class="token punctuation">(</span></span>String index<span class="token punctuation">,</span> String kws<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    SearchRequestBuilder searchRequestBuilder <span class="token operator">=</span> esClient<span class="token punctuation">.</span><span class="token function">prepareSearch<span class="token punctuation">(</span></span>index<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true">//.setTypes("product", "collection", "user")
+</span>            <span class="token punctuation">.</span><span class="token function">setSearchType<span class="token punctuation">(</span></span>SearchType<span class="token punctuation">.</span>DFS_QUERY_THEN_FETCH<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setQuery<span class="token punctuation">(</span></span>QueryBuilders<span class="token punctuation">.</span><span class="token function">matchQuery<span class="token punctuation">(</span></span><span class="token string">"_all"</span><span class="token punctuation">,</span> kws<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">operator<span class="token punctuation">(</span></span>MatchQueryBuilder<span class="token punctuation">.</span>Operator<span class="token punctuation">.</span>AND<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setHighlighterRequireFieldMatch<span class="token punctuation">(</span></span><span class="token boolean">true</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">setSize<span class="token punctuation">(</span></span>5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>index<span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span><span class="token string">"collections"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        FilterBuilder filterBuilder <span class="token operator">=</span> FilterBuilders<span class="token punctuation">.</span><span class="token function">rangeFilter<span class="token punctuation">(</span></span><span class="token string">"count"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gt<span class="token punctuation">(</span></span>1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        searchRequestBuilder<span class="token punctuation">.</span><span class="token function">setPostFilter<span class="token punctuation">(</span></span>filterBuilder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    SearchResponse response <span class="token operator">=</span> searchRequestBuilder<span class="token punctuation">.</span><span class="token function">execute<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">actionGet<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    SearchHits hits <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getHits<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    ArrayList<span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;&gt;</span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>SearchHit hit <span class="token operator">:</span> hits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span>Object<span class="token operator">&gt;</span> result <span class="token operator">=</span> hit<span class="token punctuation">.</span><span class="token function">getSource<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>result<span class="token punctuation">.</span><span class="token function">containsKey<span class="token punctuation">(</span></span><span class="token string">"_id"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            result<span class="token punctuation">.</span><span class="token function">put<span class="token punctuation">(</span></span><span class="token string">"_id"</span><span class="token punctuation">,</span> hit<span class="token punctuation">.</span><span class="token function">getId<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>index<span class="token punctuation">.</span><span class="token function">equals<span class="token punctuation">(</span></span><span class="token string">"users"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            ArrayList<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span> pics <span class="token operator">=</span> <span class="token punctuation">(</span>ArrayList<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">)</span>result<span class="token punctuation">.</span><span class="token function">get<span class="token punctuation">(</span></span><span class="token string">"pics"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>pics<span class="token punctuation">.</span><span class="token function">size<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token operator">==</span><span class="token number"> 0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                pics<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span><span class="token string">"http://www.gravatar.com/avatar/00000000"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+        <span class="token punctuation">}</span>
+        list<span class="token punctuation">.</span><span class="token function">add<span class="token punctuation">(</span></span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> list<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=java">java help</a></footer></pre><h4 id="5-1-2-add-the-controller">5.1.2 Add the controller</h4>
+<p>We need to create an <code>autocomplete.js</code> controller to control the search autocomplete behavior in the application.</p>
+<p>First, add a simple controller which hides and displays the search autocomplete dropdown:</p>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="17"><code class="  language-javascript" data-language="javascript"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//retrieve a module object named cseApp
+</span><span class="token keyword">var</span> cseapp <span class="token operator">=</span> angular<span class="token punctuation">.</span><span class="token function">module<span class="token punctuation">(</span></span><span class="token string">'cseApp'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+cseapp<span class="token punctuation">.</span><span class="token function">controller<span class="token punctuation">(</span></span><span class="token string">'AutocompleteCtrl'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'$scope'</span><span class="token punctuation">,</span> <span class="token string">'$http'</span><span class="token punctuation">,</span> <span class="token string">'$rootScope'</span><span class="token punctuation">,</span> <span class="token string">'$compile'</span><span class="token punctuation">,</span> 
+  <span class="token keyword">function</span><span class="token punctuation">(</span>$scope<span class="token punctuation">,</span> $http<span class="token punctuation">,</span> $rootScope<span class="token punctuation">,</span> $compile<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    $scope<span class="token punctuation">.</span>categories <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    $scope<span class="token punctuation">.</span>searchSubmenuView <span class="token operator">=</span><span class="token string">"hidden"</span><span class="token punctuation">;</span>
+    $scope<span class="token punctuation">.</span>typeahead <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><p>Now, add <code>directive</code> for watching the search box for data entered. The code is doing a few things: it declares a directive called <code>autoComplete</code>, specifies the dependency injected parameters, and defines a <code>link</code> method that is invoked on the element. In the <code>link</code> method, we setup a <code>$watch</code> on the attributes of the <code>autoComplete</code> directive. Think of watch methods as <code>onChange</code> listeners — when text is entered in the search box, the <code>$watch</code> method gets invoked and does the following:</p>
+<ol>
+<li>Calls the multi-search API endpoint to fetch the results.</li>
+<li>Fetches the template.</li>
+<li>Renders the template with the search result data. </li>
+<li>Inserts the rendered template as the child of the element.</li>
+</ol>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="18"><code class="  language-javascript" data-language="javascript"><span class="token comment" spellcheck="true">//setup a new directive for fetching the results in typeahead
+</span>cseapp<span class="token punctuation">.</span><span class="token function">directive<span class="token punctuation">(</span></span><span class="token string">'autoComplete'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>  <span class="token string">'$http'</span><span class="token punctuation">,</span> <span class="token string">'$compile'</span><span class="token punctuation">,</span> <span class="token string">'$rootScope'</span><span class="token punctuation">,</span>
+                                    <span class="token keyword">function</span><span class="token punctuation">(</span> $http<span class="token punctuation">,</span> $compile<span class="token punctuation">,</span> $rootScope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">function</span> <span class="token function">link<span class="token punctuation">(</span></span>scope<span class="token punctuation">,</span> element<span class="token punctuation">,</span> attrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    scope<span class="token punctuation">.</span>$<span class="token function">watch<span class="token punctuation">(</span></span>attrs<span class="token punctuation">.</span>autoComplete<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>value <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> value <span class="token operator">===</span> <span class="token string">""</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>
+        scope<span class="token punctuation">.</span>searchSubmenuView <span class="token operator">=</span> <span class="token string">"hidden"</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">var</span> url <span class="token operator">=</span> <span class="token string">'http://localhost:8080/api/v1/multi-search?q='</span><span class="token operator">+</span>value<span class="token punctuation">;</span>
+      $<span class="token function">http<span class="token punctuation">(</span></span><span class="token punctuation">{</span>method<span class="token punctuation">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span> url<span class="token punctuation">:</span> url<span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">.</span><span class="token function">success<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">var</span> res <span class="token operator">=</span> response<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//console.log(res);
+</span>        scope<span class="token punctuation">.</span>multiResults <span class="token operator">=</span> res<span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>products <span class="token operator">=</span> res<span class="token punctuation">.</span>products<span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>coupons <span class="token operator">=</span> res<span class="token punctuation">.</span>coupons<span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>collections <span class="token operator">=</span> res<span class="token punctuation">.</span>collections<span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>users <span class="token operator">=</span> res<span class="token punctuation">.</span>users<span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>searchSubmenuView <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        scope<span class="token punctuation">.</span>keywords<span class="token operator">=</span>value<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        scope<span class="token punctuation">.</span>keywords <span class="token operator">=</span> value<span class="token punctuation">;</span>
+        console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>JSON<span class="token punctuation">.</span><span class="token function">stringify<span class="token punctuation">(</span></span>$rootScope<span class="token punctuation">.</span>appData<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// get the menu bar template from the server.
+</span>        $http<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/views/home/search_menu.html'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">success<span class="token punctuation">(</span></span><span class="token keyword">function</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          element<span class="token punctuation">.</span><span class="token function">replaceWith<span class="token punctuation">(</span></span>$<span class="token function">compile<span class="token punctuation">(</span></span>angular<span class="token punctuation">.</span><span class="token function">element<span class="token punctuation">(</span></span>response<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">(</span>scope<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    link<span class="token punctuation">:</span> link
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><p>What happens when a user enters text in the search box and immediately presses enter? In the above code we don't handle that situation. When that occurs, we need to display the search results page immediately, so let's add a method to handle the submit event of the form:</p>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="19"><code class="  language-javascript" data-language="javascript">cseapp<span class="token punctuation">.</span><span class="token function">controller<span class="token punctuation">(</span></span><span class="token string">'AutocompleteCtrl'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'$scope'</span><span class="token punctuation">,</span> <span class="token string">'$http'</span><span class="token punctuation">,</span>  <span class="token string">'$compile'</span><span class="token punctuation">,</span> 
+  <span class="token keyword">function</span><span class="token punctuation">(</span>$scope<span class="token punctuation">,</span> $http<span class="token punctuation">,</span> $compile<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    $scope<span class="token punctuation">.</span>categories <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    $scope<span class="token punctuation">.</span>searchSubmenuView <span class="token operator">=</span><span class="token string">"hidden"</span><span class="token punctuation">;</span>
+    $scope<span class="token punctuation">.</span>typeahead <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// the submit method to handle the case when the user enters
+</span>    <span class="token comment" spellcheck="true">// immediately after entering the text
+</span>    $scope<span class="token punctuation">.</span>submit <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      $scope<span class="token punctuation">.</span>searchSubmenuView <span class="token operator">=</span><span class="token string">"hidden"</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> element <span class="token operator">=</span> angular<span class="token punctuation">.</span><span class="token function">element<span class="token punctuation">(</span></span><span class="token string">'#mainContainer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// fetch the template from the server
+</span>      $http<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">'/views/home/search.html'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">success<span class="token punctuation">(</span></span><span class="token keyword">function</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        element<span class="token punctuation">.</span><span class="token function">replaceWith<span class="token punctuation">(</span></span>$<span class="token function">compile<span class="token punctuation">(</span></span>angular<span class="token punctuation">.</span><span class="token function">element<span class="token punctuation">(</span></span>response<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">(</span>$scope<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><h4 id="5-1-3-add-the-search-box">5.1.3 Add the Search Box</h4>
+<!-- code lang=markup linenums=true -->
+
+<pre class="line-numbers  language-markup" data-initialized="true" data-gclp-id="20"><code class="  language-markup" data-language="markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>inline-list actions-list left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>autocomplete<span class="token punctuation">"</span></span> <span class="token attr-name">ng-controller</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>AutocompleteCtrl<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">ng-submit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit()<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span>  <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>position: absolute; top: 0px;<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>search left icon icon-magnifier<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+               <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>  <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>typeahead<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left wide<span class="token punctuation">"</span></span> <span class="token attr-name">autocomplete</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>off<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span>  <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Search on Savvy<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submenu {{searchSubmenuView}}<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>autoSearchResultsContainer<span class="token punctuation">"</span></span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>background: #fff; z-index: 9999999999999999;  padding: 10px; position: absolute; top: 40px; width: 460px;<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">auto-complete</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>typeahead<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=markup">markup help</a></footer></pre><h2 id="6-search-improvement">6 Search Improvement</h2>
+<p>This setup helps us to get to a naive search implementation. We just dumped the data from MongoDB, loaded it into ElasticSearch, added a search box, and then code to retrieve the results for the keywords entered. Currently, we can only match on full words and certain fields. We can certainly improve this — let's say we have the following requirements:</p>
+<ol>
+<li><p>Partial Word Matching: The query must match not only on full words, but also on substrings. So, typing <code>sam</code> should return the results containing <code>samsung</code>.</p>
+</li>
+<li><p>Multiple Search Fields: The query must match across several fields. So, typing <code>camera</code> should match on <code>[ "name", "description", "tags"]</code> etc.</p>
+</li>
+</ol>
+<p>Before we can dive into how to improve, we need to learn about a few concepts.</p>
+<h3 id="6-1-analyzers-tokenizers-and-token-filters">6.1 analyzers, tokenizers and token filters</h3>
+<p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-analyzers.html">Analyzers</a> in ElasticSearch are used to break up a document into strings that are used for indexing. </p>
+<p>When documents are indexed in ElasticSearch, it builds an inverted index. An inverted index is basically a dictionary (lookup table) of the strings in the document and the references to that document in the data store. Each analyzer in ElasticSearch is composed of <em>one</em> tokenizer and <em>zero or more</em> token filters. When a query is performed, the words in the query are also analyzed and the tokens are used to lookup the document in the inverted index.</p>
+<p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-tokenizers.html">Tokenizers</a> break a string down into a stream of terms or tokens. The default tokenizer splits the string by punctuation or white space. </p>
+<p><a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-tokenfilters.html">Token filters</a> transform the stream of tokens from the tokenizer. The filters can add, modify or delete tokens to the token stream. For example, a <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-synonym-tokenfilter.html">Synonym Filter</a> adds synonyms of the tokens to the token stream, <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-lowercase-tokenfilter.html">Lowercase Token Filter</a> modifies the token and lowercases all characters and a <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-stop-tokenfilter.html">Stop Token Filter</a> deletes all the stop words from the token stream</p>
+<h3 id="6-2-ngram">6.2 nGram</h3>
+<p>nGram is a sequence of characters constructed by taking the substring of the string being evaluated. For example, nGram analysis for the string <code>Samsung</code> will yield a set of nGrams like <code>['S', 'Sa', 'Sam', 'Sams', 'Samsu', 'Samsun', 'Samsung', 'am', 'ams', 'amsu', 'amsun', 'amsung', 'ms', 'msu', 'msun', 'msung', 'su', 'sun', 'sung', 'un', 'ung', 'ng']</code>. Indexing these strings will enable partial matches. For our application, we need type autocomplete search. A typical user input for a string like <code>Samsung</code> will see in the form:</p>
+<ol>
+<li>S</li>
+<li>Sa</li>
+<li>Sam</li>
+<li>Sams</li>
+<li>Samsu</li>
+<li>Samsun</li>
+<li>Samsung</li>
+</ol>
+<p>So, storing all nGrams of the string will be wasteful. For this reason we use a special form of nGram called Edge nGram. Edge nGram analysis produces a set of nGrams starting at the left most edge. For example, Edge nGram analysis of <code>Samsung</code> produces  <code>['S', 'Sa', 'Sam', 'Sams', 'Samsu', 'Samsun', 'Samsung']</code> which is identical to what a typical user would input. </p>
+<p>Now, lets set up the search index to support typeahead autocomplete. Since the analyzers are run at the index creation time on the documents, we need to drop the existing index and create a new one. then add the analyzers to the index.</p>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="21"><code class="  language-javascript" data-language="javascript">curl <span class="token operator">-</span>XPUT <span class="token string">"http://localhost:9200/products "</span> <span class="token operator">-</span>d'
+<span class="token punctuation">{</span>
+   <span class="token string">"settings"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"analysis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+         <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"edgeNGram_filter"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+               <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"edgeNGram"</span><span class="token punctuation">,</span>
+               <span class="token string">"min_gram"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+               <span class="token string">"max_gram"</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+               <span class="token string">"side"</span> <span class="token punctuation">:</span> <span class="token string">"front"</span>
+            <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+         <span class="token string">"analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"edge_nGram_analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+               <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"custom"</span><span class="token punctuation">,</span>
+               <span class="token string">"tokenizer"</span><span class="token punctuation">:</span> <span class="token string">"edge_ngram_tokenizer"</span><span class="token punctuation">,</span>
+               <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                  <span class="token string">"lowercase"</span><span class="token punctuation">,</span>
+                  <span class="token string">"asciifolding"</span><span class="token punctuation">,</span>
+                  <span class="token string">"edgeNGram_filter"</span>
+               <span class="token punctuation">]</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token string">"whitespace_analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+               <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"custom"</span><span class="token punctuation">,</span>
+               <span class="token string">"tokenizer"</span><span class="token punctuation">:</span> <span class="token string">"whitespace"</span><span class="token punctuation">,</span>
+               <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                  <span class="token string">"lowercase"</span><span class="token punctuation">,</span>
+                  <span class="token string">"asciifolding"</span>
+               <span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token string">"tokenizer"</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"edge_ngram_tokenizer"</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                  <span class="token string">"type"</span> <span class="token punctuation">:</span> <span class="token string">"edgeNGram"</span><span class="token punctuation">,</span>
+                  <span class="token string">"min_gram"</span> <span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
+                  <span class="token string">"max_gram"</span> <span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
+                  <span class="token string">"token_chars"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"letter"</span><span class="token punctuation">,</span> <span class="token string">"digit"</span> <span class="token punctuation">]</span>
+              <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token string">"mappings"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><p>In the above command, we specify 2 analyzers:</p>
+<ol>
+<li><p>WhiteSpace Analyzer: The <em>whitespace_analyzer</em> splits the text on whitespace, then applies two token filters. The <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-lowercase-tokenfilter.html">lowercase token filter</a> which converts all tokens to lowercase and the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-asciifolding-tokenfilter.html">ascii folding token filter</a> which only lets the characters in the Basic ASCII block (U+0000 - U+007F) of Unicode and converts the some characters to their ASCII equivalents if one exists, for example:</p>
+<ul>
+<li>+ ß (German Sharp S) ⇒ ss</li>
+<li>+ æ (Latin AE Ligature) ⇒ ae</li>
+<li>+ ł (Latin Small L with a Stroke) ⇒ l</li>
+<li>+ ɰ (Latin Small Letter Turned M With Long Leg) ⇒ m</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>Edge nGram Analyzer: The <em>edge_ngram_analyzer</em> does everything the <em>whitespace_analyzer</em> does and then applies the <em>edge_ngram_token_filter</em> to the stream. The <code>edge_nGram_filter</code> is what generates all of the substrings that will be used in the index lookup table. It is a token filter of <code>"type": "nGram"</code>. <code>"min_gram": 2</code> and <code>"max_gram": 20</code> set the minimum and maximum length of substrings that will be generated and added to the lookup table. </li>
+</ol>
+<p>Now lets setup the mapping for the <code>products</code> index:</p>
+<!-- code lang=javascript linenums=true -->
+
+<pre class="line-numbers  language-javascript" data-initialized="true" data-gclp-id="22"><code class="  language-javascript" data-language="javascript">  curl <span class="token operator">-</span>XPOST http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">9200</span><span class="token operator">/</span>products<span class="token operator">/</span>_mapping <span class="token operator">-</span>d '
+  <span class="token punctuation">{</span>
+    <span class="token string">"products"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"settings"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"analysis"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"edgeNGram_filter"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"edgeNGram"</span><span class="token punctuation">,</span>
+                        <span class="token string">"min_gram"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+                        <span class="token string">"max_gram"</span><span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+                        <span class="token string">"side"</span><span class="token punctuation">:</span> <span class="token string">"front"</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token string">"analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"edge_nGram_analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"custom"</span><span class="token punctuation">,</span>
+                        <span class="token string">"tokenizer"</span><span class="token punctuation">:</span> <span class="token string">"edge_ngram_tokenizer"</span><span class="token punctuation">,</span>
+                        <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                            <span class="token string">"lowercase"</span><span class="token punctuation">,</span>
+                            <span class="token string">"asciifolding"</span><span class="token punctuation">,</span>
+                            <span class="token string">"edgeNGram_filter"</span>
+                        <span class="token punctuation">]</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"whitespace_analyzer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"custom"</span><span class="token punctuation">,</span>
+                        <span class="token string">"tokenizer"</span><span class="token punctuation">:</span> <span class="token string">"whitespace"</span><span class="token punctuation">,</span>
+                        <span class="token string">"filter"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                            <span class="token string">"lowercase"</span><span class="token punctuation">,</span>
+                            <span class="token string">"asciifolding"</span>
+                        <span class="token punctuation">]</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token string">"tokenizer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"edge_ngram_tokenizer"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"edgeNGram"</span><span class="token punctuation">,</span>
+                        <span class="token string">"min_gram"</span><span class="token punctuation">:</span> <span class="token string">"2"</span><span class="token punctuation">,</span>
+                        <span class="token string">"max_gram"</span><span class="token punctuation">:</span> <span class="token string">"5"</span><span class="token punctuation">,</span>
+                        <span class="token string">"token_chars"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                            <span class="token string">"letter"</span><span class="token punctuation">,</span>
+                            <span class="token string">"digit"</span>
+                        <span class="token punctuation">]</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">"mappings"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">"product"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                <span class="token string">"_all"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"index_analyzer"</span><span class="token punctuation">:</span> <span class="token string">"nGram_analyzer"</span><span class="token punctuation">,</span>
+                    <span class="token string">"search_analyzer"</span><span class="token punctuation">:</span> <span class="token string">"whitespace_analyzer"</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"average_rating"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"double"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"bid"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"brand_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"category"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"include_in_all"</span><span class="token punctuation">:</span> <span class="token keyword">true</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"collection_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"comments_count"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"country"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"created_at"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"date"</span><span class="token punctuation">,</span>
+                        <span class="token string">"format"</span><span class="token punctuation">:</span> <span class="token string">"dateOptionalTime"</span><span class="token punctuation">,</span>
+                        <span class="token string">"include_in_all"</span><span class="token punctuation">:</span> <span class="token keyword">false</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"description"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"include_in_all"</span><span class="token punctuation">:</span> <span class="token keyword">true</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"featured"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"hashtags"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"hashtag"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"include_in_all"</span><span class="token punctuation">:</span> <span class="token keyword">true</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"indices"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"image_attrs"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"height"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"width"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"image_s3_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span> <span class="token punctuation">:</span> no    
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"image_url"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"likes"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"mentions"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"indices"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"screen_name"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"original"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"pid"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"price"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"product_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"rating"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"1"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"2"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"3"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"4"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"5"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"ratings_count"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"resavers"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"resaves"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"root_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"source"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                        <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"updated_at"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"date"</span><span class="token punctuation">,</span>
+                        <span class="token string">"format"</span><span class="token punctuation">:</span> <span class="token string">"dateOptionalTime"</span><span class="token punctuation">,</span>
+                        <span class="token string">"include_in_all"</span><span class="token punctuation">:</span> <span class="token keyword">false</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"urls"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"indices"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"long"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"url"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token string">"user"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">"properties"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            <span class="token string">"fb_id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+                                <span class="token string">"index"</span><span class="token punctuation">:</span> <span class="token string">"not_analyzed"</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>'
+<span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code><footer>Get expert <a class="trackPostCTA" href="https://www.airpair.com/find-an-expert?utm_source=airpair.com&utm_campaign=posts-{{campPeriod}}&utm_content={{viewData.slug}}&utm_medium=website&utm_term=javascript">javascript help</a></footer></pre><p>There are several things to notice here:</p>
+<ul>
+<li><p>+ <code>_all</code> field is the easiest way to setup a search across multiple fields. By setting <code>"include_in_all": "no"</code> on fields we can exclude them from search results. We specify the <code>edge_ngram_analyzer</code> as the <em>index analyzer</em>, so all documents that are indexed will be passed through this analyzer. We also specify the <code>whitespace_analyzer</code> as the <em>search analyzer</em>, which means that the search query is passed through the whitespace analyzer before looking for the words in the inverted index.</p>
+</li>
+<li><p>+ <code>"index": "no"</code> instructs ElasticSearch to not even bother indexing the field. If you don't anticipate searching on a particular field you can exclude it from index to save space.</p>
+</li>
+<li><p>+ <code>"index": "not_analyzed"</code> instructs ElasticSearch to exclude the field from analysis. This is useful when you are searching on complete words or phrases and are looking for an exact match. For example, lets say you want to retrieve all products saved by a user with a user id. If the user id is analyzed, it will be broken up into multiple tokens and indexed. So, potentially there can be multiple ID matches. If we set it to <code>not_anlyzed</code> then we can retrieve exact matches.</p>
+</li>
+</ul>
+<p>Now our index definition is ready as per our requirements for multi-field match for autocomplete. By reloading the documents in the index, we can improve both performance and relevance. </p>
+<h2 id="7-data-ingestion-strategies">7 Data ingestion strategies</h2>
+<p>Previously, we discussed how to ingest data from MongoDB using the now-deprecated river plugin. River APIs are designed as singleton objects in the system; at any given point in time, only one node in the cluster is running the river. </p>
+<p>Singleton objects are inherently unscalable, though the ElasticSearch core team did try to shoehorn some fault tolerance features into the API. For example, when the node running the river dies, a surviving node in the cluster restarts the river. However, this design introduced a number of issues and complexities for the scalability of a distributed system, hence the deprecation. So what is the right way to ingest data in ElasticSearch? I am glad you asked. There are are 2 ways to do it: </p>
+<ol>
+<li><p>Index only fields that are needed for search in two stage commit. </p>
+</li>
+<li><p>Use another tool/server that follows <code>oplog.rs</code> of MongoDB and pushes the data to ElasticsSearch nodes.</p>
+</li>
+</ol>
+<h3 id="7-1-pusher">7.1 Pusher</h3>
+<p>The architecture of such a system is as shown below. The API and UI servers push the data to both the database and the message queue simultaneously. Logstash subscribes to the channel to which the API server is writing, gets notified of incoming messages, then finally pushes the messages to ElasticSearch. This is similar to adding data to Memcache for fast access and then persisting the same data in the database. The advantages of this design are:</p>
+<ol>
+<li><p>Horizontal Scalability: Assuming that the API server is designed to be a stateless and distributed queue which supports exactly once semantics, we can achieve infinite scalability by adding queue server nodes (RabbitMQ, SQS) and queue processors (logstash). </p>
+</li>
+<li><p>Loose Coupling: Each system can scale independent of each other. Let's say the search query load spikes due to some event in your industry; by adding more search and data nodes to the ElasticSearch cluster, the query response can be improved.</p>
+</li>
+</ol>
+<p>The disadvantages are:</p>
+<ol>
+<li><p>New application specific code needs to be written to index only data required for search.</p>
+</li>
+<li><p>The access patterns and search patterns need to be known for indexing only the data needed.</p>
+</li>
+<li><p>If new fields need to be indexed, then new code needs to be developed and deployed to production.   </p>
+</li>
+</ol>
+<p><img src="./Thinking with Type   Contents_files/ElasticSearch-Feeder-2.png"></p>
+<p></p>
+
+<h3 id="7-2-feeder">7.2 Feeder</h3>
+<p>In this setup you can use <a href="https://github.com/10gen-labs/mongo-connector">Mongo Connector</a>, a tool that is designed to push data from MongoDB into ElasticSearch. Although this setup is much simpler, it does introduce a single point of failure, compromising the system's resilience and fault tolerance. If the <a href="https://github.com/10gen-labs/mongo-connector">Mongo Connector</a> server quits, then the data in the ElasticSearch cluster will become stale. This could serve as a reasonable starting point if you are testing the waters with ElasticSearch; however, using such a setup in production is not recommended.</p>
+<p><img src="./Thinking with Type   Contents_files/ElasticSearch-Feeder.png"></p>
+<h2 id="8-references">8. References</h2>
+<ol>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/">ElasticSearch Reference Guide</a></li>
+<li><a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html">ElasticSearch Definitive Guide</a></li>
+<li><a href="http://blog.qbox.io/multi-field-partial-word-autocomplete-in-elasticsearch-using-ngrams">Multi-field Partial Word Autocomplete in Elasticsearch Using nGrams</a>, Sloan Ahrens</li>
+</ol>
+</post>
+
+  <div class="share" style="left: 912.5px; top: 0px;">
+    <div class="pw pw-widget ra1-pw-classicWidget ra1-pw_size_small pw-layout-horizontal pw-counter-vertical pw-widget-look-native" pw:twitter-via="airpair">
+      <a class="pw-button pw-button-facebook button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">11</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-facebook"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+      <a class="pw-button pw-button-twitter button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">29</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-twitter"></span><span class="pw-button-type-looknative__txt">Tweet</span></span></a>
+      <a class="pw-button pw-button-linkedin button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">25</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-linkedin"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+    </div>
+  </div>
+
+  <div class="rail1CTA railBookmarkCTA" style="left: 912.5px; top: 94px;">
+    <h6>Like this article?</h6>
+    <div>
+      <img src="./Thinking with Type   Contents_files/16d45c03c7e437b3715dfba4aea40a8e">
+      <div bookmarkerserver="" type="&#39;post&#39;" object-id="&#39;542f31759636230b006c5cc4&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/v1/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Thinking with Type   Contents_files/bookmark.png">
+</div>
+      <p>Save it to your bookmarks</p>
+    </div>
+  </div>
+
+  <div class="bodyCTA1 bodyCTA">
+    <h6>Want to keep track of more [object Object] posts on AirPair?</h6>
+    <div>
+      <a href="https://twitter.com/airpair" class="twitter-follow-button" data-show-count="true">Follow @airpair</a>
+    </div>
+  </div>
+
+  <div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Thinking with Type   Contents_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 321px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+</article>
+
+<section id="posts" class="similar ng-scope">
+  <hr>
+  <section id="allposts">
+    <h3>Similar posts<span><a href="https://www.airpair.com/posts" target="_self">Recent posts</a></span></h3>
+    <div class="posts recent">
+      <article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
+  <a href="http://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality" title="Building Scalable Search from Scratch with ElasticSearch" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Thinking with Type   Contents_files/GFVRpqK(1).jpg" align="left">
+      <span class="entry-categories">
+        
+          <em>elasticsearch</em><br>
+      </span>
+
+      <p class="entry-meta">
+
+
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Ram Viswanadha</span>
+          <img class="entry-author-image" itemprop="image" src="./Thinking with Type   Contents_files/16d45c03c7e437b3715dfba4aea40a8e(1)" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2014-10-07T00:47:17.503Z">07 Oct, 2014</time>
+
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Building Scalable Search from Scratch with ElasticSearch</h2>
+      <p>In this article, Ram demonstrates a simple but scalable search system based on ElasticSearch.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+    <bookmarkerserver type="&#39;post&#39;" object-id="&#39;542f31759636230b006c5cc4&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/v1/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Thinking with Type   Contents_files/bookmark.png">
+</bookmarkerserver>
+
+  </footer>
+</article>
+
+    </div>
+  </section>
+
+</section>
+
+        
+        
+        
+        
+    </main>
+
+</div>
+
+<nav id="side" class="collapse" side-nav="" style="top: 0px;"><header>
+  <img id="sideNavToggle" track-click="sideNav" data="Show" track-click-if="!session._id" ng-click="sideNav.toggle()" src="./Thinking with Type   Contents_files/toggle.png">
+</header>
+
+<!-- ngIf: session.authenticated == false --><section class="welcome ng-scope" ng-if="session.authenticated == false">
+
+  <figure><a id="navWelcomeAvatar" track-click="sideNav" ng-click="openProfile()"><img class="avatar" ng-src="/v1/img/css/sidenav/default-cat.png" src="./Thinking with Type   Contents_files/default-cat.png"></a></figure>
+
+  <ul class="main">
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope">Want your real face?</li><!-- end ngIf: !session.email -->
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope"><a id="navEditProfile" href="https://www.airpair.com/#" track-click="sideNav" ng-click="openProfile()">Edit your profile</a></li><!-- end ngIf: !session.email -->
+    <!-- ngIf: session.email -->
+    <!-- ngIf: session.email -->
+    <li>Already in the tribe?</li>
+    <li><a id="navLogin" href="https://www.airpair.com/v1/auth/login" track-click="sideNav">Login</a></li>
+    <li>Why join?</li>
+  </ul>
+  <a id="navAbout" track-click="sideNav" href="https://www.airpair.com/about" class="icon">
+    <span>Read about AirPair</span><img src="./Thinking with Type   Contents_files/airpair.png">
+  </a>
+</section><!-- end ngIf: session.authenticated == false -->
+
+
+<!-- ngIf: session._id -->
+
+<!-- ngIf: session._id -->
+
+
+<section class="stack"> <label>Stack</label>
+  <ul>
+    <!-- ngRepeat: tag in session.tags | orderBy:'sort' -->
+  </ul>
+  <a id="navStackToggle" track-click="sideNav" href="https://www.airpair.com/#" ng-click="openStack()" class="icon">
+    <span>Customize</span><img src="./Thinking with Type   Contents_files/stack.png"><i class="ng-binding">0</i>
+  </a>
+</section>
+
+
+<section class="bookmarks"> <label>Bookmarks</label>
+  <ul class="bookmarks">
+    <!-- ngRepeat: bookmark in session.bookmarks | orderBy:'sort' -->
+  </ul>
+  <a id="navBookmarksToggle" track-click="sideNav" href="https://www.airpair.com/#" ng-click="openBookmarks()" class="icon"><span> Manage </span> <img src="./Thinking with Type   Contents_files/bookmark(1).png"><i class="ng-binding">0</i></a>
+</section>
+
+<div stack=""></div>
+</nav>
+<!-- ngIf: session.authenticated == false --><nav id="chat" class="ng-scope" chat-nav="" ng-if="session.authenticated == false" style="top: 0px;"><header>
+  <img id="chatNavToggle" track-click="chatNav" data="Hide" track-click-if="!session._id" ng-click="chatNav.toggle()" src="./Thinking with Type   Contents_files/toggle(1).png">
+</header>
+
+<section class="welcome">
+
+  <figure><a id="navChatAvatar" track-click="chatNav" ng-click="openProfile()"><img class="avatar" ng-src="/v1/img/css/chat/pairy.png" src="./Thinking with Type   Contents_files/pairy.png"></a></figure>
+
+</section>
+
+<section class="main">
+  <h4>Merry Holidays Season and a Happy New Year!</h4>
+
+  <p>Pairy and the AirPair Team are looking forward to seeing you lots in 2015.</p>
+
+  <ul class="main">
+    <li>
+      <a id="chatAbout" track-click="about" data="chatNav" href="https://www.airpair.com/about" ng-click="chatNav.toggle()">Learn about AirPair</a>
+    </li>
+    <li>
+      <a id="chatSignup" track-click="signup" data="chatNav" ng-click="openProfile()">Sign Up</a>
+    </li>
+    <li>
+      <a id="chatLogin" track-click="login" data="chatNav" href="https://www.airpair.com/v1/auth/login" ng-click="chatNav.toggle()">Login</a>
+    </li>
+    <li><a id="chatHide" track-click="chatNav" data="Hide" ng-click="chatNav.toggle()">Hide menu</a></li>
+<!--     <li>
+      <p style="margin:5px">Follow</p>
+      <a id="chatTwFollow" track-click="social" data="twitter" href="http://twitter.com/airpair" target="_blank"><img src="/v1/img/icons/tw.png" /></a>
+      <a id="chatFbollow" track-click="social" data="facebok" href="https://www.facebook.com/airpair" target="_blank"><img src="/v1/img/icons/fb.png" /></a>
+      <a id="chatInFollow" track-click="social" data="linkedin" href="https://www.linkedin.com/company/3267255" target="_blank"><img src="/v1/img/icons/in.png" /></a>
+      <a id="chatGpFollow" track-click="social" data="gplus" href="https://google.com/+AirPair" target="_blank"><img src="/v1/img/icons/gp.png" /></a>
+    </li> -->
+  </ul>
+
+</section>
+
+</nav><!-- end ngIf: session.authenticated == false -->
+
+<script type="text/javascript" async="" src="./Thinking with Type   Contents_files/mixpanel-2.2.min.js"></script><script type="text/javascript" async="" src="./Thinking with Type   Contents_files/analytics.js"></script><script src="./Thinking with Type   Contents_files/1713.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Thinking with Type   Contents_files/embed.js"></script><script type="text/javascript" async="" src="./Thinking with Type   Contents_files/post-widget.js"></script><script type="text/javascript" id="analytics-js" async="" src="./Thinking with Type   Contents_files/analytics.min.js"></script><script type="text/javascript" src="./Thinking with Type   Contents_files/index-e36ae317.js"></script>
+<script type="text/javascript">
+
+function bindTracking() {
+  ga('send', 'pageview')
+
+  $.each($('.trackPostCTA'), function(idx,el){
+    $(el).click(function (e) {
+      analytics.track('Click', { type: 'Post CTA', unit: 'code footer', idx: idx, text: el.innerHTML, location: window.location.pathname });
+
+      setTimeout(function () {
+        window.location.href = $(el).attr('href');
+      }, 350);
+
+      return false;
+    });
+  })
+
+  $.each($('.featured a.btn'), function(idx,el) {
+    $(el).click(function (e) {
+      analytics.track('Click', { type: 'Tag Feature', unit: 'featured', idx: idx, text: el.innerHTML, location: window.location.pathname });
+    });
+  })
+}
+
+window.viewData = { canonical: 'http://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality', post : {"_id":"542f31759636230b006c5cc4"} };
+
+</script>
+
+
+<script type="text/javascript">
+
+  window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+  window.analytics.load("0xxx5xrw5q");
+
+
+  window.analytics.ready(function() {
+
+    if (!window.bindTracking)
+      window.bindTracking = function() {};
+
+    var mixId = mixpanel.get_distinct_id()
+
+    var email = null;
+    var anonymousId = '-FHniK5cwhBT4XS_ovAnhcR8-UGL1X6B';
+
+    //console.log('userEmail', email, 'mixId', mixId, 'anonymousId', anonymousId)
+
+    var ident = function() {
+      //console.log('identify', email || anonymousId)  //-- could be from a different session.
+      window.analytics.identify(email || anonymousId, { id: email || anonymousId });
+    }
+
+
+    // If they're signed in
+    if (email && mixId != email) ident()
+
+    // If they didn't already identify their email and log out
+    else if (mixId.indexOf("@") == -1 && anonymousId != mixId)
+    {
+      setTimeout(ident,200)
+    }
+
+    bindTracking();
+  });
+
+</script>
+
+<script type="text/javascript">
+adroll_adv_id = "XF634YIRAZHM5AG2HSQDII";
+adroll_pix_id = "RJLKZHU5IFD2NP5M3C6X35";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+
+<script type="text/javascript">setTimeout(function(){var a=document.createElement("script");var b=document.getElementsByTagName("script")[0];a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/1713.js?"+Math.floor(new Date().getTime()/3600000);a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+
+
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 834.5px; top: 4095px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 834.5px; top: 4284px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 834.5px; top: 4459px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 834.5px; top: 5044px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 834.5px; top: 5352px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 834.5px; top: 5896px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 834.5px; top: 6023px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 834.5px; top: 6384px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 834.5px; top: 6693px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 834.5px; top: 7206px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 834.5px; top: 7662px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 834.5px; top: 7732px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 834.5px; top: 7856px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 834.5px; top: 8754px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 834.5px; top: 8864px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="15" data-hasqtip="true" style="left: 834.5px; top: 9274px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="16" data-hasqtip="true" style="left: 834.5px; top: 10363px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="17" data-hasqtip="true" style="left: 834.5px; top: 10913px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="18" data-hasqtip="true" style="left: 834.5px; top: 11422px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="19" data-hasqtip="true" style="left: 834.5px; top: 11916px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="20" data-hasqtip="true" style="left: 834.5px; top: 12340px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="21" data-hasqtip="true" style="left: 834.5px; top: 14218px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="22" data-hasqtip="true" style="left: 834.5px; top: 15012px; display: none;"></div><iframe class="ra1-pw-logImage" width="0" height="0" src="about:blank" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe></body></html>

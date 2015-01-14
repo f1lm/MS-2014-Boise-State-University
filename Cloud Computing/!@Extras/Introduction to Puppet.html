@@ -1,0 +1,2226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0136)http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar -->
+<html xmlns="http://www.w3.org/1999/xhtml" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./Introduction to Puppet_files/menu169.js"></script>
+        <title>Introduction to Puppet</title>
+
+        
+        <meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+
+<meta name="copyright" content="© 2006 C4Media">
+
+<meta name="google-site-verification" content="0qInQx_1WYOeIIbxnh7DnXlw1XOxNgAYakO2k4GhNnY">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/styles/i/logo.jpg">
+<meta property="wb:webmaster" content="3eac1729a8bbe046">
+
+
+        
+		
+		
+			<link href="./Introduction to Puppet_files/css" rel="stylesheet" type="text/css">
+		
+        <link rel="stylesheet" type="text/css" media="screen" href="./Introduction to Puppet_files/site.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="./Introduction to Puppet_files/site_en.css">
+        <link rel="shortcut icon" href="http://cdn.infoq.com/statics_20150106-0126/favicon.ico?20150106-0126" type="image/x-icon">
+        <link rel="apple-touch-icon" href="http://cdn.infoq.com/statics_20150106-0126/apple-touch-icon.png?20150106-0126">
+
+        <link rel="stylesheet" href="./Introduction to Puppet_files/jquery.jscrollpane.css" type="text/css">
+
+        <script src="./Introduction to Puppet_files/4285.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Introduction to Puppet_files/ga.js"></script><script async="" type="text/javascript" src="./Introduction to Puppet_files/gpt.js"></script><script type="text/javascript">
+            var InfoQConstants = {};
+            InfoQConstants.language = 'en';
+            InfoQConstants.countryCode = '';
+        </script><style type="text/css"></style>
+        <script type="text/javascript" src="./Introduction to Puppet_files/combinedJs.js"></script>
+        <script type="text/javascript">
+            
+                var JSi18n = JSi18n || {}; // define only if not already defined
+                JSi18n.error='Error';
+                JSi18n.login_unverifiedAccount='Unverified account';
+                JSi18n.contentSummary_showPresentations_1='';
+                JSi18n.contentSummary_showPresentations_2='';
+                JSi18n.contentSummary_showPresentations_3='';
+                JSi18n.contentSummary_showInterviews_1='';
+                JSi18n.contentSummary_showInterviews_2='';
+                JSi18n.contentSummary_showInterviews_3='';
+                JSi18n.contentSummary_showMinibooks_1='';
+                JSi18n.contentSummary_showMinibooks_2='';
+                JSi18n.login_sendingRequest='Sending request ...';
+                JSi18n.bookmark_saved='<q>&nbsp;&nbsp;&nbsp;Saved&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.bookmark_error='<q style=color:black;>&nbsp;&nbsp;&nbsp;Error&nbsp;&nbsp;&nbsp;&nbsp;</q>';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllPrefix='View All';
+                JSi18n.categoryManagement_showpopup_viewAllLink_viewAllSuffix='';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Exclude='Exclude';
+                JSi18n.categoryManagement_showpopup_includeExcludeLink_Include='Include';
+                JSi18n.login_invalid_email='Please specify a valid email';
+                JSi18n.login_email_not_found = 'No user found with that email';
+            
+
+            var loggedIn=false;
+        </script>
+        
+       
+        <script type="text/javascript">
+            function createOverFunction(i) {
+                var pixels = i * 129;
+                return function() {
+                    $('#personas_' + i).addClass('selected');
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-' + pixels + 'px');
+                }
+            };
+            function createOutFunction(i) {
+                return function() {
+                    $('ul.menu > li .top_submenu.c' + i).css('left','-999em');
+                    $('#personas_' + i).removeClass('selected');
+                }
+            }
+            $(function() {
+                for (var i = 0; i < 5; i++) {
+                    $('ul.menu > li').has('.top_submenu.c' + i).hoverIntent({
+                        sensitivity: 15,
+                        interval: 150,
+                        timeout:200,
+                        over: createOverFunction(i),
+                        out: createOutFunction(i)
+                    });
+                }
+            });
+        </script>
+        
+
+
+
+
+
+
+
+<script type="text/javascript">
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+})();
+
+
+googletag.cmd.push(function() {
+	googletag.defineSlot('/5286733/en_geo_banner_bottom', [728, 90], 'id_geo_banner_ad').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_300x250_banner_top', [300, 250], 'id_300x250_banner_top').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_300x250_banner_bottom', [300, 250], 'id_300x250_banner_bottom').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_textlink1', [250, 60], 'id_ad_textlink1').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_textlink2', [250, 60], 'id_ad_textlink2').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_textlink3', [250, 60], 'id_ad_textlink3').addService(googletag.pubads());
+/*	googletag.defineSlot('/5286733/en_textlink4', [120, 100], 'id_ad_textlink4').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_textlink5', [120, 100], 'id_ad_textlink5').addService(googletag.pubads());*/
+	googletag.defineSlot('/5286733/en_300x250_category', [300, 250], 'id_300x250_category').addService(googletag.pubads());
+	googletag.defineSlot('/5286733/en_300x250_banner_searchResults', [300, 250], 'id_300x250_banner_searchResults').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();
+	googletag.pubads().collapseEmptyDivs();
+	googletag.enableServices();
+});
+</script>
+
+
+
+        
+
+	
+    
+<script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=u(e),f=c.length,s=i(a,o,r),p=0;f>p;p++)c[p].apply(s,n);return s}function a(t,e){f[t]=u(t).concat(e)}function u(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:u,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=l.info=NREUM.info;if(t&&t.agent&&t.licenseKey&&t.applicationID&&c&&c.body){l.proto="https"===p.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=c.createElement("script");e.src=l.proto+t.agent,c.body.appendChild(e)}}function r(){"complete"===c.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),u=window,c=u.document,f="addEventListener",s="attachEvent",p=(""+location).split("?")[0],l=e.exports={offset:i(),origin:p,features:{}};c[f]?(c[f]("DOMContentLoaded",o,!1),u[f]("load",n,!1)):(c[s]("onreadystatechange",r),u[s]("onload",n)),a("mark",["firstbyte",i()])},{handle:"D5DuLP"}]},{},["G9z0Bl"]);</script><script type="text/javascript" src="./Introduction to Puppet_files/forum.js"></script>
+    
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+
+
+    <meta property="og:image" content="https://www.infoq.com/resource/articles/introduction-puppet/en/smallimage/logo.jpg">
+
+<meta property="og:title" content="Introduction to Puppet ">
+<meta property="og:description" content="An introduction to Puppet, an infrastructure configuration management tool. In this article Susannah Axelrod, gives an overview of both Puppet, the language, and Puppet, the platform, discussing all the main concepts around them. Susannah also writes about how to start an Infrastructure as Code initiative as well as sharing additional learning resources for those who want to know Puppet in-depth.">
+<meta property="og:site_name" content="InfoQ">
+	<link rel="image_src" href="./Introduction to Puppet_files/logo.jpg">
+	<meta name="keywords" content="introduction puppet,Operations &amp; Infrastructure,Development,Puppet,Devops,IT Service Management,Infrastructure as Code,Configuration Management Tools,Cloud Computing,Infrastructure,">
+	<meta name="description" content="An introduction to Puppet, an infrastructure configuration management tool. In this article Susannah Axelrod, gives an overview of both Puppet, the language, and Puppet, the platform, discussing all the main concepts around them. Susannah also writes about how to start an Infrastructure as Code initiative as well as sharing additional learning resources for those who want to know Puppet in-depth.">
+	<meta name="tprox" content="1420716240000">
+
+    
+    
+    	
+	    
+	        <script type="text/javascript">
+	            $(function() {
+	                var box = $('.related_sponsors.visible.stacked');
+	                if (box.length === 0) {
+	                    return;
+	                }
+	                var nextSibling = $(box).next();
+	                
+	                if ($('#lowerFullwidthVCR').length === 0) {
+	                    moveLowerInThePage(box);
+	                    return;
+	                }
+	                
+	                if (blockElement(nextSibling)) {
+	                    moveLowerInThePage(box);
+	                    return;
+	                }
+	                
+	                while (!blockElement($(nextSibling).next())) {
+	                        nextSibling = $(nextSibling).next();
+	                        if (firstLowerThanSecond(nextSibling, box)) {
+	                            return;
+	                        }
+	                }
+	                moveLowerInThePage(box);
+	
+	                function blockElement(elem) {
+	                    if ($(elem).prop('tagName') === 'BLOCKQUOTE'
+	                        || $(elem).prop('tagName') === 'IMG'
+	                        || $(elem).prop('tagName') === 'PRE'
+	                        || ($(elem).prop('tagName') === 'P' && $(elem).children().length === 1 && $(elem).children('img').length === 1)) {
+	                        return true;
+	                    }
+	                    return false;
+	                }
+	
+	                function firstLowerThanSecond(elem1, elem2) {
+	                    var elem1BottomYCoordinate = $(elem1).offset().top + $(elem1).height()
+	                    var elem2BottomYCoordinate = $(elem2).offset().top + $(elem2).height();
+	                    if (elem1BottomYCoordinate > elem2BottomYCoordinate) {
+	                        return true;
+	                    }
+	                    return false;
+	                }
+	
+	                function moveLowerInThePage(box) {
+	                    if ($('#lowerFullwidthVCR').length !== 0) {
+	                        $('#lowerFullwidthVCR').replaceWith(box);
+	                    }
+	                    $(box).removeClass('stacked');
+	                }
+	            });
+	        </script>
+	    
+    
+
+        
+        
+			<link rel="image_src" href="http://cdn.infoq.com/statics_20150106-0126/styles/i/logo-big.jpg?20150106-0126">
+			<meta property="og:image" content="http://cdn.infoq.com/statics_20150106-0126/styles/i/logo-big.jpg?20150106-0126">
+		
+    <script async="" type="text/javascript" src="http://partner.googleadservices.com/gpt/pubads_impl_55.js"></script><link rel="stylesheet" type="text/css" href="./Introduction to Puppet_files/widget009.old.css" media="all"><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+    <body data-gclp-initialized="true" data-gistbox-initialized="true">
+
+        
+            <div class="intbt">
+                <a href="http://www.infoq.com/int/bt" title="bt">BT</a>
+            </div>
+        
+
+        
+            
+                
+            
+        
+
+        <div id="wrapper" style="background-color:#fff">
+            <!--	#######		SITE START	#########	 -->
+            <div id="site">
+                
+
+
+
+
+
+
+
+
+
+
+<div id="topInfo">
+    <ul class="list1">
+        <li><a href="http://www.infoq.com/contribute" title="Contribute" style="color:#286BB3;font-weight:bold">
+                Contribute
+            </a>
+        </li>
+        <li><a href="http://www.infoq.com/aboutus" title="About Us">
+                About Us
+            </a>
+        </li>
+        
+        	<li><a href="http://www.infoq.com/aboutyou" title="About You"> 
+                        About You
+                    </a>
+                </li>
+        
+        
+        	<li><a href="http://www.infoq.com/purpose" title="Purpose Index"> 
+                        Purpose Index
+                    </a>
+                </li>
+        
+        
+    </ul>
+    <ul class="list2">
+        <li>Exclusive updates on:</li>
+        
+	        <li><a href="http://twitter.com/infoq" target="_blank"><img src="./Introduction to Puppet_files/twitter.jpg" alt="" border="0"></a></li>
+	        <li><a href="http://www.facebook.com/InfoQ" target="_blank"><img src="./Introduction to Puppet_files/facebook.jpg" alt="" border="0"></a></li>
+	        <li><a href="http://www.linkedin.com/company/infoq" target="_blank"><img src="./Introduction to Puppet_files/linkedin.gif" alt="" border="0"></a></li>
+	        
+	        
+	        	<li><a href="https://plus.google.com/104892343728609932454" target="_blank" rel="publisher"><img src="./Introduction to Puppet_files/gplus-16.png" alt="" border="0"></a></li>
+       		
+       		
+        
+        
+        <li><a id="headerRssLink" href="http://www.infoq.com/feed?token=lYF6xmE5DJFGX27FNomasMnWBwN8wR4f" title="" target="_blank"><img src="./Introduction to Puppet_files/rss.jpg" alt="" border="0"></a></li>
+    </ul>
+	<div class="clear"></div>
+</div>
+
+	
+<!--	#######		HEADER START	#########	 -->
+<div id="header">
+    <div class="top_explain">Facilitating the spread of knowledge and innovation in professional software development</div>
+	<!--	#######		search	#########	 -->
+	<div class="search_cls">
+	
+		<form name="search" id="search" action="http://www.infoq.com/search.action" method="get" enctype="multipart/form-data">
+			<fieldset>
+				<input type="text" id="keyword" name="queryString" class="searchInput" value="Search" onfocus="if(this.value==&#39;Search&#39;){ this.value = &#39;&#39;; }" onblur="if(this.value==&#39;&#39;){ this.value = &#39;Search&#39;; }">
+				<input type="hidden" id="page" name="page" value="1">
+                <input type="hidden" id="searchOrder" size="15" name="searchOrder">
+				<input type="hidden" id="sst" name="sst" value="tz5Z4LeXNo2weHuF">
+				<input type="submit" value="" id="search" class="submitCls">
+			</fieldset>
+		</form>
+		
+	    
+
+
+
+
+
+
+
+
+
+
+
+	<div id="login">
+		<a class="login_btn" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="return false;" title="Login">
+			<span>Login</span>
+		</a>
+	</div>
+
+
+		
+	</div>
+	
+	<div class="clear"></div>
+	
+	<!--	#######		logo	#########	 -->
+	<div class="logo">
+		<a class="image" href="http://www.infoq.com/" title="">
+            <img src="./Introduction to Puppet_files/logo_bigger.jpg" alt="" border="0">
+        </a>
+		<div class="clear"></div>
+	    
+
+
+
+
+
+
+
+
+<ul class="langs">
+	<li><a class="active" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="return false;" title="InfoQ English">En</a> |</li>
+	<li><a href="http://www.infoq.com/cn/">中文</a> |</li>
+	<li><a href="http://www.infoq.com/jp/">日本</a> |</li>
+    <li><a href="http://www.infoq.com/fr/">Fr</a> |</li>
+	<li><a href="http://www.infoq.com/br/">Br</a></li>
+</ul>
+<div class="clear"></div>
+<p>
+    
+	
+	    
+	    
+	1,023,962 Dec unique visitors
+</p>
+
+		<div class="clear"></div>
+	</div>
+	
+    	
+
+
+
+
+
+
+
+
+		<!--	#######		menu	#########	 -->
+		<ul class="menu" id="mainmenu">
+			<li id="personas_0">
+				<a class="main" href="http://www.infoq.com/development/" title="Development"><span>Development</span></a>
+				<div class="top_submenu c0">
+					<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 225px;">
+						
+					<div class="jspContainer" style="width: 225px; height: 325px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 225px;"><ul class="top_submenu_links">
+				              <li><a class="featured" href="http://www.infoq.com/java/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Java">Java</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/dotnet/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title=".Net">.Net</a></li>
+				              <li><a href="http://www.infoq.com/cloud-computing/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Cloud">Cloud</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/mobile/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Mobile">Mobile</a></li>
+				              <li><a href="http://www.infoq.com/HTML5Topic/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="HTML5">HTML5</a></li>
+				              <li><a href="http://www.infoq.com/javascript/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="JavaScript">JavaScript</a></li>
+				              <li><a href="http://www.infoq.com/ruby/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Ruby">Ruby</a></li>
+				              <li><a href="http://www.infoq.com/dsl/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="DSLs">DSLs</a></li>
+				              <li><a href="http://www.infoq.com/python/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Python">Python</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/Topic_PHP/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="PHP">PHP</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/api/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="API">API</a></li>
+							  <!-- <li><a class="more" href="#" title="">+ More topics</a></li> -->
+						</ul></div></div></div>
+					
+					<div class="menu_article">
+						<h2>Featured in <span id="developmentHDLabel">Development</span></h2>
+						<h3 id="developmentHDTitle"><a href="http://www.infoq.com/presentations/groovy-grails-spring-boot">Making Spring Boot Even Groovier</a></h3>
+						<div class="clear"></div>
+						<p>
+							<img id="developmentHDImg" src="./Introduction to Puppet_files/Gra.JPG" alt="" border="0">
+							<span id="developmentHDSummary">Graeme Rocher shows how one can leverage key technologies from the Groovy and Grails communities to become even more productive with Spring Boot.</span>
+						</p>
+						<div class="clear"></div>	
+						<div class="alignCenter">
+							<a class="view_all_categ" href="http://www.infoq.com/development/">
+								<span>All in <b id="developmentHDLabel2">Development</b></span>
+							</a>
+						</div>
+						<div class="clear"></div>	
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+			</li>
+			
+			<li id="personas_1">
+				<a class="main" href="http://www.infoq.com/architecture-design/" title="Architecture &amp; Design"><span>Architecture<br>&amp; Design</span></a>
+				<div class="top_submenu c1">
+					<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 225px;">
+						
+					<div class="jspContainer" style="width: 225px; height: 325px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 225px;"><ul class="top_submenu_links">
+							  <li><a class="featured" href="http://www.infoq.com/architecture/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Architecture">Architecture</a></li>
+				              <li><a href="http://www.infoq.com/Modeling/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Modeling">Modeling</a></li>
+				              <li><a href="http://www.infoq.com/performance-scalability/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Scalability/Performance">Scalability/Performance</a></li>
+				              <li><a href="http://www.infoq.com/domain-driven-design/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="DDD">DDD</a></li>
+				              <li><a href="http://www.infoq.com/Behavior-Driven-Development/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="BDD">BDD</a></li>
+				              <li><a href="http://www.infoq.com/AOP/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="AOP">AOP</a></li>
+				              <li><a href="http://www.infoq.com/DesignPattern/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Patterns">Patterns</a></li>
+				              <li><a href="http://www.infoq.com/Security/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Security">Security</a></li>
+				              <li><a href="http://www.infoq.com/cloud-computing/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Cloud">Cloud</a></li>
+				              <li><a href="http://www.infoq.com/soa/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="SOA">SOA</a></li>
+							  <!-- <li><a class="more" href="#" title="">+ More topics</a></li> -->
+						</ul></div></div></div>
+					
+					<div class="menu_article">
+						<h2>Featured in <span id="architecture-designHDLabel">Architecture &amp; Design</span></h2>
+						<h3 id="architecture-designHDTitle"><a href="http://www.infoq.com/presentations/scalable-resilient-systems">You Won't Believe How the Biggest Sites Build Scalable and Resilient Systems!</a></h3>
+						<div class="clear"></div>
+						<p>
+							<img id="architecture-designHDImg" src="./Introduction to Puppet_files/Jer.JPG" alt="" border="0">
+							<span id="architecture-designHDSummary">The authors discuss about the lessons learned from all the biggest sites on the internet about how to build scalable and resilient architectures.</span>
+						</p>
+						<div class="clear"></div>	
+						<div class="alignCenter">
+							<a class="view_all_categ" href="http://www.infoq.com/architecture-design/">
+								<span>All in <b id="architecture-designHDLabel2">Architecture &amp; Design</b></span>
+							</a>
+						</div>
+						<div class="clear"></div>	
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+			</li>
+			<li id="personas_2">
+				<a class="main" href="http://www.infoq.com/process-practices/" title="Process &amp; Practices"><span>Process &amp; Practices</span></a>
+				<div class="top_submenu c2">
+					<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 225px;">
+						
+					<div class="jspContainer" style="width: 225px; height: 325px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 225px;"><ul class="top_submenu_links">
+				              <li><a class="featured" href="http://www.infoq.com/agile/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Agile">Agile</a></li>
+				              <li><a href="http://www.infoq.com/Leadership/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Leadership">Leadership</a></li>
+				              <li><a href="http://www.infoq.com/team-collaboration/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Collaboration">Collaboration</a></li>
+				              <li><a href="http://www.infoq.com/agile_techniques/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Agile Techniques">Agile Techniques</a></li>
+				              <li><a href="http://www.infoq.com/methodologies/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Methodologies">Methodologies</a></li>
+				              <li><a href="http://www.infoq.com/continuous_integration/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Continuous Integration">Continuous Integration</a></li>
+				              <li><a href="http://www.infoq.com/lean/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Lean/Kanban">Lean/Kanban</a></li>
+							  <!-- <li><a class="more" href="#" title="">+ More topics</a></li> -->
+						</ul></div></div></div>
+					
+					<div class="menu_article">
+						<h2>Featured in <span id="process-practicesHDLabel">Process &amp; Practices</span></h2>
+						<h3 id="process-practicesHDTitle"><a href="http://www.infoq.com/interviews/lkfr14-yeret-kanban-agile">Yuval Yeret on Using Kanban for Agile Adoption</a></h3>
+						<div class="clear"></div>
+						<p>
+							<img id="process-practicesHDImg" src="./Introduction to Puppet_files/Yuval-Yeret-small.png" alt="" border="0">
+							<span id="process-practicesHDSummary">InfoQ interviewed Yuval Yeret at the Lean Kanban France 2014 conference about kick starting Agile the Kanban way. He explained how teams can do pull-based change using Kanban, skills for change managers and patterns that can be used to support agile adoption in enterprises.</span>
+						</p>
+						<div class="clear"></div>	
+						<div class="alignCenter">
+							<a class="view_all_categ" href="http://www.infoq.com/process-practices/">
+								<span>All in <b id="process-practicesHDLabel2">Process &amp; Practices</b></span>
+							</a>
+						</div>
+						<div class="clear"></div>	
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+			</li>
+			<li id="personas_3">
+				<a class="main" href="http://www.infoq.com/operations-infrastructure/" title="Operations &amp; Infrastructure"><span>Operations &amp; Infrastructure</span></a>
+				<div class="top_submenu c3">
+					<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 225px;">
+						
+					<div class="jspContainer" style="width: 225px; height: 325px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 225px;"><ul class="top_submenu_links">
+				              <li><a class="featured" href="http://www.infoq.com/hadoop/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Hadoop">Hadoop</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/performance/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Scalability/Performance">Performance</a></li>
+				              <li><a href="http://www.infoq.com/bigdata/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Big Data">Big Data</a></li>
+				              <li><a href="http://www.infoq.com/devops/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="DevOps">DevOps</a></li>
+				              <li><a href="http://www.infoq.com/cloud-computing/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Cloud">Cloud</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/apm/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Cloud">APM</a></li>
+				              <li><a href="http://www.infoq.com/virtualization/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Virtualization">Virtualization</a></li>
+				              <li><a class="featured" href="http://www.infoq.com/NoSQL/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="NoSQL">NoSQL</a></li>
+							  <!-- <li><a class="more" href="#" title="">+ More topics</a></li> -->
+						</ul></div></div></div>
+					
+					<div class="menu_article">
+						<h2>Featured in <span id="operations-infrastructureHDLabel">Operations &amp; Infrastructure</span></h2>
+						<h3 id="operations-infrastructureHDTitle"><a href="http://www.infoq.com/articles/introduction-puppet">Introduction to Puppet</a></h3>
+						<div class="clear"></div>
+						<p>
+							<img id="operations-infrastructureHDImg" src="./Introduction to Puppet_files/logo.jpg" alt="" border="0">
+							<span id="operations-infrastructureHDSummary">An introduction to Puppet, an infrastructure configuration management tool. In this article Susannah Axelrod, gives an overview of both Puppet, the language, and Puppet, the platform, discussing all the main concepts around them. Susannah also writes about how to start an Infrastructure as Code initiative as well as sharing additional learning resources for those who want to know Puppet in-depth.</span>
+						</p>
+						<div class="clear"></div>	
+						<div class="alignCenter">
+							<a class="view_all_categ" href="http://www.infoq.com/operations-infrastructure/">
+								<span>All in <b id="operations-infrastructureHDLabel2">Operations &amp; Infrastructure</b></span>
+							</a>
+						</div>
+						<div class="clear"></div>	
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+			</li>
+			<li id="personas_4" class="last">
+				<a class="main" href="http://www.infoq.com/enterprise-architect/" title="Enterprise Architecture"><span>Enterprise Architecture</span></a>
+				<div class="top_submenu c4">
+					<div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 225px;">
+						
+					<div class="jspContainer" style="width: 225px; height: 325px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 225px;"><ul class="top_submenu_links">
+				              <li><a href="http://www.infoq.com/enterprise-architecture/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Enterprise Architecture">Enterprise Architecture</a></li>
+				              <li><a href="http://www.infoq.com/bpm/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="BPM">BPM</a></li>
+				              <li><a href="http://www.infoq.com/business_it_alignment/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Business/IT Alignment">Business/IT Alignment</a></li>
+				              <li><a href="http://www.infoq.com/Architecture-Documentation/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Architecture Documentation">Architecture Documentation</a></li>
+				              <li><a href="http://www.infoq.com/Governance/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="IT Governance">IT Governance</a></li>
+				              <li><a href="http://www.infoq.com/soa/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="SOA">SOA</a></li>
+							  <!-- <li><a class="more" href="#" title="">+ More topics</a></li> -->
+						</ul></div></div></div>
+					
+					<div class="menu_article">
+						<h2>Featured in <span id="enterprise-architectHDLabel">Enterprise Architecture</span></h2>
+						<h3 id="enterprise-architectHDTitle"><a href="http://www.infoq.com/articles/Gil-Tene-QA">InfoQ Talks to Azul Systems Gil Tene about Zing, Zulu, and New Releases</a></h3>
+						<div class="clear"></div>
+						<p>
+							<img id="enterprise-architectHDImg" src="./Introduction to Puppet_files/logo-java.png" alt="" border="0">
+							<span id="enterprise-architectHDSummary">Gil Tene of Azul Systems talks about shipping their Java 8 compatible release, the need for certified builds and the problem with the current approach to Java taken by Docker.</span>
+						</p>
+						<div class="clear"></div>	
+						<div class="alignCenter">
+							<a class="view_all_categ" href="http://www.infoq.com/enterprise-architect/">
+								<span>All in <b id="enterprise-architectHDLabel2">Enterprise Architecture</b></span>
+							</a>
+						</div>
+						<div class="clear"></div>	
+					</div>
+					
+					<div class="clear"></div>
+				</div>
+			</li>
+		</ul>
+
+		
+     	
+
+
+
+
+
+
+
+<!--	#######		qcon	#########	 -->
+
+
+<div class="qcon dual">
+	<p>
+		<a href="http://qconlondon.com/?utm_source=infoq&utm_medium=header&utm_campaign=infoqheader" target="_blank" title="London 2015"><strong>London 2015</strong><br>Mar 2 - Mar 6</a>
+ 	</p>
+    <p>
+        <a href="http://qconnewyork.com/?utm_source=infoq&utm_medium=header&utm_campaign=infoqheader" target="_blank" title="New York 2015"><strong>New York 2015</strong><br>Jun 08 - Jun 12</a>
+    </p>
+</div>
+
+		
+		<div class="clear"></div>
+		
+    	
+
+
+
+
+
+
+
+
+<!--	#######		submenu	#########	 -->
+<ul class="submenu">
+    <li><a href="http://www.infoq.com/mobile/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Mobile">Mobile</a></li>
+    <li><a href="http://www.infoq.com/HTML5Topic/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="HTML5">HTML5</a></li>
+    <li><a href="http://www.infoq.com/javascript/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="JavaScript">JavaScript</a></li>
+	<li><a href="http://www.infoq.com/apm/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="APM">APM</a></li>
+
+    <li><a href="http://www.infoq.com/rest/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="REST">REST</a></li><li><a href="http://www.infoq.com/php/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="PHP">PHP</a></li><li><a href="http://www.infoq.com/cloud-computing/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="Cloud">Cloud</a></li><li><a class="last" href="http://www.infoq.com/devops/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=topic_clk" title="DevOps">DevOps</a></li>
+</ul>
+	
+    <div class="all_topics"><a href="http://www.infoq.com/topics">All topics</a></div>
+    
+    <div class="all_topics" style="float: right;"><a style="color:#106CB6; text-shadow:1px 1px 1px #A7A7A7; margin-right:20px; font-size:14px;" href="http://www.infoq.com/coderally/?utm_source=infoq&utm_medium=header_graybar&utm_campaign=CodeRally_clk" target="_blank">IBM Code Rally</a></div>
+
+	
+		
+		
+	<div class="clear"></div>
+
+	
+
+
+
+
+
+
+
+
+
+<div class="breadcrumbs">
+	<span class="first">You are here:</span>
+	<a class="normal" href="http://www.infoq.com/?utm_source=infoq&utm_medium=breadcrumbs_feature&utm_campaign=breadcrumbs" title="InfoQ Homepage">InfoQ Homepage</a>
+	
+		
+            
+            
+                <a class="normal" href="http://www.infoq.com/articles?utm_source=infoq&utm_medium=breadcrumbs_feature&utm_campaign=breadcrumbs" title="Articles">Articles</a>
+                
+		
+		<span class="last">Introduction to Puppet</span>
+	
+	
+    
+</div>
+
+	
+	<div class="clear"></div>
+</div>		
+<!--	#######		HEADER END	#########	 -->
+	
+
+                <!--	#######		CONTENT START	#########	 -->
+                <div id="content">
+                    
+		<!--	#######		left side START	#########	 -->
+	
+        <h1 class="general with_pic">
+            Introduction to Puppet
+            <span class="article_image_title">
+                <img border="0" alt="" src="./Introduction to Puppet_files/logo.jpg">
+            </span>
+        </h1>
+	<span class="author_general">
+		Posted by
+		
+			
+		
+		<a href="http://www.infoq.com/author/Susannah-Axelrod" class="editorlink f_taxonomyEditor">
+Susannah Axelrod</a>
+
+        
+        on
+        Jan 08, 2015
+        <em>|</em> 
+        
+	<a id="noOfComments" title="" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#theCommentsSection" class="comments_like">
+		
+	    
+	        <span class="comments_counts">
+	        	<span class="nr">
+					Discuss
+	        	</span>
+	        </span>
+	    
+	</a></span>
+
+   	
+
+
+
+
+
+
+
+<ul class="share_this">
+    <li class="space">Share</li>
+    <li>
+        <a href="http://www.addthis.com/bookmark.php?v=250&username=infoq" class="standard addthis_button" style="background:none;text-decoration:none;color:#1C497B; padding:0 2px; float:left; font-weight: bold;font-size: 85%;">
+            <img src="./Introduction to Puppet_files/sm-plus.gif" width="16" height="15" border="0" alt="Share">
+        </a>
+    </li>
+
+    <li>
+        <span class="addthis_separator">|&nbsp;</span>
+    </li>
+
+    <li><a class="standard addthis_button_facebook at300b" title="Facebook" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#"><span class="at16nc at300bs at15nc at15t_facebook at16t_facebook"><span class="at_a11y">Share on facebook</span></span></a></li>
+    <li><a class="standard addthis_button_digg at300b" href="http://www.addthis.com/bookmark.php?v=300&winname=addthis&pub=infoq&source=tbx-300&lng=en-US&s=digg&url=http%3A%2F%2Fwww.infoq.com%2Farticles%2Fintroduction-puppet%3Futm_source%3Dlinkedin%26utm_medium%3Dlink%26utm_content%3Dlearn_puppet_1_6%26utm_campaign%3Dcalendar&title=Introduction%20to%20Puppet&ate=AT-infoq/-/-/54b48c454fbd6c93/2&frommenu=1&uid=54b48c450fa35c0a&ct=1&pre=https%3A%2F%2Fwww.linkedin.com%2F&tt=0&captcha_provider=nucaptcha" target="_blank" title="Digg"><span class="at16nc at300bs at15nc at15t_digg at16t_digg"><span class="at_a11y">Share on digg</span></span></a></li>
+    <li><a class="standard addthis_button_dzone at300b" href="http://www.addthis.com/bookmark.php?v=300&winname=addthis&pub=infoq&source=tbx-300&lng=en-US&s=dzone&url=http%3A%2F%2Fwww.infoq.com%2Farticles%2Fintroduction-puppet%3Futm_source%3Dlinkedin%26utm_medium%3Dlink%26utm_content%3Dlearn_puppet_1_6%26utm_campaign%3Dcalendar&title=Introduction%20to%20Puppet&ate=AT-infoq/-/-/54b48c454fbd6c93/3&frommenu=1&uid=54b48c4522259c70&ct=1&pre=https%3A%2F%2Fwww.linkedin.com%2F&tt=0&captcha_provider=nucaptcha" target="_blank" title="Dzone"><span class=" at300bs at15nc at15t_dzone"><span class="at_a11y">Share on dzone</span></span></a></li>
+    <li><a class="standard addthis_button_twitter at300b" title="Tweet" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#"><span class="at16nc at300bs at15nc at15t_twitter at16t_twitter"><span class="at_a11y">Share on twitter</span></span></a></li>
+    <li><a class="standard addthis_button_reddit at300b" href="http://www.addthis.com/bookmark.php?v=300&winname=addthis&pub=infoq&source=tbx-300&lng=en-US&s=reddit&url=http%3A%2F%2Fwww.infoq.com%2Farticles%2Fintroduction-puppet%3Futm_source%3Dlinkedin%26utm_medium%3Dlink%26utm_content%3Dlearn_puppet_1_6%26utm_campaign%3Dcalendar&title=Introduction%20to%20Puppet&ate=AT-infoq/-/-/54b48c454fbd6c93/4&frommenu=1&uid=54b48c4537615ddb&ct=1&pre=https%3A%2F%2Fwww.linkedin.com%2F&tt=0&captcha_provider=nucaptcha" target="_blank" title="Reddit"><span class="at16nc at300bs at15nc at15t_reddit at16t_reddit"><span class="at_a11y">Share on reddit</span></span></a></li>
+    <li><a class="standard addthis_button_delicious at300b" href="http://www.addthis.com/bookmark.php?v=300&winname=addthis&pub=infoq&source=tbx-300&lng=en-US&s=delicious&url=http%3A%2F%2Fwww.infoq.com%2Farticles%2Fintroduction-puppet%3Futm_source%3Dlinkedin%26utm_medium%3Dlink%26utm_content%3Dlearn_puppet_1_6%26utm_campaign%3Dcalendar&title=Introduction%20to%20Puppet&ate=AT-infoq/-/-/54b48c454fbd6c93/5&frommenu=1&uid=54b48c45ec460712&ct=1&pre=https%3A%2F%2Fwww.linkedin.com%2F&tt=0&captcha_provider=nucaptcha" target="_blank" title="Delicious"><span class="at16nc at300bs at15nc at15t_delicious at16t_delicious"><span class="at_a11y">Share on delicious</span></span></a></li>
+    <li><a class="standard addthis_button_email at300b" target="_blank" title="Email" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#"><span class="at16nc at300bs at15nc at15t_email at16t_email"><span class="at_a11y">Share on email</span></span></a></li>
+
+    
+        
+        
+            <li><a id="bookmarkBtn" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="Bookmarks.bookmarkContent(&#39;articles&#39;, &#39;introduction-puppet&#39;);return false;" class="read_later" title=""><q>Read later</q></a></li>
+            <li><a class="reading_list" style="margin-right: 100px;" href="http://www.infoq.com/showbookmarks.action"><q>My Reading List</q></a></li>
+        
+    
+</ul>
+
+<script type="text/javascript">
+   var addthis_config = {
+      data_ga_property: 'UA-6608133-2',
+      data_ga_social: true
+   };
+</script>
+
+
+<!-- AddThis Button END -->
+
+
+			
+	<div class="clear"></div>
+<div class="article_page_left text_content_container">
+	
+			
+	<div class="text_info text_info_article">
+		
+			
+	       	<p>Every IT professional has suffered the frustration of code that breaks in production. Experienced developers pour hours, days and weeks into creating applications, only to have to patch them repeatedly after release. Quality assurance engineers are certain they’ve hit targets for high performance and low risk…on their test systems. And ops follows every deployment checklist to the letter, only to find themselves working late night after night, trying to keep these applications running (or limping along) in production.</p>
+
+<p>Meanwhile, executives wring their hands and fret about all the money being spent, with such mediocre results. <i>“Why does it take so long for us release features, and even bug fixes?” </i>Customers are defecting. Competitors’ technology is way ahead, and Wall Street is taking notice.</p>
+
+<p>IT organizations in situations like the above are often strictly siloed. Dev, ops and test are managed separately, have different metrics and goals, may work in different buildings, and sometimes, have never even have met each other. These teams are likely doing their work on different technology stacks with distinct configurations. The application code may stay consistent, but nothing else does. What works on a dev’s laptop or in the QA environment often doesn’t the work when deployed to production. Worst of all, no one understands the root causes of their problems.</p>
+			<div class="clear"></div>
+	        
+	            
+
+
+
+
+
+
+
+
+
+    <div class="related_sponsors visible stacked">
+        
+        
+                       
+            <div class="gray_section_related only1 fullWidth">
+	            <div class="related_editorial sponsored only1">
+	                <p class="title">Related Vendor Content</p>
+	                <div class="links">
+	                    
+	                    
+	                    
+	                    
+	                        
+	                            
+	                        
+	                        <h3 title="" class="entrypdf f_vcrbottom" jsh="{&quot;id&quot;:3129,&quot;title&quot;:&quot;The Seven Habits of Highly Effective DevOps - Free Forrester Analyst Report&quot;}">
+	                            <a href="http://www.infoq.com/vendorcontent/show.action?vcr=3129&utm_source=infoq&utm_medium=VCR&utm_campaign=vcr_articles_click" target="_blank">
+	                                The Seven Habits of Highly Effective DevOps - Free Forrester Analyst Report
+	                            </a>
+	                        </h3>
+	                    
+	                        
+	                            
+	                        
+	                        <h3 title="" class="entrypdf f_vcrbottom" jsh="{&quot;id&quot;:3113,&quot;title&quot;:&quot;Gartner Magic Quadrant for Application Performance Monitoring&quot;}">
+	                            <a href="http://www.infoq.com/vendorcontent/show.action?vcr=3113&utm_source=infoq&utm_medium=VCR&utm_campaign=vcr_articles_click" target="_blank">
+	                                Gartner Magic Quadrant for Application Performance Monitoring
+	                            </a>
+	                        </h3>
+	                    
+	                        
+	                            
+	                        
+	                        <h3 title="" class="entrypdf f_vcrbottom" jsh="{&quot;id&quot;:3062,&quot;title&quot;:&quot;Solving the database deployment problem with Database Lifecycle Management (DLM)&quot;}">
+	                            <a href="http://www.infoq.com/vendorcontent/show.action?vcr=3062&utm_source=infoq&utm_medium=VCR&utm_campaign=vcr_articles_click" target="_blank">
+	                                Solving the database deployment problem with Database Lifecycle Management (DLM)
+	                            </a>
+	                        </h3>
+	                    
+	                        
+	                            
+	                        
+	                        <h3 title="" class="entrypdf f_vcrbottom" jsh="{&quot;id&quot;:3112,&quot;title&quot;:&quot;Top 10 Java Performance Problems&quot;}">
+	                            <a href="http://www.infoq.com/vendorcontent/show.action?vcr=3112&utm_source=infoq&utm_medium=VCR&utm_campaign=vcr_articles_click" target="_blank">
+	                                Top 10 Java Performance Problems
+	                            </a>
+	                        </h3>
+	                    
+	                        
+	                            
+	                        
+	                        <h3 title="" class="entrypdf f_vcrbottom" jsh="{&quot;id&quot;:3114,&quot;title&quot;:&quot;The App Attention Span&quot;}">
+	                            <a href="http://www.infoq.com/vendorcontent/show.action?vcr=3114&utm_source=infoq&utm_medium=VCR&utm_campaign=vcr_articles_click" target="_blank">
+	                                The App Attention Span
+	                            </a>
+	                        </h3>
+	                    
+	                    
+	                    
+	                        
+	                        
+	                    
+	                    <div class="clear"></div>
+	                </div>
+	            </div>
+            </div>
+        
+        
+        
+        
+        <div class="clear"></div>
+    </div>
+
+	        
+	        
+
+<p>Our founder, Luke Kanies, was one of those ops folks stuck working late nights in the data center. His dissatisfaction with the status quo led him to write the software that became Puppet.</p>
+
+<p>But wait — we were just talking about about organizational problems. How can software solve cultural issues and enforce collaboration? The answer is, it can’t — at least, not by itself. Puppet is a great infrastructure management platform that any system administrator can use to get work done more efficiently, even from within a siloed ops team. However, for an organization that’s ready to lift collaboration to the next level, Puppet supplies the powerful glue of a <b><i>shared codebase </i></b>that unifies different teams. Bear with me for a bit as we walk through how Puppet works, and discuss how it helps teams at all stages of enhancing collaboration around software development and release — an evolution that’s often referred to as DevOps.</p>
+
+<h2>What is Puppet?</h2>
+
+<p>“Puppet” really refers to two different things: the language in which code is written, and the platform that manages infrastructure.</p>
+	        
+	        
+	            <div id="lowerFullwidthVCR"></div>
+	        
+	       	
+
+<h2>Puppet: the language</h2>
+
+<p>Puppet is a simple modeling language used to write code that automates management of infrastructure. Puppet allows you to simply describe the end state you want systems (we call them “nodes”) to be in. Contrast that with procedural scripts: to write one, you need to know what it will take to get a specific system to a specific state, and be able to write those steps out correctly. With Puppet, you don’t need to know or specify the steps required to get to the end state, and you aren’t at risk of getting a bad result because you got the order wrong, or made a slight scripting error.</p>
+
+<p>Also unlike procedural scripts, Puppet’s language works across different platforms. By abstracting state away from implementation, Puppet allows you to focus on the parts of the system you care about, leaving implementation details like command names, arguments, and file formats to Puppet itself. For example, you can use Puppet to manage all your users the same way, whether a user is stored in NetInfo or /etc/passwd.</p>
+
+<p>This concept of abstraction is key to Puppet’s utility. It allows anyone who’s comfortable with any kind of code to manage systems at a level appropriate for their role. That means teams can collaborate better, and people can manage resources that would normally be outside their ken, promoting shared responsibility amongst teams.</p>
+
+<p>Another advantage of the modeling language: Puppet is repeatable. Unlike scripts, which you can’t continue to run without changing the system, you can run Puppet over and over again, and if the system is already in its desired state, Puppet will leave it in that state.</p>
+
+<h2>Resources</h2>
+
+<p>The foundation of the Puppet language is its declaration of resources. Each resource describes a component of a system, such as a service that must be running, or a package that must be installed. Some other examples of resources:</p>
+
+<ul>
+	<li>A user account</li>
+	<li>A specific file</li>
+	<li>A directory of files</li>
+	<li>Any software package</li>
+	<li>Any running service</li>
+</ul>
+
+<p>It’s helpful to think of resources as building blocks that can be combined to model the desired state of the systems you manage.</p>
+
+<p>This leads us naturally to Puppet’s further definitions, which allow you to combine things in an economical way, economy being one of Puppet’s key attributes.</p>
+
+<h2>Types and providers</h2>
+
+<p>Puppet groups similar kinds of resources into <b>types </b>— for example, users fall into one type, files into another, and services into another. Once you have correctly described a resource type, you simply declare the desired state for that resource: Instead of saying, “run this command that starts XYZ service,” you simply say “ensure XYZ is running.”</p>
+
+<p><b>Providers</b> implement resource types on a specific kind of system, using the system’s own tools. The division between types and providers allows a single resource type (such as “package”) to manage packages on many different systems. For example, your “package” resource could manage yum on Red Hat systems, dpkg and apt on Debian-based systems, and ports on BSD systems.</p>
+
+<p>Providers are less commonly declared by the admin, and only if she wants to change the system defaults. Providers are written into Puppet precisely so you don’t have to know how to manage each operating system or platform running on your infrastructure. Again, it’s Puppet abstracting away details you shouldn’t have to worry about. If you do need to write a provider, these are often simple Ruby wrappers around shell commands, so they are usually short and easy to create.</p>
+
+<p>Types and providers enable Puppet to function across all major platforms, and allow Puppet to grow and evolve to support additional platforms beyond compute servers, such as networking and storage devices.</p>
+
+<p>The example below demonstrates the simplicity of the Puppet language by showing how a new user and group is added with a shell script, contrasted to the identical action in Puppet. In the Puppet example, “user” and “group” are types, and Puppet automatically discovers the appropriate provider for your platform. The platform-specific, procedural scripts are much harder both to write and to understand.</p>
+
+<p><strong><small>(Click on the image to enlarge it)</small></strong></p>
+
+<p><a _href="resource://fig2.png" href="http://www.infoq.com/resource/articles/introduction-puppet/en/resources/fig2.png"><img _href="img://fig2-small.png" _p="true" alt="" src="./Introduction to Puppet_files/fig2-small.png" style="margin: 3px; width: 600px; height: 286px;"></a></p>
+
+<h2>Classes, manifests and modules</h2>
+
+<p>Every other part of the Puppet language exists to add flexibility and convenience to how resources are declared. <b>Classes</b> are Puppet’s way of separating out chunks of code, combining resources into larger units of configuration. A class could include all the Puppet code needed to install and configure NTP, for example. Classes can be created in one place and invoked in another.</p>
+
+<p>Different sets of classes are applied to nodes that serve different roles. We call this “node classification” and it’s a powerful capability that allows you to manage your nodes based on their capabilities, rather than based on their names. It’s the “cattle not pets” approach to managing machines that is favored in fast-moving organizations.</p>
+
+<p>Puppet language files are called <b>manifests. </b>The simplest Puppet deployment is a lone manifest file with a few resources. If we were to give the basic Puppet code in the above example the filename “user-present.pp,” that would make it a manifest.</p>
+
+<p><b>Modules </b>are a collection of classes, resource types, files, and templates, organized around a particular purpose and arranged in a specific, predictable structure. There are modules available for all kinds of purposes, from completely configuring an Apache instance to setting up a Rails application, and many, many more. Including the implementation of sophisticated features in modules allows admins to have much smaller, more readable manifests that simply call modules.</p>
+
+<p>One huge benefit of Puppet modules is that they are reusable. You can use modules written by other people, and Puppet has a large, active community of people who freely share modules they’ve written. That’s in addition to the modules written by Puppet Labs employees. Altogether, you’ll find more than 3,000 modules available for free download on the <a href="https://www.google.com/url?q=https%3A%2F%2Fforge.puppetlabs.com%2F&sa=D&sntz=1&usg=AFQjCNHPWg5axxYof2TQ1vkJO0IPt9KrTw">Puppet Forge</a>. Many of these were created for some of the most common tasks sysadmins are responsible for, so they’ll save you a lot of time. For example, you can manage everything from simple server building blocks (NTP, SSH) to sophisticated solutions (SQL Server, F5).</p>
+
+<p>Classes, manifests and modules are all just code. They can — and should, as we’ll discuss later — be checked into version control, just like any other code your organization needs.</p>
+
+<h2>Puppet: the platform</h2>
+
+<p>The language alone is not the full Puppet solution. People need to deploy Puppet code across infrastructure, periodically update code with configuration changes, remediate unintended changes, and introspect their systems to ensure everything is working as intended. To meet these needs, most customers run the Puppet solution in a master-agent structure, comprised of a number of components. Customers run one or more Puppet masters, depending on their needs. An agent is installed on each node, which then establishes a secure, signed connection with the master.</p>
+
+<p>The master-agent structure is used to deploy Puppet code to nodes and to maintain the configuration of those nodes over time. Before configuring a node, Puppet compiles manifests into a <b>catalog</b>. Catalogs are static documents that define resources and the relationships between them. A given catalog applies to a single node, according to its job and the context in which it will do its job. A catalog defines how a node will function, and is used by Puppet to check whether a node is correctly configured, and apply a new configuration if needed.</p>
+
+<p>Each node-based agent checks in periodically with a master server during each regular Puppet run. Puppet can then do any of the following:</p>
+
+<ul>
+	<li>remediate any configurations that have drifted from what they should be</li>
+	<li>report on the state of nodes without making any changes</li>
+	<li>apply any desired configuration changes, using Puppet’s orchestration tooling</li>
+	<li>collect data from nodes and events, and store it for retrieval</li>
+</ul>
+
+<p>Puppet Labs’ commercial solution, Puppet Enterprise, adds customer support and a variety of advanced, mission-critical capabilities:</p>
+
+<ul>
+	<li>sophisticated node management capabilities</li>
+	<li>role-based access control</li>
+	<li>operational metrics and a reporting console</li>
+</ul>
+
+<h2>Putting it all together</h2>
+
+<p>Now you have a basic understanding of how Puppet works, but you may still be wondering how it can help your organization fix its deeper problems and enable people to collaborate more easily.</p>
+
+<p>It all boils down to this: When you use Puppet, you are modeling your infrastructure as code. You can treat Puppet — and, by extension, your infrastructure’s configuration — just like any other code. Puppet code is easily stored and re-used. It can be shared with others on the ops team, and people on other teams who need to manage machines. Dev and ops can use the same manifests to manage systems from the laptop dev environment all the way to production, so there are fewer nasty surprises when code is released into production. That can yield big improvements in deployment quality, especially for some organizations we’ve seen.</p>
+
+<p>Treating configuration as code also makes it possible for sysadmins to give devs the ability to turn on their own testing environments, so devs don’t see sysadmins as standing in their way anymore. You can even hand Puppet code to auditors, many of whom accept Puppet manifests as proof of compliance. All of this improves efficiencies, and people’s tempers, too.</p>
+
+<p>Perhaps most important of all, you can check Puppet code into a shared version control tool. This gives you a controlled, historical record of your infrastructure. You can adopt the same peer review practices in ops that software developers use, so ops teams can continually improve configuration code, updating and testing until you are secure enough to commit configurations to production.</p>
+
+<p>Because Puppet has the ability to run in simulation or “no-op” mode, you can also review the impact of changes before you make them. This helps make deployments much less stressful, since you can roll back if needed.</p>
+
+<p>By using Puppet with version control and the practices outlined above, many of our customers achieve the holy grail of continuous delivery, delivering code more frequently into production, with fewer errors. When you deploy applications in smaller increments, you get early and frequent customer feedback to tell you whether you are headed down the right road — or not. This saves you from delivering a big wad of code after six to 12 months of development, only to discover it doesn’t fit user needs, or simply doesn’t please them.</p>
+
+<p>Our customers evolve the configuration of dev, test and production environments in step with application code from developers. This allows devs to work in an extremely realistic environment, often identical to production. Applications no longer break in production due to unknown configuration differences between dev and test. Devs and QA get to deploy more good software; ops no longer burns the midnight oil; and executives are finally…well, if not happy, at least they are satisfied enough to shift their focus to concerns other than IT efficiency!</p>
+
+<h2>Taking the first step</h2>
+
+<p>Most organizations we see admittedly are pretty far from an advanced level of continuous collaboration, let alone continuous delivery. The nice thing about Puppet is that it grows and scales as your team and infrastructure grow and scale. You may not be ready yet to roll out company-wide DevOps practices — and that’s okay. Many customers use Puppet successfully as a configuration management tool in conservative, compliance-oriented industries such as banking and government. These organizations may have little need to adopt continuous delivery, but nonetheless, storing and versioning infrastructure as code vastly improves their change control and security practices.</p>
+
+<p>We recommend you start by automating one thing that will make your job easier. For instance, many admins start by automating management of NTP, DNS, SSH, firewalls, or users and groups — all things that are completely routine, and that suck up a lot of time.</p>
+
+<p>After gaining experience with Puppet, many people move up the stack, writing more complex modules to manage services like Tomcat monitoring or their JBoss application servers. Others adopt and adapt Forge modules. When you’re ready to dive in further, you can make sure <i>all</i> the machines in the data center — and in the cloud, too — are equipped to do the jobs they're supposed to do, that they're actually doing those jobs, and that the overall system is functioning properly to run the applications that serve your business.</p>
+
+<p>It’s important to remember that you don't have to wade into infrastructure as code all by yourself. Others have solved these problems before you, so make good use of their work! We already mentioned the thousands of modules available on the Puppet Forge. You can also rely on the Puppet community, which numbers in the tens of thousands. Subscribe to the <a href="https://groups.google.com/forum/#!forum/puppet-users">Puppet user group on Google</a>, check out <a href="http://ask.puppetlabs.com/questions/">ask.puppetlabs.com</a>, and get to know the engaged and responsive people there. Attend a <a href="http://puppetlabs.com/community/puppet-camp">Puppet Camp</a> or <a href="http://puppetlabs.com/community/PUG">Puppet User Group</a> in your area to meet people in person. You can use <a href="https://puppetlabs.com/learn">Puppet Labs learning resources</a>, both free and paid, and there’s always our <a href="https://www.youtube.com/user/PuppetLabsInc">YouTube channel</a> and our <a href="https://docs.puppetlabs.com/">official documentation</a>, too.</p>
+
+<p>This is just a taste of what you can find when you enter the Puppet ecosystem. We look forward to seeing you and helping you learn how Puppet can make your infrastructure, your business and your work life run so much better.</p>
+
+<h2>About the Author</h2>
+
+<p><img _href="img://IMG_0246.jpg" _p="true" alt="" src="./Introduction to Puppet_files/IMG_0246.jpg" style="margin: 3px; float: left; width: 85px; height: 100px;"><strong>Susannah Axelrod</strong> joined Puppet Labs in 2013 from Huron Consulting, where she was Director of Product Management. Prior to Huron, Susannah held product leadership roles at Thomson Reuters, Sage Software, Intuit and Intel. She loves figuring out what customers need and working to solve their problems. Susannah received her BA from the University of Chicago and her MBA from the Wharton School at the University of Pennsylvania.</p>
+
+	       	
+       	
+		<div class="clear"></div>
+				
+		<div class="random_links">
+			<ul>
+				
+					
+					
+					
+					
+					<li><a><span class="gray_color">Sections</span></a></li>
+				<li><a class="f_taxonomy" href="http://www.infoq.com/operations-infrastructure" name="operations-infrastructure" id="6,818"><b>Operations &amp; Infrastructure</b></a></li>				<li><a class="f_taxonomy" href="http://www.infoq.com/development" name="development" id="6,815"><b>Development</b></a></li>
+	<li><a><span class="gray_color">Topics</span></a></li>
+					<li><a class="f_taxonomy" href="http://www.infoq.com/Configuration-Management-Tools" name="Configuration-Management-Tools" id="15,279">Configuration Management Tools</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/Infrastructure" name="Infrastructure" id="6,188">Infrastructure</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/Devops" name="Devops" id="6,043">Devops</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/cloud-computing" name="cloud-computing" id="3,781">Cloud Computing</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/code-infrastructure" name="code-infrastructure" id="14,615">Infrastructure as Code</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/Puppet" name="Puppet" id="5,975">Puppet</a></li>					<li><a class="f_taxonomy" href="http://www.infoq.com/ITSM" name="ITSM" id="7,186">IT Service Management</a></li>
+			</ul>							
+		</div>
+      
+		
+		
+		
+			
+			
+
+
+
+
+
+
+
+
+<div class="related_sponsors relEdRelRes" style="display: block;">
+	<div class="gray_section_related only1 fullWidth">
+	    <div class="related_editorial recommended only1" style="display: block;">
+	        <p class="title">Related Editorial</p>
+	        <div id="editorial_links" class="links">
+	            <div class="clear"></div>
+	        <h3 title="" class="news">
+                                    <a title="" href="http://www.infoq.com/news/2014/07/puppet-labs-interview-40-mio?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk">Interview With Luke Kanies on $40 Million Funding of Puppet Labs</a></h3><h3 title="" class="news">
+                                    <a title="" href="http://www.infoq.com/news/2014/09/puppet-approved-modules?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk">Puppet Labs Announces Approved Modules and Partner Network</a></h3><h3 title="" class="news">
+                                    <a title="" href="http://www.infoq.com/news/2014/09/next-generation-puppet-server?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk">Puppet Labs Announces the Next-Generation Puppet Server</a></h3><h3 title="" class="news">
+                                    <a title="" href="http://www.infoq.com/news/2014/08/puppet-lint-1.0.0?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk">Puppet-lint 1.0.0 released</a></h3><h3 title="" class="news">
+                                    <a title="" href="http://www.infoq.com/news/2014/08/lyft-moves-to-saltstack?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk">Lyft Replaces Puppet with SaltStack</a></h3></div>
+	    </div>
+    </div>
+    <div class="clear"></div>
+    <div class="related_research"></div>
+</div>
+
+
+<script type="text/javascript">
+    $.ajax({
+        url: "/api/recommendationlinks.action",
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        type: 'POST',
+        data: {"topicIds": "3352,3964,1893,1840,-1000,-1000", "title": "Introduction to Puppet", "contentPath": "/articles/introduction-puppet", "language": "en"},
+        success: displayRelatedEditorial,
+        async: false
+    });
+    
+    function displayRelatedEditorial(data) {
+        var trackingCode = "?utm_source=infoq&utm_medium=related_content_link&utm_campaign=relatedContent_articles_clk";
+        if (data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                if (i === 5) {
+                    break;
+                }
+                var link = $('<h3 title="" class="' + data[i].contentType + '">\n\
+                                    <a title="" href="' + data[i].url + trackingCode +
+                        '">' + data[i].title + '</a></h3>');
+                $('#editorial_links').append(link);
+            }
+            $('.gray_section_related > .related_editorial.recommended').css('display', 'block');
+        }
+    }
+</script> 
+
+<script type="text/javascript">
+    $.ajax({
+        type: "POST",
+        url: '/widgets/researchHorizontalWidget.action',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        data: {
+            "path": 'introduction-puppet',
+            "uriMapping": 'articles'
+        },
+        success: displayRelatedResearch,
+        error: function() {
+            // fail silently
+        },
+        async: false
+    });
+    
+    function displayRelatedResearch(data) {
+        if (InfoQConstants.language != 'en') {
+            return;
+        }
+        if (data.matchedList && data.matchedList.length > 0) {
+            $('.related_research').append('<p class="title">Related Research</p>')
+            for (var i = 0; i < data.matchedList.length; i++) {
+                var link = $('<a class="rel_results" title="" href="' + data.matchedList[i][0] +
+                        '?utm_source=infoqresearch&utm_campaign=rr-content">' +
+                        '<img border="0" alt="" src="' + data.matchedList[i][2] + '">' +
+                        data.matchedList[i][1] +
+                        '</a>');
+                $('.related_research').append(link);
+            }
+            if (data.latestList) {
+                for (var i = 0; i < data.latestList.length; i++) {
+                    var link = $('<a class="rel_results" title="" href="' + data.latestList[i][0] +
+                            '?utm_source=infoqresearch&utm_campaign=rr-content">' +
+                            '<img border="0" alt="" src="' + data.latestList[i][2] + '">' +
+                            data.latestList[i][1] +
+                            '</a>');
+                    $('.related_research').append(link);
+                }
+            }
+            $('.related_research').show();
+        }
+    }
+</script>	
+
+
+<script type="text/javascript">
+    
+        $(function() {
+        	var grayBox = $('.gray_section_related');
+            var recommendedColumn = $('.gray_section_related > .related_editorial.recommended');
+            var recommendedExists = $(recommendedColumn).css('display') === 'block';
+            var researchRow = $('.related_research');
+            var researchExists = $(researchRow).css('display') === 'block';
+
+            if (recommendedExists || researchExists) {
+                $('.related_sponsors.relEdRelRes').show(); // show the big related box
+            }
+
+            // in case all three available, leave now
+            if (recommendedExists) {
+            	$(grayBox).show(); // show the gray box for vcr and recommendations
+                return;
+            }
+        });
+</script>
+<div class="clear"></div>
+		
+		
+
+		<div class="clear"></div>
+				
+		
+		
+			
+		
+
+
+
+
+
+
+<script type="text/javascript">
+
+    var JSi18n = JSi18n || {}; // define only if not already defined
+    JSi18n.re='Re:';
+    JSi18n.errorSubject='Please enter a subject.';
+    JSi18n.errorBody='You can not post a blank message. Please type your message and try again.';
+    JSi18n.errorInvalidLinks='The Message body contains invalid links. Please review and try again';
+    JSi18n.stopWatchText='Stop Watching Thread';
+    JSi18n.startWatchText='Watch Thread';
+    JSi18n.timeExpiredMessage='5 minute allowable editing time has elapsed. Sorry for any inconvenience.';
+    JSi18n.repostButtonFormat='Repost ($m left)';
+    JSi18n.timeExpiredButton='Time Expired';
+    JSi18n.sessionExpiredMessage='Your session expired. Please log in and resubmit';
+    JSi18n.editLinkFormat='Edit ($m minutes left)';
+    JSi18n.enter_subject='Please enter a subject';
+    JSi18n.enter_message='Message';
+    JSi18n.content_datetime_format='MMM dd, yyyy';
+
+var forumID=1;
+var threadID=40761;
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action?language=' + 'en';
+var repostAddress= ctxPath + '/forum/repost.action?language=' + 'en';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var loggedIn=false;
+var threadWatched=false;
+
+
+var forumNotificationDefault=false;
+
+var commentEditPeriod=5;
+</script>
+
+<script type="text/javascript" src="./Introduction to Puppet_files/ForumNotifications.js"></script>
+<script type="text/javascript" src="./Introduction to Puppet_files/jquery.autosize.js"></script>
+<script type="text/javascript" src="./Introduction to Puppet_files/date.js"></script>
+
+    <div class="comment_here">
+        <div id="postFormDeck">
+            <div id="deckText">
+                <h2>Hello stranger!</h2>
+                You need to <a href="http://www.infoq.com/reginit.action">Register an InfoQ account</a> or
+                <a class="login" href="javascript:;">Login</a> or login to post comments. But there's so much more behind being registered.<br>
+                <div id="getMost"><h2>Get the most out of the InfoQ experience.</h2></div>
+            </div>
+        </div>
+        <a id="theCommentsSection"></a>
+        <h3>Tell us what you think</h3>
+        <form onsubmit="return false;" target="" enctype="multipart/form-data" method="post" action="" name="">
+            <div class="area" name="comments">
+                <input type="text" id="subject" value="">
+                <textarea id="body"></textarea>
+            </div>
+
+            <div class="clear"></div>
+            <p class="allowed">Allowed html: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+            <input type="checkbox" class="checkReply" id="emailMe" name="emailMe">
+            <span class="tocheck">Email me replies to any of my messages in this thread</span>
+            <div class="clear"></div>
+            <input type="button" value="Post Message" class="submit" id="subButton">
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="comments">
+        <div class="comments_title">Community comments 
+                <span id="watch">
+                    <a href="javascript:void(0)" class="watch_thread">Watch Thread</a>
+                </span>
+            </div>
+        <div class="clear"></div>
+        
+    </div>
+
+    <div class="all_comments">
+        
+    </div>
+
+    <!-- overlay -->
+    <div id="overlay_comments">
+        <a href="javascript:;" class="close_comment" title="">Close</a>
+        <h4><strong></strong> by <span id="author"></span> <span id="timepast"></span></h4>
+        <p id="body">
+        </p><div class="alt">
+            <span>on <span id="timestamp"></span></span>
+        </div>
+
+        <div class="clear"></div>
+        <ul class="help_links">
+            <li><a title="" class="view">View</a></li>
+            <li><a title="" href="javascript:;" class="reply">Reply</a></li>
+            <li><a title="" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" class="backtop">Back to top</a></li>
+        </ul>
+
+        <div class="clear"></div>
+
+    </div>
+    <!-- reply box -->
+    <div id="replyPopup" class="popupLoginComments">
+        <a title="" class="close_login_popup" href="javascript:;">Close</a>
+
+        <form onsubmit="return false;" target="" action="" name="tpopup-reply" method="post">
+            <label class="label_login">Subject</label>
+            <input type="text" class="login_text subject" name="subject">
+            <label class="label_login">
+            	Your Reply
+            	<a style="float: right; text-decoration: underline; font-weight: normal; color: grey;" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="CommentsHandler.quoteOriginalMessage();return false;">
+            		Quote original message
+            	</a>
+            </label>
+            <textarea class="commentsReply" name="commentsReply"></textarea>
+            <div class="clear"></div>
+            <p class="error allowed"></p>
+            <div class="clear"></div>
+            <p class="allowed">Allowed html: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+            <input type="checkbox" class="checkReply emailMe" name="emailMe">
+            <span class="tocheck">Email me replies to any of my messages in this thread</span>
+            <div class="clear"></div>
+            <input type="button" id="submit-reply" name="submit-reply" value="Post Message">
+            <input type="reset" class="reset-reply" name="reset-reply" value="Cancel">
+        </form>
+    </div>
+    <!-- edit comment box -->
+    <div id="editCommentPopup" class="popupLoginComments">
+        <a title="" class="close_login_popup" href="javascript:;">Close</a>
+
+        <form onsubmit="return false;" target="" action="" name="tpopup-reply" method="post">
+            <label class="label_login">Subject</label>
+            <input type="text" class="login_text subject" name="subject">
+            <label class="label_login">Your Reply</label>
+            <textarea class="commentsReply" name="commentsReply"></textarea>
+            <div class="clear"></div>
+            <p class="error allowed"></p>
+            <div class="clear"></div>
+            <p class="allowed">Allowed html: a,b,br,blockquote,i,li,pre,u,ul,p</p>
+            <input type="checkbox" class="checkReply emailMe" name="emailMe">
+            <span class="tocheck">Email me replies to any of my messages in this thread</span>
+            <div class="clear"></div>
+            <p class="time_expired allowed"></p>
+            <input type="button" id="resubmit-reply" name="submit-reply" value="">
+            <input type="reset" class="reset-reply" name="reset-reply" value="Cancel">
+        </form>
+    </div>
+    <!-- notification popup -->
+    <div id="messagePopup" class="popupLoginComments">
+        <a title="" class="close_login_popup" href="javascript:;">Close</a>
+        <div class="clear"></div>
+        <p class="allowed"></p>
+        <div class="clear"></div>
+        <input type="reset" class="reset-reply" name="reset-reply" value="OK">
+    </div>
+    <div id="responseContent"></div>
+	
+
+	</div>
+	<div class="clear"></div>
+</div>
+
+<!--	#######		left side end	#########	 -->
+
+<!--	#######		right side START	#########	 -->
+<div class="article_page_right">
+	<script type="application/javascript">
+		// used for most popular tracking codes
+		var pageForWidget = 'article';
+	</script>
+    
+
+
+
+
+
+
+
+<div id="mostPopularSection" class="news_in_tabs" style="display: block;">
+	<!-- the tabs -->
+	<ul class="tabs">
+		
+			<li><div class="tab_title">Popular</div></li>
+			<li><a href="javascript:;" class="current">10 days</a></li>
+			<li><a href="javascript:;">40 days</a></li>
+			<li><a href="javascript:;">6 months</a></li>
+				
+	</ul>
+	<!-- tab "panes" -->
+	<div class="panes">
+	<div style="display: block;"><h3 class="h3articles" <!--pageviews:9205="" publication="" date:="" 2015-01-04--="">
+<a href="http://www.infoq.com/articles/Java-9-and-Beyond-Goetz-Rose-Interview?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Java 9 and Beyond. Oracle's Brian Goetz and John Rose Glimpse into the Future</a><a href="http://www.infoq.com/articles/Java-9-and-Beyond-Goetz-Rose-Interview?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">1</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:3183="" publication="" date:="" 2015-01-07--="">
+<a href="http://www.infoq.com/news/2015/01/Coding-Certification?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">A MS Certification Based on Publishing an Application</a></h3><h3 class="h3news" <!--pageviews:3093="" publication="" date:="" 2015-01-08--="">
+<a href="http://www.infoq.com/news/2015/01/new-javascript-libraries?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">What's Exciting in New JavaScript Libraries</a></h3><h3 class="h3news" <!--pageviews:2586="" publication="" date:="" 2015-01-05--="">
+<a href="http://www.infoq.com/news/2015/01/IKVM-8?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Run Java 8 Code on .NET with IKVM</a><a href="http://www.infoq.com/news/2015/01/IKVM-8?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">2</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:2127="" publication="" date:="" 2015-01-07--="">
+<a href="http://www.infoq.com/news/2015/01/Apache-Spark-1.2.0-Released?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Apache Spark 1.2.0 Supports Netty-based Implementation, High Availability and Machine Learning APIs</a></h3><h3 class="h3articles" <!--pageviews:2043="" publication="" date:="" 2015-01-08--="">
+<a href="http://www.infoq.com/articles/introduction-puppet?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Introduction to Puppet</a></h3><h3 class="h3news" <!--pageviews:1787="" publication="" date:="" 2015-01-08--="">
+<a href="http://www.infoq.com/news/2015/01/distributed-fault-tolerant-nosql?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Distributed, Fault Tolerant Transactions in NoSQL</a></h3></div><div style="display: none;"><h3 class="h3news" <!--pageviews:12598="" publication="" date:="" 2014-12-29--="">
+<a href="http://www.infoq.com/news/2014/12/Java10EnhancedGenerics?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Under the Hood with a Prototype of Enhanced Generics for Java</a><a href="http://www.infoq.com/news/2014/12/Java10EnhancedGenerics?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">23</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:10589="" publication="" date:="" 2014-12-07--="">
+<a href="http://www.infoq.com/articles/web-api-design-methodology?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">A Web API Design Methodology</a><a href="http://www.infoq.com/articles/web-api-design-methodology?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">3</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:10015="" publication="" date:="" 2014-12-22--="">
+<a href="http://www.infoq.com/articles/Teaching-Kids-Java?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Teaching Kids Java Programming</a><a href="http://www.infoq.com/articles/Teaching-Kids-Java?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">1</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:9446="" publication="" date:="" 2014-12-04--="">
+<a href="http://www.infoq.com/news/2014/12/expressjs-burned-netflix?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Netflix Burned by Express.js</a><a href="http://www.infoq.com/news/2014/12/expressjs-burned-netflix?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">8</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:9228="" publication="" date:="" 2015-01-04--="">
+<a href="http://www.infoq.com/articles/Java-9-and-Beyond-Goetz-Rose-Interview?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Java 9 and Beyond. Oracle's Brian Goetz and John Rose Glimpse into the Future</a><a href="http://www.infoq.com/articles/Java-9-and-Beyond-Goetz-Rose-Interview?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">1</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:9144="" publication="" date:="" 2014-12-17--="">
+<a href="http://www.infoq.com/articles/roy-fielding-on-versioning?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Roy Fielding on Versioning, Hypermedia, and REST</a><a href="http://www.infoq.com/articles/roy-fielding-on-versioning?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">14</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:7955="" publication="" date:="" 2014-12-10--="">
+<a href="http://www.infoq.com/articles/WixSharp?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Using C# and Wix# to Build Windows Installer Packages</a><a href="http://www.infoq.com/articles/WixSharp?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">2</span></span>                        </a></h3></div><div style="display: none;"><h3 class="h3news" <!--pageviews:44434="" publication="" date:="" 2014-10-27--="">
+<a href="http://www.infoq.com/news/2014/10/angular-2-atscript?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">AngularJS 2.0 Details Emerge</a><a href="http://www.infoq.com/news/2014/10/angular-2-atscript?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">3</span></span>                        </a></h3><h3 class="h3articles" <!--pageviews:41389="" publication="" date:="" 2014-08-29--="">
+<a href="http://www.infoq.com/articles/software-development-effort-estimation?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">What We Do and Don't Know about Software Development Effort Estimation</a><a href="http://www.infoq.com/articles/software-development-effort-estimation?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">1</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:24804="" publication="" date:="" 2014-08-14--="">
+<a href="http://www.infoq.com/news/2014/08/Pattern-Matching?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Pattern Matching in C# and VB</a><a href="http://www.infoq.com/news/2014/08/Pattern-Matching?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">11</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:21815="" publication="" date:="" 2014-09-29--="">
+<a href="http://www.infoq.com/news/2014/09/bash-remote-exploit?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Remote Code Exploitation through Bash</a><a href="http://www.infoq.com/news/2014/09/bash-remote-exploit?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">2</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:20210="" publication="" date:="" 2014-07-28--="">
+<a href="http://www.infoq.com/news/2014/07/Project-Valhalla?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Oracle Launches Project Valhalla for Java</a><a href="http://www.infoq.com/news/2014/07/Project-Valhalla?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list#theCommentsSection">                            <span class="comments_counts"><span class="nr">12</span></span>                        </a></h3><h3 class="h3news" <!--pageviews:19836="" publication="" date:="" 2014-08-18--="">
+<a href="http://www.infoq.com/news/2014/08/Java9-FirstFeatures?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">Oracle Announces First Java 9 Features</a></h3><h3 class="h3minibooks" <!--pageviews:16643="" publication="" date:="" 2014-07-21--="">
+<a href="http://www.infoq.com/minibooks/emag-java-8?utm_source=infoq&utm_medium=popular_widget&utm_content=article&utm_campaign=popular_content_list">InfoQ eMag: Java 8</a></h3></div></div>
+	<div class="clear"></div>
+</div>
+    <div class="banner_type3" id="id_300x250_banner_top">
+        <script type="text/javascript">
+            googletag.cmd.push(function() { googletag.display('id_300x250_banner_top'); });
+        </script>
+    </div>  
+    
+
+
+
+
+
+
+
+    <div class="clear"></div>
+    
+        <h2 title="Educational Content">Educational Content</h2>
+    
+    <!-- the tabs -->
+    <ul class="tabs">
+        <li id="ALL_EXCEPT_NEWS" class="current"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;ALL_EXCEPT_NEWS&#39;);return false;" class="current">All</a></li>
+        <li id="ARTICLE"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;ARTICLE&#39;);return false;">Articles</a></li>
+        <li id="PRESENTATION"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;PRESENTATION&#39;);return false;">Presentations</a></li>
+        <li id="INTERVIEW"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;INTERVIEW&#39;);return false;">Interviews</a></li>
+        <li id="MINIBOOK"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;MINIBOOK&#39;);return false;">Books</a></li>
+        
+            <li id="RESEARCH"><a href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="ContentSummary.switchTab(&#39;RESEARCH&#39;);return false;">Research</a></li>
+        
+    </ul>
+
+    <!-- tab "panes" -->
+    <div class="panes">
+        <div id="rightbarcontentbox">
+            
+                
+                
+            
+
+
+
+
+
+
+
+
+
+			
+<form id="tabstateform" onsubmit="customOnsubmit(); return true;" action="">
+<div id="tabstateformelements">
+		<input id="startIndex" type="hidden" name="startIndex" value="0">
+		<input id="selectedTab" type="hidden" name="selectedTab" value="ALL_EXCEPT_NEWS">
+		<input id="rightBarLanguage" type="hidden" name="language" value="en">
+	</div><table class="wwFormTable">
+
+	
+</table>
+</form>
+
+
+<script>
+	function customOnsubmit() {
+		
+	}
+</script>
+
+
+
+
+
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="interviews">
+				<a title="Yuval Yeret on Using Kanban for Agile Adoption" href="http://www.infoq.com/interviews/lkfr14-yeret-kanban-agile">
+					Yuval Yeret on Using Kanban for Agile Adoption
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Yuval-Yeret" class="editorlink" title="Yuval Yeret">
+Yuval Yeret</a>
+
+				Jan 12, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="Yuval Yeret on Using Kanban for Agile Adoption" href="http://www.infoq.com/interviews/lkfr14-yeret-kanban-agile">
+				<img border="0" alt="" src="./Introduction to Puppet_files/Yuval-Yeret-small.png">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+	
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="articles">
+				<a title="Using Agile Retrospectives for Organizational Change" href="http://www.infoq.com/articles/retrospectives-organizational-change">
+					Using Agile Retrospectives for Organizational Change
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Ben-Linders" class="editorlink" title="Ben Linders">
+Ben Linders</a>
+
+				Jan 12, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="Using Agile Retrospectives for Organizational Change" href="http://www.infoq.com/articles/retrospectives-organizational-change">
+				<img border="0" alt="" src="./Introduction to Puppet_files/front.jpg">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+		<div class="banner_type3" id="id_300x250_banner_top" style="display: none;">
+			<script type="text/javascript">
+				googletag.cmd.push(function() { googletag.display('id_300x250_banner_top'); });
+			</script>
+		</div>
+	    <div class="clear"></div>
+	
+	
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="presentations">
+				<a title="You Won&#39;t Believe How the Biggest Sites Build Scalable and Resilient Systems!" href="http://www.infoq.com/presentations/scalable-resilient-systems">
+					You Won't Believe How the Biggest Sites Build Scalable and Resilient Systems!
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Jeremy-Edberg%2CPhilip-Fisher~Ogden" class="editorlink" title="Jeremy Edberg,Philip Fisher-Ogden">
+Jeremy Edberg,Philip Fisher-Ogden</a>
+
+				Jan 11, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="You Won&#39;t Believe How the Biggest Sites Build Scalable and Resilient Systems!" href="http://www.infoq.com/presentations/scalable-resilient-systems">
+				<img border="0" alt="" src="./Introduction to Puppet_files/Jer.JPG">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+	
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="presentations">
+				<a title="Navigating Politics: Why Lean/Agile Can Make It Worse &amp; What to Do about It" href="http://www.infoq.com/presentations/team-politics">
+					Navigating Politics: Why Lean/Agile Can Make It Worse &amp; What to Do about It
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Katherine-Kirk" class="editorlink" title="Katherine Kirk">
+Katherine Kirk</a>
+
+				Jan 11, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="Navigating Politics: Why Lean/Agile Can Make It Worse &amp; What to Do about It" href="http://www.infoq.com/presentations/team-politics">
+				<img border="0" alt="" src="./Introduction to Puppet_files/Kat.JPG">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+	
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="presentations">
+				<a title="The Girl who Played with Paper" href="http://www.infoq.com/presentations/visualization-maps-models">
+					The Girl who Played with Paper
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Lynne-Cazaly" class="editorlink" title="Lynne Cazaly">
+Lynne Cazaly</a>
+
+				Jan 11, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="The Girl who Played with Paper" href="http://www.infoq.com/presentations/visualization-maps-models">
+				<img border="0" alt="" src="./Introduction to Puppet_files/Ly.JPG">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+	
+
+
+	
+	
+		
+	
+
+    <div class="tab_article">
+        <div class="txxt">
+			<h2 class="presentations">
+				<a title="High Performance Computing Contributions to the World of Big Data" href="http://www.infoq.com/presentations/hpc-big-data">
+					High Performance Computing Contributions to the World of Big Data
+				</a>
+			</h2>
+			<div class="clear"></div>
+            
+                
+            
+			<p>
+				<a href="http://www.infoq.com/author/Sharan-Kalwani" class="editorlink" title="Sharan Kalwani">
+Sharan Kalwani</a>
+
+				Jan 11, 2015
+			</p>
+        </div>
+		<div class="immg">
+			<a title="High Performance Computing Contributions to the World of Big Data" href="http://www.infoq.com/presentations/hpc-big-data">
+				<img border="0" alt="" src="./Introduction to Puppet_files/Sha.JPG">
+			</a>
+		</div>
+        <div class="clear"></div>
+    </div>
+        
+	
+	
+		<div class="banner_type3" id="id_300x250_banner_bottom">
+			<script type="text/javascript">
+				googletag.cmd.push(function() { googletag.display('id_300x250_banner_bottom'); });
+			</script>
+		</div>
+	    <div class="clear"></div>
+	
+
+
+
+
+
+
+    <ul id="paginationRightbar" class="newsnav link-col">
+    <li>
+        
+        
+            <a onclick="ContentSummary.setStartIndex(&#39;6&#39;);return false;" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" class="right"><span>Older</span></a>
+        
+    </li>
+</ul>
+
+
+
+<!-- rightbarInfoQrightbar -->
+
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+
+    
+
+
+
+
+
+
+
+
+	<script type="application/javascript">
+		googletag.cmd.push(function() {
+			googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+//				console.log('Slot has been rendered:' + event);
+//				console.log(event);
+				// only treat textlinks
+				if (event.slot.j.indexOf('textlink') != -1) {
+					if (!event.isEmpty) {
+						$('.sponsored_links_section').css('display', 'block'); // International site
+						$('.sponsored_links_section_i18n').css('display', 'block'); // all but the international site
+					}
+				}
+			});
+		});
+	</script>
+ 	
+ 		<div class="sponsored_links_section">
+ 	
+ 	
+		 	<div class="sp_title">Sponsored Links</div>
+		 	<div id="id_ad_textlink1">
+		 		<script type="text/javascript">
+		 			googletag.cmd.push(function() { googletag.display('id_ad_textlink1'); });
+		 		</script>
+		 	</div>
+		 	<div id="id_ad_textlink2">
+		 		<script type="text/javascript">
+		 			googletag.cmd.push(function() { googletag.display('id_ad_textlink2');  });
+		 		</script>
+		 	</div>
+		 	<div id="id_ad_textlink3">
+		 		<script type="text/javascript">
+		 			googletag.cmd.push(function() { googletag.display('id_ad_textlink3');  });
+		 		</script>
+		 	</div>
+ 		</div>
+
+    <script type="text/javascript">
+    	$($('.banner_type3').get(1)).css('display','none');
+    </script>
+</div>
+
+
+
+
+
+
+
+
+<div class="newsletter ">
+	<h3>InfoQ Weekly Newsletter</h3>
+	<p>
+		Subscribe to our Weekly email newsletter to follow all new content on InfoQ
+		<span id="floatingNewsletterEmailSuccess" style="color:green;"></span>
+		<span id="floatingNewsletterEmailError" style="color:red;"></span>
+	</p>
+	<div class="click2view">
+		<a target="_blank" href="http://www.infoq.com/newsletter_sample.html">
+			<img src="./Introduction to Puppet_files/click2view_en.png" alt="" border="0">
+		</a>
+	</div>
+	<div class="clear"></div>
+	<form name="floatingNewsletterForm" id="floatingNewsletteForm" action="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onsubmit="floatingNewsletter.saveSubscription(); return false;">
+		<fieldset>
+			<input type="text" class="input_text" id="floatingNewsletterEmail" name="floatingNewsletterEmail" value="Your email here" onclick="floatingNewsletter.clearEmailText();" onblur="floatingNewsletter.resetEmailText();">
+			<input type="submit" value="Subscribe" id="sbs" name="sbs" class="input_submit" onclick="return floatingNewsletter.validateEmail(&#39;Invalid email address&#39;);">
+		</fieldset>
+	</form>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+	var floatingNewsletter = new Newsletter('Your email here', 'floatingNewsletterEmail', 'floatingNewsletterForm', 'floatingNewsletterEmailError', 'floatingNewsletterEmailSuccess');
+</script>
+
+<!--	#######		right side end	#########	 -->
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	<script type="text/javascript" src="./Introduction to Puppet_files/addthis_widget.js"></script>
+
+
+
+
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"applicationID":"5528250","applicationTime":82,"beacon":"beacon-1.newrelic.com","queueTime":0,"licenseKey":"bfafe6a5f6","transactionName":"YAFWMEEAW0RUVk1cCllLfjdjTlRFQVxaWQBES0cMXBYbXUZF","agent":"js-agent.newrelic.com\/nr-476.min.js","errorBeacon":"bam.nr-data.net"}</script>
+                </div>
+                <!--	#######		CONTENT END	#########	 -->
+
+                <div class="clear"></div>
+            </div>
+            <!--	#######		SITE END	#########	 -->
+
+            
+
+
+
+
+
+
+
+
+
+
+<!--	#######		FOOTER START	#########	 -->
+<div id="footer">
+	<div class="footer_bg">
+		<div id="latestContent" class="footer_class"><div class="fcls"><div class="title">Development</div><p><a href="http://www.infoq.com/news/2015/01/lava-layer-antipattern" title="Architecture, Technology and the Lava Layer Anti-Pattern">Architecture, Technology and the Lava Layer Anti-Pattern</a></p><p><a href="http://www.infoq.com/news/2015/01/snappy-ubuntu-core-cloud" title="Canonical Launches “Snappy” Ubuntu Core on Multiple Public Cloud Providers">Canonical Launches “Snappy” Ubuntu Core on Multiple Public Cloud Providers</a></p><p><a href="http://www.infoq.com/presentations/groovy-grails-spring-boot" title="Making Spring Boot Even Groovier">Making Spring Boot Even Groovier</a></p></div><div class="fcls"><div class="title">Architecture &amp; Design</div><p><a href="http://www.infoq.com/news/2015/01/lava-layer-antipattern" title="Architecture, Technology and the Lava Layer Anti-Pattern">Architecture, Technology and the Lava Layer Anti-Pattern</a></p><p><a href="http://www.infoq.com/presentations/scalable-resilient-systems" title="You Won&#39;t Believe How the Biggest Sites Build Scalable and Resilient Systems!">You Won't Believe How the Biggest Sites Build Scalable and Resilient Systems!</a></p><p><a href="http://www.infoq.com/presentations/hpc-big-data" title="High Performance Computing Contributions to the World of Big Data">High Performance Computing Contributions to the World of Big Data</a></p></div><div class="fcls"><div class="title">Process &amp; Practices</div><p><a href="http://www.infoq.com/news/2015/01/lean-agile-leadership-safe" title="Lean and Agile Leadership with the Scaled Agile Framework (SAFe)">Lean and Agile Leadership with the Scaled Agile Framework (SAFe)</a></p><p><a href="http://www.infoq.com/interviews/lkfr14-yeret-kanban-agile" title="Yuval Yeret on Using Kanban for Agile Adoption">Yuval Yeret on Using Kanban for Agile Adoption</a></p><p><a href="http://www.infoq.com/articles/retrospectives-organizational-change" title="Using Agile Retrospectives for Organizational Change">Using Agile Retrospectives for Organizational Change</a></p></div><div class="fcls"><div class="title">Operations &amp; Infrastructure</div><p><a href="http://www.infoq.com/news/2015/01/snappy-ubuntu-core-cloud" title="Canonical Launches “Snappy” Ubuntu Core on Multiple Public Cloud Providers">Canonical Launches “Snappy” Ubuntu Core on Multiple Public Cloud Providers</a></p><p><a href="http://www.infoq.com/news/2015/01/qcon-nyc-2015" title="QCon New York 2015 (Jun 8-12): Track Topics Announced">QCon New York 2015 (Jun 8-12): Track Topics Announced</a></p><p><a href="http://www.infoq.com/news/2015/01/distributed-fault-tolerant-nosql" title="Distributed, Fault Tolerant Transactions in NoSQL">Distributed, Fault Tolerant Transactions in NoSQL</a></p></div><div class="fcls"><div class="title">Enterprise Architecture</div><p><a href="http://www.infoq.com/news/2015/01/qcon-nyc-2015" title="QCon New York 2015 (Jun 8-12): Track Topics Announced">QCon New York 2015 (Jun 8-12): Track Topics Announced</a></p><p><a href="http://www.infoq.com/articles/Gil-Tene-QA" title="InfoQ Talks to Azul Systems Gil Tene about Zing, Zulu, and New Releases">InfoQ Talks to Azul Systems Gil Tene about Zing, Zulu, and New Releases</a></p><p><a href="http://www.infoq.com/news/2015/01/SQL-Server-Round-up" title="SQL Server Roundup">SQL Server Roundup</a></p></div></div>
+		<div class="clear"></div>
+	</div>
+			
+	<div class="footer">
+		<ul class="footerMenu">
+		  	<li class="l1"><a class="active" href="http://www.infoq.com/" title="Home">Home</a></li>
+		  	<li class="l2"><a class="active" href="http://www.infoq.com/topics" title="All topics">All topics</a></li>
+			<li class="l3"><a href="http://www.qconferences.com/" target="_blank" title="QCon Conferences">QCon Conferences</a></li>
+	        
+				<li class="l7"><a href="http://www.infoq.com/aboutus" title="About us">About us</a></li>
+		    	<li class="l7"><a href="http://www.infoq.com/aboutyou" title="About You">About You</a></li>		    	
+		    	<li class="l7"><a href="http://www.infoq.com/contribute" title="Contribute">Contribute</a></li>		    	
+		    	<li class="l7"><a href="http://www.infoq.com/purpose" title="Purpose Index">Purpose Index</a></li>
+                
+			
+			
+		  	
+			
+				<li class="l5"><a href="http://www.infoq.com/reginit.action" title="Create account">Create account</a></li>
+				<li class="l6"><a class="login_btn_footer" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="return false;" title="Login">Login</a></li>
+			
+		</ul>
+			
+      	
+
+
+
+
+
+
+
+<ul class="footerTxt1">
+	<li><strong>QCons Worldwide</strong></li>	
+	<li><img class="qconflag uk"><a href="http://www.qconlondon.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="London 2015, March 2-6, 2015">London<br>Mar 2-6, 2015</a></li>
+    <li><img class="qconflag br"><a href="http://www.qconsp.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="São Paulo 2015, Mar 23-27, 2015">São Paulo<br>Mar 23-27, 2015</a></li>
+    <li><img class="qconflag cn"><a href="http://qconbeijing.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="Beijing 2015, Apr 23-25, 2015">Beijing<br>Apr 23-25, 2015</a></li>
+    <li><img class="qconflag jp"><a href="http://qcontokyo.com/" target="_blank" title="Tokyo 2015, April 21, 2015">Tokyo, <br>April 21, 2015</a></li>
+    <li><img class="qconflag us"><a href="http://qconnewyork.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="New York 2015, June 08 - 12, 2015">New York<br>Jun 8-12, 2015</a></li>
+    <li><img class="qconflag br"><a href="http://qconrio.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="Rio de Janeiro, Aug 24-25, 2015">Rio de Janeiro<br>Aug 24-25, 2015</a></li>
+    <li><img class="qconflag cn"><a href="http://qconshanghai.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="">Shanghai, <br>Oct 15-17, 2015</a></li>
+    <li><img class="qconflag us"><a href="http://qconsf.com/?utm_source=infoq&utm_medium=listing&utm_campaign=footer" target="_blank" title="Nov 16-20, 2015">San Francisco<br>Nov 16-20, 2015</a></li>
+</ul>
+
+
+      	
+		
+
+
+
+
+
+
+
+
+<div class="ftxt3">
+	<div class="newsletter">
+		<div class="txtNews">
+			<h3>InfoQ Weekly Newsletter</h3>
+			<p>Subscribe to our Weekly email newsletter to follow all new content on InfoQ</p>
+			<span id="footerNewsletterEmailSuccess" style="color:green;"></span>
+			<span id="footerNewsletterEmailError" style="color:red;"></span>
+		</div>
+		<div class="click2view">
+			<a target="_blank" href="http://www.infoq.com/newsletter_sample.html">
+                <img src="./Introduction to Puppet_files/click2view2_en.jpg" alt="" border="0">
+			</a>
+		</div>
+		<div class="clear"></div>
+		<form name="footerNewsletterForm" id="footerNewsletteForm" action="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onsubmit="footerNewsletter.saveSubscription(); return false;">
+			<fieldset>
+				<input type="text" class="input_text" id="footerNewsletterEmail" name="footerNewsletterEmail" value="Your email here" onclick="footerNewsletter.clearEmailText();" onblur="footerNewsletter.resetEmailText();">
+                <input type="submit" value="Subscribe" id="sbs" name="sbs" class="input_submit" onclick="return footerNewsletter.validateEmail(&#39;Invalid email address&#39;);">
+			</fieldset>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<ul class="footerTxt3">
+		<li><a class="rss" id="footerNewsletterRssLink" href="http://www.infoq.com/feed?token=lYF6xmE5DJFGX27FNomasMnWBwN8wR4f">Your personalized RSS</a></li>
+	    
+	    
+			<li><a class="twitter" href="http://twitter.com/infoq" target="_blank">For daily content and announcements</a></li>
+	    
+		<li><a class="fb" href="http://www.facebook.com/InfoQ" target="_blank">For major community updates</a></li>
+		
+	        <li><a class="googleplus" href="https://plus.google.com/104892343728609932454" target="_blank" rel="publisher">For weekly community updates</a></li>
+       	
+	</ul>
+</div>
+<script type="text/javascript">
+	var footerNewsletter = new Newsletter('Your email here', 'footerNewsletterEmail', 'footerNewsletterForm', 'footerNewsletterEmailError', 'footerNewsletterEmailSuccess');
+</script>
+			
+			
+		<div class="our_events">
+	      	
+
+
+
+
+
+
+
+
+
+			
+			<div id="footerPref" class="communities">
+				<p>Personalize Your Main Interests</p>
+				<br><br><br>
+				<fieldset>
+					<ul>
+			        	
+
+
+
+
+
+
+
+<fieldset>
+	<table cellpadding="0" cellspacing="0" border="0" width="100%">
+		
+			<tbody><tr>
+				<td valign="middle">
+					<input type="checkbox" name="development" value="true" checked="checked" id="persona6815" class="chb" onclick="includeExcludeCommunity(this, false);">
+
+					<span>Development</span>
+				</td>
+			</tr>
+		
+			<tr>
+				<td valign="middle">
+					<input type="checkbox" name="architecture-design" value="true" checked="checked" id="persona6816" class="chb" onclick="includeExcludeCommunity(this, false);">
+
+					<span>Architecture &amp; Design</span>
+				</td>
+			</tr>
+		
+			<tr>
+				<td valign="middle">
+					<input type="checkbox" name="process-practices" value="true" checked="checked" id="persona6817" class="chb" onclick="includeExcludeCommunity(this, false);">
+
+					<span>Process &amp; Practices</span>
+				</td>
+			</tr>
+		
+			<tr>
+				<td valign="middle">
+					<input type="checkbox" name="operations-infrastructure" value="true" checked="checked" id="persona6818" class="chb" onclick="includeExcludeCommunity(this, false);">
+
+					<span>Operations &amp; Infrastructure</span>
+				</td>
+			</tr>
+		
+			<tr>
+				<td valign="middle">
+					<input type="checkbox" name="enterprise-architect" value="true" checked="checked" id="persona6819" class="chb" onclick="includeExcludeCommunity(this, false);">
+
+					<span>Enterprise Architecture</span>
+				</td>
+			</tr>
+		
+	</tbody></table>
+</fieldset>
+
+					</ul>						
+				</fieldset>
+				<p class="notes">This affects what content you see on the homepage &amp; your RSS feed. Click preferences to access more fine-grained personalization.</p>
+			</div>
+		</div>
+			
+		<div class="clear"></div>
+			
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<!--	#######		FOOTER END	#########	 -->
+
+<div class="bottomContent">
+	<table cellpadding="0" cellspacing="0" border="0" width="100%" class="last_content">
+		<tbody><tr>
+			<td>
+				<div>General Feedback</div> 
+				<div><a href="mailto:feedback@infoq.com">feedback@infoq.com</a></div>
+			</td>
+			<td>
+				<div>Bugs</div> 
+				<div><a href="mailto:bugs@infoq.com">bugs@infoq.com</a></div>
+			</td>
+			<td>
+				<div>Advertising</div> 
+				<div><a href="mailto:sales@infoq.com">sales@infoq.com</a></div>
+			</td>
+			<td>
+				<div>Editorial</div> 
+				<div><a href="mailto:editors@infoq.com">editors@infoq.com</a></div>
+			</td>
+			<td class="text">
+				<span>InfoQ.com and all content copyright © 2006-2014 C4Media Inc. InfoQ.com hosted at <a href="http://www.contegix.com/">Contegix</a>, the best ISP we've ever worked with.<br>
+                                    
+                                    <a href="http://www.infoq.com/privacypolicy" target="_blank">Privacy policy</a></span>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+
+            
+                <div class="intbt">
+                    <a href="http://www.infoq.com/int/bt" title="bt">BT</a>
+                </div>
+            
+
+            
+
+
+
+
+
+
+
+
+<div id="id_geo_banner" style="display:none;position:fixed;bottom:0;left:0;width:100%;z-index:100000;">
+	<div id="id_geo_banner_ad" style="display:none;">
+		<script type="text/javascript">
+		if(CookieManager.readCookie("igabgt") == null) {
+			// use the jquery.watch method to see when GAM changes the display css attribute of id_geo_banner_ad
+			// whenever an ad is placed there GAM will chnage the display which is init as none. This is the safest way to determine when an ad is fetched by GAM!
+			$("#id_geo_banner_ad").watch('display',showAd,1000);		
+			googletag.cmd.push(function() { googletag.display('id_geo_banner_ad');});
+		}
+		function showAd() {
+			try {
+				$('#id_geo_banner iframe:first').attr('width', '100%');
+				$('#id_geo_banner iframe:first').attr('height', '100%');
+				$('#id_geo_banner iframe:first').css('min-width', '1024px');
+			}catch(err){}
+			$('#id_geo_banner').show('slow');
+			setTimeout("$('#id_geo_banner').hide('slow');", 30000);
+		}
+		</script>
+	</div>
+</div>
+
+            <script src="./Introduction to Puppet_files/engine.js" type="text/javascript"></script>
+            <script src="./Introduction to Puppet_files/UserCategoryUtil.js" type="text/javascript"></script>
+            <script src="./Introduction to Puppet_files/DWRRewriteAction.js" type="text/javascript"></script>
+            
+            
+
+
+
+
+
+
+
+<iframe name="loginFrame" id="loginFrame" style="width:0;height:0;border:0;"></iframe>
+<div class="login_overlay" id="loginWidget" style="display:none;">
+	<!--	html for login box	-->
+	<input type="hidden" id="loginWidgetOrigin">
+	<div id="popupLogin">
+		<a title="" class="close_login_flat" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="UserActions_Login.hideLoginWidget();return false;">Close</a>
+		<form method="post" id="login_formLogin" action="https://www.infoq.com/login.action" target="loginFrame" onsubmit="UserActions_Login.showMessage(JSi18n.login_sendingRequest);">
+			<label class="label_login">Email</label>
+			<input type="text" name="username" id="login_username" class="login_text">
+			<label class="label_login">Password</label>
+			<input type="password" name="password" id="login_password" class="login_text">
+			<input type="submit" value="" name="submit-login" class="submit-login">
+			
+			<div id="socialLogin">
+	            	        	
+	        		<a class="social-idp google" onclick="return addLoginInfo(this);" href="http://www.infoq.com/social/googleLogin.action?fl=login" title="Login with Google">Login with Google</a>
+	        		<div class="clearer" style="height: 0px;"></div>
+	        	
+	        		
+	        			<a class="social-idp twitter" onclick="return addLoginInfo(this);" href="http://www.infoq.com/social/twitterLogin.action?fl=login" title="Login with Twitter">Login with Twitter</a>
+	        			<div class="clearer" style="height: 0px;"></div>
+	        	
+	        			<a class="social-idp facebook" onclick="return addLoginInfo(this);" href="http://www.infoq.com/social/facebookLogin.action?fl=login" title="Login with Facebook">Login with Facebook</a>
+	        			<div class="clearer" style="height: 0px;"></div>
+	        		
+	        	
+	           		<a class="social-idp microsoft" onclick="return addLoginInfo(this);" href="http://www.infoq.com/social/liveLogin.action?fl=login" title="Login with Microsoft">Login with Microsoft</a>
+	        		<div class="clearer" style="height: 0px;"></div>
+	            
+	        </div>
+			<div class="more_links">
+				<p>
+					<a style="text-decoration:none;" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="UserActions_Login.showForgotPasswordForm();return false;">
+						Forgot password ?
+					</a>
+					<br><br>
+				</p>
+			</div>
+		</form>
+		
+		<form method="post" id="login_formPasswordReset" action="http://www.infoq.com/resetpasswordinit.action" target="loginFrame" style="display:none;" onsubmit="UserActions_Login.showMessage(JSi18n.login_sendingRequest);">
+			<label class="label_login">InfoQ Account Email</label>
+			<input type="text" name="email" id="login_email" class="login_text">
+			<button type="submit" name="submit-login" style="border: 1px solid #CCCCCC; width: 100%; padding: 8px 5px;" on="">Send Email</button>
+			<div class="more_links">
+				<p>
+					<a style="text-decoration:none;" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="UserActions_Login.showLoginForm();return false;">
+						Back to login
+					</a>
+					<br><br>
+				</p>
+			</div>
+		</form>
+		<form method="post" id="login_formEmailVerification" action="http://www.infoq.com/reactivate.action" target="loginFrame" style="display:none;" onsubmit="UserActions_Login.showMessage(JSi18n.login_sendingRequest);">
+			<label class="label_login">Resend Activation</label>
+			<input type="text" name="email" id="login_emailVerification" class="login_text">
+			<button type="submit" name="submit-login" style="border: 1px solid #CCCCCC; width: 100%; padding: 8px 5px;" on="">Resend</button>
+			<div class="more_links">
+				<p>
+					<a style="text-decoration:none;" href="http://www.infoq.com/articles/introduction-puppet?utm_source=linkedin&utm_medium=link&utm_content=learn_puppet_1_6&utm_campaign=calendar#" onclick="UserActions_Login.showLoginForm();return false;">
+						Back to login
+					</a>
+					<br><br>
+				</p>
+			</div>
+		</form>
+		<div class="more_links">
+			<p><a onclick="return addLoginInfo(this);" href="http://www.infoq.com/reginit.action?" title="">Don't have a username ?</a></p>
+			<p><a onclick="return addLoginInfo(this);" href="http://www.infoq.com/reginit.action?" title="">REGISTER HERE</a></p>
+			<div style="padding:5px;background:#EBF0F3;margin-top:45px;display:none;" id="loginPopupMessage"></div>
+		</div>
+	</div>
+	<!--	html for login box 	-->
+    <script type="text/javascript">
+        function addLoginInfo(link){
+            var v = $('#loginWidgetOrigin').val();
+            if(v !== undefined && v != ''){
+                addOrigin(link);
+                link.href += '%23' + v;
+                return true;
+            } else {
+                return addOrigin(link);
+            }
+        }
+    </script>
+</div>
+
+            
+
+
+
+
+
+
+<script type="text/javascript">
+	var includeName = 'content.inline_personalization.include.label';
+	var excludeName = 'content.inline_personalization.exclude.label';
+	var includeHint = 'content.inline_personalization.include.hint';
+	var excludeHint = 'content.inline_personalization.exclude.hint';
+	var excludeCategoryMessage = 'content.inline_personalization.exclude.message';
+	var viewallCategoryMessage = 'content.inline_personalization.view_all.hint';
+	var busyMessage = 'content.inline_personalization.busy.message';
+	var contextPath = '' + '/';
+	var viewallCategoryPath= '';
+	var includeExcludeLink= true;
+</script>
+
+            
+
+
+
+
+
+
+<script type="text/javascript">
+  var gaProfile="UA-6608133-2";
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', gaProfile]);
+  _gaq.push(['_trackPageview']);
+  var view = CookieManager.readCookie('homepage_list');
+  _gaq.push(['_setCustomVar', 2, 'Grid vs list view', ((typeof view !== 'undefined' && view)) ? 'List' : 'Grid', 3]);
+  
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  $.getScript("/scripts/__hd.ifq?hdt=tz5Z4LeXNo2weHuF");
+  
+</script>
+
+    <script src="./Introduction to Puppet_files/tracker.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+Tracker.safeExec(Tracker.doTrackVcrImpressions);
+</script>
+
+
+
+            
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+	var newsletterSubscriptionURL ='/newsletter/subscribe.action';
+	DynamicLinks.updateRssLinks('lYF6xmE5DJFGX27FNomasMnWBwN8wR4f');
+	ContentTools.updateLatestContentSection();
+	ContentTools.updatePersonaDropdowns();
+	
+	// only get the most popular links if they are used in the current page
+	//(so far they are used on homepage, inteview and presentation pages)
+	if($('#mostPopularSection').length){
+		ContentTools.updateMostPopular();
+	}
+
+	ContentSummary.setSelectedTab('en');
+	//when user enters the main content area show default topics in the topics bar
+	$("#content-wrapper").mouseenter(function() {	
+	        showDefaultTopics();
+	});
+	
+	
+	Bookmarks.contentTitle = "Introduction to Puppet";
+	Bookmarks.apiUrl = '/widgets/bookmark.action';
+</script>
+<script type="text/javascript"> 
+var $buoop = {vs:{i:6,f:1,o:10.1,s:1}} 
+$buoop.ol = window.onload; 
+$(document).ready(function() {
+	 try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
+	 var e = document.createElement("script"); 
+	 e.setAttribute("type", "text/javascript"); 
+	 e.setAttribute("src", "http://cdn.infoq.com/statics_20150106-0126/scripts/lib/browser-update-org/update.js?20150106-0126");
+	 document.body.appendChild(e); 
+});
+</script>
+            
+                <script type="text/javascript">
+                    setTimeout(function(){var a=document.createElement("script");
+                        var b=document.getElementsByTagName("script")[0];
+                        a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0022/4285.js?"+Math.floor(new Date().getTime()/3600000);
+                        a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+                </script>
+            
+        </div><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; top: -9999px; z-index: 100000;"><iframe id="_atssh781" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; top: 0px; z-index: 100000; border: 0px; left: 0px;" src="./Introduction to Puppet_files/sh184.html"></iframe></div><script type="text/javascript" src="./Introduction to Puppet_files/core177.js"></script>
+    
+
+<!-- S2 -->
+<script type="text/javascript" src="./Introduction to Puppet_files/update.js"></script><iframe src="./Introduction to Puppet_files/container.html" style="visibility: hidden; display: none;"></iframe><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><script src="./Introduction to Puppet_files/nr-476.min.js"></script><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><script type="text/javascript" src="./Introduction to Puppet_files/bfafe6a5f6"></script></body></html>

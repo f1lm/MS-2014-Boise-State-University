@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://www.socher.org/index.php/DeepLearningTutorial/DeepLearningTutorial -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Richard Socher - Deep Learning Tutorial</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://www.socher.org/pub/skins/sinorca-boot/bootstrap/css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" href="http://www.socher.org/pub/skins/sinorca-boot/bootstrap/css/bootstrap-responsive.min.css" media="screen">
+	<link rel="stylesheet" href="http://www.socher.org/pub/skins/sinorca-boot/bootstrap/css/myBootstrapOverwrites.css" media="screen">
+  <!--HeaderText--><style type="text/css"><!--
+  ul, ol, pre, dl, p { margin-top:0px; margin-bottom:0px; }
+  code.escaped { white-space: nowrap; }
+  .vspace { margin-top:1.33em; }
+  .indent { margin-left:40px; }
+  .outdent { margin-left:40px; text-indent:-40px; }
+  a.createlinktext { text-decoration:none; border-bottom:1px dotted gray; }
+  a.createlink { text-decoration:none; position:relative; top:-0.5em;
+    font-weight:bold; font-size:smaller; border-bottom:none; }
+  img { border:0px; }
+  
+div.sourceblock {
+	padding: 0.5em;
+	border: 1px solid #808080;
+	background-color: #F1F0ED; }
+div.sourceblock div {
+	font-family: monospace;
+	font-size: small;
+	 }
+div.sourceblock div.head, div.sourceblock div.foot {
+	font: italic medium serif;
+	padding: 0.5em;
+}
+div.codeblock {
+	padding: 0.5em;
+	border: 1px solid #808080;
+	background-color: #F1F0ED; }
+div.codeblock pre {
+	font-family: monospace;
+	font-size: small;
+	 }
+  .indent1 {margin-left:1.25em;}
+  .indent2 {margin-left:2.5em;}
+  .indent3 {margin-left:3.75em;}
+  .indent4 {margin-left:5em;}  
+
+  .toc1 {margin-left:1em;}
+  .toc2 {margin-left:2em;}
+  .toc3 {margin-left:3em;}
+  .toc4 {margin-left:4em;}  
+.editconflict { color:green; 
+  font-style:italic; margin-top:1.33em; margin-bottom:1.33em; }
+
+  table.markup { border:2px dotted #ccf; width:90%; }
+  td.markup1, td.markup2 { padding-left:10px; padding-right:10px; }
+  table.vert td.markup1 { border-bottom:1px solid #ccf; }
+  table.horiz td.markup1 { width:23em; border-right:1px solid #ccf; }
+  table.markup caption { text-align:left; }
+  div.faq p, div.faq pre { margin-left:2em; }
+  div.faq p.question { margin:1em 0 0.75em 0; font-weight:bold; }
+  div.faqtoc div.faq * { display:none; }
+  div.faqtoc div.faq p.question 
+    { display:block; font-weight:normal; margin:0.5em 0 0.5em 20px; line-height:normal; }
+  div.faqtoc div.faq p.question * { display:inline; }
+   
+    .frame 
+      { border:1px solid #cccccc; padding:4px; background-color:#f9f9f9; }
+    .lfloat { float:left; margin-right:0.5em; }
+    .rfloat { float:right; margin-left:0.5em; }
+a.varlink { text-decoration:none; }
+
+--></style>
+  <link href="./Richard Socher - Deep Learning Tutorial_files/commentboxplus.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="./Richard Socher - Deep Learning Tutorial_files/wsplus.css" type="text/css">
+  <!--[if IE]><style type='text/css' media='screen'>
+    body { behavior:url('http://www.socher.org/pub/wsplus/csshover.htc'); }
+    .rollover * { visibility: visible; }
+  </style><![endif]-->
+
+<script type="text/JavaScript">
+<!--
+Nix={map:null,convert:function(a){Nix.init();var s='';for(i=0;i<a.length;i++){var b=a.charAt(i);s+=((b>='A'&&b<='Z')||(b>='a'&&b<='z')?Nix.map[b]:b);}return s;},init:function(){if(Nix.map!=null)return;var map=new Array();var s='abcdefghijklmnopqrstuvwxyz';for(i=0;i<s.length;i++)map[s.charAt(i)]=s.charAt((i+13)%26);for(i=0;i<s.length;i++)map[s.charAt(i).toUpperCase()]=s.charAt((i+13)%26).toUpperCase();Nix.map=map;},decode:function(a){document.write(Nix.convert(a));}}
+//-->
+</script><style type="text/css"></style>
+  <meta name="robots" content="index,follow">
+
+  <link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<div class="container">
+
+    <!-- ##### Header ##### -->
+      <div class="masthead">
+    		<div class="nav-collapse navbar-responsive-collapse in collapse" style="height: auto;">
+				<div style="margin-top:10px">
+				<ul><li><a class="wikilink" href="http://www.socher.org/index.php/Main/HomePage">&lt;- Back to Main Site</a>
+</li></ul>
+
+				</div>
+      	</div>
+    	</div>
+
+   <!-- ##### Main Copy ##### -->
+ 
+   <!--PageText-->
+<div id="wikitext">
+<div class="well well-small">
+<p></p><h1>
+ACL 2012 + NAACL 2013 Tutorial: Deep Learning for NLP (without Magic)</h1><p>
+</p><p>Richard Socher, <a class="urllink" href="http://nlp.stanford.edu/~manning/" rel="nofollow">Chris Manning</a> and <a class="urllink" href="http://www.iro.umontreal.ca/~bengioy/yoshua_en/index.html" rel="nofollow">Yoshua Bengio</a>
+</p></div>
+<div class="vspace"></div><div class="well well-small">
+<p></p><h2>
+Slides</h2><p>
+</p><ul><li><a class="urllink" href="http://lxmls.it.pt/2014/socher-lxmls.pdf" rel="nofollow">http://lxmls.it.pt/2014/socher-lxmls.pdf</a> - most recent version from a talk at the <a class="urllink" href="http://lxmls.it.pt/2014/?page_id=5" rel="nofollow">Machine Learning Summer School in Lisbon 2014</a>
+</li><li><a class="urllink" href="http://nlp.stanford.edu/courses/NAACL2013/NAACL2013-Socher-Manning-DeepLearning.pdf" rel="nofollow">NAACL2013-Socher-Manning-DeepLearning.pdf</a> (22mb) - 204 slides - Updated slides for the NAACL 2013 tutorial
+</li><li><a class="urllink" href="http://nlp.stanford.edu/~socherr/SocherBengioManning-DeepLearning-ACL2012-20120707-NoMargin.pdf" rel="nofollow">SocherBengioManning-DeepLearning-ACL2012-20120707.pdf</a> (25MB) - 184 slides
+</li></ul><p class="vspace"></p><h2>
+Updated Version of Tutorial at NAACL 2013</h2><p>
+</p><ul><li>See <a class="urllink" href="http://nlp.stanford.edu/courses/NAACL2013/" rel="nofollow">http://nlp.stanford.edu/courses/NAACL2013/</a>
+</li></ul><p class="vspace"></p><h2>
+Videos</h2><p>
+</p><ul><li>High quality video of the 2013 NAACL tutorial version are up here: <a class="urllink" href="http://techtalks.tv/events/312/573/" rel="nofollow">http://techtalks.tv/events/312/573/</a>
+</li><li>Low quality version of the 2012 ACL version: <a class="urllink" href="http://www.youtube.com/watch?v=IF5tGEgRCTQ&list=PL4617D0E28A5781B0" rel="nofollow">on youtube</a>
+</li></ul><p class="vspace"></p><h2>
+Abstract</h2><p>
+</p><p>Machine learning is everywhere in today's NLP, but by and large machine learning amounts to numerical optimization of weights for human designed representations and features. The goal of deep learning is to explore how computers can take advantage of data to develop features and representations appropriate for complex interpretation tasks. This tutorial aims to cover the basic motivation, ideas, models and learning algorithms in deep learning for natural language processing. Recently, these methods have been shown to perform very well on various NLP tasks such as language modeling, POS tagging, named entity recognition, sentiment analysis and paraphrase detection, among others. The most attractive quality of these techniques is that they can perform well without any external hand-designed resources or time-intensive feature engineering. Despite these advantages, many researchers in NLP are not familiar with these methods. Our focus is on insight and understanding, using graphical illustrations and simple, intuitive derivations. The goal of the tutorial is to make the inner workings of these techniques transparent, intuitive and their results interpretable, rather than black boxes labeled "magic here". The first part of the tutorial presents the basics of neural networks, neural word vectors, several simple models based on local windows and the math and algorithms of training via backpropagation. In this section applications include language modeling and POS tagging. In the second section we present recursive neural networks which can learn structured tree outputs as well as vector representations for phrases and sentences. We cover both equations as well as applications. We show how training can be achieved by a modified version of the backpropagation algorithm introduced before. These modifications allow the algorithm to work on tree structures. Applications include sentiment analysis and paraphrase detection. We also draw connections to recent work in semantic compositionality in vector spaces. The principle goal, again, is to make these methods appear intuitive and interpretable rather than mathematically confusing. By this point in the tutorial, the audience members should have a clear understanding of how to build a deep learning system for word-, sentence- and document-level tasks. The last part of the tutorial gives a general overview of the different applications of deep learning in NLP, including bag of words models. We will provide a discussion of NLP-oriented issues in modeling, interpretation, representational power, and optimization.
+</p><p></p><h2>
+Outline</h2><p>
+</p><ol><li>The Basics
+<ol><li>Motivations
+</li><li>From logistic regression to neural networks
+</li><li>Word representations
+</li><li>Unsupervised word vector learning
+</li><li>Backpropagation Training
+</li><li>Learning word-level classifiers: POS and NER
+</li><li>Sharing statistical strength
+</li></ol></li><li>Recursive Neural Networks
+<ol><li>Motivation
+</li><li>Recursive Neural Networks for Parsing 
+</li><li>Theory: Backpropagation  Through Structure
+</li><li>Recursive Autoencoders
+</li><li>Application to Sentiment Analysis and Paraphrase Detection
+</li><li>Compositionality Through Recursive Matrix-Vector Spaces
+</li><li>Relation classification
+</li></ol></li><li>Applications, Discussion, and Resources
+<ol><li>Neural language models
+</li><li>Assorted other speech and NLP applications
+</li><li>Resources (readings, code)
+</li><li>Discussion
+</li><li>Tricks of the trade
+</li><li>Limitations, advantages, future directions
+</li></ol></li></ol><p class="vspace"></p><h2>
+References</h2><p>
+</p><ul><li><a class="urllink" href="http://nlp.stanford.edu/~socherr/DeepLearning-ACL2012-tutorial.pdf" rel="nofollow">All references we referred to in one pdf file</a>
+</li></ul><p class="vspace"></p><h2>
+Further Information</h2><p>
+</p><ul><li>A very useful assignment for getting started with deep learning in NLP is to implement a simple window-based NER tagger in this exercise we designed for the Stanford NLP class 224N. The zip file includes starter code in Java and the pdf walks through all the steps:
+<ul><li><a class="urllink" href="http://nlp.stanford.edu/~socherr/pa4_ner.pdf" rel="nofollow">http://nlp.stanford.edu/~socherr/pa4_ner.pdf</a>
+</li><li><a class="urllink" href="http://nlp.stanford.edu/~socherr/pa4-ner.zip" rel="nofollow">http://nlp.stanford.edu/~socherr/pa4-ner.zip</a>
+</li></ul></li><li>The implementation assignment for a sparse autoencoder can be found here: <a class="urllink" href="http://nlp.stanford.edu/~socherr/sparseAutoencoder_2011new.pdf" rel="nofollow">exercise description pdf</a> and <a class="urllink" href="http://nlp.stanford.edu/~socherr/sparseae_exercise.zip" rel="nofollow">matlab starter code</a> (11MB)
+</li><li>You can find an introductory tutorial <a class="urllink" href="http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial" rel="nofollow">here</a> and an implementation assignment for a sparse autoencoder <a class="urllink" href="http://deeplearning.stanford.edu/wiki/index.php/Exercise:Sparse_Autoencoder" rel="nofollow">here</a>.
+</li><li>A hands-on tutorial for denoising autoencoders can be found here <a class="urllink" href="http://deeplearning.net/tutorial/dA.html#daa" rel="nofollow">http://deeplearning.net/tutorial/dA.html#daa</a>
+</li><li>Charles Elkan wrote a great, detailed derivation of recursive neural networks: <a class="urllink" href="http://cseweb.ucsd.edu/~elkan/250B/learningmeaning.pdf" rel="nofollow">http://cseweb.ucsd.edu/~elkan/250B/learningmeaning.pdf</a>
+</li><li>You can study clean recursive neural network code with backpropagation through structure on this page: <span class="wikiword"><a class="wikilink" href="http://www.socher.org/index.php/Main/ParsingNaturalScenesAndNaturalLanguageWithRecursiveNeuralNetworks">Parsing Natural Scenes And Natural Language With Recursive Neural Networks</a></span>
+</li></ul><p class="vspace"></p><h2>
+For your comments, related questions or errata:</h2><p>
+</p><p>Save your text first, then fill out captcha, then save again.
+</p>
+    <div id="message"><form name="cbox" class="inputform" action="./Richard Socher - Deep Learning Tutorial_files/Richard Socher - Deep Learning Tutorial.html" method="post" onsubmit="return checkform(this);">
+    <input type="hidden" name="n" value="DeepLearningTutorial.DeepLearningTutorial">
+    <input type="hidden" name="action" value="comment">
+    <input type="hidden" name="order" value=""><input type="hidden" name="accesscode" value="288">
+    <input type="hidden" name="csum" value="Comment added">
+    <table width="90%"><tbody><tr>
+    <th class="prompt" align="right" valign="top">Add Comment&nbsp;</th>
+    <td><textarea class="inputtext commenttext" name="text" id="text" rows="6" cols="40"></textarea>
+    </td></tr><tr><th class="prompt" align="right" valign="top">Sign as Author&nbsp;</th>
+    <td><input class="inputbox commentauthorbox" type="text" name="author" value="" size="32"></td></tr><tr><th class="prompt" align="right" valign="top"><input type="hidden" name="captchakey" value="0">
+    	Enter code: <em class="access"><img src="./Richard Socher - Deep Learning Tutorial_files/DeepLearningTutorial" border="0" align="top"> </em></th><td><input type="text" name="response" size="5" class="inputbox"> <input type="hidden" name="access" value="288"><input class="inputbutton commentbutton" type="submit" name="post" value=" Post ">
+    <input class="inputbutton commentbutton" type="reset" value="Reset"></td></tr></tbody></table><br></form></div>
+ <script type="text/javascript" language="JavaScript1.2">
+  function checkform ( form ) {
+   if (form.text && form.text.value == "") { window.alert( "Please enter a comment to post" ); form.text.focus(); return false; }
+   if (form.author && form.author.value == "") { window.alert( "Please enter your name as author" ); form.author.focus(); return false; }
+   if (form.response && form.response.value == "") { window.alert( "Please enter the code number" ); form.response.focus(); return false; }return true ;
+  }
+  </script>
+   
+<p class="vspace"><a name="comment1" id="comment1"></a>
+</p><div class="messagehead"> 
+<p></p><h4>
+<a class="createlinktext" rel="nofollow" href="http://www.socher.org/index.php/Profiles/Nacho?action=edit">Nacho</a><a rel="nofollow" class="createlink" href="http://www.socher.org/index.php/Profiles/Nacho?action=edit">?</a>  —  <span style="font-size:83%">27 October 2014, 08:24</span>  </h4><p>
+</p></div><div class="messageitem"> 
+<p>Hi Richard, I see that you use MATLAB and Java. It is better than use, for instance, Theano (That I see you also use)? I'm ML scientist (NLP), various on ML concepts are clear to me (specially on regularized machines and MLP) although there is a huge to learn. However implementations and large experiments are missing in mi phd thesis (on learning semantic features) so I'd like to get started. 
+I know MATLAB, C and Python (little less), however the latter seems to be better for several NLP tasks.
+Any way for possible cases you consider according to your expertise, what do you recommend me?
+</p></div>
+</div>
+</div>
+
+
+
+</div>
+
+    
+    <!-- ##### Footer ##### -->
+    <div id="footer">
+      <div class="left">
+		        
+        <!-- Start of StatCounter Code -->
+		<script type="text/javascript">
+		var sc_project=3328033; 
+		var sc_invisible=0; 
+		var sc_partition=36; 
+		var sc_security="2da3a8a5"; 
+		</script>
+		<script src="./Richard Socher - Deep Learning Tutorial_files/counter_xhtml.js" type="text/javascript"></script><span class="statcounter"><a class="statcounter" href="http://www.statcounter.com/" target="_blank"><img src="./Richard Socher - Deep Learning Tutorial_files/t.php" alt="StatCounter - Free Web Tracker and Counter" border="0"></a></span>
+
+	<!-- End of StatCounter Code -->
+        
+      </div>
+
+
+    </div>
+    
+<script src="./Richard Socher - Deep Learning Tutorial_files/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+    _uacct = "UA-861638-1";
+    urchinTracker();
+</script>
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

@@ -1,0 +1,956 @@
+
+<!-- saved from url=(0036)http://www.cs.berkeley.edu/~jrs/61b/ -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CS 61B:  Data Structures - Shewchuk - UC Berkeley</title>
+<style type="text/css"></style><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body bgcolor="ffffff" data-gclp-initialized="true" data-gistbox-initialized="true">
+
+<table border="0">
+<tbody><tr valign="top">
+<td>
+<img src="./Thinking with Type   Contents_files/mobile1.jpg" border="0" width="360" height="270">
+</td>
+<td>
+<font size="6" color="900000">CS 61B<br>
+                            Data Structures</font><p>
+
+<a href="http://www.cs.berkeley.edu/~jrs">Prof. Jonathan Shewchuk</a><br>
+jrs@cory.eecs<br>
+(But ask most questions on the
+<a href="http://piazza.com/berkeley/spring2014/cs61b">CS 61B Piazza discussion
+group</a> and send most private requests to cs61b@cory.eecs so
+the TAs can respond too.)<br><br>
+
+Spring 2014<br>
+Mondays 1–2 pm and Wednesdays noon–2 pm<br>
+Wheeler Hall Auditorium
+<!-- Lectures begin Wednesday, January 22, noon<br>
+Labs begin Thursday, January 23<br>
+Discussion sections begin Monday, January 27 -->
+</p></td>
+</tr></tbody></table>
+<p>
+
+</p><hr>
+
+Here are some
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice"><b>practice problems for the Final Exam</b></a>.
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.ps">
+<img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.pdf">
+<img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+Here are the <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.sol">solutions</a>.
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.sol.ps">
+<img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.sol.pdf">
+<img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+<p>
+
+Please congratulate Jianqiao Yang, Chengming Liao, and Junyan Kang, who
+as the team <b>ChaoWeiLanMao</b> slaughtered the opposition and
+drank the blood of their enemies in
+the <a href="http://www.cs.berkeley.edu/~jrs/61b/tourny.html"><b>Network Tournament!</b></a>
+They win <font color="9000ff">gift certificates to Amoeba Records</font>.
+</p><p>
+
+The <b>Final Exam</b> will take place
+<b>Tuesday, May 13 at 8:00 am</b> in <b>100 Haas Pavilion</b>.
+Students in the <b>Disabled Students' Program</b> who requested extra time
+will receive alternative locations by email.
+</p><p>
+
+The exam is open book, open notes, and <b>closed electronics:</b>
+if we catch you with electronic devices such as cell phones, laptops, or
+iPods on your person, <b>you will get zero on the exam</b>.
+Leave them at the front of the room.
+If your cell phone rings at the front of the room, you lose a point.
+Please keep your notes under your seat so people passing in front of you
+don't trip over them.
+</p><p>
+
+The TAs will hold a <b>review session</b> for the Final Exam this
+<b>Saturday, May 10 at 2–5 pm in
+2050 Valley Life Sciences Building</b>.
+</p><p>
+
+
+<!--
+
+<b>Midterm II</b> will take place this <b>Monday, April 14 at 1:00 pm</b>.
+Students in <b>Labs 11&ndash;30</b> should report to
+<b>Wheeler Hall Auditorium</b>.
+Students in <b>Labs 31&ndash;42</b> should report to
+<b>2050 Valley Life Sciences Building</b>.
+Students in the <b>Disabled Students' Program</b> who requested extra time
+will be contacted by email.
+<p>
+
+-->
+
+</p><hr>
+
+<a href="http://java.datastructures.net/">
+<img src="./Thinking with Type   Contents_files/gt5edsmall.jpg" border="0" align="right" width="153" height="206">
+</a>
+<a href="http://www.oreillynet.com/catalog/hfjava2/">
+<img src="./Thinking with Type   Contents_files/hfjava2.s.gif" border="0" align="right" width="180" height="208">
+</a>
+
+<h3>Textbooks</h3>
+
+<ul>
+<li>
+<font color="007000">Required:</font>
+<a href="http://www.coderanch.com/how-to/java/ActiveStaff#kathysierra">Kathy
+Sierra</a> and
+<a href="http://www.coderanch.com/how-to/java/ActiveStaff#bertbates">Bert
+Bates</a>,
+<a href="http://www.oreillynet.com/catalog/hfjava2/"><i>Head First
+Java</i></a>, O'Reilly, 2005.
+ISBN # 0-596-00920-8.  (Either the first or second edition will do.)
+</li><li>
+<font color="007000">Optional:</font>
+<a href="http://www.ics.uci.edu/~goodrich/">Michael T. Goodrich</a> and
+<a href="http://www.cs.brown.edu/people/rt/">Roberto Tamassia</a>,
+<a href="http://java.datastructures.net/">
+<i>Data Structures and Algorithms in Java</i></a>,
+John Wiley &amp; Sons, 2010.  ISBN # 0-470-38326-7.
+(The first, third, fourth, fifth, or sixth editions will do, but
+the second edition is missing several important data structures.)
+</li><li>
+<b>Warning:</b>  The reading assignments given below apply to
+the second edition of Sierra &amp; Bates,
+and the fifth edition of Goodrich &amp; Tamassia.
+If you have older editions, you'll have to figure out the corresponding
+readings yourself.
+</li></ul>
+
+<h3>Information</h3>
+<ul> 
+<li><a href="http://www.cs.berkeley.edu/~jrs/61b/overview.html">Course overview:  prerequisites,
+       laboratory and discussion sections, grading, cheating policies</a>.
+</li><li><a href="http://www.cs.berkeley.edu/~jrs/61b/sections.html">Schedule of labs and sections (and their TAs)</a>.
+</li><li><a href="http://www.cs.berkeley.edu/~jrs/61b/help.html">Getting help:
+      schedule of instructor and TA office hours and more</a>.
+</li><li>Access the CS 61B
+    <a href="http://piazza.com/berkeley/spring2014/cs61b">Piazza discussion
+    group</a>.
+</li><li>Online version of the <a href="http://www.cs.berkeley.edu/~jrs/61b/reader/index.html">course reader</a>,
+      plus extra documentation on Java and Gmake.
+</li><li>The Java 2 standard libraries API:
+      <a href="http://docs.oracle.com/javase/7/docs/api/">frames</a>,
+<a href="http://docs.oracle.com/javase/7/docs/api/overview-summary.html">
+      no frames</a> (maintained by
+      <a href="http://www.oracle.com/technetwork/java/index.html">Oracle</a>).
+</li><li>
+<a href="http://docs.oracle.com/javase/specs/">
+      The Java language specification</a> (maintained by
+      <a href="http://www.oracle.com/technetwork/java/index.html">Oracle</a>).
+</li><li>
+<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/jdb.html">
+      A brief man page for <tt>jdb</tt>, Sun's Java debugger</a>.
+</li><li>Get <a href="http://upe.cs.berkeley.edu/student_services/office_hours">
+      tutoring from Upsilon Pi Epsilon</a>,
+      International Honor Society for the Computer Sciences.
+</li><li>Information on
+      <a href="http://www-inst.eecs.berkeley.edu/connecting.html">
+      connecting from home</a>.
+</li><li><a href="http://www-inst.eecs.berkeley.edu/usr/pub/html/Users.Guide">
+      User's Guide to EECS Instructional Computing</a>.
+</li></ul>
+
+<h3>Work</h3>
+<ul>
+<li><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/index.html">Homeworks and Projects</a>.
+</li><li><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/index.html">Labs</a>.
+</li><li><a href="http://www.cs.berkeley.edu/~jrs/61b/exam/index.html">Exams</a>.
+    Includes sample solutions to midterms in the reader.
+</li></ul>
+
+
+<hr>
+
+<img src="./Thinking with Type   Contents_files/baby4.jpg" border="0" align="left" width="250" height="210">
+
+<h3>Lectures</h3>
+
+The following schedule is tentative.
+There may be changes as the semester progresses,
+so check here periodically.
+You are responsible for knowing and keeping up with the readings listed below;
+there won't be reminders in class.
+<p>
+
+Labs, homeworks, and projects that are currently available can be accessed
+by clicking on them.
+Webcasts and podcasts of past lectures are offered by Berkeley's
+Educational Technology Services through their
+<a href="http://webcast.berkeley.edu/playlist#c,s,All,-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd">Webcast
+Berkeley page</a>.
+Click on the icons
+<a href="http://webcast.berkeley.edu/playlist#c,s,All,-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd"><img src="./Thinking with Type   Contents_files/tv1.gif" border="0" align="middle" width="29" height="22"></a>
+in the schedule below to view past lectures.
+Lectures are not broadcast live, but they should be available within
+a day or two after they happen.
+</p><p>
+
+Some lecture notes can be obtained by clicking on the lecture titles
+(for ASCII) or the PostScript
+<img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20">
+or PDF
+<img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20">
+links (which save paper).
+Please understand that they are <i>lecture notes</i>,
+and that they were written so that I would have something to say in class.
+I write them for <i>me</i>, not <i>you</i>,
+and I make them available as a <i>courtesy</i> to you.
+I edit them after class to make sure
+they say the same thing I said in class.
+If I receive complaints that my lectures and lecture notes do not differ,
+I will stop making lecture notes available.
+For related reasons, I will not make the lecture notes for a class available
+until after the class has taken place.
+<br clear="all">
+
+
+</p><center>
+<table border="2" cellpadding="2">
+
+<tbody><tr>
+<td></td>
+<td><b>Topic</b></td>
+<td><b>Reading</b></td>
+<td><b>Due</b></td>
+</tr>
+
+<tr>
+<td><b>1</b>: January 22</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/01">Course overview</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/01.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/01.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    <a href="http://www.youtube.com/watch?v=mFPmKGIrQs4"><img src="./Thinking with Type   Contents_files/tv1.gif" border="0" align="middle" width="29" height="22"></a>
+    </td>
+<td>Sierra &amp; Bates, pp. 1–9, 18–19, 84</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>2</b>: January 22</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/02">Using objects</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/02.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/02.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    <a href="http://www.youtube.com/watch?v=mFPmKGIrQs4"><img src="./Thinking with Type   Contents_files/tv2.gif" border="0" align="middle" width="22" height="21"></a>
+    </td>
+<td>S &amp; B, Chapter 2; pp. 54–58, 154–160, 661, 669</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>January 24</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab1"><font color="007000">Lab 1</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>3</b>: January 27</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/03">Defining classes</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/03.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/03.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    <a href="http://www.youtube.com/watch?v=Cd2NV1UpaEc"><img src="./Thinking with Type   Contents_files/tv3.gif" border="0" align="middle" width="27" height="23"></a>
+    </td>
+<td>S &amp; B, pp. 71–74, 76, 85, 240–249, 273–281,
+    308–309</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>4</b>: January 29</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/04">Types; conditionals</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/04.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/04.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    <a href="http://www.youtube.com/watch?v=mwNmmL8FNzk"><img src="./Thinking with Type   Contents_files/tv4.gif" border="0" align="middle" width="27" height="22"></a>
+    </td>
+<td>S &amp; B, pp. 10–14, 49–53, 75, 78–79, 86, 117,
+    286–287, 292, 660</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw1"><font color="9000ff">Homework 1</font></a></td>
+</tr>
+
+<tr>
+<td><b>5</b>: January 29</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/05">Loops &amp; arrays I</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/05.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/05.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    <a href="http://www.youtube.com/watch?v=mwNmmL8FNzk"><img src="./Thinking with Type   Contents_files/tv1.gif" border="0" align="middle" width="29" height="22"></a>
+    </td>
+<td>S &amp; B, pp. 59–62, 83, 114–116, 293–300, 670</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>January 31</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab2"><font color="007000">Lab 2</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>6</b>: February 3</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/06">Loops &amp; arrays II</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/06.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/06.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 282–285</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>7</b>: February 5</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/07">Linked lists I</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/07.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/07.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>Goodrich &amp; Tamassia, Section 3.2</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw2"><font color="9000ff">Homework 2</font></a></td>
+</tr>
+
+<tr>
+<td><b>8</b>: February 5</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/08">Linked lists II</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/08.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/08.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 3.3</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>February 7</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab3"><font color="007000">Lab 3</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>9</b>: February 10</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/09">Stack &amp; heap</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/09.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/09.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>Sierra &amp; Bates, pp. 77, 235–239, 258–265, 663</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>10</b>: February 12</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/10">Inheritance</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/10.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/10.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, Chapter 7; pp. 28–33, 250–257</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw3"><font color="9000ff">Homework 3</font></a></td>
+</tr>
+
+<tr>
+<td><b>11</b>: February 12</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/11">Testing; equals()</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/11.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/11.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 95–109, 662</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>February 14</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab4"><font color="007000">Lab 4</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>February 17</b></td>
+<td><b>President's Day</b></td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>12</b>: February 19</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/12">Abstract classes</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/12.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/12.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, Chapter 8</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>13</b>: February 19</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/13">Java packages</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/13.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/13.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 154–160, 587–591, 667–668</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>February 21</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab5"><font color="007000">Lab 5</font></a></td>
+</tr>
+
+<tr>
+<td>February 22</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/pj1"><font color="d09000">Project 1</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>14</b>: <font color="ff0000">February 24</font></td>
+<td><font color="ff0000"><a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14mid1.html">
+    <b>M<small>IDTERM</small> I</b></a></font></td>
+<td><font color="ff0000">covers Lectures 1–12</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>15</b>: February 26</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/15">Exceptions</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/15.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/15.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 315–338</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw4"><font color="9000ff">Homework 4</font></a></td>
+</tr>
+
+<tr>
+<td><b>16</b>: February 26</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/16">More Java</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/16.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/16.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 189, 283</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>February 28</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab6"><font color="007000">Lab 6</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>17</b>: March 3</td>
+<td>Game Trees
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/17.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/17.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>18</b>: March 5</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/18">Encapsulation</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/18.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/18.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, pp. 80–84</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw5"><font color="9000ff">Homework 5</font></a></td>
+</tr>
+
+<tr>
+<td><b>19</b>: March 5</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/19">Encapsulated lists</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/19.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/19.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>S &amp; B, p. 664</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>March 7</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab7"><font color="007000">Lab 7</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>20</b>: March 10</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/20">Asymptotic analysis</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/20.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/20.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>Goodrich &amp; Tamassia, Chapter 4</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>21</b>: March 12</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/21">Dictionaries &amp; hash tables</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/21.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/21.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 9.1, 9.2, 9.5–9.5.1</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>22</b>: March 12</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/22">Hash codes; stacks &amp; queues</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/22.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/22.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Chapter 5</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>March 14</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab8"><font color="007000">Lab 8</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>23</b>: March 17</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/23">Algorithm analysis</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/23.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/23.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Chapter 4</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>24</b>: March 19</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/24">Trees and traversals</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/24.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/24.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Chapter 7</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw6"><font color="9000ff">Homework 6</font></a></td>
+</tr>
+
+<tr>
+<td><b>25</b>: March 19</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/25">Priority queues</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/25.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/25.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 8.1–8.3</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>March 21</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab9"><font color="007000">Lab 9</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>March 24–28</b></td>
+<td><b>Spring Recess</b></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>26</b>: March 31</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/26">Binary search trees</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/26.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/26.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 10.1</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>27</b>: April 2</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/27">Balanced search trees</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/27.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/27.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 10.4</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/pj2"><font color="d09000">Project 2</font></a></td>
+</tr>
+
+<tr>
+<td><b>28</b>: April 2</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/28">Graphs</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/28.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/28.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 13.1–13.3</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>April 4</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab10"><font color="007000">Lab 10</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>29</b>: April 7</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/29">Weighted graphs</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/29.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/29.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 13.5.1, 13.6–13.6.1</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>30</b>: April 9</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/30">Four sorting algorithms</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/30.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/30.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 8.2.2, 8.3.5, &amp; 11.1</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw7"><font color="9000ff">Homework 7</font></a></td>
+</tr>
+
+<tr>
+<td><b>31</b>: April 9</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/31">Quicksort</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/31.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/31.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 11.2</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>April 11</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab11"><font color="007000">Lab 11</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>32</b>: <font color="ff0000">April 14</font></td>
+<td><font color="ff0000"><a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14mid2.html">
+    <b>M<small>IDTERM</small> II</b></a></font></td>
+<td><font color="ff0000">covers Lectures 1–29</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>33</b>: April 16</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/33">Disjoint Sets</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/33.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/33.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 11.4</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw8"><font color="9000ff">Homework 8</font></a></td>
+</tr>
+
+<tr>
+<td><b>34</b>: April 16</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/34">Sorting &amp; selection</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/34.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/34.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 11.3.1 &amp; 11.5</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>April 18</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab12"><font color="007000">Lab 12</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>35</b>: April 21</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/35">Radix sort</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/35.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/35.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 11.3.2</td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>36</b>: April 23</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/36">Splay trees</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/36.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/36.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Section 10.3</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw9"><font color="9000ff">Homework 9</font></a></td>
+</tr>
+
+<tr>
+<td><b>37</b>: April 23</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/37">Amortized analysis</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/37.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/37.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>April 25</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab13"><font color="007000">Lab 13</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>38</b>: April 28</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/38">Randomized analysis</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/38.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/38.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>39</b>: April 30</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/39">Garbage collection</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/39.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/39.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td>G &amp; T, Sections 14.1.2–14.1.3</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/pj3"><font color="d09000">Project 3</font></a></td>
+</tr>
+
+<tr>
+<td><b>40</b>: April 30</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/40">Augmenting data structures</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/40.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/40.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td>May 2</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab14"><font color="007000">Lab 14</font></a></td>
+</tr>
+
+<tr><td></td></tr>
+
+<tr>
+<td><b>41</b>: May 5</td>
+<td><a href="http://www.youtube.com/watch?v=YvTW7341kpA">Sorting video</a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+</tr>
+
+<tr>
+<td><b>42</b>: May 7</td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice">Review</a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.ps">
+    <img src="./Thinking with Type   Contents_files/ps.gif" border="0" align="top" width="22" height="20"></a>
+    <a href="http://www.cs.berkeley.edu/~jrs/61b/lec/practice.pdf">
+    <img src="./Thinking with Type   Contents_files/pdf.gif" border="0" align="top" width="33" height="20"></a>
+    </td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/hw/hw10"><font color="9000ff">Homework 10</font></a></td>
+</tr>
+
+<tr>
+<td>May 9</td>
+<td><font color="ffffff">.</font></td>
+<td><font color="ffffff">.</font></td>
+<td><a href="http://www.cs.berkeley.edu/~jrs/61b/lab/lab15"><font color="007000">Lab 15</font></a></td>
+</tr>
+
+</tbody></table>
+</center>
+<p>
+
+<b>The
+<font color="ff0000"><a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14final.html">F<small>INAL</small>
+E<small>XAM</small></a></font></b> will take place
+on Tuesday, May 13, from 8 am to 11 am in 100 Haas Pavilion.
+(CS 61B is in Exam Group 5.)
+
+
+</p><hr>
+
+<h3>Course Description <small>(from the catalogue)</small></h3>
+
+Fundamental dynamic data structures, including linear lists, queues, trees, and
+other linked structures; arrays, strings, and hash tables.  Storage management.
+Elementary principles of software engineering.  Abstract data types.
+Algorithms for sorting and searching.  Introduction to the Java programming
+language.
+<p>
+
+Prerequisites:  CS 61A or Engineering 7.
+(The catalogue says “with a grade of B– or better,”
+but I've never seen this rule enforced.)
+
+
+</p><h3>Grading</h3>
+
+<ul>
+<li>
+<b>5%</b> for the
+<a href="http://www.cs.berkeley.edu/~jrs/61b/lab/index.html">labs.</a>
+
+</li><li>
+<b>10%</b> for the
+<a href="http://www.cs.berkeley.edu/~jrs/61b/hw/index.html">homeworks.</a>
+
+</li><li>
+<b>35%</b> for three
+<a href="http://www.cs.berkeley.edu/~jrs/61b/hw/index.html">projects.</a>
+
+</li><li>
+<b>12.5%</b> for
+<a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14mid1.html">Midterm I</a>
+(Monday, February 24, 1–2 pm, Wheeler Auditorium).
+
+</li><li>
+<b>12.5%</b> for
+<a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14mid2.html">Midterm II</a>
+(Monday, April 14, 1–2 pm, Wheeler Auditorium).
+
+</li><li>
+<b>25%</b> for the
+<a href="http://www.cs.berkeley.edu/~jrs/61b/exam/14final.html">Final Exam</a>
+(Tuesday, May 13, 8–11 am, 100 Haas Pavilion).
+</li></ul>
+
+<hr>
+
+<table width="187" border="0" align="right" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td>
+<img src="./Thinking with Type   Contents_files/mobile2.jpg" border="0" align="right" width="187" height="307"><br>
+<span class="caption"><small><b>“Let's see if I remember this.
+Do I splay the pineapple pizza through the Ted Nugent tea cozies?
+Or should I zig-zig the Versace laptops through Katy Perry first?”
+</b></small></span>
+</td>
+</tr>
+</tbody></table>
+
+<address>
+<a href="mailto:cs61b@cory.eecs">cs61b@cory.eecs</a>
+</address>
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

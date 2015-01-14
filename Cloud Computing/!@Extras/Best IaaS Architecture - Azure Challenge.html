@@ -1,0 +1,1281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0063)http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+Best IaaS Architecture - Azure Challenge
+</title> <title>Best IaaS Architecture - Azure Challenge</title> <meta name="Keywords" content="Azure Architecture diagram,IaaS,icrosoft Azure,Infrastructure,zure Challenge"> <meta name="DESCRIPTION" content="This article is awarded as best IaaS article by Microsoft in Azure Challenge.
+In this article you will learn how we can develop best cloud architecture for any IT organization. "> <meta name="Search.TopicType" content="kbArticle"> <meta name="Search.PublishDate" content="08 Jan 2015 12:00:00 GMT"> <meta name="Search.RevisedDate" content="09 Jan 2015 10:39:08 GMT"> <meta name="Search.UserRating" content="0%"> <meta name="CODE_LANGUAGE" content="C#"> <meta name="MS.LOCALE" content="en-US">  <meta name="Author" content="Nitin Patil"> <link rel="stylesheet" type="text/css" href="./Best IaaS Architecture - Azure Challenge_files/csharp_articles_31122014.css"><link href="./Best IaaS Architecture - Azure Challenge_files/responsive_31122014.css" rel="stylesheet" type="text/css"><link href="./Best IaaS Architecture - Azure Challenge_files/SyntaxHighlighter.css" rel="stylesheet" type="text/css"><link rel="Shortcut Icon" href="http://www.c-sharpcorner.com/Images/McnIcon.ico"><meta http-equiv="Page-Exit" content="progid:DXImageTransform.Microsoft.Fade(duration=.3)"><meta property="fb:app_id" content="440531902678919"> <script src="./Best IaaS Architecture - Azure Challenge_files/cb=gapi.loaded_1" async=""></script><script src="./Best IaaS Architecture - Azure Challenge_files/cb=gapi.loaded_0" async=""></script><script src="./Best IaaS Architecture - Azure Challenge_files/in.js"></script><script src="./Best IaaS Architecture - Azure Challenge_files/widgets.js"></script><script type="text/javascript" async="" src="./Best IaaS Architecture - Azure Challenge_files/client-plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./Best IaaS Architecture - Azure Challenge_files/sdk.js"></script><script type="text/javascript" async="" src="./Best IaaS Architecture - Azure Challenge_files/ga.js"></script><script src="./Best IaaS Architecture - Azure Challenge_files/jquery.TrendingNow_09032014.js"></script><script src="./Best IaaS Architecture - Azure Challenge_files/MindcrackerJScript.js"></script><script src="./Best IaaS Architecture - Azure Challenge_files/jquery.min.js" type="text/javascript"></script><style type="text/css"></style> <script type="text/javascript">
+var $j = jQuery.noConflict();
+</script> <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><script src="./Best IaaS Architecture - Azure Challenge_files/secureAnonymousFramework"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f8;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3a5795;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #2f477a;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f8;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style><style type="text/css">* html #li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link{height:1% !important;}#li_ui_li_gen_1420819885195_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1420819885195_0 span{-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important;box-sizing:content-box !important;}#li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link:link, #li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link:visited, #li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link:hover, #li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1420819885195_0 a#li_ui_li_gen_1420819885195_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-logo{background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-position:0px -276px !important;background-repeat:no-repeat !important;background-size:initial !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;}#li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-logo, #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-logo{}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-webkit-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-webkit-border-top-right-radius:2px !important;-webkit-border-bottom-right-radius:2px !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title, #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title{}.IN-shadowed #li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title{}.IN-shadowed #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title, .IN-shadowed #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title{}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text, #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;-webkit-font-smoothing:antialiased !important;display:inline-block !important;background:transparent none !important;vertical-align:top !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title-text, #li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title-text *{color:#000 !important;}#li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title-text, #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title-text, #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title-text *, #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title-text *{color:#666 !important;}#li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title #li_ui_li_gen_1420819885195_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#FEFEFE), color-stop(100%,#ECECEC)) !important; background-image: -webkit-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text, .success #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1420819885195_0 #li_ui_li_gen_1420819885195_0-title{}.success #li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#EDEDED), color-stop(100%,#DEDEDE)) !important; background-image: -webkit-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title-text, .success #li_ui_li_gen_1420819885195_0.hovered #li_ui_li_gen_1420819885195_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title, .success #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#E3E3E3), color-stop(100%,#EDEDED)) !important; background-image: -webkit-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title-text, .success #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title-text, .success #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title-text *, .success #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1420819885195_0.clicked #li_ui_li_gen_1420819885195_0-title, .IN-shadowed .success #li_ui_li_gen_1420819885195_0.down #li_ui_li_gen_1420819885195_0-title{}#li_ui_li_gen_1420819885212_1-container.IN-right {display:inline-block !important;float:left !important;overflow:visible !important;position:relative !important;height:18px !important;padding-left:2px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1420819885212_1.IN-right {display:block !important;float:left !important;height:18px !important;margin-right:4px !important;padding-right:4px !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:right -100px !important;}#li_ui_li_gen_1420819885212_1-inner.IN-right {display:block !important;float:left !important;padding-left:8px !important;text-align:center !important;background-image:url(https://static.licdn.com/scds/common/u/images/apps/connect/sprites/sprite_connect_v14.png) !important;background-color:transparent !important;background-repeat:no-repeat !important;background-position:0px -60px !important;}#li_ui_li_gen_1420819885212_1-content.IN-right {display:inline !important;font-size:11px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:18px !important;padding:0 5px 0 5px !important;}#li_ui_li_gen_1420819885212_1-container.IN-empty {display:none !important;}#li_ui_li_gen_1420819885212_1-container.IN-hidden #li_ui_li_gen_1420819885212_1 {display:none !important;}</style></head> <body id="MasterBody" data-gclp-initialized="true" data-gistbox-initialized="true" data-twttr-rendered="true"> <form name="aspnetForm" method="post" action="http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/Default.aspx" id="aspnetForm"> <div> <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""> <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""> <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTY1NDU2MTA1Mg9kFgJmDw8WDh4IQXV0aG9ySUQFBjU5YjlkNh4NQ3VycmVudFJhdGluZwUBMB4GU3RhdHVzBQEyHgtIYXNGZWVkYmFja2geCUFydGljbGVJRAUkNjBmY2FkZjEtY2I4Mi00NDQ1LTliYjAtYmViZTIwZWE4YzJhHg9NaW5vckNhdGVnb3J5SWQFAzIzMh4OVHdpdHRlckhhbmRsZXIFDU5pdGluX01fUGF0aWxkFgICAQ9kFiRmD2QWCAIBD2QWDgICDxYCHgdWaXNpYmxlZxYEAgEPDxYCHghJbWFnZVVybAVWaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9VcGxvYWRGaWxlL0F1dGhvckltYWdlL2E0OGY3OC5wbmcuYXNoeD93aWR0aD0yNSZoZWlnaHQ9MjVkZAIDDw8WAh4EVGV4dAUITWlsc3RlaW5kZAIDDw8WAh4LTmF2aWdhdGVVcmwFS2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXNlclJlZ2lzdHJhdGlvbi9Vc2VyUmVnaXN0cmF0aW9uLmFzcHg/Y2hlY2s9cmRkAggPFgQeBXRpdGxlBR9Zb3UgaGF2ZSAwIG5ldyBhcnRpY2xlIGNvbW1lbnRzHwdnZAIKDxYCHgtfIUl0ZW1Db3VudAIBFgJmD2QWAmYPFQg/aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9hdXRob3JzL2ZmMGQwZi9hYmhpc2hlay15YWRhdi5hc3B4DkFiaGlzaGVrIFlhZGF2TGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS9BdXRob3JJbWFnZS9mZjBkMGYyMDE0MDMyMTAyMDQxMC5qcGcySGF0cyBvZmYgdG8gb3VyIEMjIENvcm5lciB0ZWFtLi4uR3JlYXQgU3RlcCAhISEgOikMY29tbWVudGVkIG9ubWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8xODEwMzEvcHJheWFuLWEtQy1TaGFycC1jb3JuZXItaW5pdGlhdGl2ZS1vZmZpY2lhbC1yZWNhcC9EZWZhdWx0LmFzcHguUHJheWFuLCBBIEMjIENvcm5lciBJbml0aWF0aXZlOiBPZmZpY2lhbCBSZWNhcAxPY3QgMDksIDIwMTRkAgwPFgIfB2dkAg0PDxYCHwdnZGQCEA8PFgIfB2hkZAIDD2QWAgIBDxYCHwwCBBYIZg9kFgJmDxUCP2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS81OWI5ZDYvYXp1cmUtY2hhbGxlbmdlL1RBd2FyZGVkIGFzIGJlc3QgSWFhUyBhcnRpY2xlIGJ5IE1pY3Jvc29mdCAtIEJlc3QgSWFhUyBBcmNoaXRlY3R1cmUgLSBBenVyZSBDaGFsbGVuZ2VkAgEPZBYCZg8VAmxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL0V2ZW50cy8xMjIvQy1TaGFycC1jb3JuZXItbXVtYmFpLWNoYXB0ZXItbGVhcm4tbWljcm9zb2Z0LWFuZC1vcGVuLXNvdXJjZS1hLmFzcHhaQyMgQ29ybmVyIE11bWJhaSBDaGFwdGVyOiBMZWFybiBNaWNyb3NvZnQgYW5kIG9wZW4gc291cmNlLCBBc3AuTmV0IFdlYiBBUEksIFdQIERldmVsb3BtZW50ZAICD2QWAmYPFQJXaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9FdmVudHMvMTE5L0MtU2hhcnAtY29ybmVyLWh5ZGVyYWJhZC1jaGFwdGVyLWF6dXJlLWRheS5hc3B4M1JlZ2lzdGVyIGZvciBDIyBDb3JuZXIgSHlkZXJhYmFkIENoYXB0ZXI6IEF6dXJlIERheWQCAw9kFgJmDxUCUWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vTmV3cy80MTgyL0MtU2hhcnAtY29ybmVyLXE0LTIwMTQtbXZwcy1hbm5vdW5jZWQuYXNweCFDIyBDb3JuZXIgUTQsIDIwMTQgTVZQcyBBbm5vdW5jZWRkAgUPZBYEAgEPFgIeBGhyZWYFHGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb21kAgMPZBYCAgEPDxYCHwdoZGQCBw9kFgICAQ9kFgICAQ88KwAJAQAPFgQeCERhdGFLZXlzFgAfDAJBZBaCAWYPZBYCZg8VAi9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM3L25ldC00LTUuYXNweAguTkVUIDQuNWQCAQ9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS81Ny9uZXQtYXNzZW1ibGllcy5hc3B4Dy5ORVQgQXNzZW1ibGllc2QCAg9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83MC9uZXQtcmVtb3RpbmcuYXNweA0uTkVUIFJlbW90aW5nZAIDD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzEzMS9hZG8tbmV0LmFzcHgHQURPLk5FVGQCBA9kFgJmDxUCLGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNzYvYWpheC5hc3B4BEFKQVhkAgUPZBYCZg8VAjxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNTYvYWxnb3JpdGhtcy1pbi1DLVNoYXJwLmFzcHgQQWxnb3JpdGhtcyBpbiBDI2QCBg9kFgJmDxUCO2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNDcvYW5kcm9pZC1wcm9ncmFtbWluZy5hc3B4E0FuZHJvaWQgUHJvZ3JhbW1pbmdkAgcPZBYCZg8VAjFodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMzAyL2FuZ3VsYXJqcy5hc3B4CUFuZ3VsYXJKU2QCCA9kFgJmDxUCO2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMjQvQXNwLU5ldC1wcm9ncmFtbWluZy5hc3B4E0FTUC5ORVQgUHJvZ3JhbW1pbmdkAgkPZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMzAzL2JhY2tib25lanMuYXNweApCYWNrYm9uZWpzZAIKD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxNC9iaWctZGF0YS5hc3B4CEJpZyBEYXRhZAILD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwOS9idXNpbmVzcy5hc3B4CEJ1c2luZXNzZAIMD2QWAmYPFQI7aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE0NC9DLVNoYXJwLXByb2dyYW1taW5nLmFzcHgOQyMgUHJvZ3JhbW1pbmdkAg0PZBYCZg8VAjFodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjgyL2MtY3BwLW1mYy5hc3B4C0MsIEMrKywgTUZDZAIOD2QWAmYPFQI1aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIzOC9jYXJlZXItYWR2aWNlLmFzcHgNQ2FyZWVyIEFkdmljZWQCDw9kFgJmDxUCMGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODAvY2hhcHRlcnMuYXNweAhDaGFwdGVyc2QCEA9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS81OC9jb20taW50ZXJvcC5hc3B4C0NPTSBJbnRlcm9wZAIRD2QWAmYPFQI7aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzYwL2NyeXB0b2dyYXBoeS1DLVNoYXJwLmFzcHgPQ3J5cHRvZ3JhcGh5IEMjZAISD2QWAmYPFQI+aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzYxL2NyeXN0YWwtcmVwb3J0cy1DLVNoYXJwLmFzcHgSQ3J5c3RhbCBSZXBvcnRzIEMjZAITD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE0NS9kZXBsb3ltZW50LmFzcHgKRGVwbG95bWVudGQCFA9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS82Mi9kZXNpZ24tYXJjaGl0ZWN0dXJlLmFzcHgVRGVzaWduICYgQXJjaGl0ZWN0dXJlZAIVD2QWAmYPFQI0aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI5My9keW5hbWljcy1jcm0uYXNweAxEeW5hbWljcyBDUk1kAhYPZBYCZg8VAj5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTU5L2VudGVycHJpc2UtZGV2ZWxvcG1lbnQuYXNweBZFbnRlcnByaXNlIERldmVsb3BtZW50ZAIXD2QWAmYPFQJBaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzY0L2V4Y2VwdGlvbi1oYW5kbGluZy1DLVNoYXJwLmFzcHgVRXhjZXB0aW9uIEhhbmRsaW5nIEMjZAIYD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE0My9ob3ctZG8taS5hc3B4CUhvdyBkbyBJIGQCGQ9kFgJmDxUCLmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNDQvaHRtbC01LmFzcHgGSFRNTCA1ZAIaD2QWAmYPFQIzaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzY2L2ludGVybmV0LXdlYi5hc3B4DkludGVybmV0ICYgV2ViZAIbD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI1OC9qYXZhLmFzcHgESmF2YWQCHA9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzMvamF2YXNjcmlwdC5hc3B4CkphdmFTY3JpcHRkAh0PZBYCZg8VAi5odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjM2L2pxdWVyeS5hc3B4BkpRdWVyeWQCHg9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNzgvbGVhZGVyc2hpcC5hc3B4CkxlYWRlcnNoaXBkAh8PZBYCZg8VAixodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTgwL2xpbnEuYXNweARMSU5RZAIgD2QWAmYPFQI4aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxMy9tYWNoaW5lLWxlYXJuaW5nLmFzcHgQTWFjaGluZSBMZWFybmluZ2QCIQ9kFgJmDxUCN2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yMzIvbWljcm9zb2Z0LWF6dXJlLmFzcHgPTWljcm9zb2Z0IEF6dXJlZAIiD2QWAmYPFQI2aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzY3L21vYmlsZS1lbWJlZGRlZC5hc3B4EU1vYmlsZSAmIEVtYmVkZGVkZAIjD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwNC9ub2RlLWpzLmFzcHgHTm9kZS5qc2QCJA9kFgJmDxUCM2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yODgvb2ZmaWNlLTIwMTMuYXNweAtPZmZpY2UgMjAxM2QCJQ9kFgJmDxUCOmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xNDYvb2ZmaWNlLWRldmVsb3BtZW50LmFzcHgST2ZmaWNlIERldmVsb3BtZW50ZAImD2QWAmYPFQIzaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI3Ni9vcGVuLXNvdXJjZS5hc3B4C09wZW4gU291cmNlZAInD2QWAmYPFQI5aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIyMi9vcGVyYXRpbmctc3lzdGVtcy5hc3B4EU9wZXJhdGluZyBTeXN0ZW1zZAIoD2QWAmYPFQIzaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxNS9vdXRzb3VyY2luZy5hc3B4C091dHNvdXJjaW5nZAIpD2QWAmYPFQIyaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMxMS9waGlsb3NvcGh5LmFzcHgKUGhpbG9zb3BoeWQCKg9kFgJmDxUCK2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNzkvcGhwLmFzcHgDUEhQZAIrD2QWAmYPFQIwaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzMwOC9wb3dlci1iaS5hc3B4CFBvd2VyIEJJZAIsD2QWAmYPFQI2aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzcxL3NlY3VyaXR5LWluLW5ldC5hc3B4EFNlY3VyaXR5IGluIC5ORVRkAi0PZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTgzL3NoYXJlcG9pbnQuYXNweApTaGFyZVBvaW50ZAIuD2QWAmYPFQI0aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIxNi9zcWwtbGFuZ3VhZ2UuYXNweAxTUUwgTGFuZ3VhZ2VkAi8PZBYCZg8VAjJodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjk3L3NxbC1zZXJ2ZXIuYXNweApTUUwgU2VydmVyZAIwD2QWAmYPFQIvaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE3NC90ZXN0aW5nLmFzcHgHVGVzdGluZ2QCMQ9kFgJmDxUCMmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yOTEvdHlwZXNjcmlwdC5hc3B4ClR5cGVTY3JpcHRkAjIPZBYCZg8VAjhodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjc3L3Zpc3VhbC1iYXNpYy1uZXQuYXNweBFWaXN1YWwgQmFzaWMgLk5FVGQCMw9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yOTYvdmlzdWFsLXN0dWRpby5hc3B4DVZpc3VhbCBTdHVkaW9kAjQPZBYCZg8VAjhodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTkyL3djZi13aXRoLUMtU2hhcnAuYXNweAtXQ0Ygd2l0aCBDI2QCNQ9kFgJmDxUCMWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8zMDcvd2VhcmFibGVzLmFzcHgJV2VhcmFibGVzZAI2D2QWAmYPFQI3aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE1NC93ZWItZGV2ZWxvcG1lbnQuYXNweA9XZWIgRGV2ZWxvcG1lbnRkAjcPZBYCZg8VAj9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTMzL3dlYi1zZXJ2aWNlcy1pbi1DLVNoYXJwLmFzcHgSV2ViIFNlcnZpY2VzIGluIEMjZAI4D2QWAmYPFQIxaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzI3NS93aW5kb3dzLTguYXNweAlXaW5kb3dzIDhkAjkPZBYCZg8VAj9odHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvNzcvd2luZG93cy1jb250cm9scy1DLVNoYXJwLmFzcHgTV2luZG93cyBDb250cm9scyBDI2QCOg9kFgJmDxUCPGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS83Ni93aW5kb3dzLWZvcm1zLUMtU2hhcnAuYXNweBFXaW5kb3dzIEZvcm1zIEMjIGQCOw9kFgJmDxUCNWh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8yNDUvd2luZG93cy1waG9uZS5hc3B4DVdpbmRvd3MgUGhvbmVkAjwPZBYCZg8VAjtodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMjkyL3dpbmRvd3Mtc2VydmVyLTIwMTIuYXNweBNXaW5kb3dzIFNlcnZlciAyMDEyZAI9D2QWAmYPFQJCaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzc4L3dpbmRvd3Mtc2VydmljZXMtaW4tQy1TaGFycC5hc3B4FldpbmRvd3MgU2VydmljZXMgaW4gQyNkAj4PZBYCZg8VAjpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tLzEvMTM4L3dpbmRvd3Mtc3RvcmUtYXBwcy5hc3B4EldpbmRvd3MgU3RvcmUgQXBwc2QCPw9kFgJmDxUCK2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vMS8xOTEvd3BmLmFzcHgDV1BGZAJAD2QWAmYPFQIsaHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzE5MC94YW1sLmFzcHgEWEFNTGQCAQ9kFgICAQ8WAh8MAgoWFGYPZBYCZg8VAmVodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvZ19hcm9yYS90aGUtcy1vLWwtaS1kLXByb2dyYW1taW5nLXByaW5jaXBsZXMt4oCTLWF0LWEtZ2xhbmNlLydUaGUgUy5PLkwuSS5ELiBQcm9ncmFtbWluZyBQcmluY2lwbCAuLi5kAgEPZBYCZg8VAkpodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDkyNTg5L2ludHJvZHVjdGlvbi10by1iYWNrYm9uZWpzLyNJbnRyb2R1Y3Rpb24gdG8gQmFja2JvbmUuSlM6IFBhcnQgMWQCAg9kFgJmDxUCcGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS84ZWY5N2MvZnVsbC1DLVNoYXJwLTYtMC1pbi1zaW5nbGUtYXJ0aWNsZS1vbi12aXN1YWwtc3R1ZGlvLTIwMTUtcHJldmlldy8iTGlzdCBvZiBBbGwgTmV3IEZlYXR1cmVzIGluIEMjIDYuMGQCAw9kFgJmDxUCbGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS84NGM4NWIvMTAtcnVsZXMtdG8tYnVpbGQtZW5nbGlzaC1jb21tdW5pY2F0aW9uLXNraWxscy1mb3ItZGV2ZWxvcGVyLycxMCBSdWxlcyB0byBCdWlsZCBFbmdsaXNoIENvbW11bmljYSAuLi5kAgQPZBYCZg8VAkBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvYWRjMmMyL3doYXQtaXMtYmlnLWRhdGEvFlVuZGVyc3RhbmRpbmcgQmlnIERhdGFkAgUPZBYCZg8VAnBodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvcmFodWw0X3NheGVuYS9zaW5nbGUtcGFnZS1hcHBsaWNhdGlvbi1zcGEtdXNpbmctYW5ndWxhcmpzLXdlYi1hcGktYW5kLW0vJ1NpbmdsZSBQYWdlIEFwcGxpY2F0aW9uIChTUEEpIFVzaW5nIC4uLmQCBg9kFgJmDxUCU2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8wOTI1ODkvbWV0aG9kc2F0dHJpYnV0ZXMtaW4tYmFja2JvbmUtbW9kZWwvJ01ldGhvZHMmIzQ3O0F0dHJpYnV0ZXMgaW4gQmFja2JvbmUgIC4uLmQCBw9kFgJmDxUCVmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8wOTI1ODkvbW9kZWwtdmFsaWRhdGlvbi1pbi1iYWNrYm9uZS1qcy1wYXJ0LTMvJ01vZGVsIFZhbGlkYXRpb24gaW4gQmFja2JvbmUuSlM6IFBhIC4uLmQCCA9kFgJmDxUCZmh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vVXBsb2FkRmlsZS8xYjkwNzkvZHluYW1pYy1qcXVlcnktYWNjb3JkaW9uLXVzaW5nLXRoZS1yZXBlYXRlci1pbi1Bc3AtTmV0LydEeW5hbWljIGpRdWVyeSBBY2NvcmRpb24gVXNpbmcgdGhlICAuLi5kAgkPZBYCZg8VAktodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvMDkyNTg5L21vZGVsLWluLWJhY2tib25lLWpzLXBhcnQtMi8dTW9kZWwgaW4gQmFja2JvbmUuSlMgOiBQYXJ0IDJkAgIPZBYCAgEPDxYGHghDc3NDbGFzcwUbc3ByaXRlIGRldGFpbHMgaW50ZXJtZWRpYXRlHgdUb29sVGlwBQxJbnRlcm1lZGlhdGUeBF8hU0ICAmRkAgUPFgIfDQU3aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS8xLzIzMi9taWNyb3NvZnQtYXp1cmUuYXNweBYCAgEPDxYEHwgFJy9VcGxvYWRGaWxlL01pbm9yQ2F0SW1hZ2VzLzA3MDYzMUFNLnBuZx8QBQ9NaWNyb3NvZnQgQXp1cmVkZAIGDxYCHglpbm5lcmh0bWwFKEJlc3QgSWFhUyBBcmNoaXRlY3R1cmUgLSBBenVyZSBDaGFsbGVuZ2VkAgcPFgQfDQU8aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9hdXRob3JzLzU5YjlkNi9uaXRpbi1wYXRpbC5hc3B4HxIFC05pdGluIFBhdGlsZAIIDw8WAh8JBQxKYW4gMDgsIDIwMTVkZAIJDxYCHxIF+gQ8YSBjbGFzcz0nTGlua05vcm1hbEdyYXlMaWdodCcgaHJlZj0naHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS90YWdzL0F6dXJlLUFyY2hpdGVjdHVyZS1kaWFncmFtJz5BenVyZSBBcmNoaXRlY3R1cmUgZGlhZ3JhbTwvYT4sIDxhIGNsYXNzPSdMaW5rTm9ybWFsR3JheUxpZ2h0JyBocmVmPSdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL3RhZ3MvSWFhUyc+SWFhUzwvYT4sIDxhIGNsYXNzPSdMaW5rTm9ybWFsR3JheUxpZ2h0JyBocmVmPSdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL3RhZ3MvaWNyb3NvZnQtQXp1cmUnPmljcm9zb2Z0IEF6dXJlPC9hPiwgPGEgY2xhc3M9J0xpbmtOb3JtYWxHcmF5TGlnaHQnIGhyZWY9J2h0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vdGFncy9JbmZyYXN0cnVjdHVyZSc+SW5mcmFzdHJ1Y3R1cmU8L2E+LCA8YSBjbGFzcz0nTGlua05vcm1hbEdyYXlMaWdodCcgaHJlZj0naHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS90YWdzL3p1cmUtQ2hhbGxlbmdlJz56dXJlIENoYWxsZW5nZTwvYT4sIDxhIGNsYXNzPSdMaW5rTm9ybWFsR3JheUxpZ2h0JyBocmVmPSdodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL3RhZ3MvQXJjaGl0ZWN0Jz5BcmNoaXRlY3Q8L2E+ZAIKDxYCHxIFsQFUaGlzIGFydGljbGUgaXMgYXdhcmRlZCBhcyBiZXN0IElhYVMgYXJ0aWNsZSBieSBNaWNyb3NvZnQgaW4gQXp1cmUgQ2hhbGxlbmdlLgpJbiB0aGlzIGFydGljbGUgeW91IHdpbGwgbGVhcm4gaG93IHdlIGNhbiBkZXZlbG9wIGJlc3QgY2xvdWQgYXJjaGl0ZWN0dXJlIGZvciBhbnkgSVQgb3JnYW5pemF0aW9uLiBkAhIPDxYGHw8FF3Nwcml0ZSBkZXRhaWxzIGZlYXR1cmVkHxAFGk1ha2UgdGhpcyBhcnRpY2xlIGZlYXR1cmVkHxECAmRkAhYPDxYCHxAFDkRpbmVzaCBCZW5pd2FsZGQCGA8PFgIfCQUBMWRkAhkPFgIfEgUDNzkyZAIaDxYCHgVzdHlsZQUvbWFyZ2luLXRvcDoxMHB4O21hcmdpbi1ib3R0b206MHB4O2Rpc3BsYXk6bm9uZTsWAgIBDxYCHwdoZAIcD2QWAgIDDxYCHwdoZAIdDw8WAh4IQXV0aG9ySWQFBjU5YjlkNmQWGmYPFgIfDQU8aHR0cDovL3d3dy5jLXNoYXJwY29ybmVyLmNvbS9hdXRob3JzLzU5YjlkNi9uaXRpbi1wYXRpbC5hc3B4FgICAQ8WAh4Dc3JjBUxodHRwOi8vd3d3LmMtc2hhcnBjb3JuZXIuY29tL1VwbG9hZEZpbGUvQXV0aG9ySW1hZ2UvNTliOWQ2MjAxNDA3MjMwOTAzMDUuanBnZAIBDxYEHxIFC05pdGluIFBhdGlsHw0FPGh0dHA6Ly93d3cuYy1zaGFycGNvcm5lci5jb20vYXV0aG9ycy81OWI5ZDYvbml0aW4tcGF0aWwuYXNweGQCAg8WAh8SZWQCAw9kFgICAQ8WBB8NBRxodHRwOi8vd3Bjc2hhcnAuYmxvZ3Nwb3QuaW4vHxIFHGh0dHA6Ly93cGNzaGFycC5ibG9nc3BvdC5pbi9kAgQPFgIfDQU7aHR0cHM6Ly90d2l0dGVyLmNvbS9pbnRlbnQvZm9sbG93P3NjcmVlbl9uYW1lPU5pdGluX01fUGF0aWxkAgUPFgIfDQUfaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL01TUE5pM2QCBg8WBB8LBQdOb3QgU2V0HgVjbGFzcwUGbm90U2V0ZAIIDxYCHxIFAzU3OGQCCQ8WAh8SBQU3LjMga2QCCg8WBB8WBQ1tZWRhbCBTdGFydGVyHwsFDlN0YXJ0ZXIgTWVtYmVyZAILDxYEHxYFDWNvdW50IFN0YXJ0ZXIfEgUHU3RhcnRlcmQCDA8WBB8WBQtsaV8zIG5vdFNldB8LBSBDIyBDb3JuZXIgTVZQIC0gTm90IGF3YXJkZWQgeWV0LmQCDQ8WBB8WBQtsaV81IG5vdFNldB8LBSBNaWNyb3NvZnQgTVZQIC0gTm90IGF3YXJkZWQgeWV0LmQCHw8PFgYeCUNvbnRlbnRJZAUkNjBmY2FkZjEtY2I4Mi00NDQ1LTliYjAtYmViZTIwZWE4YzJhHg1Db250ZW50VXNlcklkBQY1OWI5ZDYeDENvbnRlbnRUaXRsZQUoQmVzdCBJYWFTIEFyY2hpdGVjdHVyZSAtIEF6dXJlIENoYWxsZW5nZWQWBGYPZBYCAgEPEA9kFgIeB29uY2xpY2sFKkNvbW1lbnRzX2FydGljbGUuVXBkYXRlRm9sbG93U3RhdHVzKHRoaXMpO2RkZAIBDxYCHwdnZAIgD2QWAgIBD2QWAmYPZBYEAgEPDxYEHgtfIURhdGFCb3VuZGcfB2hkZAIDDw8WBB8JBeEHPFNDUklQVCBMQU5HVUFHRT0iSmF2YVNjcmlwdCI+DQo8IS0tIGhpZGUgZnJvbSBub24tSmF2YVNjcmlwdCBicm93c2Vycw0KdmFyIGF4ZWwgPSBNYXRoLnJhbmRvbSgpICsgIiI7DQp2YXIgbnVtID0gYXhlbCAqIDEwMDAwMDAwMDAwMDAwMDAwMDA7DQpkb2N1bWVudC53cml0ZSgnPElGUkFNRSBTUkM9Imh0dHA6Ly9hZC5kb3VibGVjbGljay5uZXQvYWRpL041NjIxLjEyNDY2Mi43MTYzNjYzMzgyNDIxL0I4NDE3NDEyLjExMzk3NTc2NDtzej0zMDB4MjUwO2NsaWNrPTtvcmQ9JysgbnVtICsnPyIgV0lEVEg9MzAwIEhFSUdIVD0yNTAgTUFSR0lOV0lEVEg9MCBNQVJHSU5IRUlHSFQ9MCBIU1BBQ0U9MCBWU1BBQ0U9MCBGUkFNRUJPUkRFUj0wIFNDUk9MTElORz1ubyBCT1JERVJDT0xPUj0iIzAwMDAwMCI+Jyk7DQpkb2N1bWVudC53cml0ZSgnPFNDUicrJ0lQVCBsYW5ndWFnZT0iSmF2YVNjcmlwdDEuMSIgU1JDPSJodHRwOi8vYWQuZG91YmxlY2xpY2submV0L2Fkai9ONTYyMS4xMjQ2NjIuNzE2MzY2MzM4MjQyMS9CODQxNzQxMi4xMTM5NzU3NjQ7YWJyPSFpZTtzej0zMDB4MjUwO2NsaWNrPTtvcmQ9JysgbnVtICsnPyI+PC9TQ1InKydJUFQ+PC9JRlJBTUU+Jyk7DQovLyBlbmQgaGlkZSBmcm9tIGJyb3dzZXJzIC0tPg0KPC9zY3JpcHQ+DQo8bm9zY3JpcHQ+DQo8QSBIUkVGPSJodHRwOi8vYWQuZG91YmxlY2xpY2submV0L2p1bXAvTjU2MjEuMTI0NjYyLjcxNjM2NjMzODI0MjEvQjg0MTc0MTIuMTEzOTc1NzY0O2Ficj0haWU0O2Ficj0haWU1O3N6PTMwMHgyNTA7b3JkPVt0aW1lc3RhbXBdPyI+DQo8SU1HIFNSQz0iaHR0cDovL2FkLmRvdWJsZWNsaWNrLm5ldC9hZC9ONTYyMS4xMjQ2NjIuNzE2MzY2MzM4MjQyMS9CODQxNzQxMi4xMTM5NzU3NjQ7YWJyPSFpZTQ7YWJyPSFpZTU7c3o9MzAweDI1MDtvcmQ9W3RpbWVzdGFtcF0/IiBCT1JERVI9MCBXSURUSD0zMDAgSEVJR0hUPTI1MCBBTFQ9IkFkdmVydGlzZW1lbnQiPjwvQT4NCjwvTk9TQ1JJUFQ+HwdnZGQYAQUeX19Db250cm9sc1JlcXVpcmVQb3N0QmFja0tleV9fFgEFHmN0bDAwJENvbW1lbnRzMSRGb2xsb3dDaGVja0JveAoiqfk7TSZ6oVuNDQum/jYoppIL"> </div> <script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+theForm.__EVENTTARGET.value = eventTarget;
+theForm.__EVENTARGUMENT.value = eventArgument;
+theForm.submit();
+}
+}
+//]]> </script> <div class="master"> <a name="Top"></a> <div class="responsiveHeader"> <script type="text/javascript">
+$j(document).ready(function() {
+var flag;
+var textBoxClientId = '#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId';
+var value = $j(textBoxClientId).val();
+$j(textBoxClientId).click(function() {
+if (value == "Invalid ID / Password")
+$j(textBoxClientId).val('');
+});
+//login popup js start here//
+$j('#ctl00_HeaderWithoutAjax1_Login1_loginBtn').click(function() {
+flag = 1;
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').slideToggle("slow");
+$j('#ctl00_HeaderWithoutAjax1_Login1_TextBoxUserId').focus();
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+});
+$j('.loginPopup.loggedIn').mouseover(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').show();
+$j('.userdetailCntr').addClass('hover');
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+});
+$j('.loginPopup.loggedIn').mouseout(function() {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+$j('.userdetailCntr').removeClass('hover');
+});
+$j('.loginPopup').click(function() {
+flag = 1;
+});
+$j('#ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer').click(function() {
+flag = 1;
+});
+$j(document).click(function() {
+if (flag != 1) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_LoginSpan').hide();
+$j('#ctl00_HeaderWithoutAjax1_Login1_LogoutSpan').hide();
+}
+flag = 0;
+});
+//login popup js end here//
+});
+</script> <script>
+$j(document).ready(function() {
+var flag = true;
+var close = true;
+$j('.notificationMessageCntr').click(function() {
+var id = $j(this)[0].id;
+if (id != 'askQuestion') {
+if ($j(this).next().is(':visible')) {
+$j(this).find('.arrow').hide();
+$j(this).next().hide();
+}
+else {
+$j('.msg_container').hide();
+$j('.notificationMessageCntr .arrow').hide();
+flag = false;
+close = false;
+$j(this).find('.arrow').show();
+$j(this).next().show();
+ResetNotificationCount(this);
+}
+}
+});
+$j('.msg_container').click(function() {
+close = false;
+});
+$j(document).click(function() {
+if (close) {
+$j('.notificationMessageCntr .arrow').hide();
+$j('.msg_container').hide();
+flag = true;
+}
+close = true;
+});
+});
+//Reset notification count
+//type: 1- Message Notification, 2- Comment Notification
+function ResetNotificationCount(container) {
+var type;
+if ($j(container).attr('id') == 'messageNotification')
+type = 1
+else if ($j(container).attr('id') == 'commentNotification')
+type = 2
+if ($j(container).find('.messageCount').is(":visible")) {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=reset_notification_message_count&type=" + type,
+type: "POST",
+async: false,
+success: function(response) {
+if (parseInt(response) == 1) {
+$j(container).find('.messageCount').hide();
+}
+}
+});
+}
+}
+</script> <div class="page" style="position: relative; z-index: 999;"> <div class="loginControl"> <div id="ctl00_HeaderWithoutAjax1_Login1_UserDetailContainer" class="userdetailCntr"> <div class="image"> <img id="ctl00_HeaderWithoutAjax1_Login1_UserImage" src="./Best IaaS Architecture - Azure Challenge_files/a48f78.png.ashx" style="border-width:0px;"> </div> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelUserName" class="display_none_mobile">Milstein</span> </div> <div id="askQuestion" class="notificationMessageCntr"> <a id="ctl00_HeaderWithoutAjax1_Login1_PostForum" class="icons askaquestion" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$PostForum','')"></a> </div> <div id="commentNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonComments" class="icons comments" title="You have 0 new article comments"> </span><span class="arrow">&nbsp;</span> </div> <div id="userCommentBox" class="msg_container" style="display: none;"> <ul> <li><a href="http://www.c-sharpcorner.com/authors/ff0d0f/abhishek-yadav.aspx" title="Abhishek Yadav"> <img src="./Best IaaS Architecture - Azure Challenge_files/ff0d0f20140321020410.jpg.ashx" alt=""></a> <div class="right_content"> <div> <label style="font-family: Calibri; font-size: 14px; font-style: italic;">
+Hats off to our C# Corner team...Great Step !!! :)</label></div> <div class="LinkNormalGrayLight">
+commented on
+<a href="http://www.c-sharpcorner.com/UploadFile/181031/prayan-a-C-Sharp-corner-initiative-official-recap/Default.aspx#ReadAndPostComment" class="LinkNormalGray">
+Prayan, A C# Corner Initiative: Official Recap</a> <span class="floatRight" style="font-size: 11px;"><span class="watchICon"></span>
+Oct 09, 2014</span> </div> </div> </li> </ul> <a class="LinkNormalBlue" style="margin-right: 10px; float: right; margin-top: 10px;
+font-size: 13px;" href="http://www.c-sharpcorner.com/notification/">Go to all article comments &gt;&gt;</a> </div> <div id="messageNotification" class="notificationMessageCntr"> <span id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonMessages" class="icons message"> </span><span class="arrow">&nbsp;</span> </div> <div id="userMsgBox" class="msg_container" style="display: none;"> <span id="ctl00_HeaderWithoutAjax1_Login1_LabelNoData" style="color:Red;display: block; text-align: center;">No new messages.</span> <ul> </ul> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonAllMessages" class="LinkNormalBlue" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonAllMessages','')" style="margin-right: 10px;
+float: right; margin-top: 10px;">Go to all messages &gt;&gt;</a> </div> </div> <div id="ctl00_HeaderWithoutAjax1_Login1_LogoutSpan" class="loginPopup loggedIn" style="display: none;"> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonMyAccount" class="myac" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonMyAccount','')">My Account</a> </li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonProfile" class="profileview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonProfile','')">View Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonEditProfile" class="editprofile" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonEditProfile','')">Edit Profile</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonChangePassword" class="changepassword" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonChangePassword','')">Change Password</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_LinkButtonSetting" class="setting" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$LinkButtonSetting','')">Settings</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Login1_ImageButtonLogout" class="signout" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Login1$ImageButtonLogout','')">Logout</a> </li> </ul> </div> <a class="menuButton">&nbsp;</a> <a href="http://www.c-sharpcorner.com/" class="logo_responsive">
+&nbsp;</a> </div> <input type="hidden" id="HiddenErrorMessage" value="Unable to fetch your account data!"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldUserId" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldEmail" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldFirstName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldLastName" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName"> <input type="hidden" name="ctl00$HeaderWithoutAjax1$Login1$HiddenFieldType" id="ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType"> <input type="submit" name="ctl00$HeaderWithoutAjax1$Login1$ButtonLoginSocial" value="" id="ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial" style="display: none;"> <script>
+function FacebookLogin() {
+FB.login(function(response) {
+if (response.authResponse) {
+FB.api('/me', function(response) {
+try {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldUserId').val(response.id.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(response.email.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(response.first_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(response.last_name.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('facebook');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+});
+} else {
+console.log('User cancelled login or did not fully authorize.');
+}
+}, { scope: 'publish_actions, email' });
+}
+</script> <script>
+$j(document).ready(function() {
+function signinCallback(authResult) {
+if (authResult['status']['signed_in']) {
+try {
+gapi.client.load('plus', 'v1', function() {
+var request = gapi.client.plus.people.get({
+'userId': 'me'
+});
+request.execute(function(resp) {
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldEmail').val(resp.emails[0].value.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldFirstName').val(resp.name.givenName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldLastName').val(resp.name.familyName.toString());
+$j('#ctl00_HeaderWithoutAjax1_Login1_HiddenFieldType').val('google');
+$j('#ctl00_HeaderWithoutAjax1_Login1_ButtonLoginSocial').click();
+});
+});
+}
+catch (err) {
+alert($j('#HiddenErrorMessage').val());
+}
+} else {
+console.log('Sign-in state: ' + authResult['error']);
+}
+}
+var additionalParams = {
+'callback': signinCallback
+};
+var signinButton = document.getElementById('googleLoginHeader');
+if (signinButton != null) {
+signinButton.addEventListener('click', function() {
+gapi.auth.signIn(additionalParams);
+console.log(gapi);
+});
+}
+});
+</script> <div class="header"> <div class="topHeaderConainer" style="width: 100%; float: left;"> <script>
+$j(document).ready(function() {
+$j.getScript('/JQuery/ticker_21122013.js', function() {
+$j('#js-news').ticker();
+});
+});
+</script> <style>
+.ticker
+{
+width: 585px;
+height: 30px;
+display: block;
+position: relative;
+overflow: hidden;
+}
+.ticker-title
+{
+padding-top: 9px;
+color: #900;
+font-weight: bold;
+text-transform: uppercase;
+}
+.ticker-content
+{
+margin: 0;
+padding-top: 9px;
+position: absolute;
+color: #1f527b;
+overflow: hidden;
+white-space: nowrap;
+line-height: 1.2em;
+}
+.ticker-content a:hover
+{
+text-decoration: none;
+color: #0d3059;
+}
+.ticker-swipe
+{
+padding-top: 9px;
+position: absolute;
+top: 0;
+background-color: #f60;
+display: block;
+width: 800px;
+height: 23px;
+}
+.ticker-swipe span
+{
+margin-left: 1px;
+border-bottom: 1px solid #fff;
+height: 14px;
+width: 7px;
+display: block;
+}
+.js-hidden
+{
+display: none;
+}
+.ticker-controls
+{
+padding: 8px 0 0 0;
+list-style-type: none;
+float: left;
+}
+.left .ticker-controls, .left .ticker-content, .left .ticker-title, .left .ticker
+{
+float: left;
+}
+</style> <div class="InFocusNews display_none" id="InFocus"> <div class="page" style="position: relative;"> <h2>
+In Focus</h2> <div class="rightNew" style="display: inline;"> <div id="ticker-wrapper-1420819882875" class="ticker-wrapper has-js left"><div id="ticker-1420819882875" class="ticker"><div id="ticker-title-1420819882875" class="ticker-title"><span></span></div><p id="ticker-content-1420819882875" class="ticker-content" style="display: block; opacity: 1; left: 0px;"><a href="http://www.c-sharpcorner.com/News/4182/C-Sharp-corner-q4-2014-mvps-announced.aspx" style="color: White;" rel="nofollow">
+C# Corner Q4, 2014 MVPs Announced</a></p><div id="ticker-swipe-1420819882875" class="ticker-swipe" style="left: 0px; margin-left: 246px; display: none;"><span style="display: block;"><!-- --></span></div></div><ul id="ticker-controls-1420819882875" class="ticker-controls"><li id="play-pause-1420819882875" class="jnt-play-pause controls"><a href=""><!-- --></a></li><li id="prev-1420819882875" class="jnt-prev controls"><a href=""><!-- --></a></li><li id="next-1420819882875" class="jnt-next controls"><a href=""><!-- --></a></li></ul></div> </div> </div> </div> <div class="display_none"> <div class="page"> <a href="http://www.c-sharpcorner.com/" id="ctl00_HeaderWithoutAjax1_Contribution1_LogoLink"> <span id="ctl00_HeaderWithoutAjax1_Contribution1_LogoImage" class="logo"></span> </a> <div class="headerBanner"> </div> <div id="ctl00_HeaderWithoutAjax1_Contribution1_ContributionLinks"> <div class="contributeList"> <a href="javascript:void(0);" class="contributeOnHeader">Contribute</a> <ul> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostArticle" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostArticle','')">An Article</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_LinkButtonCodeSnippet" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$LinkButtonCodeSnippet','')">A Code Snippet</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostBlog" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostBlog','')">A Blog</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostNews" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostNews','')">A News</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostVideo" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostVideo','')">A Video</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostResource" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostResource','')">A Link</a></li> <li> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostInterview" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostInterview','')">An Interview Question</a></li> </ul> </div> <a id="ctl00_HeaderWithoutAjax1_Contribution1_PostForum" class="askQuestionOnHeader" href="javascript:__doPostBack('ctl00$HeaderWithoutAjax1$Contribution1$PostForum','')">Ask a Question</a> </div> </div> </div> <div id="ctl00_HeaderWithoutAjax1_HeaderMenu" class="HeadermenuStripBlue" style="position: fixed; top: 0px;"> <div class="page" style="position: relative;"> <div class="responsiveMenu"> <div class="SearchBox"> <div id="ctl00_HeaderWithoutAjax1_Panal1" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_HeaderWithoutAjax1_searchImageButton&#39;)"> <input name="ctl00$HeaderWithoutAjax1$searchTextBox" type="text" id="ctl00_HeaderWithoutAjax1_searchTextBox" class="searchTextBox" placeholder="C# Corner Search" style="font-family:Calibri;"> <input type="submit" name="ctl00$HeaderWithoutAjax1$searchImageButton" value="" id="ctl00_HeaderWithoutAjax1_searchImageButton" class="button"> </div> </div> <ul class="headerMenu"> <li class="display_none" style="background:none;"><a href="http://www.c-sharpcorner.com/" class="csharpHome" title="C# Corner Home">&nbsp;</a></li> <li class="first display_none"><a href="http://www.c-sharpcorner.com/pulse/" title="C# Corner Pulse" class="pulse"></a></li> <li><a href="http://www.c-sharpcorner.com/category/" class="show-dropdown menuLinkBlue">
+TECHNOLOGIES </a> <div class="dropDownMenu" id="dropDown"> <div id="ctl00_HeaderWithoutAjax1_divTechnology" style="overflow: hidden; margin-bottom: 10px;"> <span id="ctl00_HeaderWithoutAjax1_DataListTechnologyTop"><span> <a href="http://www.c-sharpcorner.com/1/237/net-4-5.aspx">
+.NET 4.5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/282/c-cpp-mfc.aspx">
+C, C++, MFC
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/66/internet-web.aspx">
+Internet &amp; Web
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/222/operating-systems.aspx">
+Operating Systems
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/192/wcf-with-C-Sharp.aspx">
+WCF with C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/57/net-assemblies.aspx">
+.NET Assemblies
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/238/career-advice.aspx">
+Career Advice
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/258/java.aspx">
+Java
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/315/outsourcing.aspx">
+Outsourcing
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/307/wearables.aspx">
+Wearables
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/70/net-remoting.aspx">
+.NET Remoting
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/280/chapters.aspx">
+Chapters
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/233/javascript.aspx">
+JavaScript
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/311/philosophy.aspx">
+Philosophy
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/154/web-development.aspx">
+Web Development
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/131/ado-net.aspx">
+ADO.NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/58/com-interop.aspx">
+COM Interop
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/236/jquery.aspx">
+JQuery
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/279/php.aspx">
+PHP
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/133/web-services-in-C-Sharp.aspx">
+Web Services in C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/176/ajax.aspx">
+AJAX
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/60/cryptography-C-Sharp.aspx">
+Cryptography C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/278/leadership.aspx">
+Leadership
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/308/power-bi.aspx">
+Power BI
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/275/windows-8.aspx">
+Windows 8
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/56/algorithms-in-C-Sharp.aspx">
+Algorithms in C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/61/crystal-reports-C-Sharp.aspx">
+Crystal Reports C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/180/linq.aspx">
+LINQ
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/71/security-in-net.aspx">
+Security in .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/77/windows-controls-C-Sharp.aspx">
+Windows Controls C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/247/android-programming.aspx">
+Android Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/145/deployment.aspx">
+Deployment
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/313/machine-learning.aspx">
+Machine Learning
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/183/sharepoint.aspx">
+SharePoint
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/76/windows-forms-C-Sharp.aspx">
+Windows Forms C# 
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/302/angularjs.aspx">
+AngularJS
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/62/design-architecture.aspx">
+Design &amp; Architecture
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/232/microsoft-azure.aspx">
+Microsoft Azure
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/216/sql-language.aspx">
+SQL Language
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/245/windows-phone.aspx">
+Windows Phone
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/224/Asp-Net-programming.aspx">
+ASP.NET Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/293/dynamics-crm.aspx">
+Dynamics CRM
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/67/mobile-embedded.aspx">
+Mobile &amp; Embedded
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/297/sql-server.aspx">
+SQL Server
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/292/windows-server-2012.aspx">
+Windows Server 2012
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/303/backbonejs.aspx">
+Backbonejs
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/159/enterprise-development.aspx">
+Enterprise Development
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/304/node-js.aspx">
+Node.js
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/174/testing.aspx">
+Testing
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/78/windows-services-in-C-Sharp.aspx">
+Windows Services in C#
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/314/big-data.aspx">
+Big Data
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/64/exception-handling-C-Sharp.aspx">
+Exception Handling C#
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/288/office-2013.aspx">
+Office 2013
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/291/typescript.aspx">
+TypeScript
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/138/windows-store-apps.aspx">
+Windows Store Apps
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/309/business.aspx">
+Business
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/143/how-do-i.aspx">
+How do I 
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/146/office-development.aspx">
+Office Development
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/277/visual-basic-net.aspx">
+Visual Basic .NET
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/191/wpf.aspx">
+WPF
+</a> </span><br><span> <a href="http://www.c-sharpcorner.com/1/144/C-Sharp-programming.aspx">
+C# Programming
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/244/html-5.aspx">
+HTML 5
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/276/open-source.aspx">
+Open Source
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/296/visual-studio.aspx">
+Visual Studio
+</a> </span><span> <a href="http://www.c-sharpcorner.com/1/190/xaml.aspx">
+XAML
+</a> </span></span> </div> <div style="position: absolute; bottom: 0px; left: 0px;"> <a href="http://www.c-sharpcorner.com/ContactUs.aspx?type=7" class="LinkNormalBlue" style="color: #ff6600; background: none; text-transform: none; float: left;">Request
+a new Category</a><span style="float: left; color: #8D8D8D; margin-top: 4px;">|</span> <a href="http://www.c-sharpcorner.com/Category/" class="LinkNormalBlue viewAll" style="color: #36c; background: none!important; text-transform: none; float: left;">
+View All</a> </div> </div> </li> <li><a href="http://www.c-sharpcorner.com/Forums/" title="Ask a Question">ANSWERS</a></li> <li><a href="http://www.c-sharpcorner.com/Blogs/" title="Share a Blog">BLOGS</a></li> <li><a href="http://www.c-sharpcorner.com/Videos/" title="Share a Video">VIDEOS</a></li><li> <a href="http://www.c-sharpcorner.com/interviews/" title="Ask an Interview Question">
+INTERVIEWS</a></li><li><a href="http://www.c-sharpcorner.com/ebooks/" title="Share a Book">
+BOOKS</a></li> <li><a href="http://www.c-sharpcorner.com/news/" title="Submit a News">NEWS</a></li> <li><a href="http://www.c-sharpcorner.com/Chapters/" title="Attend an Event">
+CHAPTERS</a></li> <li><a href="http://www.c-sharpcorner.com/CareerAdvice/" title="Get career advice">
+CAREER ADVICE</a></li> <li><a href="http://www.c-sharpcorner.com/jobs/" title="Get Jobs">Jobs</a></li> </ul> </div> </div> </div> </div> </div> </div> <script type="text/javascript" language="javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JavaScripts/MindcrackerJScript.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+</script> <script type="text/javascript">
+$j(window).scroll(function() {
+var topS = $j(window).scrollTop();
+var winWidth = $j(window).width();
+var headerHe = $j(".topHeaderConainer").height() - $j(".HeadermenuStripBlue").height();
+// header js
+if (topS > headerHe) {
+if (parseInt(winWidth) < 767) {
+$j(".HeadermenuStripBlue").css("position", "relative");
+}
+else {
+$j(".HeadermenuStripBlue").css({ "position": "fixed", "top": 0 });
+}
+}
+else if (topS <= (headerHe + $j(".HeadermenuStripBlue").height())) {
+$j(".HeadermenuStripBlue").css("position", "relative");
+}
+});
+</script> <script type="text/javascript">
+// media query js
+$j(document).ready(function() {
+$j(window).resize(function() {
+if ($j(".menuButton").is(':visible')) {
+var windowHeight = $j(window).height();
+$j('.responsiveHeader .responsiveMenu').css("height", windowHeight);
+}
+else {
+$j('.responsiveHeader .responsiveMenu').css("height", 'auto');
+}
+});
+// responsive jquery 
+$j(".menuButton").click(function() {
+var windowHeight = $j(window).height();
+var menu_container = $j('.responsiveHeader .responsiveMenu');
+if (!menu_container.hasClass('hidden')) {
+menu_container.animate({ left: 0 });
+$j('body, .responsiveHeader').animate({ left: 260 + 'px' });
+menu_container.addClass('hidden');
+menu_container.css("height", windowHeight);
+$j('body').css({ 'height': windowHeight, 'overflow': 'hidden', 'position': 'fixed' });
+//$j('.SearchBox').animate({ left: 0 });
+} else {
+menu_container.animate({ left: -260 + 'px' });
+$j('body ,.responsiveHeader').animate({ left: 0 + 'px' });
+menu_container.removeClass('hidden');
+$j('body').css({ 'height': windowHeight, 'overflow-y': 'auto', 'position': 'relative' });
+//$j('.SearchBox').animate({ left: -260 + 'px' });
+}
+});
+});
+</script> <div class="page"> <div class="clear"> </div> <div class="main responsive_marginTop"> <div class="leftCntr"> <div class="trendingNowBox display_none_mobile"> <div class="left" id="example1_wrap"> <div class="bx_wrap"><a href="" class="prev"></a><a href="" class="next"></a><div class="bx_container" style="position: relative; width: 275px; overflow: hidden;"><ul id="example1" style="width: 999999px; position: relative; left: -275px;"><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/092589/model-in-backbone-js-part-2/" class="LinkNormalStyle" style="color: Gray;">
+Model in Backbone.JS : Part 2</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/g_arora/the-s-o-l-i-d-programming-principles-%E2%80%93-at-a-glance/" class="LinkNormalStyle" style="color: Gray;">
+The S.O.L.I.D. Programming Principl ...</a></li><li style="float: left; list-style: none; margin-right: 0px;"><a href="http://www.c-sharpcorner.com/UploadFile/092589/introduction-to-backbonejs/" class="LinkNormalStyle" style="color: Gray;">
+Introduction to Backbone.JS: Part 1</a></li></ul></div></div> </div> <div class="right"> <div id="ctl00_TrendingNow1_Panal1" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_TrendingNow1_searchImageButton&#39;)"> <input name="ctl00$TrendingNow1$searchTextBox" type="text" id="ctl00_TrendingNow1_searchTextBox" class="searchTextBox" placeholder="C# Corner Search" style="font-family:Calibri;"> <input type="submit" name="ctl00$TrendingNow1$searchImageButton" value="" id="ctl00_TrendingNow1_searchImageButton" class="button">  </div> </div> </div> <div class="article"> <div class="HeadingAr" id="div1"> <div class="floatRight marginTop" style="font-size: 12px;"> <div id="ctl00_AuthorRank" class="AuthorRank"> <span id="ctl00_ImageReaderLevel" title="Intermediate" class="sprite details intermediate"></span>
+Reader Level:
+</div> </div> <span id="ctl00_spanArticle" class="floatLeft"> <a href="http://www.c-sharpcorner.com/Articles/" id="ctl00_A1" class="HeadingBold">Articles</a> </span> </div> <div class="clear"> </div> <div class="image display_none_mobile"> <a href="http://www.c-sharpcorner.com/1/232/microsoft-azure.aspx" id="ctl00_AnchorAuthorImage"> <img id="ctl00_imgAuthor" title="Microsoft Azure" class="image90" src="./Best IaaS Architecture - Azure Challenge_files/070631AM.png" style="border-width:0px;"></a> </div> <div class="detail"> <div class="grayText"> <h1> <span id="ctl00_LabelArticleTitle" cssclass="BlogsWelcomeHeading">Best IaaS Architecture - Azure Challenge</span> </h1> </div> <div class="LinkNormalGrayLight">
+By <span><a href="http://www.c-sharpcorner.com/authors/59b9d6/nitin-patil.aspx" id="ctl00_AuthorLink" class="LinkOrange">Nitin Patil</a> </span>
+on
+<span id="ctl00_LabelDate">Jan 08, 2015</span> </div> <div class="LinkNormalGrayLight" style="margin-bottom: 5px; display: none;"> <span style="color: Black;">Tags:</span> <span id="ctl00_spanTags"><a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Azure-Architecture-diagram">Azure Architecture diagram</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/IaaS">IaaS</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/icrosoft-Azure">icrosoft Azure</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Infrastructure">Infrastructure</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/zure-Challenge">zure Challenge</a>, <a class="LinkNormalGrayLight" href="http://www.c-sharpcorner.com/tags/Architect">Architect</a></span> </div> <div style="position: relative; margin: 2px 0px 2px 0px; width: 100%; float: left;
+border-bottom: solid 1px #d7d7d7;"> </div> <div id="ctl00_DivDescription" class="normalGray" style="padding: 5px 0 0;">This article is awarded as best IaaS article by Microsoft in Azure Challenge.
+In this article you will learn how we can develop best cloud architecture for any IT organization. </div> </div> <div class="clear"> </div> <div class="tweetIcon" style="padding-bottom: 10px;"> <ul> <li><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Best IaaS Architecture - Azure Challenge_files/tweet_button.c27d2d163408c0fe087fbfe1c687ce2b.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 109px; height: 20px;"></iframe></li> <li> <span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1420819885195_0"><a id="li_ui_li_gen_1420819885195_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1420819885195_0-logo">in</span><span id="li_ui_li_gen_1420819885195_0-title"><span id="li_ui_li_gen_1420819885195_0-mark"></span><span id="li_ui_li_gen_1420819885195_0-title-text">Share</span></span></a></span></span><span style="padding: 0px !important; margin: 0px !important; text-indent: 0px !important; display: inline-block !important; vertical-align: baseline !important; font-size: 1px !important;"><span id="li_ui_li_gen_1420819885212_1-container" class="IN-right"><span id="li_ui_li_gen_1420819885212_1" class="IN-right"><span id="li_ui_li_gen_1420819885212_1-inner" class="IN-right"><span id="li_ui_li_gen_1420819885212_1-content" class="IN-right">1</span></span></span></span></span></span><script type="in/share+init" data-counter="right"></script> </li> <li> <div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1420819885053" name="I0_1420819885053" src="./Best IaaS Architecture - Azure Challenge_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div> </li> <li> <div class="fb-like fb_iframe_widget" data-href="http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/Default.aspx" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=440531902678919&amp;href=http%3A%2F%2Fwww.c-sharpcorner.com%2FUploadFile%2F59b9d6%2Fazure-challenge%2FDefault.aspx&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true"><span style="vertical-align: bottom; width: 82px; height: 20px;"><iframe name="f77c8dda8" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./Best IaaS Architecture - Azure Challenge_files/like.html" style="border: none; visibility: visible; width: 82px; height: 20px;" class=""></iframe></span></div> </li> </ul> </div> </div> <div class="clear"> </div> <div> <span id="ctl00_LabelMessageBox" style="color:Red;"></span> </div> <div class="contentHeaderArticle"> <ul class="detailPageAction display_none_mobile"> <li> <a id="ctl00_ImageButtonEmail" title="Email this article to friend" class="sprite details email" href="javascript:__doPostBack('ctl00$ImageButtonEmail','')"></a> </li> <li class="display_none"> <a id="ctl00_ImageButtonAddToMyBookmarks" title="Bookmark this article" class="sprite details bookmark" href="javascript:__doPostBack('ctl00$ImageButtonAddToMyBookmarks','')"></a> </li> <li class="display_none"><a href="javascript:void(GetPrintVersion())" class="sprite details print"> </a></li> <li><a href="http://www.c-sharpcorner.com/Authors/59b9d6/articles/" id="ctl00_AuthorsOtherArticles" title="Author&#39;s other article" class="sprite details authorOthers"></a></li> <li><a href="http://www.c-sharpcorner.com/Articles/Default.aspx?ArticleId=60fcadf1-cb82-4445-9bb0-bebe20ea8c2a" id="ctl00_AnchorSimilarArticles" title="Similar articles" class="sprite details similar"></a></li> <li class="display_none"> </li> <li class="display_none"> </li> <li class="display_none"> </li> <li> <a id="ctl00_ImageButtonModerator" title="Article History" class="sprite details history" href="javascript:__doPostBack('ctl00$ImageButtonModerator','')"></a></li> <li class="display_none"> </li> <li class="display_none"> </li> <li class="display_none"> </li> <li class="display_none"> </li> </ul> <ul class="counterIcons right"> <li><a title="Like it" onclick="Like();" class="sprite details like"></a><span class="ponit" style="float: left;"> <span id="ctl00_LabelLikeCount">1</span> </span></li> <li><a href="http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/#ReadAndPostComment"><span class="sprite details comments" title="Comments"> </span><span class="ponit"><span id="spanComments">0</span></span></a></li> <li><span class="sprite details views" title="Views"></span><span class="ponit"><span id="ctl00_spanArticleViews">792</span></span></li> </ul> </div> <div class="clear"> </div> <div id="ctl00_downloadFiles" class="ratingTilte" style="margin-top:10px;margin-bottom:0px;display:none;">
+&nbsp;
+</div> <div id="div2" class="PaddingLeft5"><p align="justify"></p><p><strong>1. Solution Overview<br></strong><br>Designing an IT infrastructure is totally dependant on the services, products, applications and many other things that an enterprise/organization/company provides to the user. It is also depends on which development model the company is preserving for development. So it is very difficult to develop a generalized IT infrastructure but we can use a basic IT infrastructure module at the beginning stage and can change accordingly depending on future needs.<br><br>In this case study, we will look at how to design and develop a simple IT infrastructure, how to balance the incoming traffic load among available resources (VMs), how to make disaster recovery-based architecture using an Availability Set and also how to use amazing Azure Services in a simple way to make standard IT infrastructure.<br><br><strong>2. Type: </strong>IaaS (Infrastructure as a Service).<br><br><strong>3. Architecture diagram</strong><br><br><img src="./Best IaaS Architecture - Azure Challenge_files/Screenshot_3.jpg" alt=""><br><br><strong>4. Solution Details</strong><br><br>The following are the features, technologies used, existing / potential end-users, existing/potential customers and so on:</p> <ol> <li>High Security due to overall architecture is divided into multipe subnets. Each tier of VMs are launched into different private subnets that provide one more security layer in the Virtual Private Network. <br><br> </li><li>High Availability due to two Availability Zones. Availability Zones have the same VMs and they run individually.<br><br> </li><li>Different Load Balancer provides different features. We can change this load balancer type at any time. <br> <ol> <li><strong>Performance:</strong> Select Performance when you have endpoints (cloud services or web sites) in multiple datacenters (also known as regions) and you want to direct the user to the endpoint with the lowest latency. <br><br> </li><li><strong>Failover:</strong> Select Failover when you have endpoints in the same or different datacenters and want to use a primary endpoint for all traffic, but provide backups in case the primary or the backup endpoints go offline.<br><br> </li><li><strong>Round Robin: </strong>Select Round Robin when you want to distribute the load equally across a set of endpoints in the same datacenter or across various datacenters. <br><br></li></ol> </li><li>Disaster Recovery (Warm Standby) can be possible using this architecture. We can maintain a standby to any one Availability Zone instance and when needed the environment rapidly scales up (in other words activating another Availability Zone) to meet full production demands.<br><br> </li><li>Primary and Secondary Database with SQL Data Synch service provides an always stand by copy of the original database. </li></ol> <p><strong>5. Economic viability of the Solution<br></strong><br>Today companies know disaster is not a matter of if, but when. It is very important to take precautions before something happens. According to a study done by the University of Oregon, every dollar spent on hazard mitigation, including Disaster Recovery, saves companies four dollars in recovery and response costs. In more detail to cost savings, smart companies also view Disaster Recovery as critical to their survival. For example, 51% of companies that experienced a major data loss closed within two years (Source: Gartner), and 44% of companies that experienced a major fire never re-opened (Source: EBM). Again, disaster is not a matter of if, but when. So we need to be ready for Disaster Recovery and to save its cost.<br><br><strong>6. Relevant screenshots from the Azure portal:</strong></p> <ol> <li><a href="http://1drv.ms/1HkoYzC">All VMs</a> </li><li><a href="http://1drv.ms/1ySmId5">VNET Network</a> </li><li><a href="http://1drv.ms/1Hkpkq5">Subnets</a> </li><li><a href="http://1drv.ms/1ySmqmc">Availability Zone A VMs</a> </li><li><a href="http://1drv.ms/1HkpfTk">Availability Zone B VMs</a></li></ol> <p></p></div> <div class="clear"> </div> <div class="clear"> </div> <script>
+$j(document).ready(function() {
+if ($j('.li_5').hasClass('notSet')) {
+$j('.li_5').remove();
+}
+});
+</script> <div class="auther_bio"> <a href="http://www.c-sharpcorner.com/authors/59b9d6/nitin-patil.aspx" id="ctl00_AboutAuthor1_AuthorImageAnchor" class="image"> <img src="./Best IaaS Architecture - Azure Challenge_files/59b9d620140723090305.jpg" id="ctl00_AboutAuthor1_AuthorImage"></a> <div class="autherDetail"> <a href="http://www.c-sharpcorner.com/authors/59b9d6/nitin-patil.aspx" id="ctl00_AboutAuthor1_AuthorName" class="userName">Nitin Patil</a> <p id="ctl00_AboutAuthor1_Description" class="description"></p> <div id="ctl00_AboutAuthor1_PersonalBlogContainer" class="description">
+Personal Blog:&nbsp;<a href="http://wpcsharp.blogspot.in/" id="ctl00_AboutAuthor1_PersonalBlog" class="LinkNormalBlue" target="_blank">http://wpcsharp.blogspot.in/</a> </div> <ul class="social"> <li class="twitter"><a href="https://twitter.com/intent/follow?screen_name=Nitin_M_Patil" id="ctl00_AboutAuthor1_TwitterFollow" title="Follow on Twitter">Follow</a></li> <li class="facebook"><a href="https://www.facebook.com/MSPNi3" id="ctl00_AboutAuthor1_FacebookProfileUrl" title="Facebook">Facebook</a></li> <li class="linkedIn"><a id="ctl00_AboutAuthor1_LinkedInProfileUrl" title="Not Set" class="notSet">LinkedIn</a></li> <li class="message"> <a id="ctl00_AboutAuthor1_SendMessageImageButton" title="Send Message" href="javascript:__doPostBack('ctl00$AboutAuthor1$SendMessageImageButton','')">message</a></li> </ul> </div> <div class="clear"> </div> <div class="autherIcons"> <ul> <li class="li_1"><a href="http://www.c-sharpcorner.com/Members/rank/"><span class="rank"> </span><span class="text">rank</span><span id="ctl00_AboutAuthor1_Rank" class="count">578</span></a> </li> <li class="li_2"><a href="http://www.c-sharpcorner.com/Articles/AuthorTopArticles.aspx?authorid=59b9d6"> <span class="reader"></span><span id="ctl00_AboutAuthor1_Readers" class="count">7.3 k</span> <span class="text">readers</span> </a></li> <li class="li_4"><span id="ctl00_AboutAuthor1_Medal" class="medal Starter" title="Starter Member"></span><span id="ctl00_AboutAuthor1_MedalText" class="count Starter">Starter</span><span class="text">Member</span></li> <li id="ctl00_AboutAuthor1_CSharpMVP" class="li_3 notSet" title="C# Corner MVP - Not awarded yet."><a href="http://www.c-sharpcorner.com/Members/mvps/"> <span class="csharpmvp"></span><span id="ctl00_AboutAuthor1_MVP" class="count"></span> <span class="text">times</span> </a></li>  </ul> </div> </div> <div class="clear"> </div> <div id="ctl00_RelatedArticles" class="relatedArticle"> <h3>
+Related Articles
+</h3> <ul> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl00_HyperLinkTitle" href="http://www.c-sharpcorner.com/uploadfile/dhananjaycoder/creating-storage-account-in-new-silverlight-based-windows-azure-portal/default.aspx">Creating Storage Account in new Silverlight based Windows Azure Portal</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl01_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/aravindbenator/windows-azure-queues-and-windows-azure-service-bus-queues/">Windows Azure Queues And Windows Azure Service Bus Queues</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl02_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/ae35ca/azure-reporting-configuring-the-subscription-for-reporting-in-windows-azure/">Azure Reporting - Configuring The Subscription For Reporting in Windows Azure</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl03_HyperLinkTitle" href="http://www.c-sharpcorner.com/uploadfile/dhananjaycoder/wcf-data-service-with-sql-azure/default.aspx">WCF Data Service with SQL Azure</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl04_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/aravindbenator/a-walk-through-on-windows-azure/">A Walk Through on Windows Azure</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl05_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/dhananjaycoder/scalability-in-sql-azure/">Scalability in SQL Azure</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl06_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/2072a9/html5-vs-html4-01/">HTML5 vs HTML4.01</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl07_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/35fef0/security-in-qlikview/">Security in QlikView</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl08_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/face6d/major-challenges-in-web-based-application-testing/">Major Challenges in Web-Based Application Testing</a> </li> <li><span class="bullet"></span> <a id="ctl00_RepeaterSimilarArticles_ctl09_HyperLinkTitle" href="http://www.c-sharpcorner.com/UploadFile/073281/a-guide-to-overcome-the-javaj2ee-app-development-challenges353/">A Guide to Overcome the Java/J2EE App Development Challenges</a> </li> </ul> </div> <script src="./Best IaaS Architecture - Azure Challenge_files/jquery-Mention-Combined.js" type="text/javascript"></script> <script type="text/javascript">
+var mentionarraydata=[];
+var Comments_article = (function () {
+var pageSize = 10;
+var rootClass = '.article ';
+return {
+//Get Comments
+GetComments: function (parent_id) {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var rootComments = $j(rootClass + '#RootComments');
+var items = 0;
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'60fcadf1-cb82-4445-9bb0-bebe20ea8c2a','type':'article','pageNumber':'" + pageNumber + "', 'pageSize':'" + pageSize + "', 'parentId':" + parent_id + "}",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#mainLoader').show();
+},
+success: function (d) {
+var data = d[0];
+var totalComments;
+$j.each(data, function (index) {
+rootComments.prepend(BuildComment(data[index])); //Prepend root comments
+if (pageNumber == 1 && index == 0) {
+$j(rootClass + '#HiddenTotalComments').val(data[index].TotalComments);
+if (d[2][index] == null || d[2][index] == undefined) {
+totalComments = data[index].TotalComments;
+}
+else {
+totalComments = parseFloat(data[index].TotalComments) + parseFloat(d[2][index].TotalComments);
+}
+$j(rootClass + '#TotalComments').text(totalComments); //set total comments only once.
+$j('#spanComments').text(totalComments); //Manages Header Comment Count
+}
+items = parseFloat(items) + 1; //track for number of comments to show
+ManageAlternateColor();
+});
+//Reply Binding starts here
+var reply = d[1];
+var element;
+$j.each(reply, function (index) {
+element = $j(rootClass + '#CommentReplies_' + reply[index].ParentId);
+element.prepend(BulildCommentReply(reply[index]));
+items = parseFloat(items) + 1;
+});
+//Reply Binding ends here
+//Manage paging
+{
+if (items != 0 && parseFloat(pageNumber) >= 1) {
+if (parseFloat(pageNumber) == 1)
+$j(rootClass + '#CommentCount').text(items);
+else
+$j(rootClass + '#CommentCount').text(parseFloat($j(rootClass + '#CommentCount').text()) + items);
+}
+else {
+$j(rootClass + '#Paging').hide();
+}
+ManageViewMoreVisibility();
+}
+$j(rootClass + '#mainLoader').hide();
+}
+});
+},
+//Like Comment
+LikeComment: function (id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=like_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+},
+Error: ShowError
+});
+if (status == '1') {
+var likes = $j(rootClass + '#Likes_' + id).text();
+$j(rootClass + '#Likes_' + id).text(parseFloat(likes) + 1);
+}
+else if (status == '2') {
+}
+},
+//Delete Comment
+DeleteComment: function (id, parent_id) {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=delte_comment&id=" + id + "&type=article",
+type: "POST",
+async: false,
+success: function (response) {
+status = response;
+},
+Error: ShowError
+});
+if (status == '1') {
+var count = $j(rootClass + '#Replies_' + id).text();
+$j(rootClass + '#comment_' + id).remove();
+if (parent_id == 0) {
+ManageAlternateColor();
+ManagePaging('d', count);
+if (GetParentCommentsCount() == 0)
+Comments_article.GetComments(0);
+}
+else {
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) - 1);
+totalComments.text(parseFloat(totalComments.text()) - 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+}
+},
+//Post Comment
+PostComment: function (parent_id, e) {
+if (e.keyCode == 13) {
+var rootComments = $j(rootClass + '#RootComments');
+var totalComments = $j(rootClass + '#HiddenTotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var comment = null;
+$j('textarea.mention').mentionsInput('val', function(text) {
+comment=text;
+});
+comment=FormatText(comment);
+comment=GetCommentData(comment,'textarea.mention');
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'60fcadf1-cb82-4445-9bb0-bebe20ea8c2a','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0];
+var mailtosendids=[];
+var mailtobesendids=null;
+$j('textarea.mention').mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+mailtosendids.push(obj.id);
+});
+});
+$j('textarea.mention').mentionsInput('reset', function(data) {
+});                          
+rootComments.append(BuildComment(data));
+ManageAlternateColor();
+$j(rootClass + '#InputCommentText_' + parent_id).val('').trigger('autosize.resize');
+//if (!(parseFloat(totalComments.val()) == parseFloat(commentCount.text()) && parseFloat($j('#HiddenPageNumber_article').val()) > 1))
+if (parseFloat(GetParentCommentsCount()) > parseFloat(pageSize))
+rootComments.find('div').first().remove();
+ManagePaging('i', 0);
+SendMail(comment, '0', data.ParentUserId, data.CommentId);
+if(mailtosendids.length > 0)
+{
+mailtobesendids=mailtosendids.join(",");
+SendNotification(comment,mailtobesendids)
+}
+$j(rootClass + '#PostLoader').hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Reply TextBox
+ShowReplyBox: function (id) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+if ($j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).length)
+{ $j(rootClass + '#CommentReplies_' + id + ' #ReplyContainer_' + id).toggle(); }
+else {
+var postReply = '<div id="ReplyContainer_' + id + '" class="ReplyComment" style="padding-bottom:5px;">\
+<div class="image level1"><img src="http://www.c-sharpcorner.com/UploadFile/AuthorImage/a48f78.png" alt=""></div>\
+<div class="commentcontent">\
+<textarea id="ReplyComment_' + id + '" onkeypress="Comments_article.PostCommentReply(' + id + ',event);" class="mention" style="height:18px;" spellcheck="true" placeholder="Type your comment here and press Enter Key...."></textarea>\
+</div>\
+<img id="PostLoader_' + id + '" src="/Images/csharp/ajax-loader_12x9.gif"\
+style="margin: 5px 7px 0px 0px; clear:both; float:right; display:none;" />\
+</div>';
+element.append(postReply);
+$j(rootClass + 'textarea#ReplyComment_' + id).elastic();
+GetValueAtTheRate(rootClass + 'textarea#ReplyComment_' + id);
+$j(rootClass + '#ReplyComment_' + id).focus();
+}
+$j(rootClass + '#CommentReplies_' + id).show();
+},
+//Show Replies
+ShowReplies: function (id, anchr) {
+var element = $j(rootClass + '#CommentReplies_' + id);
+var commentCount = $j(rootClass + '#CommentCount');
+//if (element.is(":visible") &&  == '')
+var pageSize = 50;
+if ($j(rootClass + '#Replies_' + id).text() != '0') {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/Comments.asmx/GetComments",
+data: "{'id':'60fcadf1-cb82-4445-9bb0-bebe20ea8c2a','type':'article','pageNumber':'1', 'pageSize':'" + pageSize + "', 'parentId':" + id + "}",
+beforeSend: function () {
+$j(rootClass + '#ajaxLoader_' + id).show(); //Show Ajax Loader
+},
+success: function (d) {
+element.html('');
+var data = d[0];
+$j.each(data, function (index) {
+data[index].CommentId;
+element.prepend(BulildCommentReply(data[index])); //Prepend root comments
+});
+$j(rootClass + '#ajaxLoader_' + id).hide(); //Hide Ajax Loader
+$j(anchr).remove();
+$j('#CommentReplies_' + id).show();
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+}
+});
+}
+},
+//Expend/Collapse Comment Replies
+ToggleReplies: function (id) {
+$j(rootClass + '#CommentReplies_' + id).toggle();
+},
+//Post Comment Reply
+PostCommentReply: function (parent_id, e) {
+if (e.keyCode == 13) {
+var replyContainer = $j(rootClass + '#ReplyContainer_' + parent_id);
+//var comment = FormatText($j(rootClass + '#ReplyComment_' + parent_id).val());
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var comment=null;
+$j(rootClass + '#ReplyComment_' + parent_id).mentionsInput('val', function(text) {
+comment=text;
+});
+comment =FormatText(comment);
+comment=GetCommentData(comment,rootClass + '#ReplyComment_' + parent_id);
+$j(rootClass +'#ReplyComment_' + parent_id).mentionsInput('reset', function(data) {
+});
+if (comment != '') {
+VerifyUser();
+$j.ajax({
+url: "/WebServices/Comments.asmx/InsertComment",
+data: "{'user_id':'a48f78','content_id':'60fcadf1-cb82-4445-9bb0-bebe20ea8c2a','type':'article','parent_id':'" + parent_id + "', 'description':'" + comment + "'}",
+type: "POST",
+contentType: "application/json; charset=utf-8",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader_' + parent_id).show(); //Show Ajax Loader
+},
+success: function (response) {
+var data = response[0];
+replyContainer.before(BulildCommentReply(data));
+$j(rootClass + '#ReplyComment_' + parent_id).val('').trigger('autosize.resize');
+var replies = $j(rootClass + '#Replies_' + parent_id).text();
+$j(rootClass + '#Replies_' + parent_id).text(parseFloat(replies) + 1);
+totalComments.text(parseFloat(totalComments.text()) + 1);
+commentCount.text(parseFloat(GetParentCommentsCount()) + parseFloat(GetChildCommentsCount()));
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+SendMail(comment, '1', data.ParentUserId, data.CommentId); //SendMail(comment, is_child_comment, parent_user_id)
+$j(rootClass + '#PostLoader_' + parent_id).hide(); //Hide Ajax Loader
+PreventDefault(e);
+},
+Error: ShowError
+});
+}
+else { PreventDefault(e); }
+}
+},
+//Show Edit Panel
+ShowEditView: function (commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var editView = '<textarea id="CommentToEdit_' + commentId + '" onkeypress="Comments_article.EditComment(' + commentId + ',event);" class="inputText" style="width:95%;  height:16px; font-size:12px; margin: 5px 0px;" spellcheck="true"  ></textarea>\
+<img id="ajaxLoaderEdit_' + commentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />';
+editButton.hide();
+content.after(editView);
+var edittext=content.html();
+var existingusers= edittext.match(/<a[^>]+>([^<]+)<\/a>/g);
+var hyperlink=null;
+var username=null;
+//var userid=null;
+//var pieces=null;
+if(existingusers)
+{
+for(var i=0;i<=existingusers.length-1;i++)
+{
+hyperlink= $j(existingusers[i]).attr('href');
+//pieces=hyperlink.split('/');
+//userid=pieces[pieces.length-2];
+username=existingusers[i].match(/<a[^>]+>([^<]+)<\/a>/)[1];           
+mentionarraydata.push(username+'/^g*~o0#g*^/'+hyperlink);
+edittext=edittext.replace(existingusers[i],username);
+}
+}
+$j(rootClass + '#CommentToEdit_' + commentId).val(edittext);
+$j(rootClass + '#CommentToEdit_' + commentId).focus();
+content.hide();
+$j(rootClass + 'textarea#CommentToEdit_' + commentId).elastic();
+},
+//Edit Comment
+EditComment: function (commentId, e) {
+if (e.keyCode == 13) {  
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+textBox.val(textBox.val().replace('\n', ''));
+var comment = $j(rootClass + '#CommentToEdit_' + commentId).val().trim();
+//                    console.log('Comment without anchors\n' + comment);
+comment = FormatText(comment);
+//                    console.log('Comment after replacement\n' + comment);
+comment=GetEditData(comment);                    
+//                    console.log('Comment with anchors\n' + comment);
+if (comment == content.text() || comment == '') {
+RemoveEditView(commentId);
+PreventDefault(e);
+}
+else {
+VerifyUser();
+var status;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=edit_comment&id=" + commentId + "&type=article",
+type: "POST",
+async: false,
+data: { description: comment },
+beforeSend: function () {
+$j(rootClass + '#ajaxLoaderEdit_' + commentId).show(); //Show Ajax Loader
+},
+success: function (response) {
+status = response;
+PreventDefault(e);
+mentionarraydata.length=0;
+},
+Error: ShowError
+});
+if (status == '1') {
+content.html(decodeURIComponent(comment));
+RemoveEditView(commentId);
+}
+}
+}
+else if (e.keyCode == 27) {
+RemoveEditView(commentId);
+}
+},
+//Update Comment Follow Status
+UpdateFollowStatus: function (checkBox) {
+var status;
+status = ($j(checkBox).is(':checked'))?true:false;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=comment_follow_status&id=60fcadf1-cb82-4445-9bb0-bebe20ea8c2a&type=article&status=" + status,
+type: "POST",
+async: false,
+beforeSend: function () {
+$j(rootClass + '#PostLoader').show(); //Show Ajax Loader
+},
+success: function (response) {
+if(response=='1')
+$j(rootClass + '#PostLoader').hide();
+},
+Error: ShowError
+});
+},
+//View Previous Comments
+ViewPreviousComments: function () {
+var pageNumber = $j('#HiddenPageNumber_article').val();
+var totalComment = $j(rootClass + '#HiddenTotalComments').val();
+if (parseFloat(totalComment) > (parseFloat(pageNumber) * pageSize)) {
+$j('#HiddenPageNumber_article').val(parseFloat(pageNumber) + 1);
+}
+else {
+$j(rootClass + '#RootComments').text('');
+$j('#HiddenPageNumber_article').val('1');
+}
+Comments_article.GetComments(0);
+}
+}// End of return
+function PreventDefault(e)//Function to prevent Default Events. Working in IE8
+{
+if (e.preventDefault)
+e.preventDefault();
+else
+e.returnValue = false;
+}
+function BuildComment(obj) {
+var authorUrl = obj.AuthorUrl;
+var desc=unescape(obj.Description);
+var commentHtml;
+commentHtml = '<div id="comment_' + obj.CommentId + '" class="pulsecomment">';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDelete">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level0"><a href="' + authorUrl + '"><img alt="" src="' + obj.PhotoUrl + '" /></a></div>\
+<div class="commentcontent">\
+<a class="LinkNormalBlue" href="' + authorUrl + '">' + obj.FullName + '</a>\
+<div>' + desc + '</div>\
+<div>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.LikeComment(' + obj.CommentId + ')"><span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a>\
+<a class="commnetLinkSecondStep" onclick="Comments_article.ToggleReplies(' + obj.CommentId + ')" ><span id="Replies_' + obj.CommentId + '">' + obj.Replies + '</span> Reply</a>';
+if ('True' == 'True')
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplyBox(' + obj.CommentId + ')">Post Reply</a>';
+if (parseFloat(obj.Replies) > 3)
+commentHtml += '<a class="commnetLinkSecondStep" onclick="Comments_article.ShowReplies(' + obj.CommentId + ', this)">Show All</a>';
+commentHtml += '<span class="floatRight responsive_Commenttime"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span><img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+<div class="clear"></div>\
+<div id="CommentReplies_' + obj.CommentId + '"></div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function BulildCommentReply(obj) {
+var authorUrl = obj.AuthorUrl;
+var commentHtml = '<div id="comment_' + obj.CommentId + '" class="ReplyComment" >';
+if ('a48f78' == obj.UserId || '' == 'E' || '' == 'A') {
+commentHtml += '<div class="pulseDeleteReply">';
+commentHtml += '<span onclick="Comments_article.ShowEditView(' + obj.CommentId + ')" title="Edit" class="sprite edit"></span>';
+if ('a48f78' == obj.UserId || '' == 'A')
+commentHtml += '<span onclick="Comments_article.DeleteComment(' + obj.CommentId + ',' + obj.ParentId + ')" title="Delete" class="sprite delete"></span>';
+commentHtml += '</div>';
+}
+commentHtml += '<div class="image level1"><a href="' + authorUrl + '"><img src="' + obj.PhotoUrl + '" alt="" /></a></div>\
+<div class="commentcontent"><a href="' + authorUrl + '" class="LinkNormalBlue">' + obj.FullName + '</a>\
+<div>' + unescape(obj.Description) + '</div>\
+<div><a onclick="Comments_article.LikeComment(' + obj.CommentId + ')" class="commnetLinkSecondStep"> <span id="Likes_' + obj.CommentId + '">' + obj.Likes + '</span> Like</a><span class="floatRight responsive_Commenttime"  style="font-size: 11px;"><span class="watchICon"></span>' + obj.CreatedDate + '</span>\
+<img id="ajaxLoader_' + obj.CommentId + '" src=\'/Images/csharp/ajax-loader_12x9.gif\' style="margin:4px 0px 0px 5px; display:none;" />\
+</div>\
+</div>\
+</div>';
+return commentHtml;
+}
+function GetParentCommentsCount() {
+var count = 0;
+//$j(rootClass + '#RootComments > div.pulsecomment').each(function () {
+//    count = count + 1;
+//});
+count = $j(rootClass + '#RootComments > div.pulsecomment').size();
+return count;
+}
+function GetChildCommentsCount() {
+var childNodes = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent div div.ReplyComment').size();
+var textareas = $j(rootClass + '#RootComments > div.pulsecomment div.commentcontent textarea').size();
+if (childNodes > 0)
+return childNodes - textareas;
+else return 0;
+}
+function ManageAlternateColor() {
+$j(rootClass + '#RootComments > div').removeClass("BackgroundWhite");
+$j(rootClass + '#RootComments > div:odd').addClass("BackgroundWhite");
+}
+//        function FormatTextToInsert(text) {
+//            return escape(($j.trim(text)).replace('<', '&lt;').replace('>', '&gt;').replace('/', '&#47;').replace('"', '&quot;').replace('\n', ''));
+//        }
+function SendMail(comment, is_child_comment, parent_user, commentId) {
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_mail&type=article",
+data: { description: unescape(comment),
+content_title:'Best IaaS Architecture - Azure Challenge',
+content_user_id:'59b9d6',
+is_child_comment:is_child_comment,
+content_id: '60fcadf1-cb82-4445-9bb0-bebe20ea8c2a',
+parent_user_id: parent_user,
+request_url:'http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/Default.aspx',
+content_url:'',
+content_user_email:'',
+comment_id:commentId
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function SendNotification(comment,mailtosendids)
+{
+var pathname = 'http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/Default.aspx';
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=send_notification&type=article",
+data: { description: unescape(comment),
+mailtosend:mailtosendids,
+currenturl:pathname
+},
+type: "POST",
+async: false,
+success: function (response) {
+}
+});
+}
+function VerifyUser() {
+var data;
+$j.ajax({
+url: "/Handlers/CommentsHandler.ashx?method=current_user",
+type: "GET",
+async: false,
+success: function (response) {
+data = $j.parseJSON(response)[0].user_name;
+}
+});
+if (data == null || data == '') {
+var url = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/UploadFile/59b9d6/azure-challenge/Default.aspx';
+window.location = url;
+}
+}
+function ManagePaging(action, count) {
+var totalComments = $j(rootClass + '#TotalComments');
+var commentCount = $j(rootClass + '#CommentCount');
+var total_comments = $j.trim($j(rootClass + '#HiddenTotalComments').val());
+switch (action) {
+case 'i': //increase
+total_comments = parseFloat(total_comments) + 1;
+if ($j.trim(totalComments.text()) == '')
+totalComments.text('1');
+else
+totalComments.text(parseFloat(totalComments.text()) + 1);
+$j(rootClass + '#Paging').show();
+break;
+case 'd': //decrease
+if (parseFloat(total_comments) <= 0) {
+totalComments.text('');
+commentCount.text('');
+$j(rootClass + '#Paging').hide();
+}
+else {
+totalComments.text(parseFloat(totalComments.text()) - (1 + parseFloat(count)));
+total_comments = parseFloat(total_comments) - 1;
+}
+break;
+}
+var parentComments = parseFloat(GetParentCommentsCount());
+commentCount.text(parentComments + parseFloat(GetChildCommentsCount()));
+$j(rootClass + '#HiddenTotalComments').val(total_comments);
+$j('#HiddenPageNumber_article').val(parseInt((parentComments - 1) / pageSize) + 1);
+ManageViewMoreVisibility();
+$j('#spanComments').text(totalComments.text()); //Manages Header Comment Count
+}
+function ManageViewMoreVisibility() {
+var previousComments = $j(rootClass + '#ViewPreviousComments');
+if (parseFloat($j(rootClass + '#HiddenTotalComments').val()) > parseFloat(GetParentCommentsCount()))
+previousComments.show();
+else
+previousComments.hide();
+}
+function RemoveEditView(commentId) {
+var content = $j(rootClass + '#comment_' + commentId + ' .commentcontent div:eq(0)');
+var editButton = $j(rootClass + '#comment_' + commentId + ' div:eq(0) .edit');
+var textBox = $j(rootClass + '#CommentToEdit_' + commentId);
+var ajaxLoader = $j(rootClass + '#ajaxLoaderEdit_' + commentId);
+editButton.show();
+textBox.val('');
+textBox.remove();
+ajaxLoader.remove();
+content.show();
+}
+function ShowError() {
+alert('There is some error processing your request');
+}
+}());
+$j(document).ready(function () {
+$j.ajaxSetup({ cache: false });
+if ('True' == 'False') {
+$j('#RootPostComment').remove();
+}
+Comments_article.GetComments(0);
+GetValueAtTheRate('textarea.mention');
+$j(document).on("click",function(event) {
+var classname = event.target.className;
+if(classname=== 'mention')
+{
+$j('.mentions-autocomplete-list').has('ul').show();
+}
+else
+{
+$j('.mentions-autocomplete-list').hide();
+}
+});
+});    
+function GetValueAtTheRate(id) {
+$j(id).mentionsInput({
+minChars:1,
+onDataRequest:function (mode, query, callback) {
+$j.ajax({
+type: "POST",
+contentType: "application/json; charset=utf-8",
+url: "/WebServices/CSharpSearch.asmx/GetAllFriendsFollowers",
+data: "{'name':'"+query+"','user_id':'a48f78','content_id':'60fcadf1-cb82-4445-9bb0-bebe20ea8c2a','type':'article'}",
+async:false,
+success: function(data) {
+var jasondata= [];
+var Id=null,Name=null,Avatar=null,Type=null;
+for(var i=0;i<=data.length-1;i++)
+{
+Id= data[i].Id
+Name= data[i].Name;
+Avatar=data[i].PhotoUrl;
+Type=data[i].AuthorUrl;
+var jasonobj= new JasonObj(Id,Name,Avatar,Type);
+jasondata.push(jasonobj);
+}
+//jasondata = _.filter(jasondata, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
+callback.call(this, jasondata);
+}
+});
+}
+});
+}
+var JasonObj =function(Id, Name, Avatar,Type){
+this.id = Id;
+this.name = Name;
+this.avatar= Avatar;
+this.type = Type;
+};
+function GetCommentData(comment,id)
+{
+var value=null;
+var valuetobereplaced=null; 
+var userURL=null;
+$j(id).mentionsInput('getMentions', function(data) {
+$j.each(data, function(idx, obj) {
+value = '@['+obj.value+']('+obj.type+':'+obj.id+')';
+valuetobereplaced=FormatText(value);
+userURL= '<a target=_blank class=LinkNormalBlue href='+decodeURIComponent(obj.type)+'>'+obj.value+'</a>';
+comment=comment.replace(valuetobereplaced, userURL);
+});
+});
+return comment;            
+}
+function FormatText(text) {
+return escape(($j.trim(text)).replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('/', '&#47;').replace('"', '&quot;').replace('\n', ''));
+}  
+function GetEditData(comment) {
+comment = unescape(comment);
+if (mentionarraydata) {
+var username = null;
+var userlink = null;
+for (var i = 0; i <= mentionarraydata.length - 1; i++) {
+username = mentionarraydata[i].split('/^g*~o0#g*^/')[0];
+userlink = mentionarraydata[i].split('/^g*~o0#g*^/')[1];
+if (comment.indexOf(username) !== -1) {
+comment = comment.replace(username, '<a target=_blank class=LinkNormalBlue href=' + userlink + '>' + username + '</a>')
+}
+}
+mentionarraydata.length = 0;
+}
+return escape(comment);
+}
+</script> <div class="clear"> </div> <div style="position: relative;" class="article"> <a name="ReadAndPostComment"></a> <div class="postHeader"> <span class="post_C">comments</span> <img id="mainLoader" src="./Best IaaS Architecture - Azure Challenge_files/ajax-loader_12x9.gif" style="position: absolute; left: 315px; top: 26px; display: none;"> <div id="Paging" style="position: absolute; right: 1px; top: 16px; display: none;"> <div style="background: #f3f3f3; height: 15px; padding: 7px; float: right;"> <label id="TotalComments" class="floatRight" style="margin-right: 3px;"> </label> <label class="floatRight" style="margin-right: 3px;">
+of
+</label> <label id="CommentCount" class="floatRight" style="margin-right: 3px;"> </label> <input id="HiddenPageNumber_article" type="hidden" value="1"> <input id="HiddenTotalComments" type="hidden" value="0"> </div> <a id="ViewPreviousComments" class="previousComments" style="display: none; margin-right: 10px; margin-top: 7px; float: right;" onclick="Comments_article.ViewPreviousComments();return false;">
+View Previous Comments &gt;&gt;</a> </div> </div> <div class="clear"> </div> <div id="ctl00_Comments1_Panel1" class="pulseMainComment" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_Button1&#39;)"> <div class="pulseCommentSectionMain" style="padding: 0px; overflow: inherit"> <div class="pulseCommentSection"> <div id="RootComments"> </div> <div class="pulsecomment borderNone" id="RootPostComment" style="min-height: 42px;"> <div class="image level0"> <img src="./Best IaaS Architecture - Azure Challenge_files/a48f78.png" alt=""> </div> <div id="ctl00_Comments1_PanelPostComment" class="commentcontentPost" onkeypress="javascript:return WebForm_FireDefaultButton(event, &#39;ctl00_Comments1_ButtonPost&#39;)"> <div class="mentions-input-box"><div class="mentions"><div></div></div><textarea id="InputCommentText_0" style="height: 35px; overflow: hidden;" onkeypress="Comments_article.PostComment(&#39;0&#39;,event);" class="mention" spellcheck="true" placeholder="Type your comment here and press Enter Key...." data-mentions-input="true"></textarea><div style="position: absolute; display: none; word-wrap: break-word; white-space: pre-wrap; border: 1px solid rgb(220, 220, 220); font-weight: normal; width: 599px; font-family: pt_sansregular; line-height: normal; font-size: 14px; padding: 5px;">&nbsp;</div><div class="mentions-autocomplete-list"></div></div> <input type="submit" name="ctl00$Comments1$ButtonPost" value="" id="ctl00_Comments1_ButtonPost" style="display: none;"> </div> <span title="If checked, you&#39;ll get email notification for any comment posted" style="display: inline-block;
+margin-left: 11px; margin-top: 6px; clear: both;"><input id="ctl00_Comments1_FollowCheckBox" type="checkbox" name="ctl00$Comments1$FollowCheckBox" checked="checked" onclick="Comments_article.UpdateFollowStatus(this);"><label for="ctl00_Comments1_FollowCheckBox">Follow Comments</label></span> <img id="PostLoader" src="./Best IaaS Architecture - Azure Challenge_files/ajax-loader_12x9.gif" style="clear: both; margin: 10px 5px 0px 0px; float: right; display: none;"> </div> </div> </div> <input type="submit" name="ctl00$Comments1$Button1" value="" onclick="return false;" id="ctl00_Comments1_Button1" style="display: none;"> <input type="hidden" name="ctl00$Comments1$HiddenFieldEmailComment" id="ctl00_Comments1_HiddenFieldEmailComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldIsChildComment" id="ctl00_Comments1_HiddenFieldIsChildComment"> <input type="hidden" name="ctl00$Comments1$HiddenFieldParentUserId" id="ctl00_Comments1_HiddenFieldParentUserId"> </div> <div class="clear"> </div> <div id="ctl00_Comments1_SocialComments" class="socialComments"> <div class="headerGray marginTop"> <span class="HeaderSpanFirstBlue"></span><span class="HeaderSpanSecond">COMMENT USING
+</span><span class="facebookComments" style="margin: 3px 5px;"></span> </div> <div class="fb-comments fb_iframe_widget" data-href="http://www.c-sharpcorner.com/UploadFile/59b9d6/azure-challenge/Default.aspx" data-width="675" data-num-posts="5" fb-xfbml-state="rendered"><span style="height: 114px; width: 675px;"><iframe id="f54d0ddd4" name="f28cf37b0" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./Best IaaS Architecture - Azure Challenge_files/comments.html" style="border: none; overflow: hidden; height: 114px; width: 675px;"></iframe></span></div> </div> </div> </div> <div class="rightCntr"> <div class="clear"> </div> <div style="width: 336px; margin-bottom: 10px;"> <span id="ctl00_RightBar_ArticleDetailRightBar1_NewsArticleAd1_LabelArticleScript"><script language="JavaScript"> <!-- hide from non-JavaScript browsers
+var axel = Math.random() + "";
+var num = axel * 1000000000000000000;
+document.write('<IFRAME SRC="http://ad.doubleclick.net/adi/N5621.124662.7163663382421/B8417412.113975764;sz=300x250;click=;ord='+ num +'?" WIDTH=300 HEIGHT=250 MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no BORDERCOLOR="#000000">');
+document.write('<SCR'+'IPT language="JavaScript1.1" SRC="http://ad.doubleclick.net/adj/N5621.124662.7163663382421/B8417412.113975764;abr=!ie;sz=300x250;click=;ord='+ num +'?"></SCR'+'IPT></IFRAME>');
+// end hide from browsers --> </script><iframe src="about:blank" width="0" height="0" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no" bordercolor="#000000" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 300px 250px;">&lt;SCRIPT language="JavaScript1.1" SRC="http://ad.doubleclick.net/adj/N5621.124662.7163663382421/B8417412.113975764;abr=!ie;sz=300x250;click=;ord=594586419640108900?"&gt;&lt;/SCRIPT&gt;</iframe> <noscript> &lt;A HREF="http://ad.doubleclick.net/jump/N5621.124662.7163663382421/B8417412.113975764;abr=!ie4;abr=!ie5;sz=300x250;ord=[timestamp]?"&gt; &lt;IMG SRC="http://ad.doubleclick.net/ad/N5621.124662.7163663382421/B8417412.113975764;abr=!ie4;abr=!ie5;sz=300x250;ord=[timestamp]?" BORDER=0 WIDTH=300 HEIGHT=250 ALT="Advertisement"&gt;&lt;/A&gt; </noscript></span> </div> <h2 class="headerControls">
+Trending up <a href="http://www.c-sharpcorner.com/RSS/TopArticles.aspx" id="ctl00_RightBar_ArticleDetailRightBar1_TrendingUp1_RssEnabledImageButton" class="headerRss" target="_blank"></a> </h2> <div class="rightBox"> <ul class="trendingBox"> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+01</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/g_arora/the-s-o-l-i-d-programming-principles-%E2%80%93-at-a-glance/">
+The S.O.L.I.D. Programming Principles At a Glance</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+02</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/092589/introduction-to-backbonejs/">
+Introduction to Backbone.JS: Part 1</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+03</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/8ef97c/full-C-Sharp-6-0-in-single-article-on-visual-studio-2015-preview/">
+List of All New Features in C# 6.0</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+04</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/84c85b/10-rules-to-build-english-communication-skills-for-developer/">
+10 Rules to Build English Communication Skills For Developers</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+05</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/adc2c2/what-is-big-data/">
+Understanding Big Data</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+06</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/rahul4_saxena/single-page-application-spa-using-angularjs-web-api-and-m/">
+Single Page Application (SPA) Using AngularJS, Web API and MVC 5</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+07</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/092589/methodsattributes-in-backbone-model/">
+Methods/Attributes in Backbone Model: Part 4</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+08</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/092589/model-validation-in-backbone-js-part-3/">
+Model Validation in Backbone.JS: Part 3</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+09</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/1b9079/dynamic-jquery-accordion-using-the-repeater-in-Asp-Net/">
+Dynamic jQuery Accordion Using the Repeater in ASP.Net</a> </div> </li> <li> <div class="numbers"> <span title="Pulse rate/hour" style="cursor: pointer;">
+10</span> </div> <div class="trendingDetail"> <a href="http://www.c-sharpcorner.com/UploadFile/092589/model-in-backbone-js-part-2/">
+Model in Backbone.JS : Part 2</a> </div> </li> </ul> <a href="http://www.c-sharpcorner.com/Articles/TopArticles.aspx" class="viewAllLink">
+View All</a> </div> <div style="padding-bottom: 10px;"> <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./Best IaaS Architecture - Azure Challenge_files/follow_button.37e112509e16b7fe5e4cf93632594a08.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 100%; height: 20px;"></iframe> </div> <div id="fb-root" class=" fb_reset"> <div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Best IaaS Architecture - Azure Challenge_files/7r8gQb8MIqE.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Best IaaS Architecture - Azure Challenge_files/7r8gQb8MIqE(1).html" style="border: none;"></iframe></div></div></div> <div class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/pages/C-Corner/194086953935286" data-width="336px" data-show-faces="true" data-stream="false" data-header="true" data-border-color="#c6c6c6" data-max-rows="2" style="padding-bottom: 10px;
+border: none 0px" async="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=440531902678919&amp;header=true&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FC-Corner%2F194086953935286&amp;locale=en_US&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=336"><span style="vertical-align: bottom; width: 336px; height: 271px;"><iframe name="f316cf2354" width="336px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like_box Facebook Social Plugin" src="./Best IaaS Architecture - Azure Challenge_files/like_box.html" style="border: none; visibility: visible; width: 336px; height: 271px;" class=""></iframe></span></div> <div class="clear"> </div> </div> </div> </div> <div class="footer"> <div class="menuStripGray"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/Members/mvps/">MVPs</a></li> <li><a href="http://www.c-sharpcorner.com/Articles/mostviewed.aspx">MOST VIEWED</a></li> <li><a href="http://www.c-sharpcorner.com/Members/legend/">LEGENDS</a></li> <li><a href="http://www.c-sharpcorner.com/articles/">NOW</a></li> <li><a href="http://www.c-sharpcorner.com/prizes/">PRIZES</a></li> <li><a href="http://www.c-sharpcorner.com/reviews/">REVIEWS</a></li> <li><a href="http://www.c-sharpcorner.com/survey/">SURVEY</a></li> <li><a href="http://www.c-sharpcorner.com/exam/">CERTIFICATIONS</a></li> <li><a href="http://www.c-sharpcorner.com/downloads/">DOWNLOADS</a></li> </ul> <div class="rightlink"> <a href="http://www.cbeyond.net/" target="_blank"><span class="hosted">Hosted By </span>
+CBeyond Cloud Services</a></div> </div> </div> <div class="menuStripBlue"> <div class="page"> <div class="menu"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/photos/">PHOTOS</a></li> <li><a href="http://www.c-sharpcorner.com/code/">CODE SNIPPETS</a> </li> <li class="display_none"><a href="http://www.c-sharpcorner.com/consulting/">CONSULTING</a> </li> <li class="display_none"><a href="http://www.c-sharpcorner.com/training/">TRAINING</a> </li> <li><a href="http://www.c-sharpcorner.com/beginners/">STUDENTS</a> </li> <li><a href="http://www.c-sharpcorner.com/Members/">MEMBERS</a> </li> <li><a href="http://www.c-sharpcorner.com/media/ContactUs.aspx">MEDIA KIT</a></li> <li><a href="http://www.c-sharpcorner.com/resources/aboutus.aspx">ABOUT US</a></li> <li><a href="http://www.c-sharpcorner.com/resources/">LINKS</a></li> <li><a href="http://www.c-sharpcorner.com/ideas/">IDEAS</a> </li> </ul> </div> </div> </div> <div class="footerBottom"> <div class="page"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/contactus.aspx">CONTACT
+US</a></li> <li><a href="http://www.c-sharpcorner.com/privacypolicy.aspx">PRIVACY POLICY</a></li> <li><a href="http://www.c-sharpcorner.com/termsconditions.aspx">TERMS &amp;
+CONDITIONS</a></li> <li><a href="http://www.c-sharpcorner.com/sitemap/">SITEMAP</a></li> <li><a href="http://www.c-sharpcorner.com/contactus.aspx?Type=6">REPORT ABUSE</a></li> </ul> <div class="social_link"> <ul> <li><a target="_blank" href="http://www.facebook.com/pages/C-Corner/194086953935286" class="facebook">facebook</a></li> <li><a target="_blank" href="http://twitter.com/csharpcorner" class="twitter">twitter</a></li> <li><a target="_blank" href="https://plus.google.com/u/0/114221266846457741050/posts" class="google">google</a></li> <li><a target="_blank" href="http://www.youtube.com/user/CsharpCorner1/" class="media">
+media</a></li> </ul> <p class="copyright">
+©2015
+C# Corner. All contents are copyright of their authors.</p> </div> </div> </div> </div> <div class="responsive_footer"> <ul> <li class="first"><a href="http://www.c-sharpcorner.com/contactus.aspx">Contact
+Us</a></li> <li><a href="http://www.c-sharpcorner.com/privacypolicy.aspx">Privacy Policy</a></li> <li><a href="http://www.c-sharpcorner.com/termsconditions.aspx">Terms &amp;
+Conditions</a></li> <li><a href="http://www.c-sharpcorner.com/resources/aboutus.aspx">About Us</a></li> </ul> <p>
+©2015
+C# Corner. All contents are copyright of their authors.</p> </div> </div> <input type="hidden" name="ctl00$hiddenFieldNext" id="ctl00_hiddenFieldNext"> <input type="hidden" name="ctl00$hiddenFieldPrevious" id="ctl00_hiddenFieldPrevious"> <meta name="google-signin-clientid" content="1008907732563-jaf78g0pj7k52q8efh0r22c58iol91cg.apps.googleusercontent.com"> <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read profile"> <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity"> <meta name="google-signin-cookiepolicy" content="single_host_origin"> <script type="text/javascript">
+$j(window).load(function() {
+window.fbAsyncInit = function() {
+// init the FB JS SDK
+FB.init({
+appId: '440531902678919', // App ID from the App Dashboard
+xfbml: true,  // parse XFBML tags on this page?
+version: 'v2.1'
+});
+// Additional initialization code such as adding Event Listeners goes here
+};
+// Load the SDK's source Asynchronously
+(function(d, debug) {
+var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+if (d.getElementById(id)) { return; }
+js = d.createElement('script'); js.id = id; js.async = true;
+js.src = "//connect.facebook.net/en_US/sdk" + (debug ? "/debug" : "") + ".js";
+ref.parentNode.insertBefore(js, ref);
+} (document, /*debug*/false));
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/client:plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.twitter.com/widgets.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '//platform.linkedin.com/in.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+});
+</script> <div id="fb-root"> </div> <div> <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWJwKT4/uACwLWhpmdAgL5qLTNDwLHr/20AwLB4Z3HDQLWs6KhCQLB6efVDwKzz+rpBQLA16yLBAKszb2PCwKH1sfsBwKn347uAwLFh6i2DgLfxO3mCALFstzxDQLU2fbMDwKh8pj1AQLtoOCGDwKisuqGCwK0zqzfDAKGhcTTAgK9m56GAQKKu5+OAwK77ZLJCgLAvaz4AQKTxvebBQL6mL6/DQK6mby0DQKM08bkCAK/zYnfBQLpmZyNBwLpwuC/CwL1zrz+AQLrua7/DwKsyaD8BwLdoKjrDQKmldaNCQKc3rDeDAKayJrtBahbd7NIPshL8nE53CwalgWxhfXv"> </div> <script src="./Best IaaS Architecture - Azure Challenge_files/WebResource.axd" type="text/javascript"></script> </form> <script type="text/javascript">
+(function(d, t) {
+var g = d.createElement(t),
+s = d.getElementsByTagName(t)[0];
+g.src = '/JQuery/jquery.TrendingNow_09032014.js';
+s.parentNode.insertBefore(g, s);
+} (document, 'script'));
+function Like() {
+$j.ajax({
+url: "/Handlers/CsharpCommon.ashx?method=like_content&type=Article",
+data: { article_id: '60fcadf1-cb82-4445-9bb0-bebe20ea8c2a' },
+type: "POST",
+async: false,
+success: function(response) {
+var label = $j('#ctl00_LabelLikeCount');
+if (response == "login")
+window.location = 'http://www.c-sharpcorner.com/UserRegistration/Logincheck.aspx?ReturnURL=/UploadFile/59b9d6/azure-challenge/Default.aspx';
+else if (parseInt(response) == 1) {
+label.text(parseInt(label.text()) + 1);
+label.css('color', 'green');
+}
+else {
+label.css('color', 'red');
+}
+}
+});
+}
+</script> <script type="text/javascript">
+$j(document).ready(function() {
+$j('a.show-dropdown').mouseover(function() {
+//get the height position of the current object
+var elementHeight = $j(this).height();
+var offsetWidth = 10;
+var offsetHeight = 10;
+//Get the tool tip container width adn height
+var toolTipWidth = $j("#dropDown").width();
+var toolTipHeight = $j("#dropDown").height();
+//Get the HTML document width and height
+var documentWidth = $j(document).width();
+var documentHeight = $j(document).height();
+//Set top and bottom position of the tool tip
+var top = $j(this).offset().top;
+if (top + toolTipHeight > documentHeight) {
+top = documentHeight - toolTipHeight - offsetHeight - (2 * elementHeight);
+}
+var left = $j(this).offset().left + offsetWidth;
+if (left + toolTipWidth > documentWidth) {
+left = documentWidth - toolTipWidth - (2 * offsetWidth);
+}
+$j('#dropDown').show();
+});
+$j('a.show-dropdown').mouseout(function() {
+$j("#dropDown").hide();
+});
+$j('#dropDown').mouseover(function() {
+$j('#dropDown').show();
+});
+$j('#dropDown').mouseout(function() {
+$j('#dropDown').hide();
+});
+});
+</script> <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-535360-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>  <div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><iframe name="oauth2relay619765507" id="oauth2relay619765507" src="./Best IaaS Architecture - Azure Challenge_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://erlangonxen.org/more/beam -->
+<html class="" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Erlang on Xen - at the heart of super-elastic clouds</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+<!--[if lte IE 9]><link rel="stylesheet" href="/css/ie.css" type="text/css" media="screen" /><![endif]-->
+<link rel="stylesheet" href="./Erlang on Xen - at the heart of super-elastic clouds_files/1140.css" type="text/css" media="screen">
+<link rel="stylesheet" href="./Erlang on Xen - at the heart of super-elastic clouds_files/styles.css" type="text/css" media="screen">
+<script type="text/javascript" async="" src="./Erlang on Xen - at the heart of super-elastic clouds_files/ga.js"></script><script type="text/javascript" src="./Erlang on Xen - at the heart of super-elastic clouds_files/css3-mediaqueries.js"></script><style type="text/css"></style>
+
+<script type="text/javascript" src="./Erlang on Xen - at the heart of super-elastic clouds_files/jquery-1.9.0.min.js"></script>
+
+<link rel="icon" href="http://erlangonxen.org/images/favicon.gif" type="image/gif">
+	
+<meta name="keywords" content="Erlang, Xen, Erlang VM, zero-footprint cloud,
+Ling, Erling, hypervisor, exokernel, operating system, cloud computing, elastic, system
+software, scalable software, scalability, build service">
+
+<script type="text/javascript">
+$(function() {
+	var cached_pie_src;	
+	var hovering = false;
+	var flipText = function(elem, pat, sub) {
+		elem.find(":not(iframe)").andSelf().contents().filter(function() {
+			if (this.nodeType == 3) {
+				var t = $(this).text().replace(pat, sub);
+				$(this).before(document.createTextNode(t));
+				$(this).remove();
+			}
+		});
+	};
+	$('.menu a').hover(function() {
+		flipText($(this), /-/g, '=');
+		var id = $(this).data('id');
+		if (typeof id === 'undefined')
+			return;
+		var sm = $('#'+id);
+		var left = $(this).parent().offset().left;
+		var top = $(this).parent().offset().top + $(this).parent().height();
+		sm.show().offset({left: left, top: top});
+		hovering = true;
+	}, function() {
+		flipText($(this), /=/g, '-');
+		hovering = false;
+		setTimeout(function() {
+			if (!hovering)
+				$('.submenu').hide();
+		}, 300);
+	});
+	$('.submenu li').hover(function() {
+		$(this).addClass('hovering');
+		hovering = true;
+	}, function() {
+		$(this).removeClass('hovering');
+		hovering = false;
+		setTimeout(function() {
+			if (!hovering)
+				$('.submenu').hide();
+		}, 300);
+	});
+	$('.menu a').click(function() {
+		var id = $(this).data('id');
+		return (typeof id === 'undefined');
+	});
+	$('.go-inside').click(function() {
+		$(this).hide();
+		$('.innards').load('/ling/innards .innards > *', function() {
+			cached_pie_src = $('.pie').data('src');
+			$('.pie').attr('src', cached_pie_src);
+			$('.innards').slideDown();
+		});
+	});
+	$(document).on('click', '.stitch', function() {
+		$('.innards').slideUp(function() {
+			$('.go-inside').show();
+		});
+	});
+	$(document).on('mouseenter', '.processes a', function() {
+		var id = $(this).data('id');
+		$('#'+id).show();
+	});
+	$(document).on('mouseleave', '.processes a', function() {
+		var id = $(this).data('id');
+		$('#'+id).hide();
+	});
+	$(document).on('click', '.processes a', function() {
+		return false;
+	});
+	$(document).on('click', '.refresh a', function() {
+		cached_pie_src = $('.pie').data('src');
+		$('.pie').attr('src', cached_pie_src);
+		return false;
+	});
+	(function refresh() {
+		if ($('.innards').is(':visible')) {
+			$('.innards').load('/ling/innards .innards > *', function() {
+				$('.pie').attr('src', cached_pie_src);
+			});	
+		}
+		setTimeout(refresh, 5000);
+	})();
+	$(document).keyup(function(ev) {
+		if (ev.keyCode == 27) {
+			if ($('.go-inside').is(':visible'))
+				$('.go-inside').click();
+			else
+				$('.stitch').click();
+		}
+	});
+});
+</script>
+
+
+<script type="text/javascript" src="./Erlang on Xen - at the heart of super-elastic clouds_files/jquery.infieldlabel.min.js"></script>
+
+<script type="text/javascript">
+$(function() {
+	var goto = function(iop) {
+		var url = '/more/beam/desc/' + iop;
+		$('.pane').load(url);
+		window.location.hash = iop;
+	};
+	if (window.location.hash)
+	{
+		var iop = window.location.hash.substring(1);
+		goto(iop);
+	}
+	$('label').inFieldLabels();
+	$('#iop-filter').keyup(function() {
+		var needle = $(this).val();
+		$('.iops li').hide();
+		$('.iops li:contains("' + needle + '")').show();
+	});
+	$('.iops li').click(function() {
+		var toks = $(this).text().split(' ');
+		var iop = toks[0];
+		$('.iops li').removeClass('selected');
+		$(this).addClass('selected');
+		goto(iop);
+	});
+	$(document).on('click', '.see', function() {
+		var iop = $(this).attr('data-id');
+		goto(iop);
+	});
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body style="zoom: 1;" data-gclp-initialized="true" data-gistbox-initialized="true">
+
+<div class="go-inside"></div>
+
+<div class="container innards" style="display:none">
+	<div class="row">
+		loading...
+	</div>
+</div>
+
+<ul id="demo" class="submenu" style="display:none">
+	<li><a href="http://erlangonxen.org/zerg">Zerg - instance per request demo</a></li>
+</ul>
+
+<ul id="more" class="submenu" style="display:none">
+	<li><a href="http://build.erlangonxen.org/">Build Service</a></li>
+	<li><a href="./Erlang on Xen - at the heart of super-elastic clouds_files/Erlang on Xen - at the heart of super-elastic clouds.html">BEAM instruction set</a></li>
+	<li><a href="http://erlangonxen.org/more/mumble">MUMBLE scheme</a></li>
+	<li><a href="http://erlangonxen.org/more/goofs">GooFS filesystem</a></li>
+	<li><a href="http://erlangonxen.org/more/clustering">Distribution and clustering</a></li>
+	<li><a href="http://erlangonxen.org/more/9p2000e">9P2000.e protocol</a></li>
+	<!--
+	<li><a href="http://github.com/maximk/live-erlang-widget">Live Erlang widget</a></li>
+	-->
+	<li><a href="http://erlangonxen.org/cases">LING use cases</a></li>
+	<li><a href="http://erlangonxen.org/test/compatibility">Test reports</a></li>
+</ul>
+
+<div class="container header">
+	<div class="row">
+		<div class="fourcol logo">
+		</div>
+		<div class="eightcol last">
+			<ul class="menu ascii">
+				<li><a href="http://erlangonxen.org/">+------+<br>| Home |<br>+------+</a></li>
+				<li><a href="http://erlangonxen.org/download">+----------+<br>| Download |<br>+----------+</a></li>
+				<li><a href="http://erlangonxen.org/try/ec2">+-----+<br>| Try |<br>+-----+</a></li>
+				<li><a data-id="demo" href="http://erlangonxen.org/more/beam#">+------+<br>| Demo |<br>+------+</a></li>
+				<li><a href="http://erlangonxen.org/blog">+------+<br>| Blog |<br>+------+</a></li>
+				<li><a data-id="more" href="http://erlangonxen.org/more/beam#">+------+<br>| more |<br>+------+</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="container divider">
+	<div class="row"></div>
+</div>
+
+
+<div class="container beam">
+	<div class="row">
+	<div class="threecol">
+
+<div class="label-wrapper">
+<label for="iop-filter">Type to filter</label>
+<input type="text" id="iop-filter">
+</div>
+
+<div class="iops-wrapper">
+<ul class="iops">
+<li>allocate t t</li>
+<li>allocate_heap t I t</li>
+<li>deallocate I</li>
+<li>init y</li>
+<li>init2 y y</li>
+<li>init3 y y y</li>
+<li>i_trim I</li>
+<li>test_heap I t</li>
+<li>allocate_zero t t</li>
+<li>allocate_heap_zero t I t</li>
+<li>i_select_val r f I</li>
+<li>i_select_val x f I</li>
+<li>i_select_val y f I</li>
+<li>i_select_val2 r f c f c f</li>
+<li>i_select_val2 x f c f c f</li>
+<li>i_select_val2 y f c f c f</li>
+<li>i_jump_on_val rxy f I I</li>
+<li>i_jump_on_val_zero rxy f I</li>
+<li>i_select_tuple_arity r f I</li>
+<li>i_select_tuple_arity x f I</li>
+<li>i_select_tuple_arity y f I</li>
+<li>i_select_tuple_arity2 r f A f A f</li>
+<li>i_select_tuple_arity2 x f A f A f</li>
+<li>i_select_tuple_arity2 y f A f A f</li>
+<li>i_func_info I a a I</li>
+<li>return</li>
+<li>get_list rxy rxy rxy</li>
+<li>catch y f</li>
+<li>catch_end y</li>
+<li>try_end y</li>
+<li>try_case_end s</li>
+<li>set_tuple_element s d P</li>
+<li>i_get_tuple_element rxy P rxy</li>
+<li>is_number f rxy</li>
+<li>jump f</li>
+<li>case_end rxy</li>
+<li>badmatch rxy</li>
+<li>if_end</li>
+<li>raise s s</li>
+<li>badarg j</li>
+<li>system_limit j</li>
+<li>move_jump f ncxy</li>
+<li>move_x1 c</li>
+<li>move_x2 c</li>
+<li>move2 x y x y</li>
+<li>move2 y x y x</li>
+<li>move2 x x x x</li>
+<li>move rxync rxy</li>
+<li>recv_mark f</li>
+<li>i_recv_set f</li>
+<li>remove_message</li>
+<li>timeout</li>
+<li>timeout_locked</li>
+<li>i_loop_rec f r</li>
+<li>loop_rec_end f</li>
+<li>wait f</li>
+<li>wait_locked f</li>
+<li>wait_unlocked f</li>
+<li>i_wait_timeout f I</li>
+<li>i_wait_timeout f s</li>
+<li>i_wait_timeout_locked f I</li>
+<li>i_wait_timeout_locked f s</li>
+<li>i_wait_error</li>
+<li>i_wait_error_locked</li>
+<li>send</li>
+<li>i_is_eq_exact_immed f rxy c</li>
+<li>i_is_ne_exact_immed f rxy c</li>
+<li>i_is_eq_exact_literal f rxy c</li>
+<li>i_is_ne_exact_literal f rxy c</li>
+<li>i_is_eq_exact f</li>
+<li>i_is_ne_exact f</li>
+<li>i_is_lt f</li>
+<li>i_is_ge f</li>
+<li>i_is_eq f</li>
+<li>i_is_ne f</li>
+<li>i_put_tuple rxy I</li>
+<li>put_list s s d</li>
+<li>i_fetch s s</li>
+<li>move_return xcn r</li>
+<li>move_deallocate_return xycn r Q</li>
+<li>deallocate_return Q</li>
+<li>test_heap_1_put_list I y</li>
+<li>is_tuple_of_arity f rxy A</li>
+<li>is_tuple f rxy</li>
+<li>test_arity f rxy A</li>
+<li>extract_next_element xy</li>
+<li>extract_next_element2 xy</li>
+<li>extract_next_element3 xy</li>
+<li>is_integer_allocate f rx I I</li>
+<li>is_integer f rxy</li>
+<li>is_list f rxy</li>
+<li>is_nonempty_list_allocate f rx I t</li>
+<li>is_nonempty_list_test_heap f r I t</li>
+<li>is_nonempty_list f rxy</li>
+<li>is_atom f rxy</li>
+<li>is_float f rxy</li>
+<li>is_nil f rxy</li>
+<li>is_bitstring f rxy</li>
+<li>is_reference f rxy</li>
+<li>is_pid f rxy</li>
+<li>is_port f rxy</li>
+<li>is_boolean f rxy</li>
+<li>is_function2 f s s</li>
+<li>allocate_init t I y</li>
+<li>i_apply</li>
+<li>i_apply_last P</li>
+<li>i_apply_only</li>
+<li>apply I</li>
+<li>apply_last I P</li>
+<li>i_apply_fun</li>
+<li>i_apply_fun_last P</li>
+<li>i_apply_fun_only</li>
+<li>i_hibernate</li>
+<li>call_bif0 e</li>
+<li>call_bif1 e</li>
+<li>call_bif2 e</li>
+<li>call_bif3 e</li>
+<li>i_get s d</li>
+<li>self rxy</li>
+<li>node rxy</li>
+<li>i_fast_element rxy j I d</li>
+<li>i_element rxy j s d</li>
+<li>bif1 f b s d</li>
+<li>bif1_body b s d</li>
+<li>i_bif2 f b d</li>
+<li>i_bif2_body b d</li>
+<li>i_move_call c r f</li>
+<li>i_move_call_last f P c r</li>
+<li>i_move_call_only f c r</li>
+<li>move_call xy r f</li>
+<li>move_call_last xy r f Q</li>
+<li>move_call_only x r f</li>
+<li>i_call f</li>
+<li>i_call_last f P</li>
+<li>i_call_only f</li>
+<li>i_call_ext e</li>
+<li>i_call_ext_last e P</li>
+<li>i_call_ext_only e</li>
+<li>i_move_call_ext c r e</li>
+<li>i_move_call_ext_last e P c r</li>
+<li>i_move_call_ext_only e c r</li>
+<li>i_call_fun I</li>
+<li>i_call_fun_last I P</li>
+<li>i_make_fun I t</li>
+<li>is_function f rxy</li>
+<li>i_bs_start_match2 rxy f I I d</li>
+<li>i_bs_save2 rx I</li>
+<li>i_bs_restore2 rx I</li>
+<li>i_bs_match_string rx f I I</li>
+<li>i_bs_get_integer_small_imm rx I f I d</li>
+<li>i_bs_get_integer_imm rx I I f I d</li>
+<li>i_bs_get_integer f I I d</li>
+<li>i_bs_get_integer_8 rx f d</li>
+<li>i_bs_get_integer_16 rx f d</li>
+<li>i_bs_get_integer_32 rx f I d</li>
+<li>i_bs_get_binary_imm2 f rx I I I d</li>
+<li>i_bs_get_binary2 f rx I s I d</li>
+<li>i_bs_get_binary_all2 f rx I I d</li>
+<li>i_bs_get_binary_all_reuse rx f I</li>
+<li>i_bs_get_float2 f rx I s I d</li>
+<li>i_bs_skip_bits2_imm2 f rx I</li>
+<li>i_bs_skip_bits2 f rx rxy I</li>
+<li>i_bs_skip_bits_all2 f rx I</li>
+<li>bs_test_zero_tail2 f rx</li>
+<li>bs_test_tail_imm2 f rx I</li>
+<li>bs_test_unit f rx I</li>
+<li>bs_test_unit8 f rx</li>
+<li>bs_context_to_binary rxy</li>
+<li>i_bs_get_utf8 rx f d</li>
+<li>i_bs_get_utf16 rx f I d</li>
+<li>i_bs_validate_unicode_retract j</li>
+<li>i_bs_init_fail rxy j I d</li>
+<li>i_bs_init_fail_heap I j I d</li>
+<li>i_bs_init I I d</li>
+<li>i_bs_init_heap I I I d</li>
+<li>i_bs_init_heap_bin I I d</li>
+<li>i_bs_init_heap_bin_heap I I I d</li>
+<li>i_bs_init_bits_fail rxy j I d</li>
+<li>i_bs_init_bits_fail_heap I j I d</li>
+<li>i_bs_init_bits I I d</li>
+<li>i_bs_init_bits_heap I I I d</li>
+<li>i_bs_add j I d</li>
+<li>i_bs_init_writable</li>
+<li>i_bs_append j I I I d</li>
+<li>i_bs_private_append j I d</li>
+<li>i_new_bs_put_integer j s I s</li>
+<li>i_new_bs_put_integer_imm j I I s</li>
+<li>i_bs_utf8_size s d</li>
+<li>i_bs_utf16_size s d</li>
+<li>i_bs_put_utf8 j s</li>
+<li>i_bs_put_utf16 j I s</li>
+<li>i_bs_validate_unicode j s</li>
+<li>i_new_bs_put_float j s I s</li>
+<li>i_new_bs_put_float_imm j I I s</li>
+<li>i_new_bs_put_binary j s I s</li>
+<li>i_new_bs_put_binary_imm j I s</li>
+<li>i_new_bs_put_binary_all j s I</li>
+<li>bs_put_string I I</li>
+<li>fmove qdl ld</li>
+<li>fconv d l</li>
+<li>i_fadd l l l</li>
+<li>i_fsub l l l</li>
+<li>i_fmul l l l</li>
+<li>i_fdiv l l l</li>
+<li>i_fnegate l l l</li>
+<li>i_fcheckerror</li>
+<li>fclearerror</li>
+<li>i_increment rxy I I d</li>
+<li>i_plus j I d</li>
+<li>i_minus j I d</li>
+<li>i_times j I d</li>
+<li>i_m_div j I d</li>
+<li>i_int_div j I d</li>
+<li>i_rem j I d</li>
+<li>i_bsl j I d</li>
+<li>i_bsr j I d</li>
+<li>i_band j I d</li>
+<li>i_bor j I d</li>
+<li>i_bxor j I d</li>
+<li>i_int_bnot j s I d</li>
+<li>i_gc_bif1 j I s I d</li>
+<li>i_gc_bif2 j I I d</li>
+<li>i_gc_bif3 j I s I d</li>
+<li>int_code_end</li>
+<li>label L</li>
+<li>line I</li>
+</ul>
+</div> <!-- iops-wrapper -->
+
+		</div>
+		<div class="ninecol last">
+
+<h3 class="ascii first">BEAM Instruction Set<br>
+						--------------------</h3>
+
+<div class="pane">
+
+<h4>Overview</h4>
+
+<p>The BEAM virtual machine uses two kinds of instructions. The first —
+generic — kind is used by BEAM modules. Generic instructions are dumped
+when a BEAM module is disassembled. When a module gets loaded, generic
+instructions are transformed into a second — true — kind, which are
+subsequently executed by the emulator.</p>
+
+<p>The present semi-formal specification defines semantics of the true
+instruction set. The specification is derived from the BEAM v5.9.1 source
+code.</p>
+
+<p>The Ling virtual machine does all code transformation during compile time.
+The Ling instruction set is quite similar. We were able to introduce
+a number of enhancements that reflect different optimization targets of
+Ling.</p>
+
+<h4>Undocumented Instructions</h4>
+
+<p>The following rare/unused/obscure instructions are not documented:</p>
+<ul class="undocumented">
+<li>too_old_compiler</li>
+<li>i_trace_breakpoint, i_debug_breakpoint, i_count_breakpoint, i_time_breakpoint</li>
+<li>i_return_time_trace, i_return_to_trace, return_trace</li>
+<li>normal_exit, continue_exit</li>
+<li>apply_bif, unsupported_guard_bif</li>
+<li>call_nif, on_load</li>
+<li>call_error_handler, call_traced_function</li>
+</ul>
+
+</div>
+
+<div class="also">
+<b>See also:</b>
+<span class="see" data-id="model">Model</span>
+<span class="see" data-id="types">Types</span>
+</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container columns">
+	<div class="row">
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol"></div>
+		<div class="onecol last"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37436979-1']);
+  _gaq.push(['_setDomainName', 'erlangonxen.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript';
+ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+
+<div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/ -->
+<html lang="en" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOLID and DRY principles | Life of a Geek - Technology freak..</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://shantanuchandra.wordpress.com/xmlrpc.php">
+
+<link rel="alternate" type="application/rss+xml" title="Life of a Geek - Technology freak.. » Feed" href="http://shantanuchandra.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Life of a Geek - Technology freak.. » Comments Feed" href="http://shantanuchandra.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Life of a Geek - Technology freak.. » SOLID and DRY principles Comments Feed" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="museum-fonts-css" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/css" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-2" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-2" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script><style type="text/css"></style>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource(2)"></script>
+<link rel="stylesheet" id="all-css-0" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://shantanuchandra.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Create/Build Architecture for a Web Application" href="http://shantanuchandra.wordpress.com/2013/01/30/createbuild-architecture-for-a-web-application/">
+<link rel="next" title="To The One I LOVE…" href="http://shantanuchandra.wordpress.com/2013/02/07/to-the-one-i-love/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/SOLID and DRY principles   Life of a Geek - Technology freak...html">
+<link rel="shortlink" href="http://wp.me/p1aC20-4o">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=http%3A%2F%2Fshantanuchandra.wordpress.com%2F2013%2F02%2F05%2Fsolid-and-dry-principles%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=http%3A%2F%2Fshantanuchandra.wordpress.com%2F2013%2F02%2F05%2Fsolid-and-dry-principles%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="SOLID and DRY principles">
+<meta property="og:url" content="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/">
+<meta property="og:description" content="better explained at: following from  The first five principles are principles of class design. They are: SOLID SRP The Single Responsibility Principle A class should have one, and only one, reason ...">
+<meta property="article:published_time" content="2013-02-05T07:39:36+00:00">
+<meta property="article:modified_time" content="2013-02-05T07:39:36+00:00">
+<meta property="article:author" content="https://www.facebook.com/profile.php?id=100000186162622">
+<meta property="og:site_name" content="Life of a Geek - Technology freak..">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta name="twitter:site" content="@ShantanuChandra">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@ShantanuChandra">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1405977958g" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1405977958g" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1391188133g">
+<link rel="openid.server" href="http://shantanuchandra.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="http://shantanuchandra.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="http://shantanuchandra.wordpress.com/osd.xml" title="Life of a Geek - Technology freak..">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			#flickr_badge_source_txt {padding:0; font: 11px Arial, Helvetica, Sans serif; color:#666666;}
+			#flickr_badge_icon {display:block !important; margin:0 !important; border: 1px solid rgb(0, 0, 0) !important;}
+			#flickr_icon_td {padding:0 5px 0 0 !important;}
+			.flickr_badge_image {text-align:center !important;}
+			.flickr_badge_image img {border: 1px solid black !important;}
+			#flickr_www {display:block; text-align:center; padding:0 10px 0 10px !important; font: 11px Arial, Helvetica, Sans serif !important; color:#3993ff !important;}
+			#flickr_badge_uber_wrapper a:hover,
+			#flickr_badge_uber_wrapper a:link,
+			#flickr_badge_uber_wrapper a:active,
+			#flickr_badge_uber_wrapper a:visited {text-decoration:none !important; background:inherit !important;color:#3993ff;}
+			#flickr_badge_wrapper {background-color:#ffffff;border: solid 1px #000000}
+			#flickr_badge_source {padding:0 !important; font: 11px Arial, Helvetica, Sans serif !important; color:#666666 !important;}
+		</style>
+				<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<style type="text/css">
+.widget_twitter li {
+	word-wrap: break-word;
+}
+</style>
+
+<meta name="geo.position" content="28.413685;77.043235">
+<meta name="ICBM" content="28.413685, 77.043235">
+<meta name="application-name" content="Life of a Geek - Technology freak.."><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Evangelizing Various Clicks of Life"><meta name="msapplication-task" content="name=Subscribe;action-uri=http://shantanuchandra.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico"><meta name="title" content="SOLID and DRY principles | Life of a Geek - Technology freak.. on WordPress.com">
+<meta name="description" content="better explained at: http://www.codeproject.com/Articles/60845/The-S-O-L-I-D-Object-Oriented-Programming-OOP-Prin following from http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod The first five principles are principles of class design. They are: SOLID SRP The Single Responsibility Principle A class should have one, and only one, reason to change. OCP The Open Closed Principle You should be able to extend a classes behavior, without modifying it. LSP The Liskov Substitution Principle…">
+
+<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 17305812, pt: 'permalink', wa: 0, as: 0, domain: 'shantanuchandra.wordpress.com', url: 'http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/ga.js"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/services.css"><link rel="stylesheet" type="text/css" href="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/css/validation.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+<body class="single single-post postid-272 single-format-standard mp6 highlander-enabled highlander-light" data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true">
+<div id="page" class="hfeed site">
+
+	<nav id="site-navigation" class="main-navigation" role="navigation">
+		<h1 class="menu-toggle">Menu</h1>
+		<a class="skip-link screen-reader-text" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#content">Skip to content</a>
+		<div class="nav-wrapper has-social-menu">
+			<span id="site-navigation-wrapper">
+			<div class="main-menu"><ul id="menu-my-life" class="menu"><li id="menu-item-47" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-47"><a href="http://shantanuchandra.wordpress.com/category/technology/">TechnologY</a></li>
+<li id="menu-item-343" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-343"><a href="http://shantanuchandra.wordpress.com/category/events/">EventS</a>
+<ul class="sub-menu">
+	<li id="menu-item-734" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-734"><a href="http://shantanuchandra.wordpress.com/category/events/recipe/">RecipE</a></li>
+</ul>
+</li>
+<li id="menu-item-46" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-46"><a href="http://shantanuchandra.wordpress.com/category/feelings/">FeelingS</a></li>
+<li id="menu-item-927" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-927"><a href="http://shantanuchandra.wordpress.com/category/dslr-photography/">DSLR PhotographY</a></li>
+</ul></div>			</span>
+			<div class="social-menu"><ul id="menu-about" class="menu"><li id="menu-item-739" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-739"><a href="http://www.stumbleupon.com/stumbler/MicrosoftBrat">Menu Item</a></li>
+<li id="menu-item-740" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-740"><a href="https://www.facebook.com/MicrosoftBrat">Menu Item</a></li>
+<li id="menu-item-741" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-741"><a href="http://in.linkedin.com/pub/shantanu-chandra/38/237/534/">Menu Item</a></li>
+<li id="menu-item-742" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-742"><a href="https://twitter.com/ShantanuChandra">Menu Item</a></li>
+</ul></div>		</div>
+	</nav><!-- #site-navigation -->
+
+	<header id="masthead" class="site-header" role="banner">
+				<div class="site-branding text-right">
+
+						<div class="site-logo">
+							</div>
+			
+			<h1 class="site-title"><a href="http://shantanuchandra.wordpress.com/" rel="home">Life of a Geek – Technology freak..</a></h1>
+
+		</div>
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+			
+
+<article id="post-272" class="post-272 post type-post status-publish format-standard hentry category-technology tag-dependency-inversion-principle tag-interface-segregation-principle tag-internet-service-provider tag-liskov-substitution-principle tag-object-oriented-programming tag-openclosed-principle tag-single-responsibility-principle tag-software tag-solid tag-technology-2">
+	<header class="entry-header">
+		<h1 class="entry-title">SOLID and DRY&nbsp;principles</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>better explained at: <a href="http://www.codeproject.com/Articles/60845/The-S-O-L-I-D-Object-Oriented-Programming-OOP-Prin" rel="nofollow">http://www.codeproject.com/Articles/60845/The-S-O-L-I-D-Object-Oriented-Programming-OOP-Prin</a></p>
+<p>following from&nbsp;http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod</p>
+<p>The first five principles are principles of&nbsp;<i>class design</i>. They are: <strong>SOLID</strong></p>
+<table border="1" cellspacing="0">
+<tbody>
+<tr>
+<td><b>SRP</b></td>
+<td><a href="https://docs.google.com/open?id=0ByOwmqah_nuGNHEtcU5OekdDMkk">The Single Responsibility Principle</a></td>
+<td><i>A class should have one, and only one, reason to change.</i></td>
+</tr>
+<tr>
+<td><b>OCP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgN2M5MTkwM2EtNWFkZC00ZTI3LWFjZTUtNTFhZGZiYmUzODc1&hl=en">The Open Closed Principle</a></td>
+<td><i>You should be able to extend a classes behavior, without modifying it.</i></td>
+</tr>
+<tr>
+<td><b>LSP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgNzAzZjA5ZmItNjU3NS00MzQ5LTkwYjMtMDJhNDU5ZTM0MTlh&hl=en">The Liskov Substitution Principle</a></td>
+<td><i>Derived classes must be substitutable for their base classes.</i></td>
+</tr>
+<tr>
+<td><b>ISP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOTViYjJhYzMtMzYxMC00MzFjLWJjMzYtOGJiMDc5N2JkYmJi&hl=en">The Interface Segregation Principle</a></td>
+<td><i>Make fine grained interfaces that are client specific.</i></td>
+</tr>
+<tr>
+<td><b>DIP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgMjdlMWIzNGUtZTQ0NC00ZjQ5LTkwYzQtZjRhMDRlNTQ3ZGMz&hl=en">The Dependency Inversion Principle</a></td>
+<td><i>Depend on abstractions, not on concretions.</i></td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>The next six principles are about packages. In this context a package is a binary deliverable like a .jar file, or a dll as opposed to a namespace like a java package or a C++ namespace.<br>
+The first three package principles are about package&nbsp;<i>cohesion</i>, they tell us what to put inside packages: <strong>DRY</strong></p>
+<table border="1" cellspacing="0">
+<tbody>
+<tr>
+<td><b>REP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOGM2ZGFhNmYtNmE4ZS00OGY5LWFkZTYtMjE0ZGNjODQ0MjEx&hl=en">The Release Reuse Equivalency Principle</a></td>
+<td><i>The granule of reuse is the granule of release.</i></td>
+</tr>
+<tr>
+<td><b>CCP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOGM2ZGFhNmYtNmE4ZS00OGY5LWFkZTYtMjE0ZGNjODQ0MjEx&hl=en">The Common Closure Principle</a></td>
+<td><i>Classes that change together are packaged together.</i></td>
+</tr>
+<tr>
+<td><b>CRP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOGM2ZGFhNmYtNmE4ZS00OGY5LWFkZTYtMjE0ZGNjODQ0MjEx&hl=en">The Common Reuse Principle</a></td>
+<td><i>Classes that are used together are packaged together.<p></p>
+</i><p><i></i></p></td>
+</tr>
+</tbody>
+</table>
+<p>The last three principles are about the couplings between packages, and talk about metrics that evaluate the package structure of a system.</p>
+<table border="1" cellspacing="0">
+<tbody>
+<tr>
+<td><b>ADP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgOGM2ZGFhNmYtNmE4ZS00OGY5LWFkZTYtMjE0ZGNjODQ0MjEx&hl=en">The Acyclic Dependencies Principle</a></td>
+<td><i>The dependency graph of packages must have no cycles.</i></td>
+</tr>
+<tr>
+<td><b>SDP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgZjI3OTU4ZTAtYmM4Mi00MWMyLTgxN2YtMzk5YTY1NTViNTBh&hl=en">The Stable Dependencies Principle</a></td>
+<td><i>Depend in the direction of stability.</i></td>
+</tr>
+<tr>
+<td><b>SAP</b></td>
+<td><a href="http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgZjI3OTU4ZTAtYmM4Mi00MWMyLTgxN2YtMzk5YTY1NTViNTBh&hl=en">The Stable Abstractions Principle</a></td>
+<td><i>Abstractness increases with stability.<p></p>
+</i><p><i></i></p></td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+		<div id="geo-post-272" class="geo geo-post" style="display: none">
+			<span class="latitude">28.413685</span>
+			<span class="longitude">77.043235</span>
+		</div>
+<div class="wpcnt">
+<div class="wpa">
+<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Museum";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "shantanuchandra.wordpress.com");
+GA_googleAddAttr("BlogId", "17305812");
+GA_googleAddAttr("PageURL", "http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/");
+GA_googleAddAttr("Autotag", "education");
+GA_googleAddAttr("Autotag", "science");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "technology");
+GA_googleAddAttr("Tag", "dependency-inversion-principle");
+GA_googleAddAttr("Tag", "interface-segregation-principle");
+GA_googleAddAttr("Tag", "internet-service-provider");
+GA_googleAddAttr("Tag", "liskov-substitution-principle");
+GA_googleAddAttr("Tag", "object-oriented-programming");
+GA_googleAddAttr("Tag", "openclosed-principle");
+GA_googleAddAttr("Tag", "single-responsibility-principle");
+GA_googleAddAttr("Tag", "software");
+GA_googleAddAttr("Tag", "solid");
+GA_googleAddAttr("Tag", "technology-2");
+GA_googleAddAttr("theme_bg", "f5f5f5");
+GA_googleAddAttr("theme_border", "666666");
+GA_googleAddAttr("theme_text", "444444");
+GA_googleAddAttr("theme_link", "a52020");
+GA_googleAddAttr("theme_url", "a52020");
+GA_googleAddAdSensePageAttr("google_page_url", "http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+</div>
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=facebook&nb=1" target="_blank" title="Share on Facebook" id="sharing-facebook-272"><span>Facebook</span></a></li><li class="share-linkedin"><a rel="nofollow" class="share-linkedin sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=linkedin&nb=1" target="_blank" title="Click to share on LinkedIn" id="sharing-linkedin-272"><span>LinkedIn</span></a></li><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=twitter&nb=1" target="_blank" title="Click to share on Twitter" id="sharing-twitter-272"><span>Twitter</span></a></li><li class="share-tumblr"><a rel="nofollow" class="share-tumblr sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=tumblr&nb=1" target="_blank" title="Click to share on Tumblr"><span>Tumblr</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" class="share-email sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=email&nb=1" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-stumbleupon"><a rel="nofollow" class="share-stumbleupon sd-button share-icon" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/?share=stumbleupon&nb=1" target="_blank" title="Click to share on StumbleUpon"><span>StumbleUpon</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-17305812-272-54ae02b2c4539" data-src="//widgets.wp.com/likes/#blog_id=17305812&amp;post_id=272&amp;origin=shantanuchandra.wordpress.com&amp;obj_id=17305812-272-54ae02b2c4539" data-name="like-post-frame-17305812-272-54ae02b2c4539"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-17305812-272-54ae02b2c4539" height="55px" width="100%" frameborder="0" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource.html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal"><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="233" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://shantanuchandra.wordpress.com/2012/09/27/pure-virtual-functions/" title="Pure virtual functions
+
+http://www.learncpp.com/cpp-tutorial/126-pure-virtual-functions-abstract-base-classes-and-interface-classes/ Pure virtual (abstract) functions and abstract base classes So far, all of the virtual functions we have written have a body (a definition). However, C++ allows you to create a special kind of virtual function called a pure virtual function (or abstract function) that has no body at all! A pure virtual…" rel="nofollow" data-origin="272" data-position="0">Pure virtual functions</a></span><span class="jp-relatedposts-post-context">In "TechnologY"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="270" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://shantanuchandra.wordpress.com/2013/01/30/createbuild-architecture-for-a-web-application/" title="Create/Build Architecture for a Web Application
+
+Things to do and take care of before building an application. For my reference: http://apparchguide.codeplex.com/wikipage?title=Chapter%2015%20-%20Web%20Applications Category Key issues Authentication Lack of authentication across trust boundaries Storing passwords in a database as plain text Designing custom authentication mechanism instead of using built-in capabilities Authorization Lack of authorization across trust boundaries Incorrect…" rel="nofollow" data-origin="272" data-position="1">Create/Build Architecture for a Web Application</a></span><span class="jp-relatedposts-post-context">In "TechnologY"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="121" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://shantanuchandra.wordpress.com/2011/06/09/insanely-useful/" title="Insanely Useful !!!
+
+New words in Oxford dictionary... •breadcrumb trail - (on a website) a series of hyperlinks displayed at the top of a web page, indicating the page&#39;s position in the overall structure of the site •Cyber Monday - (in the US) the Monday following Thanksgiving, promoted by online retailers as a…" rel="nofollow" data-origin="272" data-position="2">Insanely Useful !!!</a></span><span class="jp-relatedposts-post-context">In "TechnologY"</span></p></div></div></div>
+			</div><!-- .entry-content -->
+
+	<footer class="entry-meta clear">
+		
+		<div class="entry-author"><span class="byline">by <span class="author vcard"><a class="url fn n" href="http://shantanuchandra.wordpress.com/author/shantanuchandra/">ShantanuChandra</a></span></span><span class="posted-on"> on <a href="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/SOLID and DRY principles   Life of a Geek - Technology freak...html" rel="bookmark"><time class="entry-date published" datetime="2013-02-05T13:09:36+00:00">February 5, 2013</time></a></span></div>
+
+		<div class="entry-taxes">
+			<span class="entry-categories genericon genericon-category"><a href="http://shantanuchandra.wordpress.com/category/technology/" rel="category tag">TechnologY</a></span> <span class="entry-tags genericon genericon-tag"><a href="http://shantanuchandra.wordpress.com/tag/dependency-inversion-principle/" rel="tag">Dependency inversion principle</a>, <a href="http://shantanuchandra.wordpress.com/tag/interface-segregation-principle/" rel="tag">Interface segregation principle</a>, <a href="http://shantanuchandra.wordpress.com/tag/internet-service-provider/" rel="tag">Internet service provider</a>, <a href="http://shantanuchandra.wordpress.com/tag/liskov-substitution-principle/" rel="tag">Liskov substitution principle</a>, <a href="http://shantanuchandra.wordpress.com/tag/object-oriented-programming/" rel="tag">object oriented programming</a>, <a href="http://shantanuchandra.wordpress.com/tag/openclosed-principle/" rel="tag">Open/closed principle</a>, <a href="http://shantanuchandra.wordpress.com/tag/single-responsibility-principle/" rel="tag">Single responsibility principle</a>, <a href="http://shantanuchandra.wordpress.com/tag/software/" rel="tag">software</a>, <a href="http://shantanuchandra.wordpress.com/tag/solid/" rel="tag">solid</a>, <a href="http://shantanuchandra.wordpress.com/tag/technology-2/" rel="tag">technology</a></span>		</div>
+	</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+
+			<a href="http://shantanuchandra.wordpress.com/2013/01/30/createbuild-architecture-for-a-web-application/" rel="prev"><span class="meta-nav">«</span> Create/Build Architecture for a Web&nbsp;Application</a>			<a href="http://shantanuchandra.wordpress.com/2013/02/07/to-the-one-i-love/" rel="next">To The One I&nbsp;LOVE… <span class="meta-nav">»</span></a>
+		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+			
+<div id="comments" class="comments-area">
+
+	
+	
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://shantanuchandra.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="8dceebde59"><input type="hidden" name="_wp_http_referer" value="/2013/02/05/solid-and-dry-principles/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 21px; width: 638px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 41px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource(6).html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="272" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1405d60086"></p>
+<input type="hidden" name="genseq" value="1420690098">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1420690099085"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+	</div><!-- #content -->
+
+	<div id="secondary" class="widget-area two-column" role="complementary">
+	<div class="secondary-content">
+
+				<div class="sidebar">
+			<aside id="search-2" class="widget widget_search"><h1 class="widget-title">Search my Blog</h1><form role="search" method="get" class="search-form" action="http://shantanuchandra.wordpress.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s" title="Search for:">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></aside><aside id="archives-2" class="widget widget_archive"><h1 class="widget-title">Archives</h1>		<select name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+			<option value="">Select Month</option>
+
+				<option value="http://shantanuchandra.wordpress.com/2015/01/"> January 2015 &nbsp;(12)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/12/"> December 2014 &nbsp;(23)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/11/"> November 2014 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/09/"> September 2014 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/08/"> August 2014 &nbsp;(4)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/07/"> July 2014 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/06/"> June 2014 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/05/"> May 2014 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/04/"> April 2014 &nbsp;(4)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/03/"> March 2014 &nbsp;(3)</option>
+	<option value="http://shantanuchandra.wordpress.com/2014/01/"> January 2014 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/12/"> December 2013 &nbsp;(4)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/11/"> November 2013 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/10/"> October 2013 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/09/"> September 2013 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/07/"> July 2013 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/06/"> June 2013 &nbsp;(3)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/05/"> May 2013 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/04/"> April 2013 &nbsp;(6)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/03/"> March 2013 &nbsp;(10)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/02/"> February 2013 &nbsp;(3)</option>
+	<option value="http://shantanuchandra.wordpress.com/2013/01/"> January 2013 &nbsp;(4)</option>
+	<option value="http://shantanuchandra.wordpress.com/2012/10/"> October 2012 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2012/09/"> September 2012 &nbsp;(9)</option>
+	<option value="http://shantanuchandra.wordpress.com/2012/08/"> August 2012 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2012/07/"> July 2012 &nbsp;(10)</option>
+	<option value="http://shantanuchandra.wordpress.com/2012/01/"> January 2012 &nbsp;(2)</option>
+	<option value="http://shantanuchandra.wordpress.com/2011/08/"> August 2011 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2011/06/"> June 2011 &nbsp;(3)</option>
+	<option value="http://shantanuchandra.wordpress.com/2011/03/"> March 2011 &nbsp;(5)</option>
+	<option value="http://shantanuchandra.wordpress.com/2011/02/"> February 2011 &nbsp;(1)</option>
+	<option value="http://shantanuchandra.wordpress.com/2011/01/"> January 2011 &nbsp;(4)</option>
+	<option value="http://shantanuchandra.wordpress.com/2010/11/"> November 2010 &nbsp;(2)</option>
+		</select>
+</aside><aside id="blog-stats-4" class="widget widget_blog-stats"><h1 class="widget-title">Blog Stats</h1>		<ul>
+			<li>5,215 hits</li>
+		</ul>
+		</aside><aside id="tag_cloud-3" class="widget widget_tag_cloud"><h1 class="widget-title"></h1><div style="overflow: hidden;"><a href="http://shantanuchandra.wordpress.com/category/dslr-photography/" style="font-size: 224.34210526316%; padding: 1px; margin: 1px;" title="DSLR PhotographY (28)">DSLR PhotographY</a> <a href="http://shantanuchandra.wordpress.com/category/events/" style="font-size: 201.31578947368%; padding: 1px; margin: 1px;" title="EventS (23)">EventS</a> <a href="http://shantanuchandra.wordpress.com/category/feelings/" style="font-size: 265.78947368421%; padding: 1px; margin: 1px;" title="FeelingS (37)">FeelingS</a> <a href="http://shantanuchandra.wordpress.com/category/mutbi/" style="font-size: 100%; padding: 1px; margin: 1px;" title="MUTBI (1)">MUTBI</a> <a href="http://shantanuchandra.wordpress.com/category/technology/paraphernalias/" style="font-size: 109.21052631579%; padding: 1px; margin: 1px;" title="Paraphernalias (3)">Paraphernalias</a> <a href="http://shantanuchandra.wordpress.com/category/events/recipe/" style="font-size: 109.21052631579%; padding: 1px; margin: 1px;" title="RecipE (3)">RecipE</a> <a href="http://shantanuchandra.wordpress.com/category/technology/" style="font-size: 275%; padding: 1px; margin: 1px;" title="TechnologY (39)">TechnologY</a> <a href="http://shantanuchandra.wordpress.com/category/uncategorized/" style="font-size: 150.65789473684%; padding: 1px; margin: 1px;" title="Uncategorized (12)">Uncategorized</a> <a href="http://shantanuchandra.wordpress.com/category/technology/wired-truth/" style="font-size: 132.23684210526%; padding: 1px; margin: 1px;" title="Wired Truth (8)">Wired Truth</a> </div></aside>		</div>
+		
+				<div class="sidebar">
+			<aside id="text-3" class="widget widget_text">			<div class="textwidget"><a href="http://dailypost.wordpress.com/blogging-university/"><img src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/seal_v2-04.png" alt="Blogging U." width="300" height="300"></a></div>
+		</aside><aside id="flickr-2" class="widget widget_flickr"><h1 class="widget-title">Flickr Photos</h1>		<!-- Start of Flickr Badge -->
+		<table id="flickr_badge_uber_wrapper" cellpadding="0" cellspacing="10" border="0" class="flickr-size-small">
+			<tbody><tr>
+				<td>
+					<table cellpadding="0" cellspacing="10" border="0" id="flickr_badge_wrapper">
+						<tbody><tr>
+							<td align="center">
+								<a href="https://www.flickr.com/photos/94260002@N06/16037326898/"><img alt="Kanchana Birthday" title="Kanchana Birthday" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/16037326898_3a08c814d3_m.jpg" border="0"></a><br><br>								<a href="https://www.flickr.com/photos/94260002@N06/">More Photos</a>
+							</td>
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+		</tbody></table>
+		<!-- End of Flickr Badge -->
+		</aside><aside id="twitter-2" class="widget widget_twitter"><h1 class="widget-title"><a href="http://twitter.com/shantanuchandra">Tweets</a></h1><ul class="tweets">
+			<li>
+				Birthday Photography <a href="http://twitter.com/search?q=%23Day23">#Day23</a> <a href="http://nblo.gs/12wjWN"> nblo.gs/12wjWN</a> 				<a href="http://twitter.com/shantanuchandra/statuses/552921478593642496" class="timesince">7&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			
+			<li>
+				View Point of a building sideways <a href="http://pinterest.com/pin/564638872007389534/"> pinterest.com/pin/5646388720…</a> 				<a href="http://twitter.com/shantanuchandra/statuses/552881143721517056" class="timesince">10&nbsp;hours&nbsp;ago</a>
+			</li>
+
+			</ul><iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/follow_button.37e112509e16b7fe5e4cf93632594a08.en.html" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 167px; height: 20px;"></iframe></aside>		</div>
+		
+	</div>
+</div><!-- #secondary -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+			<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com</a>.
+			<span class="sep"> | </span>
+			<a href="https://wordpress.com/themes/museum/" title="Learn more about this theme">The Museum Theme</a>. &amp; <a href="https://profiles.wordpress.org/melchoyce" rel="designer">Mel Choyce</a>.		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/shantanuchandra.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/shantanuchandra.wordpress.com\/wp-login.php?action=logout&_wpnonce=1def7e6ab3","homeURL":"http:\/\/shantanuchandra.wordpress.com\/","postID":"272","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource(3)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -261px;">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Life of a Geek - Technology freak..”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 1,068 other followers</p>
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="17305812">
+			<input type="hidden" name="source" value="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9bb4a477b3"><input type="hidden" name="_wp_http_referer" value="/2013/02/05/solid-and-dry-principles/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/shantanuchandra.wordpress.com\/2013\/02\/05\/solid-and-dry-principles\/":272}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-linkedin' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-tumblr' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+		});
+		</script>
+			
+		<iframe src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/form.js"></script>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/widgets.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading..."};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"http:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/saved_resource(4)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "shantanuchandra.wordpress.com";
+	</script>
+	<script type="text/javascript" src="http://s.skimresources.com/js/725X1342.skimlinks.js"></script><script src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/w.js" type="text/javascript"></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_tkq.push(['storeContext', {'blog_id':'17305812','blog_tz':'5','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+st_go({'blog':'17305812','v':'wpcom','tz':'5','user_id':'0','post':'272','subd':'shantanuchandra'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VLU89UnlJLjFdcTFtcGd4UkZmak1fOV8rOD95W21kQXdJajlseVZvP3NvYlVCTVNiTWhQaGl4d1osNENUaGlWLFk/NVZUWytDdiwsYWd6Wz0mNUJ1d1NXQ1FyXWtWN1lmYmRodHVPZmQ/R1pPbFc3SmJ+VFtZN0x6bEMsP3dCXUREVz1qUGRbeXcxdm9qK1ZPUkc2U2p+bTldPVkleXZrNHBkOF96JUg9N1tmYVVTY0FnVFVVMWJSWklOVT03TW1fK0lbcHgzQkJdZTAwJkYxZVBnTkdyd3JvJUtWaU12aEVpYjZddHBtNzdrcm5BXXJbYjRpd2s3QVhPPTkmJVAsRj1Xdnk4ZWM3eD9GNiV4a3pTaHNqMXl6PUZQZD98TVlPaUdLZmpUQm5IWVksUiZSZ0FKc3pB'});
+addLoadEvent(function(){linktracker_init('17305812',272);});
+	</script><img id="wpstats" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/g.gif" alt=""><img id="wpstats2" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/g(1).gif" alt="" style="display:none">
+<noscript>&lt;img src="http://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+
+<div class="comment-likes-overlay" style="display: none;"></div><div id="sharing_email" style="display: none;">
+		<form action="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/SOLID and DRY principles   Life of a Geek - Technology freak...html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+			
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo">
+			<img style="float: right; display: none" class="loading" src="./SOLID and DRY principles   Life of a Geek - Technology freak.._files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a href="http://shantanuchandra.wordpress.com/2013/02/05/solid-and-dry-principles/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><div id="html-validator-loading"><img src="chrome-extension://cgndfbhngibokieehnjhbjkkhbfmhojo/images/loading.gif">Validating...</div><div id="html-validator-message"><span id="html-validation-message-close">X</span><div id="html-validator-message-content"></div></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

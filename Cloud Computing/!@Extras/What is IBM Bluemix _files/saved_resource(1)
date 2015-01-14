@@ -1,0 +1,122 @@
+mmcore.SetCookie('mmid','1398683675|BQAAAAoT0S1lbgsAAA==',365,1);mmcore.SetCookie('pd','541272854|BgAAAAoBQhPRLWVuC/AB2koEAGijvOXv/NFIEHd3dy5saW5rZWRpbi5jb20OAAAAmQ5mjMz20UgAAAAA/////wD/////FgAAAAAQd3d3LmxpbmtlZGluLmNvbQl2CwEAAwAAAAMAAAAAAP///////////////wAAAAAAAUU=',365);mmcore.SetCookie('srv','cg3.usw',365);(function(){if(typeof(mmcore.GenInfo)!='object')mmcore.GenInfo={};mmcore.EH=function(e){var s=e.message+'\r\n';if(!window.mm_error)window.mm_error=s;else window.mm_error+=s;};
+try{
+if(/Firefox/.test(navigator.userAgent)){
+    mmcore._docEnd = true;
+    for(var i = 0; i < mmcore._docEndF.length; i++){
+        try {
+            mmcore._docEndF[i] && mmcore._docEndF[i]();
+        } catch (e) { }
+    }
+    mmcore._docEndF = [];
+}
+}catch(err){mmcore.EH(err);}
+try{
+mmcore.NetInsight = function(campaign){
+    if(!window.ibmStats || !ibmStats.event) return mmcore.EH({ message:"NetInsight: ibmStats.event missing." });
+    var GI = mmcore.GenInfo[campaign];
+    if(!GI) return mmcore.EH({ message:"NetInsight: Campaign " + campaign + " does not exist." });
+    var pairs = [];
+    for(var elem in GI) pairs.push(elem + ":" + GI[elem].toLowerCase());
+    ibmStats.event({
+        ibmEV: "Maxymiser",
+        ibmEvName: campaign,
+        ibmEvAction: pairs.join(" | ")
+    });
+};
+}catch(err){mmcore.EH(err);}
+try{
+;(function(){
+	function bind(el, func){
+		if(el.addEventListener){
+			el.addEventListener('beforeprint', func, false);
+		}else if(el.attachEvent){
+			el.attachEvent('onbeforeprint', func);
+		}	
+	}
+
+	if(navigator.userAgent.match(/msie/i)){
+		bind(window, function(){
+			var nodes = document.getElementsByTagName('script');
+			for(var i = nodes.length; i--;){
+				if((nodes[i].id || '').match(mmcore.cprefix))
+					nodes[i].removeAttribute('src');
+			}
+		});
+	}
+})();
+}catch(err){mmcore.EH(err);}
+try{
+;(function(){
+	var cookiecr = mmcore.GetCookie('mm_criteria_tt', 1) || false;
+
+	mmcore.persCriteria = {
+		TrafficType: '',
+	};
+
+	if(cookiecr){
+		var mm_JSON = JSON.parse(cookiecr);
+		for(var key in mm_JSON){
+			if(typeof mmcore.persCriteria[key] != 'undefined'){
+				mmcore.persCriteria[key] = mm_JSON[key];
+			}
+		}
+	}
+
+	var wlh = window.location.href;
+
+	mmcore.getCriteria = function(){
+        //Criteria should change its value every new session
+		if (!mmcore.GetCookie('mm_session',1)){
+			if (wlh.match(/&cmp=|\?cmp=/)) mmcore.persCriteria.TrafficType = 'DriveToTraffic';
+			else mmcore.persCriteria.TrafficType = 'NotDriveToTraffic';
+			mmcore.SetCookie('mm_session',1,0,1);
+		}
+	};
+	mmcore.getCriteria();
+	mmcore.SetCookie('mm_criteria_tt', JSON.stringify(mmcore.persCriteria), 0, 1);
+	delete mmcore._vars.mm_criteria;
+})();
+}catch(err){mmcore.EH(err);}
+try{
+mmcore.CoreMetrics = function(campaignName){  
+  var GI = mmcore.GenInfo[campaignName], output=[];  
+  if (!GI) return mmcore.EH({message:'(mm_CM) No GenInfo found for campaign: ' + campaignName});  
+  for(var key in GI) output.push(key+':' +GI[key]);  
+  var createTag = function(){
+    cmCreateElementTag(output.join('|').toLowerCase() , "MM_"+ campaignName);
+  };
+  if(window.cmCreateElementTag) 
+    createTag();
+  else {
+    var waitForCM = setInterval(function(){
+      if(!window.cmCreateElementTag) return;
+      clearInterval(waitForCM);
+      createTag();
+    },50);
+    
+    mmcore.AddDocLoadHandler(function() {
+    	setTimeout(function(){ clearInterval(waitForCM); }, 5000);
+    });
+  }
+};
+}catch(err){mmcore.EH(err);}
+try{
+setTimeout(function(){
+	var strings = [];
+	for(var campaign in mmcore.GenInfo){
+          	var elementValuesList = [];
+		var variantsValuesList = [];
+		for(var element in mmcore.GenInfo[campaign]){
+			elementValuesList.push(element);
+			variantsValuesList.push(mmcore.GenInfo[campaign][element].toLowerCase());
+		}
+		strings.push('maxycamp=' + campaign + '&maxyelement=' + elementValuesList.join(',') + '&maxyvar=' + variantsValuesList.join(','));
+	}
+	if(strings.length)
+		window.NTPT_PGEXTRA = strings.join(';');
+}, 0);
+
+}catch(err){mmcore.EH(err);}
+if(typeof mmcore._callback=='object'&&typeof mmcore._callback[1]=='function'){try{mmcore._callback[1]();}catch(err){mmcore.EH(err);}
+finally{mmcore._callback[1]=null;}}
+})();

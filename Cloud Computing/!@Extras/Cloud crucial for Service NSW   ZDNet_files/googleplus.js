@@ -1,0 +1,1 @@
+define(["jquery","version!fly/managers/debug","managers/social/social-flags"],function(e,t,n){t=t.init("googleplus");var r=!1,i={onInit:null};return{init:function(s){n.enabled.googleplus&&(e.extend(!0,i,s),r?i.onInit&&i.onInit():require(["google"],function(){r=!0,i.onInit&&i.onInit(),t.log("Initialized")}))},parse:function(e){},isInitialized:function(){return r}}})

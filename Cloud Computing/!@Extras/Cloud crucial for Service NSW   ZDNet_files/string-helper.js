@@ -1,0 +1,1 @@
+define(["jquery","version!fly/managers/debug","version!fly/utils/string-helper"],function(e,t,n){return t=t.init("string-helper"),e.extend(n,{wrapFirstWord:function(e,t){var n=e.contents().filter(function(){return this.nodeType==3}).first(),r=n.text(),i=r.slice(0,r.indexOf(" "));if(!n.length)return;n[0].nodeValue=r.slice(i.length),n.before("<"+t+">"+i+"</"+t+">")}})})

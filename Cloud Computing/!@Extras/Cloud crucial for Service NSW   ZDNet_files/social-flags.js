@@ -1,0 +1,1 @@
+define([],function(){return{enabled:{linkedin:!0,pinterest:!0,twitter:!0,facebook:!0,googleplus:!0}}})
