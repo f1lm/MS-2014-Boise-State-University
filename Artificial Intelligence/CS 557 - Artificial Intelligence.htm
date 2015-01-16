@@ -1,0 +1,783 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 9">
+<meta name="Originator" content="Microsoft Word 9">
+<link rel="File-List" href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/index_files/filelist.xml">
+<link rel="Edit-Time-Data" href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/index_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>CS 557 - Artificial Intelligence</title>
+<!--[if gte mso 9]><xml>
+ <u1:DocumentProperties>
+  <u1:Author>Computer Science Department</u1:Author>
+  <u1:LastAuthor>Computer Science Department</u1:LastAuthor>
+  <u1:Revision>2</u1:Revision>
+  <u1:TotalTime>1</u1:TotalTime>
+  <u1:Created>2002-08-10T17:44:00Z</u1:Created>
+  <u1:LastSaved>2002-08-10T17:45:00Z</u1:LastSaved>
+  <u1:Pages>1</u1:Pages>
+  <u1:Words>135</u1:Words>
+  <u1:Characters>771</u1:Characters>
+  <u1:Company>Boise State University</u1:Company>
+  <u1:Lines>6</u1:Lines>
+  <u1:Paragraphs>1</u1:Paragraphs>
+  <u1:CharactersWithSpaces>946</u1:CharactersWithSpaces>
+  <u1:Version>9.3821</u1:Version>
+ </u1:DocumentProperties>
+</xml><!--[if gte mso 9]><xml>
+ <u2:shapedefaults u3:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <u4:shapelayout u5:ext="edit">
+  <u4:idmap u5:ext="edit" data="1"/>
+ </u4:shapelayout>
+</xml><![endif]-->
+<meta name="Description" content="CS 557 - Introduction to Artificial Intelligence - Prof. Andersen">
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 9">
+<meta name="Originator" content="Microsoft Word 9">
+<link rel="File-List" href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/557_files/filelist.xml">
+<link rel="Edit-Time-Data" href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/557_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Computer Science Department</o:Author>
+  <o:LastAuthor>Computer Science Department</o:LastAuthor>
+  <o:Revision>143</o:Revision>
+  <o:TotalTime>1950</o:TotalTime>
+  <o:Created>2002-08-10T17:48:00Z</o:Created>
+  <o:LastSaved>2004-02-18T23:19:00Z</o:LastSaved>
+  <o:Pages>4</o:Pages>
+  <o:Words>1888</o:Words>
+  <o:Characters>10762</o:Characters>
+  <o:Company>Boise State University</o:Company>
+  <o:Lines>89</o:Lines>
+  <o:Paragraphs>21</o:Paragraphs>
+  <o:CharactersWithSpaces>13216</o:CharactersWithSpaces>
+  <o:Version>9.3821</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	color:black;}
+h2
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	color:black;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:#551A8B;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:325716937;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1396412620 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:1338775979;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1090850336 -1340983510 -1832205784 -26157750 -472201674 -1175564600 -1589755076 -1555371698 330433148 -770380994;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:1755975484;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1222560186 -2146644834 1509572524 707159752 1784070716 271615474 207623642 -1212630354 460384782 -1636247356;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body style="tab-interval:
+.5in" alink="#0000FF" bgcolor="#2efcff" lang="EN-US" link="blue" vlink="#551a8b">
+
+<div class="Section1">
+
+<p class="MsoNormal" style="text-align:center" align="center"><img id="_x0000_i1025" src="CS%20557%20-%20Artificial%20Intelligence_files/header.gif" height="107" width="432"></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:24.0pt;color:#B700B7">CS 557 - Artificial Intelligence<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:24.0pt;color:#B700B7">Spring 2015</span></p>
+
+<p class="MsoNormal" style="text-align:center" align="center">&nbsp;</p>
+
+<div align="center">
+
+<table style="width:100.06%;mso-cellspacing:
+ 1.5pt;mso-padding-alt:0in 0in 0in 0in" border="1" cellpadding="0" width="100%">
+ <tbody><tr>
+  <td colspan="10" style="border:none;padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Instructor: Dr. </b><a href="http://cs.boisestate.edu/%7Etim">Tim Andersen</a></p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><b>Class Meeting Time:</b></p>
+  </td>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal">Tues &amp; Thurs 10:30am – 11:45am&nbsp;</p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Class Location:</b></p>
+  </td>
+  <td colspan="5" style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">Engineering Build. 314&nbsp;</p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><b>Instr. Phone:</b></p>
+  </td>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal">ext 5768 </p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Office:</b></p>
+  </td>
+  <td colspan="5" style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">MEC 302e</p>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><b>Email:</b></p>
+  </td>
+  <td colspan="2" style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal">
+  email:  given in class
+  </p>
+  </td>
+  <td style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal"><b>Office Hours:</b></p>
+  </td>
+  <td colspan="5" style="padding:.75pt .75pt .75pt .75pt">
+  <p class="MsoNormal">timandersen.youcanbook.me</p>
+  </td>
+ </tr>
+ <tr>
+  <td style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><a href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/lecture_notes">Lecture Notes</a></p>
+  </td>
+  <td style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal" style="text-align:center" align="center">
+  </p></td>
+  <td style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><a href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/applets">Applets</a></p>
+  </td>
+  <td style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><a href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/homework.htm">Homework</a></p>
+  </td>
+  <td style="padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+  </td>
+  <td style="border:none;padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><span style="font-size:10.0pt;color:windowtext">
+  </span></p></td>
+  <td style="border:none;padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><span style="font-size:10.0pt;color:windowtext"><o:p></o:p></span></p>
+  </td>
+  <td style="border:none;padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><span style="font-size:10.0pt;color:windowtext"><o:p></o:p></span></p>
+  </td>
+  <td style="border:none;padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><span style="font-size:10.0pt;color:windowtext"><o:p></o:p></span></p>
+  </td>
+  <td style="border:none;padding:0in 0in 0in 0in">
+  <p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><span style="font-size:10.0pt;color:windowtext"><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <!--[if !supportMisalignedColumns]-->
+ <tr height="0">
+  <td style="border:none" width="128"></td>
+  <td style="border:none" width="64"></td>
+  <td style="border:none" width="108"></td>
+  <td style="border:none" width="155"></td>
+  <td style="border:none" width="145"></td>
+  <td style="border:none" width="350"></td>
+  <td style="border:none" width="13"></td>
+  <td style="border:none" width="13"></td>
+  <td style="border:none" width="13"></td>
+  <td style="border:none" width="14"></td>
+ </tr>
+ <!--[endif]-->
+</tbody></table>
+
+</div>
+
+<p class="MsoNormal" style="text-align:center" align="center"><span style="display:none;mso-hide:all"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></p>
+
+<p><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<p style="text-align:center" align="center"><a name="requiredText"></a><b>Course
+Description:</b> </p>
+
+
+<p class="MsoNormal" style="margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:.5in">COMPSCI 557 Artificial Intelligence.<span style="mso-spacerun: yes">&nbsp; </span>This course will introduce and study
+several core learning algorithms in the field of artificial
+intelligence and machine learning.&nbsp; Coverage includes version space
+learning, decision trees, artificial neural networks, Bayesian learning
+techniques, instance based learning, and genetic algorithms.<span style="mso-spacerun: yes">&nbsp; </span></p>
+
+<p class="MsoNormal" style="margin-left:.5in">We will present a broad
+introduction to several of the more-popular inductive learning algorithms used
+in the field of Artificial Intelligence and Machine Learning. Class lectures
+will discuss general issues in machine learning and artificial intelligence, as
+well as present established algorithms. </p>
+
+
+<div class="MsoNormal" style="text-align:center" align="center"><a name="classObjectives"></a>
+
+<hr align="center" size="2" width="100%">
+
+</div>
+
+
+<p class="MsoNormal" style="text-align:center" align="center"><b>Required Text:</b>
+</p>
+
+<p class="MsoNormal" style="margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:.5in"><a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/user/mitchell/ftp/mlbook.html"><em><span style="color:#990000">Machine Learning</span></em></a> by Tom Mitchell,
+McGraw-Hill.<span style="mso-spacerun: yes">&nbsp; </span> The order of reading is on the schedule and the assigned chapters <b>must</b>
+be read before the class lecture. Note that the schedule is only
+tentative.<span style="mso-spacerun: yes">&nbsp; </span>The lecture will cover
+topics from the reading where additional help, emphasis, and extensions beyond
+the text are deemed valuable.&nbsp; Time will not always allow complete
+coverage of all aspects of the reading, but you are still expected to read and
+understand the text.&nbsp; You will be responsible for all information from the
+assigned reading, even that which is not explicitly covered in class, except where
+specifically noted, on examinations.&nbsp;</p>
+<br>
+
+<p class="MsoNormal" style="margin-right:.5in;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:.5in">In addition to the text, we will also read a few papers
+taken from scientific journals, as well as other supplementary material.<span style="mso-spacerun: yes">&nbsp;
+</span>These will be handed out in class.<span style="mso-spacerun: yes">&nbsp;
+</span></p>
+
+<p style="margin-right:.5in;margin-left:.5in;text-align:center" align="center"><span style="mso-spacerun: yes">&nbsp;</span></p>
+
+
+<div class="MsoNormal" style="text-align:center" align="center">
+
+<hr align="center" size="2" width="100%">
+
+</div>
+
+
+<p style="text-align:center" align="center"><a name="courseDescription"></a><b>Class
+Objectives:</b> </p>
+
+<p class="MsoNormal" style="margin-left:.5in">After taking this course the
+student will:</p>
+
+<p class="MsoNormal" style="margin-left:.5in">&nbsp;<o:p></o:p></p>
+
+<ul>
+<li><p>
+Be able to compare and contrast the various approaches
+to learning, their strengths and weaknesses and so forth. </p></li>
+
+<li><p>
+Be able to read, understand and critique scientific articles in AI and Machine Learning.</p></li>
+
+<li><p> Be given the background and understanding necessary to
+be able to propose original research in the field of Artificial Intelligence
+and inductive learning algorithms in particular with potential follow-up in a
+graduate research program.</p></li>
+
+<li><p>Learn research skills applicable to other fields of computer science.</p></li>
+
+<li><p>Know how to use different learning algorithms to solve problems (hands on experience).</p></li>
+
+<li><p>Each student will be given an opportunity to hone their presentation and technical writing skills.</p></li>
+
+</ul>
+
+
+<div class="MsoNormal" style="text-align:center" align="center">
+
+<hr align="center" size="2" width="100%">
+
+</div>
+
+
+<p class="MsoNormal"><a name="courseOutline"></a><b><span style="color:#330000">Course
+Outline:</span></b> </p>
+
+<p class="MsoNormal"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<p class="MsoNormal"><span style="color:#330000">Here is a tentative list of
+topics we will cover. <o:p></o:p></span></p>
+
+<p class="MsoNormal" style="text-align:center" align="center"><span style="color:#330000"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></p>
+
+<table style="width:3.5in;
+ border-collapse:collapse;mso-padding-alt:0in 0in 0in 0in" border="0" cellpadding="0" cellspacing="0" width="336">
+ <tbody><tr style="height:12.75pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="117">
+  <p class="MsoNormal"><b><span style="font-size:10.0pt;font-family:Arial">Tentative
+  Topics<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:82.0pt;border:solid windowtext .5pt;
+  border-left:none;padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal"><b><span style="font-size:10.0pt;font-family:Arial">Reading<o:p></o:p></span></b></p>
+  </td>
+  <td style="width:82.0pt;border:solid windowtext .5pt;
+  border-left:none;padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal"><b><span style="font-size:10.0pt;font-family:Arial">Date<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+
+ <tr style="height:12.75pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Introduction<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 1<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" x:num="37634" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial"><o:p></o:p>Jan 15</span></p>
+  </td>
+ </tr>
+
+ <tr style="height:38.25pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:38.25pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Concept
+  learning - general to specific ordering<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:38.25pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 2<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:38.25pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+ <tr style="height:12.75pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Decision
+  Trees<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 3<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+ <tr style="height:25.5pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Artificial
+  Neural Networks<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 4<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+  </tr>
+
+
+ <tr style="height:25.5pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Evaluating
+  Hypothesis<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 5<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+ <tr style="height:12.75pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Bayesian
+  Learning<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 6<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:12.75pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+ <tr style="height:25.5pt">
+  <td style="width:88.0pt;border:solid windowtext .5pt;
+  border-top:none;padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="117">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Instance
+  Based Learning<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal"><span style="font-size:10.0pt;font-family:Arial">Chapter 8<o:p></o:p></span></p>
+  </td>
+  <td style="width:82.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext .5pt;border-right:solid windowtext .5pt;
+  padding:.75pt .75pt 0in .75pt;height:25.5pt" valign="bottom" width="109">
+  <p class="MsoNormal" style="text-align:center" align="center"><span style="font-size:10.0pt;font-family:Arial">TBA<o:p></o:p></span></p>
+  </td>
+ </tr>
+
+
+</tbody></table>
+
+<p class="MsoNormal" style="text-align:center" align="center"><span style="color:#330000"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:.5in"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+
+<div class="MsoNormal" style="text-align:center" align="center">
+
+<hr align="center" size="2" width="100%">
+
+</div>
+
+
+<p style="text-align:center" align="center"><b>Assessment of learning objectives:</b>
+</p>
+
+<p class="MsoNormal"><br>
+Assessment is based on regular homework assignments, projects, written and oral
+presentations, class participation, and examinations.<span style="mso-spacerun:
+yes">&nbsp; </span>Each of these will be weighted approximately as follows:<span style="mso-spacerun: yes">&nbsp; </span></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo5;tab-stops:list .5in"><b><a href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/homework.htm">Homework
+     assignments</a> and (possibly) quizes</b> – approximately 10%.<span style="mso-spacerun:
+     yes">&nbsp; </span>Homework and quizes will be used to encourage reading assigned material, reinforce classroom
+     presentations, and to assess the students' understanding of the concepts
+     covered in class.  <span style="mso-spacerun: yes">&nbsp; </span>Homework is
+     due <u>before midnight </u> on the due date.<span style="mso-spacerun: yes">&nbsp; </span>
+     <span style="mso-spacerun: yes">&nbsp; </span>Late homework will not be graded
+     and will receive a 0.<span style="mso-spacerun: yes">&nbsp; </span>The
+     current list of homework assignments is given <a href="http://cs.boisestate.edu/%7Etim/courses/spring15/557/homework.htm">here</a>;
+     these may be modified and/or added to.</li>
+</ul>
+
+<p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:.25in"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo5;tab-stops:list .5in"><b>Projects/papers and
+     presentations</b> – Approximately 45%.<span style="mso-spacerun:
+     yes">&nbsp; </span></li>
+</ul>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.0in;
+margin-bottom:.0001pt"><strong>Annotated Bibliography/Survey:</strong><span style="mso-spacerun: yes">&nbsp; </span></p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt">You are to create an annotated bibliography (or survey)
+on 15 to 20 scientific papers from academic journals in the area of AI and
+machine learning algorithms.<span style="mso-spacerun: yes">&nbsp; </span>The
+papers in your bibliography should be ones that you looked up yourself, and not
+ones that I present or hand out in class.<span style="mso-spacerun:
+yes">&nbsp; </span>You should try to find papers that are interesting. 
+<span style="mso-spacerun: yes">&nbsp; </span>Papers that present
+novel learning algorithms, or that attempt to improve some 
+learning algorithm are preferable to papers that just use some 
+learning algorithm to solve a particular problem – <b>unless</b> you would like
+to focus on a particular learning problem, such as character recognition, and
+you want to review some of the approaches which have been taken.<span style="mso-spacerun: yes">&nbsp; </span>Your bibliography should contain at
+least 5 papers that were published in this century (year 2000 forwards).<span style="mso-spacerun: yes">&nbsp; </span>You should summarize each paper, and I
+would also like to see you critique each paper, weaknesses and strengths of
+their approach, and so forth.<span style="mso-spacerun: yes">&nbsp;&nbsp;
+</span>You may wish to choose a focused topic/area to look at (for example,
+only review papers on decision trees, or papers on document region
+identification) or you may <b>not</b> want to do that.<span style="mso-spacerun: yes">&nbsp; </span>It’s up to you.<span style="mso-spacerun: yes">&nbsp; </span>Write an introductory section (a few
+paragraphs) stating what your survey is going to cover, why you chose to do
+that, what you were hoping to discover, where your interests lie, etc.<span style="mso-spacerun: yes">&nbsp; </span>I also want to see a conclusion – write
+a few paragraphs stating what you’ve learned, summarize discoveries – for
+example, if you reviewed OCR approaches state what you think is the best
+approach(es).<span style="mso-spacerun: yes">&nbsp; </span>Talk about which
+papers you liked the most and why.<span style="mso-spacerun: yes">&nbsp;
+</span>Maybe even suggest where future work/research in the area could go,
+possible improvements, etc.<span style="mso-spacerun: yes">&nbsp; </span>The final
+draft of this will be due towards the end of the semester, but I will ask for
+a preliminary bibliography towards the middle of the semester that should have at 
+least 8 papers in it, so get cracking.</p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.0in;
+margin-bottom:.0001pt"><strong>Mini Papers/Projects/HW:</strong>
+</p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt">You will be assigned a few projects throughout the semester
+to work on.  For example, I may ask that you experiment with some of the  
+different learning algorithms – decision trees, neural networks, instance based
+learning, Bayesian approaches, etc.,<span style="mso-spacerun: yes">&nbsp;
+</span>perhaps asking you to test these algorithms on a few different learning problems and 
+report results.<span style="mso-spacerun: yes">&nbsp; </span> Each project will typically require
+a ~3-5 page write-up.<span style="mso-spacerun:
+yes">&nbsp; </span>These will be due throughout the semester.</p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt"><strong><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></strong></p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.0in;
+margin-bottom:.0001pt"><strong>Final Project:</strong> </p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt">An in-depth effort on a particular aspect of machine
+learning. A literature search in the area is expected with your paper
+referencing what you find. Good projects are typically as follows: Best: Some
+of your own original thinking and proposal of a learning model, paradigm,
+system, etc. This (and other projects) are typically well benefited by some
+computer simulation to bear out potential. Very Good: Starting from an in-depth
+study of some current model, strive to extend it through some new mechanisms.
+Not Bad: A study of a current model with an in-depth analysis of its strengths,
+weaknesses, potential, and suggested research. Not Good: A description of a
+current model. The earlier you start the better. Note that in a semester course
+like this, you will have to choose a topic when we have only covered half of
+the material. That does not mean your project must cover items related to the
+first half of the semester. You should use your own initiative and the
+resources available (library literature, texts, me, etc.) to peruse and find
+any topic of interest to you, regardless of whether we have or will cover it in
+class. There are many interesting things that we will not have time to cover. </p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<p style="margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:1.5in;
+margin-bottom:.0001pt">You are to turn in a paper detailing your efforts.<span style="mso-spacerun: yes">&nbsp; </span>This paper should be in the format of a
+journal article.<span style="mso-spacerun: yes">&nbsp; </span>Use the style
+specified by <a href="http://computer.org/author/style/cs-style.htm">http://computer.org/author/style/cs-style.htm</a>
+.<span style="mso-spacerun: yes">&nbsp; </span>The paper should be between 8
+and 15 pages and is due on the last day of class.<span style="mso-spacerun:
+yes">&nbsp; </span>
+</p>
+
+<p class="MsoNormal" style="margin-left:1.0in"><b><span style="color:windowtext"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></b></p>
+
+<p class="MsoNormal" style="margin-left:1.0in"><b><span style="color:windowtext"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></b></p>
+
+<p class="MsoNormal" style="margin-left:1.5in"><span style="color:windowtext"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo5;tab-stops:list .5in"><b>Examinations</b> –
+     Approximately 45%.<span style="mso-spacerun: yes">&nbsp; </span>1 midterm
+     worth about 20% and 1 final (about 25%) will be given.</li>
+</ul>
+
+<p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l2 level1 lfo5;tab-stops:list .5in"><b>Class Participation </b>–
+     Attendance is required and you are expected to come fully prepared to
+     participate in class discussions.<span style="mso-spacerun: yes">&nbsp;
+     </span>This means that you should read all assigned reading material
+     before it will be discussed, and attempt to understand it, and then actively
+     participate in class discussions.<span style="mso-spacerun: yes">&nbsp;
+     </span>There is no specific weighting on this requirement, but “slackers“
+     will be identified and punished in terms of their final grade for the
+     course.</li>
+</ul>
+
+<p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+
+<div class="MsoNormal" style="text-align:center" align="center"><span style="color:windowtext">
+
+<hr align="center" size="2" width="100%">
+
+</span></div>
+
+
+<h2>Some ML-Related Links </h2>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Emlearn/MLRepository.html">The UC-Irvine ML
+     Dataset Archive</a> | <a href="http://kdd.ics.uci.edu/">The UC-Irvine KDD
+     archive</a> | <a href="http://www.kdnuggets.com/datasets.html">more
+     datasets</a> </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in"><a href="http://www.cs.waikato.ac.nz/%7Eml/index.html">The WEKA Machine
+     Learning Project</a> (code for many ML algo's, as well as some datasets) </li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in"><a href="http://www.cs.iastate.edu/%7Ehonavar/Courses/cs673/machine-learning-courses.html">Pointers
+     to ML Courses</a> </li>
+</ul>
+
+<p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:.25in"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></p>
+
+<h2>Journals and etc. </h2>
+
+<ul type="disc">
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in">Machine Learning online <a href="http://www.kluweronline.com/issn/0885-6125/contents">http://www.kluweronline.com/issn/0885-6125/contents</a>
+     This is the primo ML journal</li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in"><span style="mso-spacerun:
+     yes">&nbsp;</span><a href="http://www.jmlr.org/">Journal of ML Research</a>
+     | <a href="http://www.research.microsoft.com/datamine/">Data Mining and
+     Knowledge Discovery</a> | <a href="http://www.jair.org/">Journal of AI
+     Research</a> | <a href="http://www.ieee.org/nnc/">IEEE Neural Networks
+     Council</a> (several journals are connected to this page)</li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in">Pattern Analysis and Machine
+     Intelligence: <a href="http://www.computer.org/tpami/">http://www.computer.org/tpami/</a></li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in">Neural Net related journals:
+     <a href="http://www.eeb.ele.tue.nl/neural/contents/neural_networks.html">Neural
+     Networks</a> | <a href="http://www.eeb.ele.tue.nl/neural/contents/ieee_trans_on_nn.html">IEEE
+     Transactions on Neural Networks</a> | <a href="http://www.dice.ucl.ac.be/neural-nets/NPL/NPL.html">Neural
+     Processing Letters</a> | <a href="http://www.wspc.co.uk/Journals/ijns/ijns.html">International Journal
+     of Neural Systems</a> | <a href="http://www.eeb.ele.tue.nl/neural/contents/neural_computation.html">Neural
+     Computation</a> | <a href="http://www.eeb.ele.tue.nl/neural/contents/connection_science.html">Connection
+     Science</a></li>
+ <li class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+     mso-list:l1 level1 lfo11;tab-stops:list .5in"><a href="http://www-mitpress.mit.edu/jrnls-catalog/evolution.html">Evolutionary
+     Computation</a></li>
+</ul>
+
+
+<div class="MsoNormal" style="text-align:center" align="center"><span style="color:windowtext">
+
+<hr align="center" size="2" width="100%">
+
+</span></div>
+
+
+<p style="margin:0in;margin-bottom:.0001pt"><strong><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></strong></p>
+
+<p class="MsoNormal"><span style="color:windowtext"><!--[if !supportEmptyParas]-->&nbsp;<!--[endif]--><o:p></o:p></span></p>
+
+</div>
+
+
+
+
+</body></html>
