@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://connerswann.me/splunk-analyzing-text-messages/ -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Personal Analytics: Gleaning Metadata from Text Messages With Splunk</title>
+    <meta name="description" content="">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  	<!--
+  	<meta name="twitter:card" value="summary">
+  	<meta name="twitter:site" content="@site-handle">
+  	<meta name="twitter:title" content="Personal Analytics: Gleaning Metadata from Text Messages With Splunk">
+  	<meta name="twitter:description" content="">
+  	<meta name="twitter:creator" content="@author-handle">
+  	<meta name="twitter:image" content="http://yoursite.com/featured-image.png">
+    -->
+  	<!--
+  	<meta property="og:title" content="Personal Analytics: Gleaning Metadata from Text Messages With Splunk" />
+  	<meta property="og:type" content="article" />
+  	<meta property="og:url" content="http://connerswann.me/splunk-analyzing-text-messages/" />
+  	<meta property="og:description" content="" />
+  	<meta property="og:image" content="http://yoursite.com/featured-image.png" />
+  	<meta property="og:site_name" content="Site Name" />
+  	<meta property="fb:admins" content="Facebook numeric ID" />
+    -->
+    <link rel="stylesheet" type="text/css" href="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/style.css">
+    <link rel="stylesheet" type="text/css" href="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/prism.css">
+
+    <link rel="canonical" href="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/Personal Analytics  Gleaning Metadata from Text Messages With Splunk.html">
+    
+    <meta property="og:site_name" content="Conner Swann">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Personal Analytics: Gleaning Metadata from Text Messages With Splunk">
+    <meta property="og:description" content="I&#39;ve been using Splunk a lot at work. According to their website:    You see servers and devices, apps and logs, traffic and clouds. We see data—everywhere. Splunk® offers the leading platform for Operational Intelligence. It enables the curious to...">
+    <meta property="og:url" content="http://connerswann.me/splunk-analyzing-text-messages/">
+    <meta property="article:published_time" content="2015-02-06T05:58:06.114Z">
+    <meta property="article:modified_time" content="2015-02-06T17:33:59.287Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Personal Analytics: Gleaning Metadata from Text Messages With Splunk">
+    <meta name="twitter:description" content="I&#39;ve been using Splunk a lot at work. According to their website:    You see servers and devices, apps and logs, traffic and clouds. We see data—everywhere. Splunk® offers the leading platform for Operational Intelligence. It enables the curious to...">
+    <meta name="twitter:url" content="http://connerswann.me/splunk-analyzing-text-messages/">
+    
+    <script async="" src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/analytics.js"></script><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Conner Swann",
+    "author": {
+        "@type": "Person",
+        "name": "Conner Swann",
+        "image": "//www.gravatar.com/avatar/9814a0d22f7498fd1639cb7925516685?d=404",
+        "url": "http://connerswann.me/author/conner-swann",
+        "sameAs": ""
+    },
+    "headline": "Personal Analytics: Gleaning Metadata from Text Messages With Splunk",
+    "url": "http://connerswann.me/splunk-analyzing-text-messages/",
+    "datePublished": "2015-02-06T05:58:06.114Z",
+    "dateModified": "2015-02-06T17:33:59.287Z",
+    "description": "I&#x27;ve been using Splunk a lot at work. According to their website:    You see servers and devices, apps and logs, traffic and clouds. We see data—everywhere. Splunk® offers the leading platform for Operational Intelligence. It enables the curious to..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Conner Swann" href="http://connerswann.me/rss/">
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body class="post-template" data-gclp-initialized="true" data-gistbox-initialized="true">
+
+	
+
+<header id="site-head" style="background-image: url(/content/images/2014/Jun/322981_10151077533778070_850731687_o.jpg)">
+    <div id="site-head-content" class="inner">
+        
+        <h1 class="blog-title"><a href="http://connerswann.me/">Conner Swann</a></h1>
+        <h2 class="blog-description">Software Developer </h2>
+		<p class="social-links">
+			<a href="https://github.comyourbuddyconner/"><i class="fa fa-github"></i></a>
+			<a href="https://twitter.com/yourbuddyconner"><i class="fa fa-twitter"></i></a>
+			<a href="https://www.linkedin.com/in/connerswann"><i class="fa fa-linkedin"></i></a>
+			<a href="https://google.com/+ConnerSwann?rel=author"><i class="fa fa-google-plus"></i></a>
+			<a href="http://connerswann.me/rss/"><i class="fa fa-rss"></i></a>
+		</p>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post">
+
+
+
+        <h1 class="post-title">Personal Analytics: Gleaning Metadata from Text Messages With Splunk</h1>
+		<span class="post-meta"><i class="fa fa-calendar"></i> <time datetime="2015-02-06">06 Feb 2015</time></span>
+        <section class="post-content">
+            <p><img src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/QYjaz8I.gif" alt="">
+ <br>
+I've been using <a href="http://www.splunk.com/">Splunk</a> a lot at work. According to their website: </p>
+
+<blockquote>
+  <p>You see servers and devices, apps and logs, traffic and clouds. We see data—everywhere. Splunk® offers the leading platform for Operational Intelligence. It enables the curious to look closely at what others ignore—machine data—and find what others never see: insights that can help make your company more productive, profitable, competitive and secure. What can Splunk do for you? Just ask.</p>
+</blockquote>
+
+<p>My team uses the software to index and search through wide-ranging, potentially disparate datasources like server logs, google logins, data from our honeypot, and more. It fills so many use-cases, from tracking down users who have had their passwords phished to allowing us to pinpoint machines which are being tampered with (thanks to the wonder that is <a href="http://www.ossec.net/">OSSEC</a>). It's got a <em>really</em> steep learning curve, but once you get the hang of it, administering a distributed Splunk environment is actually pretty fun. </p>
+
+<p>Since I've been using Splunk so much, I wanted to give it a spin on a personal project. I had read at some point that iOS's text messages are stored in a SQLite database, so I decided to try and pull that data out and do some analysis on it. </p>
+
+<p>SQLite has the advantage of being a flat file, making it perfectly suited for applications where network access either isn't needed or isn't readily available. Luckily for me, the <a href="https://apps.splunk.com/app/958/">Splunk DB Connect</a> app can natively parse SQLite and index the data as key-value pairs. </p>
+
+<p>As it turns out, the iOS text messaging database has been pretty heavily documented in the past, and by using the information <a href="https://theiphonewiki.com/wiki/Messages#Indexes">here</a> I was able to extract the text message database from a backup of my iPhone. There were a lot of entries in this 37MB database, the messages table has over 50,000 entries, each one representing either an outgoing or incoming text message. </p>
+
+<p>The database also has a 'Handles' table, which stores information about the phone number the user is communicating with. Without joining the two tables, the data is incomplete, so I  crafted a SQL query to grab the data I wanted to index from the table. This query is fed to the Splunk DB Connect app which then takes care of parsing out all 53,024 rows and splitting them up into indivudual events.  </p>
+
+<pre class="line-numbers language-sql" data-initialized="true" data-gclp-id="0">  
+<code class=" language-sql" data-language="sql">  <span class="token lf">
+</span><span class="token keyword">SELECT</span> message<span class="token punctuation">.</span>ROWID <span class="token keyword">as</span> message_id<span class="token punctuation">,</span>  <span class="token lf">
+</span>    <span class="token keyword">datetime</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span>date<span class="token punctuation">,</span><span class="token string">'unixepoch'</span><span class="token punctuation">,</span> <span class="token string">'+31 years'</span><span class="token punctuation">,</span> <span class="token string">'-6 hours'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token keyword">timestamp</span><span class="token punctuation">,</span> <span class="token lf">
+</span>    <span class="token keyword">datetime</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span>date_read<span class="token punctuation">,</span> <span class="token string">'unixepoch'</span><span class="token punctuation">,</span> <span class="token string">'+31 years'</span><span class="token punctuation">,</span> <span class="token string">'-6 hours'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> date_read<span class="token punctuation">,</span> <span class="token lf">
+</span>    message<span class="token punctuation">.</span>is_from_me <span class="token keyword">as</span> is_from_me<span class="token punctuation">,</span><span class="token lf">
+</span>    message<span class="token punctuation">.</span>is_read <span class="token keyword">as</span> is_read<span class="token punctuation">,</span><span class="token lf">
+</span>    handle<span class="token punctuation">.</span>id <span class="token keyword">as</span> handle<span class="token punctuation">,</span> <span class="token lf">
+</span>    message<span class="token punctuation">.</span>service <span class="token keyword">as</span> service<span class="token punctuation">,</span> <span class="token lf">
+</span>    message<span class="token punctuation">.</span><span class="token keyword">text</span> <span class="token keyword">as</span> message <span class="token keyword">FROM</span> message<span class="token punctuation">,</span> <span class="token lf">
+</span>    handle <span class="token lf">
+</span><span class="token keyword">WHERE</span> message<span class="token punctuation">.</span>handle_id <span class="token operator">=</span> handle<span class="token punctuation">.</span>ROWID<span class="token punctuation">;</span>  <span class="token lf">
+</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code>  
+</pre>  
+
+<p><small>The SQL Query to create complete events</small></p>
+
+<p>Once Splunk has digested the data, heading to the Search &amp; Reporting app and typing <code>index=text_messages</code> into the search box gives me a nice frequency graph and a list of events: </p>
+
+<p><img src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/Screen_Shot_2015-02-05_at_11_13_36_PM.png" alt=""></p>
+
+<p>Each text message event is just a line of text that looks like this:</p>
+
+<p><code>message_id=53091 timestamp="2015-02-03 20:31:38" date_read="2015-02-03 20:31:28" is_from_me=1 is_read=1 handle=+16199338044 service=iMessage message="I know, haha"</code></p>
+
+<hr>
+
+<p>Using Splunk's powerful search tools and some apps created by the Splunk community, I could begin doing some batch processing of all the events. </p>
+
+<p>Since I have so much text, the first thing I did was download a <a href="https://apps.splunk.com/app/1179/">Sentiment Analysis</a> app. Doing so adds a couple dashboards and the "sentiment" search command which will evaluate one field in every event you give it, assigning the event a positive or negative value. </p>
+
+<p>Armed with this new field, I can now create so inferential data about the contents of the database as a whole. </p>
+
+<p>For example, I can chart average sentiment over time. To do this, you chain together multiple splunk search commands until the desired output is reached:</p>
+
+<p><code>index=text_messages  is_from_me=1 | sentiment twitter message | timechart avg(sentiment) as sentiment span=1mon</code></p>
+
+<p>In english, it says:</p>
+
+<ul>
+<li>In index <code>text_messages</code>, search for events which have <code>is_from_me</code> equal to 1.</li>
+<li>After that, run a sentiment analysis on the results' <code>message</code> field. </li>
+<li>Then use the results to chart the average of the <code>sentiment</code> field over time spans of one month."</li>
+</ul>
+
+<p>The resulting graph looks like this:</p>
+
+<p><img src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/Screen-Shot-2015-02-05-at-11-30-08-PM.png" alt="sentiment over time"></p>
+
+<p>By chaining together more complex series of commands, you can get some pretty cool results! </p>
+
+<p>The next graph is created by finding the average sentiment and forming a baseline sentiment value, allowing good and bad sentiment to cancel each other out, leaving only a remainder. </p>
+
+<p>Looking at the blue sentiment portion of the graph, zero is this baseline. Any column that falls below this has a "below average" sentiment while columns that are greater than zero posess an "above average" sentiment as compared with the rest of the events. </p>
+
+<p>The second yellow line simply charts the number of events in each period. </p>
+
+<p><code>index=text_messages  is_from_me=1 | sentiment twitter message |eval diff=sentiment-0.788400| eval count=count|  timechart avg(diff) as sentiment, count span=14d</code>
+<br> <br>
+<img src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/Screen-Shot-2015-02-05-at-11-46-09-PM.png" alt=""></p>
+
+<p>This last one is my favorite. It overlays the sentiment of incoming messages over the sentiment of outgoing messages. This was to test the hypothesis that the sentiment of incoming texts could affect the sentiment of outgouing texts. While correlation doesn't imply causation, I still think it's interesting that the graphs follow each other in so many places! </p>
+
+<p><code>index=text_messages  is_from_me=0 |  sentiment twitter message |  eval diff=sentiment-0.788400 | timechart avg(diff) as sentiment_from span=1mon | appendcols [search index=text_messages  is_from_me=1 |  sentiment twitter message |  eval diff2=sentiment-0.788400 | timechart avg(diff2) as sentiment_me span=1mon]</code></p>
+
+<p><img src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/Screen-Shot-2015-02-05-at-11-35-57-PM.png" alt=""></p>
+
+<p>It's truly fascinating how each of these events are pretty useless by themselves, however when you take them all into account some interesting information can be gleaned. I plan to continue on with this little Personal Analytics project by incorporating more data sources like sleep analysis, stay tuned! </p>
+
+<p>If you're interested in this sort of thing, shoot me a tweet <a href="http://twitter.com/yourbuddyconner">@YourBuddyConner</a>, I'd love to hear what you think!</p>
+        </section>
+            <section class="author">
+                <h5>by Conner Swann</h5>
+                <p>My name's Conner Swann. I'm going to use this blog to talk about things that I think are cool I'm into a lot of stuff, from webapps to warplanes, so there could be a variety of stuff on here.</p>
+            </section>
+        <footer class="post-footer">
+            <section class="share">
+                <h4>Share this post</h4>
+                <a href="http://twitter.com/share?text=Personal%20Analytics:%20Gleaning%20Metadata%20from%20Text%20Messages%20With%20Splunk&url=http://connerswann.me/splunk-analyzing-text-messages/" onclick="window.open(this.href, &#39;twitter-share&#39;, &#39;width=550,height=235&#39;);return false;">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://connerswann.me/splunk-analyzing-text-messages/" onclick="window.open(this.href, &#39;facebook-share&#39;,&#39;width=580,height=296&#39;);return false;">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a href="https://plus.google.com/share?url=http://connerswann.me/splunk-analyzing-text-messages/" onclick="window.open(this.href, &#39;google-plus-share&#39;, &#39;width=490,height=530&#39;);return false;">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+    		</section>
+			<section class="save-for-later">
+				<h4>Or read it later, using</h4>
+				<a href="http://www.instapaper.com/hello2?url=http://connerswann.me/splunk-analyzing-text-messages/&title=Personal%20Analytics:%20Gleaning%20Metadata%20from%20Text%20Messages%20With%20Splunk">Instapaper</a>
+			</section>
+			<section class="go-back">
+				<h4>Or just</h4>
+				<a href="http://connerswann.me/">go back to the index page</a>
+			</section>
+        </footer>
+
+
+    </article>
+
+</main>
+
+
+	<footer class="site-footer">
+	    <div class="inner">
+	         <section class="copyright">All content copyright <a href="http://connerswann.me/">Conner Swann</a> © 2014 • All rights reserved.</section>
+	    </div>
+	</footer>
+
+    <script src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/jquery.min.js"></script>
+
+    <script type="text/javascript" src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/index.js"></script>
+    <script type="text/javascript" src="./Personal Analytics  Gleaning Metadata from Text Messages With Splunk_files/prism.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-24471866-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1044.5px; top: 1112.4375px; display: none;"></div></body></html>

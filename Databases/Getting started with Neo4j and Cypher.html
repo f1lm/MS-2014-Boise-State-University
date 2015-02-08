@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<!-- saved from url=(0185)https://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher?utm_term=neo4j-cypher-acl&utm_content=buffer96f40&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" ng-app="AP" ng-strict-di="" class="ng-scope pw-locale-en ra1-pw-desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <title>Getting started with Neo4j and Cypher</title>
+  <meta name="description" content="This tutorial will introduce the Neo4j graph database and the Cypher query language, while building a simple access control list (ACL) system.">
+  
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Getting started with Neo4j and Cypher">
+  
+  <meta property="og:image" content="http://airpair-blog.s3.amazonaws.com/wp-content/uploads/2014/07/neo4j.png">
+  <meta property="og:url" content="http://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher">
+  <link rel="canonical" href="http://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./Getting started with Neo4j and Cypher_files/libs-7bda78cf.css" type="text/css">
+  <link rel="stylesheet" href="./Getting started with Neo4j and Cypher_files/index-8c28619f.css" type="text/css">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss" title="AirPair Rss">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss/posts" title="AirPair Posts">
+  <link rel="alternate" type="application/rss+xml" href="https://www.airpair.com/rss/workshops" title="AirPair Workshops">
+  <!--<base href="/">--><base href=".">
+<style type="text/css"></style><style id="ace_editor">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;border-radius: 2px;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style>.ace_snippet-marker {    -moz-box-sizing: border-box;    box-sizing: border-box;    background: rgba(194, 193, 208, 0.09);    border: 1px dotted rgba(211, 208, 235, 0.62);    position: absolute;}</style><style>.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {    background-color: #CAD6FA;    z-index: 1;}.ace_editor.ace_autocomplete .ace_line-hover {    border: 1px solid #abbffe;    margin-top: -1px;    background: rgba(233,233,253,0.4);}.ace_editor.ace_autocomplete .ace_line-hover {    position: absolute;    z-index: 2;}.ace_editor.ace_autocomplete .ace_scroller {   background: none;   border: none;   box-shadow: none;}.ace_rightAlignedText {    color: gray;    display: inline-block;    position: absolute;    right: 4px;    text-align: right;    z-index: -1;}.ace_editor.ace_autocomplete .ace_completion-highlight{    color: #000;    text-shadow: 0 0 0.01em;}.ace_editor.ace_autocomplete {    width: 280px;    z-index: 200000;    background: #fbfbfb;    color: #444;    border: 1px lightgray solid;    position: fixed;    box-shadow: 2px 3px 5px rgba(0,0,0,.2);    line-height: 1.4;}</style><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/mixpanel-2.2.min.js"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/analytics.js"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/blueshift.js"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/tagjs"></script><img src="./Getting started with Neo4j and Cypher_files/saved_resource" width="1" height="1" border="0"><img src="./Getting started with Neo4j and Cypher_files/saved_resource(1)" width="1" height="1" border="0"><img src="https://secure.adnxs.com/seg?t=2&add=2434095" width="0" height="0" border="0" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 1px 1px;"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><link rel="stylesheet" type="text/css" href="./Getting started with Neo4j and Cypher_files/r1post.css" media="all"><link rel="stylesheet" type="text/css" href="./Getting started with Neo4j and Cypher_files/r1post_retina.css" media="all"><script async="true" type="text/javascript" src="https://s.adroll.com/j/roundtrip.js"></script></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<header>
+  <a href="https://www.airpair.com/" tile="airpair.com pair programming"></a>
+
+  <ul>
+    <li class="nomob"><a href="https://www.airpair.com/v1"><i>Ooooops</i></a></li>
+    <li class="ps"><a href="https://www.airpair.com/posts" target="_self">Posts</a></li>
+    <li class="nomob"><a href="https://www.airpair.com/expert-applications"><b>Expert Applications</b></a></li>
+    <li class="more"><a>More</a>
+      <ul class="more">
+        <li><a href="https://www.airpair.com/login" target="_self">Login</a></li>
+        <li><a href="https://www.airpair.com/about" target="_self" class="about">About</a></li>
+        <li><a href="https://www.airpair.com/blog" target="_self" class="blog">AirPair Blog</a></li>
+        <li class="nomob"><a href="https://www.airpair.com/workshops" target="_self" class="wk">Workshops</a></li>
+        <li><a href="https://www.airpair.com/rss" target="_self" class="rss">Rss</a></li>
+        <li><a href="https://www.airpair.com/privacy" target="_blank" class="pp">Privacy</a></li>
+      </ul>
+    </li>
+    <li><b><a id="headerGetHelp" href="https://www.airpair.com/help/request" track-click="request" class="btn">Live Coding Help </a></b></li>
+  </ul>
+</header>
+
+<div class="main-wrap">
+  <div notifications="" class="notify"><!-- ngIf: serverErrors.length > 0 -->
+<!-- ngIf: (!serverErrors || serverErrors.length==0) && notifications -->
+</div>
+  <!-- ngView:  --><main ng-view="" class="ng-scope">
+        <header class="entry-header ng-scope">
+  <ol class="entry-meta breadcrumb">
+    <li><a href="https://www.airpair.com/posts" target="_self">Posts</a></li>
+    <li>
+      <a href="https://www.airpair.com/posts/tag/neo4j" target="_self">neo4j</a>
+    </li>
+    <li>
+      <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="//schema.org/Person">
+        <span class="entry-author-name" itemprop="name">Wes Freeman</span>
+      </span>
+    </li>
+  </ol>
+</header>
+
+<banner-postcomp class="ng-scope"><!-- <a href="/100k-writing-competition" class="banner banner-top banner-100kpostcomp" target="_self">
+  <button class="btn">See rules & prizes</button>
+</a>
+ -->
+</banner-postcomp>
+
+
+<article class="blogpost ng-scope">
+
+  <h1 class="entry-title" itemprop="headline">Getting started with Neo4j and Cypher</h1>
+
+  <div class="railMarker"></div>
+
+  <h4 id="table-of-contents" style="top: 626px;">Table of Contents</h4>
+  <ul style="top: 626px;">
+<li><a href="https://www.airpair.com/#1-getting-started-with-neo4j-and-cypher">1 Getting started with Neo4j and Cypher</a><ul>
+<li><a href="https://www.airpair.com/#1-1-installing-neo4j-for-development">1.1 Installing Neo4j for development</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#2-fundamental-building-blocks-of-neo4j">2 Fundamental building blocks of Neo4j</a><ul>
+<li><a href="https://www.airpair.com/#2-1-nodes">2.1 Nodes</a></li>
+<li><a href="https://www.airpair.com/#2-2-relationships">2.2 Relationships</a></li>
+<li><a href="https://www.airpair.com/#2-3-properties">2.3 Properties</a></li>
+<li><a href="https://www.airpair.com/#2-4-labels">2.4 Labels</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#3-a-quick-cypher-introduction">3 A quick Cypher introduction</a><ul>
+<li><a href="https://www.airpair.com/#3-1-cypher-patterns">3.1 Cypher patterns</a></li>
+<li><a href="https://www.airpair.com/#3-2-cypher-clauses">3.2 Cypher clauses</a><ul>
+<li><a href="https://www.airpair.com/#3-2-1-match-where">3.2.1 MATCH / WHERE</a></li>
+<li><a href="https://www.airpair.com/#3-2-2-optional-match-where">3.2.2 OPTIONAL MATCH / WHERE</a></li>
+<li><a href="https://www.airpair.com/#3-2-3-return-order-by-skip-limit">3.2.3 RETURN / ORDER BY / SKIP / LIMIT</a></li>
+<li><a href="https://www.airpair.com/#3-2-4-with-order-by-skip-limit">3.2.4 WITH / ORDER BY / SKIP / LIMIT</a></li>
+<li><a href="https://www.airpair.com/#3-2-5-create">3.2.5 CREATE</a></li>
+<li><a href="https://www.airpair.com/#3-2-6-merge">3.2.6 MERGE</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#3-3-cypher-expressions-and-scalar-collection-functions">3.3 Cypher expressions and scalar/collection functions</a></li>
+<li><a href="https://www.airpair.com/#3-4-cypher-aggregation-functions">3.4 Cypher aggregation functions</a></li>
+<li><a href="https://www.airpair.com/#3-5-indexes-and-constraints">3.5 Indexes and Constraints</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#4-what-does-acl-look-like-in-sql-land-">4 What does ACL look like in SQL-land?</a></li>
+<li><a href="https://www.airpair.com/#5-migrating-data-to-neo4j">5 Migrating data to Neo4j</a></li>
+<li><a href="https://www.airpair.com/#6-running-some-queries">6 Running some queries</a></li>
+<li><a href="https://www.airpair.com/#7-a-closer-look-at-our-cypher-for-acl">7 A closer look at our Cypher for ACL</a><ul>
+<li><a href="https://www.airpair.com/#7-1-loading-the-data">7.1 Loading the data</a></li>
+<li><a href="https://www.airpair.com/#7-2-checking-for-access">7.2 Checking for access</a></li>
+<li><a href="https://www.airpair.com/#7-3-who-has-access">7.3 Who has access</a></li>
+</ul>
+</li>
+<li><a href="https://www.airpair.com/#8-conclusions">8 Conclusions</a></li>
+</ul>
+
+
+  <figure class="author">
+    <img alt="Wes Freeman" src="./Getting started with Neo4j and Cypher_files/8c88fa3b836c824fce2491de7b41df6b">
+    <hr>
+    <div>
+      <label>Wes Freeman</label>
+      <social-links profile="undefined" class="ng-isolate-scope"><div class="sociallinks">
+  <!-- ngIf: p.gh -->
+
+  <!-- ngIf: p.so -->
+
+  <!-- ngIf: p.bb -->
+
+  <!-- ngIf: p.in -->
+
+  <!-- ngIf: p.tw -->
+
+  <!-- ngIf: p.gp -->
+
+  <!-- ngIf: p.al -->
+</div>
+</social-links>
+      <figcaption>
+        Wes Freeman is a Neo4j Cypher contributor and driver author for Scala and Go clients. He also gives training classes for Neo4j's Cypher and data modeling.
+      </figcaption>
+    </div>
+    <hr>
+  </figure>
+
+  <p class="asset"><img src="./Getting started with Neo4j and Cypher_files/neo4j.png"></p>
+  <hr>
+
+
+  <post no-compile=""><div class="workshop-cta">
+        <b>FREE WORKSHOP: Getting started with Neo4j and Cypher</b>Wes Freeman is giving a free virtual workshop on ramping up with Neo4j and Cypher.  He'll also be answering any questions you may have.
+        <a href="http://docs.google.com/forms/d/1aFltBRxz443V-sTuASlltAIsIGaQsV2FDjggVO44PUQ/viewform?embedded=true" class="trackPostCTA">&gt;&gt; Sign up to secure a spot</a>
+</div>
+
+<h2 id="1-getting-started-with-neo4j-and-cypher">1 Getting started with Neo4j and Cypher</h2>
+<p>This tutorial will introduce the Neo4j graph database and the Cypher query language, while building an access control list (ACL) system. Fine-grained ACL systems that deal with membership and inherited permissions over hierarchies of groups are one of the pain points that you deal with in traditional SQL databases. It's also often a subsystem that can be pulled out of the main codebase, even if you use SQL or other datastores for everything else, so it's a good way to get started using a graph. We'll start with our ACL in an SQL database (postgres), and migrate it to Neo4j using Cypher.</p>
+<p>This is by no means the only use case for picking a graph database. To get other ideas, see the <a href="http://www.neotechnology.com/neo4j-use-cases/">neo4j use case</a> page, or the diverse use cases submitted as part of the <a href="https://github.com/neo4j-contrib/graphgist/wiki">graph gist challenge</a>.</p>
+<h3 id="1-1-installing-neo4j-for-development">1.1 Installing Neo4j for development</h3>
+<p>Head to <a href="http://neo4j.com/download/">http://neo4j.com/download/</a> and click on the link to download. You'll need to have Java 7 installed as well. On Mac or Linux, untar the download to the folder of your choice, and then run <code>bin/neo4j start</code> from the folder where you put it. Windows users will receive an installer package, and you can run the service from the dashboard that starts up after installing. Once you're done, you should be able to visit <a href="http://localhost:7474/">http://localhost:7474/</a> to test your server.</p>
+<h2 id="2-fundamental-building-blocks-of-neo4j">2 Fundamental building blocks of Neo4j</h2>
+<p>Neo4j is a graph database, adopting a labeled property graph model. In Neo4j terminology, vertices are called nodes, and edges are called relationships. </p>
+<h3 id="2-1-nodes">2.1 Nodes</h3>
+<ul>
+<li><p>- Nodes are typically used to represent entities (or complex value types).</p>
+</li>
+<li><p>- Nodes can have properties, which are key/value pairs. Values can be primitives or collections of primitives.</p>
+</li>
+<li><p>- Nodes can have zero or more relationships connecting them to other nodes.</p>
+</li>
+</ul>
+<h3 id="2-2-relationships">2.2 Relationships</h3>
+<ul>
+<li><p>- Relationships are used to represent the relationships between nodes; to provide context to the nodes. </p>
+</li>
+<li><p>- Relationships must have a start and end node, thus relationships must have a direction. Direction can be ignored at query time, so the fact that direction is there does not mean it must be used. </p>
+</li>
+<li><p>- Relationships must have a relationship type.</p>
+</li>
+<li><p>- Relationships can have properties (key/value pairs. values can be primitives or collections of primitives). </p>
+</li>
+</ul>
+<h3 id="2-3-properties">2.3 Properties</h3>
+<ul>
+<li><p>- Nodes and relationships can have properties (key/value pairs. values can be primitives or collections of primitives.)</p>
+</li>
+<li><p>- Properties can quantify relationships.</p>
+</li>
+</ul>
+<h3 id="2-4-labels">2.4 Labels</h3>
+<ul>
+<li><p>- Nodes can have zero or more labels. </p>
+</li>
+<li><p>- Labels can represent roles, categories or types.</p>
+</li>
+<li><p>- Labels are used to define indexes and constraints.</p>
+</li>
+</ul>
+<h2 id="3-a-quick-cypher-introduction">3 A quick Cypher introduction</h2>
+<p>Cypher is a pattern-oriented, declarative query language; a mix of SQL and graph traversal patterns. If you know SQL well, you'll probably quickly see the parallels. This is just a brief introduction to get you started — if you want more complete documentation, see the <a href="http://docs.neo4j.org/refcard/2.1/">refcard</a> and the <a href="http://docs.neo4j.org/chunked/stable/cypher-query-lang.html">manual</a>. Note that much of Cypher is case-insensitive, like SQL. Notable exceptions to this rule include identifiers, labels, property keys, and relationship types.</p>
+<h3 id="3-1-cypher-patterns">3.1 Cypher patterns</h3>
+<p>Patterns are the fundamental traversal description of Cypher. Designed after ASCII art representing nodes as circles and relationships as arrows, came the <code>(ident)--&gt;(ident2)</code> pattern, where <code>ident</code> and <code>ident2</code> are identifiers. Relationship identifiers are specified within square brackets, with an optional type after a colon, like <code>(u)-[r:HAS_ACCESS]-&gt;(a)</code>. Labels are specified similarly to relationship types, following a colon: <code>(u:User)--&gt;(a:Asset)</code>. To be able to specify more complex patterns that don't fit in a straight line, you can comma separate patterns; the simplest of these complex patterns is a triangle:<code>(a)--&gt;(b)--&gt;(c), (c)--&gt;(a)</code>. Patterns can be used not only while querying, but also while creating new nodes and relationships.</p>
+<h3 id="3-2-cypher-clauses">3.2 Cypher clauses</h3>
+<h4 id="3-2-1-match-where">3.2.1 MATCH / WHERE</h4>
+<p>Find a pattern in the graph, filtering out results with predicates in the <code>WHERE</code>. This query will search for nodes with relationships pointing to nodes that have no relationships:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="0"><code>MATCH (n)--&gt;(m)
+WHERE NOT (m)--&gt;()
+</code></pre><h4 id="3-2-2-optional-match-where">3.2.2 OPTIONAL MATCH / WHERE</h4>
+<p>Find a pattern in the graph using existing identifiers as starting points. The predicates in <code>WHERE</code> are only executed against new data matched in the <code>OPTIONAL MATCH</code>. This query will search for all nodes, then it will optionally find all of the connecting nodes and relationships. If there aren't any for a particular <code>n</code>with an<code>r.strength &gt; 0.5</code>, it will return null for <code>r</code> and <code>m,</code> while still returning<code>n</code>:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="1"><code>MATCH (n)
+OPTIONAL MATCH (n)-[r]-(m)
+WHERE r.strength &gt; 0.5
+RETURN n, r, m
+</code></pre><h4 id="3-2-3-return-order-by-skip-limit">3.2.3 RETURN / ORDER BY / SKIP / LIMIT</h4>
+<p><code>RETURN</code> is like SELECT in SQL. You list all of the expressions and fields you want to return, along with optional aliases. This returns the first three users sorted by name, and <code>3^2</code> (9):</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="2"><code>RETURN 3^2 as nine, u.name as userName 
+ORDER BY userName
+LIMIT 3
+</code></pre><h4 id="3-2-4-with-order-by-skip-limit">3.2.4 WITH / ORDER BY / SKIP / LIMIT</h4>
+<p>Similar to <code>RETURN</code>, except that the query can continue after the <code>WITH</code>. This is handy in a lot of situations where you need to do a query, and then use the results to do another query. This query gets all of the people and their friends, counts them, and then gets all of the friends of friends:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="3"><code>MATCH (n:Person)-[:FRIEND]-(f)
+WITH count(f) as c, n
+MATCH (n)-[:FRIEND]-()-[:FRIEND]-(fof)
+RETURN n, c, fof
+</code></pre><h4 id="3-2-5-create">3.2.5 CREATE</h4>
+<p><code>CREATE</code> will create all new parts in a pattern. This query will create a new <code>:Bar</code> node, and a <code>:FOO</code> relationship connecting out from the n node that has node id 1:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="4"><code>MATCH (n)
+WHERE id(n) = 1
+CREATE (n)-[:FOO]-&gt;(b:Bar)
+RETURN n, b
+</code></pre><p>Note that, if we run this query more than once, we'll end up with more than one <code>:Bar</code> node connecting to our n node. Each time we'll get a new b returned out of the query.</p>
+<h4 id="3-2-6-merge">3.2.6 MERGE</h4>
+<p><code>MERGE</code> will <code>MATCH</code> or <code>CREATE</code> (if it doesn't exist). </p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="5"><code>MATCH (n)
+WHERE id(n) = 1
+MERGE (n)-[:FOO]-&gt;(b:Bar)
+RETURN n, b
+</code></pre><p>If we run this query more than once, we'll end up with just one node connecting to our <code>n</code> node. This is because <code>MERGE</code> will match the pattern instead of creating it, once it is created, so the <code>b</code> node returned will always be the same.</p>
+<h3 id="3-3-cypher-expressions-and-scalar-collection-functions">3.3 Cypher expressions and scalar/collection functions</h3>
+<p>Cypher has a rich set of expressions for math, strings, collection, comparisons, etc., as you would expect from a query language. For example, you can get the length of a collection using the <code>length()</code> function, or compare equality using the <code>=</code> expression.</p>
+<h3 id="3-4-cypher-aggregation-functions">3.4 Cypher aggregation functions</h3>
+<p>Cypher has built-in aggregation functions like <code>count()</code>, <code>sum()</code>, <code>avg()</code>, <code>min()</code>, and more. When you use these, the rest of the results asked for are grouped implicitly. In SQL you would need to explicitly define which fields to GROUP BY; in Cypher, it groups them implicitly. </p>
+<p>This query finds the count of outbound relationships  for each node. If the <code>RETURN n, count(1)</code> were changed to be just <code>RETURN count(1)</code>, it would give the total count of outbound relationships for all nodes, because of the implicit grouping:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="6"><code>MATCH (n)--&gt;(m)
+RETURN n, count(1)
+</code></pre><h3 id="3-5-indexes-and-constraints">3.5 Indexes and Constraints</h3>
+<p>The Neo4j 2.0-style indexes and constraints are defined with Cypher, and if you're going to be using <code>MERGE</code> to uniquely create nodes, then it is important to add a unique constraint on the unique field, especially if you have more than just a few to add. Ideally, if you are going to need to query on a particular property on a node, you will have an index or unique constraint on it, so that you can do a fast lookup rather than scanning the entire graph or labeled subset. </p>
+<p>Here are two examples. One creates a constraint (with a backing index), and the other an index:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="7"><code>CREATE CONSTRAINT on (u:User) ASSERT u.id IS UNIQUE;
+CREATE INDEX on :User(name);
+</code></pre><h2 id="4-what-does-acl-look-like-in-sql-land-">4 What does ACL look like in SQL-land?</h2>
+<p>Armed with some Cypher, let's get back to the task at hand. You'll probably have users, groups, a many-to-many join table of user_groups, and then a many-to-many join table of group_groups, or something of the sort. You'll also have artifacts or assets, which we'll keep in a single level table for simplicity — although this sort of thing is often hierarchical as well, like a folder structure where the contents inherit the permissions of the folder — and refer to them by an id. </p>
+<p>Let's simplify it even further, and keep it down to a single permission indicating "has access," rather than multiple permissions for different roles. Here's a simplified ERD showing what we're going to start with.</p>
+<p><img src="./Getting started with Neo4j and Cypher_files/id4AloN.png" alt="ACL ERD"></p>
+<p>It doesn't look so bad, but consider the queries we'll need to run in order to decide whether a particular user has access to a particular asset. They might be directly connected via user_asset_access, or they might be in a group that has access via group_asset_access. Or they may even be in a group that's part of a larger group that has access via group_asset_access, and so on... </p>
+<p>Some SQL engines even have a hierarchical index optimization, to handle this a little better — these are still somewhat limited, though. The hierarchical nature of the model makes it ideal to use a graph database. </p>
+<p>Here's a quick script <a href="http://sqlfiddle.com/#!15/032bf">(SQL Fiddle)</a> to create the schema in postgres, to follow along:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="8"><code>CREATE TABLE USERS (id SERIAL, name varchar(50));
+CREATE TABLE GROUPS (id SERIAL, name varchar(50));
+CREATE TABLE USER_GROUPS (user_id integer, group_id integer);
+CREATE TABLE GROUP_GROUPS (parent_group_id integer, group_id integer);
+CREATE TABLE USER_ASSET_ACCESS(user_id integer, asset_id integer);
+CREATE TABLE GROUP_ASSET_ACCESS(group_id integer, asset_id integer);
+CREATE TABLE ASSETS (id SERIAL, uri varchar(1000));
+
+INSERT INTO USERS (name) values('neo');
+INSERT INTO USERS (name) values('morpheus');
+INSERT INTO USERS (name) values('trinity');
+INSERT INTO USERS (name) values('cypher');
+INSERT INTO USERS (name) values('smith');
+
+INSERT INTO GROUPS (name) values('agents');
+INSERT INTO GROUPS (name) values('matrix');
+INSERT INTO GROUPS (name) values('crew');
+INSERT INTO GROUPS (name) values('the_one');
+
+INSERT INTO USER_GROUPS values(1, 3);
+INSERT INTO USER_GROUPS values(1, 4);
+INSERT INTO USER_GROUPS values(2, 3);
+INSERT INTO USER_GROUPS values(3, 3);
+INSERT INTO USER_GROUPS values(4, 3);
+INSERT INTO USER_GROUPS values(5, 1);
+
+INSERT INTO GROUP_GROUPS values(2, 1);
+
+INSERT INTO ASSETS (uri) values('/there/is/no/spoon');
+INSERT INTO ASSETS (uri) values('/the/red/pill');
+INSERT INTO ASSETS (uri) values('/mainframe');
+INSERT INTO ASSETS (uri) values('/deja/vu');
+
+INSERT INTO USER_ASSET_ACCESS values(1, 1);
+
+INSERT INTO GROUP_ASSET_ACCESS values(2, 3);
+INSERT INTO GROUP_ASSET_ACCESS values(3, 2);
+INSERT INTO GROUP_ASSET_ACCESS values(4, 2);
+</code></pre><p>You end up writing long queries like this <a href="http://sqlfiddle.com/#!15/032bf/10">(SQL Fiddle)</a> in order to determine whether someone has access to a particular asset. Here, if any counts returned are &gt;0, they have access:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="9"><code>SELECT count(1)
+FROM users u, user_asset_access uaa, assets a
+WHERE u.id = uaa.user_id 
+  AND uaa.asset_id = a.id
+  AND a.uri = '/mainframe'
+  AND u.name = 'smith'
+UNION ALL
+SELECT count(1)
+FROM users u, user_groups ug, groups g, group_asset_access gaa, assets a
+WHERE u.id = ug.user_id
+  AND g.id = ug.group_id
+  AND gaa.asset_id = a.id
+  AND gaa.group_id = g.id
+  AND a.uri = '/mainframe'
+  AND u.name = 'smith'
+UNION ALL
+SELECT count(1)
+FROM users u, user_groups ug, groups g, groups pg, group_groups gg, group_asset_access gaa, assets a
+WHERE u.id = ug.user_id
+  AND g.id = ug.group_id
+  AND gg.parent_group_id = pg.id
+  AND gg.group_id = g.id
+  AND gaa.asset_id = a.id
+  AND gaa.group_id = pg.id
+  AND a.uri = '/mainframe'
+  AND u.name = 'smith'
+</code></pre><p>One of the downsides is that this query has a fixed depth that you need to continue to increase with more <code>UNION</code>s, depending on how deep your group hierarchy can be. If there's no theoretical limit, you'll just need to do it programmatically and create more than one query.</p>
+<h2 id="5-migrating-data-to-neo4j">5 Migrating data to Neo4j</h2>
+<p>With the 2.1 addition of <code>LOAD CSV</code> in Cypher, this step got a lot easier for datasets that aren't too large. Note: If you're looking at importing many millions of records, you should probably check out the <a href="https://github.com/jexp/batch-import">batch-import</a> tool, or build your own <a href="http://docs.neo4j.org/chunked/stable/javadocs/org/neo4j/unsafe/batchinsert/BatchInserter.html">BatchInserter</a> from the unsafe package in the Java API of Neo4j. </p>
+<p>So, let's construct our export and import queries to load our data from a SQL database to Neo4j. In postgres, there is a convenient CSV export function called COPY:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="10"><code>wfreeman=# COPY users TO '/tmp/users.csv' WITH CSV;
+COPY 5
+wfreeman=# COPY assets TO '/tmp/assets.csv' WITH CSV;
+COPY 4
+wfreeman=# COPY groups TO '/tmp/groups.csv' WITH CSV;
+COPY 4
+wfreeman=# COPY user_groups TO '/tmp/user_groups.csv' WITH CSV;
+COPY 6
+wfreeman=# COPY group_groups TO '/tmp/group_groups.csv' WITH CSV;
+COPY 1
+wfreeman=# COPY group_asset_access TO '/tmp/group_asset_access.csv' WITH CSV;
+COPY 3
+wfreeman=# COPY user_asset_access TO '/tmp/user_asset_access.csv' WITH CSV;
+COPY 1
+</code></pre><p>Most SQL databases provide a similar functionality, but the end result will be CSV-encoded dumps of the tables that we can use to direct the data into Neo4j. We'll need to use <code>LOAD CSV</code> along with the <code>MERGE</code> clause to bring the data in.</p>
+<p>First we'll make some unique constraints (which come with indexes), as well as some indexes for our non-unique data:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="11"><code>CREATE CONSTRAINT ON (u:User) ASSERT u.id IS UNIQUE;
+CREATE CONSTRAINT ON (g:Group) ASSERT g.id IS UNIQUE;
+CREATE CONSTRAINT ON (a:Asset) ASSERT a.id IS UNIQUE;
+
+CREATE INDEX ON :User(name);
+CREATE INDEX ON :Group(name);
+CREATE INDEX ON :Asset(uri);
+</code></pre><p>Let's start with the simple parts, individual entity creation. We'll use the ids as "unique identifiers" for the entities:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="12"><code>LOAD CSV FROM 'file:///tmp/users.csv' as line
+MERGE (:User {id:toInt(line[0]), name:line[1]});
+
+LOAD CSV FROM 'file:///tmp/groups.csv' as line
+MERGE (:Group {id:toInt(line[0]), name:line[1]});
+
+LOAD CSV FROM 'file:///tmp/assets.csv' as line
+MERGE (:Asset {id:toInt(line[0]), uri:line[1]});
+</code></pre><p>Now we can connect the entities with relationships using the join table CSV exports:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="13"><code>LOAD CSV FROM 'file:///tmp/user_asset_access.csv' as line
+MATCH (u:User {id:toInt(line[0])}), (a:Asset {id:toInt(line[1])})
+MERGE (u)-[:HAS_ACCESS]-&gt;(a);
+
+LOAD CSV FROM 'file:///tmp/group_asset_access.csv' as line
+MATCH (g:Group {id:toInt(line[0])}), (a:Asset {id:toInt(line[1])})
+MERGE (g)-[:HAS_ACCESS]-&gt;(a);
+
+LOAD CSV FROM 'file:///tmp/user_groups.csv' as line
+MATCH (u:User {id:toInt(line[0])}), (g:Group {id:toInt(line[1])})
+MERGE (u)-[:IS_MEMBER]-&gt;(g);
+
+LOAD CSV FROM 'file:///tmp/group_groups.csv' as line
+MATCH (p:Group {id:toInt(line[0])}), (g:Group {id:toInt(line[1])})
+MERGE (g)-[:IS_MEMBER]-&gt;(p);
+</code></pre><h2 id="6-running-some-queries">6 Running some queries</h2>
+<p>Once all of the data is imported, we can run some queries in the browser.</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="14"><code>MATCH n RETURN n;
+</code></pre><p><img src="./Getting started with Neo4j and Cypher_files/LXt6h4C.png" alt="image alt text"></p>
+<p>Let's see whether Neo has access to <code>/the/red/pill</code>, using the <code>shortestPath</code> function to optimize the search (note the difference in complexity between this query and the SQL that accomplished a similar result):</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="15"><code>MATCH shortestPath((neo:User {name:'neo'})-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset {uri:'/the/red/pill'}))
+RETURN count(*) &gt; 0 as hasAccess
+</code></pre><p><img src="./Getting started with Neo4j and Cypher_files/LBNjDLC.png" alt="image alt text"></p>
+<p>Who has access to <code>/the/red/pill</code>?</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="16"><code>MATCH shortestPath((u:User)-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset {uri:'/the/red/pill'}))
+RETURN u.name
+</code></pre><p><img src="./Getting started with Neo4j and Cypher_files/yodolz5.png" alt="image alt text"></p>
+<h2 id="7-a-closer-look-at-our-cypher-for-acl">7 A closer look at our Cypher for ACL</h2>
+<h3 id="7-1-loading-the-data">7.1 Loading the data</h3>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="17"><code>LOAD CSV FROM 'file:///tmp/group_asset_access.csv' as line
+MATCH (g:Group {id:toInt(line[0])}), (a:Asset {id:toInt(line[1])})
+MERGE (g)-[:HAS_ACCESS]-&gt;(a);
+</code></pre><p><code>LOAD CSV</code> gives us a result for each line of the CSV, a collection of strings. In order to use those strings as integers (like the ids), we can use the conversion function <code>toInt</code>. Cypher will do an index lookup on the group id and the asset id in the <code>MATCH</code>, and then <code>MERGE</code> the <code>:HAS_ACCESS</code>relationship (create if it doesn't exist).</p>
+<h3 id="7-2-checking-for-access">7.2 Checking for access</h3>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="18"><code>MATCH shortestPath((neo:User {name:'neo'})-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset {uri:'/the/red/pill'}))
+RETURN count(*) &gt; 0 as hasAccess
+</code></pre><p>This query does a lot of things at once in the first <code>MATCH</code>. It can actually be broken out to make the lines shorter, if desired:</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="19"><code>MATCH shortestPath((neo:User)-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset))
+WHERE neo.name = 'neo' AND a.uri = '/the/red/pill'
+RETURN count(*) &gt; 0 as hasAccess
+</code></pre><p>The above two queries are exactly the same, and you can decide whether you prefer the inline property matching syntax, or the <code>WHERE</code> property matching syntax. Let's start by looking at the pattern and <code>WHERE</code> filters.</p>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="20"><code>… (neo:User)-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset) …
+WHERE neo.name = 'neo' AND a.uri = '/the/red/pill'
+</code></pre><p>We have <code>:User(name)</code> and <code>:Asset(uri)</code> indexes, so Cypher can look those up quickly via their respective indexes.</p>
+<p>Once it has those starting points, it will use the <code>shortestPath()</code> matcher to find a single path that matches, following relationships of either<code>:HAS_ACCESS</code> or <code>:IS_MEMBER</code> (which is enough to determine whether <code>Neo</code> has access to <code>/the/red/pill</code>).</p>
+<h3 id="7-3-who-has-access">7.3 Who has access</h3>
+<!--code lang=sql linenums=true-->
+
+<pre data-initialized="true" data-gclp-id="21"><code>MATCH shortestPath((u:User)-[:HAS_ACCESS|IS_MEMBER*]-&gt;(a:Asset {uri:'/the/red/pill'}))
+RETURN u.name
+</code></pre><p>In this case, the query is almost the same, except we start with the <code>:Asset(uri)</code> lookup, and then calculate the shortest path for all <code>:User</code>-labeled nodes, note that the <code>:User</code> has no name specified in the pattern. The names that are returned are the ones that have a path with either <code>:HAS_ACCESS</code> or <code>:IS_MEMBER</code>, so it's able to traverse the group hierarchy as well as the access hierarchy.</p>
+<h2 id="8-conclusions">8 Conclusions</h2>
+<p>This is a simplified example of an ACL, but it should be apparent that the complexity of the queries, and the exact transfer of the data model to the graph structure are a great fit for Neo4j. There are many other <a href="http://www.neotechnology.com/neo4j-use-cases/">use cases</a> — the graph isn't just for social data! </p>
+<p>If you have any more questions or need help getting started with Neo4j and Cypher, be sure to book me for an AirPair!</p>
+</post>
+
+  <div class="share" style="left: 911.5px; top: 0px;">
+    <div class="pw pw-widget ra1-pw-classicWidget ra1-pw_size_small pw-layout-horizontal pw-counter-vertical pw-widget-look-native" pw:twitter-via="airpair">
+      <a class="pw-button pw-button-facebook button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">10</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-facebook"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+      <a class="pw-button pw-button-twitter button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">24</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-twitter"></span><span class="pw-button-type-looknative__txt">Tweet</span></span></a>
+      <a class="pw-button pw-button-linkedin button-type-looknative pw-size-small pw-button-counter-vertical look-native"><span class="pw-button-counter-top"><i class="pw-button-counter-top__brd"></i><span class="pw-button-counter-top__count ra1-pw-button-counter-value">26</span></span><span class="pw-button-type-looknative"><span class="pw-icon ra1-pw-icon ra1-pw-icon-linkedin"></span><span class="pw-button-type-looknative__txt">Share</span></span></a>
+    </div>
+  </div>
+
+
+  <div class="rail1CTA railBookmarkCTA" style="left: 911.5px; top: 94px;">
+    <h6>Like this article?</h6>
+    <div>
+      <img src="./Getting started with Neo4j and Cypher_files/8c88fa3b836c824fce2491de7b41df6b">
+      <div bookmarkerserver="" type="&#39;post&#39;" object-id="&#39;5429a779117a120b009390ea&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/static/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Getting started with Neo4j and Cypher_files/bookmark.png">
+</div>
+      <p>Save it to your bookmarks</p>
+    </div>
+  </div>
+
+  <div id="bodyCTA1" class="bodyCTA1 bodyCTA">
+    <!-- ngIf: !session._id --><div ng-if="!session._id" class="ng-scope">
+      <div cta-post-subscribe="" tag-name="&#39;neo4j&#39;" tag-slug="&#39;neo4j&#39;" class="ng-isolate-scope"><!-- ngIf: !session._id --><form ng-if="!session._id" id="postSubscribeForm" novalidate="" name="subscribeForm" ng-submit="submit(subscribeForm.$valid, data)" class="ng-pristine ng-scope ng-invalid ng-invalid-required ng-valid-email">
+
+  <h3 class="ng-binding"><b>Like this post?</b> Get neo4j content like this by email</h3>
+
+  <!-- ngIf: data.email -->
+
+  <!-- ngIf: !data.email --><div ng-if="!data.email" form-group="" class="ng-scope form-group">
+    <input id="postSubscribeEmail" form-control="" name="email" type="email" placeholder="Enter your email address" ng-model="data.email" ng-model-options="{updateOn:&#39;default blur&#39;,debounce:{default:1000, blur:0}}" ng-change="updateEmail(subscribeForm.email)" ng-focus="focusInputAttention()" ng-blur="blurInputAttention()" required="" tabindex="33211" track-focus="subscribe" track-data="email" class="ng-pristine ng-untouched form-control ng-valid-email ng-invalid ng-invalid-required">
+    <!-- ngIf: formGroup.showError(subscribeForm.email) -->
+  </div><!-- end ngIf: !data.email -->
+
+  <!-- ngIf: updateFailed -->
+
+  <button track-click="auth" data="subscribe" ng-class="data.email ? &#39;&#39; : &#39;blue&#39;" type="submit" class="btn btn-primary ng-binding blue" tabindex="33214"><b>Send to</b> &nbsp; "Your Name &lt;&gt;"</button>
+
+  <hr>
+
+</form><!-- end ngIf: !session._id -->
+</div>
+    </div><!-- end ngIf: !session._id -->
+    <!-- ngIf: session._id -->
+  </div>
+
+  <div id="disqus_thread"><iframe id="dsq-2" data-disqus-uid="2" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Getting started with Neo4j and Cypher_files/saved_resource.html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 321px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+
+</article>
+
+<section id="posts" class="similar ng-scope">
+  <hr>
+  <h5>This post is categorized under</h5>
+  <ul>
+    <li><a href="https://www.airpair.com/posts/tag/neo4j">neo4j</a></li>
+  </ul>
+
+  <section id="allposts">
+    <h3>Similar posts<span><a href="https://www.airpair.com/posts" target="_self">Recent posts</a></span></h3>
+    <div class="posts recent">
+      <article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost" class="">
+  <a href="http://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher" title="Getting started with Neo4j and Cypher" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/neo4j.png" align="left">
+      <span class="entry-categories">
+        
+          <em>neo4j</em><br>
+      </span>
+
+
+      <p class="entry-meta">
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Wes Freeman</span>
+          <img class="entry-author-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/8c88fa3b836c824fce2491de7b41df6b(1)" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2014-10-01T00:09:50.840Z">01 Oct, 2014</time>
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Getting started with Neo4j and Cypher</h2>
+      <p>This tutorial will introduce the Neo4j graph database and the Cypher query language, while building a simple access control list (ACL) system.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+    <bookmarkerserver type="&#39;post&#39;" object-id="&#39;5429a779117a120b009390ea&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/static/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Getting started with Neo4j and Cypher_files/bookmark.png">
+</bookmarkerserver>
+
+  </footer>
+</article>
+<article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost" class="">
+  <a href="https://www.airpair.com/neo4j/introduction-graph-databases" title="Neo4J Graph Database vs. SQL: What You Need To Know" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/hqdefault.jpg" align="left">
+      <span class="entry-categories">
+        
+          <em>neo4j</em><br>
+
+          <em>spreadsheet</em><br>
+
+          <em>cypher</em><br>
+      </span>
+
+
+      <p class="entry-meta">
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Felienne Hermans</span>
+          <img class="entry-author-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/f524745bb9975ba777b5c4a9922eb614" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2014-02-21T05:39:39.000Z">21 Feb, 2014</time>
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Neo4J Graph Database vs. SQL: What You Need To Know</h2>
+      <p>Graph database expert Felienne Hermans shows the benefits achieved by moving from SQL to Neo4J.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+    <bookmarkerserver type="&#39;post&#39;" object-id="&#39;5459b641c8df0c0b00df6201&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/static/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Getting started with Neo4j and Cypher_files/bookmark.png">
+</bookmarkerserver>
+
+  </footer>
+</article>
+<article itemscope="itemscope" itemtype="http://schema.org/BlogPosting" itemprop="blogPost" class="">
+  <a href="http://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher" title="Cypher Query Language Contributor and Neo4j Graph Database Expert - Wes Freeman" target="_self" rel="bookmark">
+    <header class="entry-header">
+      <img class="entry-header-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/Wes-Freeman-speaks-at-GraphConnect-2013-Neo4j.jpg" align="left">
+      <span class="entry-categories">
+        
+          <em>neo4j</em><br>
+
+          <em>cypher</em><br>
+      </span>
+
+
+      <p class="entry-meta">
+        <span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+          <span class="entry-author-name" itemprop="name">Wes Freeman</span>
+          <img class="entry-author-image" itemprop="image" src="./Getting started with Neo4j and Cypher_files/8c88fa3b836c824fce2491de7b41df6b(1)" align="left">
+          <time class="entry-time" itemprop="datePublished" datetime="2013-11-13T04:33:40.000Z">13 Nov, 2013</time>
+        </span>
+      </p>
+    </header>
+    <div class="entry-content" itemprop="text">
+      <h2 class="entry-title" itemprop="headline">Cypher Query Language Contributor and Neo4j Graph Database Expert - Wes Freeman</h2>
+      <p>Graph database expert, Wes Freeman, is Cypher query language contributor, and a trainer and consultant for leading graph database provider Neo4j.</p>
+    </div>
+  </a>
+  <footer class="entry-footer">
+
+    <bookmarkerserver type="&#39;post&#39;" object-id="&#39;546433f44f39c20b00aca00b&#39;" class="ng-isolate-scope"><img class="bookmark" ng-src="/static/img/css/bookmark.png" ng-click="bookmarker.toggle()" src="./Getting started with Neo4j and Cypher_files/bookmark.png">
+</bookmarkerserver>
+
+  </footer>
+</article>
+
+    </div>
+  </section>
+
+</section>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    </main>
+
+</div>
+
+<nav id="side" class="collapse" side-nav="" style="top: 0px;"><header>
+  <img id="sideNavToggle" track-click="sideNav" data="Show" track-click-if="!session._id" ng-click="sideNav.toggle()" src="./Getting started with Neo4j and Cypher_files/toggle.png">
+</header>
+
+<!-- ngIf: session.unauthenticated --><section class="welcome ng-scope" ng-if="session.unauthenticated">
+
+  <figure><a id="navWelcomeAvatar" track-click="sideNav" ng-click="openProfile()"><img class="avatar" ng-src="/static/img/css/sidenav/default-mario.png" src="./Getting started with Neo4j and Cypher_files/default-mario.png"></a></figure>
+
+  <ul class="main">
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope">Want your real face?</li><!-- end ngIf: !session.email -->
+    <!-- ngIf: !session.email --><li ng-if="!session.email" class="ng-scope"><a id="navEditProfile" href="https://www.airpair.com/#" track-click="sideNav" ng-click="openProfile()">Edit your profile</a></li><!-- end ngIf: !session.email -->
+    <!-- ngIf: session.email -->
+    <!-- ngIf: session.email -->
+    <li>Already in the tribe?</li>
+    <li><a id="navLogin" href="https://www.airpair.com/v1/auth/login" track-click="sideNav">Login</a></li>
+    <li>Why join?</li>
+  </ul>
+  <a id="navAbout" track-click="sideNav" href="https://www.airpair.com/about" class="icon">
+    <span>Read about AirPair</span><img src="./Getting started with Neo4j and Cypher_files/airpair.png">
+  </a>
+</section><!-- end ngIf: session.unauthenticated -->
+
+
+<!-- ngIf: session._id -->
+
+<!-- ngIf: session._id -->
+
+
+<section class="stack"> <label>Stack</label>
+  <ul>
+    <!-- ngRepeat: tag in session.tags | orderBy:'sort' -->
+  </ul>
+  <a id="navStackToggle" track-click="sideNav" href="https://www.airpair.com/#" ng-click="openStack()" class="icon">
+    <span>Customize</span><img src="./Getting started with Neo4j and Cypher_files/stack.png"><i class="ng-binding">0</i>
+  </a>
+</section>
+
+
+<section class="bookmarks"> <label>Bookmarks</label>
+  <ul class="bookmarks">
+    <!-- ngRepeat: bookmark in session.bookmarks | orderBy:'sort' -->
+  </ul>
+  <a id="navBookmarksToggle" track-click="sideNav" href="https://www.airpair.com/#" ng-click="openBookmarks()" class="icon"><span> Manage </span> <img src="./Getting started with Neo4j and Cypher_files/bookmark(1).png"><i class="ng-binding">0</i></a>
+</section>
+
+<div stack=""></div>
+</nav>
+
+<script src="./Getting started with Neo4j and Cypher_files/1713.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/embed.js"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/post-widget.js"></script><script type="text/javascript" async="" src="./Getting started with Neo4j and Cypher_files/54b046fb22526644ea000012.js"></script><script type="text/javascript" id="analytics-js" async="" src="./Getting started with Neo4j and Cypher_files/analytics.min.js"></script><script type="text/javascript" src="./Getting started with Neo4j and Cypher_files/index-21e03fb4.js"></script>
+<script type="text/javascript">
+
+function bindTracking() {
+  ga('send', 'pageview')
+
+  $.each($('.trackPostCTA'), function(idx,el){
+    $(el).click(function (e) {
+      analytics.track('Click', { type: 'Post CTA', unit: 'code footer', idx: idx, text: el.innerHTML, location: window.location.pathname });
+
+      setTimeout(function () {
+        window.location.href = $(el).attr('href');
+      }, 350);
+
+      return false;
+    });
+  })
+
+  $.each($('.featured a.btn'), function(idx,el) {
+    $(el).click(function (e) {
+      analytics.track('Click', { type: 'Tag Feature', unit: 'featured', idx: idx, text: el.innerHTML, location: window.location.pathname });
+    });
+  })
+}
+
+window.viewData = { canonical: 'http://www.airpair.com/neo4j/posts/getting-started-with-neo4j-and-cypher', post : {"_id":"5429a779117a120b009390ea"}, session: {"authenticated":false,"sessionID":"mriby3C5dtQcmk3qTg3eGqOQR67NQGkq","avatar":"/static/img/css/sidenav/default-mario.png"}, chatSettings: {"on":false,"firebaseUrl":"https://airpair-chat.firebaseio.com"} };
+
+</script>
+
+
+<script type="text/javascript">
+
+  window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
+  window.analytics.load("0xxx5xrw5q");
+
+
+  window.analytics.ready(function() {
+
+    if (!window.bindTracking)
+      window.bindTracking = function() {};
+
+    var mixId = mixpanel.get_distinct_id()
+
+    var email = null;
+    var anonymousId = 'mriby3C5dtQcmk3qTg3eGqOQR67NQGkq';
+
+    //console.log('userEmail', email, 'mixId', mixId, 'anonymousId', anonymousId)
+
+    var ident = function() {
+      //console.log('identify', email || anonymousId)  //-- could be from a different session.
+      window.analytics.identify(email || anonymousId, { id: email || anonymousId, name: '' });
+    }
+
+
+    // If they're signed in
+    if (email && mixId != email) ident()
+
+    // If they didn't already identify their email and log out
+    else if (mixId.indexOf("@") == -1 && anonymousId != mixId)
+    {
+      setTimeout(ident,200)
+    }
+
+    bindTracking();
+  });
+
+</script>
+
+<script type="text/javascript">
+adroll_adv_id = "XF634YIRAZHM5AG2HSQDII";
+adroll_pix_id = "RJLKZHU5IFD2NP5M3C6X35";
+(function () {
+var oldonload = window.onload;
+window.onload = function(){
+   __adroll_loaded=true;
+   var scr = document.createElement("script");
+   var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+   scr.setAttribute('async', 'true');
+   scr.type = "text/javascript";
+   scr.src = host + "/j/roundtrip.js";
+   ((document.getElementsByTagName('head') || [null])[0] ||
+    document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+   if(oldonload){oldonload()}};
+}());
+</script>
+<script type="text/javascript">
+  (function() {
+    window._pa = window._pa || {};
+    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/54b046fb22526644ea000012.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+  })();
+</script>
+<script type="text/javascript">setTimeout(function(){var a=document.createElement("script");var b=document.getElementsByTagName("script")[0];a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0021/1713.js?"+Math.floor(new Date().getTime()/3600000);a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+
+
+
+
+<script src="./Getting started with Neo4j and Cypher_files/braintree.js"></script><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 835.5px; top: 3200px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 835.5px; top: 3442px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 835.5px; top: 3664px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 835.5px; top: 3893px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 835.5px; top: 4089px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 835.5px; top: 4321px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 835.5px; top: 4913px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 835.5px; top: 5255px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 835.5px; top: 6346px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 835.5px; top: 7102px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="10" data-hasqtip="true" style="left: 835.5px; top: 7972px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="11" data-hasqtip="true" style="left: 835.5px; top: 8384px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="12" data-hasqtip="true" style="left: 835.5px; top: 8587px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="13" data-hasqtip="true" style="left: 835.5px; top: 8781px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="14" data-hasqtip="true" style="left: 835.5px; top: 9189px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="15" data-hasqtip="true" style="left: 835.5px; top: 9590px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="16" data-hasqtip="true" style="left: 835.5px; top: 9812px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="17" data-hasqtip="true" style="left: 835.5px; top: 10201px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="18" data-hasqtip="true" style="left: 835.5px; top: 10452px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="19" data-hasqtip="true" style="left: 835.5px; top: 10589px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="20" data-hasqtip="true" style="left: 835.5px; top: 10754px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="21" data-hasqtip="true" style="left: 835.5px; top: 11024px; display: none;"></div><iframe class="ra1-pw-logImage" width="0" height="0" src="about:blank" style="display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe></body></html>
