@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Jason</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1..0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+  </head>
+
+  <body onload="prettyPrint()">
+        <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container marketing">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Team Cod &middot; Jason</a>
+
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="../index.html">Home</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#gettingStarted">Getting Started</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#helloWorld">Hello World</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#addTwoNumbers">Command line arguments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#api">Scala API</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+                <li><a href="./programs.html">Programs</a></li>
+
+                <li class="dropdown active">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language Info   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li class="active"><a href="./reuben.html">Reuben</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./jason.html">Jason</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./anh.html">Anh</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./aniket.html">Aniket</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <div class="container marketing">
+      <p>
+        </p>
+
+      <h1>Data Types</h1>
+      <div class="well well-large">
+      <div class="row-fluid ">
+	  
+        <p class="lead">Scala's data types are based on Java's, but all types are Objects</p>
+		<p>Scala uses many of the exact same data types as Java, and both languages use the same amount of memory and precision for their common types. However, each type in Scala is an Object, unlike Java, where there are primitive types. Therefore, you can call methods on them directly without the need of a wrapper class. The types in Scala are detailed below:</p>
+		<table border="1">
+			<tr>
+				<td>Boolean</td>
+				<td>True or false</td>
+			</tr>
+			<tr>
+				<td>Char</td>
+				<td>A unicode character held in 16 bits</td>
+			</tr>
+			<tr>
+				<td>String</td>
+				<td>A series of Chars</td>
+			</tr>
+			<tr>
+				<td>Null</td>
+				<td>An empty reference</td>
+			</tr>
+			<tr>
+				<td>Byte</td>
+				<td>A signed value held in 8 bits</td>
+			</tr>
+			<tr>
+				<td>Short</td>
+				<td>A signed value held in 16 bits</td>
+			</tr>
+			<tr>
+				<td>Int</td>
+				<td>A signed value held in 32 bits</td>
+			</tr>
+			<tr>
+				<td>Long</td>
+				<td>A signed value held in 64 bits</td>
+			</tr>
+			<tr>
+				<td>Float</td>
+				<td>A single-precision float held in 32 bits</td>
+			</tr>
+			<tr>
+				<td>Double</td>
+				<td>A double-precision float held in 64 bits</td>
+			</tr>
+		</table>
+		<br/>
+        <p>In addition to these familiar types, Scala has a few more types worth noting:</p>
+		<table border="1">
+			<tr>
+				<td>Nothing</td>
+				<td>Subtype of every other type</td>
+			</tr>
+			<tr>
+				<td>Any</td>
+				<td>Supertype of every other type</td>
+			</tr>
+			<tr>
+				<td>AnyRef</td>
+				<td>Supertype of all reference types</td>
+			</tr>
+		</table>
+		<br/>
+		<p>The need for these types arises from the limitations of the Java Virtual Machine on which Scala runs. As mentioned before, ALL types in Scala are an object, unlike in Java.</p>
+		<p>To accomplish this, all Objects in Scala descend from Any, including Java’s “primitives” and Java’s “Objects.” AnyVal extends Any and is used as a superclass to everything that was considered a primitive in Java. AnyRef holds the remainder, and is essentially equivalent to the Object class in Java. Interestingly, Any and AnyVal were recently unsealed in Scala; programmers can now extend them if desired.</p>
+		<p>The use of these types should be familiar to any Java user. For example, integer arithmetic works exactly the same. Division that yields a fractional number will be truncated. The biggest difference is that the use of autoboxing is no longer necessary. For example, in Java, to convert a char to an integer, you’d have to make use of the wrapper class Character like this:</p>
+		<pre class="prettyprint lang-java">
+              <code class="prettyprint lang-java">
+				int myInt = Character.getNumericValue(myChar);
+              </code>
+         </pre>
+		<p>But in Scala, you can call a method on myChar, resulting in a simple conversion:</p>
+		<pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+				myChar.asDigit
+              </code>
+         </pre>
+      </div>
+    </div>
+      
+   <p>
+   </p>
+      <p>
+   </p>
+   <h1>First Class Functions</h1>
+    <div class="well well-large">
+
+
+      
+      <div class="row-fluid">
+        <p class="lead">Scala allows the passing of functions as a value</p>
+		<p>In another large deviation from Java, Scala has allowed the passing of functions in the same way as other types. This is somewhat similar to using function pointers in C. More formally, a first-class function in Scala can be used, constructed, and typed just like “normal” types. Take a look at the following example:</p>
+		<pre class="prettyprint lang-scala">
+            <code class="prettyprint lang-scala">
+				def multByTwo(i : Int) = i * 2
+				val secondaryFunction : Int => Int = multByTwo
+				println(secondaryFunction(2))
+            </code>
+        </pre>
+		<p>This will result in an output of 4. Note the function multByTwo being used as a value in secondaryFunction. This allows a great deal a freedom; functions can now be put in containers, functions can actually be returned by other functions, and so on!</p>
+		<p>The example above only shows the function literal being passed as a parameter, but it is also possible to reference variables defined elsewhere. For example:</p>
+		<pre class="prettyprint lang-scala">
+            <code class="prettyprint lang-scala">
+				(myInt: Int) => myInt * outsideVar
+            </code>
+        </pre>
+		<p>Now, this function refers to a variable outsideVar that must have been declared elsewhere, while myInt is bound. If this function is used without outsideVar existing, a run-time error will occur. However, if outsideVar exists, it will evaluate as expected. The function value (which is an object in Scala) is called a closure. This name comes from the function literal being closed when the bindings of free variables such as outsideVar are determined.</p>
+    </div>
+	
+  </div>
+   <h1>Scoping</h1>
+    <div class="well well-large">
+      <div class="row-fluid">
+       
+        <p class="lead">Scala continues the modern trend of static scoping</p>
+        <p>Scala is statically scoped, like most recent languages. The scope of any variable is determined by the blocks, or nesting braces in the source. This differs from dynamic scoping, which instead makes variables available based on the nesting of function calls at run-time and cares nothing for their location.</p>
+		<p>Dynamic scoping breaks the idea of encapsulation, and would be inappropriate in an Object-Oriented language such as Scala. If passing a variable to hold state information becomes impractical due to the complexity of the program, the traditional approach is to make the variable global. This should be familiar to most Object-Oriented programmers.</p>
+      </div>
+    </div>
+
+      <footer style="padding-top:2cm;">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Team Cod </a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <link href="../assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../assets/js/prettify/prettify.js"></script>
+  </body>
+</html>

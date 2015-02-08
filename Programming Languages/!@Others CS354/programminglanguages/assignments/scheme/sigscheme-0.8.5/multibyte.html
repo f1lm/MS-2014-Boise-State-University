@@ -1,0 +1,637 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.4.5" />
+<title>Multibyte character processing in SigScheme</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revnumber, span#revdate, span#revremark {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+</style>
+</head>
+<body>
+<div id="header">
+<h1>Multibyte character processing in SigScheme</h1>
+</div>
+<h2 id="_overview">1. Overview</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SigScheme&#8217;s multibyte character handling interface is basically based on R6RS
+Unicode character handlings. See also "R6RS conformance" section and
+"Characters" subsection of "R5RS conformance" of <a href="spec.html">Specifications
+of SigScheme</a>.</p></div>
+<div class="paragraph"><p>In addition to R6RS Unicode character handlings, SigScheme supports EUC-JP,
+EUC-CN, EUC-KR and Shift_JIS character encoding schemes and they can be used
+simultaneously. But no character encoding conversion method such as iconv is
+provided at now.</p></div>
+</div>
+<h2 id="_current_character_codec">2. Current character codec</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>On SigScheme, characters and strings are processed in accordance with the
+parameter <strong>current character codec</strong>. Its initial value is specified by
+<tt>--enable-default-encoding</tt> option of the configure script and defaults to
+UTF-8. So characters and strings in SigScheme are treated as UTF-8 by default.</p></div>
+<div class="paragraph"><p>The value of current character codec can be checked by <tt>%%current-char-codec</tt>
+procedure of SigScheme extension.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>sscm&gt; (require-extension (sscm-ext))
+sscm&gt; (%%current-char-codec)
+"UTF-8"</tt></pre>
+</div></div>
+<div class="paragraph"><p>To specify another encoding as default character codec, pass <tt>-C</tt> option to
+<tt>sscm</tt> command as follows, or specify it in the second argument of
+<tt>scm_initialize()</tt>.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ sscm -C ISO-8859-1
+$ sscm -C UTF-8
+$ sscm -C EUC-JP
+$ sscm -C EUC-CN
+$ sscm -C EUC-KR
+$ sscm -C Shift_JIS</tt></pre>
+</div></div>
+<div class="paragraph"><p><tt>provided?</tt> predicate can be used to know whether an encoding is enabled by the
+configuration or not.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>(provided? "utf8")
+(provided? "eucjp")
+(provided? "euccn")
+(provided? "euckr")
+(provided? "sjis")</tt></pre>
+</div></div>
+<div class="paragraph"><p>The <tt>ISO-8859-1</tt> encoding is used as generic singlebyte character encoding and
+accepts any character represented in integer range 0-255, and always provided
+regardless of configuration.</p></div>
+<div class="paragraph"><p>Use <tt>with-char-codec</tt> procedure to switch to another encoding temporarily.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>(define euc-A (with-char-codec "EUC-JP" (lambda () (integer-&gt;char #xa4a2))))</tt></pre>
+</div></div>
+<div class="paragraph"><p>See also "Ports" section of this document for current character codec switching
+on I/O.</p></div>
+</div>
+<h2 id="_characters">3. Characters</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When the reader is working on an UTF-8 port:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>#\あ     ==&gt; #\あ  ;; U+3042 HIRAGANA LETTER A
+#\x3042  ==&gt; #\あ  ;; U+3042 HIRAGANA LETTER A</tt></pre>
+</div></div>
+<div class="paragraph"><p>Conversion between character and integer is performed based on the value of
+<tt>%%current-char-codec</tt>. When <tt>%%current-char-codec</tt> is "UTF-8", integer value
+of an Unicode character corresponds to the Unicode code point.</p></div>
+<div class="paragraph"><p>When <tt>%%current-char-codec</tt> is "UTF-8":</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>(integer-&gt;char #x3042)  ==&gt; #\あ   ;; U+3042 HIRAGANA LETTER A
+(char-&gt;integer #\あ)    ==&gt; 12354  ;; #x3042</tt></pre>
+</div></div>
+<div class="paragraph"><p>If an integer value is invalid for the current codec, an error is caused.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>(with-char-codec "UTF-8"      (lambda () (integer-&gt;char #x3042)))  ==&gt; #\あ
+(with-char-codec "ISO-8859-1" (lambda () (integer-&gt;char #x3042)))  ==&gt; error</tt></pre>
+</div></div>
+<div class="paragraph"><p>Since a character in SigScheme is internally represented as an integer value
+marked with character-object tag without any character encoding information,
+user is responsible to manage the character encoding scheme of each character
+object.</p></div>
+<div class="paragraph"><p>And no character encoding conversion is performed on integer&lt;&#8594;char conversion
+regaradless of <tt>%%current-char-codec</tt>.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>;; U+3042 HIRAGANA LETTER A in Unicode
+(define ucs-A    (with-char-codec "UTF-8"  (lambda () (integer-&gt;char #x3042))))
+
+;; HIRAGANA LETTER A in EUC-JP
+(define eucjp-A  (with-char-codec "EUC-JP" (lambda () (integer-&gt;char #xa4a2))))
+
+(eqv? ucs-A eucjp-A)  ==&gt; #f
+
+;; no conversion is performed
+(with-char-codec "UTF-8"
+  (lambda () (char-&gt;integer eucjp-A)))  ==&gt; 42146  ;; U+A4A2 YI RADICAL ZUP</tt></pre>
+</div></div>
+</div>
+<h2 id="_strings">4. Strings</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>When both reader&#8217;s port and <tt>%%current-char-codec</tt> is UTF-8:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>"\x3042;a\x3044;"        ==&gt; "あaい"
+(string-&gt;list "あaい")   ==&gt; (#\あ #\a #\い)
+(string-length "あaい")  ==&gt; 3</tt></pre>
+</div></div>
+<div class="paragraph"><p>A string in SigScheme is internally represented as a C string with its logical
+character length without character encoding information. User is responsible to
+manage the character encoding scheme of each string object. Though strings have
+no encoding information, they have logical character length counted in
+<tt>%%current-char-codec</tt> on its object creation. So processing a string in
+another encoding such as UTF-8 string as byte string cannot fully be performed.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>;; U+3042 HIRAGANA LETTER A, with string length 1 counted in UTF-8
+(define utf8-A "あ")
+
+;; string length is not re-counted even if %%current-char-codec is changed
+(with-char-codec "UTF-8"      (lambda () (string-length utf8-A)))  ==&gt; 1
+(with-char-codec "ISO-8859-1" (lambda () (string-length utf8-A)))  ==&gt; 1
+
+;; character reference of string is based on %%current-char-codec
+(with-char-codec "UTF-8"      (lambda () (string-ref utf8-A 0)))  ==&gt; #\あ
+(with-char-codec "ISO-8859-1" (lambda () (string-ref utf8-A 0)))  ==&gt; #\ã
+
+;; character reference that exceeds logical length is an error even if its
+;; physical length is enough
+(with-char-codec "UTF-8"      (lambda () (string-ref utf8-A 1)))  ==&gt; error
+(with-char-codec "ISO-8859-1" (lambda () (string-ref utf8-A 1)))  ==&gt; error</tt></pre>
+</div></div>
+</div>
+<h2 id="_identifiers">5. Identifiers</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Any Unicode characters can be used as identifiers in Scheme as R6RS allows.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>'Français-symbole
+'日本語シンボル
+(define ひらがな-&gt;カタカナ (lambda (イ . ロ) ...))</tt></pre>
+</div></div>
+<div class="paragraph"><p>But since SigScheme&#8217;s Unicode handling is incomplete, all non-ASCII Unicode
+characters are treated as ordinary letter. Though it allows using any
+whitespace characters and punctuations as identifier, it should not be done.</p></div>
+<div class="paragraph"><p>Non-ASCII identifier in SigScheme is only allowed for Unicode. In other words,
+allowed only if the reading port is UTF-8. This limitation is intended to avoid
+character identity problem between different character encodings. For example,
+WAVE DASH and FULLWIDTH TILDE may be altered to another unexpectedly if the
+source code is converted to/from non-Unicode Japanese encoding. Inhibiting
+non-Unicode identifiers is the simplest way to avoid such problems.</p></div>
+<div class="paragraph"><p>To use Unicode identifiers, prepend following line to the source code. See also
+"Ports" section to understand its mechanism.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt># /usr/bin/env sscm -C UTF-8</tt></pre>
+</div></div>
+</div>
+<h2 id="_ports">6. Ports</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+Each port is associated with a single character encoding when it is open
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>sscm&gt; (current-input-port)
+#&lt;iport mb UTF-8 file stdin&gt;</tt></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The encoding of a port is not switched to another once it is open (NOTE: a C extension that operates on low level port can alter it)
+</p>
+</li>
+<li>
+<p>
+The encoding of a port is determined by <tt>%%current-char-codec</tt> on its opening
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ sscm -C UTF-8
+sscm&gt; (%%current-char-codec)
+"UTF-8"
+
+sscm&gt; (open-output-file "/tmp/sigscheme.tmp")
+#&lt;oport mb UTF-8 file /tmp/sigscheme.tmp&gt;
+
+sscm&gt; (with-char-codec "ISO-8859-1"
+        (lambda () (open-output-file "/tmp/sigscheme.tmp")))
+#&lt;oport mb ISO-8859-1 file /tmp/sigscheme.tmp&gt;</tt></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<tt>%%current-char-codec</tt> does not affect already open ports
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>sscm&gt; (current-input-port)
+#&lt;iport mb UTF-8 file stdin&gt;
+
+sscm&gt; (with-char-codec "ISO-8859-1"
+        (lambda ()
+          (list (%%current-char-codec) (current-input-port))))
+("ISO-8859-1" #&lt;iport mb UTF-8 file stdin&gt;)</tt></pre>
+</div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Characters output to a port is encoded to a byte stream according to the port&#8217;s own character encoding regardless of <tt>%%current-char-codec</tt> value
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ sscm -C ISO-8859-1
+sscm&gt; (current-output-port)
+#&lt;oport mb ISO-8859-1 file stdout&gt;
+
+sscm&gt; (with-char-codec "UTF-8" (lambda () (write #\x3042)))
+Error: ScmMultibyteCharPort: invalid character</tt></pre>
+</div></div>
+<div class="paragraph"><p>To specify per-file character encoding, prepend following line into the
+file. The <tt>load</tt> procedure detects this line and temporarily switches
+<tt>%%current-char-codec</tt> and the encoding of the reading port until read all
+expressions from the file.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>#! /usr/bin/env sscm -C UTF-8</tt></pre>
+</div></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2007-07-16 23:42:28 JST
+</div>
+</div>
+</body>
+</html>

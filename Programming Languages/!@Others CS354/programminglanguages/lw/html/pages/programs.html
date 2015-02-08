@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Programs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1..0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+  </head>
+
+  <body onload="prettyPrint()">
+        <div class="navbar-wrapper marketing">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container marketing">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Team Cod &middot; Programs</a>
+
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="../index.html">Home</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#gettingStarted">Getting Started</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#helloWorld">Hello World</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#addTwoNumbers">Command Line Arguments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#api">Scala API</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+                <li class="active"><a href="./programs.html">Programs</a></li>
+
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language Info   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./reuben.html">Reuben</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./jason.html">Jason</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./anh.html">Anh</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./aniket.html">Aniket</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+	
+      <div class="container marketing">
+    <p></p>
+      <h1>Build Instructions</h1>
+      <div class="well">
+        
+        <p>
+          All programs below can be compiled from source by running
+          <p><code>$ scalac NAME_OF_SOURCE.scala</code></p>
+          <p>And ran by </p>
+          <p><code>$ scala NAME_OF_SOURCE</code></p>
+        </p>
+      </div>
+	<h2>Language Assignment 4 in Scala</h2>
+      <p></p>
+      <pre class="prettyprint lang-scala">
+<!--         <code> -->
+          /*
+           * la4 in scala
+           * @author: reuben tanner
+           */
+          import scala.io.Source
+          import java.io.PrintWriter
+
+          object ScanFile {
+            
+            //Scala does not have file output in the language and relies on Java's libraries
+              val writer = new PrintWriter("output.html")
+              
+              def main(args: Array[String]): Unit = {
+                
+                //getting an iterator over the lines of the file
+                val it = Source.fromFile(args(0)).getLines
+                
+                //regular expressions can be triple quoted to avoid escaping and followed by .r to produce a RegEx object
+                val csvpat = """,(?=([^\"]*\"[^\"]*\")*[^\"]*$)""".r
+                val singlepat = """[Ss]ingle""".r
+                
+                //can use semicolons or not when terminating statements
+                val description = 2;
+                //a notation in Scala for forming a list
+                val indices = 4 :: 7 :: 0 :: 5 :: 6 :: List() //date, subdname, lot, block, price
+                
+                //function call
+                printHeader
+                
+                while (it.hasNext)
+                {
+                    var next = it next
+                    
+                    //functions that are passed one parameter can be called with no . or ()
+                    var split = csvpat split next
+                    
+                    if (!singlepat.findFirstIn(split(description)).isEmpty)
+                    {
+                      writer append "&lt;tr&gt;"
+                      //iterating over the list
+                      for (index &lt;- indices)
+                      {
+                        writer append formatTd(split(index))
+                      }
+                      writer append "&lt;/tr&gt;"
+                    }
+                }
+                      
+                printFooter
+              
+                //Nested function declaration inside main
+                def formatTd(value : String) : String = {
+                  return "&lt;td&gt;" + value + "&lt;/td&gt;"
+                }
+            }
+              
+            def printHeader = {
+                writer append "&lt;html&gt; &lt;head&gt; &lt;title&gt;Realtor's-R-Us&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;Houses Near You!&lt;/h1&gt; &lt;table&gt;"
+                writer append "&lt;tr&gt; &lt;th &gt;Subdivision name&lt;/th&gt; &lt;th &gt;Price&lt;/th&gt; &lt;th &gt;Issue Date&lt;/th&gt; &lt;th &gt;Lot(s)&lt;/th&gt; &lt;th &gt;Block&lt;/th&gt; &lt;/tr&gt;"
+              }
+            
+            def printFooter = {
+                writer.append("&lt;/table&gt; &lt;/body&gt; &lt;/html&gt;")
+                writer close
+              }
+          }
+<!--         </code> -->
+      </pre>
+	  
+	  <h2>Magic Square Tester</h2>
+	  <p>The example above shows how to read input from a file. Next, let’s examine how to read input from a user. In Scala, console I/O does not require an explicit static method call off from another class, while Java requires all printing and input to go through System.in and System.out. In Scala, you can simply type:</p>
+	  <pre class="prettyprint lang-scala">
+<!--         <code> -->
+				var x = readInt()
+<!--         </code> -->
+      </pre>
+	  <p>In the following example, a potential “magic square” will be read in from the user. A magic square occurs where column, row, and full-length diagonal add to the same number in an n x n grid. For example, the following is a magic square, as every row, column, and diagonal add to 15:</p>
+	  <p>&nbsp; &nbsp; 4 9 2</p>
+	  <p>&nbsp; &nbsp; 3 5 7</p>
+	  <p>&nbsp; &nbsp; 8 1 6</p>
+	  <p>This problem also enables us to show how 2D arrays work in Scala. A 2D array can be constructed using the static method ofDim() of the Scala, standing for “of dimension”.</p>
+	  <pre class="prettyprint lang-scala">
+<!--         <code> -->
+		// Tests if an n x n grid of numbers determined by user input is a magic square. A magic
+		// square occurs when every row, column, and full-length diagonal adds to the same number.
+		//
+		//@author: Jason Allen
+		object MagicSquareTest {
+		  
+			def main(args: Array[String]) {
+
+				// determine how large the 2D array for the magic square must be from user input
+				println("Enter the number of rows/columns for the square to be tested (n): ")
+				val n = readInt()
+				var numbers = Array.ofDim[Int](n, n)
+
+				// read values for magic square in from user
+				// use until, rather than to, to avoid OutOfBoundsException (until is like <=)
+				for (row <- 0 until n) {
+					for (column <- 0 until n) {
+						println("Enter the number at row " + (row + 1) + ", column " + (column + 1) + ": " )
+						numbers(row)(column) = readInt()
+					}
+				}
+
+				// show the magic square being tested
+				println("\nThe square being tested looks like this:" )
+				for (row <- 0 until n) {
+					for (column <- 0 until n) {
+						print(numbers(row)(column) + " ")
+					}
+					println()
+				}
+
+				// isMagicSquare and firstRowSum must be used as vars, not vals, since they will need
+				// to be referenced many times as the square is investigated
+				var isMagicSquare = true
+					var firstRowSum = 0
+					for (column <- 0 until n) {
+						firstRowSum += numbers(0)(column)
+					}
+
+				// check if all rows add to the same sum as the first row
+				for (row <- 0 until n) {
+					var sum = 0
+					for (column <- 0 until n) {
+						sum += numbers(row)(column)
+					}
+					if (sum != firstRowSum) {
+						isMagicSquare = false
+					}
+				}
+
+				// check if all columns add to the same sum as the first row
+				for (column <- 0 until n) {
+					var sum = 0
+					for (row <- 0 until n) {
+						sum += numbers(row)(column)
+					}
+					if (sum != firstRowSum) {
+						isMagicSquare = false
+					}
+				}
+				
+				// check if the left to right diagonal adds to the same sum as
+				// the first row
+				var sum = 0
+				for (row <- 0 until n) {
+					for (column <- 0 until n) {
+						if (row == column) {
+							sum += numbers(row)(column)
+						}
+					}
+				}
+				if (sum != firstRowSum) {
+					isMagicSquare = false;
+				}
+				
+				// check if the right to left diagonal adds to the same sum as
+				// the first row
+				sum = 0
+				var column = n - 1
+				for (row <- 0 until n) {
+					sum += numbers(row)(column)
+					column -= 1
+				}
+				if (sum != firstRowSum) {
+					isMagicSquare = false;
+				}
+				
+				// print the result
+				if (isMagicSquare) {
+					System.out.println("\nIt's a magic square!");
+				}
+				else {
+					System.out.println("\nNot a magic square.");
+				}
+			}
+		}
+<!--         </code> -->
+      </pre>
+       <h2>Card Program</h2>
+	  <p>This program that will ask the user to enter in 4 cards, consisting of the card value and Suit. It then displays the user’s best playable hand using the following possibilities and then exit.  Number 1 listed below should be considered the best hand and number 6 the worst hand. Also, you should consider the Ace card to ALWAYS be larger in value than a King.</p>
+		<p>1. 4 of a Kind – All 4 cards have the same number, Suit doesn’t matter</p>
+		<p>2. Flush – all cards are the same Suit</p>
+		<p>3. 3 of a Kind – 3 cards have the same number, Suit doesn’t matter</p>
+		<p>4. 2 Pair – 2 cards have the same number, and the other two cards have the same number, Suit doesn’t matter</p>
+		<p>5. Pair – 2 cards have the same number, Suit doesn’t matter</p>
+		<p>6. High Card – display the highest valued card</p>
+		<pre class="prettyprint lang-scala">
+<!--         <code> -->
+		object BestHand {
+		  
+		      def main(args: Array[String]) {
+
+
+			      //the array of character to store the values of cards
+			      var values = new Array[Char](4)
+
+			      // the array of string to store the suits of cards
+			      var suit = new Array[Int](4)
+			      var i=0
+			      var y=0	
+			      
+			      println("the card must be 2,3,4,5,6,7,8,9,J,Q,K,A -case doesn't matters")
+			      println("the suite is one of these: hearts, clubs, diamonds, spades")
+			      
+			      //get the suits
+			      println("Please type in your suits")
+			      while (y<4){
+				suit(y)=readLine())
+				y=y+1
+			      }
+			      
+			      
+			      //get the values
+			      println("type in your card values ")
+			      while (i<4){
+				values(i)=Character.toUpperCase(readChar())
+				if (values(i)=='A'){
+				  values(i) = '='
+				}
+				
+				if (values(i)=='J'){
+				  values(i) = ':'
+				}
+				
+				if (values(i)=='Q'){
+				  values(i) = ';'
+				}
+				
+				if (values(i)=='K'){
+				  values(i) = '<'
+				}
+				i=i+1
+			      }
+			      
+			      //display for best hand
+			      
+			      //check for 4 of a kind
+			      if( (values(1) == values(0)) && (values(1) == values(2)) && (values(2) == values(3)) ){
+				      println("You have 4 of a kind")
+			      }
+		  
+			      //check for flush
+			      else if  ( ( suit(1) == suit(0) ) && ( suit(1) == suit(2) ) ){
+				      println("You have a fush")
+				
+			      }
+                              
+                              
+                              
+                              //check for 3 of a kind
+			      else if ((values(1) == values(0)) && (values(1) == values(2))){
+				      println( "You have 3 of a kind")
+			      }
+			      else if ((values(1) == values(0)) && (values(3) == values(1))){
+				      println( "You have 3 of a kind")
+			      }
+			      else if ((values(2) == values(0)) && (values(3) == values(2))){
+				      println( "You have 3 of a kind")
+			      }
+			       else if ((values(2) == values(1)) && (values(3) == values(2)) ){
+				      println( "You have 3 of a kind")
+			      }
+			      
+			      
+			      
+			      //check for 2 pairs
+			      else if ((values(1) == values(0)) && (values(3) == values(2))){
+				      println("You have 2 pairs")
+			      }
+			      else if ((values(2) == values(0)) && (values(1) == values(3))){
+				      println("You have 2 pairs")
+			      }
+			      
+			      else if ((values(1) == values(2)) && (values(3) == values(0))){
+					println("You have 2 pairs")
+			      }
+			      else if ((values(2) == values(0)) && (values(1) == values(2))){
+				      println("You have 2 pairs")
+			      }
+                              
+                              
+                              
+                              //check for 1 pair
+			      else if ((values(0) == values(1)) || (values(0) == values(2)) || (values(3) == values(0)) ) {
+				      println( "You have only one pair")
+			      }
+			      
+			      else if ((values(3) == values(1)) || (values(2) == values(2)) || (values(1) == values(2))) {
+				      println( "You have only one pair")
+			      }
+			      
+			      
+			      //display high card
+			      else {
+				      print("Best card: ")
+				      var temp= '2'
+				      var k=0
+				      var count=0
+				      while (k<3){
+					if (values(k)<= values(k+1){
+					      temp= values(k+1)
+					      count =k+1
+					}
+					k=k+1
+				      }
+				      if (values(i)=='='){
+					println ("A of "+ suit(count))
+				      }
+				  
+				      if (values(i)==':'){
+					println ("J of "+ suit(count))
+				      }
+			      
+				      if (values(i)==';'){
+					println ("Q of "+ suit(count))
+				      }
+				      
+				      if (values(i)=='<'){ 
+					println ("K of "+ suit(count))
+				      } else {
+					print (temp)
+					println ("of"+suit(count))
+				      }
+			      
+			      }
+		      } 
+	  
+
+<!--         </code> -->
+      </pre>
+      
+      
+<h2>Bank Program</h2>
+      <p></p>
+      <pre class="prettyprint lang-scala">
+<!--         <code> -->
+/*
+
+Bank Program
+@author: Aniket Sur
+file name: bank.scala
+
+To run this program put all contents of this file into a file called bank.scala
+Then Type the following without the $ into Terminal:
+$ scalac bank.scala
+$ scala Main
+
+This file contains the definitions for the Customer, CheckingAccount, SavingsAccount, and Bank classes. It also contains the definitions for the Account trait and the Main singleton object. The Main object has the main method that runs the Bank program.
+
+The Bank Program simulates having a checking account and a savings account.
+You can withdraw cash from your account using the withdraw method.
+You can deposit cash to your account using the deposit method.
+
+The main method in the Main object creates a CheckingAccount and a SavingsAccount for two people. It then adds all the accounts to the Bank.
+The main method prints out the account information for all bank accounts then calls Bank's accrue method with a rate of 0.02. It then prints out all the account information for all bank accounts a second time.
+
+*/
+
+
+
+//class definition for the Customer class
+class Customer(n: String) { //The constructor is the class definition.
+  private var name :String = n //name is an instance variable that gets the parameterized value n.
+  
+  override def toString() :String = {
+    name   //in Scala the last expression gets returned. We don't need a 
+		//return keyword before the returned value.
+  }
+  
+}
+
+//definition for trait. Traits are like Java Interfaces but you can
+//define some methods.
+trait Account {
+
+  protected var number :String       //no values given for these variables
+  protected var customer :Customer   //since Account is a Trait
+  protected var balance :Double
+
+  def accrue(rate: Double) :Unit    //abstract method that needs to be
+									//defined by child classes
+
+  def getBalance : Double = balance  //defined methods that can be
+									//invoked by all child classes
+
+  def deposit(amount: Double) :Unit = balance += amount
+
+  def withdraw(amount: Double) :Unit = balance -= amount
+
+  override def toString() :String = {    //toString method gives String
+										//representation of Account objects
+   number + ":" + customer + ":" + balance;
+  }
+}
+
+//class definition for CheckingAccount. we use the extends keyword when
+// created a subclass or implementing a Trait.
+class CheckingAccount(n: String, c: Customer, b: Double) extends Account {
+  var number = n;     //The class definition is the Constructor.
+  var customer = c;   // n, c, b, give values to number, customer, and balance instance variables.
+  var balance = b;
+  
+  override def accrue(rate: Double) :Unit = {} //empty method because we don't want the accrue method to do anything. But we still need to define it 
+											   //since Account was extended
+
+}
+
+//class definition for SavingsAccount
+class SavingsAccount(n: String, c: Customer, b: Double) extends Account {
+  var number = n;
+  var customer = c;
+  var balance = b;
+  
+  private var interest :Double = 0; //new instance variable interest
+									//initially initialized to 0.
+  
+//the accrue method takes a rate like .09 and calculates interest on the balance. Then adds interest to balance.
+  override def accrue(rate: Double) :Unit = { //we need to add override before def because we are overriding Account's accrue method.
+    interest = balance * rate
+    balance += interest
+  }
+}
+
+import scala.collection.mutable.Queue //import statement to get pre-defined class from Scala.
+
+//class definition for Bank class
+class Bank {
+	//creates collection variable Queue.
+  private var accounts : Queue[Account] = new Queue[Account]
+ 
+  def add(account: Account){ //adds an Account to the Queue
+    accounts.enqueue(account)
+  }
+  
+  def accrue(rate: Double){
+    for(account <- accounts)  //for every account in accounts
+      account.accrue(rate)    // call accrue with the given rate.
+  }
+  
+
+  override def toString() :String = { //print account info about all bank accounts in the Bank.
+    var r :String = ""
+    for (account <- accounts)
+      r += account + "\n"
+    r
+  }
+  
+}
+
+//definiton for the singleton object Main
+object Main {
+
+  /**
+   * @param args the command line arguments
+   */
+  def main(args: Array[String]): Unit = { //main method that runs the program.
+    var bank :Bank = new Bank()
+    var c :Customer = new Customer("Ann")
+    bank.add(new CheckingAccount("01001",c,100.00))
+    bank.add(new SavingsAccount("01002",c,200.00))
+    var c2 :Customer = new Customer("Bob")
+    bank.add(new CheckingAccount("01003",c2,1023.00))
+    bank.add(new SavingsAccount("01004",c2,1234849.00))
+    println(bank)
+    bank.accrue(0.02)
+    println(bank)
+  }
+}
+<!--         </code> -->
+      </pre>
+      <footer style="padding-top:2cm;">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Team Cod </a></p>
+      </footer>
+      
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <link href="../assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../assets/js/prettify/prettify.js"></script>
+  </body>
+</html>

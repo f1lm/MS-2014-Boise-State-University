@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.4.5" />
+<title>Release management of SigScheme</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revnumber, span#revdate, span#revremark {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+</style>
+</head>
+<body>
+<div id="header">
+<h1>Release management of SigScheme</h1>
+</div>
+<h2 id="_acknowledgement">1. Acknowledgement</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>A part of this document is based on
+<a href="http://lists.freedesktop.org/archives/uim/2005-November/001381.html">Release
+Manual for uim (draft)</a> contributed to <a href="http://code.google.com/p/uim/">uim
+project</a> by Jeroen Ruigrok van der Werven. Thank you for cooperation.</p></div>
+</div>
+<h2 id="_versioning_scheme">2. Versioning scheme</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>A SigScheme version number is built up as follows:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  major.minor.patchlevel</tt></pre>
+</div></div>
+<div class="paragraph"><p>The <em>minor</em> number is incremented for every stable release. As an example:
+1.2.3 will become 1.3.0 upon a new release.</p></div>
+<div class="paragraph"><p>There&#8217;s no limit to the <em>minor</em> version&#8217;s number, it will continue past 9 with
+10, in other words: after release 1.9.2 we will see release 1.10.0.</p></div>
+<div class="paragraph"><p>The <em>patchlevel</em> number will only be increased in the case of a bug fix or a
+security fix.</p></div>
+<div class="paragraph"><p>There is no separate versioning for unstable versions, this is simply the
+source control&#8217;s trunk revision with development snapshots being called
+<tt>sigscheme-snapshot-YYYYMMDD</tt>. With <tt>YYYYMMDD</tt> standing for the year in four,
+the month in two, and the day in two digits when the snapshot was taken.</p></div>
+<div class="paragraph"><p>And no <em>alpha</em>, <em>beta</em> or <em>RC</em> versions are released for now since the source
+codes are still drastically changing and no profit can be obtained from a
+feature freeze.</p></div>
+</div>
+<h2 id="_release_procedures">3. Release procedures</h2>
+<div class="sectionbody">
+<h3 id="_documents_update">3.1. Documents update</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Update <tt>RELNOTE</tt> and <tt>NEWS</tt>.</p></div>
+<h3 id="_declaration">3.2. Declaration</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Let all SigScheme developers know that a release is emerging, and make sure
+that no developer is having a problem on the release.</p></div>
+<h3 id="_versioning">3.3. Versioning</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Confirm the version number written in <tt>AC_INIT()</tt> of the <tt>configure.in</tt> and
+SSCM_VERSION_* of sigscheme.h prior to a release.</p></div>
+<div class="paragraph"><p>And do not forget updating <tt>src/libtool-version.mk</tt> if <tt>libsscm</tt> ABI has been
+altered from previous version.</p></div>
+<div class="paragraph"><p>Finally, update LIBGCROOTS_URL in <tt>make-dist.sh</tt>.</p></div>
+<h3 id="_test">3.4. Test</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Make all tests passed.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ ./configure --enable-maintainer-mode --enable-conf=full
+$ make check</tt></pre>
+</div></div>
+<h3 id="_tagging">3.5. Tagging</h3><div style="clear:left"></div>
+<div class="paragraph"><p>A release must be branched and tagged for development management.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ svn cp -r33xx https://uim.googlecode.com/svn/sigscheme-trunk \
+                https://uim.googlecode.com/svn/branches/sigscheme-x.y
+
+$ svn cp -r33xx https://uim.googlecode.com/svn/branches/sigscheme-x.y \
+                https://uim.googlecode.com/svn/tags/sigscheme-x.y.z</tt></pre>
+</div></div>
+<div class="paragraph"><p>If the release is a snapshot, tag as follows:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ svn cp -r33xx https://uim.googlecode.com/svn/sigscheme-trunk \
+                https://uim.googlecode.com/svn/tags/sigscheme-snapshot-YYYYMMDD</tt></pre>
+</div></div>
+<h3 id="_packaging">3.6. Packaging</h3><div style="clear:left"></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ cd /tmp
+$ svn export http://uim.googlecode.com/svn/tags/sigscheme-x.y.z
+$ cd sigscheme-x.y.z
+$ ./make-dist.sh</tt></pre>
+</div></div>
+<div class="paragraph"><p>It produces:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>sigscheme-x.y.z.tar.gz
+sigscheme-x.y.z.tar.bz2
+sigscheme-x.y.z.sum</tt></pre>
+</div></div>
+<h3 id="_publishing_and_announcements">3.7. Publishing and announcements</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Upload the file by the official uploading script:</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>http://code.google.com/p/support/wiki/ScriptedUploads</tt></pre>
+</div></div>
+<div class="paragraph"><p>Don&#8217;t forget adding appropriate tags as follows.</p></div>
+<div class="paragraph"><p>Final release:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  googlecode-upload.py -u yamakenz -p sigscheme \
+                       -s 'SigScheme 0.8.0' -l 'Stable,Featured' \
+                       sigscheme-0.8.0.tar.bz2</tt></pre>
+</div></div>
+<div class="paragraph"><p>Alpha or beta release:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  googlecode-upload.py -u yamakenz -p sigscheme \
+                       -s 'SigScheme 0.8.0-alpha' -l 'Unstable' \
+                       sigscheme-0.8.0-alpha.tar.bz2</tt></pre>
+</div></div>
+<div class="paragraph"><p>Snapshot release:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  googlecode-upload.py -u yamakenz -p sigscheme \
+                       -s 'SigScheme trunk-snapshot20070703' -l 'Snapshot' \
+                       sigscheme-trunk-snapshot20070703.tar.bz2</tt></pre>
+</div></div>
+<div class="paragraph"><p>And untag <em>Featured</em> from previous final release files by the web
+interface.</p></div>
+<div class="paragraph"><p>Then update the web pages.</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>http://code.google.com/p/sigscheme/
+http://code.google.com/p/sigscheme/wiki/SigScheme
+http://code.google.com/p/sigscheme/wiki/Download</tt></pre>
+</div></div>
+<div class="paragraph"><p>Update <em>SigScheme</em> page first and copy it into the project description
+(homepage).</p></div>
+<div class="paragraph"><p>&lt;obsolete&gt;
+The checksums of the files must not directly be written into the
+anyone-rewritable wikipage, to prevent spoofings. It should be a link to the
+release announce which contain the checksum information.
+&lt;/obsolete&gt;</p></div>
+<div class="paragraph"><p>And send a message to {sigscheme-ja,uim-en,uim-ja}@googlegroups.com</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>   &lt;write announcement here&gt;
+
+     http://code.google.com/p/sigscheme/wiki/Download
+
+   MD5 (sigscheme-0.8.0-example.tar.gz) = cff14a6ad95a6a1303b527a86d27bff4
+   MD5 (sigscheme-0.8.0-example.tar.bz2) = b2e96af101a0c51df697990f6311f6f2
+   SHA1 (sigscheme-0.8.0-example.tar.gz) = 3f152c4aa77a3a44d9f74800a8b9d8d3b6c16771
+   SHA1 (sigscheme-0.8.0-example.tar.bz2) = c870c3e8585ce8e4200fe3247021802d922781c6
+
+   &lt;append RELNOTE here&gt;</tt></pre>
+</div></div>
+<div class="paragraph"><p>Update Freshmeat entry at last.</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>http://freshmeat.net/projects/sigscheme/</tt></pre>
+</div></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2008-03-01 23:40:34 JST
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Reuben</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1..0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+  </head>
+
+  <body onload="prettyPrint()">
+        <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container marketing">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Team Cod &middot; Reuben</a>
+
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="../index.html">Home</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#gettingStarted">Getting Started</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#helloWorld">Hello World</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#addTwoNumbers">Command line arguments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#api">Scala API</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+                <li><a href="./programs.html">Programs</a></li>
+
+                <li class="dropdown active">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language Info   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li class="active"><a href="./reuben.html">Reuben</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./jason.html">Jason</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./anh.html">Anh</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./aniket.html">Aniket</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <div class="container marketing">
+      <div class="well well-large">
+      <div class="row-fluid ">
+        <h1>Model of Computation</h1>
+        <p class="lead">Scala is an elegant, multi-paradigm language combining the functional and imperative models of computing seamlessly.</p>
+        <ul>
+          <li><p>
+            Many languages nowaways are object oriented <em>in a sense of the defintion</em>. Take Java for instance, Java is object oriented in that it has a paradigm in the language where the programmer can define an object that contains fields and methods but it is not <em>purely</em> object oriented in that it distinguishes primitive values such as int, boolean and double apart from their object forms Integer, Boolean and Double and that it has static variables that are not truly the members of a single object. Scala, on the other hand, is purely object oriented rivaling even Smalltalk. In Scala, even numbers are objects so the statement <code class="prettyprint lang-scala">var = 1 + 2</code> is really the object <code class="prettyprint lang-scala">1</code> of class <code class="prettyprint lang-scala">Int</code> calling its method <code class="prettyprint lang-scala">+</code> and passing it an object <code class="prettyprint lang-scala">2</code>. The designers of Scala allow the programmer to define methods in objects with the names of operators like !, ^, @ which can be called using infix notation like <code class="prettyprint lang-scala">requester ! sum</code>.
+          </p></li>
+          <li><p>
+            One of the cooler things about Scala is that it brings the advantages of functional programming into the object oriented arena that many developers are already familiar with, making functional programming a viable option for production code in industry. Big name companies that have recognized this and begun to utilize Scala in their businesses are names that you are most certainly familiar with: Twitter, LinkedIn and Intel to name a few.   
+          </p></li>
+          <li><p>
+            Another functional aspect of Scala is that it allows the programmer to decide whether they want to write a function (or an object for that matter) to be imperative (producing side effects) or to be functional (producing no side effects). Just as Java's <code class="prettyprint lang-scala">String</code>'s are immutable and string manipulation could be considered functional in that there are no side effects on the original string, Scala implements many data types that are immutable, providing this same functionality to objects like lists, tuples, maps and sets.
+          </p></li>
+      </div>
+    </div>
+      
+    <div class="well well-large">
+      <div class="row-fluid">
+        <h1>Syntax</h1>
+        <p class="lead">In this section we will cover basic syntactic layout for Scala programs: declaration of classes, variables, functions and the like. Scala offers quite a bit of syntatic sugar as well, to make accesing its powerful constructs simpler.</p>
+        <ul>
+          <li><p>
+            To start us out, let's examine a variable declaration.
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                var one = 1
+                val two = 2
+              </code>
+            </pre>
+            <p>A <code class="prettyprint lang-scala">var</code> qualifier is how most variables will be declared in Scala.  Scala is a strongly typed language <em>but</em> its compiler uses type inference to apply strong typing while allowing most variables to be declared simply as a <code class="prettyprint lang-scala">var</code>, similarly to Javascript.
+            <p>Scala, being a functional language offers the programmer the ability to code in a purely functional manner by offering no side effects. The way it implements side effect prevention for variables is the <code class="prettyprint lang-scala">val</code> qualifier. <code class="prettyprint lang-scala">val</code> essentially makes variables final and unaffected by side effects.</p>
+          </p></li>
+
+          <li><p>
+            Now that we know how to declare a variable and are aware of Scala's type inference, let's move on to functions.
+            <pre class="prettyprint lang-scala">
+              <code>
+              def max(x: Int, y: Int): Int = {
+                  if (x > y) x
+                  else y
+              }
+            </code>
+            </pre>
+            <p>
+              <p>The Scala method signature is as follows: 
+                <pre>
+                <img src="../assets/img/methodinfo.jpg">
+              </pre>
+            </p>
+            <p>
+              This is not the only way functions are defined in Scala, the programmer can also choose to utilize anonymous functions if he so desires.
+            </p>
+            <pre class="prettyprint lang-scala">
+              <code>
+                  someNumbers.foreach(x => println(x))
+              </code>
+            </pre>
+            <p>
+              A function in this form is also known as a "lambda" in some languages like C#. The expression <code class="prettyprint lang-scala">x => println(x)</code> means that each value generated by the foreach function will temporarily take go into <code class="prettyprint lang-scala">x</code> and have println applied to it. This example is trivial but this sort of construct can reduce code clutter with semi-useless functions. 
+            </p>
+          </p></li>
+
+          <li><p>
+            Now that we've seen variables and functions let's do a class.
+            <pre class="prettyprint lang-scala">
+              <code>
+                  object HelloWorld {
+                      def main(args: Array[String]) {
+                          println("Hello, world!")
+                      }
+                  }
+              </code>
+            </pre>
+            <p>
+              Classes that contain main methods in Scala are not like a typical class, they are referred to as <code class="prettyprint lang-scala">Object</code> classes that implement the singleton pattern. It makes sense since most of the time classes that have main methods in them are used as drivers and sometimes not really as a class themselves. One of the reasons that Scala makes this distinction is because it has a baseclass <code class="prettyprint lang-scala">App</code> that is of this exact form.
+            </p>
+            <p>
+              To illustrate, an identical hello-world can be done in one line as so:
+              <pre class="prettyprint lang-scala">
+              <code>
+                  object Main extends App { println("Hello, World!") }
+              </code>
+            </pre>
+            </p>
+            <p>
+              A more traditional sum class can be executed as follows:
+              <pre class="prettyprint lang-scala">
+                <code>
+                class Sum {
+                  var runningSum
+                  def sum(args : Array[Int]) : Int =
+                  {
+                    for (arg <- args)
+                    {
+                      runningSum += arg
+                    }
+                    return runningSum
+                  } 
+                }
+                </code>
+              </pre>
+            </p>
+          </p></li>
+    </div>
+  </div>
+    <div class="well well-large">
+      <div class="row-fluid">
+        <h1>Polymorphism</h1>
+        <p class="lead">Scala's designers took quite a bit of time developing their object orientation and inheritance paradigms and the power that they give the programmer is quite immense. Notions that can be valuable but have significant drawbacks, like multiple inheritance, are implemented in Scala in a way that prevents the horrors of their predecessors.</p>
+        <ul>
+          <li><p>Scala does utilize a traditional inheritance structure and it does so through the use of its abstract classes. A class must be defined as abstract if there are to be any subclasses of it. This brings about an interesting implication: the inheritance design of a software system must be well thought out before embarking upon it because you can't extend any old object.</p></li>
+          <li><p>Along with Scala's abstract classes, Scala uses the notion of <code class="prettyprint lang-scala">Traits</code>. A trait is similar to an Java's abstract classes in that it allows the definition of unimplemented or fully implemented methods along fields. When objects are created, the different traits that it posses are combined using what the Scala designers call "mix in composition" which takes the members of a class and adds the members of its traits to it.</p></li>
+          <li><p>In my opinion, after doing research on Scala, traits seemed like the far more interesting aspect of Polymorphism found in Scala. Scala allows the programmer to mix in multiple traits to a single object, similarly to how Java allows an object to implement multiple interfaces. This is noteworthy because in Java, a class can only directly inherit from a single abstract class and implement from as many interfaces as it desires <em>but</em> in Scala a class can be mixed with as many traits as the programmer desires, offering a powerful combination of implemented and unimplemented methods as well as fields. Traits also offer the <em>is-a</em> relationship to classes that extend them.</p></li>
+          <li><p>Traits can also modify the effects of other traits. For instance, a trait <code class="prettyprint lang-scala">A</code> can extend an abstract class <code class="prettyprint lang-scala">B</code> that defines an unimplemented method. In the definition for <code class="prettyprint lang-scala">A</code>, it can implement <code class="prettyprint lang-scala">B</code>'s method and provide some modification to it. Take the following example of a trait for a queue of integers. 
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                abstract class IntQueue {
+                    def get(): Int
+                    def put(x: Int)
+                }
+              </code>
+            </pre>
+            <p>If for some reason we wanted the queue to double the elements it contains as they were being entered, we could use this trait.</p>
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                trait Doubling extends IntQueue {
+                    abstract override def put(x: Int) { super.put(2 * x) }
+                }                      
+              </code>
+            </pre> 
+            <p>
+              This is useful in that <code class="prettyprint lang-scala">Doubling</code> modifies its superclass' method and, since multiple traits can be applied to one object, the same function in one class can be augmented by the different traits that it has so that it becomes a rich, robust call that can do error checking, sanitation and normalization all in a single call.
+            </p>
+          </p></li>
+        </ul>
+        <p></p>
+      </div>
+    </div>
+
+    <div class="well well-large">
+      <div class="row-fluid">
+        <h1>Nifty features</h1>
+        <p class="lead">Many languages are overly verbose whereas some are confusingly terse, Scala seems to find a good middle ground, offering some powerful one liners but still allowing their terser versions to be used.</p>
+        <ul>
+          <li><p>Let's take a simple example of searching a string for an uppercase character. In Java, the code would look like this:
+
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+              boolean nameHasUpperCase = false;
+              for (int i = 0; i < name.length(); ++i) {
+                if (Character.isUpperCase(name.charAt(i))) {
+                  nameHasUpperCase = true;
+                  break;
+                }
+              }
+              </code>
+            </pre>
+          <p>In Scala, this for loop can be reduced to </p>
+          <pre class="prettyprint lang-scala">
+            <code class="prettyprint lang-scala">
+              val nameHasUpperCase = name.exists(_.isUpper)
+            </code>
+          </pre>
+          </p></li>
+          <li><p>
+            Let's take another example of a common programming construct: a class definition. In Java, this is a class definition
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                public class MyClass {
+                  private final int index;
+                  private final String name;
+                  public MyClass(int index, String name) {
+                    this.index = index;
+                    this.name = name;
+                  }
+                }
+              </code>
+            </pre>
+            <p>
+              The <em>exact</em> same representation is given in Scala by 
+            </p>
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                class MyClass(index: Int, name: String)
+              </code>
+            </pre>
+          </p></li>
+          <li><p>
+            Scala offers a construct called "pattern matching" which are similar to the switch statement in Java. In Java 1.7, the only values that can be switched upon are <code class="prettyprint lang-scala">int</code>'s and <code class="prettyprint lang-scala">String</code>'s, in Scala <em>classes</em> can be used for matching and, because of the functional nature of Scala, the case can result to a function stored in a variable, leading to very powerful and concise statements.
+            <p>Take the following code for example</p>
+            <pre class="prettyprint lang-scala">
+              <code class="prettyprint lang-scala">
+                def parseArgument(arg: Any) = arg match {
+                    case "-h" | "--help" => displayHelp
+                    case "-v" | "--version" => displayVerion
+                    case i:Int | d:Double => "Numbers cannot be passed as arguments"
+                    case _ => unknownArgument(_)
+                }
+              </code>
+            </pre>
+            <p>
+              Instead of having a complicated and deeply nested series of if's and else's to parse arguments to a program, this pattern matching sequence handles arguments gracefully. Let's walk through this one to illustrate its power.
+              Notice that the function is defined to take an <code class="prettyprint lang-scala">Any</code> which is analagous to <code class="prettyprint lang-scala">Object</code> in Java, so this is a fully general function and, as its first case, it checks to see if <code class="prettyprint lang-scala">arg</code> is the string "-h" without doing any <code class="prettyprint lang-scala">instanceof</code> type checking, or concern for "Cannot cast X to Y" exceptions. The second case is similar to the first. The third, however, is very unique as it is actually checking to see which type the argument belonged to (assuming that all arguments are not strings).
+              <p>The power of this pattern matching is astounding.</p>
+            </p> 
+          </p></li>
+      </div>
+    </div>
+
+      <footer style="padding-top:2cm;">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Team Cod </a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <link href="../assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../assets/js/prettify/prettify.js"></script>
+  </body>
+</html>

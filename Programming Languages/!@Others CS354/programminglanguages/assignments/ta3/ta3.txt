@@ -1,0 +1,329 @@
+6.1 We noted in Section 6.1.1 that most binary arithmetic operators are left-
+associative in most programming languages. In Section 6.1.4, however,
+we also noted that most compilers are free to evaluate the operands of a
+binary operator in either order. Are these statements contradictory? Why or
+why not?
+
+These statements are not contradictory in the strictest sense because a 
+compilers evaluation of statements doesn't directly affect the precedence that 
+a language specifies arithmetic should be evaluated in. The only situations in 
+which it would affect the mathematical result would be when the terms in an 
+expression that is being evaluated are somehow linked with each other like 
+through a side effecting function. 
+
+6.2 As noted in Figure 6.1, Fortran and Pascal give unary and binary minus the
+same level of precedence. Is this likely to lead to nonintuitive evaluations of
+certain expressions? Why or why not?
+
+No, it shouldn't cause a problem because of the order in which statements are 
+evaluted in FORTRAN (left to right).
+
+6.12 Neither Algol 60 nor Algol 68 employs short-circuit evaluation for Boolean
+expressions. In both languages, however, an if . . . then . . . else construct
+can be used as an expression. Show how to use if. . . then . . . else to achieve
+the effect of short-circuit evaluation.
+
+If we wanted to short circuit a statement like "if (result == null && result.isEmpty())" 
+using an if ... then ... else, we could write it like 
+
+if (result == null) then
+	begin
+		if (result.isEmpty()) then
+			...stuff...
+		else 
+			other stuff...
+	end
+else 
+	...skip...
+
+6.23 Consider a midtest loop, here written in C, that looks for blank lines in
+its input:
+for (;;) {
+	line = read_line();
+	if (all_blanks(line)) 
+		break;
+	consume_line(line);
+}
+
+Show how you might accomplish the same task using a while or do
+( repeat ) loop, if midtest loops were not available. (Hint: one alternative
+duplicates part of the code; another introduces a Boolean flag variable.)
+How do these alternatives compare to the midtest version?
+
+int flag = 1;
+while (flag)
+{
+	flag = all_blanks(line);
+	if (flag) consume_line(line);
+	line = read_line();
+}
+
+6.24 Rubin [Rub87] used the following example (rewritten here in C) to argue in
+favor of a goto statement:
+
+int first_zero_row = -1;
+ /* none */
+int i, j;
+for (i = 0; i < n; i++) {
+	for (j = 0; j < n; j++) {
+		if (A[i][j]) goto next;
+	}
+	first_zero_row = i;
+	break;
+	next: ;
+}
+
+The intent of the code is to find the first all-zero row, if any, of an n × n
+matrix. Do you find the example convincing? Is there a good structured
+alternative in C? In any language?
+
+Nope, not convincing. I believe this would be a good alternative in C
+
+int firstAllZeroRow(int[][] A, int n)
+{
+	int i, j;
+	for (i = 0; i < n; i++) 
+	{
+		if (allZero(A[i])
+		{
+			return i;
+		}
+	}
+}
+
+int allZero(int[] row)
+{
+	int i;
+	for (i = 0; i < n; i++)
+	{
+		if (row[i]) return 0;		
+	}
+}
+
+7.1 Most statically typed languages developed since the 1970s (including Java,
+C#, and the descendants of Pascal) use some form of name equivalence for
+types. Is structural equivalence a bad idea? Why or why not?
+
+Structural equivalence is definitely not a bad idea. The first instance that comes to mind
+where it is useful is that of structs in C and low level hardware access. If I have two 
+structs that represent two related pieces of hardware that have the exact 
+same register configuration, I should be able to set one equal to the other. Perhaps if I want
+to have a more modular design where one struct checks a certain bit in a field of a register
+and another checks a different bit.
+
+7.2 In the following code, which of the variables will a compiler consider to have
+compatible types under structural equivalence? Under strict name equiva-
+lence? Under loose name equivalence?
+
+type T = array [1..10] of integer
+	 S = T
+
+A : T
+B : T
+C : S
+D : array [1..10] of integer
+
+All following equalities are considered symmetric
+
+Structural equivalence:
+All combinations will be equivalent
+
+Strict name equivalence:
+A = B 
+
+Loose name equivalence:
+A = B = C
+
+7.5 When Sun Microsystems ported Berkeley Unix from the Digital VAX to the
+Motorola 680x0 in the early 1980s, many C programs stopped working, and
+had to be repaired. In effect, the 680x0 revealed certain classes of program
+bugs that one could “get away with” on the VAX. One of these classes of bugs
+occurred in programs that use more than one size of integer (e.g., short and
+long ), and arose from the fact that the VAX is a little-endian machine, while
+the 680x0 is big-endian (Section 5.2). Another class of bugs occurred in
+programs that manipulate both null and empty strings. It arose from the
+fact that location zero in a Unix process’s address space on the VAX always
+contained a zero, while the same location on the 680x0 is not in the address
+space, and will generate a protection error if used. For both of these classes
+of bugs, give examples of program fragments that would work on a VAX but
+not on a 680x0.
+
+Since the endianness of the machines are different, a bug caused by using
+various types of digits would not be fatal but would produce incorrect results
+
+unsigned long int register1 = 1230000000;
+unsigned short int register2 = 456;
+unsigned long int or = register1 | register2;
+
+On one machine, or would be one value and on the other it would be a different value.
+
+String manipulation probably would end up being a fatal error.
+
+char* string1 = "hello, grader";
+char* empty = "";
+char* cat = strcat(string1, empty);
+
+According to the problem description, this would crash the 680x0
+
+7.8 Suppose we are compiling for a machine with 1-byte characters, 2-byte
+shorts, 4-byte integers, and 8-byte reals, and with alignment rules that
+require the address of every primitive data element to be an even multi-
+ple of the element’s size. Suppose further that the compiler is not permitted
+to reorder fields. How much space will be consumed by the following array?
+Explain.
+A : array [0..9] of record
+	s : short
+	c : char
+	t : short
+	d : char
+	r : real
+	i : integer
+
+A : array [0..9] of record 
+	s : short (2) 	//assume this is address 0x1000, complies with even multiple rule 2*500=1000
+	c : char (1)  	//0x1004, complies with even multiple rule 0x2*0x802=0x1004
+	t : short (2)	//0x1008, complies with even multiple rule 0x2*0x804=0x1008
+	d : char (1)	//0x100a, complies with even multiple rule 0x2*0x805=0x100a
+	r : real (8)	//0x100c, complies with even multiple rule 0x100c/0x8=0x201/0x2=0x100
+	i : integer (4)	//0x1014, complies with even multiple rule 0x1014/0x4=0x405/0x2=0x202
+					//0x1018
+
+0x1018 - 0x1000 = 0x14 = 24 (base10)
+
+|s s x x|c x x x|t t d x|r r r r|r r r r|i i i i|
+
+24 (base 10) * 10 (base 10) = 240 bytes
+
+
+7.17 Suppose A is a 10×10 array of (4-byte) integers, indexed from [0][0] through
+[9][9]. Suppose further that the address of A is currently in register r1, the
+value of integer i is currently in register r2 , and the value of integer j is
+currently in register r3 .
+Give pseudo-assembly language for a code sequence that will load the
+value of A[i][j] into register r1 (a) assuming that A is implemented using
+(row-major) contiguous allocation; (b) assuming that A is implemented
+using row pointers. Each line of your pseudocode should correspond to
+a single instruction on a typical modern machine. You may use as many
+registers as you need. You need not preserve the values in r1, r2, and r3 . You
+may assume that i and j are in bounds, and that addresses are 4 bytes long.
+Which code sequence is likely to be faster? Why?
+
+a.
+mul(r31, r2, 40)	#the offset for the row i
+mul(r30, r3, 4)		#the offset	for the column j
+add(r29, r31, r30)	#the offset from the location of A
+add(r28, r29, r1)	#the address of element A[i][j]
+load(r4, r28)		#r4 now contains A[i][j]
+
+b. 
+loadaddr r2(r1)		#loads the pointer address at an offset of r2 from the address of A
+loadaddr r3(r2)		#loads the pointer address at an offset of r3 from the address of A[i]
+load(r4, r3)		#loads the value from A[i][j] into r4
+
+My initial assumption is that the pointer sequence would be faster because it takes less steps.
+But in reality, it is probably that the row major takes less steps because its operations are simple arithmetic.
+
+8.3 Using your favorite language and compiler, write a program that can tell the
+order in which certain subroutine parameters are evaluated.
+
+This is a really terrible function but it was kind of hard to think of anything else.
+The thought process behind it is to only evaluate an argument if its previous argument has been
+evaluated. It would really only work in a multithreaded environment where each argument was 
+evaluated in parallel where the indefinite else recursion would terminate eventually.
+Of course, it is also very susceptible to deadlocks and other badness...it's just plain bad.
+
+boolean[] evaluated = new boolean {true, false, false, false}
+public T evaluate(T argument, int order)
+{
+	//if this argument has not been evaluated and the argument in order before this one has been evaluated
+	//return the argument to be passed
+	if (!evaluated[order] && evaluated[order-1])
+	{
+		evaluated[order] = true;
+		return argument;
+	}
+	else
+	{
+		evaluate(argument, order);
+	}
+}
+
+//example usage
+public static void main (String[]args)
+{
+	foo(evaluate(f(x), 1), evaluate(true, 2), evaluate("hello", 3));
+}
+
+8.4 Consider the following (erroneous) program in C:
+	void foo() {
+		int i;
+		printf("%d ", i++);
+	}
+
+	int main() {
+		int j;
+		for (j = 1; j <= 10; j++) foo();
+	}
+
+Local variable i in subroutine foo is never initialized. On many systems,
+however, the program will display repeatable behavior, printing 0 1 2 3 4
+5 6 7 8 9. Suggest an explanation. Also explain why the behavior on other
+systems might be different, or nondeterministic.
+
+My explanation would be that these "many systems" that are being spoken have 
+the memory allocated for the programs usage initialized to 0 so that even though
+i is never given a specific value, the unitialized memory it picks up is actually 0.
+Or, even further, perhaps unitialized integer variables that are being evaluated are always
+set equal to a zero register or something of that nature. 
+
+The behavior would be different on other systems because they may not do this 
+"memsetting" to 0 and i would, in fact, pick up garbage memory that is not equal to 0.
+Also depending on when the program is ran and how much memory has been used,would 
+pick up a different location every time and be very nondeterministic. 
+
+8.6 Write (in the language of your choice) a procedure or function that will have
+four different effects, depending on whether arguments are passed by value,
+by reference, by value/result, or by name.
+
+
+public class Foo
+{
+	int x;
+	public static void main(String[]args)
+	{
+		x = 2;
+		foo(x);
+		System.out.println(x);
+	}
+
+	public int foo(int y)
+	{
+		y += 3;
+		System.out.println(x + ",");
+	}
+}
+
+If we assume pass by value, the output is 5,2
+If we assume pass by reference, the output is 5,5
+If we assume pass by value/result, the output is 2,5
+If we assume pass by name, the output is 5,5 (reacts similarly to pass by reference because of the simplicity
+of the function, I could write a macro that would exhibit pass by name characteristics but it wouldn't work for
+all of the other types of passing)
+
+8.9 What might we do instead?
+In some implementations of Fortran IV, the following code would print a 3.
+Can you suggest an explanation? How do you suppose more recent Fortran
+implementations get around the problem?
+c 	main program
+	call foo(2)
+	print*, 2
+	stop
+	end
+	subroutine foo(x)
+		x = x + 1
+		return
+	end
+
+What was happening in this FORTRAN program is that the constant 2 is being passed by reference
+to foo and, even though it looks like an integer literal 2, it really is a reference which is
+modified by foo and then printed.

@@ -1,0 +1,133 @@
+Reuben Tanner 113104237
+TA-2
+
+Exercise 3.2 (page 164): Consider variable allocation. Give Pascal and Scheme examples. They don’t need to compile/execute.
+
+The main thing that accounts for these differences is the fact that the language designers were different people and they had different ways of approaching the problem and saw that different types of variable allocations would be advantageous in certain situations i.e. FORTRAN as not being a recursive language figured that there would be no need to allocate more variables than what the program starts with so static allocation would be perfectly reasonable. Algol and its descendants' writers understood that since they were storing activation records on the stack so it made sense to them that the stack was the logical place for local variables to go.
+
+Example Scheme program:
+(define (sum seq)
+  (if (null? seq)
+      0
+      (+ (car seq) (sum (cdr seq)))))
+
+(display (sum '(5 6 1 8 3 7)))
+(display "\n")
+Due to the recursion involved in this program, it would not work as expected.
+
+Example Pascal program:
+...stuff
+int x := something();
+void subroutine()
+{
+  int x := somethingelse();
+}
+...stuff
+This example would not work if the variables were statically allocated because there would be a naming clash.
+
+Exercise 3.4 (page 164): Consider live, but invisible, variables. Your examples need not compile/execute.
+Give three concrete examples drawn from programming languages with which you are familiar in which a variable is live but not in scope.
+
+Example 1:
+int main()
+{
+	...stuff
+	someSubroutine()
+	...stuff
+}
+
+boolean someSubroutine()
+{
+	struct *Node node = (struct * Node)malloc(sizeof(struct Node));
+	return node; //whether null or not
+}
+in this example, this struct has been allocated and is alive in memory but it is not in scope after the call to someSubroutine.
+ 
+Example 2:
+int main()
+{
+	...stuff
+	someSubroutine()
+	...stuff
+}
+
+boolean someSubroutine()
+{
+	static int i = 0;
+	i++;
+}
+in this example, this static variable i is alive in memory but it is not in scope after the call to someSubroutine.
+
+Example 3:
+public class E3
+{
+	int shadowed = 0;
+	public static void main (String[]args)
+	{
+		int shadowed = 5;
+		...stuff
+	}
+}
+in this example, the instance variable shadowed is alive in memory but it is not in scope during the main routine because it is shadowed.
+
+Exercise 3.5 (page 164): Consider declaration order
+C Declaration - 
+11
+31
+12
+
+C# Declaration - 
+Semantic errors
+
+Modula 3 Declaration -
+33
+33
+12
+
+Exercise 3.7 (page 165): Analyze memory bugs.
+a) in the main loop, after reversing the list, the newly created, reversed list points to L and the old list is orphaned in memory
+b) she will tell him that when he enters the statement list_node* T = reverse(L); in an attempt to store the list before deleting it, he is actually simply making a pointer to the same spot in memory where delete_list(L); will be affecting and freeing the memory, thereby leaving dangling references to the nodes that were in L. 
+
+Exercise 3.8 (page 167): Port Modula-2 stacks to C. Compile, execute, and test your modules.
+#include <stdio.h>
+#include <stdlib.h>
+
+void push( int );
+int pop();
+
+int stackSize;
+int topOfStack = 0;
+int items[size];
+
+int main(int argc, char** argv)
+{
+	stackSize = atoi(argv[1]); 
+}
+
+void push(int itemToPush) {
+   items[++topOfStack] = itemToPush;
+}
+
+int pop() {
+   return items[topOfStack--];
+}
+
+Exercise 3.14 (page 168): Consider static and dynamic scope.
+static scope: 1020
+dynamic scope: 1122
+For a language with static scope, variables are only live during the scope in which they are declared whereas with dynamic scope, variables are not restricted to the scope that they are defined. 
+
+Exercise 3.18 (page 169): Consider shallow and deep binding.
+shallow binding / dynamic scoping:
+10
+20
+30
+40
+
+deep binding / dynamic scoping:
+10
+52
+33
+44
+
+The shallow binding and dynamic scoping part of this question, functions as you would expect a regular function to do but when we move to the world of dynamic scoping, things get very weird due to the fact that deep binding calls the referencing environment that the function was bound with when it was passed.

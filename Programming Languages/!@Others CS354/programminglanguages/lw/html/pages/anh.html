@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Anh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1..0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+  </head>
+
+  <body onload="prettyPrint()">
+        <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container marketing">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Team Cod &middot; Anh</a>
+
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="../index.html">Home</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#gettingStarted">Getting Started</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#helloWorld">Hello World</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#addTwoNumbers">Command line arguments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#api">Scala API</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+                <li><a href="./programs.html">Programs</a></li>
+
+                <li class="dropdown active">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language Info   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li class="active"><a href="./reuben.html">Reuben</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./jason.html">Jason</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./anh.html">Anh</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./aniket.html">Aniket</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <div class="container marketing">
+      <p>
+      </p>
+              <h1>Type Parametrization </h1>
+        <div class="well well-large">
+      <div class="row-fluid ">
+
+        
+        <ul>
+          <li><p>
+		  Type parametrization is like generics in Java; it allows programmers to create types that takes another type as parameter.
+		  <pre class="prettyprint lang-scala">
+		  <code>
+		    def position [A] {lis: List[A], value :A} : Int ={ 
+			lis.indexOf {value}  
+		    }
+		  </code>
+		  </pre>
+	      <p>In this example, the function position return index of value in List lis. The value of type A will be determined when the function is invoked </p>
+		  
+          <li><p>
+	    In Scala, parametrization is complemented by Type variance with specified constraints like covariance and contravariant.</p></li>
+          <li><p>
+	     Covariance allows you to go from generic or broader type to a narrower the type in covariant position (i.e return type). A popular application of covariance is an immutable list; an immutable list is covariant in its type parameter. For example, List[Int] is a subtype of List[Any]. Covariance is useful when you return a collection. For example, in Scala, Traversable is the parent trait for all the collection types. Because Traversable is defined with a covariant parameter, you will get the desired type of collection back even you use Seg, Iterable or List (which inherit the definition from Traversable). You denote covaraiance with + sign.
+		   <pre class="prettyprint lang-scala">
+		  <code>
+		    trait Foo[+R] {}
+		   </code>
+	      </pre>  
+	      <p>In this example, foo is the covariant in R.</p>
+	      
+          </p></li>
+           <li><p>Contravariance allows programmer to go from a narrower type to a more generic type. You can denote contravariance by using the - sign:</p>
+        <pre class="prettyprint lang-scala">
+		  <code>
+		    trait Foo[-P,+R] {}
+		   </code>
+	      </pre>  
+	      <p>In the example, foo is contravariant in P and covariant in R. We can implement foo in the following manner:</p>
+	      
+	        <pre class="prettyprint lang-scala">
+		  <code>
+		  val add: Foo[Any, Int]= {x: Int=> x+10}
+		   </code>
+	      </pre>  
+	      <p>Foo can take object as a parameter because Any is the superclass of all classes. However, it is invoked only if x is an Int. Remember that we cannot use a contravariant return type</p>
+	      
+          </p></li>
+      </div>
+    </div>
+      
+      <h1>Interpreter</h1>
+    <div class="well well-large">
+      <div class="row-fluid">
+        
+        <ul>
+          <li><p>
+	     Scala has an Interpreter. It is an interactive shell called scala or REPL( stands  for Read-Evaluate-Print Loop). The lastest version is included in the scala 2.11.0-m5 package (release date: September, 2013). It is improved with several new commands that ease its usage. In this introduction, we still use version 2.10.0 of the interpreter. You can use it by typing scala, at a command prompt:          </p></li>
+	      <pre class="prettyprint lang-scala">
+              <code>
+               $scala
+              </code>
+	      </pre>
+            <p>You will receive the following message :</p>
+            <pre class="prettyprint lang-scala">
+              <code>
+               Welcome to Scala version 2.10.0.final (Java ...).
+	       Type in expressions to have them evaluated.
+	       Type :help for more information.
+	       scala>
+              </code>
+            </pre>
+            <p>This means the Scala installation is successful and now you can run your program</p>
+            
+          <li>
+		  <p> The table bellows shows important Scala interpreter commands:</p>
+            
+             <table border="1">
+			  <tr>
+			  <td> Command </td><td> Description </td></tr>
+			  <tr>
+			  <td> :help </td><td> This command prints the help message with all the commands available in the Scala interpreter </td></tr>
+			  <tr>
+			  <td> :cp </td><td>Use this command to add a JAR file to the classpath for the Scala interpreter. </td></tr>
+			  <tr>
+			  <td> :load or :l </td><td> Scala code, you could load the file into the Scala interpreter, and all the definitions will be accessible to you.</td></tr>
+			  <tr>
+			  <td> :replay or :r </td><td>Resets the interpreter and replays all the previous commands.</td></tr>
+			  <tr>
+			  <td> :quit or :q </td><td> Exits the interpreter. </td></tr>
+			  <tr>
+			  <td> :type </td><td> Displays the type of an expression without evaluating it. </td></tr>
+			  <tr>
+			  
+			 
+	    </table>
+            
+          </p></li>
+		
+          <li><p>
+            Scala can run on the Java Virtual Machine because Scala can be compiled to Java byte code. Also, the Scala compiler contains a subset of the Java compiler and their classes can be freely mixed.
+          </p></li>
+
+         
+        </ul>
+    </div>
+    </div>
+    <h1>Casting</h1>
+    <div class="well well-large">
+      <div class="row-fluid">
+        
+        <ul>
+          <li>
+		  <p>When you want to cast a variable of one primitive type to another primitive type, you can use .toInt, .toDouble, ect. For example, if you want to cast a float  to Int</p>
+		  <pre class="prettyprint lang-scala">
+              <code>
+				val aFloat = 1.5f
+				val i : Int = aFloat.toInt
+              </code>
+            </pre>
+			</p></li>
+          <li><p>You can use explicit casting if you want to cast object or variable of any type (including the primitive types). For example, you want to cast an Object type to a String type
+	      <pre class="prettyprint lang-scala">
+		  <code>
+		    val a java.lang.Object = new java.lang.String("hello World")
+		    val val s: String = a.asInstanceOf[String]
+		  </code>
+	      </pre>
+	   </p></li>
+	   
+          
+        </ul>
+        <p></p>
+      </div>
+    </div>
+
+      <footer style="padding-top:2cm;">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Team Cod </a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <link href="../assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../assets/js/prettify/prettify.js"></script>
+  </body>
+</html>

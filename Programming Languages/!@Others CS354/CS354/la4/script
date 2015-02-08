@@ -1,0 +1,31 @@
+#!/bin/awk -f
+
+#Awk - la4 program
+
+BEGIN {
+    IGNORECASE = 1
+    FPAT = "([^,]*)|(\"[^\"]+\")"
+    printf("<html>\n<head><title>LA4 - WEBPAGE</title></head>\n<body>\n<h1>Ada County building-permit information</h1>\n");
+    printf("<table>\n");
+}
+
+/Single Family Dwelling/{
+    printf("<tr>\n");
+    for (i = 1; i <= NF; i++) {
+        if(substr($i, 1, 1) == "\"") {
+            len = length($i)
+            $i = substr($i, 2, len-2)
+        }
+        #if ($i ~ /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/) {printf("$%d = <%s>\n", i, $i)}
+        if(i < 2 || i >4) {
+            printf("<td>%s</td>\n",$i);
+        }
+    }
+printf("</tr>\n");
+}
+
+END {
+    printf("</table>\n");
+    printf("</body></html>\n");
+}
+

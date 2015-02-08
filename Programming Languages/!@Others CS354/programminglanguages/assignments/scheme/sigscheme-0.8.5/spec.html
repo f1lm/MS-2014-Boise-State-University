@@ -1,0 +1,1554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.4.5" />
+<title>Specifications of SigScheme</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revnumber, span#revdate, span#revremark {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+</style>
+</head>
+<body>
+<div id="header">
+<h1>Specifications of SigScheme</h1>
+</div>
+<h2 id="_general">1. General</h2>
+<div class="sectionbody">
+<h3 id="_64_bit_data_models">1.1. 64-bit data models</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Supports LL64, LLP64, LP64 and ILP64 on both storage-fatty and storage-compact.</p></div>
+<h3 id="_addressable_memory_space">1.2. Addressable memory space</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Ordinary storage implementation can address any Scheme object scattered on
+whole memory space. Both storage-fatty and storage-compact have no
+limitation on any 32 and 64-bit data models. But it may be limited if a
+storage implementation is designed to do so for some specific advantages,
+as like GNU Emacs' 28-bit tagged pointer does.</p></div>
+<h3 id="_integer_range">1.3. Integer range</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Current implementation only supports fixnum, and its range varies by the
+user-selected underlying storage implementation. The range can be known via
+R6RS (R5.91RS) compatible <tt>(fixnum-width)</tt>, <tt>(least-fixnum)</tt> and
+<tt>(greatest-fixnum)</tt>.</p></div>
+</div>
+<h2 id="_r5rs_conformance">2. R5RS conformance</h2>
+<div class="sectionbody">
+<h3 id="_proper_tail_recursion">2.1. Proper tail recursion</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Supported. But the conformance of <tt>eval</tt> procedure is uncertain. See the
+comments of <tt>scm_p_eval()</tt> and <tt>rec-by-eval</tt> of <tt>test-tail-rec.scm</tt> for further
+information about <tt>eval</tt>.</p></div>
+<h3 id="_continuations">2.2. Continuations</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Limited to nested use due to its setjmp/longjmp implementation. If a
+continuation that is not an ancestor of current continuation called, all
+continuation objects lying between the curent and the common ancestor of
+the destination are invalidated. Calling an invalidated continuation object
+causes an error.</p></div>
+<h3 id="_hygienic_macros">2.3. Hygienic macros</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The hygienic macros are fully supported. But although the macro expansion
+engine itself works well and can be expected as R5RS-conformant, its
+integration into SigScheme is not fully validated yet. It is likely having a
+problem on identifier references. So the feature is disabled by default on most
+configurations.</p></div>
+<div class="paragraph"><p>In addition to the validity problem, there is an architectural inefficiency.
+Since SigScheme development had been started as macro-less naive system, it
+lacks the concepts <em>compilation</em>, <em>macro-expansion phase</em> and <em>lexical
+environment</em>. So current SigScheme implementation adopted runtime macro
+expansion. A macro form is kept untransformed in program, and expanded
+immediately before each evaluation. For example, following code causes macro
+expansion on each <tt>map-caddr</tt> call.</p></div>
+<div class="listingblock">
+<div class="title">Macro expansion inefficiency</div>
+<div class="content">
+<pre><tt>(define-syntax compose-internal
+  (syntax-rules ()
+    ((compose-internal f x)     (f x))
+    ((compose-internal f g ...) (f (compose-internal g ...)))))
+
+(define-syntax compose
+  (syntax-rules ()
+    ((compose)         values)
+    ((compose f)       f)
+    ((compose f g ...) (lambda (x) (compose-internal f g ... x)))))
+
+(define map-caddr
+  (lambda (lst)
+    (map (compose car cdr cdr) lst)))</tt></pre>
+</div></div>
+<div class="paragraph"><p>Since it is considerably inefficient in many cases, keep in mind the expansion
+cost. The inefficiency problem is expected to be resolved in SigScheme 0.9.0.</p></div>
+<h3 id="_numbers">2.4. Numbers</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme supports only the integer part of the numerical tower.</p></div>
+<h4 id="_literals">2.4.1. Literals</h4>
+<div class="paragraph"><p>SigScheme recognizes only these limited part of numerical forms of "7.1.1
+Lexical structure" section of R5RS. Other valid R5RS forms for numbers produce
+errors.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  &lt;number&gt; --&gt; &lt;num 2&gt;| &lt;num 8&gt;
+       | &lt;num 10&gt;| &lt;num 16&gt;
+
+  &lt;num R&gt; --&gt; &lt;prefix R&gt; &lt;complex R&gt;
+  &lt;complex R&gt; --&gt; &lt;real R&gt;
+  &lt;real R&gt; --&gt; &lt;sign&gt; &lt;ureal R&gt;
+  &lt;ureal R&gt; --&gt; &lt;uinteger R&gt;
+  &lt;uinteger R&gt; --&gt; &lt;digit R&gt;+ #*   ;; '#' must not occur
+  &lt;prefix R&gt; --&gt; &lt;radix R&gt;
+
+  &lt;sign&gt; --&gt; &lt;empty&gt;  | + |  -
+  &lt;radix 2&gt; --&gt; #b
+  &lt;radix 8&gt; --&gt; #o
+  &lt;radix 10&gt; --&gt; &lt;empty&gt; | #d
+  &lt;radix 16&gt; --&gt; #x
+  &lt;digit 2&gt; --&gt; 0 | 1
+  &lt;digit 8&gt; --&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+  &lt;digit 10&gt; --&gt; &lt;digit&gt;
+  &lt;digit 16&gt; --&gt; &lt;digit 10&gt; | a | b | c | d | e | f
+  &lt;digit&gt; --&gt; 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9</tt></pre>
+</div></div>
+<div class="paragraph"><p>SigScheme accepts only lower case alphabets as radices as follows. But
+hexadecimal digits can be written as either lower or upper.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  #b11  ==&gt;  3
+  #B11  ==&gt;  error
+  #xa1  ==&gt;  161
+  #Xa1  ==&gt;  error
+  #xAb  ==&gt;  171</tt></pre>
+</div></div>
+<div class="paragraph"><p>SigScheme uses a fixed-size buffer for number literals parsing. Due to the
+implementation, it can accept only one optional <em>0</em> prefix for maximum-length
+binary number literals. Two or more <em>0</em> prefixes causes an error as follows.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  ;; storage-compact on ILP32 env
+
+  (greatest-fixnum)                      ==&gt; 2147483647
+  #b11111111000000001111111100000000     ==&gt; 4278255360
+  #b011111111000000001111111100000000    ==&gt; 4278255360
+  #b0011111111000000001111111100000000   ==&gt; error
+  #b00011111111000000001111111100000000  ==&gt; error</tt></pre>
+</div></div>
+<h4 id="_optional_procedures">2.4.2. Optional procedures</h4>
+<div class="paragraph"><p>The procedures <em>-</em> and <em>/</em> support following optional form.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  6.2.5 Numerical operations
+
+  optional procedure: - z1 z2 ...
+  optional procedure: / z1 z2 ...</tt></pre>
+</div></div>
+<h3 id="_characters">2.5. Characters</h3><div style="clear:left"></div>
+<div class="paragraph"><p>All character category-sensitive procedures and predicates (such as
+char-upcase) work correctly only in ASCII range. i.e. Neither Unicode
+processing specified in R6RS nor other non-Unicode multibyte character
+processing are supported in such procedures/predicates.</p></div>
+<h3 id="_non_ascii_charcter_acceptance">2.6. Non-ASCII charcter acceptance</h3><div style="clear:left"></div>
+<div class="paragraph"><p><tt>integer-&gt;char</tt> only accepts valid characters of current character codec. If
+no multibyte character codec is enabled on configuration, it accepts 0-255.</p></div>
+<div class="paragraph"><p>If no multibyte character codec is enabled on configuration, character
+literal only covers ASCII.</p></div>
+<div class="paragraph"><p>If UTF-8 codec is enabled and is the current codec, character literal covers
+all valid Unicode charcters.</p></div>
+<h3 id="_whitespace_charcters">2.7. Whitespace charcters</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme treats vertical tab (0x0b) as a white space charcter although
+R5RS <tt>char-whitespace?</tt> does not cover it.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  R5RS: 6.3.4 Characters
+
+  The whitespace characters are space, tab, line feed, form feed, and
+  carriage return.</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  R6RS Standard Libraries: 1.1  Characters
+
+  A character is whitespace if it is in one of the space, line, or
+  paragraph separator categories (Zs, Zl or Zp), or if is U+0009
+  (Horizontal tabulation), U+000A (Line feed), U+000B (Vertical
+  tabulation), U+000C (Form feed), or U+000D (Carriage return).</tt></pre>
+</div></div>
+<h3 id="_case_insensitive_character_comparison">2.8. Case-insensitive character comparison</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme&#8217;s case-insensitive comparison conforms to the foldcase&#8217;ed
+comparison described in R6RS and SRFI-13, although R5RS does not specify
+comparison between alphabetic and non-alphabetic char.</p></div>
+<div class="paragraph"><p>See the description in sigschemeinternal.h for further details.</p></div>
+<h3 id="_case_sensitive_identifiers">2.9. Case-sensitive identifiers</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme does distinguish letter case in indentifiers. Although case
+insensitivity is required in R5RS as follows, it is hard to accept for the
+our application.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  2. Lexical conventions
+
+  Upper and lower case forms of a letter are never distinguished except
+  within character and string constants. For example, `Foo' is the same
+  identifier as `FOO', and #x1AB is the same number as #X1ab.</tt></pre>
+</div></div>
+<h3 id="_constant_string">2.10. Constant string</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme treats string literals as constant as specified in R5RS.</p></div>
+<div class="exampleblock">
+<div class="title">constant string</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (string-set! "foo" 0 #\F)
+Error: in string-set!: attempted to modify immutable string: "foo"</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (string-set! (string-copy "foo") 0 #\F)
+"Foo"</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_constant_list">2.11. Constant list</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme inhibits modification of constant list object by default as
+specified in R5RS, if the storage implementation suports it. storage-fatty
+supports it, but storage-compact does not due to no bit space for pair
+object.</p></div>
+<div class="paragraph"><p>The behavior can be changed by <tt>SCM_CONST_LIST_LITERAL</tt>.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  4.1.2 Literal expressions
+
+      `(quote &lt;datum&gt;)' may be abbreviated as '&lt;datum&gt;. The two notations
+      are equivalent in all respects.
+
+      'a                                     ==&gt;  a
+      '#(a b c)                              ==&gt;  #(a b c)
+      '()                                    ==&gt;  ()
+      '(+ 1 2)                               ==&gt;  (+ 1 2)
+      '(quote a)                             ==&gt;  (quote a)
+      ''a                                    ==&gt;  (quote a)
+
+      As noted in section 3.4 Storage model, it is an error to alter a
+      constant (i.e. the value of a literal expression) using a mutation
+      procedure like `set-car!' or `string-set!'.
+
+  6.3.2 Pairs and lists
+
+  procedure: set-car! pair obj
+
+      Stores obj in the car field of pair. The value returned by `set-car!'
+      is unspecified.
+
+      (define (g) '(constant-list))
+      (set-car! (g) 3)                       ==&gt;  error</tt></pre>
+</div></div>
+<h3 id="_constant_vector">2.12. Constant vector</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme inhibits modification of constant vector object by default as
+specified in R5RS, if the storage implementation suports it. storage-fatty
+supports it, but storage-compact is not yet.</p></div>
+<div class="paragraph"><p>The behavior can be changed by <tt>SCM_CONST_VECTOR_LITERAL</tt>.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  6.3.6 Vectors
+
+  procedure: vector-set! vector k obj
+
+      (vector-set! '#(0 1 2) 1 "doe")
+                ==&gt;  error  ; constant vector</tt></pre>
+</div></div>
+<h3 id="_quote_less_null_list">2.13. Quote-less null list</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme allows quote-less null list by default for convenience and
+performance. But it can be error as specified in R5RS, when <tt>SCM_STRICT_R5RS</tt>
+is enabled.</p></div>
+<div class="exampleblock">
+<div class="title">SCM_STRICT_R5RS disabled</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (null? ())
+#t</tt></pre>
+</div></div>
+</div></div>
+<div class="exampleblock">
+<div class="title">SCM_STRICT_R5RS enabled</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (null? ())
+Error: eval: () is not a valid R5RS form. use '() instead</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_quote_less_vector_literal">2.14. Quote-less vector literal</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Sigscheme inhibits quote-less vector literal by default, as specified in
+R5RS.</p></div>
+<div class="paragraph"><p>The behavior can be changed by <tt>SCM_STRICT_VECTOR_FORM</tt>.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  6.3.6 Vectors
+
+  Vectors are written using the notation #(obj ...). For example, a vector
+  of length 3 containing the number zero in element 0, the list `(2 2 2 2)'
+  in element 1, and the string `"Anna"' in element 2 can be written as
+  following:
+
+  #(0 (2 2 2 2) "Anna")
+
+  Note that this is the external representation of a vector, not an
+  expression evaluating to a vector. Like list constants, vector constants
+  must be quoted:
+
+  '#(0 (2 2 2 2) "Anna")
+            ==&gt;  #(0 (2 2 2 2) "Anna")</tt></pre>
+</div></div>
+<div class="exampleblock">
+<div class="title">vector literals</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; #(1 2 3)
+Error: eval: #() is not a valid R5RS form. use '#() instead
+sscm&gt; '#(1 2 3)
+#(1 2 3)</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_environment_specifiers">2.15. Environment specifiers</h3><div style="clear:left"></div>
+<div class="paragraph"><p><tt>(null-environment)</tt> and <tt>(scheme-report-environment)</tt> does not return correct
+environemnt specified in R5RS. Current implementation returns same object
+of <tt>(interaction-environment)</tt>.</p></div>
+<h3 id="_internal_definitions">2.16. Internal definitions</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme strictly conforms to the <em>internal definitions</em> defined in R5RS
+(cited below) if <tt>SCM_STRICT_DEFINE_PLACEMENT</tt> is enabled (default). It can be
+disabled to get the syntax loosen, shrink the footprint and reduce runtime
+cost.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  5.2.2 Internal definitions
+
+  Definitions may occur at the beginning of a &lt;body&gt; (that is, the body of a
+  lambda, let, let*, letrec, let-syntax, or letrec-syntax expression or that of
+  a definition of an appropriate form). Such definitions are known as internal
+  definitions as opposed to the top level definitions described above.</tt></pre>
+</div></div>
+<h3 id="_superfluous_arguments">2.17. Superfluous arguments</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Superfluous or dotted arguments are strictly rejected as an error if
+<tt>SCM_STRICT_ARGCHECK</tt> is enabled. Otherwise ignored. Resource-sensitive
+apprication could disable it.</p></div>
+<div class="exampleblock">
+<div class="title">SCM_STRICT_ARGCHECK enabled</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (car '(1 2) 3 4)
+Error: in (function call): superfluous argument(s): (3 4)
+sscm&gt; (symbol? 'foo . #t)
+Error: in (function call): improper argument list terminator: #t
+sscm&gt; (+ 3 4 . 5)
+Error: in (reduction): improper argument list terminator: 5</tt></pre>
+</div></div>
+</div></div>
+<div class="exampleblock">
+<div class="title">SCM_STRICT_ARGCHECK disabled</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (car '(1 2) 3 4)
+1
+sscm&gt; (symbol? 'foo . #t)
+#t
+sscm&gt; (+ 3 4 . 5)
+7</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_promises">2.18. Promises</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme only supports explicit forcing. And passing non-promise objects to
+force is an error.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  (+ (delay (* 3 7)) 13)            ==&gt;  error</tt></pre>
+</div></div>
+<h3 id="_syntaxes_procedures_not_implemented">2.19. Syntaxes/procedures not implemented</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Following R5RS syntaxes and procedures are not implemented (yet).</p></div>
+<h4 id="_numbers_2">2.19.1. Numbers</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> complex? obj
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> real? obj
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> rational? obj
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> exact? z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> inexact? z
+</p>
+</li>
+<li>
+<p>
+<strong>library procedure:</strong> gcd n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>library procedure:</strong> lcm n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> numerator q
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> denominator q
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> floor x
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> ceiling x
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> truncate x
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> round x
+</p>
+</li>
+<li>
+<p>
+<strong>library procedure:</strong> rationalize x y
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> exp z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> log z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> sin z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> cos z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> tan z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> asin z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> acos z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> atan z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> atan y x
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> sqrt z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> expt z1 z2
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> make-rectangular x1 x2
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> make-polar x3 x4
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> real-part z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> imag-part z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> magnitude z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> angle z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> exact&#8594;inexact z
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> inexact&#8594;exact z
+</p>
+</li>
+</ul></div>
+<h4 id="_system_interface">2.19.2. System interface</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>optional procedure:</strong> transcript-on filename
+</p>
+</li>
+<li>
+<p>
+<strong>optional procedure:</strong> transcript-off
+</p>
+</li>
+</ul></div>
+</div>
+<h2 id="_srfi_conformance">3. SRFI conformance</h2>
+<div class="sectionbody">
+<h3 id="_srfi_0_feature_based_conditional_expansion_construct">3.1. SRFI-0  Feature-based conditional expansion construct</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Supported. But since the macro expansion is performed at evaluation-time and
+the expanded form is not stored as the code, the form may be expanded
+differently at next time.</p></div>
+<h3 id="_srfi_1_list_library">3.2. SRFI-1  List Library</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>It is based on the reference implementation of SRFI-1. Some procedures are
+replaced with efficient C implementation. And bugs in <tt>delete-duplicates!</tt>,
+<tt>lset-xor</tt>, <tt>lset-xor!</tt> and <tt>list=</tt> of the reference implementation are fixed.</p></div>
+<h3 id="_srfi_2_and_let">3.3. SRFI-2 AND-LET*</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<h3 id="_srfi_6_basic_string_ports">3.4. SRFI-6 Basic String Ports</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<h3 id="_srfi_8_receive">3.5. SRFI-8 receive</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<h3 id="_srfi_9_defining_record_types">3.6. SRFI-9 Defining Record Types</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>It is based on the reference implementation of SRFI-9. But different to the
+original implementation, <tt>eval</tt> procedure of the SigScheme port accepts
+<tt>(interaction-environment)</tt> as environment argument.</p></div>
+<h3 id="_srfi_22_running_scheme_scripts_on_unix">3.7. SRFI-22 Running Scheme Scripts on Unix</h3><div style="clear:left"></div>
+<div class="paragraph"><p>SigScheme only supports the prelude line interpretation. All options written in
+the line are applied as same as commandline invocation of sscm. But the <tt>main</tt>
+procedure invocation is not supported (yet).</p></div>
+<div class="exampleblock">
+<div class="title">Prelude line is interpreted as follows</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>#! /usr/bin/env sscm -C UTF-8
+...</tt></pre>
+</div></div>
+<div class="literalblock">
+<div class="content">
+<pre><tt>==&gt; Character encoding for the file is changed to UTF-8 temporarily.</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_srfi_23_error_reporting_mechanism">3.8. SRFI-23 Error Reporting Mechanism</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>If srfi-34 is provided, the <tt>error</tt> procedure throws a SigScheme-specific error
+object in cooperate with "SRFI-34 Exception Handling for Programs". Otherwise
+it simply calls scm_fatal_error(). Since the error objects are represented as a
+list, be careful on catching an exception based on its type.  If you want to
+distinguish the error objects from ordinary lists, use SigScheme-specific
+<tt>%%error-object?</tt> predicate.</p></div>
+<div class="exampleblock">
+<div class="title">Error objects are also caught as a list</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (guard (obj ((pair? obj) obj)) (error "reason" 1 2 3))
+#&lt;error "reason" 1 2 3&gt;</tt></pre>
+</div></div>
+</div></div>
+<div class="exampleblock">
+<div class="title">Error object internal</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (define err (guard (err (#t err)) (error "reason" 1 2 3)))
+err
+sscm&gt; err
+#&lt;error "reason" 1 2 3&gt;
+sscm&gt; (pair? err)
+#t
+sscm&gt; (car err)
+(#&lt;undef&gt; . #&lt;undef&gt;)
+sscm&gt; (%%error-object? err)
+#t</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_srfi_28_basic_format_strings">3.9. SRFI-28 Basic Format Strings</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>A directive-less tilde at end of a format string causes an error as same as the
+reference implementation of SRFI-28.</p></div>
+<div class="exampleblock">
+<div class="title">SigScheme</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>(format "~")   ==&gt; error
+(format "a~")  ==&gt; error</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_srfi_34_exception_handling_for_programs">3.10. SRFI-34 Exception Handling for Programs</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<h3 id="_srfi_38_external_representation_for_data_with_shared_structure">3.11. SRFI-38 External Representation for Data with Shared Structure</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Only <tt>write-with-shared-structure</tt> is implemented and
+<tt>read-with-shared-structure</tt> is not. The optional alias <tt>write/ss</tt> described in
+SRFI-38 is also defined. The optional <tt>optarg</tt> argument is simply ignored.</p></div>
+<div class="paragraph"><p>The shared index starts with #1 (not #0).</p></div>
+<div class="exampleblock">
+<div class="title">Shared index starts with #1</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>sscm&gt; (define lst (list 'a 'b))
+lst
+sscm&gt; (set-cdr! lst lst)
+#1=(a . #1#)
+sscm&gt; lst
+#1=(a . #1#)</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_srfi_43_vector_library">3.12. SRFI-43 Vector library</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>It is based on the reference implementation of SRFI-43.</p></div>
+<h3 id="_srfi_48_intermediate_format_strings">3.13. SRFI-48 Intermediate Format Strings</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>The <em>d</em> part of <em>~w,dF</em> directive is acceptable, but completely ignored on
+output format. Since SigScheme only supports integer currently, number is
+always formatted as integer even if the <em>d</em> part is specified.</p></div>
+<div class="exampleblock">
+<div class="title">Proper behavior</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>(format "~3F"   3)  ==&gt; "  3"
+(format "~3,2F" 3)  ==&gt; "3.00"</tt></pre>
+</div></div>
+</div></div>
+<div class="exampleblock">
+<div class="title">SigScheme</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>(format "~3F"   3)  ==&gt; "  3"
+(format "~3,2F" 3)  ==&gt; "  3"</tt></pre>
+</div></div>
+</div></div>
+<div class="paragraph"><p>Although the reference implementation of SRFI-48 allows directive-less tilde at
+end of a format string, SigScheme rejects it as an error since it decreases
+user-code portability, and is confusable due to that the behavior is different
+to the reference implementation of SRFI-28.</p></div>
+<div class="exampleblock">
+<div class="title">Reference implementation of SRFI-48</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>(format "~")   ==&gt; "~"
+(format "a~")  ==&gt; "a~"</tt></pre>
+</div></div>
+</div></div>
+<div class="exampleblock">
+<div class="title">SigScheme</div>
+<div class="exampleblock-content">
+<div class="literalblock">
+<div class="content">
+<pre><tt>(format "~")   ==&gt; error
+(format "a~")  ==&gt; error</tt></pre>
+</div></div>
+</div></div>
+<h3 id="_srfi_55_require_extension">3.14. SRFI-55 require-extension</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<h3 id="_srfi_60_integer_as_bits">3.15. SRFI-60 Integer as Bits</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Only following procedures are implemented.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Bitwise Operations
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> logand n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-and n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> logior n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-ior n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> logxor n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-xor n1 &#8230;
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> lognot n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-not n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-if mask n0 n1
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bitwise-merge mask n0 n1
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> logtest j k
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> any-bits-set? j k
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<div class="paragraph"><p>And the others listed below are not.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Integer Properties
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> logcount n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bit-count n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> integer-length n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> log2-binary-factors n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> first-set-bit n
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Bit Within Word
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> logbit? index n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> bit-set? index n
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> copy-bit index from bit
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Field of Bits
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> bit-field n start end
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> copy-bit-field to from start end
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> ash n count
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> arithmetic-shift n count
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> rotate-bit-field n count start end
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> reverse-bit-field n start end
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Bits as Booleans
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<strong>procedure:</strong> integer&#8594;list k len
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> integer&#8594;list k
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> list&#8594;integer list
+</p>
+</li>
+<li>
+<p>
+<strong>procedure:</strong> booleans&#8594;integer bool1 &#8230;
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<h3 id="_srfi_69_basic_hash_tables">3.16. SRFI-69 Basic hash tables</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>It is just the reference implementation of SRFI-69. The hash functions are not
+yet optimized for SigScheme.</p></div>
+<h3 id="_srfi_95_sorting_and_merging">3.17. SRFI-95 Sorting and Merging</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Fully supported.</p></div>
+<div class="paragraph"><p>It is just the reference implementation of SRFI-95 (sort.scm of SLIB).</p></div>
+</div>
+<h2 id="_r6rs_conformance">4. R6RS conformance</h2>
+<div class="sectionbody">
+<h3 id="_r6rs_characters">4.1. R6RS characters</h3><div style="clear:left"></div>
+<div class="paragraph"><p>R6RS characters are partially implemented based on R5.92RS. But since R6RS
+specification is not finalized yet, future SigScheme may change the
+specification around R6RS characters.</p></div>
+<h4 id="_current_r6rs_characters_status">4.1.1. Current R6RS characters status</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Supports Unicode character literals such as #\λ
+</p>
+</li>
+<li>
+<p>
+Supports #x&lt;digit16&gt;+ literals
+</p>
+</li>
+<li>
+<p>
+Supports \x&lt;digit16&gt;+; literals in string
+</p>
+</li>
+<li>
+<p>
+Supports Unicode identifiers (but lacks character category validation)
+</p>
+</li>
+<li>
+<p>
+Supports all named chars such as #\backspace, #\esc, and #\nul
+</p>
+</li>
+<li>
+<p>
+Quoted-symbol by vertical bar (such as '|-symbol|) is not supported yet
+</p>
+</li>
+<li>
+<p>
+Invalidly accepts non-all-lower-case character names such as #\Tab and #TAB
+</p>
+</li>
+</ul></div>
+<h4 id="_todos">4.1.2. TODOs</h4>
+<div class="ulist"><ul>
+<li>
+<p>
+Support new escapes in string (\&lt;linefeed&gt; and \&lt;space&gt;)
+</p>
+</li>
+<li>
+<p>
+Confirm symbol escape syntax (not defined in R6RS yet)
+</p>
+</li>
+<li>
+<p>
+Support Unicode character category validation for identifiers
+</p>
+</li>
+<li>
+<p>
+Disable #\newline on R6RS-compatible mode
+</p>
+</li>
+</ul></div>
+</div>
+<h2 id="_sigscheme_extensions">5. SigScheme extensions</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>If <tt>--enable-sscm-extensions</tt> is specified for configure script explicitly or
+implicitly, these features can be used.</p></div>
+<h3 id="_legacy_macro">5.1. Legacy macro</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Legacy and common <tt>define-macro</tt> is provided to define syntactic closures. But
+SigScheme&#8217;s implementation is having some limitations.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The closure can only be defined with top-level environment due to an
+    internal implementation trick
+</p>
+</li>
+<li>
+<p>
+Macro forms are kept untransformed in program, and expanded immediately
+    before each evaluation, as if they are ordinary syntaxes
+</p>
+</li>
+<li>
+<p>
+<tt>define-macro</tt> destructively modifies closure object
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>To avoid problems related to these limitations, side-effect in macros are
+strongly discouraged. See following examples for each limitation.</p></div>
+<div class="listingblock">
+<div class="title">The closure can only be defined with top-level environment</div>
+<div class="content">
+<pre><tt>(define-macro m
+  (let ((?var 3))
+    (lambda ()
+      ?var)))    ==&gt;  error</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">Macro forms are kept untransformed in program</div>
+<div class="content">
+<pre><tt>(define cnt 0)
+(define-macro m
+  (lambda ()
+    (set! cnt (+ cnt 1))
+    cnt))
+(define proc-m
+  (lambda ()
+    (m)))
+
+(proc-m)  ==&gt;  1
+(proc-m)  ==&gt;  2  ;; ordinary Scheme implementation returns 1
+(proc-m)  ==&gt;  3  ;; ordinary Scheme implementation returns 1</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title"><tt>define-macro</tt> destructively modifies closure object</div>
+<div class="content">
+<pre><tt>(define f
+  (lambda (x) (* x x)))
+(f (+ 1 2))     ==&gt;  9
+(procedure? f)  ==&gt;  #t
+
+(define-macro mf f)
+(mf (+ 1 2))    ==&gt;  error
+(mf 3)          ==&gt;  9
+(f (+ 1 2))     ==&gt;  error
+(procedure? f)  ==&gt;  error</tt></pre>
+</div></div>
+<div class="paragraph"><p>See <tt>test-legacy-macro.scm</tt> to know more detailed specification.</p></div>
+<h3 id="_let_optionals">5.2. let-optionals*</h3><div style="clear:left"></div>
+<div class="paragraph"><p><tt>let-optionals*</tt> is provided for optional argument processing. The
+specification is exactly same as Gauche 0.8.8. See <tt>test-sscm-ext.scm</tt> for
+further information.</p></div>
+</div>
+<h2 id="_siod_compatibility">6. SIOD compatibility</h2>
+<div class="sectionbody">
+<h3 id="_siod_specific_features">6.1. SIOD specific features</h3><div style="clear:left"></div>
+<div class="paragraph"><p>If <tt>--enable-compat-siod</tt> is specified for configure script explicitly or
+implicitly, some SIOD compatible features are provided.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+symbol-value
+</p>
+</li>
+<li>
+<p>
+set-symbol-value!
+</p>
+</li>
+<li>
+<p>
+verbose
+</p>
+</li>
+<li>
+<p>
+undefine
+</p>
+</li>
+<li>
+<p>
+eof-val
+</p>
+</li>
+<li>
+<p>
+%%closure-code
+</p>
+</li>
+<li>
+<p>
+bit-and
+</p>
+</li>
+<li>
+<p>
+bit-or
+</p>
+</li>
+<li>
+<p>
+bit-xor
+</p>
+</li>
+<li>
+<p>
+bit-not
+</p>
+</li>
+</ul></div>
+<h3 id="_siod_specific_behaviors">6.2. SIOD specific behaviors</h3><div style="clear:left"></div>
+<div class="paragraph"><p>If <tt>--enable-compat-siod-bugs</tt> is specified for configure script explicitly or
+implicitly, some procedures and syntaxes emulate SIOD&#8217;s behavior. We call them
+<em>bugs</em> for convention although they are not actually bugs on non-R5RS-compliant
+SIOD implementation.</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<tt>#f</tt> is identical to null list
+</p>
+</li>
+<li>
+<p>
+<tt>(car \'())</tt> evaluates to <tt>()</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>(cdr \'())</tt> evaluates to <tt>()</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>(if #f #t)</tt> evaluates to <tt>#f</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>let</tt> and <tt>let*</tt> accepts value-less binding forms
+</p>
+</li>
+<li>
+<p>
+<tt>=</tt> predicate can be applied to non-number objects
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="title">#f is identical to null list</div>
+<div class="content">
+<pre><tt>(null?    #f)   ==&gt;  #t
+(null?    '())  ==&gt;  #t
+(boolean? #f)   ==&gt;  #t
+(boolean? '())  ==&gt;  #t
+(if '() 'true 'false)  ==&gt;  false</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title"><tt>let</tt> and <tt>let*</tt> accepts value-less binding forms</div>
+<div class="content">
+<pre><tt>(let ((var))
+  var)           ==&gt;  #f
+
+(let* ((var))
+  var)           ==&gt;  #f
+
+(letrec ((var))
+  var)           ==&gt;  error</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title"><tt>=</tt> predicate can be applied to non-number objects</div>
+<div class="content">
+<pre><tt>(require-extension (siod))
+
+(= 3 (+ 1 2))         ==&gt;  #t
+(= 3 (+ 1 2) 3)       ==&gt;  error  ;; only accepts 2 args
+
+(define lst '(0 1 2))
+(= lst lst)           ==&gt;  #t
+(= lst (list 0 1 2))  ==&gt;  #f
+
+;; '=' is defined as follows if --enable-compat-siod-bugs
+(define =
+  (let ((%= =))
+    (lambda (x y)
+      (or (eq? x y)
+          (%= x y)))))</tt></pre>
+</div></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2007-09-13 06:51:47 JST
+</div>
+</div>
+</body>
+</html>

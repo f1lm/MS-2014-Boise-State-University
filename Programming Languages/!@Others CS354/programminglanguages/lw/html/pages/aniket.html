@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Aniket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1..0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+  </head>
+
+  <body onload="prettyPrint()">
+
+        <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Team Cod &middot; Aniket</a>
+
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a href="../index.html">Home</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#gettingStarted">Getting Started</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#helloWorld">Hello World</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#addTwoNumbers">Command line arguments</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./tutorials.html#api">Scala API</a></li>
+                    <li class="divider"></li>
+                   <!-- <li><a href="#">Another tutorial</a></li> -->
+                    <!-- <li class="divider"></li> -->
+                  </ul>
+                </li>
+                <li><a href="./programs.html">Programs</a></li>
+
+                <li class="dropdown active">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language Info   <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="divider"></li>
+                    <li ><a href="./reuben.html">Reuben</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./jason.html">Jason</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./anh.html">Anh</a></li>
+                    <li class="divider"></li>
+                    <li class="active"><a href="./aniket.html">Aniket</a></li>
+                    <li class="divider"></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+    <div class="container">
+    	<p></p>
+    	 <h1>Scala Program Compilation</h1>
+       <div class="well well-large">
+      <div class="row-fluid ">
+       
+        <p class="lead">Scala provides a few ways to run its program files. Here we'll look at manual compilation of <FONT FACE="courier">.scala</FONT> files and gain some insight in how Scala complies its files.</p>
+        <ul>
+          <li><p>Instead of using the Scala REPL "Interpreter" you can manually compile <FONT FACE="courier">.scala</FONT> files and then run them just like in Java like this:
+			<pre class="prettyprint lang-scala">
+			<code>
+              $ scalac test.scala
+              $ scala test
+            </code>
+            </pre>
+			<p>
+				<FONT FACE="courier">$</FONT> is a command line symbol in your terminal. You don't type this. The <FONT FACE="courier">scala</FONT> command will run your scala program after it is compiled.
+		    </p>
+		  </p>
+		  <p> You can compile multiple files like this:
+			<pre class="prettyprint lang-scala">
+			<code>
+              $ scalac &#60;file1&#62; &#60;file2&#62; ...
+            </code>
+            </pre>
+			<p>
+				 or like this:
+			<pre class="prettyprint lang-scala">
+			<code>
+	      $ scalac *.scala
+			</code>
+			</pre>
+		    </p>
+			<p><FONT FACE="courier">*.scala</FONT> means all <FONT FACE="courier">.scala</FONT> files in the directory. Then use the <FONT FACE="courier">scala</FONT> command to run your main .class file.
+			</p>
+			<p> We could run a <FONT FACE="courier">.scala</FONT> file without compiling it first like this:
+			</p>
+			<pre class="prettyprint lang-scala">
+			<code>
+	      $ scala test.scala
+			</code>
+			</pre>
+			<p> Then Scala would compile and run the file. But constantly doing this to run a file is slow. By manually compiling <FONT FACE="courier">.scala</FONT> files first, 
+			    Scala won't need to compile them every time we run them. Therefore, it is faster. 
+				And manual complication is a lot faster than loading the file into the Scala REPL "Interpreter" using <FONT FACE="courier">:load</FONT> and running it.  
+			</p>
+		  </p>
+		  </li>
+		  
+		  <li>
+			<p>   How you write a <FONT FACE="courier">.scala</FONT> file also determines how you should run it.
+			</p>
+			<p>
+				When you write a <FONT FACE="courier">.scala</FONT> file, you can write it as a script or a non-script. A script is a file with a sequence of statements that ends in a 
+				result expression. A script can contain class definitions, expressions, etc. as long as it ends in a result expression.
+				</p>
+				<p>
+				For example, let's assume the following statement is in a file called <FONT FACE="courier">hello.scala</FONT> :
+				</p>
+				<pre class="prettyprint lang-scala">
+				<code>
+	      println("Hello!")
+			    </code>
+			    </pre>
+               <p>You can then run the script like this:</p>
+			   <pre class="prettyprint lang-scala">
+			   <code>
+	     $ scala hello.scala
+			   </code>
+			   </pre>
+               <p>This will print:</p>
+			   <pre class="prettyprint lang-scala">
+			   <code>
+	     Hello!
+			   </code>
+			   </pre>
+			   <p>Script files can also be run using the REPL Interpreter.</p>
+			   <p>If you write a non-script <FONT FACE="courier">.scala</FONT> file that only contains class definitions and no result expressions. 
+				  You will have to run your program by compiling all the necessary files using scalac command. Then running the file 
+				  that contains the main program that uses those classes with the <FONT FACE="courier">scala</FONT> command. The main program 
+				  file must contain a singleton object with a main method.
+			   </p>
+			   <p>For example if we had a file <FONT FACE="courier">progRunner.scala</FONT> that runs the program using the classes we defined. The file would look like this:</p>
+			   <pre class="prettyprint lang-scala">
+			   <code>
+	object progRunner{
+	  // optional function definitions that uses classes.
+			
+	  def main(args: Array[String]) : Unit = {
+	   //do stuff with classes or run functions defined above
+	  }
+	}	   
+			   </code>
+			   </pre>
+			   
+			  <p>After compiling all files including <FONT FACE="courier">progRunner.scala</FONT>, we then type the following to run our 
+			     program or application:
+			  </p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+	     $ scala progRunner
+			   </code>
+			   </pre>
+		<p>The <FONT FACE="courier">def main(args: Array[String]) : Unit</FONT> function is similar to 
+		   Java's <FONT FACE="courier">public static void main(String [] args)</FONT> method.</p>	   
+		  </li>
+          <li>
+			<p> Scala compilation works by transforming Scala code into Java bytecode to run on the Java Virtual Machine (JVM)
+			</p>
+			
+			<p> Even when you use the Scala REPL (Read Evaluate Print Loop) "Interpreter", Scala is taking the source code you enter and immediately compiling it, 
+			    then running it, and then printing the result. So the Scala "Interpreter" is very different from an actual Interpreter used in other functional 
+				languages like Scheme. Scala is a compiled language not an interpreted language so it always uses a compiler, hence the " " around Interpreter. 
+				However, Scala is good at imitating an interpreter with the REPL. 
+			</p>
+			
+		  </li>
+		  </ul>
+      </div>
+    </div>
+      
+  	<h1>Control Flow</h1>
+    <div class="well well-large">
+      <div class="row-fluid">
+
+        <p class="lead">The Control Flow in Scala is similar to the one in Java but a little different.</p>
+        <ul>
+<li>
+<p>There is a linear ordering of statements in Scala. That is, one statement follows another. Statements can be organized with {} just like in Java.</p>
+<p>For example:</p> 
+			<pre class="prettyprint lang-scala">
+			   <code>
+	  
+
+var x = 3;
+
+if(x > 2){ 
+	var y = x + 4;
+	x + y; 
+}else{ 
+	var z = 2;
+	x + z;
+}
+			   </code>
+			   </pre>
+<p>First <FONT FACE="courier">var x = 3;</FONT> is evaluated then the if statement.</p>
+<p>Inside the braces of the if statement the statements are evaluated in order.</p> </li>
+
+<li>
+<p>If and If-Else Statements</p>
+
+<p>If statements in Scala are written like this <FONT FACE="courier">if(cond) stmt</FONT> or <FONT FACE="courier">if(cond) {stmts...}</FONT> </p>
+<p>If statements execute the following statement or statements if the condition (cond) is met or evaluates to true. The "cond" between the "()" is where a boolean expression would go. A boolean expression is an expression that evaluates to true or false.</p>
+
+<p>Here are some basic boolean expressions that are used with numbers:</p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+1 > 2 // greater than. returns true if number on left is greater than number on right.
+1 >= 2 // greater than or equal to.
+1 <  2 // less than. 
+1 <= 2 // less than or equal to.
+1 == 2 //equals. returns true if number on left is equal to number on right.
+1 != 2 // not equal
+			   </code>
+			   </pre>
+
+<p>Let's use these boolean expressions in an if statement:</p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+if(1>2) {println("Hello")}
+			   </code>
+			   </pre>
+
+<p>The if statement above would not evaluate the statement between the braces because 1 is not greater than 2.</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+if(1<2) println("Hello")
+			   </code>
+			   </pre>
+
+<p>Now the condition is true so Scala will print out Hello.</p>
+
+<p>
+If-Else Statements are just like if statements but allow an alternate option if the condition is false. 
+They are written like this <FONT FACE="courier">if(cond) stmt else stmt</FONT> or <FONT FACE="courier">if(cond) {stmts...} else {stmts...}</FONT>
+If "cond" returns true then the statment(s) after the if are evaluated. If "cond" returns false then the 
+statement(s) after the else are evaluated.</p>
+
+<p>For example:</p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+if(1<2) 3 else 4
+			   </code>
+			   </pre>
+
+
+<p>The if-else statement above will print 3 since 1 is less than 2</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+if(1>2) 3 else 4
+			   </code>
+			   </pre>
+
+<p>The if-else statement above will print 4 since 1 is not greater than 2 so the cond returns false.</p>
+
+<p>Scala also supports &#38;&#38; and || operators to be used with boolean expressions.</p>
+
+<p>&#38;&#38; is the And operator.</p>
+
+
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+&#60;boolexp1&#62; &#38;&#38; &#60;boolexp2&#62;
+			   </code>
+			   </pre>
+
+<p>The statement above returns true if both boolexp1 and boolexp2 return true otherwise it returns false.</p>
+
+<p>|| is the or operator</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+&#60;boolexp1&#62; || &#60;boolexp2&#62;
+			   </code>
+			   </pre>
+
+<p>The statement above returns true if either boolexp1 or boolexp2 returns true. If both boolexp1 and boolexp2 return false, then the statement returns false. If boolexp1 and boolexp2 both return true, then the statement also returns true.</p>
+</li>
+
+<li>
+<p>While Loop</p>
+
+<p><FONT FACE="courier">while (cond) &#60block/exp&#62;</FONT> allows you to repeat a block of code or an expression while the condition is true:</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+var x = 10
+while (x < 20) x = x + 3
+			   </code>
+			   </pre>
+
+<p>In the above statement, <FONT FACE="courier">x = x + 3</FONT> will continue to evaluate until <FONT FACE="courier">x < 20</FONT> is false. If <FONT FACE="courier">x < 20</FONT> never becomes false then you have an infinite loop because <FONT FACE="courier">x = x + 3</FONT> will continue to run forever. You have to stop the program manually or restart your computer.</p>
+</li>
+<li>
+<p>Do While Loop</p>
+
+<p><FONT FACE="courier">do &#60block/exp&#62; while (cond)</FONT> allows you to repeat a block of code or an expression while the condition is true. The condition is evaluated after doing each iteration:</p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+var x = 10
+do {
+x = x + 3
+} while (x < 20)
+			   </code>
+			   </pre>
+
+<p>Do While Loops guarantee the statement inside the braces or after "do" to be executed at least once.</p>
+</li>
+<li>
+<p>For Loop</p>
+
+<p><FONT FACE="courier">for (range) &#60block/exp&#62;</FONT> allows you to repeat a block of code for all the values in a range or iterate through the members of a collection.</p>
+			<pre class="prettyprint lang-scala">
+			   <code>
+for(i <- 1 to 5) println("hi")
+			   </code>
+			   </pre>
+
+<p>The statement above takes values 1 through 5 and puts them in a variable i one by one after each repetition of the println statement. hi will be printed 5 times.</p>
+
+<p>If you want the end range value not to be included the until version should be used.</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+for(i <- 1 until 5) println(i)
+
+/* 
+Scala will print:
+1
+2
+3
+4
+ 
+*/
+			   </code>
+			   </pre>
+
+<p>Multi-dimensional iterations are elegantly handled using multiple ranges. Notice that the two ranges are separated by a semi-colon.</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+for(i <- 1 until 4 ; j <- 1 to 3) println(i,j)
+
+/* 
+Scala will print:
+(1,1)
+(1,2)
+(1,3)
+(2,1)
+(2,2)
+(2,3)
+(3,1)
+(3,2)
+(3,3)
+
+*/
+			   </code>
+			   </pre>
+
+<p>For Loops may also be used to iterate through collections like a List:</p>
+
+<pre class="prettyprint lang-scala">
+			   <code>
+var x = List(1, 2, 3)
+
+for( i <- x) println(i)
+
+/* 
+Scala will print:
+1
+2
+3
+
+*/
+			   </code>
+			   </pre>
+</li>
+<li>
+<p>Match</p>
+
+<p>Match statement in Scala is similar to Java's switch statement. It uses 'case' statements to allow multi-way branching on value.</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+def decode(n: Int) {
+	n match {
+		case 1 => println("One")
+		case 2 => println("Two")
+		case _ => println("Error")
+	}
+}
+
+decode(2)
+
+/* 
+Scala will print:
+Two
+
+*/
+
+			   </code>
+			   </pre>
+
+<p>In the above example we created a function that takes in an Int argument and puts it in variable n. The variable n is then used in the match statement to determine which case to perform.</p>
+
+<p>The '=>' symbol is used to separate the match pattern from the expression or block to be evaluated. The '_' symbol is used in Scala to mean wild-card or in this case match anything. The last case statement behaves like default in the classical switch.</p>
+
+<p>Unlike the traditional Java 'switch' the above mapping can easily be reversed.</p>
+
+			<pre class="prettyprint lang-scala">
+			   <code>
+def encode(s: String){
+	s match {
+		case "One" => println(1)
+		case "Two" => println(2)
+		case _ => println(0)
+	}
+}
+
+encode("Two")
+
+/* 
+Scala will print:
+2
+
+*/
+			   </code>
+			   </pre>		  
+		  </li>
+        </ul>
+	</div>
+    </div>
+	
+      <footer style="padding-top:2cm;">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Team Cod </a></p>
+      </footer>
+      
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <link href="../assets/js/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="../assets/js/prettify/prettify.js"></script>
+  </body>
+</html>

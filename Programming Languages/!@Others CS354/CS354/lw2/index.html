@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+	<script src="jquery-1.10.2.js"></script>
+	<script src="underscore.js"></script>
+	<script src="backbone.js"></script>
+	<script src="ItemExample.js"></script>
+	<script src="HelloWorld.js"></script>
+
+	<style type="text/css">
+		.list_box {background-color: #444; display:inline-block; }
+		.todo_item {margin: 2px; padding: 4px; background-color: #aaa;}
+		.lbl_description { width:400px; display:inline-block;}
+		#inp_toDoDescription { width:400px; margin:2px;}
+	</style>
+	
+	<script>
+		initItemExample1();
+		
+	</script>
+
+	<body>
+		<h1 style="color: white; background-color: #00A6CF; text-align: center; height: 50px;">
+			JavaScript plus Backbone</h1><br>
+		<h3 style="color: white; background-color: #00A6CF; width: 50%; margin: 0% 25% 0% 25%; text-align: center;">
+			Description and History</h3><br>
+<pre style="margin: 0% 10% 0% 10%">
+Backbone.js was initially released on October of 2010.  Its developer, Jeremy Ashkenas, is also known for designing CoffeeScript, 
+which adds syntactic sugar to enhance the brevity and readability of JavaScript.  Backbone is an open-source component of 
+Document Cloud.  Version 1.1, a stable release of Backbone, was recently released on October 10, 2013.
+
+Backbone is a light MVC framework that provides a means for organizing front-end codebases.  Web developers using JavaScript 
+who find that their code suffers from inconsistency among its event handlers and/or lack of structure (aka "spaghetti code") 
+would very likely benefit from the organization that Backbone structures give to JavaScript code.
+
+Models
+	Backbone models provide a place for a web application to store and validate client-side information, removing the 
+	dependency on the DOM for data queries.
+Views
+	Without an organized approach to event handling in web application development, it is easy to produce inconsistent 
+	event handlers in an application.  Backbone views provide a structure to organize all event handlers, promoting consistency
+	and maintainability.
+Collections
+	With further complexity of a web application comes further opportunity to produce disorganized code.  Collections 
+	organize multiple models into a single structure, which, again promotes structure and organization to a web application.
+
+Links
+	Specification, Documentation, Manuals
+		http://backbonejs.org/
+	Tutorials
+		http://backbonetutorials.com/
+		https://www.codeschool.com/courses/anatomy-of-backbonejs
+		http://www.jamesyu.org/2011/01/27/cloudedit-a-backbone-js-tutorial-by-example/
+	Testimonials
+		http://gregfranko.com/blog/backbone-dot-js-convincing-the-boss-guide/
+		http://blog.sendhub.com/post/19349219519/single-page-web-apps-with-backbone-js	
+		http://www.ofbrooklyn.com/2012/11/13/backbonification-migrating-javascript-to-backbone/
+</pre>
+<br>
+		<h3 style="color: white; background-color: #00A6CF; width: 50%; margin: 0% 25% 0% 25%; text-align: center;">
+			Available Translators and Installation Instructions</h3><br>
+			<div style="margin: 0% 10% 0% 10%">
+			<html></head></head>
+			<body>
+			<p> <b>Translator: Backbone </b></p>
+			<p> In order to run JavaScript files all you have to do is to first create an html or js file. Then place the JavaScript file or code in your html file like the example below. Then you can run your html file in your browser of choice. Backbone itself does not require an special translator because it is not changing the JavaScript language, it just adds more functionality to what is already there.
+			</p>
+			<p> <b>Example</b></p>
+			<p><textarea class= "code_input" id ="textareaCode" rows ="10" cols ="50" wrap ="logical">
+			<html>
+			</head></head>
+			<body>
+
+			    <script src="example.js"></script>	
+			<body/>
+			</html></textarea>
+
+			</p>
+			<p></head></head></div>
+
+			</html>
+		<h3 style="color: white; background-color: #00A6CF; width: 50%; margin: 0% 25% 0% 25%; text-align: center;">
+			Introductory Program and Complex Examples</h3><br>
+		<div style="margin: 0% 10% 0% 10%">
+		<p> <b>Installation: Backbone </b></p>
+		<p> <b>Downloads </b></p>
+		<p> In order to use Backbone, you must first go to the <a href=" http://backbonejs.org/"> Backbone Installation website.</a>
+		After doing so you will want to write click and Save As the version of Backbone that you want to install. After doing so you may note that the only hard dependency is Underscore.js which can be found on this same website. You will want to go ahead and download this as well. You then will need to download a DOM library, either jQuery or zepto.JS. After you have downloaded all three of these javascript files you will want to put them in an empty folder.
+		</p>
+		<p> <b>Check Functionality</b></p>
+		<p> You now want to create an html file where you can make sure everything is downloaded correctly and is functioning properly.
+		You can now use the code below in your html file and run the web page in Google Chrome.Here you can inspect the elements and run the console to make sure you have the functionality of backbone.
+		</p><p><textarea class= "code_input" id ="textareaCode" rows ="10" cols ="50" wrap ="logical">
+		<html>
+		</head></head>
+		<body>
+
+		    <script src="jquery-1.10.2.js"></script>
+			<script src="underscore.js"></script>
+			<script src="backbone.js"></script>
+			
+		<body/>
+		</html></textarea>
+
+		</p>
+		<p></head></head>
+
+		</html>
+		</p>
+		<p> <b>Installation Tutorial</b></p>
+		<p>A tutorial video on how to install backbone is located <a href="https://tutsplus.com/lesson/installation-3/">here.</a> </body>
+		</html>
+
+		<p> <b>Build/Run Instructions: Hello World</b></p>
+		<p> Make sure to include backbone.js, jquery-1.10.2.js and underscore.js in the same folder as
+		HelloWorld.html. Run HelloWorld.html in your browser. The JavaScript for HelloWorld.html is shown
+		below, include this in a basic html page.</p>
+		<br>
+		<div id="helloWorldExampleContainer">
+			<button onclick="showHelloWorldExample()">Show Hello World</button>
+			<div id="helloWorldExample"></div>
+<pre id="helloWorldExampleCode">
+<strong>HelloWorld.html JavaScript Code</strong>
+var Hello = Backbone.View.extend({
+	tagName:'li',
+
+	initialize:function(){
+		$("#helloWorldExample").html("Hello World!");
+	}
+});
+</pre>
+<script>$("#helloWorldExampleCode").hide();</script>
+		</div>
+
+		<br>
+		<div id="complexExample1" style="width: 50%">
+
+			<button onclick="showItemExample1()">Show Example 1</button>
+			<div id="itemListContainer"></div>
+
+<pre id="complexExampleCode">
+<strong>Code for Complex Example 1</strong>
+var ItemModel = Backbone.Model.extend({
+	defaults: {
+		name : "Jon Doe",
+		age : 29,
+		hobby : "Baseball",
+		description : "A normal dude."
+	},
+
+	initialize: function() {
+		console.log("New item model initialized.");
+	}
+});
+
+var ItemView = Backbone.View.extend({
+	tagName: "li",
+	colorFlag: false,
+
+	events: {
+		"click" : "clickEvent"
+	},
+
+	template: _.template("<%= name %> - <%= age %> - <%= hobby %> - <%= description %>"),
+
+	initialize: function() {
+		this.render();
+	},
+
+	render: function() {
+		this.$el.html(this.template(this.model.toJSON()));
+		return this;
+	},
+
+	clickEvent: function() {
+		if(this.colorFlag == false) {
+			this.el.style.backgroundColor = "#00A6CF";
+			this.colorFlag = true;
+		}
+		else {
+			this.el.style.backgroundColor = "white";
+			this.colorFlag = false;
+		}
+    }
+});
+
+var ItemCollectionView = Backbone.View.extend({
+	tagName: "ul",
+	id: "itemList",
+
+	initialize: function() {
+		this.render();
+	},
+
+	render: function () {
+        var that = this;
+        _.each(this.collection.models, function (item) {
+            that.renderItemView(item);
+        }, this);
+	},
+
+	renderItemView: function (item) {
+        var itemView = new ItemView({
+            model: item
+        });
+        $(this.el).append(itemView.el);
+    },
+});
+
+var ItemCollection = Backbone.Collection.extend({
+	model: ItemModel
+});
+
+function initItemExample1() {
+	//init item models
+	var im1 = new ItemModel();
+	var im2 = new ItemModel({ name: "Chad Weigle", age: 21, hobby: "GAMING", description: "Sexy Beast!"});
+	var im3 = new ItemModel({ name: "Thomas Green", age: 87, hobby: "Hermit", description: "Kinda old and tired." });
+	var im4 = new ItemModel({ name: "William Unger", age: 20, hobby: "Ping Pong" });
+	var im5 = new ItemModel({ name: "Melissa Clausen", age: 21, hobby: "Graphic Design, Painting, and Sketching", description: "A normal lady." });
+	var im6 = new ItemModel({ name: "Kevin Philips", age: 87, hobby: "Hermit", description: "Kinda old and tired." });
+	//init item collection
+	var itemCollection = new ItemCollection();
+	itemCollection.add(im1);
+	itemCollection.add(im2);
+	itemCollection.add(im3);
+	itemCollection.add(im4);
+	itemCollection.add(im5);
+	itemCollection.add(im6);
+
+	//Below is an easy way to declare a "global" variable within a function.
+	//init item collection view
+	window.itemCollectionView = new ItemCollectionView({collection: itemCollection});
+}
+
+function showItemExample1() {
+	if ($("#itemListContainer").html().length == 0) {
+		$("#itemListContainer").append(window.itemCollectionView.el);
+	}
+	else {
+		$("#itemListContainer").toggle();
+	}
+}
+</pre><script>$("#complexExampleCode").hide();</script>
+
+	<script type="text/template" id="list_template">
+		<div class="lbl_description"><%= lbl_description %></div>
+		<span class="todo_options">
+			<input type="button" class="btn_done" value="Done" />
+			<input type="button" class="btn_delete" value="Delete" />
+			<input type="button" class="btn_up" value="^" />
+			<input type="button" class="btn_down" value="v" />
+		</span>
+	</script>
+
+	<script>
+		DataView = Backbone.View.extend
+		({
+			initialize: function()
+			{
+				var toAdd = $('<div class="todo_item"></div>');
+				$('#list_container').append(toAdd);
+				this.$el = toAdd;
+				this.render();
+			},
+			render: function()
+			{
+				var variables = { lbl_description: $("#inp_toDoDescription").val() };
+				$("#inp_toDoDescription").val("");
+	            var template = _.template( $("#list_template").html(), variables );
+	            this.$el.html( template );
+        	},
+        	events: 
+        	{
+            	"click .btn_delete": "doDelete",
+            	"click .btn_done" : "doDone",
+            	"click .btn_up" : "doUp",
+            	"click .btn_down" : "doDown"
+        	},
+        	doDelete: function( event )
+        	{
+        		this.remove();
+        	},
+        	doDone: function( event )
+        	{
+        		this.$el.find(".lbl_description").css("text-decoration","line-through")
+        	},
+        	doUp: function(event)
+        	{
+        		this.$el.insertBefore(this.$el.prev());
+        	},
+        	doDown: function(event)
+        	{
+        		this.$el.insertAfter(this.$el.next());
+        	}
+		});
+	</script>
+	<br>
+<button onclick="showExample2()">Show Example 2</button>
+		<span class="list_box">
+			<div>
+				<input type="text" id="inp_toDoDescription" value="ToDo list item here!">
+				<button onclick="new DataView();">
+					Add Item!
+				</button>
+			</div>
+			<span id="list_container"></span>
+		</span><script>$(".list_box").hide();</script>
+<pre id="listBoxCode">
+<strong>Code for Complex Example 2</strong>
+DataView = Backbone.View.extend
+({
+	initialize: function()
+	{
+		var toAdd = $('&ltdiv class="todo_item"&gt&lt/div&gt');
+		$('#list_container').append(toAdd);
+		this.$el = toAdd;
+		this.render();
+	},
+	render: function()
+	{
+		var variables = { lbl_description: $("#inp_toDoDescription").val() };
+		$("#inp_toDoDescription").val("");
+        var template = _.template( $("#list_template").html(), variables );
+        this.$el.html( template );
+	},
+	events: 
+	{
+    	"click .btn_delete": "doDelete",
+    	"click .btn_done" : "doDone",
+    	"click .btn_up" : "doUp",
+    	"click .btn_down" : "doDown"
+	},
+	doDelete: function( event )
+	{
+		this.remove();
+	},
+	doDone: function( event )
+	{
+		this.$el.find(".lbl_description").css("text-decoration","line-through")
+	},
+	doUp: function(event)
+	{
+		this.$el.insertBefore(this.$el.prev());
+	},
+	doDown: function(event)
+	{
+		this.$el.insertAfter(this.$el.next());
+	}
+});
+</pre><script>$("#listBoxCode").hide();</script>
+
+		</div></div>
+		<br>
+		<h3 style="color: white; background-color: #00A6CF; width: 50%; margin: 0% 25% 0% 25%; text-align: center;">
+			Tabular Comparison of Characteristics and Features</h3><br>
+		<div style="margin-left: 33px">
+			<table border="1" cellpadding="10" cellspacing="0" style="width:200px;height:100px;border:6px groove #00A6CF;">
+				<tr>
+					<td><h1>Comparason</h1></td>
+					<td><h1>JavaScript</h1></td>
+					<td><h1>Java</h1></td>
+					<td><h1>C</h1></td>
+					<td><h1>Scheme</h1></td>
+					<td><h1>Prolog</h1></td>
+					<td><h1>Python</h1></td>
+				</tr>
+				<tr>
+					<td>Type</td>
+					<td>Scripting</td>
+					<td>Object-Oreneted</td>
+					<td>Von-Numeon</td>
+					<td>Functional</td>
+					<td>Declarative</td>
+					<td>Scripting</td>
+				</tr>
+				<tr>
+					<td>Base Structure</td>
+					<td>Array</td>
+					<td>Array</td>
+					<td>Array</td>
+					<td>List</td>
+					<td>Comparason-Based</td>
+					<td>Array</td>
+				</tr>
+				<tr>
+					<td>Primitive Types</td>
+					<td>Boolean,Numeric,String</td>
+					<td>Numberic,boolean,char</td>
+					<td>Numeric Singed and Unsigned, boolean, char</td>
+					<td>Numeric,char,boolean,string</td>
+					<td>True/False</td>
+					<td>Numeric,Sequences,Maps,Files</td>
+				</tr>
+				<tr>
+					<td>Type of Expression</td>
+					<td>Implisit</td>
+					<td>Explisit</td>
+					<td>Explisit</td>
+					<td>Implisit</td>
+					<td>N/A</td>
+					<td>Implisit</td>
+				</tr>
+				<tr>
+					<td>Compiled/Interperted</td>
+					<td>Interperted</td>
+					<td>Compiled</td>
+					<td>Compiled</td>
+					<td>Interperted</td>
+					<td>Interperted</td>
+					<td>Interperted</td>
+				</tr>
+				<tr>
+					<td>Method Overloading</td>
+					<td>No</td>
+					<td>Yes</td>
+					<td>No</td>
+					<td>No</td>
+					<td>N/A</td>
+					<td>No</td>
+				</tr>
+			</table>
+		</div><br>
+		<h3 style="color: white; background-color: #00A6CF; width: 50%; margin: 0% 25% 0% 25%; text-align: center;">
+			Super Duper Complex Example (Relative)</h3><br>
+		<div style="margin-left: 33px">
+			<script src="ExpenseCalculator.js"></script>
+		</div>
+
+	</body>
+</html>
+

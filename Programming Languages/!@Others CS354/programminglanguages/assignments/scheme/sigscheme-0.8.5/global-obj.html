@@ -1,0 +1,865 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.4.5" />
+<title>Global object handlings of SigScheme</title>
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+span#email {
+}
+span#revnumber, span#revdate, span#revremark {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock {
+  padding-left: 2.0em;
+  margin-right: 10%;
+}
+div.verseblock > div.content {
+  white-space: pre;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+
+div#toctitle {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock-content {
+  white-space: pre;
+}
+div.verseblock-attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+
+/* IE6 sets dynamically generated links as visited. */
+div#toc a:visited { color: blue; }
+</style>
+</head>
+<body>
+<div id="header">
+<h1>Global object handlings of SigScheme</h1>
+</div>
+<h2 id="_about">1. About</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>SigScheme has portable mechanisms that control:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+global symbols hiding
+</p>
+</li>
+<li>
+<p>
+global variable to dynamically allocated variable conversion
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This document describes its necessity and usage.</p></div>
+</div>
+<h2 id="_the_problems">2. The problems</h2>
+<div class="sectionbody">
+<h3 id="_global_symbol_conflict_with_other_libraries">2.1. Global symbol conflict with other libraries</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Since SigScheme uses semi-common <em>scm_</em> and <em>Scm</em> prefixes for exported
+symbols, it may conflict with other libraries if the client application is also
+directly or indirectly linked with another Scheme implementation such as
+libguile. This is a serious problem when implementing a fundamental library
+based on libsscm, such as libuim.</p></div>
+<div class="paragraph"><p>To avoid such conflict, many platforms provide symbol exportation control
+ability. For example, GNU ld and Windows DLL can handle it based on a optional
+file which contains the symbol information. And libtool provides an useful
+option <tt>-export-symbols-regex</tt> for such purpose to make the handlings
+platform-independent. However, unfortunately libtool does not ensure its
+portability. Currently supported platforms are considerably limited (at least
+on version 2.1a 2006-03-30) and some platforms seems that can never be
+supported.</p></div>
+<div class="paragraph"><p>Since primal portability is indispensable value of SigScheme to be being an
+useful embedded Scheme implementation, we cannot depend on such problematic
+toolchain-based symbol exportation control.</p></div>
+<h3 id="_platforms_that_lack_writable_static_data">2.2. Platforms that lack writable static data</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Some platforms such as BREW and some versions of Symbian OS lack writable
+static data capability. It means that no writable global variable can be used
+in SigScheme. But SigScheme do need various global data such as dynamic extent,
+symbol table, R5RS constant object holder and so on. So an alternative dynamic
+data store that can globally be accessed is needed.</p></div>
+</div>
+<h2 id="_solution">3. Solution</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The two problems are resolved with two related mechanisms.</p></div>
+<div class="paragraph"><p>For the symbol conflict problem, an alternative special compilation method
+called <em>combined-source mode</em> is provided.</p></div>
+<div class="paragraph"><p>It combines all source code of SigScheme into single file, and makes all global
+objects static. So no symbols will be exposed. A client of libsscm can use this
+combined version of the library by including the file <tt>sigscheme-combined.c</tt>
+directly into a C/C++ source of the client. Once it included, all configured
+SigScheme features can be used as file-local code, and it can also be linked
+with other arbitrary objects via user-written wrapper.</p></div>
+<div class="paragraph"><p>And the writable static data problem is resolved with <em>aggregated global
+variables</em> mechanism works on the combined-source mode. When this feature is
+directed, all of the global variables including static ones are aggregated into
+a single big struct, and allocated to platform-specific global store such as
+thread local storage or a member variable of application instance. The
+accessing method to the variables is abstracted by some macros, and any
+variable can be accessed as if ordinary variable.</p></div>
+<div class="paragraph"><p>Finally, a variant configuration of the two mechanisms is also available for
+the platforms lacking writable static data. It is combined, global variables
+aggregated, but exports SigScheme&#8217;s API symbols. This configuration is supposed
+to provide libsscm on such platforms.</p></div>
+</div>
+<h2 id="_combined_source_mode_usage_for_libsscm_users">4. Combined-source mode usage for libsscm users</h2>
+<div class="sectionbody">
+<h3 id="_preparation">4.1. Preparation</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The combined-source version of the library is optional and not built by
+default. Instruct as follows to build it.</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>  $ make -C src combined</tt></pre>
+</div></div>
+<div class="paragraph"><p>It results the file <tt>src/sigscheme-combined.c</tt>. Since the generated code
+reflects user-configuration, it must be rebuilt every after <tt>configure</tt>.</p></div>
+<h3 id="_compilation">4.2. Compilation</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Include the <tt>sigscheme-combined.c</tt> directly into a C/C++ code, as following
+example. Ordinary separated compilation and linking does not work because of
+its "all global objects made static" nature.</p></div>
+<div class="listingblock">
+<div class="title">a C code using combined-source mode of the SigScheme</div>
+<div class="content">
+<pre><tt>#include "sigscheme-combined.c"
+
+#include <config.h> /* client's own config.h */
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "my-header.h"
+
+static ScmObj
+my_function(int val)
+{
+    return SCM_MAKE_INT(val * 2);
+}</tt></pre>
+</div></div>
+<div class="paragraph"><p>Requirements:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<tt>sigscheme-combined.c</tt> must be included prior to client&#8217;s own <tt>config.h</tt>
+    since many autoconf-defined macros of SigScheme must appropriately be
+    undefined in the file to avoid conflicting with the client-side ones
+</p>
+</li>
+<li>
+<p>
+Add include path to <tt>sigscheme/include</tt> and <tt>sigscheme/src</tt> since the
+    <tt>sigscheme-combined.c</tt> includes various source files in the directories
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Other notes:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The client code can use all of public SigScheme API defined in
+    <tt>sigscheme.h</tt>, <tt>scmint.h</tt>, <tt>encoding.h</tt>, <tt>global.h</tt> and SigScheme&#8217;s own
+    <tt>condig.h</tt>. Any other interfaces should not be used even if accessible
+</p>
+</li>
+<li>
+<p>
+All of SigScheme&#8217;s internal macros are undefined and hidden at the end of
+    <tt>sigscheme-combined.c</tt> inclusion, to reduce namespace pollution
+</p>
+</li>
+<li>
+<p>
+Many internal variables and functions of SigScheme are exposed to the
+    client code. Be careful of conflict
+</p>
+</li>
+</ul></div>
+</div>
+<h2 id="_combined_source_mode_with_exported_api_symbols">5. Combined-source mode with exported API symbols</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>To export SigScheme API symbols against the combined-source mode, define
+<tt>SCM_EXPORT_API</tt> to 1 prior to including the <tt>sigscheme-combined.c</tt>, as
+follows. See <tt>src/dllentry.c</tt> as real example.</p></div>
+<div class="listingblock">
+<div class="title">instructs that export SigScheme API</div>
+<div class="content">
+<pre><tt>#define SCM_EXPORT_API 1
+#include "sigscheme-combined.c"</tt></pre>
+</div></div>
+</div>
+<h2 id="_non_static_functions_handling_for_sigscheme_developers">6. Non-static functions handling for SigScheme developers</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>To control global symbol exportation, any non-static function declaration and
+definition need little modification. For both prototype declaration and actual
+definition, prepend <tt>SCM_EXPORT</tt> to the function. There is no distinction
+between public API and library-internal API on the exportation control. Use
+<tt>SCM_EXPORT</tt> for both type of functions.</p></div>
+<div class="paragraph"><p>The <tt>SCM_EXPORT</tt> macro is replaced with <tt>static</tt> when the combined-source mode
+without <tt>SCM_EXPORT_API</tt>.</p></div>
+<div class="listingblock">
+<div class="title">symbol exportation control for functions</div>
+<div class="content">
+<pre><tt>/* declaration */
+SCM_EXPORT void scm_set_lib_path(const char *path);
+SCM_EXPORT ScmObj scm_p_load(ScmObj filename);
+
+/* definition */
+SCM_EXPORT void
+scm_set_lib_path(const char *path)
+{
+    ...
+}
+
+SCM_EXPORT ScmObj
+scm_p_load(ScmObj filename)
+{
+    ...
+}</tt></pre>
+</div></div>
+</div>
+<h2 id="_global_variables_handling_for_sigscheme_developers">7. Global variables handling for SigScheme developers</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The aggregated variables mechanism is mainly provided for SigScheme developers
+and used to write libsscm. All global variables used in SigScheme must be
+written with this mechanism to keep portable to the embedded
+platforms. Although it tries to keep original usage of the global variables,
+some rewrite of source codes declaring and defining the variables are needed
+because of the limitation of C macro ability.</p></div>
+<h3 id="_constant_global_variables">7.1. Constant global variables</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Constant global variables can safely be used in all platforms regardless of
+whether static or not. But a little modification of <tt>extern</tt> declaration is
+needed for the combined-source mode treatment.</p></div>
+<div class="paragraph"><p>Be careful about all part of the variables are certainly qualified as
+const.</p></div>
+<div class="listingblock">
+<div class="title">a constant global variables declaration and definition</div>
+<div class="content">
+<pre><tt>/* declaration */
+extern const char *const names[];
+
+/* definition */
+const char *const names[] = {
+  "foo", "bar", NULL
+};
+
+static const char *const other_names[] = {
+  "baz", "quux", NULL
+};</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">rewritten declaration and definition</div>
+<div class="content">
+<pre><tt>/* declaration */
+SCM_EXTERN(const char *const names[]);
+
+/* definition */
+const char *const names[] = {
+  "foo", "bar", NULL
+};
+
+static const char *const other_names[] = {
+  "baz", "quux", NULL
+};</tt></pre>
+</div></div>
+<h3 id="_writable_extern_variables">7.2. Writable extern variables</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Writable and exported global variables need more complex rewriting.</p></div>
+<div class="listingblock">
+<div class="title">a writable extern variables declaration and definition</div>
+<div class="content">
+<pre><tt>/* declaration */
+extern int foo bar;
+extern ScmObj obj_a, obj_b;
+extern void (*func)(void);
+
+/* definition */
+int foo bar;
+ScmObj obj_a, obj_b;
+void (*func)(void);</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">rewritten declaration and definition</div>
+<div class="content">
+<pre><tt>/* declaration */
+SCM_GLOBAL_VARS_BEGIN(srfi99);
+int foo bar;
+ScmObj obj_a, obj_b;
+void (*func)(void);
+SCM_GLOBAVARS_END(srfi99);
+#define foo   SCM_GLOBAL_VAR(srfi99, foo)
+#define bar   SCM_GLOBAL_VAR(srfi99, bar)
+#define obj_a SCM_GLOBAL_VAR(srfi99, obj_a)
+#define obj_b SCM_GLOBAL_VAR(srfi99, obj_b)
+#define func  SCM_GLOBAL_VAR(srfi99, func)
+
+/* definition */
+SCM_DEFINE_EXPORTED_VARS(srfi99);</tt></pre>
+</div></div>
+<div class="paragraph"><p>The identifier <em>srfi99</em> in above example specifies a namespace and
+aggregational unit which the variables are placed into. It is recommended that
+the name is taken from the filename which the definition is placed.</p></div>
+<div class="paragraph"><p>The macros defined immediately after the SCM_GLOBAVARS_END() are conventional
+accessors for the variables. The proper accessing method for the variables is
+SCM_GLOBAL_VAR(namespace, varname), but it unacceptably bothers code
+writing. So such macros should be defined. The macros make rewriting of codes
+operate on the variables unneeded. The SCM_GLOBAL_VAR() allows being accessed
+as lvalue.</p></div>
+<div class="paragraph"><p>But since it may obviously cause unexpected replacement if any of the names are
+appeared as a non-global-variable object in a code, such as local variable or
+struct member. The macro definition may affect to all source files even if the
+header defines the macro is not included by a file, because of the unified
+translation unit formed by the combined-source. To avoid such unwanted
+replacement, The variable names should be prefixed to be unique over all
+sources.</p></div>
+<div class="listingblock">
+<div class="title">prefixing each variables is recommended</div>
+<div class="content">
+<pre><tt>/* declaration */
+SCM_GLOBAL_VARS_BEGIN(srfi99);
+int scm_foo scm_bar;
+ScmObj scm_obj_a, scm_obj_b;
+void (*scm_func)(void);
+SCM_GLOBAVARS_END(srfi99);
+#define scm_foo   SCM_GLOBAL_VAR(srfi99, scm_foo)
+#define scm_bar   SCM_GLOBAL_VAR(srfi99, scm_bar)
+#define scm_obj_a SCM_GLOBAL_VAR(srfi99, scm_obj_a)
+#define scm_obj_b SCM_GLOBAL_VAR(srfi99, scm_obj_b)
+#define scm_func  SCM_GLOBAL_VAR(srfi99, scm_func)
+
+/* definition */
+SCM_DEFINE_EXPORTED_VARS(srfi99);</tt></pre>
+</div></div>
+<div class="paragraph"><p>Finally, conditional compilation is allowed even if in the declaration.</p></div>
+<div class="listingblock">
+<div class="title">conditional compilation is allowed</div>
+<div class="content">
+<pre><tt>/* declaration */
+SCM_GLOBAL_VARS_BEGIN(srfi99);
+int scm_foo scm_bar;
+#if SCM_USE_FOO
+ScmObj scm_obj_a, scm_obj_b;
+void (*scm_func)(void);
+#endif
+SCM_GLOBAVARS_END(srfi99);
+#define scm_foo   SCM_GLOBAL_VAR(srfi99, scm_foo)
+#define scm_bar   SCM_GLOBAL_VAR(srfi99, scm_bar)
+#define scm_obj_a SCM_GLOBAL_VAR(srfi99, scm_obj_a)
+#define scm_obj_b SCM_GLOBAL_VAR(srfi99, scm_obj_b)
+#define scm_func  SCM_GLOBAL_VAR(srfi99, scm_func)
+
+/* definition */
+SCM_DEFINE_EXPORTED_VARS(srfi99);</tt></pre>
+</div></div>
+<h3 id="_static_variables">7.3. Static variables</h3><div style="clear:left"></div>
+<div class="paragraph"><p>Static variables handling is similar to external one, but some additional
+treatment is needed.</p></div>
+<div class="listingblock">
+<div class="title">a static variables definition</div>
+<div class="content">
+<pre><tt>static int foo bar;
+static ScmObj obj_a, obj_b;
+static void (*func)(void);</tt></pre>
+</div></div>
+<div class="listingblock">
+<div class="title">rewritten definition</div>
+<div class="content">
+<pre><tt>SCM_GLOBAL_VARS_BEGIN(static_srfi99);
+#define static
+static int l_foo l_bar;
+static ScmObj l_obj_a, l_obj_b;
+static void (*l_func)(void);
+#undef static
+SCM_GLOBAL_VARS_END(static_srfi99);
+#define l_foo   SCM_GLOBAL_VAR(static_srfi99, l_foo)
+#define l_bar   SCM_GLOBAL_VAR(static_srfi99, l_bar)
+#define l_obj_a SCM_GLOBAL_VAR(static_srfi99, l_obj_a)
+#define l_obj_b SCM_GLOBAL_VAR(static_srfi99, l_obj_b)
+#define l_func  SCM_GLOBAL_VAR(static_srfi99, l_func)
+SCM_DEFINE_STATIC_VARS(static_srfi99);</tt></pre>
+</div></div>
+<div class="paragraph"><p>The technical difference to external one is:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Use SCM_DEFINE_STATIC_VARS() instead of SCM_DEFINE_EXPORTED_VARS() to
+    define declared variables
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>And some more conventions:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Enclose the declaration with <tt>#define static</tt> and <tt>#undef static</tt> to keep
+    indicating that the variables are static
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+The <tt>static</tt> specifier is technically not allowed here
+</p>
+</li>
+<li>
+<p>
+The <tt>#define</tt> and <tt>#undef</tt> must be placed inside
+      <tt>SCM_GLOBAL_VARS_{BEGIN,END}()</tt>. Placing outside of them makes the
+      declaration broken
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+The namespace should be prefixed with <tt>static_</tt>
+</p>
+</li>
+<li>
+<p>
+The variable names should be prefixed with <tt>l_</tt> (stands for <em>local</em>)
+</p>
+</li>
+</ul></div>
+<h3 id="_common_restrictions">7.4. Common restrictions</h3><div style="clear:left"></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Reserved namespaces
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<tt>dummy</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>dummy_*</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>instance</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>instance_*</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>aggregated</tt>
+</p>
+</li>
+<li>
+<p>
+<tt>aggregated_*</tt>
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+<h3 id="_initialization_and_finalization">7.5. Initialization and finalization</h3><div style="clear:left"></div>
+<div class="paragraph"><p>The aggregated variables <strong>MUST</strong> be initialized with <tt>SCM_GLOBAL_VARS_INIT()</tt>
+prior to being used. Before the initialization, accessing the variables is
+completely invalid. It is not only containing unspecified value but may cause
+crash on some platforms since the storage is not allocated yet.</p></div>
+<div class="listingblock">
+<div class="title">initialization of a set of variables</div>
+<div class="content">
+<pre><tt>void
+scm_srfi99_init(void)
+{
+    SCM_GLOBAL_VARS_INIT(srfi99);
+    SCM_GLOBAL_VARS_INIT(static_srfi99);
+}</tt></pre>
+</div></div>
+<div class="paragraph"><p>After the initialization, the variables contained in the namespace specified by
+the <tt>SCM_GLOBAL_VARS_INIT()</tt> are allocated and zero-cleared. If you want that
+an variable is initialized, assign the value by hand after the
+initialization. Load-time initialization is not allowed and technically does
+not work.</p></div>
+<div class="listingblock">
+<div class="title">initialization is not allowed (and does not work)</div>
+<div class="content">
+<pre><tt>SCM_GLOBAL_VARS_BEGIN(static_srfi99);
+#define static
+static int l_foo = 100;
+#undef static
+SCM_GLOBAL_VARS_END(static_srfi99);</tt></pre>
+</div></div>
+<div class="paragraph"><p>The by-function initialization ensures that cyclic finalization &#8594;
+re-initialization loop works properly without careful initial value treatment
+of global variables. It is helpful to ensure that SigScheme is
+re-initialization safe.</p></div>
+<div class="paragraph"><p>Finalization macro is also provided and usable. But since it is currently empty
+expression on all platforms, and most code modules do not have finalization
+function, no finalization is performed for global variables to keep footprint
+shrunk. But the macro should be added if a code module has finalization
+function.</p></div>
+<div class="listingblock">
+<div class="title">finalization of the variables</div>
+<div class="content">
+<pre><tt>void
+scm_srfi99_fin(void)
+{
+    SCM_GLOBAL_VARS_FIN(srfi99);
+    SCM_GLOBAL_VARS_FIN(static_srfi99);
+}</tt></pre>
+</div></div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2006-05-06 18:34:58 JST
+</div>
+</div>
+</body>
+</html>
