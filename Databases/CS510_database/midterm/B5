@@ -1,0 +1,7 @@
+use ecommerce;
+select c.customerName, round((credit - debit), 0) from customers c,
+(select p.amount as debit, c.creditLimit as credit 
+from customers c, payments p
+where c.customerNumber = p.customerNumber) r
+where round((credit - debit), 0) > 0
+order by round((credit - debit), 0) desc ;

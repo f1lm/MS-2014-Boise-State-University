@@ -1,0 +1,8 @@
+use university;
+select FName, LName from 
+(
+select s.FName as FNAME, s.LName as LNAME, sum(Hours) as hours from COURSE c, GRADE_REPORT g, STUDENT s 
+where c.CourseNo = g.CourseNo 
+and g.SSN = s.SSN
+and (g.LGrade =  "A" OR g.LGrade = "B" OR g.LGRADE = "C")
+group by s.SSN) as T where hours >= 10;

@@ -1,0 +1,10 @@
+use university;
+select s.FName, s.LName, c.CName, g.LGrade from STUDENT s, COURSE c, GRADE_REPORT g, DEPT d, MINOR m
+where s.SSN in 
+( select s.SSN from STUDENT s, MINOR m where s.SSN = m. SSN
+)
+and s.SSN = g.SSN
+and s.SSN = m.SSN
+and m.DeptCode = d.DeptCode
+and d.DeptCode = c.DeptCode
+and g.CourseNo = c.CourseNo;

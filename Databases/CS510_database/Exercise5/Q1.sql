@@ -1,0 +1,1 @@
+select sex, count(*) as 'number' from employee group by sex;

@@ -1,0 +1,44 @@
+exam 03/17
+HW1 grade 02/26
+HW2 will be posted 02.26
+expected 03/05
+graduate project only 03.03
+
+-------------------------------------------------------
+
+create Database sampledb;
+use sampledb;
+create table student (
+student_id int auto_increment not null, 
+sex CHAR(1) not null, 
+name VARCHAR(20) not null,
+primary key(student_id)
+);
+
+create table grade_event (event_id int not null auto_increment, 
+category VARCHAR(10) not null, 
+date datetime not null,
+primary key(event_id)
+);
+
+create table score (
+student_id int not null, 
+event_id int not null, 
+score int not null,
+primary key(student_id, event_id),
+foreign key(student_id) references student(student_id),
+foreign key(event_id) references grade_event(event_id)
+);
+
+--------------------------------------------------------
+
+-- highest average score in quizzes
+select * from
+(select S.name, Avg(sc.score) as avg_score
+from student S, score sc, grade_event G
+WHERE S.student_id = sc.student_id 
+and sc.event_id = G.event_id 
+and G.category = 'Q'
+group by S.student_id
+order by Avg(sc.score) desc
+limit 1 ) as temp;

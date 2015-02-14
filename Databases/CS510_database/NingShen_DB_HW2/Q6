@@ -1,0 +1,8 @@
+use university;
+select DName from 
+(select d.DName as DName, count(c.CourseNo) as nums from DEPT d, COURSE c, SECTION s
+where c.CourseNo = s.CourseNo 
+and d.DeptCode = c.DeptCode
+and s.Semester = "S" and s.Year = "2001"
+group by  DName
+) as T where nums >=2;

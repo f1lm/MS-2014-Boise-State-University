@@ -1,0 +1,128 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww28600\viewh14840\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs48 \cf0 \'97 create the database\
+create schema COMPANY;\
+\
+\'97 switch to the database\
+use COMPANY;\
+\
+\'97 create tables\
+\'97 incorrect due to duality\
+CREATE TABLE DEPARTMENT\
+( Dname VARCHAR(15) NOT NULL,\
+Dnumber INT NOT NULL,\
+Mgr_ssn CHAR(9) NOT NULL,\
+Mgr_start_date DATE,\
+PRIMARY KEY (Dnumber),\
+UNIQUE (Dname),\
+FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn));\
+\
+\
+\'97 create the table with no foreign key \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 CREATE TABLE DEPARTMENT\
+( Dname VARCHAR(15) NOT NULL,\
+Dnumber INT NOT NULL,\
+Mgr_ssn CHAR(9) NOT NULL,\
+Mgr_start_date DATE,\
+PRIMARY KEY (Dnumber),\
+UNIQUE (Dname));\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\'97 create employee table with foreign key\
+CREATE TABLE EMPLOYEE\
+( FNAME VARCHAR(15) NOT NULL,\
+Minit CHAR,\
+LName VARCHAR(15) NOT NULL,\
+Ssn CHAR(9) NOT NULL,\
+Address VARCHAR(30),\
+Sex CHAR,\
+Salary DECIMAL(10,2),\
+Super_ssn CHAR(9),\
+Dno  INT  NOT NULL,\
+PRIMARY KEY(Ssn),\
+FOREIGN KEY (Super_ssn) REFERENCES EMPLOYEE(Ssn),\
+FOREIGN KEY (Dno) REFERENCES DEPARTMENT(Dnumber));\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \'97 add the constraint latter to Department\
+ALTER TABLE DEPARTMENT ADD FOREIGN KEY (Mgr_ssn) REFERENCES EMPLOYEE(Ssn);\
+\
+CREATE TABLE DEPT_LOCATIONS\
+(Dnumber INT NOT NULL,\
+Dlocation VARCHAR(15) NOT NULL,\
+PRIMARY KEY (Dnumber, Dlocation),\
+FOREIGN KEY (Dnumber) REFERENCES DEPARTMENT (Dnumber));\
+\
+\
+CREATE TABLE PROJECT\
+(Pname VARCHAR(15) NOT NULL,\
+Pnumber INT NOT NULL,\
+Plocation VARCHAR(15),\
+Dnum INT NOT NULL,\
+PRIMARY KEY(Pnumber),\
+UNIQUE (Pname),\
+FOREIGN KEY (Dnum) REFERENCES DEPARTMENT (Dnumber));\
+\
+\
+CREATE TABLE WORKS_ON\
+( Essn CHAR(9) NOT NULL,\
+Pno INT NOT NULL,\
+Hours DECIMAL(3,1) NOT NULL,\
+PRIMARY KEY (Essn, Pno),\
+FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn),\
+FOREIGN KEY (Pno) REFERENCES PROJECT(Pnumber));\
+\
+CREATE TABLE DEPENDENT\
+(Essn CHAR(9) NOT NULL,\
+Dependent_name VARCHAR(15) NOT NULL,\
+Sex CHAR,\
+BDate DATE,\
+Relationship VARCHAR(8),\
+PRIMARY KEY (Essn, Dependent_name),\
+FOREIGN KEY (Essn) REFERENCES EMPLOYEE(Ssn));\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f1 \cf0 \CocoaLigature0 insert into employee values ('John', '', 'Smith', '123456789','Boise ID', 'M', 1234567.10,'123456789',1);\
+\
+insert into Department values ('Corporate', 1, '123456789', NOW());\
+\
+ALTER TABLE DEPARTMENT DROP FOREIGN KEY department_ibfk_1;\
+\
+\'97\
+\
+insert into Department values ('Corporate', 1, '123456789', NOW());\
+insert into Department values ('Finance', 2, '123456789', NOW());\
+insert into Department values ('Marketing', 3, '123456789', NOW());\
+insert into Department values ('Production', 4, '123456789', NOW());\
+insert into Department values ('Research', 5, '123456789', NOW());\
+\
+\
+\
+insert into employee values ('John', null, 'Smith', '123456789','Boise ID', 'M', 1234567.10,'123456789',1);\
+insert into employee values ('Alan', null, 'Smith', '223456789','Boise ID', 'M', 1234567.10,'123456789',1);\
+insert into employee values ('Will, null, 'Smith', '323456789','Boise ID', 'M', 1234567.10,'123456789',1);\
+insert into employee values ('Emily', 'P', 'Smith', '423456789','Boise ID', 'F', 1234567.10,'123456789',1);\
+insert into employee values ('Megan', 'M', 'McDonald', '523456789','Boise ID', 'F', 1234567.10,'123456789',1);\
+\
+\
+\'97 queries\
+1.select employees for company\
+select * from employee;\
+\
+2. select first and last name for employees\
+select fame, lame from employee;\
+\
+\
+\
+
+\f0 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+}

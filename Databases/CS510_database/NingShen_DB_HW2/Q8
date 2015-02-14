@@ -1,0 +1,6 @@
+use university;
+select s.Fname,s.Lname from STUDENT s where  exists(
+select d.College from MINOR mi,DEPT d where s.SSN=mi.SSN and 
+d.DeptCode=mi.DeptCode and d.College not in(
+select d.College from MAJOR mj,DEPT d 
+where mj.SSN=s.SSN and d.DeptCode=mj.DeptCode));

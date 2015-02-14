@@ -1,0 +1,6 @@
+use university;
+select d.DName from DEPT d where (
+(select count(s.ssn) from STUDENT s,MINOR mi 
+where s.SSN=mi.SSN and d.DeptCode=mi.DeptCode)
+-(select count(s.ssn) from STUDENT s, MAJOR m 
+where s.SSN=m.SSN and d.DeptCode=m.DeptCode)) > 0;

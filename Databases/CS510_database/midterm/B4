@@ -1,0 +1,9 @@
+use ecommerce;
+select p.productLine, sum(od.quantityOrdered)
+from products p, orderdetails od, orders o
+where p.productCode = od.productCode
+and od.orderNumber = o.orderNumber
+and o.orderDate >='2004-01-01'
+and o.orderDate <= '2004-03-31'
+group by p.productLine
+order by sum(od.quantityOrdered) desc;

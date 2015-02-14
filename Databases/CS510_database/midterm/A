@@ -1,0 +1,56 @@
+
+CREATE TABLE `BOOK` (
+  `BookId` int(20) NOT NULL,
+  `Title` char(40) NOT NULL,
+  `MAutherName` char(20) NOT NULL,
+  PRIMARY KEY (`BOOKID`)
+);
+
+CREATE TABLE `PUBLISHER` (
+  `Name` char(30) NOT NULL,
+  `Address` char(20) NOT NULL,
+  `Phone` char(20) NOT NULL,
+  PRIMARY KEY (`Name`)
+);
+
+CREATE TABLE `LIBRARY_BRANCH` (
+  `BranchId` int(20) NOT NULL,
+  `BranchName` char(30) NOT NULL,
+  `Address` char(30) NOT NULL,
+  PRIMARY KEY (`BranchId`)
+);
+
+CREATE TABLE `BORROWER` (
+  `CardNo` int(20) NOT NULL,
+  `Name` char(30) NOT NULL,
+  `Address` char(30) NOT NULL,
+  `Phone` char(20) NOT NULL,
+  PRIMARY KEY (`CardNo`)
+);
+
+CREATE TABLE `B_P` (
+  `BookId` int(20) NOT NULL,
+  `PName` char(30) NOT NULL,
+  CONSTRAINT `BP_BOOK` FOREIGN KEY (`BookId`) REFERENCES `BOOK` (`BookId`),
+  CONSTRAINT `BP_PUBLISHER` FOREIGN KEY (`PName`) REFERENCES `PUBLISHER` (`BookId`)
+);
+
+CREATE TABLE `BOOK_LOANS` (
+  `BookId` int(20) NOT NULL,
+  `BranchId` int(20) NOT NULL,
+  `CardNo` int(20) NOT NULL, 
+  `DateOut` date NOT NULL,
+  `DueDate` date NOT NULL,
+  CONSTRAINT `LOANS_BOOK` FOREIGN KEY (`BookId`) REFERENCES `BOOK` (`BookId`),
+  CONSTRAINT `LOANS_LIBRARY` FOREIGN KEY (`BranchId`) REFERENCES `LIBRARY_BRANCE` (`BranchId`),
+  CONSTRAINT `LOANS_BORROWER` FOREIGN KEY (`CardNo`) REFERENCES `BORROWER` (`CardNo`)
+);
+
+
+CREATE TABLE `BOOK_COPIES` (
+  `BookId` int(20) NOT NULL,
+  `BranchId` int(20) NOT NULL,
+  `NoOfCopies` int(10) NOT NULL,
+  CONSTRAINT `COPY_BOOK` FOREIGN KEY (`BookId`) REFERENCES `BOOK` (`BookId`),
+  CONSTRAINT `COPY_LIBRARY` FOREIGN KEY (`BranchId`) REFERENCES `LIBRARY_BRANCE` (`BranchId`)
+);

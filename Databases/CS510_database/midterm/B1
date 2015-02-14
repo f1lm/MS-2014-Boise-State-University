@@ -1,0 +1,8 @@
+use ecommerce;
+select c.state, count(o.orderNumber) as num from customers c, orders o, customers cus
+where c.customerNumber = o.customerNumber
+and o.customerNumber = cus.customerNumber
+and cus.country = 'USA'
+and o.status = 'Shipped'
+group by c.state
+order by num desc;

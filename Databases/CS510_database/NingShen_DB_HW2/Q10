@@ -1,0 +1,24 @@
+use university;
+select s.FName, s.LName from STUDENT s, COURSE c where s.SSN in 
+(select s.SSN from STUDENT s, GRADE_REPORT g
+where s.SSN = g.SSN
+and g.CourseNo not in (select c.CourseNo from COURSE c, DEPT d, MAJOR m, STUDENT s
+where s.SSN =m.SSN and m.DeptCode=d.DeptCode and d.DeptCode = c.Deptcode))
+order by s.LName,s.FName asc ;
+
+select fname, lname from (
+select s.ssn, s.fname, s.lname, count(s.ssn) as 'needed', count(g.ssn) as 'have' from STUDENT s
+inner join MAJOR m on
+s.ssn = m.SSN 
+inner join COURSE c on
+m.deptcode = c.deptcode
+left outer join GRADE_REPORT g on
+(s.ssn = g.ssn and c.CourseNo = g.courseNo)
+group by s.ssn) as r
+where needed <= have;
+
+select s.ssn, s.fname, s.lname from STUDENT s , MAJOR m, COURSE c, GRADE_REPORT g
+where s.ssn = m.ssn
+and m.deptcode = c.deptcode
+and s.ssn = g.ssn and c.courseNo = g.courseno
+group by s.ssn;

@@ -1,0 +1,8 @@
+use university;
+select s.FName, s.LName from STUDENT s where s.SSN NOT IN ( 
+select s.SSN from STUDENT s, GRADE_REPORT g , COURSE c, DEPT d, MINOR m where s.SSN = g.SSN 
+AND s.SSN = m.SSN
+and g.CourseNo = c.CourseNo
+and c.DeptCode = d.DeptCode
+and d.DeptCode = m.DeptCode
+);

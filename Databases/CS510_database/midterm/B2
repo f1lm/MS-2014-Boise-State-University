@@ -1,0 +1,10 @@
+use ecommerce;
+select p.productName, sum(od.quantityOrdered)
+from productlines pl, products p, orderdetails od, orders o
+where pl.productLine = 'Motorcycles'
+and o.status = 'Shipped'
+and pl.productLine = p.productLine
+and p.productCode = od.productCode
+and od.orderNumber = o.orderNumber
+group by p.productName;
+

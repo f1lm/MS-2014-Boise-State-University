@@ -1,0 +1,14 @@
+use ecommerce;
+select 'USA' as 'REGION', ROUND(SUM(od.quantityOrdered * od.priceEach), 2) 
+from orderdetails od, orders o, customers c
+where od.orderNumber = o.orderNumber 
+and o.customerNumber = c.customerNumber
+and o.status = 'Shipped'
+and c.country = 'USA'
+UNION
+select 'OUTSIDE USA', ROUND(SUM(od.quantityOrdered * od.priceEach), 2) 
+from orderdetails od, orders o, customers c
+where od.orderNumber = o.orderNumber 
+and o.customerNumber = c.customerNumber
+and o.status = 'Shipped'
+and c.country <> 'USA';
