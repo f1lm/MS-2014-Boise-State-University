@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://github.com/chiemseesurfer/puppet-mongodb -->
+<html lang="en" class=""><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    
+    
+    <title>chiemseesurfer/puppet-mongodb</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="chiemseesurfer/puppet-mongodb" name="twitter:title"><meta content="puppet-mongodb - This module manages mongodb services. It provides the functions for sharding, mongod and mongos instances." name="twitter:description"><meta content="https://avatars2.githubusercontent.com/u/1650714?v=3&amp;s=400" name="twitter:image:src">
+      <meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="https://avatars2.githubusercontent.com/u/1650714?v=3&amp;s=400" property="og:image"><meta content="chiemseesurfer/puppet-mongodb" property="og:title"><meta content="https://github.com/chiemseesurfer/puppet-mongodb" property="og:url"><meta content="puppet-mongodb - This module manages mongodb services. It provides the functions for sharding, mongod and mongos instances." property="og:description">
+      <meta name="browser-stats-url" content="/_stats">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="conduit-xhr" href="https://ghconduit.com:25035/">
+    <link rel="xhr-socket" href="https://github.com/_sockets">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host"><meta content="collector-cdn.github.com" name="octolytics-script-host"><meta content="github" name="octolytics-app-id"><meta content="47D11F43:202C:2C5D3801:54DEA7CF" name="octolytics-dimension-request_id"><meta content="144645" name="octolytics-actor-id"><meta content="Milstein" name="octolytics-actor-login"><meta content="c929bf19db2d68b1b438af8cd5374f45049622f0307f133f93544c3aa0910ca9" name="octolytics-actor-hash">
+    
+    <meta content="Rails, view, files#disambiguate" name="analytics-event">
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="oA90ylUxl9P++nmkXB4w8poEQCphROLg67Ip7DzMMDQLmzeD2ha65qy7v4jAKbU735v4rAu+lgmLaBhDjtOVrA==" name="csrf-token">
+
+    <link href="https://assets-cdn.github.com/assets/github-7f7a8d43d99dce26334cc1cb3b327f57a9309f9d6f215d6f3dff77d5e0c593a3.css" media="all" rel="stylesheet">
+    <link href="https://assets-cdn.github.com/assets/github2-8331ce8f85d01626100f2c5e554450e38a2d61f5e4885ef07658ec1d0e67542c.css" media="all" rel="stylesheet">
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="7e082515e709ee4c5c6acd2385417217">
+
+      
+  <meta name="description" content="puppet-mongodb - This module manages mongodb services. It provides the functions for sharding, mongod and mongos instances.">
+  <meta name="go-import" content="github.com/chiemseesurfer/puppet-mongodb git https://github.com/chiemseesurfer/puppet-mongodb.git">
+
+  <meta content="1650714" name="octolytics-dimension-user_id"><meta content="chiemseesurfer" name="octolytics-dimension-user_login"><meta content="29339733" name="octolytics-dimension-repository_id"><meta content="chiemseesurfer/puppet-mongodb" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="true" name="octolytics-dimension-repository_is_fork"><meta content="5362970" name="octolytics-dimension-repository_parent_id"><meta content="echocat/puppet-mongodb" name="octolytics-dimension-repository_parent_nwo"><meta content="5362970" name="octolytics-dimension-repository_network_root_id"><meta content="echocat/puppet-mongodb" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/chiemseesurfer/puppet-mongodb/commits/master.atom" rel="alternate" title="Recent Commits to puppet-mongodb:master" type="application/atom+xml">
+
+  <script type="text/javascript" async="" src="./chiemseesurfer puppet-mongodb_files/api.js"></script><style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+
+  <body class="logged_in  env-production windows vis-public fork" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <a href="https://github.com/chiemseesurfer/puppet-mongodb#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+      
+
+
+      <div class="header header-logged-in true" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <span class="mega-octicon octicon-mark-github"></span>
+</a>
+
+
+      <div class="site-search repo-scope js-site-search" role="search">
+          <form accept-charset="UTF-8" action="https://github.com/chiemseesurfer/puppet-mongodb/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/chiemseesurfer/puppet-mongodb/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+  <input type="text" class="js-site-search-field is-clearable" data-hotkey="s" name="q" placeholder="Search" data-global-scope-placeholder="Search GitHub" data-repo-scope-placeholder="Search" tabindex="1" autocapitalize="off">
+  <div class="scope-badge">This repository</div>
+</form>
+      </div>
+      <ul class="header-nav left" role="navigation">
+        <li class="header-nav-item explore">
+          <a class="header-nav-link" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">Explore</a>
+        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://github.com/blog" data-ga-click="Header, go to blog, text:blog">Blog</a>
+          </li>
+        <li class="header-nav-item">
+          <a class="header-nav-link" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">Help</a>
+        </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav right" id="user-links">
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name" href="https://github.com/Milstein" data-ga-click="Header, go to profile, text:username">
+      <img alt="Milstein" class="avatar" data-user="144645" height="20" src="./chiemseesurfer puppet-mongodb_files/144645" width="20">
+      <span class="css-truncate">
+        <span class="css-truncate-target">Milstein</span>
+      </span>
+    </a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link js-menu-target tooltipped tooltipped-s" href="https://github.com/chiemseesurfer/puppet-mongodb#" aria-label="Create new..." data-ga-click="Header, create new, icon:add">
+      <span class="octicon octicon-plus"></span>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      
+<ul class="dropdown-menu">
+  <li>
+    <a href="https://github.com/new" data-ga-click="Header, create new repository, icon:repo"><span class="octicon octicon-repo"></span> New repository</a>
+  </li>
+  <li>
+    <a href="https://github.com/organizations/new" data-ga-click="Header, create new organization, icon:organization"><span class="octicon octicon-organization"></span> New organization</a>
+  </li>
+
+
+</ul>
+
+    </div>
+  </li>
+
+  <li class="header-nav-item">
+        <a href="https://github.com/notifications" aria-label="You have unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s" data-ga-click="Header, go to notifications, icon:unread" data-hotkey="g n">
+        <span class="mail-status unread"></span>
+        <span class="octicon octicon-inbox"></span>
+</a>
+  </li>
+
+  <li class="header-nav-item">
+    <a class="header-nav-link tooltipped tooltipped-s" href="https://github.com/settings/profile" id="account_settings" aria-label="Settings" data-ga-click="Header, go to settings, icon:settings">
+      <span class="octicon octicon-gear"></span>
+    </a>
+  </li>
+
+  <li class="header-nav-item">
+    <form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="OWrs9ZI5lu16GCFIFoIEbF8E56fpRDqTJlqye11bKnmxRg9/uzR0S0uXGzQTrk+OKnrHxKPUlXYoI2D/ZRtZDQ=="></div>
+      <button class="header-nav-link sign-out-button tooltipped tooltipped-s" aria-label="Sign out" data-ga-click="Header, sign out, icon:logout">
+        <span class="octicon octicon-sign-out"></span>
+      </button>
+</form>  </li>
+
+</ul>
+
+
+    
+  </div>
+</div>
+
+      
+
+        
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope="" itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+        
+<ul class="pagehead-actions">
+
+  <li>
+      <form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="Qjnq95MvaWFWutYcwD4k0EPL4ohGakyUA0PTvAelZg6glx7AE6mgGzkia4MomJw7mTOZb0BaDnTfo62SYBy/UQ=="></div>    <input id="repository_id" name="repository_id" type="hidden" value="29339733">
+
+      <div class="select-menu js-menu-container js-select-menu">
+        <a class="social-count js-social-count" href="https://github.com/chiemseesurfer/puppet-mongodb/watchers">
+          1
+        </a>
+        <a href="https://github.com/chiemseesurfer/puppet-mongodb/subscription" class="minibutton select-menu-button with-count js-menu-target" role="button" tabindex="0" aria-haspopup="true">
+          <span class="js-select-button">
+            <span class="octicon octicon-eye"></span>
+            Watch
+          </span>
+        </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+            <div class="select-menu-header">
+              <span class="select-menu-title">Notifications</span>
+              <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+            </div>
+
+            <div class="select-menu-list js-navigation-container" role="menu">
+
+              <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input checked="checked" id="do_included" name="do" type="radio" value="included">
+                  <span class="select-menu-item-heading">Not watching</span>
+                  <span class="description">Be notified when participating or @mentioned.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-eye"></span>
+                    Watch
+                  </span>
+                </div>
+              </div>
+
+              <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input id="do_subscribed" name="do" type="radio" value="subscribed">
+                  <span class="select-menu-item-heading">Watching</span>
+                  <span class="description">Be notified of all conversations.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-eye"></span>
+                    Unwatch
+                  </span>
+                </div>
+              </div>
+
+              <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input id="do_ignore" name="do" type="radio" value="ignore">
+                  <span class="select-menu-item-heading">Ignoring</span>
+                  <span class="description">Never be notified.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-mute"></span>
+                    Stop ignoring
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+</form>
+
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+
+    <form accept-charset="UTF-8" action="https://github.com/chiemseesurfer/puppet-mongodb/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="INA15j8YO9fE9MdW6Cw6eIo1KIv9IMDLJyVpmnwdKtMp9S7o6WInpmY7QRwgs9kTwN322QwJjiwhuZtXnhguZw=="></div>
+      <button class="minibutton with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar chiemseesurfer/puppet-mongodb">
+        <span class="octicon octicon-star"></span>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/chiemseesurfer/puppet-mongodb/stargazers">
+          0
+        </a>
+</form>
+    <form accept-charset="UTF-8" action="https://github.com/chiemseesurfer/puppet-mongodb/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="525LVbSrc6oTEYDeA5dNEr9aeeG4C0wjMuklKPRQHCYKZrMJ7IaICMKWPe9Z0iHnM0ad3XINdnce31norqCeMw=="></div>
+      <button class="minibutton with-count js-toggler-target" aria-label="Star this repository" title="Star chiemseesurfer/puppet-mongodb">
+        <span class="octicon octicon-star"></span>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/chiemseesurfer/puppet-mongodb/stargazers">
+          0
+        </a>
+</form>  </div>
+
+  </li>
+
+        <li>
+          <a href="https://github.com/chiemseesurfer/puppet-mongodb/fork" class="minibutton with-count js-toggler-target tooltipped-n" title="Fork your own copy of chiemseesurfer/puppet-mongodb to your account" aria-label="Fork your own copy of chiemseesurfer/puppet-mongodb to your account" rel="facebox nofollow">
+            <span class="octicon octicon-repo-forked"></span>
+            Fork
+          </a>
+          <a href="https://github.com/chiemseesurfer/puppet-mongodb/network" class="social-count">46</a>
+        </li>
+
+</ul>
+
+        <h1 itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="mega-octicon octicon-repo-forked"></span>
+          <span class="author"><a href="https://github.com/chiemseesurfer" class="url fn" itemprop="url" rel="author"><span itemprop="title">chiemseesurfer</span></a></span><!--
+       --><span class="path-divider">/</span><!--
+       --><strong><a href="./chiemseesurfer puppet-mongodb_files/chiemseesurfer puppet-mongodb.html" class="js-current-repository" data-pjax="#js-repo-pjax-container">puppet-mongodb</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </span>
+
+            <span class="fork-flag">
+              <span class="text">forked from <a href="https://github.com/echocat/puppet-mongodb">echocat/puppet-mongodb</a></span>
+            </span>
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline with-full-navigation">
+        <div class="repository-sidebar clearfix">
+            
+<nav class="sunken-menu repo-nav js-repo-nav js-sidenav-container-pjax js-octicon-loaders" role="navigation" data-pjax="#js-repo-pjax-container" data-issue-count-url="/chiemseesurfer/puppet-mongodb/issues/counts">
+  <ul class="sunken-menu-group">
+    <li class="tooltipped tooltipped-w" aria-label="Code">
+      <a href="./chiemseesurfer puppet-mongodb_files/chiemseesurfer puppet-mongodb.html" aria-label="Code" class="selected js-selected-navigation-item sunken-menu-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /chiemseesurfer/puppet-mongodb">
+        <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+        <img alt="" class="mini-loader" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+
+    <li class="tooltipped tooltipped-w" aria-label="Pull Requests">
+      <a href="https://github.com/chiemseesurfer/puppet-mongodb/pulls" aria-label="Pull Requests" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g p" data-selected-links="repo_pulls /chiemseesurfer/puppet-mongodb/pulls">
+          <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull Requests</span>
+          <span class="counter">0</span>
+
+          <img alt="" class="mini-loader" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+
+      <li class="tooltipped tooltipped-w" aria-label="Wiki">
+        <a href="https://github.com/chiemseesurfer/puppet-mongodb/wiki" aria-label="Wiki" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g w" data-selected-links="repo_wiki /chiemseesurfer/puppet-mongodb/wiki">
+          <span class="octicon octicon-book"></span> <span class="full-word">Wiki</span>
+          <img alt="" class="mini-loader" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>      </li>
+  </ul>
+  <div class="sunken-menu-separator"></div>
+  <ul class="sunken-menu-group">
+
+    <li class="tooltipped tooltipped-w" aria-label="Pulse">
+      <a href="https://github.com/chiemseesurfer/puppet-mongodb/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-selected-links="pulse /chiemseesurfer/puppet-mongodb/pulse">
+        <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+        <img alt="" class="mini-loader" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Graphs">
+      <a href="https://github.com/chiemseesurfer/puppet-mongodb/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-selected-links="repo_graphs repo_contributors /chiemseesurfer/puppet-mongodb/graphs">
+        <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+        <img alt="" class="mini-loader" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+  </ul>
+
+
+</nav>
+
+              <div class="only-with-full-nav">
+                  
+<div class="clone-url " data-protocol-type="http" data-url="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">HTTPS</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/chiemseesurfer/puppet-mongodb.git" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="clone-url open" data-protocol-type="ssh" data-url="/users/set_protocol?protocol_selector=ssh&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">SSH</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="git@github.com:chiemseesurfer/puppet-mongodb.git" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="clone-url " data-protocol-type="subversion" data-url="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">Subversion</span> checkout URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/chiemseesurfer/puppet-mongodb" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+
+<p class="clone-options">You can clone with
+  <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="js-clone-selector" data-protocol="http">HTTPS</a>, <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="js-clone-selector" data-protocol="ssh">SSH</a>, or <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="js-clone-selector" data-protocol="subversion">Subversion</a>.
+  <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <span class="octicon octicon-question"></span>
+  </a>
+</p>
+
+
+  <a href="github-windows://openRepo/https://github.com/chiemseesurfer/puppet-mongodb" class="minibutton sidebar-button" title="Save chiemseesurfer/puppet-mongodb to your computer and use it in GitHub Desktop." aria-label="Save chiemseesurfer/puppet-mongodb to your computer and use it in GitHub Desktop.">
+    <span class="octicon octicon-device-desktop"></span>
+    Clone in Desktop
+  </a>
+
+                <a href="https://github.com/chiemseesurfer/puppet-mongodb/archive/master.zip" class="minibutton sidebar-button" aria-label="Download the contents of chiemseesurfer/puppet-mongodb as a zip file" title="Download the contents of chiemseesurfer/puppet-mongodb as a zip file" rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container="">
+          
+<span id="js-show-full-navigation"></span>
+
+<div class="repository-meta js-details-container ">
+    <div class="repository-description">
+      This module manages mongodb services. It provides the functions for sharding, mongod and mongos instances.
+    </div>
+
+
+
+</div>
+
+<div class="overall-summary overall-summary-bottomless">
+
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax="" href="https://github.com/chiemseesurfer/puppet-mongodb/commits/master">
+            <span class="octicon octicon-history"></span>
+            <span class="num text-emphasized">
+              175
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax="" href="https://github.com/chiemseesurfer/puppet-mongodb/branches">
+          <span class="octicon octicon-git-branch"></span>
+          <span class="num text-emphasized">
+            1
+          </span>
+          branch
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax="" href="https://github.com/chiemseesurfer/puppet-mongodb/releases">
+          <span class="octicon octicon-tag"></span>
+          <span class="num text-emphasized">
+            10
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+        
+  <a href="https://github.com/chiemseesurfer/puppet-mongodb/graphs/contributors">
+    <span class="octicon octicon-organization"></span>
+    <span class="num text-emphasized">
+      14
+    </span>
+    contributors
+  </a>
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/search?l=puppet">
+                <span class="color-block language-color" style="background-color:#cc5555;"></span>
+                <span class="lang">Puppet</span>
+                <span class="percent">88.2%</span>
+              </a>
+          </li>
+          <li>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/search?l=ruby">
+                <span class="color-block language-color" style="background-color:#701516;"></span>
+                <span class="lang">Ruby</span>
+                <span class="percent">11.8%</span>
+              </a>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="tooltipped tooltipped-s" aria-label="Show language statistics">
+    <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="repository-lang-stats-graph js-toggle-lang-stats" style="background-color:#701516">
+  <span class="language-color" style="width:88.2%; background-color:#cc5555;" itemprop="keywords">Puppet</span><span class="language-color" style="width:11.8%; background-color:#701516;" itemprop="keywords">Ruby</span>
+    </a>
+  </div>
+
+
+
+<div class="file-navigation in-mid-page">
+  <a href="https://github.com/chiemseesurfer/puppet-mongodb/find/master" class="js-show-file-finder minibutton empty-icon tooltipped tooltipped-s right" data-pjax="" data-hotkey="t" aria-label="Quickly jump between files">
+    <span class="octicon octicon-list-unordered"></span>
+  </a>
+    <a href="https://github.com/chiemseesurfer/puppet-mongodb/compare" aria-label="Compare, review, create a pull request" class="minibutton primary tooltipped tooltipped-s left compare-button" data-pjax="" data-ga-click="Repository, go to compare view, location:repo overview; icon:git-compare">
+      <span class="octicon octicon-git-compare"></span>
+    </a>
+
+  
+<div class="select-menu js-menu-container js-select-menu left">
+  <span class="minibutton select-menu-button js-menu-target css-truncate" data-hotkey="w" data-master-branch="master" data-ref="master" title="master" role="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <span class="octicon octicon-git-branch"></span>
+    <i>branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </span>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax="" aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <span class="select-menu-title">Switch branches/tags</span>
+        <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item selected">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/master" data-name="master" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="master">master</a>
+            </div>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.4.3" data-name="v3.4.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.4.3">v3.4.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.4.2" data-name="v3.4.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.4.2">v3.4.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.4.1" data-name="v3.4.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.4.1">v3.4.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.4.0" data-name="v3.4.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.4.0">v3.4.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.3.1" data-name="v3.3.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.3.1">v3.3.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.3.0" data-name="v3.3.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.3.0">v3.3.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.2.1" data-name="v3.2.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.2.1">v3.2.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.2.0" data-name="v3.2.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.2.0">v3.2.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.1.0" data-name="v3.1.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.1.0">v3.1.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/v3.0.2" data-name="v3.0.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="v3.0.2">v3.0.2</a>
+            </div>
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="breadcrumb"><span class="repo-root js-repo-root"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="./chiemseesurfer puppet-mongodb_files/chiemseesurfer puppet-mongodb.html" class="" data-branch="master" data-direction="back" data-pjax="true" itemscope="url"><span itemprop="title">puppet-mongodb</span></a></span></span><span class="separator">/</span><form action="https://github.com/chiemseesurfer/puppet-mongodb/new/master" aria-label="Fork this project and create a new file" class="js-new-blob-form tooltipped tooltipped-e new-file-link" method="post"><span aria-label="Fork this project and create a new file" class="js-new-blob-submit octicon octicon-plus" data-test-id="create-new-git-file" role="button"></span></form></div>
+</div>
+
+
+    <div class="branch-infobar clearfix">
+        <p>
+          This branch is 3 commits behind echocat:master
+        </p>
+
+      <ul class="lightweight-actions">
+        <li>
+            <a href="https://github.com/chiemseesurfer/puppet-mongodb/pull/new/master">
+              <span class="octicon octicon-git-pull-request"></span>
+              Pull Request
+            </a>
+        </li>
+        <li>
+          <a href="https://github.com/chiemseesurfer/puppet-mongodb/compare">
+            <span class="octicon octicon-diff"></span>
+            Compare
+          </a>
+        </li>
+      </ul>
+
+    </div>
+
+  
+  <div class="commit commit-tease js-details-container">
+    <p class="commit-title ">
+        <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/a1a97904a76af183a8d08a9cbad6614e200428a1" class="message" data-pjax="true" title="Delete logrotate.conf.erb">Delete logrotate.conf.erb</a>
+        
+    </p>
+    <div class="commit-meta">
+      <button aria-label="Copy SHA" class="js-zeroclipboard zeroclipboard-link" data-clipboard-text="a1a97904a76af183a8d08a9cbad6614e200428a1" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+      <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/a1a97904a76af183a8d08a9cbad6614e200428a1" class="sha-block" data-pjax="">latest commit <span class="sha">a1a97904a7</span></a>
+
+      <div class="authorship">
+        <img alt="Daniel Werdermann" class="avatar" data-user="2126417" height="20" src="./chiemseesurfer puppet-mongodb_files/2126417" width="20">
+        <span class="author-name"><a href="https://github.com/dwerder" rel="contributor">dwerder</a></span>
+        authored <time class="updated" datetime="2015-01-16T06:08:19Z" is="relative-time" title="Jan 15, 2015, 11:08 PM MST">29 days ago</time>
+
+      </div>
+    </div>
+  </div>
+
+  
+
+<div class="file-wrap">
+
+  <table class="files" data-pjax="">
+
+
+    <tbody>
+      <tr class="warning include-fragment-error">
+        <td class="icon"><span class="octicon octicon-alert"></span></td>
+        <td class="content" colspan="3">Failed to load latest commit information.</td>
+      </tr>
+
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/master/manifests" class="js-directory-link" id="a11d1078b1b1f2e3bdea27312f6ba513-881bad7a209bffbc9b1e1737a92a5b1c2b96fd56" title="manifests">manifests</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/956b7f9d1f77ca35ebac463b29bbec8655f5075e" class="message" data-pjax="true" title="linting">linting</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-15T16:31:54Z" is="time-ago" title="Jan 15, 2015, 9:31 AM MST">29 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/master/spec" class="js-directory-link" id="b979c2934ac0b4ba3f08dabfdd1b2299-35d8699fe93ad99736e76ea844af22421a8c94bd" title="spec">spec</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/618e72df65764e68b9a84b4af181201f41f4541c" class="message" data-pjax="true" title="tests: fix Debian os test">tests: fix Debian os test</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-11T19:26:19Z" is="time-ago" title="Dec 11, 2014, 12:26 PM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/tree/master/templates" class="js-directory-link" id="fed36e93a0509e20f2dc96cbbd85b678-6718124cf77995ac8ec2de4c86ea6d0e23d8ee21" title="templates">templates</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/a1a97904a76af183a8d08a9cbad6614e200428a1" class="message" data-pjax="true" title="Delete logrotate.conf.erb">Delete logrotate.conf.erb</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-16T06:08:19Z" is="time-ago" title="Jan 15, 2015, 11:08 PM MST">29 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/.fixtures.yml" class="js-directory-link" id="94a00eef4dffb5a94b0c6739338e6757-9f6a3c9bfeabdddbc7c0a5753ec1eddbc7fa5b9e" title=".fixtures.yml">.fixtures.yml</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/7f9e3195121fc4a1c0e70ee1e7c5cd5c876a145b" class="message" data-pjax="true" title="use logrotate module">use logrotate module</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-15T16:13:27Z" is="time-ago" title="Jan 15, 2015, 9:13 AM MST">29 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/.gitignore" class="js-directory-link" id="a084b794bc0759e7a6b77810e01874f2-35e6349ca675af7ece86f65837a8ac37844c10b3" title=".gitignore">.gitignore</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/303d3b672e811379fd28d567593b22ccbfc65827" class="message" data-pjax="true" title="Use user-set `old_servicename` parameter
+
+- in mongod and mongos functions
+- also ignore temporary vim files
+- addresses #45">Use user-set `old_servicename` parameter</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-11-27T20:10:07Z" is="time-ago" title="Nov 27, 2014, 1:10 PM MST">3 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/.travis.yml" class="js-directory-link" id="354f30a63fb0907d4ad57269548329e3-f531306e709fe1faf5c6032dd08966bfb629a8a8" title=".travis.yml">.travis.yml</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/11571eb6c260b254e5fe5b20d3adc4338cff3f40" class="message" data-pjax="true" title="tests: add initial spec tests">tests: add initial spec tests</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-11T12:15:48Z" is="time-ago" title="Dec 11, 2014, 5:15 AM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/CHANGELOG.md" class="js-directory-link" id="4ac32a78649ca5bdd8e0ba38b7006a1e-8c12c53f2e2bef4480d6b569459318a462ca7233" title="CHANGELOG.md">CHANGELOG.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/16453fd6e8ba80a9dd164ba6b9c382767876984a" class="message" data-pjax="true" title="prepare release 3.4.3">prepare release 3.4.3</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-11T20:09:47Z" is="time-ago" title="Dec 11, 2014, 1:09 PM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/Gemfile" class="js-directory-link" id="8b7db4d5cc4b8f6dc8feb7030baa2478-7bd34cda7511f45614f5c9c0bcf36f64ea2bbb50" title="Gemfile">Gemfile</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/11571eb6c260b254e5fe5b20d3adc4338cff3f40" class="message" data-pjax="true" title="tests: add initial spec tests">tests: add initial spec tests</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-11T12:15:48Z" is="time-ago" title="Dec 11, 2014, 5:15 AM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/LICENSE" class="js-directory-link" id="9879d6db96fd29134fc802214163b95a-ca435b28d4c9eaf552c5944ff536c00bafeee944" title="LICENSE">LICENSE</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/ceab16fc2e4b146f6049ce3ea0c2640aeeabba60" class="message" data-pjax="true" title="change license to apache 2.0">change license to apache 2.0</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-22T09:06:53Z" is="time-ago" title="Dec 22, 2014, 2:06 AM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/README.md" class="js-directory-link" id="04c6e90faac2675aa89e2176d2eec7d8-b8d04861ad4a5119c71a7908d9c758b11b243dc7" title="README.md">README.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/956b7f9d1f77ca35ebac463b29bbec8655f5075e" class="message" data-pjax="true" title="linting">linting</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-15T16:31:54Z" is="time-ago" title="Jan 15, 2015, 9:31 AM MST">29 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/Rakefile" class="js-directory-link" id="52c976fc38ed2b4e3b1192f8a8e24cff-505cb2d0f819729c93a3d9a185d0c242cdafede9" title="Rakefile">Rakefile</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/11571eb6c260b254e5fe5b20d3adc4338cff3f40" class="message" data-pjax="true" title="tests: add initial spec tests">tests: add initial spec tests</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-12-11T12:15:48Z" is="time-ago" title="Dec 11, 2014, 5:15 AM MST">2 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./chiemseesurfer puppet-mongodb_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/chiemseesurfer/puppet-mongodb/blob/master/metadata.json" class="js-directory-link" id="490694a9db8f7a371538da1abe484314-1813d75e5faf639ad5e6b5ac949397032e7d38f2" title="metadata.json">metadata.json</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/chiemseesurfer/puppet-mongodb/commit/7f9e3195121fc4a1c0e70ee1e7c5cd5c876a145b" class="message" data-pjax="true" title="use logrotate module">use logrotate module</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-15T16:13:27Z" is="time-ago" title="Jan 15, 2015, 9:13 AM MST">29 days ago</time></span>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+  <div id="readme" class="boxed-group flush clearfix announce instapaper_body md">
+    <h3>
+      <span class="octicon octicon-book"></span>
+      README.md
+    </h3>
+
+    <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a id="user-content-mongodb" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>mongodb</h1>
+
+<h4>
+<a id="user-content-table-of-contents" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of Contents</h4>
+
+<ol class="task-list">
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#overview">Overview - What is the mongodb module?</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#module-description">Module Description - What does this module do?</a></li>
+<li>
+<a href="https://github.com/chiemseesurfer/puppet-mongodb#setup">Setup - The basics of getting started with mongodb</a>
+
+<ul class="task-list">
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#beginning-with-mongodb">Beginning with mongodb - Installation</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#install-mongodb-version-26">Install MongoDB version 2.6 - Installation</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#install-exact-version">Install exact version - Installation</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#configure-mongodb-with-run-as-user">Configure MongoDB wit run as user</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#configuration-mongodb-cluster">Configure MongoDB cluster</a></li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/chiemseesurfer/puppet-mongodb#usage">Usage - The class and defined types available for configuration</a>
+
+<ul class="task-list">
+<li>
+<a href="https://github.com/chiemseesurfer/puppet-mongodb#classes-and-defined-types">Classes and Defined Types</a>
+
+<ul class="task-list">
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#class-mongodb">Class: mongodb</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#defined-type-mongodbmongod">Defined Type: mongodb::mongod</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#defined-type-mongodbmongos">Defined Type: mongodb::mongos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#requirements">Requirements</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#limitations">Limitations - OS compatibility, etc.</a></li>
+<li><a href="https://github.com/chiemseesurfer/puppet-mongodb#contributing">Contributing to the mongodb module</a></li>
+</ol>
+
+<h2>
+<a id="user-content-overview" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<p>This module installs and makes basic configs for mongodb. That includes mongod and mongos.
+Out-of-the-box the defaults are set to install a mongodb version 2.4.x. If you want to use
+2.6 see the setup examples below.</p>
+
+<p>Github Master: <a href="https://travis-ci.org/echocat/puppet-mongodb"><img src="./chiemseesurfer puppet-mongodb_files/68747470733a2f2f7365637572652e7472617669732d63692e6f72672f6563686f6361742f7075707065742d6d6f6e676f64622e706e673f6272616e63683d6d6173746572" alt="Build Status" data-canonical-src="https://secure.travis-ci.org/echocat/puppet-mongodb.png?branch=master" style="max-width:100%;"></a></p>
+
+<h2>
+<a id="user-content-module-description" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#module-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Module Description</h2>
+
+<p><a href="http://www.mongodb.org/">MongoDB</a>, is an open-source document database, and the leading NoSQL database.
+This module can be used to set up a simple standalone DB or all components for a full sharding cluster.</p>
+
+<h2>
+<a id="user-content-setup" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h2>
+
+<p><strong>What mongodb affects:</strong></p>
+
+<ul class="task-list">
+<li>repos/packages/services/basic configuration files for MongoDB</li>
+</ul>
+
+<p><strong>What mongodb NOT affects:</strong></p>
+
+<ul class="task-list">
+<li>internal configuration of your MongoDB cluster, like Sharding Members and so on</li>
+</ul>
+
+<h3>
+<a id="user-content-beginning-with-mongodb" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#beginning-with-mongodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beginning with MongoDB</h3>
+
+<p>Starting with a mongodb server with replSet. This will install a 2.4.x version MongoDB:</p>
+
+<div class="highlight highlight-puppet"><pre>  <span class="pl-k">include</span> mongodb
+  mongodb::mongod {
+    <span class="pl-s1"><span class="pl-pds">'</span>my_mongod_instanceX<span class="pl-pds">'</span></span>:
+      <span class="pl-c1">mongod_instance</span>    =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongodb1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_replSet</span>     =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongoShard1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_add_options</span> =&gt; [<span class="pl-s1"><span class="pl-pds">'</span>slowms = 50<span class="pl-pds">'</span></span>]
+  }</pre></div>
+
+<h3>
+<a id="user-content-install-mongodb-version-26" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#install-mongodb-version-26" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install MongoDB version 2.6</h3>
+
+<div class="highlight highlight-puppet"><pre>  <span class="pl-st">class</span> { <span class="pl-en">'mongodb'</span>:
+    <span class="pl-c1">package_name</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongodb-org<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">logdir</span>       =&gt; <span class="pl-s1"><span class="pl-pds">'</span>/var/log/mongodb/<span class="pl-pds">'</span></span>,
+    <span class="pl-c"># only debian like distros</span>
+    <span class="pl-c1">old_servicename</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongod<span class="pl-pds">'</span></span>
+  }
+  mongodb::mongod {
+    <span class="pl-s1"><span class="pl-pds">'</span>my_mongod_instanceX<span class="pl-pds">'</span></span>:
+      <span class="pl-c1">mongod_instance</span>    =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongodb1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_replSet</span>     =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongoShard1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_add_options</span> =&gt; [<span class="pl-s1"><span class="pl-pds">'</span>slowms = 50<span class="pl-pds">'</span></span>]
+  }</pre></div>
+
+<h3>
+<a id="user-content-install-exact-version" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#install-exact-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install exact version</h3>
+
+<p>Holy shit, I work in an enterprise environment. I need an specific version.
+So on a RHEL like system it would look like this:</p>
+
+<div class="highlight highlight-puppet"><pre>  <span class="pl-c"># mongodb 2.6.x</span>
+  <span class="pl-st">class</span> { <span class="pl-en">'mongodb'</span>:
+    <span class="pl-c1">package_name</span>   =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongodb-org<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">package_ensure</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>2.6.2-1<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">logdir</span>         =&gt; <span class="pl-s1"><span class="pl-pds">'</span>/var/log/mongodb/<span class="pl-pds">'</span></span>,
+    <span class="pl-c"># only debian like distros</span>
+    <span class="pl-c1">old_servicename</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongod<span class="pl-pds">'</span></span>
+  }
+
+  <span class="pl-c"># mongodb 2.4.x</span>
+  <span class="pl-st">class</span> { <span class="pl-en">'mongodb'</span>:
+    <span class="pl-c1">package_ensure</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>2.4.10-mongodb_1<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">logdir</span>         =&gt; <span class="pl-s1"><span class="pl-pds">'</span>/var/log/mongodb/<span class="pl-pds">'</span></span>
+  }  </pre></div>
+
+<h3>
+<a id="user-content-configure-mongodb-with-run-as-user" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#configure-mongodb-with-run-as-user" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configure MongoDB with run as user</h3>
+
+<p>Now we change the run as user and logdir path.</p>
+
+<div class="highlight highlight-puppet"><pre>  <span class="pl-st">class</span> { <span class="pl-en">'mongodb'</span>:
+    <span class="pl-c1">run_as_user</span>  =&gt; mongod,
+    <span class="pl-c1">run_as_group</span> =&gt; wheel,
+    <span class="pl-c1">logdir</span>       =&gt; <span class="pl-s1"><span class="pl-pds">'</span>/nfsshare/mymongologs/<span class="pl-pds">'</span></span>
+  }
+  mongodb::mongod {
+    <span class="pl-s1"><span class="pl-pds">'</span>my_mongod_instanceX<span class="pl-pds">'</span></span>:
+      <span class="pl-c1">mongod_instance</span>    =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongodb1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_replSet</span>     =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongoShard1<span class="pl-pds">'</span></span>,
+      <span class="pl-c1">mongod_add_options</span> =&gt; [<span class="pl-s1"><span class="pl-pds">'</span>slowms = 20<span class="pl-pds">'</span></span>]
+}</pre></div>
+
+<h3>
+<a id="user-content-configuration-mongodb-cluster" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#configuration-mongodb-cluster" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration mongodb cluster</h3>
+
+<p>And here is a more complex example of building a mongo sharding cluster
+4 nodes (3 of them config server) with 4 shards in replication.</p>
+
+<div class="highlight highlight-puppet"><pre><span class="pl-st">node</span> <span class="pl-en">mongo_sharding_default</span> {
+
+  <span class="pl-c"># Install MongoDB</span>
+
+  <span class="pl-k">include</span> mongodb
+
+  <span class="pl-c"># Install the MongoDB shard server</span>
+
+  mongodb::mongod { <span class="pl-s1"><span class="pl-pds">'</span>mongod_Shard1<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongod_instance</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard1<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_port</span>     =&gt; 27019,
+    <span class="pl-c1">mongod_replSet</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard1<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_shardsvr</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>
+  }
+
+  mongodb::mongod { <span class="pl-s1"><span class="pl-pds">'</span>mongod_Shard2<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongod_instance</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard2<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_port</span>     =&gt; 27020,
+    <span class="pl-c1">mongod_replSet</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard2<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_shardsvr</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>
+  }
+
+  mongodb::mongod { <span class="pl-s1"><span class="pl-pds">'</span>mongod_Shard3<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongod_instance</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard3<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_port</span>     =&gt; 27021,
+    <span class="pl-c1">mongod_replSet</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard3<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_shardsvr</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>
+  }
+
+  mongodb::mongod { <span class="pl-s1"><span class="pl-pds">'</span>mongod_Shard4<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongod_instance</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard4<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_port</span>     =&gt; 27022,
+    <span class="pl-c1">mongod_replSet</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>Shard4<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_shardsvr</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>
+  }
+
+  <span class="pl-c"># Install the MongoDB Loadbalancer server</span>
+
+  mongodb::mongos { <span class="pl-s1"><span class="pl-pds">'</span>mongos_shardproxy<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongos_instance</span>      =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongoproxy<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongos_port</span>          =&gt; 27017,
+    <span class="pl-c1">mongos_configServers</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>mongo1.my.domain:27018,mongo2.my.domain:27018,mongo3.my.domain:27018<span class="pl-pds">'</span></span>
+  }
+}
+
+ <span class="pl-c"># This three nodes are shard members and run a mongoS</span>
+
+node <span class="pl-s1"><span class="pl-pds">'</span>mongo1.my.domain<span class="pl-pds">'</span></span>,
+     <span class="pl-s1"><span class="pl-pds">'</span>mongo2.my.domain<span class="pl-pds">'</span></span>,
+     <span class="pl-s1"><span class="pl-pds">'</span>mongo3.my.domain<span class="pl-pds">'</span></span> inherits mongo_sharding_default {
+
+  <span class="pl-c"># Install the MongoDB config server</span>
+
+  <span class="pl-k">include</span> mongodb
+
+  mongodb::mongod { <span class="pl-s1"><span class="pl-pds">'</span>mongod_config<span class="pl-pds">'</span></span>:
+    <span class="pl-c1">mongod_instance</span>  =&gt; <span class="pl-s1"><span class="pl-pds">'</span>shardproxy<span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_port</span>      =&gt; 27018,
+    <span class="pl-c1">mongod_replSet</span>   =&gt; <span class="pl-s1"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+    <span class="pl-c1">mongod_configsvr</span> =&gt; <span class="pl-s1"><span class="pl-pds">'</span>true<span class="pl-pds">'</span></span>
+  }
+}
+
+ <span class="pl-c"># This node is just a shard member</span>
+
+node <span class="pl-s1"><span class="pl-pds">'</span>mongo4.my.domain<span class="pl-pds">'</span></span> inherits mongo_sharding_default { }</pre></div>
+
+<h2>
+<a id="user-content-usage" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="user-content-classes-and-defined-types" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#classes-and-defined-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Classes and Defined Types</h3>
+
+<p>This module installs mongodb from the repo with class <code>mongodb</code>.
+The redis service(s) are configured with the defined type <code>redis::server</code>.</p>
+
+<h4>
+<a id="user-content-class-mongodb" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#class-mongodb" aria-hidden="true"><span class="octicon octicon-link"></span></a>Class: <code>mongodb</code>
+</h4>
+
+<p>This class installs mongodb packages and makes basic install configurations.
+It does not configure any mongo services. This is done by defined type
+<code>mongodb::mongod</code> and <code>mongodb::mongos</code>.</p>
+
+<p>Most global parameters are set in params.pp and should fit the most use cases.
+But you can also set them, when including class mongodb.</p>
+
+<p><strong>Parameters within <code>mongodb</code>:</strong></p>
+
+<h5>
+<a id="user-content-dbdir" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#dbdir" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>dbdir</code>
+</h5>
+
+<p>Default is '/var/lib' (string). This is the root directory where the mongo instances
+will create their own subdirectories.</p>
+
+<h5>
+<a id="user-content-pidfilepath" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#pidfilepath" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>pidfilepath</code>
+</h5>
+
+<p>Default is <code>dbdir</code>.</p>
+
+<h5>
+<a id="user-content-logdir" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#logdir" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>logdir</code>
+</h5>
+
+<p>Default on Redhat '/var/log/mongo' and on Debian '/var/log/mongodb'.</p>
+
+<h5>
+<a id="user-content-logrotatenumber" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#logrotatenumber" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>logrotatenumber</code>
+</h5>
+
+<p>Number of days to keep the logfiles.</p>
+
+<h5>
+<a id="user-content-package_ensure" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#package_ensure" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>package_ensure</code>
+</h5>
+
+<p>Default is 'installed' . Here you can choose the version to be installed.</p>
+
+<h5>
+<a id="user-content-repo_manage" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#repo_manage" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>repo_manage</code>
+</h5>
+
+<p>Default is true (boolean). Choose if this module should manage the repos needed
+to install the mongodb packages.</p>
+
+<h5>
+<a id="user-content-ulimit_nofiles" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#ulimit_nofiles" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>ulimit_nofiles</code>
+</h5>
+
+<p>Default is 64000 (integer). Number of allowed filehandles.
+See <a href="http://docs.mongodb.org/manual/reference/ulimit/#recommended-settings">recommendations</a></p>
+
+<h5>
+<a id="user-content-ulimit_nproc" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#ulimit_nproc" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>ulimit_nproc</code>
+</h5>
+
+<p>Default is 32000 (integer).
+See <a href="http://docs.mongodb.org/manual/reference/ulimit/#recommended-settings">recommendations</a></p>
+
+<h5>
+<a id="user-content-run_as_user" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#run_as_user" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>run_as_user</code>
+</h5>
+
+<p>Default on Redhat is 'mongod' and on Debian 'mongodb' (string). The user the
+mongod is run with.</p>
+
+<h5>
+<a id="user-content-run_as_group" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#run_as_group" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>run_as_group</code>
+</h5>
+
+<p>Default on Redhat is 'mongod' and on Debian 'mongodb' (string). The group the
+mongod is run with.</p>
+
+<h5>
+<a id="user-content-old_servicename" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#old_servicename" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>old_servicename</code>
+</h5>
+
+<p>Default on Redhat is 'mongod' and on Debian 'mongodb' (string).
+Name of the origin mongodb package service. his will be deactivated.</p>
+
+<h4>
+<a id="user-content-defined-type-mongodbmongod" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#defined-type-mongodbmongod" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defined Type: <code>mongodb::mongod</code>
+</h4>
+
+<p>Used to configure mongoD instances. You can setup multiple mongodb servers on the
+same node. See the setup examples.</p>
+
+<p>**Parameters within <code>mongodb::mongod</code></p>
+
+<h5>
+<a id="user-content-mongod_instance" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_instance" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_instance</code>
+</h5>
+
+<p>Despription of mongd service (shard1, config, etc)  (required)</p>
+
+<h5>
+<a id="user-content-mongod_bind_ip" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_bind_ip" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_bind_ip</code>
+</h5>
+
+<p>Default is '' (empty string). So listen in all.</p>
+
+<h5>
+<a id="user-content-mongod_port" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_port" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_port</code>
+</h5>
+
+<p>Listen port (defaul: 27017)</p>
+
+<h5>
+<a id="user-content-mongod_replset" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_replset" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_replSet</code>
+</h5>
+
+<p>Name of ReplSet (optional)</p>
+
+<h5>
+<a id="user-content-mongod_enable" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_enable" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_enable</code>
+</h5>
+
+<p>Enable/Disable service at boot (default: true)</p>
+
+<h5>
+<a id="user-content-mongod_running" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_running" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_running</code>
+</h5>
+
+<p>Start/Stop service (default: true)</p>
+
+<h5>
+<a id="user-content-mongod_configsvr" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_configsvr" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_configsvr</code>
+</h5>
+
+<p>Is config server true/false (default: false)</p>
+
+<h5>
+<a id="user-content-mongod_shardsvr" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_shardsvr" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_shardsvr</code>
+</h5>
+
+<p>Is shard server true/false (default: false)</p>
+
+<h5>
+<a id="user-content-mongod_logappend" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_logappend" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_logappend</code>
+</h5>
+
+<p>Enable/Disable log file appending (default: true)</p>
+
+<h5>
+<a id="user-content-mongod_rest" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_rest" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_rest</code>
+</h5>
+
+<p>Enable/Disable REST api (default: true)</p>
+
+<h5>
+<a id="user-content-mongod_fork" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_fork" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_fork</code>
+</h5>
+
+<p>Enable/Disable fork of mongod process (default: true)</p>
+
+<h5>
+<a id="user-content-mongod_auth" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_auth" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_auth</code>
+</h5>
+
+<p>Enable/Disable auth true/false (default: false)</p>
+
+<h5>
+<a id="user-content-mongod_useauth" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_useauth" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_useauth</code>
+</h5>
+
+<p>Keyfile contents. Your random string/false (default: false)</p>
+
+<h5>
+<a id="user-content-mongod_monit" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_monit" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_monit</code>
+</h5>
+
+<p>Use monit monitoring for mongod instances (default: false)</p>
+
+<h5>
+<a id="user-content-mongod_add_options" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongod_add_options" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongod_add_options</code>
+</h5>
+
+<p>Array. Each field is "key" or "key=value" for parameters for config file</p>
+
+<h4>
+<a id="user-content-defined-type-mongodbmongos" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#defined-type-mongodbmongos" aria-hidden="true"><span class="octicon octicon-link"></span></a>Defined Type: <code>mongodb::mongos</code>
+</h4>
+
+<p>Used to configure mongoS instances. You can setup multiple mongodb proxy
+servers on the same node. See the setup examples.</p>
+
+<p>**Parameters within <code>mongodb::mongos</code></p>
+
+<h5>
+<a id="user-content-mongos_instance" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_instance" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_instance</code>
+</h5>
+
+<p>Despription of mongd service (shard1, config, etc)  (required)</p>
+
+<h5>
+<a id="user-content-mongos_bind_ip" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_bind_ip" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_bind_ip</code>
+</h5>
+
+<p>Listen ip (defaul: emtpy, so listen in all)</p>
+
+<h5>
+<a id="user-content-mongos_port" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_port" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_port</code>
+</h5>
+
+<p>Listen port (defaul: 27017)</p>
+
+<h5>
+<a id="user-content-mongos_configservers" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_configservers" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_configServers</code>
+</h5>
+
+<p>String with comma seperated list of config servers (optional)</p>
+
+<h5>
+<a id="user-content-mongos_enable" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_enable" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_enable</code>
+</h5>
+
+<p>Enable/Disable service at boot (default: true)</p>
+
+<h5>
+<a id="user-content-mongos_running" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_running" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_running</code>
+</h5>
+
+<p>Start/Stop service (default: true)</p>
+
+<h5>
+<a id="user-content-mongos_logappend" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_logappend" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_logappend</code>
+</h5>
+
+<p>Enable/Disable log file appending (default: true)</p>
+
+<h5>
+<a id="user-content-mongos_fork" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_fork" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_fork</code>
+</h5>
+
+<p>Enable/Disable fork of mongod process (default: true)</p>
+
+<h5>
+<a id="user-content-mongos_useauth" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_useauth" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_useauth</code>
+</h5>
+
+<p>Keyfile contents. Your random string/false (default: false)</p>
+
+<h5>
+<a id="user-content-mongos_add_options" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#mongos_add_options" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>mongos_add_options</code>
+</h5>
+
+<p>Array. Each field is "key" or "key=value" for parameters for config file</p>
+
+<h2>
+<a id="user-content-requirements" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<h3>
+<a id="user-content-modules-needed" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#modules-needed" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modules needed:</h3>
+
+<ul class="task-list">
+<li>puppetlabs-stdlib</li>
+<li>rodjek-logrotate</li>
+<li>puppetlabs-apt ( only for Debian/Ubuntu )</li>
+</ul>
+
+<h3>
+<a id="user-content-software-versions-needed" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#software-versions-needed" aria-hidden="true"><span class="octicon octicon-link"></span></a>Software versions needed:</h3>
+
+<ul class="task-list">
+<li>facter &gt; 1.6.2</li>
+<li>puppet &gt; 2.6.2</li>
+</ul>
+
+<p>On Redhat distributions you need the EPEL or RPMforge repository, because Graphite needs packages, which are not part of the default repos.</p>
+
+<h2>
+<a id="user-content-limitations" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#limitations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitations</h2>
+
+<p>This module is tested on CentOS 6.5 and should also run without problems on</p>
+
+<ul class="task-list">
+<li>RHEL/CentOS/Scientific 6+</li>
+<li>Debian 6+</li>
+<li>Ubunutu 10.04 and newer</li>
+</ul>
+
+<h2>
+<a id="user-content-contributing" class="anchor" href="https://github.com/chiemseesurfer/puppet-mongodb#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Echocat modules are open projects. So if you want to make this module even better, you can contribute to this module on <a href="https://github.com/echocat/puppet-mongodb">Github</a>.</p>
+</article>
+  </div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="http://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="http://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+    </a>
+
+    <ul class="site-footer-links">
+      <li>© 2015 <span title="0.18153s from github-fe119-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w" aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="https://github.com/chiemseesurfer/puppet-mongodb#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="./chiemseesurfer puppet-mongodb_files/frameworks-996268c2962f947579cb9ec2908bd576591bc94b6a2db184a78e78815022ba2c.js"></script>
+      <script async="async" crossorigin="anonymous" src="./chiemseesurfer puppet-mongodb_files/github-e0bedf27f60377bda1972e7ce42e59bf839a44cc609ce4a87e4faa220923de8d.js"></script>
+      
+      
+
+  
+
+
+<div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="https://assets-cdn.github.com/flash/ZeroClipboard.v2.1.6.swf"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=github.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com&amp;swfObjectId=global-zeroclipboard-flash-bridge"></object></div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div>    <div class="facebox" id="facebox" style="display:none;">       <div class="facebox-popup">         <div class="facebox-content">         </div>         <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">           <span class="octicon octicon-remove-close"></span>         </button>       </div>     </div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

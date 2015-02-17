@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://github.com/puppetlabs/facter -->
+<html lang="en" class=""><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    
+    
+    <title>puppetlabs/facter</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://github.com/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://github.com/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://github.com/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site"><meta content="summary" name="twitter:card"><meta content="puppetlabs/facter" name="twitter:title"><meta content="facter - Collect and display system facts" name="twitter:description"><meta content="https://avatars1.githubusercontent.com/u/234268?v=3&amp;s=400" name="twitter:image:src">
+      <meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="https://avatars1.githubusercontent.com/u/234268?v=3&amp;s=400" property="og:image"><meta content="puppetlabs/facter" property="og:title"><meta content="https://github.com/puppetlabs/facter" property="og:url"><meta content="facter - Collect and display system facts" property="og:description">
+      <meta name="browser-stats-url" content="/_stats">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    <link rel="conduit-xhr" href="https://ghconduit.com:25035/">
+    <link rel="xhr-socket" href="https://github.com/_sockets">
+    <meta name="pjax-timeout" content="1000">
+    <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_source" data-pjax-transient="">
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host"><meta content="collector-cdn.github.com" name="octolytics-script-host"><meta content="github" name="octolytics-app-id"><meta content="47D11F43:202D:16EE839D:54DEA7D2" name="octolytics-dimension-request_id"><meta content="144645" name="octolytics-actor-id"><meta content="Milstein" name="octolytics-actor-login"><meta content="c929bf19db2d68b1b438af8cd5374f45049622f0307f133f93544c3aa0910ca9" name="octolytics-actor-hash">
+    
+    <meta content="Rails, view, files#disambiguate" name="analytics-event">
+
+    
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+
+    <meta content="authenticity_token" name="csrf-param">
+<meta content="MM8hAbil0z6UEGwFY5qKirT8jc0shTG4WjJdi7vWFkc5mnYwqUZZHbQzUgYK50Q+BnoYTpKYRA6uQB7MRPy7cw==" name="csrf-token">
+
+    <link href="https://assets-cdn.github.com/assets/github-7f7a8d43d99dce26334cc1cb3b327f57a9309f9d6f215d6f3dff77d5e0c593a3.css" media="all" rel="stylesheet">
+    <link href="https://assets-cdn.github.com/assets/github2-8331ce8f85d01626100f2c5e554450e38a2d61f5e4885ef07658ec1d0e67542c.css" media="all" rel="stylesheet">
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="7e082515e709ee4c5c6acd2385417217">
+
+      
+  <meta name="description" content="facter - Collect and display system facts">
+  <meta name="go-import" content="github.com/puppetlabs/facter git https://github.com/puppetlabs/facter.git">
+
+  <meta content="234268" name="octolytics-dimension-user_id"><meta content="puppetlabs" name="octolytics-dimension-user_login"><meta content="910757" name="octolytics-dimension-repository_id"><meta content="puppetlabs/facter" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="910757" name="octolytics-dimension-repository_network_root_id"><meta content="puppetlabs/facter" name="octolytics-dimension-repository_network_root_nwo">
+  <link href="https://github.com/puppetlabs/facter/commits/master.atom" rel="alternate" title="Recent Commits to facter:master" type="application/atom+xml">
+
+  <script type="text/javascript" async="" src="./puppetlabs facter_files/api.js"></script><style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+
+  <body class="logged_in  env-production windows vis-public" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <a href="https://github.com/puppetlabs/facter#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+      
+
+
+      <div class="header header-logged-in true" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <span class="mega-octicon octicon-mark-github"></span>
+</a>
+
+
+      <div class="site-search repo-scope js-site-search" role="search">
+          <form accept-charset="UTF-8" action="https://github.com/puppetlabs/facter/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/puppetlabs/facter/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+  <input type="text" class="js-site-search-field is-clearable" data-hotkey="s" name="q" placeholder="Search" data-global-scope-placeholder="Search GitHub" data-repo-scope-placeholder="Search" tabindex="1" autocapitalize="off">
+  <div class="scope-badge">This repository</div>
+</form>
+      </div>
+      <ul class="header-nav left" role="navigation">
+        <li class="header-nav-item explore">
+          <a class="header-nav-link" href="https://github.com/explore" data-ga-click="Header, go to explore, text:explore">Explore</a>
+        </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://gist.github.com/" data-ga-click="Header, go to gist, text:gist">Gist</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://github.com/blog" data-ga-click="Header, go to blog, text:blog">Blog</a>
+          </li>
+        <li class="header-nav-item">
+          <a class="header-nav-link" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">Help</a>
+        </li>
+      </ul>
+
+    
+<ul class="header-nav user-nav right" id="user-links">
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link name" href="https://github.com/Milstein" data-ga-click="Header, go to profile, text:username">
+      <img alt="Milstein" class="avatar" data-user="144645" height="20" src="./puppetlabs facter_files/144645" width="20">
+      <span class="css-truncate">
+        <span class="css-truncate-target">Milstein</span>
+      </span>
+    </a>
+  </li>
+
+  <li class="header-nav-item dropdown js-menu-container">
+    <a class="header-nav-link js-menu-target tooltipped tooltipped-s" href="https://github.com/puppetlabs/facter#" aria-label="Create new..." data-ga-click="Header, create new, icon:add">
+      <span class="octicon octicon-plus"></span>
+      <span class="dropdown-caret"></span>
+    </a>
+
+    <div class="dropdown-menu-content js-menu-content">
+      
+<ul class="dropdown-menu">
+  <li>
+    <a href="https://github.com/new" data-ga-click="Header, create new repository, icon:repo"><span class="octicon octicon-repo"></span> New repository</a>
+  </li>
+  <li>
+    <a href="https://github.com/organizations/new" data-ga-click="Header, create new organization, icon:organization"><span class="octicon octicon-organization"></span> New organization</a>
+  </li>
+
+
+</ul>
+
+    </div>
+  </li>
+
+  <li class="header-nav-item">
+        <a href="https://github.com/notifications" aria-label="You have unread notifications" class="header-nav-link notification-indicator tooltipped tooltipped-s" data-ga-click="Header, go to notifications, icon:unread" data-hotkey="g n">
+        <span class="mail-status unread"></span>
+        <span class="octicon octicon-inbox"></span>
+</a>
+  </li>
+
+  <li class="header-nav-item">
+    <a class="header-nav-link tooltipped tooltipped-s" href="https://github.com/settings/profile" id="account_settings" aria-label="Settings" data-ga-click="Header, go to settings, icon:settings">
+      <span class="octicon octicon-gear"></span>
+    </a>
+  </li>
+
+  <li class="header-nav-item">
+    <form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="FjCtz5fmQ/r7zkiOfMfxxGXFUShcqZ9YlJaedp2g1PIigNCfTvY4md/paT/7m9OtkrGGj6CmcS4xm0mAtG04dA=="></div>
+      <button class="header-nav-link sign-out-button tooltipped tooltipped-s" aria-label="Sign out" data-ga-click="Header, sign out, icon:logout">
+        <span class="octicon octicon-sign-out"></span>
+      </button>
+</form>  </li>
+
+</ul>
+
+
+    
+  </div>
+</div>
+
+      
+
+        
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope="" itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu">
+      <div class="container">
+        
+<ul class="pagehead-actions">
+
+  <li>
+      <form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="l+oXmC866pJWCLX/intuC7wrOcLKFdyk3DNM+Yjo0pP0spb43zj+XaOSOG3la/DOMvlpSrIa5e4DfhsfOCmvVw=="></div>    <input id="repository_id" name="repository_id" type="hidden" value="910757">
+
+      <div class="select-menu js-menu-container js-select-menu">
+        <a class="social-count js-social-count" href="https://github.com/puppetlabs/facter/watchers">
+          148
+        </a>
+        <a href="https://github.com/puppetlabs/facter/subscription" class="minibutton select-menu-button with-count js-menu-target" role="button" tabindex="0" aria-haspopup="true">
+          <span class="js-select-button">
+            <span class="octicon octicon-eye"></span>
+            Watch
+          </span>
+        </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content" aria-hidden="true">
+            <div class="select-menu-header">
+              <span class="select-menu-title">Notifications</span>
+              <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+            </div>
+
+            <div class="select-menu-list js-navigation-container" role="menu">
+
+              <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input checked="checked" id="do_included" name="do" type="radio" value="included">
+                  <span class="select-menu-item-heading">Not watching</span>
+                  <span class="description">Be notified when participating or @mentioned.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-eye"></span>
+                    Watch
+                  </span>
+                </div>
+              </div>
+
+              <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input id="do_subscribed" name="do" type="radio" value="subscribed">
+                  <span class="select-menu-item-heading">Watching</span>
+                  <span class="description">Be notified of all conversations.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-eye"></span>
+                    Unwatch
+                  </span>
+                </div>
+              </div>
+
+              <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                <span class="select-menu-item-icon octicon octicon-check"></span>
+                <div class="select-menu-item-text">
+                  <input id="do_ignore" name="do" type="radio" value="ignore">
+                  <span class="select-menu-item-heading">Ignoring</span>
+                  <span class="description">Never be notified.</span>
+                  <span class="js-select-button-text hidden-select-button-text">
+                    <span class="octicon octicon-mute"></span>
+                    Stop ignoring
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+</form>
+
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+
+    <form accept-charset="UTF-8" action="https://github.com/puppetlabs/facter/unstar" class="js-toggler-form starred js-unstar-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="BDLZhibTKJMO9hKqqWMbATiRW8XW7yNkwcrWFroppLxwrC7lp8L7moUJWEAm119Dgqc2nrWEeNRfEv99ThK0UA=="></div>
+      <button class="minibutton with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar puppetlabs/facter">
+        <span class="octicon octicon-star"></span>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/puppetlabs/facter/stargazers">
+          361
+        </a>
+</form>
+    <form accept-charset="UTF-8" action="https://github.com/puppetlabs/facter/star" class="js-toggler-form unstarred js-star-button" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="znBA/OQZttMp8Cs8+1SW0gkqeIsQZ+CmqX6XIrHak0e80tviz2CkolVQrW+884su83N/7muBLX9W/QZV2bE/Aw=="></div>
+      <button class="minibutton with-count js-toggler-target" aria-label="Star this repository" title="Star puppetlabs/facter">
+        <span class="octicon octicon-star"></span>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/puppetlabs/facter/stargazers">
+          361
+        </a>
+</form>  </div>
+
+  </li>
+
+        <li>
+          <a href="https://github.com/puppetlabs/facter/fork" class="minibutton with-count js-toggler-target tooltipped-n" title="Fork your own copy of puppetlabs/facter to your account" aria-label="Fork your own copy of puppetlabs/facter to your account" rel="facebox nofollow">
+            <span class="octicon octicon-repo-forked"></span>
+            Fork
+          </a>
+          <a href="https://github.com/puppetlabs/facter/network" class="social-count">348</a>
+        </li>
+
+</ul>
+
+        <h1 itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+          <span class="mega-octicon octicon-repo"></span>
+          <span class="author"><a href="https://github.com/puppetlabs" class="url fn" itemprop="url" rel="author"><span itemprop="title">puppetlabs</span></a></span><!--
+       --><span class="path-divider">/</span><!--
+       --><strong><a href="./puppetlabs facter_files/puppetlabs facter.html" class="js-current-repository" data-pjax="#js-repo-pjax-container">facter</a></strong>
+
+          <span class="page-context-loader">
+            <img alt="" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </span>
+
+        </h1>
+      </div><!-- /.container -->
+    </div><!-- /.repohead -->
+
+    <div class="container">
+      <div class="repository-with-sidebar repo-container new-discussion-timeline with-full-navigation">
+        <div class="repository-sidebar clearfix">
+            
+<nav class="sunken-menu repo-nav js-repo-nav js-sidenav-container-pjax js-octicon-loaders" role="navigation" data-pjax="#js-repo-pjax-container" data-issue-count-url="/puppetlabs/facter/issues/counts">
+  <ul class="sunken-menu-group">
+    <li class="tooltipped tooltipped-w" aria-label="Code">
+      <a href="./puppetlabs facter_files/puppetlabs facter.html" aria-label="Code" class="selected js-selected-navigation-item sunken-menu-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /puppetlabs/facter">
+        <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+        <img alt="" class="mini-loader" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+
+    <li class="tooltipped tooltipped-w" aria-label="Pull Requests">
+      <a href="https://github.com/puppetlabs/facter/pulls" aria-label="Pull Requests" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g p" data-selected-links="repo_pulls /puppetlabs/facter/pulls">
+          <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull Requests</span>
+          <span class="counter">3</span>
+
+          <img alt="" class="mini-loader" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+
+  </ul>
+  <div class="sunken-menu-separator"></div>
+  <ul class="sunken-menu-group">
+
+    <li class="tooltipped tooltipped-w" aria-label="Pulse">
+      <a href="https://github.com/puppetlabs/facter/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-selected-links="pulse /puppetlabs/facter/pulse">
+        <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+        <img alt="" class="mini-loader" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Graphs">
+      <a href="https://github.com/puppetlabs/facter/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-selected-links="repo_graphs repo_contributors /puppetlabs/facter/graphs">
+        <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+        <img alt="" class="mini-loader" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+</a>    </li>
+  </ul>
+
+
+</nav>
+
+              <div class="only-with-full-nav">
+                  
+<div class="clone-url " data-protocol-type="http" data-url="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">HTTPS</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/puppetlabs/facter.git" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="clone-url open" data-protocol-type="ssh" data-url="/users/set_protocol?protocol_selector=ssh&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">SSH</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="git@github.com:puppetlabs/facter.git" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="clone-url " data-protocol-type="subversion" data-url="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone">
+  <h3><span class="text-emphasized">Subversion</span> checkout URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target" value="https://github.com/puppetlabs/facter" readonly="readonly">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard minibutton zeroclipboard-button" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+
+<p class="clone-options">You can clone with
+  <a href="https://github.com/puppetlabs/facter#" class="js-clone-selector" data-protocol="http">HTTPS</a>, <a href="https://github.com/puppetlabs/facter#" class="js-clone-selector" data-protocol="ssh">SSH</a>, or <a href="https://github.com/puppetlabs/facter#" class="js-clone-selector" data-protocol="subversion">Subversion</a>.
+  <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+    <span class="octicon octicon-question"></span>
+  </a>
+</p>
+
+
+  <a href="github-windows://openRepo/https://github.com/puppetlabs/facter" class="minibutton sidebar-button" title="Save puppetlabs/facter to your computer and use it in GitHub Desktop." aria-label="Save puppetlabs/facter to your computer and use it in GitHub Desktop.">
+    <span class="octicon octicon-device-desktop"></span>
+    Clone in Desktop
+  </a>
+
+                <a href="https://github.com/puppetlabs/facter/archive/master.zip" class="minibutton sidebar-button" aria-label="Download the contents of puppetlabs/facter as a zip file" title="Download the contents of puppetlabs/facter as a zip file" rel="nofollow">
+                  <span class="octicon octicon-cloud-download"></span>
+                  Download ZIP
+                </a>
+              </div>
+        </div><!-- /.repository-sidebar -->
+
+        <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container="">
+          
+<span id="js-show-full-navigation"></span>
+
+<div class="repository-meta js-details-container ">
+    <div class="repository-description">
+      Collect and display system facts
+    </div>
+
+    <div class="repository-website">
+      <p><a href="https://tickets.puppetlabs.com/browse/FACT" rel="nofollow">https://tickets.puppetlabs.com/browse/FACT</a></p>
+    </div>
+
+
+</div>
+
+<div class="overall-summary overall-summary-bottomless">
+
+  <div class="stats-switcher-viewport js-stats-switcher-viewport">
+    <div class="stats-switcher-wrapper">
+    <ul class="numbers-summary">
+      <li class="commits">
+        <a data-pjax="" href="https://github.com/puppetlabs/facter/commits/master">
+            <span class="octicon octicon-history"></span>
+            <span class="num text-emphasized">
+              3,106
+            </span>
+            commits
+        </a>
+      </li>
+      <li>
+        <a data-pjax="" href="https://github.com/puppetlabs/facter/branches">
+          <span class="octicon octicon-git-branch"></span>
+          <span class="num text-emphasized">
+            4
+          </span>
+          branches
+        </a>
+      </li>
+
+      <li>
+        <a data-pjax="" href="https://github.com/puppetlabs/facter/releases">
+          <span class="octicon octicon-tag"></span>
+          <span class="num text-emphasized">
+            116
+          </span>
+          releases
+        </a>
+      </li>
+
+      <li>
+        
+  <a href="https://github.com/puppetlabs/facter/graphs/contributors">
+    <span class="octicon octicon-organization"></span>
+    <span class="num text-emphasized">
+      177
+    </span>
+    contributors
+  </a>
+      </li>
+    </ul>
+
+      <div class="repository-lang-stats">
+        <ol class="repository-lang-stats-numbers">
+          <li>
+              <a href="https://github.com/puppetlabs/facter/search?l=ruby">
+                <span class="color-block language-color" style="background-color:#701516;"></span>
+                <span class="lang">Ruby</span>
+                <span class="percent">91.6%</span>
+              </a>
+          </li>
+          <li>
+              <a href="https://github.com/puppetlabs/facter/search?l=cpp">
+                <span class="color-block language-color" style="background-color:#f34b7d;"></span>
+                <span class="lang">C++</span>
+                <span class="percent">7.9%</span>
+              </a>
+          </li>
+          <li>
+              <span class="other">
+                <span data-lang="Other" class="color-block language-color"></span>
+                <span class="lang">Other</span>
+                <span class="percent">0.5%</span>
+              </span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="tooltipped tooltipped-s" aria-label="Show language statistics">
+    <a href="https://github.com/puppetlabs/facter#" class="repository-lang-stats-graph js-toggle-lang-stats" style="background-color:#ccc">
+  <span class="language-color" style="width:91.6%; background-color:#701516;" itemprop="keywords">Ruby</span><span class="language-color" style="width:7.9%; background-color:#f34b7d;" itemprop="keywords">C++</span><span class="language-color" style="width:0.5%; background-color:#ccc;" itemprop="keywords">Other</span>
+    </a>
+  </div>
+
+
+
+<div class="file-navigation in-mid-page">
+  <a href="https://github.com/puppetlabs/facter/find/master" class="js-show-file-finder minibutton empty-icon tooltipped tooltipped-s right" data-pjax="" data-hotkey="t" aria-label="Quickly jump between files">
+    <span class="octicon octicon-list-unordered"></span>
+  </a>
+    <a href="https://github.com/puppetlabs/facter/compare" aria-label="Compare, review, create a pull request" class="minibutton primary tooltipped tooltipped-s left compare-button" data-pjax="" data-ga-click="Repository, go to compare view, location:repo overview; icon:git-compare">
+      <span class="octicon octicon-git-compare"></span>
+    </a>
+
+  
+<div class="select-menu js-menu-container js-select-menu left">
+  <span class="minibutton select-menu-button js-menu-target css-truncate" data-hotkey="w" data-master-branch="master" data-ref="master" title="master" role="button" aria-label="Switch branches or tags" tabindex="0" aria-haspopup="true">
+    <span class="octicon octicon-git-branch"></span>
+    <i>branch:</i>
+    <span class="js-select-button css-truncate-target">master</span>
+  </span>
+
+  <div class="select-menu-modal-holder js-menu-content js-navigation-container" data-pjax="" aria-hidden="true">
+
+    <div class="select-menu-modal">
+      <div class="select-menu-header">
+        <span class="select-menu-title">Switch branches/tags</span>
+        <span class="octicon octicon-x js-menu-close" role="button" aria-label="Close"></span>
+      </div>
+
+      <div class="select-menu-filters">
+        <div class="select-menu-text-filter">
+          <input type="text" aria-label="Filter branches/tags" id="context-commitish-filter-field" class="js-filterable-field js-navigation-enable" placeholder="Filter branches/tags">
+        </div>
+        <div class="select-menu-tabs">
+          <ul>
+            <li class="select-menu-tab">
+              <a href="https://github.com/puppetlabs/facter#" data-tab-filter="branches" data-filter-placeholder="Filter branches/tags" class="js-select-menu-tab">Branches</a>
+            </li>
+            <li class="select-menu-tab">
+              <a href="https://github.com/puppetlabs/facter#" data-tab-filter="tags" data-filter-placeholder="Find a tag…" class="js-select-menu-tab">Tags</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="branches">
+
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.x" data-name="1.6.x" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.x">1.6.x</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/gh-pages" data-name="gh-pages" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="gh-pages">gh-pages</a>
+            </div>
+            <div class="select-menu-item js-navigation-item selected">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/master" data-name="master" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="master">master</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/stable" data-name="stable" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="stable">stable</a>
+            </div>
+        </div>
+
+          <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+      <div class="select-menu-list select-menu-tab-bucket js-select-menu-tab-bucket" data-tab-filter="tags">
+        <div data-filterable-for="context-commitish-filter-field" data-filterable-type="substring">
+
+
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/release-1.0.1" data-name="release-1.0.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="release-1.0.1">release-1.0.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/ReleaseOne" data-name="ReleaseOne" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="ReleaseOne">ReleaseOne</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/Iteration-2011-03-23" data-name="Iteration-2011-03-23" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="Iteration-2011-03-23">Iteration-2011-03-23</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/Iteration-2011-02-02" data-name="Iteration-2011-02-02" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="Iteration-2011-02-02">Iteration-2011-02-02</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/Iteration-2010-11-24" data-name="Iteration-2010-11-24" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="Iteration-2010-11-24">Iteration-2010-11-24</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/Iteration-2010-11-17" data-name="Iteration-2010-11-17" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="Iteration-2010-11-17">Iteration-2010-11-17</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/Iteration-2010-11-10" data-name="Iteration-2010-11-10" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="Iteration-2010-11-10">Iteration-2010-11-10</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.4.1" data-name="2.4.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.4.1">2.4.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.4.0" data-name="2.4.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.4.0">2.4.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.3.0" data-name="2.3.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.3.0">2.3.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.2.0" data-name="2.2.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.2.0">2.2.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.1.0" data-name="2.1.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.1.0">2.1.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.2" data-name="2.0.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.2">2.0.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.1-rc4" data-name="2.0.1-rc4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.1-rc4">2.0.1-rc4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.1-rc3" data-name="2.0.1-rc3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.1-rc3">2.0.1-rc3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.1-rc2" data-name="2.0.1-rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.1-rc2">2.0.1-rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.1-rc1" data-name="2.0.1-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.1-rc1">2.0.1-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.1" data-name="2.0.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.1">2.0.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.0rc4" data-name="2.0.0rc4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.0rc4">2.0.0rc4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.0rc3" data-name="2.0.0rc3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.0rc3">2.0.0rc3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.0rc2" data-name="2.0.0rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.0rc2">2.0.0rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/2.0.0rc1" data-name="2.0.0rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="2.0.0rc1">2.0.0rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.6" data-name="1.7.6" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.6">1.7.6</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.5-rc2" data-name="1.7.5-rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.5-rc2">1.7.5-rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.5-rc1" data-name="1.7.5-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.5-rc1">1.7.5-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.5" data-name="1.7.5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.5">1.7.5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.4-rc1" data-name="1.7.4-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.4-rc1">1.7.4-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.4" data-name="1.7.4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.4">1.7.4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.3-rc1" data-name="1.7.3-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.3-rc1">1.7.3-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.3" data-name="1.7.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.3">1.7.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.2-rc1" data-name="1.7.2-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.2-rc1">1.7.2-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.2" data-name="1.7.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.2">1.7.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.1-rc1" data-name="1.7.1-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.1-rc1">1.7.1-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.1" data-name="1.7.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.1">1.7.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.0-rc2" data-name="1.7.0-rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.0-rc2">1.7.0-rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.0-rc1" data-name="1.7.0-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.0-rc1">1.7.0-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.7.0" data-name="1.7.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.7.0">1.7.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.18-rc1" data-name="1.6.18-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.18-rc1">1.6.18-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.18" data-name="1.6.18" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.18">1.6.18</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.17-rc1" data-name="1.6.17-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.17-rc1">1.6.17-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.17" data-name="1.6.17" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.17">1.6.17</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.16" data-name="1.6.16" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.16">1.6.16</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.15-rc1" data-name="1.6.15-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.15-rc1">1.6.15-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.15" data-name="1.6.15" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.15">1.6.15</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.14-rc1" data-name="1.6.14-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.14-rc1">1.6.14-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.14" data-name="1.6.14" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.14">1.6.14</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.13-rc1" data-name="1.6.13-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.13-rc1">1.6.13-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.13" data-name="1.6.13" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.13">1.6.13</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.12-rc2" data-name="1.6.12-rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.12-rc2">1.6.12-rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.12-rc1" data-name="1.6.12-rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.12-rc1">1.6.12-rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.12" data-name="1.6.12" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.12">1.6.12</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.11rc1" data-name="1.6.11rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.11rc1">1.6.11rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.11" data-name="1.6.11" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.11">1.6.11</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.10rc1" data-name="1.6.10rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.10rc1">1.6.10rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.10" data-name="1.6.10" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.10">1.6.10</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.9rc1" data-name="1.6.9rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.9rc1">1.6.9rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.9" data-name="1.6.9" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.9">1.6.9</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.8rc1" data-name="1.6.8rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.8rc1">1.6.8rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.8" data-name="1.6.8" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.8">1.6.8</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.7rc1" data-name="1.6.7rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.7rc1">1.6.7rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.7" data-name="1.6.7" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.7">1.6.7</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.6rc2" data-name="1.6.6rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.6rc2">1.6.6rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.6rc1" data-name="1.6.6rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.6rc1">1.6.6rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.6" data-name="1.6.6" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.6">1.6.6</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.5rc1" data-name="1.6.5rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.5rc1">1.6.5rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.5" data-name="1.6.5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.5">1.6.5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.4rc1" data-name="1.6.4rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.4rc1">1.6.4rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.4" data-name="1.6.4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.4">1.6.4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.3rc1" data-name="1.6.3rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.3rc1">1.6.3rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.3" data-name="1.6.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.3">1.6.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.2rc1" data-name="1.6.2rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.2rc1">1.6.2rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.2" data-name="1.6.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.2">1.6.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.1rc4" data-name="1.6.1rc4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.1rc4">1.6.1rc4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.1rc3" data-name="1.6.1rc3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.1rc3">1.6.1rc3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.1rc2" data-name="1.6.1rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.1rc2">1.6.1rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.1rc1" data-name="1.6.1rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.1rc1">1.6.1rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.1" data-name="1.6.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.1">1.6.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.0rc1" data-name="1.6.0rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.0rc1">1.6.0rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.6.0" data-name="1.6.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.6.0">1.6.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc6" data-name="1.5.9rc6" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc6">1.5.9rc6</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc5" data-name="1.5.9rc5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc5">1.5.9rc5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc4" data-name="1.5.9rc4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc4">1.5.9rc4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc3" data-name="1.5.9rc3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc3">1.5.9rc3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc2" data-name="1.5.9rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc2">1.5.9rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9rc1" data-name="1.5.9rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9rc1">1.5.9rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.9" data-name="1.5.9" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.9">1.5.9</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.8rc1" data-name="1.5.8rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.8rc1">1.5.8rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.8" data-name="1.5.8" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.8">1.5.8</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.7rc1" data-name="1.5.7rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.7rc1">1.5.7rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.7" data-name="1.5.7" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.7">1.5.7</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.6" data-name="1.5.6" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.6">1.5.6</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.5rc2" data-name="1.5.5rc2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.5rc2">1.5.5rc2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.5" data-name="1.5.5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.5">1.5.5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.4rc1" data-name="1.5.4rc1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.4rc1">1.5.4rc1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.4" data-name="1.5.4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.4">1.5.4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.3" data-name="1.5.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.3">1.5.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.2" data-name="1.5.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.2">1.5.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5.1" data-name="1.5.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5.1">1.5.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.5" data-name="1.5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.5">1.5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.8" data-name="1.3.8" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.8">1.3.8</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.7" data-name="1.3.7" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.7">1.3.7</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.6" data-name="1.3.6" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.6">1.3.6</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.5" data-name="1.3.5" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.5">1.3.5</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.4" data-name="1.3.4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.4">1.3.4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.3" data-name="1.3.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.3">1.3.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.2" data-name="1.3.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.2">1.3.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3.1" data-name="1.3.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3.1">1.3.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.3" data-name="1.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.3">1.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.2.1" data-name="1.2.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.2.1">1.2.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.2.0" data-name="1.2.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.2.0">1.2.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.1.4" data-name="1.1.4" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.1.4">1.1.4</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.1.3" data-name="1.1.3" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.1.3">1.1.3</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.1.2" data-name="1.1.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.1.2">1.1.2</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.1.1" data-name="1.1.1" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.1.1">1.1.1</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.1.0" data-name="1.1.0" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.1.0">1.1.0</a>
+            </div>
+            <div class="select-menu-item js-navigation-item ">
+              <span class="select-menu-item-icon octicon octicon-check"></span>
+              <a href="https://github.com/puppetlabs/facter/tree/1.0.2" data-name="1.0.2" data-skip-pjax="true" rel="nofollow" class="js-navigation-open select-menu-item-text css-truncate-target" title="1.0.2">1.0.2</a>
+            </div>
+        </div>
+
+        <div class="select-menu-no-results">Nothing to show</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="breadcrumb"><span class="repo-root js-repo-root"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="./puppetlabs facter_files/puppetlabs facter.html" class="" data-branch="master" data-direction="back" data-pjax="true" itemscope="url"><span itemprop="title">facter</span></a></span></span><span class="separator">/</span><form action="https://github.com/puppetlabs/facter/new/master" aria-label="Fork this project and create a new file" class="js-new-blob-form tooltipped tooltipped-e new-file-link" method="post"><span aria-label="Fork this project and create a new file" class="js-new-blob-submit octicon octicon-plus" data-test-id="create-new-git-file" role="button"></span></form></div>
+</div>
+
+
+
+  
+  <div class="commit commit-tease js-details-container">
+    <p class="commit-title ">
+        <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">Merge pull request</a> <a href="https://github.com/puppetlabs/facter/pull/848" class="issue-link" title="(FACT-596) Update selinux_config_policy fact">#848</a> <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">from frconil/stable</a>
+        <span class="hidden-text-expander inline"><a href="https://github.com/puppetlabs/facter#" class="js-details-target">…</a></span>
+    </p>
+      <div class="commit-desc"><pre>(FACT-596) Update selinux_config_policy fact</pre></div>
+    <div class="commit-meta">
+      <button aria-label="Copy SHA" class="js-zeroclipboard zeroclipboard-link" data-clipboard-text="f19fcc9a170800fb565361e260be6b0f6d3dc402" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+      <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="sha-block" data-pjax="">latest commit <span class="sha">f19fcc9a17</span></a>
+
+      <div class="authorship">
+        <img alt="Kylo Ginsberg" class="avatar" data-user="1752967" height="20" src="./puppetlabs facter_files/1752967" width="20">
+        <span class="author-name"><a href="https://github.com/kylog" rel="contributor">kylog</a></span>
+        authored <time class="updated" datetime="2015-02-11T19:07:33Z" is="relative-time" title="Feb 11, 2015, 12:07 PM MST">2 days ago</time>
+
+      </div>
+    </div>
+  </div>
+
+  
+<div class="file-wrap">
+
+  <table class="files" data-pjax="">
+
+
+    <tbody>
+      <tr class="warning include-fragment-error">
+        <td class="icon"><span class="octicon octicon-alert"></span></td>
+        <td class="content" colspan="3">Failed to load latest commit information.</td>
+      </tr>
+
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/acceptance" class="js-directory-link" id="734acddb4e78e8102b7a4435e52e7808-494b89341ab24a746c0bef71552fae057d3d2bbd" title="acceptance">acceptance</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/a730bc8d8411749c4fb4c2ef248c942fb11da2e2" class="message" data-pjax="true" title="(maint) Update CI setup for AIO Testing
+
+This implements a new pre-suite that installs the puppet-agent (all in
+one) package and add a new Rake task &quot;ci:test:aio&quot; to utilize the new
+pre-suite.">(maint) Update CI setup for AIO Testing</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-20T23:39:05Z" is="time-ago" title="Jan 20, 2015, 4:39 PM MST">24 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/bin" class="js-directory-link" id="c1111bd512b29e821b120b86446026b8-59e77d04756f7aca59e391403ceee5dbdf718a26" title="bin">bin</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/849b4ccf8c65fb6dba69d40d7c91db413fb70060" class="message" data-pjax="true" title="(FACT-480) Remove current directory from Ruby load path.
+
+The current directory (&#39;.&#39;) is on the load path for Ruby 1.8.7.
+This is a security vulnerability as it allows arbitrary code loading if
+users create ruby source files with names that correspond to those that
+facter is trying to load.
+
+The fix is to explicitly remove &#39;.&#39; from the load path before any code
+is loaded by facter.">(FACT-480) Remove current directory from Ruby load path.</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-05-06T21:28:08Z" is="time-ago" title="May 6, 2014, 3:28 PM MDT">9 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/documentation" class="js-directory-link" id="55876228853abf632dec9346a4f372ec-25042704d0348c8339eeacc074098b81a409f5e1" title="documentation">documentation</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/etc" class="js-directory-link" id="e80f17310109447772dca82b45ef35a5-6cfad1a86b46e7749aa4a1ca1f1a78704be80e84" title="etc">etc</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/ext" class="js-directory-link" id="abf77184f55403d75b9d51d79162a7ca-7d6bfb64bb9dd913208864825ab9028cbf6bb7b3" title="ext">ext</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/d294aa87e268854dd287403383a1db31040d1b1d" class="message" data-pjax="true" title="(PUP-3479) Update ffi to ~1.9.5
+
+Ruby 2.1.x on Windows requires ffi 1.9.5+. Update the ffi dependency to
+1.9.5.">(PUP-3479) Update ffi to ~1.9.5</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-10-24T17:55:16Z" is="time-ago" title="Oct 24, 2014, 11:55 AM MDT">4 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/lib" class="js-directory-link" id="e8acc63b1e238f3255c900eed37254b8-03f37c33f6643d1b30d1d860efd7dfea4a83b06a" title="lib">lib</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">Merge pull request</a> <a href="https://github.com/puppetlabs/facter/pull/848" class="issue-link" title="(FACT-596) Update selinux_config_policy fact">#848</a> <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">from frconil/stable</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-02-11T19:07:33Z" is="time-ago" title="Feb 11, 2015, 12:07 PM MST">2 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/libexec/ext" class="js-directory-link" id="ee4671184c07fdcc1169b1677c66cd92-4ad27a518caf912f24fdd3541aec2042f1fc8eed" title="This path skips through empty directories"><span class="simplified-path">libexec/</span>ext</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/da1982bea8881278eff2758dbdc46d2356e0a159" class="message" data-pjax="true" title="(#2157) add readme for libexec external facts">(#2157) add readme for libexec external facts</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-06-15T21:48:41Z" is="time-ago" title="Jun 15, 2012, 3:48 PM MDT">3 years ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/man/man8" class="js-directory-link" id="38936e1b32701606a3ac508e992f7a1c-25e15a1af874adcd7b125643a21a642603da58f9" title="This path skips through empty directories"><span class="simplified-path">man/</span>man8</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/47ab11a122a1a0375ec5db35e88346e0b26689b0" class="message" data-pjax="true" title="(FACT-272) Update manpage based on facter --help">(FACT-272) Update manpage based on facter --help</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-02-24T22:06:05Z" is="time-ago" title="Feb 24, 2014, 3:06 PM MST">a year ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/schema" class="js-directory-link" id="c9550d5fad73447fc24ba47f95d1c6b7-204e8e070aead6287871ceb774aa76425cbaee92" title="schema">schema</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/89a183d887e15f44c084231d248f9e2a386b28cf" class="message" data-pjax="true" title="Merge branch &#39;stable&#39;
+
+* stable:
+  (FACT-699) include new facts in facter.json
+  (doc) facter.json schema">Merge branch 'stable'</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-10-09T22:29:50Z" is="time-ago" title="Oct 9, 2014, 4:29 PM MDT">4 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/spec" class="js-directory-link" id="b979c2934ac0b4ba3f08dabfdd1b2299-994723cfacc96ccd61055dc182009212be3a2703" title="spec">spec</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">Merge pull request</a> <a href="https://github.com/puppetlabs/facter/pull/848" class="issue-link" title="(FACT-596) Update selinux_config_policy fact">#848</a> <a href="https://github.com/puppetlabs/facter/commit/f19fcc9a170800fb565361e260be6b0f6d3dc402" class="message" data-pjax="true" title="Merge pull request #848 from frconil/stable
+
+(FACT-596) Update selinux_config_policy fact">from frconil/stable</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-02-11T19:07:33Z" is="time-ago" title="Feb 11, 2015, 12:07 PM MST">2 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-directory"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/tree/master/tasks" class="js-directory-link" id="2cb1ad4f3eb0ea704c74a73689ad1654-00ad2b5bbae2cdc91364a579d25f28c87a96baad" title="tasks">tasks</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.autotest" class="js-directory-link" id="1addab743f9784ff8e395037e645416e-08d16d32803ac003e8b1e6e543a03861f1543a85" title=".autotest">.autotest</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1cb9cb6b146167d9e0a99a678f886653ee5dc115" class="message" data-pjax="true" title="(#6610) Fix Autotest proper run
+
+Autotest can be configured through the .autotest
+file. Also, Autotest already has an rspec2 discovery.">(#6610) Fix Autotest proper run</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2011-09-06T23:07:23Z" is="time-ago" title="Sep 6, 2011, 5:07 PM MDT">4 years ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.gemspec" class="js-directory-link" id="46ff332d66e3d0266138c1c6e3315453-c6f1b27d32be828855c9f14679135339e81db1ad" title=".gemspec">.gemspec</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.gitignore" class="js-directory-link" id="a084b794bc0759e7a6b77810e01874f2-ce556b7105654a7919a157a72235ee3e7da9ec07" title=".gitignore">.gitignore</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/6fc376d06ac67cfc7b4abcd1c79b9de377f3b6ea" class="message" data-pjax="true" title="(maint) ignore .idea folder">(maint) ignore .idea folder</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-14T19:11:57Z" is="time-ago" title="Jul 14, 2014, 1:11 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.mailmap" class="js-directory-link" id="c9d540715cff3469b65ddd01f614848b-e751536b0450caeb80f7ba2d1680b7222d1058f5" title=".mailmap">.mailmap</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/462756af2f1ee5c109e301ab0d5a6a329562020f" class="message" data-pjax="true" title="(maint) Add mailmap for git shortlog">(maint) Add mailmap for git shortlog</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-10-18T23:16:54Z" is="time-ago" title="Oct 18, 2012, 5:16 PM MDT">2 years ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.noexec.yaml" class="js-directory-link" id="dc1e16019088fab9e69e60b2ae944cf0-dd4203d521bfd893c225b8171f8c139946789929" title=".noexec.yaml">.noexec.yaml</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/0b49eae183c97351713ff511fcb2cb744a6aa8b4" class="message" data-pjax="true" title="(#15464) Make contributing easy via bundle Gemfile
+
+Without this patch the process of figuring out how to quickly set up a
+development and testing environment for the Puppet _application_ (not a
+gem library) is unnecessarily complicated.
+
+This patch addresses the problem by providing a Bundler compatible
+Gemfile that specifies all of the Gem dependencies for the Puppet 2.7
+application.
+
+Puppet contributors can now easily get a working development and testing
+environment using this sequence of commands:
+
+    $ git clone --branch 2.7.x git://github.com/puppetlabs/puppet.git
+    $ cd puppet/
+    $ bundle install # Install all required dependencies
+    $ rspec
+
+The .noexec.yaml file excludes the `rake` command so that the Gemfile
+doesn&#39;t raise an exception if the `rubygems-bundler` Gem is installed
+and automatically running `bundle exec` for us.
+
+The Gemfile.lock contains the exact dependency versions.  This file is
+included in the version control system because we&#39;re treating Puppet as
+an application rather than a library.">(#15464) Make contributing easy via bundle Gemfile</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2012-08-17T06:20:22Z" is="time-ago" title="Aug 17, 2012, 12:20 AM MDT">3 years ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.rspec" class="js-directory-link" id="f5deb99143d9a1be756e16d12073da6e-53607ea52b7fbb70f3a402736dbe7e6041557b49" title=".rspec">.rspec</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.travis.yml" class="js-directory-link" id="354f30a63fb0907d4ad57269548329e3-d94adb72b672ac8b1c2149847eb8fb90b5c0c335" title=".travis.yml">.travis.yml</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/22d20239b14cac291f3eabef62776fbdfe944ae9" class="message" data-pjax="true" title="(maint) Add ruby 2.1.5 to the travis matrix">(maint) Add ruby 2.1.5 to the travis matrix</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-16T20:32:04Z" is="time-ago" title="Jan 16, 2015, 1:32 PM MST">28 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/.yardopts" class="js-directory-link" id="5808b886486adcc2f1820a316cd5652d-a552a9bc4252cd92e2255544d89ccb56aec170d7" title=".yardopts">.yardopts</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/4ce8f7d543f2b1f988103d4098a74a106e704ebe" class="message" data-pjax="true" title="Document Facter API with YARD
+
+This adds YARD documentation with `@api public` tags to the public API for
+facter. This is a first pass, so it&#39;s probably missing some things that should
+be considered public.
+
+Conflicts:
+	lib/facter/util/fact.rb
+	lib/facter/util/resolution.rb">Document Facter API with YARD</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2013-12-20T20:56:57Z" is="time-ago" title="Dec 20, 2013, 1:56 PM MST">a year ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/COMMITTERS.md" class="js-directory-link" id="0dabc421d9d6e5c2090d78d4c867726e-6f8184643dc7a1c4d77a51e2d8018496f284ac50" title="COMMITTERS.md">COMMITTERS.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/68dedceba02f55ae4b5eebfa4a882018e69f5859" class="message" data-pjax="true" title="Revert &quot;(maint) Update docs to reflect use of facter-2 branch&quot;
+
+This reverts commit 2600f04211d6316f78416ff1bfedcbb70a6f0bfd.">Revert "(maint) Update docs to reflect use of facter-2 branch"</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:52:10Z" is="time-ago" title="Jul 7, 2014, 5:52 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/CONTRIBUTING.md" class="js-directory-link" id="6a3371457528722a734f3c51d9238c13-6c48013f2d22edb2b1e19f0720fd27d70838c265" title="CONTRIBUTING.md">CONTRIBUTING.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/d3091104ae75c535fc5e8fc30209a356d71690a3" class="message" data-pjax="true" title="(doc) facter.json schema
+
+Added facter.json schema change notes to indicate
+that when new facts are added, they should also be
+included in the file to pass acceptance tests.">(doc) facter.json schema</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-10-09T22:27:11Z" is="time-ago" title="Oct 9, 2014, 4:27 PM MDT">4 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/Gemfile" class="js-directory-link" id="8b7db4d5cc4b8f6dc8feb7030baa2478-ac736a9483f060c8829224758d00f7183cc6e71e" title="Gemfile">Gemfile</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/17b6299864b4aad12911cb7f4cf7b0b0e08bdada" class="message" data-pjax="true" title="(maint) add yarjuf to Gemfile">(maint) add yarjuf to Gemfile</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2015-01-27T11:35:55Z" is="time-ago" title="Jan 27, 2015, 4:35 AM MST">18 days ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/LICENSE" class="js-directory-link" id="9879d6db96fd29134fc802214163b95a-4250ce7193a6d4a4df76dadf2739c88a9bae680c" title="LICENSE">LICENSE</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/5f54191700aeb4011a6469d2c9b3a69a63bbc718" class="message" data-pjax="true" title="(maint) Update copyright year in LICENSE
+
+Update the copyright year in the LICENSE file to 2005-2014 rather
+than 2005-2012.">(maint) Update copyright year in LICENSE</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-10-01T22:34:49Z" is="time-ago" title="Oct 1, 2014, 4:34 PM MDT">5 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/README.md" class="js-directory-link" id="04c6e90faac2675aa89e2176d2eec7d8-f7333c084302cae0041a367c9ae57d9eb4fcd4a2" title="README.md">README.md</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/6e7b6a19eab456b32fbc342cb7f095b97163121c" class="message" data-pjax="true" title="(FACT-653) Doc update for supported Ruby Version cherry-pick
+
+Original commit (6caf1ce4):
+(#22857) Note that ruby 2.0.0 should be at least p195.">(FACT-653) Doc update for supported Ruby Version cherry-pick</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-08-13T22:37:35Z" is="time-ago" title="Aug 13, 2014, 4:37 PM MDT">6 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/Rakefile" class="js-directory-link" id="52c976fc38ed2b4e3b1192f8a8e24cff-ed2ff2ad3bf37ce0bdd571b75937d5dbf0366edb" title="Rakefile">Rakefile</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/1f835c682ab9a841c16cd73fe50033c82c6f89c0" class="message" data-pjax="true" title="(FACT-472) Sync facter-2 branch to master
+
+This syncs facter-2 branch to master, i.e. leaves
+master identical to facter-2. For background on this see:
+
+https://groups.google.com/forum/#!msg/puppet-dev/Q24GLe6s1_4/hPwHgvVhnpIJ
+
+Logistically, this was accomplished with the following:
+  git diff master..facter-2 | git apply -
+  git add --ignore-removal .
+  git ls-files --deleted | xargs git rm">(FACT-472) Sync facter-2 branch to master</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-07-07T23:49:33Z" is="time-ago" title="Jul 7, 2014, 5:49 PM MDT">7 months ago</time></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="icon">
+            <span class="octicon octicon-file-text"></span>
+            <img alt="" class="spinner" height="16" src="./puppetlabs facter_files/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" width="16">
+          </td>
+          <td class="content">
+            <span class="css-truncate css-truncate-target"><a href="https://github.com/puppetlabs/facter/blob/master/install.rb" class="js-directory-link" id="cfd287e5017035e0b2e21c032fd4409f-f8cbdc4b78e57c0c07ed5731e1c6527ed176169e" title="install.rb">install.rb</a></span>
+          </td>
+          <td class="message">
+            <span class="css-truncate css-truncate-target">
+              <a href="https://github.com/puppetlabs/facter/commit/0500739ade4a8eb2b511c7ec83290a17b9e7c06d" class="message" data-pjax="true" title="(FACT-321) Remove ENV[&#39;DESTDIR&#39;] and --test from install.rb">(FACT-321) Remove ENV['DESTDIR'] and --test from install.rb</a>
+            </span>
+          </td>
+          <td class="age">
+            <span class="css-truncate css-truncate-target"><time datetime="2014-02-10T18:02:08Z" is="time-ago" title="Feb 10, 2014, 11:02 AM MST">a year ago</time></span>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+  <div id="readme" class="boxed-group flush clearfix announce instapaper_body md">
+    <h3>
+      <span class="octicon octicon-book"></span>
+      README.md
+    </h3>
+
+    <article class="markdown-body entry-content" itemprop="mainContentOfPage"><h1>
+<a id="user-content-facter" class="anchor" href="https://github.com/puppetlabs/facter#facter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Facter</h1>
+
+<p>This package is largely meant to be a library for collecting facts about your
+system.  These facts are mostly strings (i.e., not numbers), and are things
+like the output of <code>uname</code>, public ssh keys, the number of processors, etc.</p>
+
+<p>See <code>bin/facter</code> for an example of the interface.</p>
+
+<h2>
+<a id="user-content-installation" class="anchor" href="https://github.com/puppetlabs/facter#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Generally, you need the following things installed:</p>
+
+<ul class="task-list">
+<li>A supported Ruby version. Ruby 1.8.7, 1.9.3, and 2.0.0 (at least p195) are fully supported.</li>
+</ul>
+
+<h2>
+<a id="user-content-running-facter" class="anchor" href="https://github.com/puppetlabs/facter#running-facter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running Facter</h2>
+
+<p>Run the <code>facter</code> binary on the command for a full list of facts supported on
+your host.</p>
+
+<h2>
+<a id="user-content-adding-your-own-facts" class="anchor" href="https://github.com/puppetlabs/facter#adding-your-own-facts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adding your own facts</h2>
+
+<p>See the <a href="http://docs.puppetlabs.com/guides/custom_facts.html">Adding Facts</a>
+page for details of how to add your own custom facts to Facter.</p>
+
+<h2>
+<a id="user-content-running-specs" class="anchor" href="https://github.com/puppetlabs/facter#running-specs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running Specs</h2>
+
+<ul class="task-list">
+<li>bundle install --path .bundle/gems</li>
+<li>bundle exec rake spec</li>
+</ul>
+
+<p>Note: external facts in the system facts.d directory can cause spec failures.</p>
+
+<h2>
+<a id="user-content-further-information" class="anchor" href="https://github.com/puppetlabs/facter#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Information</h2>
+
+<p>See <a href="http://www.puppetlabs.com/puppet/related-projects/facter">http://www.puppetlabs.com/puppet/related-projects/facter</a> for more details.</p>
+
+<h2>
+<a id="user-content-support" class="anchor" href="https://github.com/puppetlabs/facter#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support</h2>
+
+<p>Please log tickets and issues at our <a href="http://tickets.puppetlabs.com/">JIRA tracker</a>.  A <a href="https://groups.google.com/forum/?fromgroups#!forum/puppet-users">mailing
+list</a> is
+available for asking questions and getting help from others. In addition there
+is an active #puppet channel on Freenode.</p>
+
+<p>We use semantic version numbers for our releases, and recommend that users stay
+as up-to-date as possible by upgrading to patch releases and minor releases as
+they become available.</p>
+
+<p>Bugfixes and ongoing development will occur in minor releases for the current
+major version. Security fixes will be backported to a previous major version on
+a best-effort basis, until the previous major version is no longer maintained.</p>
+
+<p>For example: If a security vulnerability is discovered in Facter 2.1.0, we
+would fix it in the 2 series, most likely as 2.1.1. Maintainers would then make
+a best effort to backport that fix onto the latest Facter 1.7 release.</p>
+
+<p>Long-term support, including security patches and bug fixes, is available for
+commercial customers. Please see the following page for more details:</p>
+
+<p><a href="http://puppetlabs.com/misc/puppet-enterprise-lifecycle">Puppet Enterprise Support Lifecycle</a></p>
+</article>
+  </div>
+
+
+        </div>
+
+      </div><!-- /.repo-container -->
+      <div class="modal-backdrop"></div>
+    </div><!-- /.container -->
+  </div><!-- /.site -->
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="http://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="http://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+    </a>
+
+    <ul class="site-footer-links">
+      <li>© 2015 <span title="0.06668s from github-fe120-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="https://github.com/puppetlabs/facter#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="https://github.com/puppetlabs/facter#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w" aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="https://github.com/puppetlabs/facter#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="./puppetlabs facter_files/frameworks-996268c2962f947579cb9ec2908bd576591bc94b6a2db184a78e78815022ba2c.js"></script>
+      <script async="async" crossorigin="anonymous" src="./puppetlabs facter_files/github-e0bedf27f60377bda1972e7ce42e59bf839a44cc609ce4a87e4faa220923de8d.js"></script>
+      
+      
+
+  
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="https://assets-cdn.github.com/flash/ZeroClipboard.v2.1.6.swf"><param name="allowScriptAccess" value="always"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=github.com%2C%2F%2Fgithub.com%2Chttps%3A%2F%2Fgithub.com&amp;swfObjectId=global-zeroclipboard-flash-bridge"></object></div>    <div class="facebox" id="facebox" style="display:none;">       <div class="facebox-popup">         <div class="facebox-content">         </div>         <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">           <span class="octicon octicon-remove-close"></span>         </button>       </div>     </div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

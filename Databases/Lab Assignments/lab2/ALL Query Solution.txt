@@ -1,0 +1,94 @@
+use university;
+-- 1.  Retrieve the names of all students who major in computer science.
+select FName, LName from STUDENT s INNER JOIN MAJOR m ON s.SSN = m.SSN And m.DeptCode =
+(select DeptCode from DEPT Where DName='Computer Science') order by FName, LName;
+
+-- 2.  Retrieve the names of all students who didn’t take any course from the computer science department.
+select s.FName, s.LName from STUDENT s Where s.SSN NOT IN (
+select distinct s1.SSN from STUDENT s1 INNER join GRADE_REPORT g on s1.SSN = g.SSN
+INNER JOIN COURSE c ON c.CourseNo = g.CourseNo 
+And c.DeptCode = (select DeptCode from DEPT d Where d.DName='Computer Science'));
+
+-- 3.  For each college, count the number of sections offered by that college.
+select D.College, COUNT(S.SectionNo) from dept D 
+left outer join course C on D.DeptCode = C.DeptCode
+left outer join section S on S.CourseNo = C.CourseNo
+group by D.College;
+
+-- 4.  Retrieve the names of students who only took courses from his/her major department.
+select FName, LName from student where SSN not in(
+select S.SSN from student S
+inner join grade_report G on G.SSN = S.SSN
+inner join course C on C.CourseNo = G.CourseNo
+inner join dept D on D.DeptCode = C.DeptCode
+and D.DeptCode not in (select distinct DeptCode from major Maj where Maj.SSN = S.SSN));
+
+-- 5.  Retrieve the names of students whose accumulated credit hours are greater than or equal to 10 
+-- (Only passed courses will be counted; A passed course means the student get a grade C or above).
+select FName, LName from (
+select FName, LName, sum(C.hours) as hours from student S
+inner join grade_report G 
+on G.SSN = S.SSN 
+inner join course C on
+G.CourseNo = C.CourseNo
+where G.LGrade <= 'C' group by S.SSN) as temp
+where hours>=10;
+
+-- 6.  Retrieve the names of departments which offered at least 2 courses (not sections) in spring, 2001.
+select DNAME from (
+select DName, count(distinct C.CourseNo) as Course from dept D
+inner join course C on C.DeptCode = D.DeptCode
+inner join section Sec on Sec.CourseNo = C.CourseNo 
+where Sec.Year='2001' and Sec.Semester='S' group by D.DName) as temp
+where Course >=2;
+
+-- 7.  For each student who took courses from his/her minor department, retrieve the student’s name, 
+-- the course name, and the grade the student received.
+select FNAME, LNAME, CNAME, LGrade from student S 
+inner join minor M  on M.SSN = S.SSN
+inner join course C on C.DeptCode = M.DeptCode
+inner join grade_report G on G.SSN = S.SSN and G.CourseNo = C.CourseNo;
+
+-- 8.  Retrieve the name of each student who claims a minor in a college, which is different from the student’s major college.
+select distinct FNAME, LNAME from student S
+left outer join minor Min on Min.SSN = S.SSN
+left outer join major Maj on Maj.SSN = S.SSN
+left outer join dept D on D.DeptCode = Min.DeptCode
+left outer join dept D1 on D1.DeptCode = Maj.DeptCode
+where D.College <> D1.College;
+
+-- 9.  Retrieve the name of each student who has claimed minor(s), but has 
+-- not yet received any grade from any of his/her minor departments. 
+select distinct FNAME, LNAME from student S
+inner join minor Min on Min.SSN = S.SSN
+where S.SSN not in(
+select distinct S1.SSN from student S1
+inner join minor M on M.SSN = S1.SSN
+inner join course C on C.DeptCode = M.DeptCode
+where (S1.SSN, C.CourseNo) in (select G.SSN, G.CourseNo from grade_report G where G.SSN = S1.SSN));
+
+-- 10.  Retrieve the names of students who have taken all the courses offered by his/her major department. 
+-- Show the result in ascending order of student’s last name, first name.
+select distinct FNAME, LNAME from
+(select S.SSN, S.FName, S.LName, count(S.SSN) as 'wanted', count(G.SSN) as 'passed' from student S 
+inner join major Maj on Maj.SSN = S.SSN
+inner join course C on C.DeptCode = Maj.DeptCode
+left outer join grade_report G on (G.CourseNo = C.CourseNo and G.SSN = S.SSN)
+group by S.SSN) as temp
+where wanted=passed;
+
+-- 11.  Retrieve the department name of every department which has more minor students than major students.
+select D.DName from Dept D
+inner join 
+(select R.DeptCode from (select D.DeptCode, count(M.SSN) as 'total' from Major M 
+right outer join dept D on D.DeptCode= M.DeptCode 
+group by D.DeptCode) as R
+join
+(select D.DeptCode, count(SSN) as 'total' from Minor M 
+right outer join dept D on D.DeptCode= M.DeptCode 
+group by D.DeptCode) as S
+on R.DeptCode = S.deptCode
+and S.total > R.total) as T
+on
+D.DeptCode = T.DeptCode
+
