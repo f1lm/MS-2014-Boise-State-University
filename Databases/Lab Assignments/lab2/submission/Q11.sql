@@ -1,4 +1,4 @@
-select D.DName from Dept D
+select D.DNAME from Dept D
 inner join 
 (select R.DeptCode from (select D.DeptCode, count(M.SSN) as 'total' from Major M 
 right outer join dept D on D.DeptCode= M.DeptCode 
