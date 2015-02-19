@@ -1,4 +1,3 @@
--- 11.  Retrieve the department name of every department which has more minor students than major students.
 select D.DName from Dept D
 inner join 
 (select R.DeptCode from (select D.DeptCode, count(M.SSN) as 'total' from Major M 

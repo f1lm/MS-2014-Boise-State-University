@@ -1,5 +1,3 @@
--- 9.  Retrieve the name of each student who has claimed minor(s), but has 
--- not yet received any grade from any of his/her minor departments. 
 select distinct FNAME, LNAME from student S
 inner join minor Min on Min.SSN = S.SSN
 where S.SSN not in(

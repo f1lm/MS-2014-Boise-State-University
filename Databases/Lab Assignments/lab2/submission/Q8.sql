@@ -1,4 +1,3 @@
--- 8.  Retrieve the name of each student who claims a minor in a college, which is different from the student’s major college.
 select distinct FNAME, LNAME from student S
 left outer join minor Min on Min.SSN = S.SSN
 left outer join major Maj on Maj.SSN = S.SSN
