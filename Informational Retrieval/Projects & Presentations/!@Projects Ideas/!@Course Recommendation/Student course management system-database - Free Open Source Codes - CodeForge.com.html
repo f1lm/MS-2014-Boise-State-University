@@ -1,0 +1,2036 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0039)http://www.codeforge.com/article/212800 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wb="http://open.weibo.com/wb" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Student course management system-database - Free Open Source Codes - CodeForge.com</title>
+<meta name="description" content="Course-selecting system data model, online course registration system, including students, teachers, courses, curriculum and teacher&#39;s arrangement, teacher evaluations, surveys, and statistical....">
+<meta name="keywords" content="Student course management system-database, source codes, opensource, c++, python, java, perl, visual C++, c#, visual basic, javascript, c language, programming, download">
+<link rel="icon" href="http://www.codeforge.com/images/favicon.png" type="image/png">
+<link rel="shortcut icon" href="http://www.codeforge.com/images/favicon.png" type="image/png">
+<link rel="stylesheet" type="text/css" href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/style.css">
+<link rel="stylesheet" type="text/css" href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/style-en.css">
+<script src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/_Incapsula_Resource"></script><script type="text/javascript" async="" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/plusone.js" gapi_processed="true"></script><script type="text/javascript" async="" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/ga.js"></script><script async="" charset="utf-8" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/saved_resource" type="text/javascript"></script><script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/jquery-1.8.2.min.js"></script><style type="text/css"></style>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/jquery.jslides.js"></script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/vote.js"></script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/tab.js"></script>
+<script src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/wb.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/jquery.cookie.js"></script>
+<script type="text/javascript"> 
+$(function() {
+    var headHeight = $(".logobox").height() + 60;
+    var nav = $(".navbar-wrapper");
+    var qkfloatHeight = $("#header").height() + 160;
+    var qkf = $(".quikfloat");
+    var qkdnHeight = $("#header").height()+110 ; 
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > headHeight) {
+            nav.addClass("navFix")
+        } else {
+            nav.removeClass("navFix")
+        }
+    }) 
+	$(window).scroll(function() {
+        if ($(this).scrollTop() > qkfloatHeight) {
+            qkf.addClass("qkFix")
+        } else {
+            qkf.removeClass("qkFix")
+        }
+    })
+    $(window).scroll(function(){
+    	if($(this).scrollTop()>qkdnHeight){
+    		$(".float_dnlink").animate({top:118},350);
+    		$(".float_dnlink").addClass("fl_dnfix");
+    		$(".float_dnlink").css("position","fixed")
+    	}else{
+    		$(".float_dnlink").animate({top:118},350);
+    		$(".float_dnlink").removeClass("fl_dnfix");
+    		$(".float_dnlink").css("position","absolute")
+    	}
+    })
+})
+//显示登陆弹框
+function show_login_box () {
+	$('.theme-popover-mask').fadeIn(100);
+    $('.theme-popover').slideDown(200);
+}
+function close_login_box () {
+
+    $('.theme-popover-mask').fadeOut(100);
+    $('.theme-popover').slideUp(200);
+}
+function show_switch_url_box () {
+	$('.theme-popover-mask').fadeIn(100);
+    $('#switch_url').slideDown(200);
+}
+function close_switch_url_box () {
+    $('.theme-popover-mask').fadeOut(100);
+    $('#switch_url').slideUp(200); 
+    $.cookie('ignore_lang', '2',{expires:1,path:'/'});
+}
+function show_commen_box () {
+	$('.theme-popover-mask').fadeIn(100);
+    $('#commen_box').slideDown(200);
+}
+
+function close_commen_box() {
+	$('.theme-popover-mask').fadeOut(100);
+    $('#commen_box').slideUp(200); 
+}
+</script>
+<!-- Start of CodeForge Zendesk Widget script -->
+<iframe src="javascript:false" title="" style="display: none;"></iframe><script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("//assets.zendesk.com/embeddable_framework/main.js","codeforgesupport.zendesk.com");/*]]>*/</script>
+<!-- End of CodeForge Zendesk Widget script -->
+<!--Start of Zopim Live Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+$.src='//v2.zopim.com/?2hwjk9kYQ5HJgXaaDJ56LiFMkELmfA5q';z.t=+new Date;$.
+type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+</script>
+<!--End of Zopim Live Chat Script-->
+<style media="print" class="jx_ui_StyleSheet" __jx__id="___$_2" type="text/css">.zopim { display: none !important }</style><style type="text/css">.incap_from-left .incap_shadow,.incap_from-right .incap_shadow{display:none!important}.incap_from-right .incap_btn-area{float:left!important}.incap_page-tooltip{position:fixed}.incap_from-right.incap_bottom{top:90%}.incap_from-left,.incap_from-right{top:50%;left:0;height:49px;margin:-25px 0 0}.incap_from-right{left:auto;right:0}.incap_from-right .incap_btn-holder{float:left!important;background-position:-143px 0}.incap_from-bottom1{bottom:0;left:0;width:52px}.incap_from-bottom2{bottom:0;left:50%;width:52px;margin:0 0 0 -27px}*+html .incap_from-bottom2{width:234px;margin:0 0 0 -183px}.incap_from-bottom3{bottom:0;right:0;width:52px}.incap_from-bottom2.active{margin:0 0 0 -209px}.incap_page-tooltip .incap_btn-area{overflow:hidden}.incap_page-tooltip .incap_btn-holder{float:right;width:49px;height:57px;background:url(/_Incapsula_Resource?NWFURVBO=images/sprite.png) no-repeat -143px 0}.incap_page-tooltip.active .incap_btn-holder{background-position:0 0}.incap_page-tooltip .incap_mask{overflow:hidden;float:left}.incap_from-bottom1 .incap_mask,.incap_from-bottom2 .incap_mask,.incap_from-bottom3 .incap_mask{float:none;width:234px}.incap_from-bottom1 .incap_btn-holder,.incap_from-bottom2 .incap_btn-holder,.incap_from-bottom3 .incap_btn-holder{float:right;width:57px;background-position:-349px 0;height:58px}.incap_from-bottom1 .incap_btn-holder{float:left;background-position:-439px 0}.incap_from-bottom1.active .incap_btn-holder,.incap_from-bottom2.active .incap_btn-holder,.incap_from-bottom3.active .incap_btn-holder{background-position:-274px 0}.incap_from-bottom1.active .incap_btn-holder{background-position:-514px 0}.incap_from-right.active .incap_btn-holder{background-position:-209px 0}.incap_logo-image{float:left;width:36px;height:42px;overflow:hidden;text-indent:-9999px;background:url(/_Incapsula_Resource?NWFURVBO=images/logo-image.png) no-repeat;margin:5px 0 0 5px}.incap_logo-image:hover{background-position:0 -58px}.incap_from-bottom1 .incap_logo-image,.incap_from-bottom2 .incap_logo-image,.incap_from-bottom3 .incap_logo-image{margin:14px 0 0 15px}.incap_from-bottom1 .incap_logo-image{margin:14px 0 0 6px}.incap_shadow{float:left;width:177px;height:34px;font-size:0;line-height:0;text-indent:-9999px;background:url(/_Incapsula_Resource?NWFURVBO=images/sprite.png) no-repeat -637px 0;display:none;margin:24px 0 0}.incap_page-tooltip.active .incap_shadow{display:block}.incap_from-bottom1 .incap_shadow{float:right;background-position:-870px 0}.incap_tooltip-box{float:left;width:227px}.incap_page-tooltip .incap_c{overflow:hidden;width:227px;background:url(/_Incapsula_Resource?NWFURVBO=images/sprite.png) no-repeat -1163px 0}.incap_from-right .incap_c{background-position:-1407px 0}.incap_from-bottom1 .incap_c,.incap_from-bottom2 .incap_c,.incap_from-bottom3 .incap_c{width:234px;background:url(/_Incapsula_Resource?NWFURVBO=images/sprite.png) repeat-y -1661px 0}.incap_from-bottom1 .incap_c{background-position:-1936px 0}.incap_page-tooltip .incap_b{overflow:hidden;width:227px;height:8px;font-size:0;line-height:0;text-indent:-9999px;background:url(/_Incapsula_Resource?NWFURVBO=images/sprite.png) no-repeat 0 -311px}.incap_from-right .incap_b{background-position:-253px -311px}.incap_from-bottom1 .incap_b,.incap_from-bottom2 .incap_b,.incap_from-bottom3 .incap_b{width:234px;background-position:-529px -311px}.incap_from-bottom1 .incap_b{background-position:-866px -311px}.incap_page-tooltip .incap_text{text-align:center;overflow:hidden;color:#757679;font:11px/14px Arial,Helvetica,sans-serif;padding:14px 8px 8px 18px}.incap_page-tooltip .incap_text p{margin:0}.incap_page-tooltip .incap_heading{display:block;color:#050708;font:18px/19px Arial,Helvetica,sans-serif;margin:0 0 13px}.incap_page-tooltip .incap_heading a{font-weight:700;font-style:normal;color:#25a8e0!important}.incap_from-left .incap_btn-area,.incap_from-right .incap_mask{float:right!important}*+html .incap_from-bottom3,.incap_from-bottom2.active,.incap_from-bottom3.active,.incap_from-bottom1.active{width:234px}.incap_from-right .incap_text,.incap_from-bottom2 .incap_text,.incap_from-bottom3 .incap_text{padding-left:20px}</style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head><body data-gclp-initialized="true" data-gistbox-initialized="true"><div class="zopim" __jx__id="___$_59 ___$_59" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; padding: 0px; border: 0px; overflow: hidden; position: fixed; z-index: 16000002; width: 180px; height: 30px; right: 10px; bottom: 0px; display: none; background: transparent;"><iframe frameborder="0" src="javascript:void(document.write('<!DOCTYPE html><html><head><style>html,body{height:100%;width:100%;} *{border:0;padding:0;margin:0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}</style></head><body onload="window.isLoaded = true"></body></html>'), document.close())" style="vertical-align: text-bottom; position: relative; width: 100%; height: 100%; margin: 0px; overflow: hidden; background-color: transparent;"></iframe></div><div class="zopim" __jx__id="___$_4 ___$_4" style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; padding: 0px; border: 0px; overflow: hidden; position: fixed; z-index: 16000001; right: 10px; bottom: 0px; border-top-left-radius: 5px; border-top-right-radius: 5px; display: none; width: 290px; height: 400px; -webkit-box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 3px 2px; box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 3px 2px; background: transparent;"><iframe frameborder="0" src="javascript:void(document.write('<!DOCTYPE html><html><head><style>html,body{height:100%;width:100%;} *{border:0;padding:0;margin:0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}</style></head><body onload="window.isLoaded = true"></body></html>'), document.close())" style="vertical-align: text-bottom; position: relative; width: 100%; height: 100%; margin: 0px; overflow: hidden; background-color: transparent;"></iframe></div>
+<div id="header" class="headen">
+
+    <div id="logowrap">
+    	<div class="logobox">
+        	<a href="http://www.codeforge.com/" title="CodeForge"><img class="logopic" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/logo_en.png"></a>
+            <ul class="nav navbar-wrapper navFix">
+            <li class="current_page"><a href="http://www.codeforge.com/">Home</a></li>
+            <li><a href="http://www.codeforge.com/codelist">Source Codes</a></li>
+            <!--  
+            <li><a href="/essay/view/">Articles</a></li>
+            -->
+            <li><a href="http://www.codeforge.com/ask">Q&amp;A</a></li>
+            <li><a href="http://www.codeforge.com/freepoint">Free CF Coins</a></li>
+            <li><a href="http://www.codeforge.com/help/cf">Help</a></li>
+        </ul>
+        <div class="lan">
+            	<span><a href="http://www.codeforge.com/" title="English"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/us.png" width="32"></a></span>
+                <span><a href="http://www.codeforge.cn/" title="中文版"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/cn.png" width="32"></a></span>
+            </div>
+            <div class="login">
+            	                        <span><a href="javascript:void(0)" id="header_login_id">Log in</a></span>
+                        <span><a href="http://www.codeforge.com/signup">Sign up</a></span>
+                    
+                            </div>
+        </div>
+    </div>
+    <div id="navigation" class="">
+    	
+    	<ul class="nav keywords">
+        	<li><span>Hot topics：</span></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__4">C/C++</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__6">C#</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__2">Java</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__5">VB</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__20">Matlab</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__3">PHP</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__37">ASP</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__7">Python</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__8">Perl</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__11">Ruby</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__9">Delphi</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__10">JavaScript</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__12">Objective-C</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__17">Pascal</a></li>
+            <li><a href="http://www.codeforge.com/s/0/proglang__29">Fortran</a></li>
+        </ul>
+        <form method="post" id="footersearch" name="footersearch" action="http://www.codeforge.com/">
+                <input type="text" name="q" id="searchinput" class="searchinput" placeholder="Please input key words" onfocus="if(placeholder==&#39;Please input key words&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Please input key words&#39;}">
+                <input type="submit" value="Search" id="searchsubmit" class="searchsubmit">
+            </form>
+    </div>
+</div>
+
+<link href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/jRating.jquery.css" rel="stylesheet" type="text/css">
+<link href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/csshake.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/piczoom.js"></script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/shCore.js"></script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/shAutoloader.js"></script>
+	<link type="text/css" rel="stylesheet" href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/shCore.css">
+	<link type="text/css" rel="stylesheet" href="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/shThemeDefault.css">
+<script type="text/javascript">
+function path()
+{
+    var args = arguments,
+    result = [];
+    for(var i = 0; i < args.length; i++)
+        result.push(args[i].replace('@', '/libs/hlighter/scripts/'));
+    return result
+};
+$(document).ready(function(){
+    SyntaxHighlighter.autoloader.apply(null, path(
+    'applescript            @shBrushAppleScript.js',
+    'actionscript3 as3      @shBrushAS3.js', 
+    'bash shell             @shBrushBash.js', 
+    'coldfusion cf          @shBrushColdFusion.js',
+    'cpp c                  @shBrushCpp.js',
+    'c# c-sharp csharp c#   @shBrushCSharp.js', 
+    'css                    @shBrushCss.js', 
+    'delphi pascal          @shBrushDelphi.js', 
+    'diff patch pas         @shBrushDiff.js', 
+    'erl erlang             @shBrushErlang.js',
+    'groovy                 @shBrushGroovy.js', 
+    'java                   @shBrushJava.js',
+    'jfx javafx             @shBrushJavaFX.js', 
+    'js jscript javascript  @shBrushJScript.js',
+    'perl pl                @shBrushPerl.js',
+    'php                    @shBrushPhp.js', 
+    'text plain             @shBrushPlain.js', 
+    'py python              @shBrushPython.js',
+    'ruby rails ror rb      @shBrushRuby.js',
+    'sass scss              @shBrushSass.js',
+    'scala                  @shBrushScala.js',
+    'sql                    @shBrushSql.js', 
+    'vb vbnet               @shBrushVb.js',
+    'xml xhtml xslt html    @shBrushXml.js'
+    ));
+    SyntaxHighlighter.defaults['smart-tabs'] = true;
+    SyntaxHighlighter.defaults['tab-size'] = 4;
+    SyntaxHighlighter.all();
+});
+</script>
+<div id="content">
+    <div id="content_left">	 
+    <div class="container-breadcrumb">
+				<div><a href="http://www.codeforge.com/">Home</a>» <a href="http://www.codeforge.com/codelist">Source Code</a> » <span>Student course management system-database</span></div>
+			</div>
+    <div id="homepost">
+	    <div class="toptit">		
+		   				<h2><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/titlepic.png"><span>Student course management system-database</span></h2>
+			
+					</div>
+		<div class="float_dnlink fl_dnfix" style="top: 118px; position: fixed;">
+          <img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/dloadbg.png"> 
+          <a id="dnload" title="Click to download the source code package" href="http://www.codeforge.com/dlpre/212800/3a1214cec8f7.rar__.html" target="_blank">1</a>        </div>
+		<table class="tabinfobox">
+        	<tbody><tr>
+            <td width="173" valign="top">
+            <div id="codeinfo_l">
+        	   <table class="infotable">
+            	<tbody><tr>
+                	<td width="71%">
+                    	<b>By:</b><a href="http://www.codeforge.com/u/424929"><span>LIORCONG</span></a>
+                    </td>
+                	<td width="29%" rowspan="2">
+                	    <img width="48" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/photo.jpg">
+                	</td>
+               	</tr>
+            	<tr>
+            	  <td><b>View(s):</b><span>30</span></td>
+           	  </tr>
+              <tr>
+            	  <td colspan="2"><b>Download(s):</b><span>0</span></td>
+           	  </tr>
+            	<tr>
+            	  <td colspan="2"><b>CF coin(s):</b><span>1</span>&nbsp;</td>
+           	  </tr>
+              <tr>
+            	  <td colspan="2">
+                  	<div id="myRating2">
+                        <label style="float:left">
+                            <b>Rate:</b><span>0.0<!--</span-->
+                        </span></label>
+                        <div style="float: right; height: 20px; width: 115px; overflow: hidden; z-index: 1; position: relative;" id="0_1" data-average="0" class="myRating">
+                        <div class="jRatingColor" style="width: 0px;"></div><div class="jRatingAverage" style="width: 0px; top: -20px;"></div><div class="jStar" style="width: 115px; height: 20px; top: -40px; background: url(http://www.codeforge.com/images/stars.png) repeat-x;"></div></div>
+                    </div>
+                  </td>
+           	  </tr>
+            	<tr>
+            	 <td colspan="2"><b>Submitted:</b><br><i>2013-09-27 08:50:55</i></td>
+           	  </tr>
+              </tbody></table>
+            </div></td>
+            <td width="750" valign="top">
+                <div class="topinfo entry">     
+                    <div class="dninfo">
+                        <table class="infodn">
+                            <tbody><tr><td class="anlk anlkclass">
+                                 <div>
+                                     <img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/download.png">
+                                     <b class="anlktitle">Category: </b>
+                                 </div>
+                                 <a id="cathome" class="tagbotm" href="http://www.codeforge.com/s/0/DataBase" title="DataBase" target="_blank"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/datastruct64.png" title="DataBase - DataBase">&nbsp;<span>DataBase</span></a>
+                                 <a id="taggreen" class="tagbotm" href="http://www.codeforge.com/s/0/proglang__2" title="Java" target="_blank"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/java64.png" title="Java">&nbsp;<span>Java</span></a>
+                             </td></tr>
+                             <tr>
+                             <td class="downloadlink">
+                                 <div class="anlk andload">
+                                    <img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/download.png"> 
+                                    <b class="anlktitle">Download: &nbsp; </b>
+                                    <a id="dnload" title="Click to download the source code package" href="http://www.codeforge.com/dlpre/212800/3a1214cec8f7.rar__.html" target="_blank"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/pack2.png" class="pack2"><span class="dl_file_name">学生选课管理系统 - 数(75.66 kB)</span></a>                                 </div>
+                             </td></tr>
+                             <tr><td class="anlk">
+                                 	                                   <a id="fav" class="theme-login" href="javascript:void(0);"><img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/fav.png"> <b>Add to my favorites </b></a>
+	                                 
+                                                                  <a id="showFile" href="javascript:void(0);"><img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/viewcode.png"> <b>Preview code</b></a>
+                                 <a id="fav" href="http://www.codeforge.com/article/212800#comment"><img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/fav.png"> <b>Add comments(0)</b></a>
+                                                             </td></tr>
+                      </tbody></table>
+                    </div>
+                </div>
+                <div class="share"> 
+                    <ul> 
+                        <li><a href="http://delicious.com/save" onclick="window.open(&#39;http://delicious.com/save?v=5&amp;noui&amp;jump=close&amp;url=&#39;+encodeURIComponent(&#39;http://www.codeforge.com/article/237723&#39;)+&#39;&amp;title=&#39;+encodeURIComponent(&#39;Maincode decrypt c++&#39;),&#39;delicious&#39;, &#39;toolbar=no,width=550,height=550&#39;); return false;"> 
+
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/delicious.png" alt="Add to Delicious" border="0"></a> 
+                      </li>  
+                      <li>
+                      <a href="javascript:var d=document,f='http://www.facebook.com/share',l=d.location,e=encodeURIComponent,p='.php?src=bm&v=4&i=1245532349&u='+e(l.href)+'&t='+e(d.title);1;try{if (!/^(.*\.)?facebook\.[^.]*$/.test(l.host))throw(0);share_internal_bookmarklet(p)}catch(z) {a=function() {if (!window.open(f+'r'+p,'sharer','toolbar=0,status=0,resizable=1,width=626,height=436'))l.href=f+p};if (/Firefox/.test(navigator.userAgent))setTimeout(a,0);else{a()}}void(0)" onclick="return wait_for_load(this, event, function() { return false });" id="share_bookmark" title="Share on Facebook">
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/facebookicon.png" border="0"></a>
+                      </li>
+                      <li>
+                      <a href="http://friendfeed.com/?url=http://www.codeforge.com/article/237723&title=Maincode%20decrypt%20c++" target="_blank">
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/friendfeed.png" alt="Share on FriendFeed" border="0"></a> </li>
+                                          <li>
+
+                      <a href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open(" http:="" www.google.com="" bookmarks="" mark?op="edit&amp;output=popup&amp;bkmk=&quot;+c(b.location)+&quot;&amp;title=&quot;+c(b.title),&quot;bkmk_popup&quot;,&quot;left=&quot;+((a.screenX||a.screenLeft)+10)+&quot;,top=&quot;+((a.screenY||a.screenTop)+10)+&quot;,height=420px,width=550px,resizable=1,alwaysRaised=1&quot;);a.setTimeout(function(){d.focus()},300)})();&quot;"> 
+
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/google.png" border="0"> </a>
+
+                      </li>
+
+                      
+
+                        <li><a href="http://digg.com/submit?phase=2&url=http://www.codeforge.com/article/237723&title=Maincode%20decrypt%20c++"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/digg.png" alt="Digg"></a></li>
+
+                        <li><a href="http://twitter.com/home?status=Currently%20reading%20http://www.codeforge.com/article/237723"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/twittericon.png" alt="" width="32px" height="32px"></a></li>
+
+                      <li>  
+
+                      <a href="http://www.reddit.com/submit" onclick="window.location = &#39;http://www.reddit.com/submit?url=&#39; + encodeURIComponent(window.location); return false"> 
+
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/reddit.png" alt="submit to reddit" border="0"> </a>
+
+                      </li>
+
+                   
+
+                      <li>
+
+                      <a href="javascript:location.href='http://www.myspace.com/Modules/PostTo/Pages/?c='+encodeURIComponent(location.href)+'&t='+encodeURIComponent(document.title)"> 
+
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/myspace.png" border="0"> </a>
+
+                      </li>
+
+                     
+                     
+                      <li>   
+
+                      <a href="http://www.stumbleupon.com/submit?url=http://www.codeforge.com/article/237723&title=Maincode%20decrypt%20c++">
+
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/stumbleupon.png" border="0"></a>    
+                      </li>
+                      <li>   
+                      <a href="javascript:void(document.location='http://technorati.com/faves?sub=favthis&add='+escape(document.location))">
+                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/technorati.png" border="0"></a> 
+                      </li>
+                      </ul>
+                </div><!-- end of share -->
+            </td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="2" valign="top" class="leftintro">
+	                <div class="introduction">
+	                   <div class="btitle">
+	                        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/files.png">
+	                        <h2>Description</h2>
+	                    </div>
+	                     <div class="cintro_con" id="cfphoto" style="width:700px">Course-selecting system data model, online course registration system, including students, teachers, courses, curriculum and teacher's arrangement, teacher evaluations, surveys, and statistical.</div>
+	                </div>    
+                </td>
+             </tr>
+        </tbody></table>
+		
+		<div class="adv1"><div style="width:100%; line-height:22px;margin-left:auto;margin-right:auto;" align="left">							
+			<div style="text-align:left; border: 0px dashed #dddddd; width:100%; ">
+			<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-5238775468331658";
+			/* cf_en_index */
+			google_ad_slot = "6115717927";
+			google_ad_width = '100%';
+			google_ad_height = 90;
+			//-->
+			</script>
+            <!--
+			<script type="text/javascript" src="js/show_ads.js">
+			</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent">
+			
+			<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="DCF283430175" width="100%" height="90"><param name="movie" value="http://s1.2mdn.net/4457440/Orbex-MT4_728X90-4-English.swf"><param name="flashvars" value="moviePath=http://s1.2mdn.net/4457440/&amp;moviepath=http://s1.2mdn.net/4457440/&amp;clickTAG=http%3A//adclick.g.doubleclick.net/aclk%3Fsa%3DL%26ai%3DB62S0-jr9U4GHE4LL9AX3zYLgDgAAAAAQASAAOABQ8Mer8ARY57uHHGCd0dmByAWCAQljYS1nb29nbGWyARF3d3cuY29kZWZvcmdlLmNvbcgBCagDAeAEApoFGQjFpWUQ8vrINBifmpOHASDnu4ccKOCHkALaBQCgBj_gBuCHkAI%26num%3D0%26sig%3DAOD64_1YSs_AK52wkextkixeq8tFwf5M3g%26client%3D%26adurl%3Dhttp%3A//adclick.g.doubleclick.net/aclk%253Fsa%253DL%2526ai%253DCoFvy-Tr9U5uvN5Cy8AXEg4CwDJHa9uoCyfGtml7AjbcBEAEgAFCAx-HEBGCd0dmByAWCARdjYS1wdWItNTIzODc3NTQ2ODMzMTY1OMgBCagDAZgEAKoEd0_QturMydBbGoXTP_dYfi8MDySUjYU-twlMQnM5J91K9Mbkv2qdzd6h9FNS5u-mdwFWOBu7IK_1smoi6CRxFOel91KlEtlPXYz9PiQIBpnjPL4JY90wCfmpacHiE1WHW5VoI9m03iJMxyodOWk1B_ZnkmV0bWJXgAbT-5v7ut7nw22gBiE%2526num%253D1%2526sig%253DAOD64_3qIwnLE0deLvLKGF73CutRY4iyvQ%2526client%253Dca-pub-5238775468331658%2526adurl%253Dhttp%3A//sugar.orbex.com/index.php%25253FentryPoint%25253Dcampaign_trackerv2%252526track%25253D1b674aca-1556-4d5c-940d-53cbd2c643e0"><param name="quality" value="high"><param name="wmode" value="opaque"><param name="base" value="http://s1.2mdn.net/4457440"><param name="AllowScriptAccess" value="never"><embed src="http://s1.2mdn.net/4457440/Orbex-MT4_728X90-4-English.swf" flashvars="moviePath=http://s1.2mdn.net/4457440/&amp;moviepath=http://s1.2mdn.net/4457440/&amp;clickTAG=http%3A//adclick.g.doubleclick.net/aclk%3Fsa%3DL%26ai%3DB62S0-jr9U4GHE4LL9AX3zYLgDgAAAAAQASAAOABQ8Mer8ARY57uHHGCd0dmByAWCAQljYS1nb29nbGWyARF3d3cuY29kZWZvcmdlLmNvbcgBCagDAeAEApoFGQjFpWUQ8vrINBifmpOHASDnu4ccKOCHkALaBQCgBj_gBuCHkAI%26num%3D0%26sig%3DAOD64_1YSs_AK52wkextkixeq8tFwf5M3g%26client%3D%26adurl%3Dhttp%3A//adclick.g.doubleclick.net/aclk%253Fsa%253DL%2526ai%253DCoFvy-Tr9U5uvN5Cy8AXEg4CwDJHa9uoCyfGtml7AjbcBEAEgAFCAx-HEBGCd0dmByAWCARdjYS1wdWItNTIzODc3NTQ2ODMzMTY1OMgBCagDAZgEAKoEd0_QturMydBbGoXTP_dYfi8MDySUjYU-twlMQnM5J91K9Mbkv2qdzd6h9FNS5u-mdwFWOBu7IK_1smoi6CRxFOel91KlEtlPXYz9PiQIBpnjPL4JY90wCfmpacHiE1WHW5VoI9m03iJMxyodOWk1B_ZnkmV0bWJXgAbT-5v7ut7nw22gBiE%2526num%253D1%2526sig%253DAOD64_3qIwnLE0deLvLKGF73CutRY4iyvQ%2526client%253Dca-pub-5238775468331658%2526adurl%253Dhttp%3A//sugar.orbex.com/index.php%25253FentryPoint%25253Dcampaign_trackerv2%252526track%25253D1b674aca-1556-4d5c-940d-53cbd2c643e0" width="728" height="90" type="application/x-shockwave-flash" quality="high" swliveconnect="true" wmode="opaque" name="DCF283430175" base="http://s1.2mdn.net/4457440" allowscriptaccess="never"></object>
+			
+			</ins></ins>
+			-->
+            	
+
+<div style="text-align:left; border: 0px dashed #dddddd; width:730px; padding: 2px 0px 2px 0px; margin: 5px 0px 5px -3px;">
+
+   <span style="font-size:12px;color=#616161"> &nbsp; &nbsp; Sponsored links</span>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5238775468331658";
+/* cf_en_index */
+google_ad_slot = "6115717927";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+
+	
+	
+
+
+			</div>
+		</div></div><!-- end of ads -->
+		<div class="codelist" id="filediv" style="width:100%;margin-left:auto;margin-right:auto;" align="left">	
+			<div class="btitle">
+        	<img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/files.png">
+            <h2>File list</h2>
+            <span>Tips: You can preview the content of files by clicking file names^_^</span>
+        </div>
+			<pre data-initialized="true" data-gclp-id="0"><table><tbody><tr><td width="65%">Name</td><td width="15%">Size</td><td width="20%">Date</td></tr>
+<tr><td><img border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/folder.png">&nbsp;&lt;学生选课管理系统&gt;</td><td>0.00 B</td><td>77344 27%</td></tr>
+</tbody></table>
+...</pre>			
+		</div>
+        <div style="text-align:left; border: 0px dashed #dddddd; width:100%; padding: 2px 0px 2px 0px; margin: 5px 0px 5px -3px;">
+            <!--
+            <span style="font-size:12px;color=#616161"> &nbsp; &nbsp; Sponsored links</span>
+            -->
+			<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-5238775468331658";
+			/* cf_en_index */
+			google_ad_slot = "6115717927";
+			google_ad_width = '100%';
+			google_ad_height = 90;
+			//-->
+			</script>
+            <!--
+			<script type="text/javascript" src="js/show_ads.js">
+			</script><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent"><img width="100%" src="/images/imgad.jpg" /></ins></ins>
+            -->
+            	
+
+<div style="text-align:left; border: 0px dashed #dddddd; width:730px; padding: 2px 0px 2px 0px; margin: 5px 0px 5px -3px;">
+
+   <span style="font-size:12px;color=#616161"> &nbsp; &nbsp; Sponsored links</span>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5238775468331658";
+/* cf_en_index */
+google_ad_slot = "6115717927";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+
+	
+	
+
+
+       </div>
+		<br>		
+		<div class="relatedcode">	
+			<div class="btitle">
+	        	<img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/files.png">
+	            <h2>Related source codes</h2>
+	            
+	        </div>
+	
+        	<div class="sectioncont">
+				 <ol start="1">
+<li>
+<a href="http://www.codeforge.com/article/242110" title="STM32F407 SysTick " target="_blank" style="font-size:14px;">STM32F407 SysTick </a>(Arm - C) - <a href="http://www.codeforge.com/article/242110" title="This example shows how to configure the SysTick to generate a time base equal to
+ 1 ms. The system clock is set to 168 MHz, the SysTick is clocked by the AHB clock
+ (HCLK)." target="_blank"><font color="#058">This example shows how to configure the SysTick to generate</font></a> ...<div class="rela_info"><div>2014-12-22 10:24&nbsp;&nbsp;&nbsp;&nbsp;By:Hirabteb&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/241317" title="System v shared memory based inter-process communication framework" target="_blank" style="font-size:14px;">System v shared memory based inter-process communication framework</a>(Linux programming - C) - <a href="http://www.codeforge.com/article/241317" title="This project is a System v shared memory based inter-process communication framework
+Compressed package provides source code and the corresponding sample programs, and documentation.
+Protocol Overview:
+Use System V Shared memory interprocess communication.
+Because it provides only the shared memory interprocess data channels,
+If it is to achieve data transmission, it is necessary to define a delivery protocol for it.
+
+
+We defined protocol is divided into 4 layers：
+First layer:
+Specifies the size of the shared memory creation, opening and destruction 。
+Defining shared memory data structures:
+Used to control the data read-write read-write locks, condition variables, time stamp (Exact, delicate)，
+Used to identify a process of reading and writing program id 、 process id ，
+Kernel shared memory allocation shmid , Data length, and data areas.
+3. data, the read-write lock, and unicast, broadcast signal sent.
+Second layer: Send and receive control data and timeout handling.
+Data to be written to the shared memory ID of the reading and writing process program id 、 process id
+And time stamps, and at the time of writing to all send signals to a process is listening,
+
+
+	When a process receives a signal will, in accordance with program id 和 process id  Determine whether the 
+
+
+	data is for yourself, What is Processed, otherwise continue to listen, listen listen timeout specified time when 
+
+
+	measured in milliseconds, once the timeout is finishing monitor 。
+
+The third layer ： Define the message format, message encapsulation, parsing And processing
+
+
+	Message data in a defined type, length and other logos, so that more data can be encapsulated in a message, 
+
+
+	and functions can be defined for each type of data processing, automatic processing when it is received.
+
+Fourth floor:
+
+
+	Client Port: encapsulates the request data to the appropriate type, and define how you want to implement 
+
+
+	actions
+
+Server Port: parses the request and response actions defined for each type of data
+
+
+
+
+	This level of agreement is fully  Consultations between users defined, given just behind an implementation, 
+
+
+	users can modify to suit your needs
+
+
+
+
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+	
+		
+	
+
+" target="_blank"><font color="#058">This project is a System v shared memory based inter-process</font></a> ...<div class="rela_info"><div>2015-01-27 09:36&nbsp;&nbsp;&nbsp;&nbsp;By:myzlr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:384&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/215152" title="systick_ram" target="_blank" style="font-size:14px;"><font color="red">sys</font>tick_ram</a>(Arm - C) - <a href="http://www.codeforge.com/article/215152" title="STM32 SYSTICK configuration RAM running changes to the source code on the Internet, you can run in RAM" target="_blank"><font color="#058">STM32 SYSTICK configuration RAM running changes to the sourc</font></a> ...<div class="rela_info"><div>2014-11-24 10:53&nbsp;&nbsp;&nbsp;&nbsp;By:yuyu7226974&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/219834" title="Design of BASYS-Board-based waveform generator and oscilloscope" target="_blank" style="font-size:14px;">Design of BASYS-Board-based waveform generator and oscilloscope</a>(vhdl - VHDL) - <a href="http://www.codeforge.com/article/219834" title="Design of BASYS-Board-based waveform generator and oscilloscope, waveform displayed on the monitor, a total of triangle, square-wave sawtooth wave sine wave four" target="_blank"><font color="#058">Design of BASYS-Board-based waveform generator and oscillosc</font></a> ...<div class="rela_info"><div>2014-12-18 10:20&nbsp;&nbsp;&nbsp;&nbsp;By:ibeaulong&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:1014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/218457" title="SysTick_ARM" target="_blank" style="font-size:14px;">SysTick_ARM</a>(Arm - C) - <a href="http://www.codeforge.com/article/218457" title="This example shows how to configure the SysTick to generate a time base equal to
+1 ms. The system clock is set to 168 MHz, the SysTick is clocked by the AHB clockHCLK.
+A  Delay  function is implemented based on the SysTick end-of-count event.
+Four LEDs are toggled with a timing defined by the Delay function." target="_blank"><font color="#058">This example shows how to configure the SysTick to generate</font></a> ...<div class="rela_info"><div>2014-12-28 09:20&nbsp;&nbsp;&nbsp;&nbsp;By:jrtrance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/216672" title="AttendanceManageSystem" target="_blank" style="font-size:14px;">AttendanceManageSystem</a>(CSharp - C#) - <a href="http://www.codeforge.com/article/216672" title="Attendance Manage System
+
+	User management module of the human resource management system, attendance management, employee management
+
+" target="_blank"><font color="#058">Attendance Manage System
+
+	User management module of the h</font></a> ...<div class="rela_info"><div>5 hours ago&nbsp;&nbsp;&nbsp;&nbsp;By:f28404201&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:223&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/211951" title="Space-Time Codes and MIMO Systems" target="_blank" style="font-size:14px;">Space-Time Codes and MIMO Systems</a>(book - Matlab) - <a href="http://www.codeforge.com/article/211951" title="
+	Space-Time Codes and MIMO Systems 
+
+
+	The technical descriptions, procedures, and computer programs in this book have been
+developed with the greatest of care and they have been useful to the author in a broad
+range of applications; however, they are provided as is, without warranty of any kind.
+Artech House, Inc. and the author and editors of the book titled Space-Time Codes and
+MIMO Systems make no warranties, expressed or implied, that the equations, programs,
+and procedures in this book or its associated software are free of error, or are consistent
+with any particular standard of merchantability, or will meet your requirements for any
+particular application. They should not be relied upon for solving a problem whose
+incorrect solution could result in injury to a person or loss of property. Any use of the
+programs or procedures in such a manner is at the user s own risk. The editors, author,
+and publisher disclaim all liability for direct, incidental, or consequent damages resulting
+from use of the programs or procedures in this book or the associated software.
+
+ 
+" target="_blank"><font color="#058">Space-Time Codes and MIMO Systems 
+
+
+	The technical de</font></a> ...<div class="rela_info"><div>2014-12-22 03:02&nbsp;&nbsp;&nbsp;&nbsp;By:1028293781&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:71&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/212111" title="svd+linearmodel for recommendor system" target="_blank" style="font-size:14px;">svd+linearmodel for recommendor <font color="red">sys</font>tem</a>(推荐系统 - C#) - <a href="http://www.codeforge.com/article/212111" title="SVD+linearmodel for recommendor system to achieve an SVD model recommender systems, plus linearmodel plus feature, linear combination of objective function for SVD with LR" target="_blank"><font color="#058">SVD+linearmodel for recommendor system to achieve an SVD mod</font></a> ...<div class="rela_info"><div>2015-01-26 01:21&nbsp;&nbsp;&nbsp;&nbsp;By:mark916214053&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:1</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/220320" title="ntfs fssystem" target="_blank" style="font-size:14px;">ntfs fs<font color="red">sys</font>tem</a>(Driver Development - C) - <a href="http://www.codeforge.com/article/220320" title="Source code of the Windows NTFS file system. win2k Copyright (c) 1991 Microsoft Corporation
+
+
+Module Name:
+
+
+NtfsInit.c
+
+
+Abstract:
+
+
+This module implements the DRIVER_INITIALIZATION routine for Ntfs" target="_blank"><font color="#058">Source code of the Windows NTFS file system. win2k Copyright</font></a> ...<div class="rela_info"><div>2015-02-01 10:17&nbsp;&nbsp;&nbsp;&nbsp;By:Ballmillsap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:39&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:1</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/219595" title="stm32f103ve_V3.5_file system_ffs9 source code_mdk" target="_blank" style="font-size:14px;">stm32f103ve_V3.5_file <font color="red">sys</font>tem_ffs9 source code_mdk</a>(Embeded - C) - <a href="http://www.codeforge.com/article/219595" title="A ff9 file system transplant to stm32f103 with V3.5  firmware library source code. THe project is built in MDK." target="_blank"><font color="#058">A ff9 file system transplant to stm32f103 with V3.5&nbsp;&amp;nb</font></a> ...<div class="rela_info"><div>2015-01-23 21:58&nbsp;&nbsp;&nbsp;&nbsp;By:kyle_sy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:59&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/211499" title="Create a orthotropic material by ANSYS" target="_blank" style="font-size:14px;">Create a orthotropic material by ANSYS</a>(File Formats - Others) - <a href="http://www.codeforge.com/article/211499" title="
+	FINISH
+
+
+	/CLEAR,NOSTART
+
+
+	/TITLE,Modified timberlog coordinates
+
+
+	/CONFIG, NRES, 1000000
+
+
+	/PREP7
+
+
+	 
+
+
+	! Units used
+
+
+	! m, N, s, kg, Pa, m/s, m/(s^2), kg/(m^3), W 
+/UNITS,SI
+
+
+	!! Define local element type
+! 
+ET, ITYPE, Ename, KOP1, KOP2, KOP3, KOP4, KOP5, KOP6, INOPR
+
+
+	ET,1,SOLID45
+
+
+	ET,2,LINK8
+ 
+
+
+	!! Define material properties for Timber Log (Kapur-SD4)(isotropic)
+
+
+	
+MP,DENS,1,750      ! Density = 750 kg/m3
+
+
+	
+MP,EX,1,14E9
+MP,EY,1,0.85E9
+MP,EZ,1,1.955E9
+
+
+	MP,PRXY,1,0.682
+MP,PRYZ,1,0.023
+MP,PRXZ,1,0.044
+
+
+	MP,GXY,1,0.357E9
+MP,GYZ,1,0.037E9
+MP,GXZ,1,1.513E9
+
+
+	!! Define material properties for Steel LINK (isotropic)
+
+
+	MP,EX,2,210000E6  ! EX=210000 N/mm2 = 210000E6 N/m2
+
+
+	MP,PRXY,2,0.3            ! Poisson s ratio = 0.3
+
+
+	MP,DENS,2,7850       ! Density = 7850 kg/m3
+
+
+	
+!! Define real constant
+
+
+	R,1,
+
+
+	R,2,3250e-7
+
+
+	 
+
+
+	 
+
+
+	
+!!*****************************************
+
+
+	
+LOGH=5  ! 5 m (top 10m + embed 2m)
+
+
+	LOGDIA=0.30 ! 300 mm (Bottom diameter of pole)
+
+
+	LOGDIATOP=0.26 ! 260 mm (Top diameter of pole)
+
+
+	
+!!*****************************************
+SQRT2=(2)**(1/2) ! Squared root 2
+
+
+	LOGDIADIFF=LOGDIA/2-LOGDIATOP/2
+
+
+	LOGDIADIFF1=LOGDIA/4-LOGDIATOP/4
+
+
+	LOGDIADIFF2=LOGDIA/8-LOGDIATOP/8
+
+
+	
+SBDIV=5/50
+
+
+	CONCDIV=3/30
+
+
+	SOILDIV=3/30
+
+
+	LOGDIVNUMBER=100
+
+
+	
+LOGDIV=LOGH/LOGDIVNUMBER 
+
+
+	LOGDIV1=LOGDIV
+
+
+	LOGDIV2=LOGDIV
+
+
+	
+*IF,LOGDIADIFF,EQ,0,THEN
+
+
+	
+LOGDIADIFF=1 ! Gradient 1:outer ring
+
+
+	LOGDIADIFF1=1 ! Gradient 1:inner ring
+
+
+	LOGDIADIFF2=1 ! Gradient 1:inner ring
+
+
+	LOGDIV1=0
+
+
+	
+*ENDIF
+
+
+	
+LOGGRA=LOGH/LOGDIADIFF  ! Gradient 1:outer ring
+
+
+	LOGGRA1=LOGH/LOGDIADIFF1 ! Gradient 1:inner ring
+
+
+	LOGGRA2=LOGH/LOGDIADIFF2 ! Gradient 1:inner ring
+
+
+	LOGABOVENODE=LOGDIVNUMBER
+
+
+	LOGABOVENODE1=LOGABOVENODE-1
+
+
+	 
+
+
+	
+*AFUN,DEG  ! Units for angular functions are degrees
+
+
+	ANGLE=(90/4)  ! Degree
+
+
+	 
+
+
+	 
+
+
+	 
+
+
+	 
+
+
+	!***********************************
+
+
+	!! Create node points for Timber Log (Round)
+
+
+	!***********************************
+
+
+	
+*DO,I,0,3,1
+
+
+	
+N,1+I*16,-(4-I)*LOGDIA/8,0,0
+
+
+	N,2+I*16,-(4-I)*(LOGDIA/8)*COS(ANGLE),0,(4-I)*(LOGDIA/8)*SIN(ANGLE)
+
+
+	N,3+I*16,-(4-I)*(LOGDIA/8/SQRT2),0,(4-I)*(LOGDIA/8/SQRT2)
+
+
+	N,4+I*16,-(4-I)*(LOGDIA/8)*COS(3*ANGLE),0,(4-I)*(LOGDIA/8)*SIN(3*ANGLE)
+
+
+	N,5+I*16,0,0,(4-I)*LOGDIA/8
+
+
+	N,6+I*16,(4-I)*(LOGDIA/8)*COS(3*ANGLE),0,(4-I)*(LOGDIA/8)*SIN(3*ANGLE)
+
+
+	N,7+I*16,(4-I)*(LOGDIA/8/SQRT2),0,(4-I)*(LOGDIA/8/SQRT2)
+
+
+	N,8+I*16,(4-I)*(LOGDIA/8)*COS(ANGLE),0,(4-I)*(LOGDIA/8)*SIN(ANGLE)
+
+
+	N,9+I*16,(4-I)*LOGDIA/8,0,0
+
+
+	N,10+I*16,(4-I)*(LOGDIA/8)*COS(ANGLE),0,-(4-I)*(LOGDIA/8)*SIN(ANGLE)
+
+
+	N,11+I*16,(4-I)*(LOGDIA/8/SQRT2),0,-(4-I)*(LOGDIA/8/SQRT2)
+
+
+	N,12+I*16,(4-I)*(LOGDIA/8)*COS(3*ANGLE),0,-(4-I)*(LOGDIA/8)*SIN(3*ANGLE)
+
+
+	N,13+I*16,0,0,-(4-I)*LOGDIA/8
+
+
+	N,14+I*16,-(4-I)*(LOGDIA/8)*COS(3*ANGLE),0,-(4-I)*(LOGDIA/8)*SIN(3*ANGLE)
+
+
+	N,15+I*16,-(4-I)*(LOGDIA/8/SQRT2),0,-(4-I)*(LOGDIA/8/SQRT2)
+
+
+	N,16+I*16,-(4-I)*(LOGDIA/8)*COS(ANGLE),0,-(4-I)*(LOGDIA/8)*SIN(ANGLE)
+
+
+	
+*ENDDO
+
+
+	 
+
+
+	
+N,65,0,0,0
+
+
+	
+!*************
+
+
+	
+*DO,I,0,3,1
+
+
+	
+*DO,J,1,LOGABOVENODE,1
+
+
+	
+N,1+J*100+I*16,-(4-I)*LOGDIA/8+(4-I)*((J*LOGDIV2)/LOGGRA2),J*LOGDIV,0
+
+
+	
+N,2+J*100+I*16,-(4-I)*(LOGDIA/8)*COS(ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8)*SIN(ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(ANGLE)
+
+
+	
+N,3+J*100+I*16,-(4-I)*(LOGDIA/8/SQRT2)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(2*ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8/SQRT2)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(2*ANGLE)
+
+
+	
+N,4+J*100+I*16,-(4-I)*(LOGDIA/8)*COS(3*ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(3*ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8)*SIN(3*ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(3*ANGLE)
+
+
+	
+N,5+J*100+I*16,0,J*LOGDIV,(4-I)*LOGDIA/8-(4-I)*((J*LOGDIV2)/LOGGRA2)
+
+
+	
+N,6+J*100+I*16,(4-I)*(LOGDIA/8)*COS(3*ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(3*ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8)*SIN(3*ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(3*ANGLE)
+
+
+	
+N,7+J*100+I*16,(4-I)*(LOGDIA/8/SQRT2)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(2*ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8/SQRT2)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(2*ANGLE)
+
+
+	
+N,8+J*100+I*16,(4-I)*(LOGDIA/8)*COS(ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(ANGLE),J*LOGDIV,(4-I)*(LOGDIA/8)*SIN(ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(ANGLE)
+
+
+	
+N,9+J*100+I*16,(4-I)*LOGDIA/8-(4-I)*((J*LOGDIV2)/LOGGRA2),J*LOGDIV,0
+
+
+	
+N,10+J*100+I*16,(4-I)*(LOGDIA/8)*COS(ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8)*SIN(ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(ANGLE)
+
+
+	
+N,11+J*100+I*16,(4-I)*(LOGDIA/8/SQRT2)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(2*ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8/SQRT2)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(2*ANGLE)
+
+
+	
+N,12+J*100+I*16,(4-I)*(LOGDIA/8)*COS(3*ANGLE)-(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(3*ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8)*SIN(3*ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(3*ANGLE)
+
+
+	
+N,13+J*100+I*16,0,J*LOGDIV,-(4-I)*LOGDIA/8+(4-I)*((J*LOGDIV2)/LOGGRA2)
+
+
+	 
+
+
+	N,14+J*100+I*16,-(4-I)*(LOGDIA/8)*COS(3*ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(3*ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8)*SIN(3*ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(3*ANGLE)
+
+
+	
+N,15+J*100+I*16,-(4-I)*(LOGDIA/8/SQRT2)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(2*ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8/SQRT2)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(2*ANGLE)
+
+
+	
+N,16+J*100+I*16,-(4-I)*(LOGDIA/8)*COS(ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*COS(ANGLE),J*LOGDIV,-(4-I)*(LOGDIA/8)*SIN(ANGLE)+(4-I)*((J*LOGDIV2)/LOGGRA2)*SIN(ANGLE)
+
+
+	
+N,65+J*100,0,J*LOGDIV,0
+
+
+	
+*ENDDO
+
+
+	*ENDDO
+
+
+	 
+
+
+	N,201465,1.05,1.5,0
+
+
+	N,215865,1.05,3.5,0
+
+
+	
+!***********************************
+
+
+	!! Create node points for Link (Steel)
+
+
+	!***********************************
+
+
+	                          
+TYPE,2
+
+
+	MAT,2
+
+
+	REAL,2
+
+
+	
+E,3009,201465
+
+
+	E,7009,215865
+
+
+	 
+
+
+	 
+
+
+	!*************
+
+
+	
+!! Setting element type and material properties for Timber Log
+
+
+	TYPE,1
+
+
+	MAT,1
+
+
+	 
+
+
+	
+CSYS,5
+NROTAT,ALL
+
+
+	
+*DO,K,0,2,1
+    
+    *DO,J,0,14,1
+       
+        *DO,I,0,LOGABOVENODE1,1
+
+
+	
+           NODE1=1+I*100+J+K*16
+
+
+	           NODE2=2+I*100+J+K*16
+
+
+	           NODE3=18+I*100+J+K*16
+
+
+	           NODE4=17+I*100+J+K*16
+
+
+	           NODE5=101+I*100+J+K*16
+
+
+	           NODE6=102+I*100+J+K*16
+
+
+	           NODE7=118+I*100+J+K*16
+
+
+	           NODE8=117+I*100+J+K*16
+
+
+	
+           E,NODE1,NODE2,NODE3,NODE4,NODE5,NODE6,NODE7,NODE8
+
+
+	
+        *ENDDO
+
+
+	    *ENDDO
+
+
+	*ENDDO
+
+
+	 
+
+
+	
+*DO,K,0,2,1
+
+
+	    *DO,J,0,0,0
+
+
+	        *DO,I,0,LOGABOVENODE1,1
+
+
+	
+           NODE1=16+I*100+J+K*16
+
+
+	           NODE2=1+I*100+J+K*16
+
+
+	           NODE3=17+I*100+J+K*16
+
+
+	           NODE4=32+I*100+J+K*16
+
+
+	           NODE5=116+I*100+J+K*16
+
+
+	           NODE6=101+I*100+J+K*16
+
+
+	           NODE7=117+I*100+J+K*16
+
+
+	           NODE8=132+I*100+J+K*16
+
+
+	
+           E,NODE1,NODE2,NODE3,NODE4,NODE5,NODE6,NODE7,NODE8
+
+
+	
+        *ENDDO
+
+
+	    *ENDDO
+
+
+	*ENDDO
+
+
+	 
+
+
+	
+*DO,K,0,0,0
+
+
+	    *DO,J,0,14,1
+
+
+	        *DO,I,0,LOGABOVENODE1,1
+
+
+	
+           NODE1=49+I*100+J+K*16
+
+
+	           NODE2=50+I*100+J+K*16
+
+
+	           NODE3=65+I*100+K*16
+
+
+	           NODE4=65+I*100+K*16
+
+
+	           NODE5=149+I*100+J+K*16
+
+
+	           NODE6=150+I*100+J+K*16
+
+
+	           NODE7=165+I*100+K*16
+
+
+	           NODE8=165+I*100+K*16
+
+
+	
+           E,NODE1,NODE2,NODE3,NODE4,NODE5,NODE6,NODE7,NODE8
+
+
+	
+        *ENDDO
+
+
+	    *ENDDO
+
+
+	*ENDDO
+
+
+	 
+
+
+	
+*DO,K,0,0,0
+
+
+	    *DO,J,0,0,0
+
+
+	        *DO,I,0,LOGABOVENODE1,1
+
+
+	
+           NODE1=64+I*100+J+K*16
+
+
+	           NODE2=49+I*100+J+K*16
+
+
+	           NODE3=65+I*100+K*16
+
+
+	           NODE4=65+I*100+K*16
+
+
+	           NODE5=164+I*100+J+K*16
+
+
+	           NODE6=149+I*100+J+K*16
+
+
+	           NODE7=165+I*100+K*16
+
+
+	           NODE8=165+I*100+K*16
+
+
+	
+           E,NODE1,NODE2,NODE3,NODE4,NODE5,NODE6,NODE7,NODE8
+
+
+	
+        *ENDDO
+
+
+	    *ENDDO
+
+
+	*ENDDO
+
+
+	 
+
+
+	 
+
+
+	 
+
+
+	!!******************
+!! Boundary Conditions
+
+
+	 
+
+
+	!!******************
+CSYS,0
+NSEL,S,NODE,,201465,201465,1
+
+
+	D,ALL,UX,,,,,UY,UZ,,,,,
+
+
+	ALLSEL,ALL
+
+
+	
+NSEL,S,NODE,,215865,215865,1
+
+
+	D,ALL,UX,,,,,UY,UZ,,,,,
+
+
+	ALLSEL,ALL
+
+
+	 
+
+
+	 
+
+
+	
+!***************
+
+
+	! Solution
+
+
+	! Modal analysis
+
+
+	!***************
+
+
+	
+/SOLU
+
+
+	ANTYPE,STAT
+
+
+	LOAD=100000
+CSYS,5
+NSEL,S,NODE,,10001,10016,, ! Select impact point
+
+
+	FDELE,ALL,ALL
+
+
+	F,ALL,FX,LOAD  ! Specifies force loads at nodes.
+
+
+	ALLSEL,ALL
+
+
+	NSUBST,1 ! Specifies the number of substeps to be taken this load step.
+
+
+	 
+
+
+	SOLVE
+
+
+	 
+
+
+	
+FINISH
+" target="_blank"><font color="#058">FINISH
+
+
+	/CLEAR,NOSTART
+
+
+	/TITLE,Modified timberl</font></a> ...<div class="rela_info"><div>2014-11-20 11:16&nbsp;&nbsp;&nbsp;&nbsp;By:nini&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/238308" title="UIDL and TCL/TK-based GUI with ANSYS secondary development" target="_blank" style="font-size:14px;">UIDL and TCL/TK-based GUI with ANSYS secondary development</a>(GUI - Tcl/Tk) - <a href="http://www.codeforge.com/article/238308" title="ANSYS in analysis of specific major problem exists on the flaws of the tedious and difficult to master, shows use UIDL and TCL/TK
+ANSYS secondary development of graphical user interfaces, and according to the method developed the graphical user interface of single pile for other issues secondary development of ANSYS
+Graphical user interface provides a reference." target="_blank"><font color="#058">ANSYS in analysis of specific major problem exists on the fl</font></a> ...<div class="rela_info"><div>2015-02-05 08:38&nbsp;&nbsp;&nbsp;&nbsp;By:falda7448&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/211146" title="Source codes of [ARM System Developer" s="" guide]'="" target="_blank" style="font-size:14px;">Source codes of [ARM System Developer's Guide]</a>(Embeded - ASM) - <a href="http://www.codeforge.com/article/211146" title="The [ARM System Developer s Guide] is an arm classic material, however this book Appendix source code download link has expired. Now that I finally found the code." target="_blank"><font color="#058">The [ARM System Developer s Guide] is an arm classic materia</font></a> ...<div class="rela_info"><div>2015-01-18 20:24&nbsp;&nbsp;&nbsp;&nbsp;By:tassard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:73&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/217691" title="Temperature field in ANSYS" target="_blank" style="font-size:14px;">Temperature field in ANSYS</a>(Matlab - Fortran) - <a href="http://www.codeforge.com/article/217691" title="Numerical simulation of temperature field in ANSYS, is his creation, there may be many flaws, hope everyone can give their views. You submit your code after verifying that you can get credit for only content useful, describing the details of the source code in order to pass the audit. Please fill in the following information. " target="_blank"><font color="#058">Numerical simulation of temperature field in ANSYS, is his c</font></a> ...<div class="rela_info"><div>2014-12-20 11:16&nbsp;&nbsp;&nbsp;&nbsp;By:jiwq08&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/217832" title="identifical system" target="_blank" style="font-size:14px;">identifical <font color="red">sys</font>tem</a>(Matlab - Matlab) - <a href="http://www.codeforge.com/article/217832" title="Within Matlab using the square to the control system parameters identification, changed the document detailed written identification algorithm" target="_blank"><font color="#058">Within Matlab using the square to the control system paramet</font></a> ...<div class="rela_info"><div>2015-01-21 23:32&nbsp;&nbsp;&nbsp;&nbsp;By:08370322&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/220462" title="dynamic control of power system" target="_blank" style="font-size:14px;">dynamic control of power <font color="red">sys</font>tem</a>(Algorithm - PDF) - <a href="http://www.codeforge.com/article/220462" title="The main topic covered is frequency control in power systems. The
+needed models are derived and the primary and secondary frequency control
+are studied. A detailed model of the synchronous machine, based on
+Park s transformation, is also included. The excitation and voltage control
+of synchronous machines are briefly described. An overview of load models
+are also given" target="_blank"><font color="#058">The main topic covered is frequency control in power systems</font></a> ...<div class="rela_info"><div>2014-12-24 11:33&nbsp;&nbsp;&nbsp;&nbsp;By:breathhit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:38&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/212717" title="CourierCargoSystem" target="_blank" style="font-size:14px;">CourierCargoSystem</a>(Windows - C#) - <a href="http://www.codeforge.com/article/212717" title="The project “Online Courier &amp; Cargo System” delivery status and notification system is
+being developed for the need of company running simultaneously courier &amp; cargo service
+this is specially meant for their frontline user service information. This is one of the best
+efforts by us to prove that how Internet can be helpful in tire service industry where inquiries
+are always in queue. This system however is a snap shot of the whole scenario for the
+booming service industry.
+This basically deals with the queries of user for a company simultaneously running its courier
+&amp; cargo service where the users having booked some cargo or couriers or both for delivery
+can view the status online about where there booked courier or cargo. How much more time
+it will take to reach the place, and whether received it in original state. And many other
+queries such as the reason of blockage, queries with the user care officers regarding handling
+etc. there is a user satisfaction guest book where user should put some notes about our service
+user complaint register.
+As the domain in of the system is to a bigger area so the best and convenient way is internet
+as this is the best way to satisfy the user queries. A website can prove the best interface
+between the user and the company." target="_blank"><font color="#058">The project “Online Courier &amp; Cargo System” delivery</font></a> ...<div class="rela_info"><div>2015-02-02 21:46&nbsp;&nbsp;&nbsp;&nbsp;By:aditya9453&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:45&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:1</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/218476" title="DYNAMOMETER SYSTEM TEST STEP (Ergometer system testing)" target="_blank" style="font-size:14px;">DYNAMOMETER SYSTEM TEST STEP (Ergometer <font color="red">sys</font>tem testing)</a>(Other - LabView) - <a href="http://www.codeforge.com/article/218476" title="
+	This setup consists of an Electric Dynamometer which applies a load to the Unit Under Test (engine).  The Electric Dyno is controlled using an analog output signal which is amplified by the Dyno Load Controller.  The Load Cell connected to the Electric Dyno is used to read the developed torque.  The Engine speed is controlled using an analog output - this output value is determined by the PID controller.  The Throttle Controller amplifies the PID output to run the Engine.  Thermocouples mounted on the engine read temperatures.  The Magnetic Pickup on the engine outputs a frequency which is converted to RPM. Signals are conditioned using SCXI modules before they are Acquired by the DAQ board in the PC.
+
+
+	Before running this application, you must first create DAQmx Global Virtual Channels and scales that correlate raw sensor values such as volts to physical quantities such as temperature. For more specific information please refer to the help in Measurement and Automation Explorer (MAX).
+" target="_blank"><font color="#058">This setup consists of an Electric Dynamometer which appl</font></a> ...<div class="rela_info"><div>2014-12-02 14:13&nbsp;&nbsp;&nbsp;&nbsp;By:zuosi1314&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/218890" title="Space-Time Codes and MIMO Systems and source code" target="_blank" style="font-size:14px;">Space-Time Codes and MIMO Systems and source code</a>(Communication - Matlab) - <a href="http://www.codeforge.com/article/218890" title="
+	This folder contains a PDF version of the book, as well as some of the source code from the book.
+
+
+	These source code contained in the book s second chapter, chapter chapters fourth, fifth, sixth, seventh, eighth and Nineth chapter some of the source code.
+
+
+	Simulation based on the source code, we can tell the result we want, or based on the source code, to consider the new results obtained.
+" target="_blank"><font color="#058">This folder contains a PDF version of the book, as well a</font></a> ...<div class="rela_info"><div>2015-02-01 20:34&nbsp;&nbsp;&nbsp;&nbsp;By:cherish888&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:1</div></div></li>
+<li>
+<a href="http://www.codeforge.com/article/216960" title="train system" target="_blank" style="font-size:14px;">train <font color="red">sys</font>tem</a>(Linux programming - C) - <a href="http://www.codeforge.com/article/216960" title="A train reservation system project, general framework can be achieved , refund, tickets, tickets, train timetable inquiries, offers a query, the query line up to buy tickets, and more features, the basic features are already available, but the details have yet to be optimized for code, after all, just a rookie practiced hand work" target="_blank"><font color="#058">A train reservation system project, general framework can be</font></a> ...<div class="rela_info"><div>2014-12-19 01:01&nbsp;&nbsp;&nbsp;&nbsp;By:天堂的佛&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View:19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download:0</div></div></li>
+</ol>
+		    </div>
+			<div style="text-align:left; border: 0px dashed #dddddd; width:100%; padding: 2px 0px 2px 0px; margin: 5px 0px 5px -3px;">
+			   <!--
+			   <span style="font-size:12px;color=#616161"> &nbsp; &nbsp; Sponsored links</span>
+                -->
+			<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-5238775468331658";
+			/* cf_en_index */
+			google_ad_slot = "6115717927";
+			google_ad_width = '100%';
+			google_ad_height = 90;
+			//-->
+			</script>
+            <!--
+			<script type="text/javascript" src="js/show_ads.js">
+			</script><ins id="aswift_2_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:100%;background-color:transparent"><img width="100%" src="/images/imgad.jpg" /></ins></ins>
+			-->
+                	
+
+<div style="text-align:left; border: 0px dashed #dddddd; width:730px; padding: 2px 0px 2px 0px; margin: 5px 0px 5px -3px;">
+
+   <span style="font-size:12px;color=#616161"> &nbsp; &nbsp; Sponsored links</span>
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5238775468331658";
+/* cf_en_index */
+google_ad_slot = "6115717927";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>
+
+	
+	
+
+
+			</div>
+		</div> <!-- center width=800 -->
+    <a name="comment"></a>
+	<div class="btitle">
+        <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/files.png">
+        <h2>Comments</h2>
+    </div>
+    <div class="review">
+		<span style="color:#aa0000;">(Add your comment, get 0.1 CF coins)</span>
+        <div style="margin-top:-5px;float: right;margin-right: 20px;" id="myRating">
+            <label style="float: right;margin-left: 10px;">
+                Rate:0.0            </label>
+            <div style="float: right; height: 20px; width: 115px; overflow: hidden; z-index: 1; position: relative;" id="0_1" data-average="0" class="myRating">
+            <div class="jRatingColor" style="width: 0px;"></div><div class="jRatingAverage" style="width: 0px; top: -20px;"></div><div class="jStar" style="width: 115px; height: 20px; top: -40px; background: url(http://www.codeforge.com/images/stars.png) repeat-x;"></div></div>
+        </div>
+                    <div style="border-bottom: 1px solid #ccc;">
+                <textarea placeholder="Please input your comments here！"></textarea>
+                <div style="width:100%;margin:5px;"><span style="color:#aa0000;font-weight:bold;" id="to_comment"></span></div>
+                <div style="margin-bottom:20px;">
+                                                            Minimum:15 words, Maximum:160 words
+                    <button type="button" onclick="tosub();">Submit</button>
+                </div>
+            </div>
+            
+                                </div>
+        <div id="pagelist">
+            <ul>
+                <li class="current">1</li><li class="pageinfo">Page 1</li><li class="pageinfo">Total 1</li>            </ul>
+        </div>
+	</div> <!-- homepost -->
+	</div>
+    
+<div id="right_sidebar">
+                    	                                    
+			            <div class="usersection uloginbox"> <!-- User section -->
+			                <div id="titlewrapper"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/usericon_out.png"><h4>User login</h4></div>
+			                <div class="sectioncont">
+			                    <form class="theme-signin" name="login" method="post" action="http://www.codeforge.com/login"> 
+                                <ul>
+                     <li><b>Email：</b><input class="loginuser searchinput" type="text" name="email" placeholder="Login email address" onfocus="if(placeholder==&#39;Login email address&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Login email address&#39;}"></li>
+                     <li><b>Password：</b><input class="loginpsw searchinput" type="password" name="password" placeholder="password" onfocus="if(placeholder==&#39;password&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;password&#39;}"></li>
+                     <li><b>Verification code：</b><input class="loginpsw searchinput captcha" type="text" name="captcha" id="captcha" placeholder="Verification code" onfocus="if(placeholder==&#39;Verification code&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Verification code&#39;}"><img class="captchapic" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/captcha" alt="Verification code" title="Verification code"></li>
+                     <li class="rempsw">
+                     	<label class="remem" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin"> Remember me</label><a href="http://www.codeforge.com/resetpw" class="forget">Forgot password</a>
+                     </li>
+                     <li><input type="hidden" value="1" name="login_type" id="login_type"><input class="searchsubmit loginsub" type="submit" name="submit" value=" Log in "></li>
+                </ul>             
+			                   
+			                    </form> 
+			                </div> 
+			            </div><!-- login -->
+                    
+                            
+                 <div id="normal_show">
+        <div class="btitle">
+            <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+            <h2><a href="http://www.codeforge.com/codelist" title="Top downloaded codes">Top downloaded codes</a></h2>
+            <a class="more" title="More" href="http://www.codeforge.com/codelist"></a>
+        </div>
+         <div id="tab_down">
+	         <div class="xixi2" id="bg">
+	            <div id="font1" class="tab1" onmouseover="setTab03Syn(1);document.getElementById(&#39;bg&#39;).className=&#39;xixi1&#39;">Daily</div>
+                <div id="font2" class="tab2" onmouseover="setTab03Syn(2);document.getElementById(&#39;bg&#39;).className=&#39;xixi2&#39;">Weekly</div>
+                <div id="font3" class="tab3" onmouseover="setTab03Syn(3);document.getElementById(&#39;bg&#39;).className=&#39;xixi3&#39;">Monthly</div>
+                <div id="font4" class="tab4" onmouseover="setTab03Syn(4);document.getElementById(&#39;bg&#39;).className=&#39;xixi4&#39;">All</div>
+	        </div>
+	        <div class="tab_down_content">
+		        <ul class="r_recom" id="TabTab03Con1">
+		            <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/248505" title="LTE-sim（lte的系统级仿真，包含各个模块）">LTE-sim（lte的系统级仿真，包含各个模块）</a></li><li><a target="_blank" href="http://www.codeforge.com/article/247323" title="FPGA source code">FPGA source code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245990" title="Face recognition based on opencv">Face recognition based on opencv</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242343" title="ZigBee positioning technology based on RSSI">ZigBee positioning technology based on RSSI</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242274" title="ZigBee wireless locating">ZigBee wireless locating</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241577" title="GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program">GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/240822" title="Multifocus image fusion according to spatial frequency">Multifocus image fusion according to spatial frequency</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241147" title="Using the RTMP live H264/AAC">Using the RTMP live H264/AAC</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239448" title="Genetic algorithm MATLAB source code">Genetic algorithm MATLAB source code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/238147" title="DWT Based Image fusion of satellite and pathological Images">DWT Based Image fusion of satellite and pathological Images</a></li></ul>.		        </ul>
+		        <ul class="r_recom" id="TabTab03Con2" style="display:none">
+		            <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/247237" title="Android based on XMPP client supports sending messages and group management">Android based on XMPP client supports sending messages and group management</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244131" title="OpenCV vehicle speed detection in video">OpenCV vehicle speed detection in video</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245990" title="Face recognition based on opencv">Face recognition based on opencv</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245445" title="My favorite programming language ranking list(2014.11)">My favorite programming language ranking list(2014.11)</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242243" title="Brain tumor detection based on MRI image analysis">Brain tumor detection based on MRI image analysis</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241760" title="Complete hotel management system ">Complete hotel management system </a></li><li><a target="_blank" href="http://www.codeforge.com/article/240382" title="File transfer in the same WIFI">File transfer in the same WIFI</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239970" title="Car Rental System">Car Rental System</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239068" title="Fuzzy neural network Matlab code">Fuzzy neural network Matlab code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239448" title="Genetic algorithm MATLAB source code">Genetic algorithm MATLAB source code</a></li></ul>.		        </ul>
+		        <ul class="r_recom" id="TabTab03Con3" style="display:none">
+		            <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/239698" title="Open source software for video surveillance">Open source software for video surveillance</a></li><li><a target="_blank" href="http://www.codeforge.com/article/248360" title="VS + opencv 2.4.9 in combination Camshift + Kalman prediction pedestrian tracking code">VS + opencv 2.4.9 in combination Camshift + Kalman prediction pedestrian tracking code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242439" title="Realization of vehicle license plate recognition system">Realization of vehicle license plate recognition system</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241577" title="GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program">GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/234571" title="Pedestrian vehicle detection based on OpenCV">Pedestrian vehicle detection based on OpenCV</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245022" title="Multiple target tracking and OpenCV+vs">Multiple target tracking and OpenCV+vs</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243480" title="An automatic facial expression recognition program">An automatic facial expression recognition program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241272" title="onvif test">onvif test</a></li><li><a target="_blank" href="http://www.codeforge.com/article/237899" title="Vehicle license plate recognition based on OpenCV">Vehicle license plate recognition based on OpenCV</a></li><li><a target="_blank" href="http://www.codeforge.com/article/232969" title="Vehicle Detection OpenCV">Vehicle Detection OpenCV</a></li></ul>.		        </ul>
+		        <ul class="r_recom" id="TabTab03Con4" style="display:none">
+		            <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/244807" title="MATLAB image processing codes">MATLAB image processing codes</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245445" title="My favorite programming language ranking list(2014.11)">My favorite programming language ranking list(2014.11)</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243097" title="RTSP server and client test source code">RTSP server and client test source code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241341" title="Firefly algorithm for TSP problem Matlab code">Firefly algorithm for TSP problem Matlab code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/213362" title="Image content-based retrieval">Image content-based retrieval</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243305" title="Snake algorithm based on MATLAB realization under the original implementation method for detecting the eyes, mouth">Snake algorithm based on MATLAB realization under the original implementation method for detecting the eyes, mouth</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241618" title="Camera calibration based on OpenCV">Camera calibration based on OpenCV</a></li><li><a target="_blank" href="http://www.codeforge.com/article/213232" title="Video acquisition in Linux server (UDP transmission,multithreadeds mode)">Video acquisition in Linux server (UDP transmission,multithreadeds mode)</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243480" title="An automatic facial expression recognition program">An automatic facial expression recognition program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/240098" title="OnVif protocol client test program">OnVif protocol client test program</a></li></ul>.		        </ul>
+	        </div>
+        </div>
+        <div class="ggadv">
+            	
+
+sponsored links:<br>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-5238775468331658";
+/* cf_300x250 */
+google_ad_slot = "2742975525";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+
+	
+	
+        </div>
+        <div class="btitle">
+            <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+            <h2><a href="http://www.codeforge.com/codelist" title="Top viewed codes">Top viewed codes</a></h2>
+            <a class="more" title="More" href="http://www.codeforge.com/codelist"></a>
+        </div>
+        <div id="tab_view">
+             <div class="tab_head_down xixi1" id="bg">
+                <div id="font1a" class="tab1" onmouseover="setTab02Syn(1);document.getElementById(&#39;bg&#39;).className=&#39;xixi1&#39;" style="color: rgb(255, 255, 255); background: rgb(17, 132, 200);">Daily</div>
+                <div id="font2a" class="tab2" onmouseover="setTab02Syn(2);document.getElementById(&#39;bg&#39;).className=&#39;xixi2&#39;" style="color: rgb(0, 0, 0); background: rgb(228, 228, 228);">Weekly</div>
+                <div id="font3a" class="tab3" onmouseover="setTab02Syn(3);document.getElementById(&#39;bg&#39;).className=&#39;xixi3&#39;" style="color: rgb(255, 255, 255); background: rgb(17, 132, 200);">Monthly</div>
+                <div id="font4a" class="tab4" onmouseover="setTab02Syn(4);document.getElementById(&#39;bg&#39;).className=&#39;xixi4&#39;" style="color: rgb(255, 255, 255); background: rgb(17, 132, 200);">All</div>
+            </div>
+            <div class="tab_down_content">
+                <ul class="r_recom" id="TabTab02Con1" style="display: none;">
+                    <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/217562" title="TPLINK router modifying the MAC+ restart">TPLINK router modifying the MAC+ restart</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241577" title="GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program">GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245703" title="Iflytek speech recognition IOS source code">Iflytek speech recognition IOS source code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241030" title="MATLAB solve 5 kinds of business problems (Mtsp) program">MATLAB solve 5 kinds of business problems (Mtsp) program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/250314" title="Progress Bar Go ogle Chrome">Progress Bar Go ogle Chrome</a></li><li><a target="_blank" href="http://www.codeforge.com/article/250062" title="APK Android end smart home program">APK Android end smart home program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245990" title="Face recognition based on opencv">Face recognition based on opencv</a></li><li><a target="_blank" href="http://www.codeforge.com/article/250319" title="Vertical ProgressBar">Vertical ProgressBar</a></li><li><a target="_blank" href="http://www.codeforge.com/article/250312" title="GlowButton - A Glowing Button Control">GlowButton - A Glowing Button Control</a></li><li><a target="_blank" href="http://www.codeforge.com/article/246663" title="Library management system PHP">Library management system PHP</a></li></ul>.                </ul>
+                <ul class="r_recom" id="TabTab02Con2" style="display: block;">
+                    <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/248466" title="Face detection &amp; identification ultra-detailed! !">Face detection &amp; identification ultra-detailed! !</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239698" title="Open source software for video surveillance">Open source software for video surveillance</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244807" title="MATLAB image processing codes">MATLAB image processing codes</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243480" title="An automatic facial expression recognition program">An automatic facial expression recognition program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244131" title="OpenCV vehicle speed detection in video">OpenCV vehicle speed detection in video</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241577" title="GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program">GA genetic algorithm combined with the PSO Particle Swarm algorithm MATLAB program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/240382" title="File transfer in the same WIFI">File transfer in the same WIFI</a></li><li><a target="_blank" href="http://www.codeforge.com/article/246150" title="Using the FFmpeg video recording and video playback">Using the FFmpeg video recording and video playback</a></li><li><a target="_blank" href="http://www.codeforge.com/article/211076" title="MATLAB image segmentation program">MATLAB image segmentation program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239068" title="Fuzzy neural network Matlab code">Fuzzy neural network Matlab code</a></li></ul>.                </ul>
+                <ul class="r_recom" id="TabTab02Con3" style="display: none;">
+                    <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/239698" title="Open source software for video surveillance">Open source software for video surveillance</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244807" title="MATLAB image processing codes">MATLAB image processing codes</a></li><li><a target="_blank" href="http://www.codeforge.com/article/241618" title="Camera calibration based on OpenCV">Camera calibration based on OpenCV</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242439" title="Realization of vehicle license plate recognition system">Realization of vehicle license plate recognition system</a></li><li><a target="_blank" href="http://www.codeforge.com/article/239091" title="Face detection and recognition based attendence system">Face detection and recognition based attendence system</a></li><li><a target="_blank" href="http://www.codeforge.com/article/246825" title="Target tracking based on Kalman filter (with thesis)">Target tracking based on Kalman filter (with thesis)</a></li><li><a target="_blank" href="http://www.codeforge.com/article/237899" title="Vehicle license plate recognition based on OpenCV">Vehicle license plate recognition based on OpenCV</a></li><li><a target="_blank" href="http://www.codeforge.com/article/243480" title="An automatic facial expression recognition program">An automatic facial expression recognition program</a></li><li><a target="_blank" href="http://www.codeforge.com/article/237797" title="Android Xmpp text chat, voice chat, sending files">Android Xmpp text chat, voice chat, sending files</a></li><li><a target="_blank" href="http://www.codeforge.com/article/245022" title="Multiple target tracking and OpenCV+vs">Multiple target tracking and OpenCV+vs</a></li></ul>.                </ul>
+                <ul class="r_recom" id="TabTab02Con4" style="display: none;">
+                    <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/article/244489" title="THREE-PHASE ACTIVE POWER FILTER CONTROL USING SYNCHRONOUS REFERENCE SYSTEM, INDIRECT AND MAXIMUM METHOD">THREE-PHASE ACTIVE POWER FILTER CONTROL USING SYNCHRONOUS REFERENCE SYSTEM, INDIRECT AND MAXIMUM METHOD</a></li><li><a target="_blank" href="http://www.codeforge.com/article/219915" title="Guestbook code">Guestbook code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/217563" title="Kernel Porting for S5PV210 Chip: Linux Kernel Input Subsystem">Kernel Porting for S5PV210 Chip: Linux Kernel Input Subsystem</a></li><li><a target="_blank" href="http://www.codeforge.com/article/216832" title="ECAN DMA Register Indirect Standard Message">ECAN DMA Register Indirect Standard Message</a></li><li><a target="_blank" href="http://www.codeforge.com/article/215658" title="MATLAB neural network analysis of 30 case _ the book [PDF]+ source code package download">MATLAB neural network analysis of 30 case _ the book [PDF]+ source code package download</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244408" title="Matrix displacement method and static analysis of plane rigid frame program (finite element method, source code)">Matrix displacement method and static analysis of plane rigid frame program (finite element method, source code)</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244169" title="Particle Swarm Optimization algorithm for nonlinear function optimization algorithm-extremal optimization">Particle Swarm Optimization algorithm for nonlinear function optimization algorithm-extremal optimization</a></li><li><a target="_blank" href="http://www.codeforge.com/article/211221" title="This is a 3D visualization of how the Expectation Maximization algorithm learns a Gaussian Mixture Model for 3-dimensional data.">This is a 3D visualization of how the Expectation Maximization algorithm learns a Gaussian Mixture Model for 3-dimensional data.</a></li><li><a target="_blank" href="http://www.codeforge.com/article/244372" title="C # implementation for Oracle in VS2010 database deletion interface display and check the modified source code">C # implementation for Oracle in VS2010 database deletion interface display and check the modified source code</a></li><li><a target="_blank" href="http://www.codeforge.com/article/242989" title="A Hybrid Multilevel Inverter Topology with Third Harmonic Injection for Grid Connected Photovoltaic Central Inverters">A Hybrid Multilevel Inverter Topology with Third Harmonic Injection for Grid Connected Photovoltaic Central Inverters</a></li></ul>.                </ul>
+            </div>
+        </div>
+        <div class="btitle">
+            <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+            <h2><a href="http://www.codeforge.com/codelist" title="Hot category/Language">Hot category/Language</a></h2>
+            <a class="more" title="more" href="http://www.codeforge.com/codelist"></a>
+        </div>
+        <div id="tab_cate">
+             <div class="tab_head_down xixi1">
+                <div id="font1b" class="tab1" onmouseover="setTab01Syn(1);document.getElementById(&#39;bg&#39;).className=&#39;xixi1&#39;">Category</div>
+                <div id="font2b" class="tab2" onmouseover="setTab01Syn(2);document.getElementById(&#39;bg&#39;).className=&#39;xixi2&#39;">Language</div>
+            </div>
+            <div class="tab_down_content">
+                <ul class="r_recom" id="TabTab01Con1">
+                    <ul class="r_recom" style="margin: 0px;"><li><a target="_blank" href="http://www.codeforge.com/s/0/Windows-Develop" title="Windows Develop"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/windowsdevelop64.png" title="Windows Develop - Windows Develop"><span>Windows Develop</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/matlab" title="matlab"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/matlab64.png" title="Matlab - matlab"><span>Matlab</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/SCM" title="SCM"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/scm64.png" title="SCM - SCM"><span>SCM</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/Other-systems" title="Other systems"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/other64.png" title="Other systems - Other systems"><span>Other systems</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/Java-Develop" title="Java Develop"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/file64.png" title="Java Develop - Java Develop"><span>Java Develop</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/Other-Books" title="Other Books"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/book64.png" title="Other Books - Other Books"><span>Other Books</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/Algorithm" title="Algorithm"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/algorithm64.png" title="Algorithm - Algorithm"><span>Algorithm</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/Other-windows-programs" title="Other windows programs"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/windowsdevelop64.png" title="Other windows programs - Other windows programs"><span>Other windows programs</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/E-Books" title="E-Books"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/book64.png" title="E-Books - E-Books"><span>E-Books</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/CSharp" title="CSharp"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/csharp64.png" title="CSharp - CSharp"><span>CSharp</span></a></li></ul>                </ul>
+                <ul class="r_recom" id="TabTab01Con2" style="display:none">
+                    <li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__33" title="Visual C++"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/vc64.png" title="Visual C++"><span>Visual C++</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__4" title="C++"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/c++64.png" title="CPlusPlus, C-C++"><span>C++</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__100" title="Others"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/others64.png" title="Others"><span>Others</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__2" title="Java"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/java64.png" title="Java"><span>Java</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__20" title="Matlab"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/matlab64(1).png" title="Matlab"><span>Matlab</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__5" title="VB"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/vb64.png" title="Visual Basic"><span>VB</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__9" title="Delphi"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/delphi64.png" title="Delphi"><span>Delphi</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__1" title="C"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/c64.png" title="C"><span>C</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__43" title="PDF"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/pdf64.png" title="PDF File"><span>PDF</span></a></li><li><a target="_blank" href="http://www.codeforge.com/s/0/proglang__36" title="ASM"><img width="32" border="0" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/asm64.png" title="Assembly language"><span>ASM</span></a></li>                </ul>
+            </div>
+        </div>
+        </div>
+        <div id="ask_show" style="display: none;">
+	<div class="btitle">
+		<img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+		<h2>
+			<a href="http://www.codeforge.com/ask">New Answers</a>
+		</h2>
+		<a class="more" title="more" href="http://www.codeforge.com/ask"></a>
+	</div>
+	<div id="tab_ask_new">
+		<div class="tab_down_content">
+			<ul class="r_recom" id="TabTab01Con1" style="border-top-left-radius: 5px">			</ul>
+		</div>
+	</div>
+	<div class="btitle">
+		<img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+		<h2>
+			<a href="http://www.codeforge.com/ask">Hot Questions</a>
+		</h2>
+		<a class="more" title="more" href="http://www.codeforge.com/ask"></a>
+	</div>
+	<div id="tab_hot">
+		<div class="tab_head_down xixi1" id="bg">
+			<div id="font1e" class="tab1" onmouseover="setTab04Syn(1);document.getElementById(&#39;bg&#39;).className=&#39;xixi1&#39;">Daily</div>
+			<div id="font2e" class="tab2" onmouseover="setTab04Syn(2);document.getElementById(&#39;bg&#39;).className=&#39;xixi2&#39;">Weekly</div>
+			<div id="font3e" class="tab3" onmouseover="setTab04Syn(3);document.getElementById(&#39;bg&#39;).className=&#39;xixi3&#39;">Monthly</div>
+			<div id="font4e" class="tab4" onmouseover="setTab04Syn(4);document.getElementById(&#39;bg&#39;).className=&#39;xixi4&#39;">All</div>
+		</div>
+		<div class="tab_down_content">
+			<ul class="r_recom" id="TabTab04Con1">			</ul>
+			<ul class="r_recom" id="TabTab04Con2" style="display: none">
+							</ul>
+			<ul class="r_recom" id="TabTab04Con3" style="display: none">
+							</ul>
+			<ul class="r_recom" id="TabTab04Con4" style="display: none">
+							</ul>
+		</div>
+	</div>
+	<div class="hotest_user">
+	<div class="btitle">
+		<img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/hot.png">
+		<h2>
+			<a href="http://www.codeforge.com/ask">Most Active Users</a>
+		</h2>
+		<a class="more" title="more" href="http://www.codeforge.com/ask"></a>
+	</div>
+	<div id="tab_user">
+		<div class="tab_head_down xixi1" id="bg">
+			<div id="font1f" class="tab1" onmouseover="setTab05Syn(1);document.getElementById(&#39;bg&#39;).className=&#39;xixi1&#39;">Daily</div>
+			<div id="font2f" class="tab2" onmouseover="setTab05Syn(2);document.getElementById(&#39;bg&#39;).className=&#39;xixi2&#39;">Weekly</div>
+			<div id="font3f" class="tab3" onmouseover="setTab05Syn(3);document.getElementById(&#39;bg&#39;).className=&#39;xixi3&#39;">Monthly</div>
+			<div id="font4f" class="tab4" onmouseover="setTab05Syn(4);document.getElementById(&#39;bg&#39;).className=&#39;xixi4&#39;">All</div>
+		</div>
+		<div class="tab_down_content">
+			<ul class="r_recom" id="TabTab05Con1">			</ul>
+			<ul class="r_recom" id="TabTab05Con2" style="display: none">
+							</ul>
+			<ul class="r_recom" id="TabTab05Con3" style="display: none">
+							</ul>
+			<ul class="r_recom" id="TabTab05Con4" style="display: none">
+							</ul>
+		</div>
+	</div>
+	</div>
+	</div>
+        <div class="btitle r_poll">
+            <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/poll.png">
+            <h2>Poll</h2>
+            <a class="more" title="More" href="http://www.codeforge.com/article/212800#"></a>
+        </div>
+        <div class="polltitle">☉ What is your favorite Linux code editor/IED?</div>
+        <div id="poll_a"><table id="poll1" border="0" style="font-size:12px;" width="348px"><tbody><tr><td width="30%" align="right">Xcode:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 0.96%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan0"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">6(0.96%)</td></tr><tr><td width="30%" align="right">Coda:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 1.6%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan1"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">10(1.60%)</td></tr><tr><td width="30%" align="right">Emacs/XEmacs:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 19.17%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan2"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">120(19.17%)</td></tr><tr><td width="30%" align="right">Xcode:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 7.99%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan3"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">50(7.99%)</td></tr><tr><td width="30%" align="right">Coda:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 1.6%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan4"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">10(1.60%)</td></tr><tr><td width="30%" align="right">Emacs/XEmacs:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 19.17%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan5"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">120(19.17%)</td></tr><tr><td width="30%" align="right">gedit:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 9.58%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan1"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">60(9.58%)</td></tr><tr><td width="30%" align="right">GNU nano:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 1.6%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan2"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">10(1.60%)</td></tr><tr><td width="30%" align="right">Eclipse:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 30.35%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan3"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">190(30.35%)</td></tr><tr><td width="30%" align="right">KDevelop:</td><td class="prochart" width="60%" bgcolor="#eee"><div class="progr" style="background-color:#eee;font-size:12px"><div style="width: 7.99%; background-image: url(http://www.codeforge.com/images/bg.gif);" class="poll_plan4"><div class="plan_e" style="background-image:url(/images/bg.gif);"><div class="plan_c" style="background-image:url(/images/bg.gif);"></div></div></div></div></td><td width="10%" nowrap="">50(7.99%)</td></tr></tbody></table></div>
+        <div class="polltotal">
+            <div class="totalinfo">
+                <span><b>57426</b> votes</span>
+                <span style="margin-left:10px">Deadline： 2014-12-31</span>
+            </div>
+            <a href="http://www.codeforge.com/article/212800#" target="_blank">more</a>
+            <a href="http://www.codeforge.com/article/212800#" target="_blank">vote</a>
+        </div>
+    </div>
+<script type="text/javascript">
+var data="{root:[{id:'10000',name:'Xcode',value:'6'},{id:'10001',name:'Coda',value:'10'},{id:'10002',name:'Emacs/XEmacs',value:'120'},{id:'10003',name:'Xcode',value:'50'},{id:'10004',name:'Coda',value:'10'},{id:'10005',name:'Emacs/XEmacs',value:'120'},{id:'10006',name:'gedit',value:'60'},{id:'10007',name:'GNU nano',value:'10'},{id:'10008',name:'Eclipse',value:'190'},{id:'10009',name:'KDevelop',value:'50'}]}"; 
+
+$(document).ready(function () { 
+	$("#poll_a").poll("poll1",{
+        width:'348px',
+        data:data
+    });
+});    
+if ("" == 1) {
+	document.getElementById ('normal_show').style.display = "none";
+	
+} else {
+	document.getElementById ('ask_show').style.display = "none";  
+}
+</script>
+
+</div>
+<div class="theme-popover-mask"></div>
+
+<script src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/jRating.jquery.js" type="text/javascript"></script> 
+<script type="text/javascript">
+$(function(){
+	/*
+        $('#showComment').click(function(){
+        $("html,body").animate({scrollTop:$("#commentdiv").offset().top-50}, 1);
+    });
+    */
+    $('#showFile').click(function(){
+        $("html,body").animate({scrollTop:$("#filediv").offset().top-46}, 1);
+    });
+    $(".myRating").jRating({ 
+        type:'big',
+        bigStarsPath : '/images/stars.png',
+        length:5,
+        rateMax:5,
+                isDisabled:true,
+                phpPath : '/article/212800//doscore', 
+        step:true,
+        onSuccess : function(element,rate,data){
+            var html = "";
+            html += '<label style="float: right;margin-left: 10px;">Rate:'+data.pts+'</label>';
+            html += '<div style="float: right;" id="'+data.pts+'_1" data-average="'+data.ptsrat+'" class="myRating"></div>';
+            $("#myRating").html(html);
+            var html2 = "";
+            html2 += '<label style="float:left"><b>Rate:</b><span>'+data.pts+'</</span></label>';
+            html2 += '<div style="float: right; height: 20px; width: 115px; overflow: hidden; z-index: 1; position: relative;" id="0_1" data-average="'+data.ptsrat+'" class="myRating"></div>';
+            $("#myRating2").html(html2);
+            $(".myRating").jRating({ 
+                type:'big',
+                bigStarsPath : '/images/stars.png',
+                length:5,
+                rateMax:5,
+                isDisabled:true,
+                step:true,
+            });
+        }
+    }); 
+});
+</script>
+<script type="text/javascript">
+function tosub(){
+    $("#to_comment").html("Please add your comment after download");
+}
+</script>
+<script type="text/javascript">
+  var imgList3=document.getElementById("cfphoto").getElementsByTagName("img");
+  for(var i in imgList3){
+   imgList3[i].onclick=ImgShow;
+  }
+ </script>
+
+<div class="footer">
+    <div class="footin">
+        <form method="POST" id="footersearch" class="footsearch" style="width:370px" name="footersearch" action="">
+                <input type="text" name="q" class="searchinput">
+                <input type="submit" value="Search" class="searchsubmit">
+            </form>
+        <div class="info">
+            <img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/logodn.png">
+            <i>© 2014 CodeForge Dev Team All rights reserved.</i>
+            <a href="mailto:support@codeforge.com">Email:support@codeforge.com</a>
+        </div>
+        <div class="contact">
+            <a href="http://www.codeforge.com/help">Contact Us</a> | 
+            <a href="http://www.codeforge.com/help">Advertise</a>
+        </div>
+    </div>
+</div>
+<div id="switch_url">
+    <div class="theme-poptit">
+         <a href="javascript:void(0);" title="close" class="close" onclick="close_switch_url_box()">×</a>
+         <h3>切换到中文版？</h3>
+    </div>
+    <div class="swch_box">
+        <dl>
+        	<dt><a href="">是</a></dt>
+            <dd><a href=""><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/cn.png"></a></dd>
+        </dl>
+         <dl>
+        	<dt><a href="javascript:void(0);" onclick="close_switch_url_box()">否</a></dt>
+            <dd><a href="javascript:void(0);" onclick="close_switch_url_box()"><img src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/us.png"></a></dd>
+        </dl>
+    </div>
+</div>
+<div class="theme-popover">
+    <div class="theme-poptit">
+         <a href="javascript:;" title="Close" class="close">×</a>
+         <h3>Login CodeForge</h3>
+    </div>
+    <div class="theme-popbod dform">
+        <p><span class="fail"><font color="red"></font></span></p>
+          <form class="theme-signin" name="loginform" action="http://www.codeforge.com/login" method="post">
+               <ul>
+                    <li><b>Email：</b><input class="loginuser searchinput" type="text" name="email" placeholder="Login email address" onfocus="if(placeholder==&#39;Login email address&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Login email address&#39;}"></li>
+                    <li><b>Password：</b><input class="loginpsw searchinput" type="password" name="password" placeholder="Password" onfocus="if(placeholder==&#39;Password&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Password&#39;}"></li>
+                    <li><b>Verification code：</b><input class="loginpsw searchinput captcha" type="text" name="captcha" id="captcha" placeholder="Verification code" onfocus="if(placeholder==&#39;Verification code&#39;){this.style.color=&#39;#1184C8&#39;;placeholder=&#39;&#39;}" onblur="if(placeholder==&#39;&#39;){this.style.color=&#39;#000&#39;;placeholder=&#39;Verification code&#39;}"><img width="110" height="40" alt="Captcha" title="Captcha security image" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/captcha"></li>
+                    <li>
+                       <label class="remem" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin"> Remember me</label><a href="http://www.codeforge.com/resetpw" class="forget">Forgot password？</a>
+                    </li>
+                    <li><input type="hidden" value="1" name="login_type"></li>
+                    <li><input class="searchsubmit loginsub" type="submit" name="submit" value=" Log in "></li>
+               </ul>
+          </form>
+    </div>
+    <div class="theme-right">
+       <span>Don't have an account？</span>
+       <a href="http://www.codeforge.com/signup" class="_register">Register now</a>
+       <div style="margin-top:15px;">
+           <div>Need any help?</div>
+           <div style="margin-top:5px;">Mail to: <a href="mailto:support@codeforge.com" title="Codeforge mail">support@codeforge.com</a></div>
+       </div>
+    </div>
+</div>
+<div class="mcoin">
+    <div class="coi_tit">
+         <a href="javascript:;" title="close" class="close">×</a>
+         <h3>Sorry, you don't have enough CF coins! <span>^_^|||</span></h3>
+    </div>
+    <div class="theme-popbod dform coi_left">
+		<div class="buycoin">
+			<div class="getcoin_intro">
+				Fast channel (Get CF coins immediately):
+            </div>
+			<br>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".buyc1").click(function(){
+    $(".buyc1 input").attr("checked","");
+  });
+  $(".buyc2").click(function(){
+    $(".buyc2 input").attr("checked","");
+  });
+  $(".buyc3").click(function(){
+    $(".buyc3 input").attr("checked","");
+  });
+  $(".buyc4").click(function(){
+    $(".buyc4 input").attr("checked","");
+  });
+});
+</script>
+			<form name="payment_form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="item_number" value="">
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="business" value="support@proxytrade.net">
+				<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="no_shipping" value="1">
+				<input type="hidden" name="amount" id="amount" value="10">
+				<input type="hidden" name="return" value="http://www.codeforge.com/order/completed">
+				<input type="hidden" name="cancel_return" value="http://www.codeforge.com/order/canceled">
+				<input type="hidden" name="notify_url" value="http://www.codeforge.com/order">
+				<input type="hidden" name="rm" value="2">
+				
+				<table cellpadding="0" cellspacing="0">				
+				<tbody>
+                <tr class="buyc1" onclick="chg_amount(10);">
+				<td>
+				<input type="radio" name="item_name" value="10  points" checked="">
+				</td>
+				<td><i>10</i>  CF coins (points) for <em>$10.00</em> USD</td>
+				<td></td>
+				</tr>
+				  <tr class="buyc2" onclick="chg_amount(20);">
+				    <td><input type="radio" name="item_name" value="22  points" checked=""></td>
+				    <td><i>22</i>   CF coins (points) for<em>20.00</em>USD</td>
+				    <td></td>
+			      </tr>
+				  <tr class="buyc3" onclick="chg_amount(50);">
+				    <td><input type="radio" name="item_name" value="55  points"></td>
+				    <td><i>55</i>   CF coins (points) for<em>50.00</em>USD</td>
+				    <td></td>
+			      </tr>
+				  <tr class="buyc4" onclick="chg_amount(100);">
+				    <td><input type="radio" name="item_name" value="120  points"></td>
+				    <td><i>120</i>  CF coins (points) for<em>100.00</em>USD</td>
+				    <td></td>
+			      </tr>
+				  <tr class="buysub_btn">
+				    <td colspan="2" style="border:0"><input type="submit" class="buysub" name="submit" id="submit" value="Submit"></td>
+				    <td style="border:0"></td>
+			      </tr>
+				
+				</tbody>
+				</table>
+			</form>							
+		</div>
+    </div>
+    <div class="theme-right coi_right">
+       <div class="buycoin">
+			<div class="getcoin_intro">
+				Free channel :
+            </div>
+			<br>
+                <table>	
+                <thead>
+                	<tr><th class="buyc"><a href="http://www.codeforge.com/article/edit" target="_blank" title="detail">Submit your source codes</a></th>
+                </tr></thead>			
+				<tbody>
+				  <tr class="buysh">
+				    <td>You could get 1-10 CF coins</td>
+			      </tr>
+				
+				</tbody>
+				</table>
+                <table>	
+                <thead>
+                	<tr><th class="buyc"><a href="http://www.codeforge.com/freepoint" target="_blank" title="more">More……</a></th>
+                </tr></thead>			
+				</table>					
+		</div>
+    </div>
+</div>
+<div id="commen_box">
+    <div class="theme-poptit">
+         <a href="javascript:void(0);" title="close" class="close" onclick="close_commen_box()">×</a>
+         <h3>Prompt message</h3>
+    </div>
+    <div class="swch_box">
+        	<p>Sorry, no results match your search, please go to <a href="http://www.codeforge.com/ask" style="color:#006894;">Q&amp;A</a> to ask for help!</p>
+    </div>
+</div>
+<script type="text/javascript">
+function chg_amount (amount) {
+	$("#amount").val(amount);
+}
+$(document).ready(function($) {
+	
+	//显示通用弹框
+	var commen_box_flag = "";
+	if (commen_box_flag == 1) {
+		show_commen_box ();
+	}
+	//中英文切换
+	if ($.cookie('ignore_lang') == "undefined") {
+		$.cookie('ignore_lang', '1',{expires:1,path:'/'});
+	}
+	var switch_url_flag = "0";
+	if (switch_url_flag == 1) {
+		show_switch_url_box ();
+	}
+	//下载页面，积分不足弹框
+    var money_flag = "";
+    if (money_flag == 1) {
+    	$('.theme-popover-mask').fadeIn(100);
+		$('.mcoin').slideDown(200);
+    } 
+  	//注册页面，登陆弹框
+    $("#login_show_login_box").click(function () {
+    	show_login_box ();
+    })
+    //关闭积分不足弹框
+    $('.coi_tit .close').click(function(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.mcoin').slideUp(200);
+	})
+    $('.theme-login').click(function(){
+    	show_login_box ();
+    })
+    $('.theme-poptit .close').click(function(){
+    	close_login_box ();
+    })
+    if (""  == 1) {
+    	show_login_box ();
+    	return false;
+    }
+    $("#header_login_id").click (function () {
+    	show_login_box ();	
+    })
+     $("#dlpre_id").click (function () {
+        var login_flag = "0";
+        var dlpre_not_enough_money = "";
+        if (login_flag  == 0) {
+            show_login_box ();
+            return false;
+        } else if (dlpre_not_enough_money == 1) {
+        	$('.theme-popover-mask').fadeIn(100);
+    		$('.mcoin').slideDown(200);
+    		return false;
+        } 
+        else {
+        	$("#dlpre_form").submit();
+        }
+    })  
+      $("#no_logged_buy").click (function () {
+        var flag = "0";
+        if (flag  == 0) {
+            show_login_box ();
+            return false;
+        }
+    })
+     $("#no_logged_code").click (function () {
+        var flag = "0";
+        if (flag  == 0) {
+            show_login_box ();
+            return false;
+        }
+    })
+     $("#no_logged_ask").click (function () {
+        var flag = "0";
+        if (flag  == 0) {
+            show_login_box ();
+            return false;
+        }
+    })
+    
+})
+</script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/backtotop.js"></script><div class="cbbfixed" style="bottom: 10px;"><a class="cweixin cbbtn" "=""><span class="weixin-icon"></span><div></div></a><span class="weibo cbbtn" "=""><span class="weibo-icon"></span><div><a class="wlink" target="_blank" href="http://weibo.com/codeforge">CodeForge<br>官方微博</a></div></span><a class="gotop cbbtn"><span class="up-icon"></span></a></div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1833997-36']);
+  _gaq.push(['_setDomainName', 'codeforge.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=7867179; 
+var sc_invisible=1; 
+var sc_security="e780d838"; 
+</script>
+<script type="text/javascript" src="./Student course management system-database - Free Open Source Codes - CodeForge.com_files/counter.js"></script>
+<noscript>&lt;div class="statcounter"&gt;&lt;a title="tumblr hit
+counter" href="http://statcounter.com/tumblr/"
+target="_blank"&gt;&lt;img class="statcounter"
+src="http://c.statcounter.com/7867179/0/e780d838/1/"
+alt="tumblr hit counter"&gt;&lt;/a&gt;&lt;/div&gt;</noscript>
+<!-- End of StatCounter Code for Default Guide -->
+
+
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<div class="theme-popover-mask"></div>
+<script type="text/javascript">
+//<![CDATA[
+(function() {
+var _analytics_scr = document.createElement('script');
+_analytics_scr.type = 'text/javascript'; _analytics_scr.async = true; _analytics_scr.src = '/_Incapsula_Resource?SWJIYLWA=cf352368b953421da63f9283d333e0e9&ns=41';
+var _analytics_elem = document.getElementsByTagName('script')[0]; _analytics_elem.parentNode.insertBefore(_analytics_scr, _analytics_elem);
+})();
+// ]]>
+</script>
+
+  
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 854.5px; top: 701px; display: none;"></div><script>
+        window.$zopim||
+        (function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s= d.createElement(s),e=d.getElementsByTagName(s)[0];
+        z.set=function(o){z.set. _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+        $.src='//v2.zopim.com/?2hwjk9kYQ5HJgXaaDJ56LiFMkELmfA5q';
+        z.t=+new Date;$. type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+      </script><style>
+        .zopim[__jx__id] {
+          display: none !important;
+        }
+      </style><div><iframe style="border: none; z-index: 999998; transform: translateZ(0px); width: 113px; height: 48px; position: fixed; bottom: 10px; right: 20px; visibility: visible; background: transparent;" id="launcher" data-reactid=".0"></iframe></div><div><iframe style="border: none; z-index: 999998; transform: translateZ(0px); position: fixed; bottom: 50px; min-width: 400px; right: 5px; height: 418px; width: 432px; visibility: hidden; left: -9999px; background: transparent;" id="ticketSubmissionForm" data-reactid=".2"></iframe></div><div class="incap_page-tooltip incap_from-right incap_bottom"><div class="incap_btn-area"> <span class="incap_shadow">&nbsp;</span> <div class="incap_btn-holder"> <a href="http://www.codeforge.com/article/212800#" class="incap_logo-image">Incapsula</a> </div> </div> <div class="incap_mask"> <div class="incap_tooltip-box" style="margin-right: -227px;"> <div class="incap_c"> <div class="incap_text"> <strong class="incap_heading" style="font-weight:normal !important">Protected &amp; Accelerated<br> by <a href="http://www.incapsula.com/?src=6&subelm=www.codeforge.com" target="_blank" style="font-size: 18px">Incapsula</a></strong> <p> <label id="incap_threat_count">10,961,454</label> threats blocked this month </p> </div> </div> <div class="incap_b"> &nbsp; </div> </div> </div></div></body></html>

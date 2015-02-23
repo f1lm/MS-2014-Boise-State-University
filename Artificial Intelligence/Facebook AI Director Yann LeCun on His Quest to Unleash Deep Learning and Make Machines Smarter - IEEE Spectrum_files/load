@@ -1,0 +1,370 @@
+(function($) {
+	swishu = 
+	{
+		article_id : '',
+		issue_id : '',
+		track_reads : false,
+		init : function()
+		{
+			this.callback = [];
+			
+			this.form = $('#swishu-form,.swishu-form');
+			this.endpoint = 'https://api.swishu.com';
+			this.website_key = 'TXyQ25oi0jN5';
+			this.tinypass_aid = 'yRmGFJoXY3';
+			this.tinypass_track_pages = true;
+			this.api_token = '';
+			this.third = '';
+			this.first = $.cookie('__sc');
+			this.tbc = $.cookie('__tbc');
+			
+			if (this.form.length) {
+				this.form_get();
+			} else if (!this.tinypass_track_pages) {
+				this.reader_get();
+			}
+			if (this.tinypass_track_pages == true) {
+				this.tinypass_track_page();
+			}
+			if (!swishu.track_reads) {
+				return;
+			}
+			window.setTimeout(function(event) {
+				var params = {};
+				params['website_key'] = swishu.website_key;
+				params['third'] = swishu.third;
+				params['first'] = swishu.first;
+				
+				if (swishu.article) {
+					if (swishu.article.id) {
+						params['website_article_id'] = swishu.article.id;
+					}
+				} else if (swishu.article_id) {
+					params['website_article_id'] = swishu.article_id;
+				}
+				if (swishu.issue_id) {
+					params['website_issue_id'] = swishu.issue_id;
+				}
+				swishu.call_api('/reader/article/read', params, function(json) {
+					if (json.code !== 0) {
+						return;
+					}
+					if (json.show_modal) {
+						$('body').append(json.modal);
+					}
+					if (json.show_paywall) {
+						$('body').append(json.paywall);
+					}
+					if (json.show_paywall) {
+						$('.swishu-paywalled-content,.tinypass-paywalled-content').hide();
+					}
+				});
+			},
+			3000);
+		},
+		log : function(str) {
+			if (window.console && window.console.log) {
+				window.console.log(str);
+			}
+		},
+		tinypass_track_page : function() {
+			var params = {};
+			params['aid'] = this.tinypass_aid;
+			params['tbc'] = this.tbc;
+if ($('div.byline > div > label').length == 1) {params['created']=Date.parse($('div.byline > div > label').html().replace(' |', '')) / 1000;}			if (typeof(params['created']) != 'undefined') {
+				params['content_created'] = params['created'];
+				delete params['created'];
+			}
+			if (typeof(document.referrer) != 'undefined') {
+				params['referer'] = document.referrer;
+			}
+			params['url'] = window.location.href;
+			params['callback'] = 'swishu.callback[' + this.callback.length + ']';
+			this.callback[this.callback.length] = function(json) {
+				if (json.code != 0) {
+					return;
+				}
+				if (typeof(json.browser) != "undefined" && typeof(json.browser.tbc) != "undefined") {
+					$.cookie("__tbc", json.browser.tbc, { path: '/', expires: 730 });
+				}
+			}
+			var s = document.createElement('script');
+			s.src = '//api-v3.tinypass.com/api/v3/page/track?' + $.param(params);
+			var removeScriptFunction = function() {
+				s.parentNode.removeChild(s);
+			};
+			if (s.addEventListener){
+				s.addEventListener('load', removeScriptFunction, false);
+			} else if (s.attachEvent){
+				s.attachEvent('onload', removeScriptFunction);
+			}
+			(document.head || document.documentElement).appendChild(s);
+		},
+		reader_get : function() {
+			var params = {};
+			params['website_key'] = this.website_key;
+			params['third'] = this.third;
+			params['first'] = this.first;
+			params['tbc'] = this.tbc;
+			
+			if (this.article_id) {
+				params['website_article_id'] = this.article_id;
+			}
+			if (this.article) {
+				if (this.article.id) {
+					params['website_article_id'] = this.article.id;
+				}
+				if (this.article.url) {
+					params['website_article_url'] = this.article.url;
+				}
+				if (this.article.created) {
+					params['website_article_created'] = this.article.created;
+				}
+				if (this.article.title) {
+					params['website_article_title'] = this.article.title;
+				}
+				if (this.article.page_number) {
+					params['website_article_page_number'] = this.article.page_number;
+				}
+			}
+if ($('div.byline > div > label').length == 1) {params['created']=Date.parse($('div.byline > div > label').html().replace(' |', '')) / 1000;}			if (typeof(document.referrer) != 'undefined') {
+				params['referer'] = document.referrer;
+			}
+			swishu.call_api('/reader/get', params, function(json) {
+				if (json.code !== 0) {
+					// nothing much we can do here
+					return;
+				}
+				if (json.tbc) {
+					$.cookie('__tbc', json.tbc, { expires : 730, path : '/' })
+				}
+				if (json.first) {
+					$.cookie('__sc', json.first, { expires : 730, path : '/' })
+					this.first = json.first;
+				}
+				if (json.third) {
+					this.third = json.third;
+				}
+				if (json.api_token) {
+					this.api_token = json.api_token;
+				}
+			});
+		},
+		form_get : function() {
+			if (!this.form.length) {
+				return;
+			}
+			
+			$.each(this.form, function(index) {
+				var params = {};
+				
+				params['website_key'] = this.website_key;
+				params['third'] = this.third;
+				params['first'] = this.first;
+				
+				params['form_key'] = $(this).attr('data-form-key');
+				if (!params['form_key']) {
+					$(this).html('<pre>Missing form-key data, e.g. &lt;div class="swishu-form" data-form-key="{{replace_with_form_key}}"&gt;&lt;/div&gt;</pre>');
+					return;
+				}
+				if ($(this).attr('data-form-revision-key')) {
+					params['revision_key'] = $(this).attr('data-form-revision-key');
+				}
+				if ($(this).attr('data-extra')) {
+					params['extra'] = $(this).attr('data-extra');
+				}
+				if ($(this).attr('data-website-user')) {
+					params['website_user'] = $(this).attr('data-website-user');
+				}
+				if ($(this).attr('data-article-id')) {
+					if ($(this).attr('data-article-page')) {
+						params['website_article_page'] = $(this).attr('data-article-page');
+					}
+					params['website_article_id'] = $(this).attr('data-article-id');
+				} else if ($(this).attr('data-issue-id')) {
+					params['website_issue_id'] = $(this).attr('data-issue-id');
+				}
+				
+				var swishu_form = $(this);
+				
+				swishu.call_api('/publisher/form/get', params, function(json) {
+					if (json.code !== 0) {
+						swishu_form.html('<pre>' + json.message + '</pre>');
+						return;
+					}
+					
+					if (json.first) {
+						swishu.first = json.first;
+						$.cookie('__sc', json.first, { expires : 730, path : '/' });
+					}
+					
+					if (json.third) {
+						swishu.third = json.third;
+					}
+					
+					if (json.api_token) {
+						swishu.api_token = json.api_token;
+					}
+					
+					// we don't need to pay for this.
+					if (json.article) {
+						swishu_form.html(json.article);
+						return;
+					}
+					
+					var swishu_form_css = '<style type="text/css">' + json.css + '</style>';
+					var swishu_form_html = json.html;
+					var swishu_form_js = '<script type="text/javascript">' + json.js + '</script>';
+					
+					swishu_form.html(swishu_form_css + swishu_form_html + swishu_form_js);
+				});
+			});
+			
+			this.reader_get();
+		},
+		call_api : function(method, params, callback) {
+			url = this.endpoint + method;
+			
+			if (typeof(params) == 'undefined') {
+				params = {};
+			}
+			
+			params.format = 'callback';
+			params.callback = this.callback.length;
+			
+			if (this.api_token) {
+				params.api_token = this.api_token;
+			}
+			if (this.first) {
+				params.first = this.first;
+			}
+			if (this.third) {
+				params.third = this.third;
+			}
+			if (this.website_key) {
+				params.website_key = this.website_key;
+			}
+			
+			if (typeof(callback) == 'undefined') {
+				this.callback[this.callback.length] = function() {};
+			} else {
+				this.callback[this.callback.length] = callback;
+			}
+			
+			url = url + '?' + $.param(params);
+			
+			var s = document.createElement('script');
+			s.src = url;
+			var removeScriptFunction = function() {
+				s.parentNode.removeChild(s);
+			};
+			if (s.addEventListener){
+				s.addEventListener('load', removeScriptFunction, false);
+			} else if (s.attachEvent){
+				s.attachEvent('onload', removeScriptFunction);
+			}
+			(document.head || document.documentElement).appendChild(s);
+		}
+	};
+})(jQuery);
+/* jQuery Cookie Plugin v1.3.1 / https://github.com/carhartl/jquery-cookie / Copyright 2013 Klaus Hartl / Released under the MIT license */
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as anonymous module.
+		define(['jquery'], factory);
+	} else {
+		// Browser globals.
+		factory(jQuery);
+	}
+}(function ($) {
+
+	var pluses = /\+/g;
+
+	function decode(s) {
+		if (config.raw) {
+			return s;
+		}
+		try {
+			// If we can't decode the cookie, ignore it, it's unusable.
+			return decodeURIComponent(s.replace(pluses, ' '));
+		} catch(e) {}
+	}
+
+	function decodeAndParse(s) {
+		if (s.indexOf('"') === 0) {
+			// This is a quoted cookie as according to RFC2068, unescape...
+			s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+		}
+
+		s = decode(s);
+
+		try {
+			// If we can't parse the cookie, ignore it, it's unusable.
+			return config.json ? JSON.parse(s) : s;
+		} catch(e) {}
+	}
+
+	var config = $.cookie = function (key, value, options) {
+
+		// Write
+		if (value !== undefined) {
+			options = $.extend({}, config.defaults, options);
+
+			if (typeof options.expires === 'number') {
+				var days = options.expires, t = options.expires = new Date();
+				t.setDate(t.getDate() + days);
+			}
+
+			value = config.json ? JSON.stringify(value) : String(value);
+
+			return (document.cookie = [
+				config.raw ? key : encodeURIComponent(key),
+				'=',
+				config.raw ? value : encodeURIComponent(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path    ? '; path=' + options.path : '',
+				options.domain  ? '; domain=' + options.domain : '',
+				options.secure  ? '; secure' : ''
+			].join(''));
+		}
+
+		// Read
+
+		var result = key ? undefined : {};
+
+		// To prevent the for loop in the first place assign an empty array
+		// in case there are no cookies at all. Also prevents odd result when
+		// calling $.cookie().
+		var cookies = document.cookie ? document.cookie.split('; ') : [];
+
+		for (var i = 0, l = cookies.length; i < l; i++) {
+			var parts = cookies[i].split('=');
+			var name = decode(parts.shift());
+			var cookie = parts.join('=');
+
+			if (key && key === name) {
+				result = decodeAndParse(cookie);
+				break;
+			}
+
+			// Prevent storing a cookie that we couldn't decode.
+			if (!key && (cookie = decodeAndParse(cookie)) !== undefined) {
+				result[name] = cookie;
+			}
+		}
+
+		return result;
+	};
+
+	config.defaults = {};
+
+	$.removeCookie = function (key, options) {
+		if ($.cookie(key) !== undefined) {
+			// Must not alter options, thus extending a fresh object...
+			$.cookie(key, '', $.extend({}, options, { expires: -1 }));
+			return true;
+		}
+		return false;
+	};
+
+}));

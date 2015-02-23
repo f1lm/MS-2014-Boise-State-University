@@ -1,0 +1,1 @@
+(function () { var dc = document.cookie; if (dc.indexOf('_g_m=') == -1) { var dm = window.location.hostname || window.location.host; if (dm !== undefined)dm = dm.split('.').slice(-2).join('.'); var z = "https:" === document.location.protocol ? "https://" : "http://", y = z + "gurgle.zdbb.net/?domain=", x = y + dm; var z = new Image().src = x; }})();
