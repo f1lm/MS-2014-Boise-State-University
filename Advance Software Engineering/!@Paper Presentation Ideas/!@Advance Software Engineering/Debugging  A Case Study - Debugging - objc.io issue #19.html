@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://www.objc.io/issue-19/debugging-case-study.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Debugging: A Case Study - Debugging - objc.io issue #19</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A periodical about best practices and advanced techniques for iOS and OS X development.">
+        
+        
+
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.objc.io/feed.xml">
+        <link rel="icon" href="http://www.objc.io/issue-19/favicon.ico" type="image/x-icon">
+        
+        <link href="./Debugging  A Case Study - Debugging - objc.io issue #19_files/fonts-bb753b78.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="./Debugging  A Case Study - Debugging - objc.io issue #19_files/global-4dda3f30.css" media="screen" rel="stylesheet" type="text/css">
+        <script async="" src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/analytics.js"></script><script src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/highlight.pack.js" type="text/javascript"></script><style type="text/css"></style>
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-40809116-1', 'objc.io');
+  ga('send', 'pageview');
+
+</script>
+
+        
+        
+        
+        
+    <style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+    <body class="article-page" data-gclp-initialized="true" data-gistbox-initialized="true">
+        
+              <header class="site-header">
+
+        
+            <div class="fpinswift" style="margin: -1.5rem -1.5rem 1.5rem -1.5rem;padding: 1em 0 .8em 0;text-align: center;font-size: .888rem;color:#FD3A32;background: -webkit-linear-gradient(left, #ff8f17, #FD3A32);">
+                <span style="color:white;padding:0 2rem;">Get&nbsp;our&nbsp;book&nbsp;about <a href="http://www.objc.io/books/" style="color:white;">Functional&nbsp;Programming&nbsp;in&nbsp;Swift</a></span>
+            </div>
+
+
+            <div class="site-header-left">
+               <div class="site-header-logo">
+                  <a class="image" href="http://www.objc.io/"><svg class="logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="212.624px" height="64.213px" viewBox="0 0 212.624 64.213" enable-background="new 0 0 212.624 64.213" xml:space="preserve"><g>	<path fill="#010202" d="M25.934,46.376c-2.539,2.471-6.105,4.048-10.496,4.048s-7.959-1.577-10.498-4.048		C1.168,42.672,0,37.664,0,32.176s1.168-10.497,4.939-14.201c2.539-2.47,6.107-4.048,10.498-4.048s7.957,1.578,10.496,4.048		c3.773,3.704,4.939,8.713,4.939,14.201S29.707,42.672,25.934,46.376z M21.68,21.405c-1.441-1.441-3.498-2.471-6.242-2.471		s-4.803,1.029-6.244,2.471c-2.469,2.538-3.225,6.723-3.225,10.771s0.756,8.232,3.225,10.771c1.441,1.44,3.5,2.47,6.244,2.47		s4.801-1.029,6.242-2.47c2.469-2.538,3.225-6.723,3.225-10.771S24.148,23.943,21.68,21.405z"></path>	<path fill="#010202" d="M64.47,46.651c-2.264,2.332-5.557,3.772-9.811,3.772c-3.91,0-8.369-1.921-10.359-5.419l-0.412,4.527h-5.145		V0h5.832v18.866c1.852-3.155,6.311-4.939,10.084-4.939c4.047,0,7.271,1.372,9.535,3.499c3.5,3.361,5.283,8.85,5.283,14.818		C69.478,38.007,67.763,43.289,64.47,46.651z M53.698,18.866c-2.537,0-4.252,1.029-5.625,2.264		c-2.881,2.539-3.842,6.724-3.842,11.046c0,4.321,0.961,8.507,3.842,11.045c1.373,1.235,3.088,2.264,5.625,2.264		c7.752,0,9.811-6.929,9.811-13.309S61.45,18.866,53.698,18.866z"></path>	<path fill="#010202" d="M73.65,64.213c-1.783,0-2.812-0.137-4.527-0.686V58.52c1.439,0.274,2.881,0.343,4.322,0.343		c2.605,0,3.91-2.059,3.91-4.391V14.819h5.83v39.584C83.186,60.44,80.236,64.213,73.65,64.213z M76.807,6.86V0h6.791v6.86H76.807z"></path>	<path fill="#010202" d="M116.646,46.651c-2.469,2.4-5.762,3.772-10.016,3.772c-6.244,0-10.223-2.881-12.691-6.517		c-1.854-2.744-2.883-6.518-2.883-11.731s1.029-8.987,2.883-11.731c2.469-3.636,6.379-6.518,12.623-6.518		c4.115,0,7.477,1.372,9.879,3.705c2.332,2.264,3.842,5.145,4.115,8.918h-5.9c-0.273-2.4-1.166-4.116-2.469-5.42		c-1.373-1.303-3.361-2.126-5.625-2.126c-2.676,0-4.529,0.96-6.037,2.264c-2.744,2.333-3.5,6.654-3.5,10.908		c0,4.253,0.756,8.575,3.5,10.907c1.508,1.304,3.361,2.265,6.037,2.265c2.4,0,4.527-0.892,5.898-2.333		c1.236-1.303,2.059-2.881,2.334-5.145h5.898C120.42,41.574,118.979,44.387,116.646,46.651z"></path>	<g class="arrows">    <rect fill="#fff" x="130" y="00" width="110" height="70">    </rect>		<path fill="#010202" d="M152.718,17.224L139.29,30.825l-2.893-2.779l18.404-18.519l18.406,18.519l-2.896,2.779l-13.427-13.6V52.18			h-4.168L152.718,17.224z"></path>		<path fill="#010202" d="M196.304,47.127l13.428-13.601l2.893,2.779l-18.405,18.52l-18.406-18.52l2.897-2.779l13.425,13.6			l0.001-34.954h4.168V47.127z">      </path>	</g></g></svg></a>
+                  <ul class="site-header-menu small">
+                      <li><a href="http://www.objc.io/about.html">About</a></li>
+                      <li><a href="http://www.objc.io/contributors.html">Contributors</a></li>
+                      <li><a href="http://www.objc.io/subscribe.html">Subscribe</a></li>
+                      <li><a href="http://www.objc.io/snippets/">Snippets</a></li>
+                    </ul>
+              </div>
+              <p class="site-header-tagline small">A periodical about best practices and advanced techniques for iOS and OS X development.</p>
+            </div>
+
+        </header>
+        
+
+        
+        <div class="wrapper">
+            <main role="main">
+                <div class="content">
+                  
+<article class="article">
+    
+    <header class="article-header">
+        <h1>Debugging: A Case Study</h1>
+        
+        <div class="issue-link">
+          <a href="http://www.objc.io/issue-19/index.html"><span class="issue-number">Issue #19</span> Debugging</a>, December 2014
+       </div>
+     
+     <p class="post-author">By <a href="https://twitter.com/steipete">Peter Steinberger</a> </p>
+    </header>
+  
+    <div class="article-body">
+      <p>Nobody writes perfect code, and debugging is something every one of us should be able to do well. Instead of providing a random list of tips about the topic, I’ll walk you through a bug that turned out to be a regression in UIKit, and show you the workflow I used to understand, isolate, and ultimately work around the issue.</p>
+
+<h2>The Issue</h2>
+
+<p>We received a bug report where quickly tapping on a button that presented a popover dismissed the popover but also the <em>parent</em> view controller. Thankfully, a sample was included, so the first part — of reproducing the bug — was already taken care of:</p>
+
+<p><img src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/dismiss-issue-animated.gif"></p>
+
+<p>My first guess was that we might have code that dismisses the view controller, and we wrongfully dismiss the parent. However, when using Xcode’s integrated view debugging feature, it was clear that there was a global <code>UIDimmingView</code> that was the first responder for touch input:</p>
+
+<p><img src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/xcode-view-debugging.png"></p>
+
+<p>Apple added the <a href="https://developer.apple.com/library/ios/recipes/xcode_help-debugger/using_view_debugger/using_view_debugger.html">Debug View Hierarchy</a> feature in Xcode 6, and it’s likely that this move was inspired by the popular <a href="http://revealapp.com/">Reveal</a> and <a href="http://sparkinspector.com/">Spark Inspector</a> apps, which, in many ways, are still better and more feature rich than the Xcode feature.</p>
+
+<h2>Using LLDB</h2>
+
+<p>Before there was visual debugging, the common way to inspect the hierarchy was using <code>po [[UIWindow keyWindow] recursiveDescription]</code> in LLDB, which prints out <a href="https://gist.github.com/steipete/5a3c7a3b6e80d2b50c3b">the whole view hierarchy in text form</a>. </p>
+
+<p>Similar to inspecting the view hierarchy, we can also inspect the view controller hierarchy using <code>po [[[UIWindow keyWindow] rootViewController] _printHierarchy]</code>. This is a <a href="https://github.com/nst/iOS-Runtime-Headers/blob/a8f9f7eb4882c9dfc87166d876c547b75a24c5bb/Frameworks/UIKit.framework/UIViewController.h#L365">private helper</a> on <code>UIViewController</code> that Apple silently added in iOS 8:</p>
+
+<pre data-initialized="true" data-gclp-id="0"><code class=" hljs objectivec">(lldb) po [[[<span class="hljs-built_in">UIWindow</span> keyWindow] rootViewController] _printHierarchy]
+&lt;PSPDFNavigationController <span class="hljs-number">0x7d025000</span>&gt;, state: disappeared, view: &lt;UILayoutContainerView <span class="hljs-number">0x7b3218d0</span>&gt; not <span class="hljs-keyword">in</span> the window
+   | &lt;PSCatalogViewController <span class="hljs-number">0x7b3100d0</span>&gt;, state: disappeared, view: &lt;<span class="hljs-built_in">UITableView</span> <span class="hljs-number">0x7c878800</span>&gt; not <span class="hljs-keyword">in</span> the window
+   + &lt;<span class="hljs-built_in">UINavigationController</span> <span class="hljs-number">0x8012c5d0</span>&gt;, state: appeared, view: &lt;UILayoutContainerView <span class="hljs-number">0x8012b7a0</span>&gt;, presented with: &lt;_UIFullscreenPresentationController <span class="hljs-number">0x80116c00</span>&gt;
+   |    | &lt;PSPDFViewController <span class="hljs-number">0x7d05ae00</span>&gt;, state: appeared, view: &lt;PSPDFViewControllerView <span class="hljs-number">0x80129640</span>&gt;
+   |    |    | &lt;PSPDFContinuousScrollViewController <span class="hljs-number">0x7defa8e0</span>&gt;, state: appeared, view: &lt;<span class="hljs-built_in">UIView</span> <span class="hljs-number">0x7def1ce0</span>&gt;
+   |    + &lt;PSPDFNavigationController <span class="hljs-number">0x7d21a800</span>&gt;, state: appeared, view: &lt;UILayoutContainerView <span class="hljs-number">0x8017b490</span>&gt;, presented with: &lt;UIPopoverPresentationController <span class="hljs-number">0x7f598c60</span>&gt;
+   |    |    | &lt;PSPDFContainerViewController <span class="hljs-number">0x8017ac40</span>&gt;, state: appeared, view: &lt;<span class="hljs-built_in">UIView</span> <span class="hljs-number">0x7f5a1380</span>&gt;
+   |    |    |    | &lt;PSPDFStampViewController <span class="hljs-number">0x8016b6e0</span>&gt;, state: appeared, view: &lt;<span class="hljs-built_in">UIView</span> <span class="hljs-number">0x7f3dbb90</span>&gt;
+</code></pre>
+
+<p>LLDB is quite powerful and can also be scripted. Facebook released <a href="https://github.com/facebook/chisel">a collection of python scripts named Chisel</a> that help a lot with daily debugging. <code>pviews</code> and <code>pvc</code> are the equivalents for view and view controller hierarchy printing. Chisel’s view controller tree is similar, but also displays the view rects. I often use it to inspect the <a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html">responder chain</a>, and while you could manually loop over <code>nextResponder</code> on the object you’re interested in, or <a href="https://gist.github.com/n-b/5420684">add a category helper</a>, typing <code>presponder object</code> is by far the quickest way.</p>
+
+<h2>Adding Breakpoints</h2>
+
+<p>Let’s first figure out what code is actually dismissing our view controller. The most obvious action is setting a breakpoint on <code>viewWillDisappear:</code> to see the stack trace:</p>
+
+<pre data-initialized="true" data-gclp-id="1"><code class=" hljs objectivec">(lldb) bt
+* thread <span class="hljs-preprocessor">#1: tid = 0x1039b3, 0x004fab75 PSPDFCatalog`-[PSPDFViewController viewWillDisappear:](self=0x7f354400, _cmd=0x03b817bf, animated='\x01') + 85 at PSPDFViewController.m:359, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1</span>
+  * frame <span class="hljs-preprocessor">#0: 0x004fab75 PSPDFCatalog`-[PSPDFViewController viewWillDisappear:](self=0x7f354400, _cmd=0x03b817bf, animated='\x01') + 85 at PSPDFViewController.m:359</span>
+    frame <span class="hljs-preprocessor">#1: 0x033ac782 UIKit`-[UIViewController _setViewAppearState:isAnimating:] + 706</span>
+    frame <span class="hljs-preprocessor">#2: 0x033acdf4 UIKit`-[UIViewController __viewWillDisappear:] + 106</span>
+    frame <span class="hljs-preprocessor">#3: 0x033d9a62 UIKit`-[UINavigationController viewWillDisappear:] + 115</span>
+    frame <span class="hljs-preprocessor">#4: 0x033ac782 UIKit`-[UIViewController _setViewAppearState:isAnimating:] + 706</span>
+    frame <span class="hljs-preprocessor">#5: 0x033acdf4 UIKit`-[UIViewController __viewWillDisappear:] + 106</span>
+    frame <span class="hljs-preprocessor">#6: 0x033c46a1 UIKit`-[UIViewController(UIContainerViewControllerProtectedMethods) beginAppearanceTransition:animated:] + 200</span>
+    frame <span class="hljs-preprocessor">#7: 0x03380ad8 UIKit`__56-[UIPresentationController runTransitionForCurrentState]_block_invoke + 594</span>
+    frame <span class="hljs-preprocessor">#8: 0x033b47ab UIKit`__40+[UIViewController _scheduleTransition:]_block_invoke + 18</span>
+    frame <span class="hljs-preprocessor">#9: 0x0327a0ce UIKit`___afterCACommitHandler_block_invoke + 15</span>
+    frame <span class="hljs-preprocessor">#10: 0x0327a079 UIKit`_applyBlockToCFArrayCopiedToStack + 415</span>
+    frame <span class="hljs-preprocessor">#11: 0x03279e8e UIKit`_afterCACommitHandler + 545</span>
+    frame <span class="hljs-preprocessor">#12: 0x060669de CoreFoundation`__CFRUNLOOP_IS_CALLING_OUT_TO_AN_OBSERVER_CALLBACK_FUNCTION__ + 30</span>
+    frame <span class="hljs-preprocessor">#20: 0x032508b6 UIKit`UIApplicationMain + 1526</span>
+    frame <span class="hljs-preprocessor">#21: 0x000a119d PSPDFCatalog`main(argc=1, argv=0xbffcd65c) + 141 at main.m:15</span>
+(lldb) 
+</code></pre>
+
+<p>With LLDB’s <code>bt</code> command, you can print the breakpoint. <code>bt all</code> will do the same, but it prints the state of all threads, and not just the current one.</p>
+
+<p>Looking at the stack trace, we notice that the view controller is already dismissing, as we’re called from a scheduled animation, so we need to add a breakpoint earlier. In this case, we are interested in calls to <code>-[UIViewController dismissViewControllerAnimated:completion:]</code>. We add a <em>symbolic breakpoint</em> to Xcode’s breakpoint list and run the sample again. </p>
+
+<p>The Xcode breakpoint interface is very powerful, allowing you to add <a href="http://www.peterfriese.de/debugging-tips-for-ios-developers/">conditions, skip counts, or even custom actions like playing a sound effect and automatically continuing</a>. We don’t need these features here, but they can save quite a bit of time:</p>
+
+<pre data-initialized="true" data-gclp-id="2"><code class=" hljs objectivec">(lldb) bt
+* thread <span class="hljs-preprocessor">#1: tid = 0x1039b3, 0x033bb685 UIKit`-[UIViewController dismissViewControllerAnimated:completion:], queue = 'com.apple.main-thread', stop reason = breakpoint 7.1</span>
+  * frame <span class="hljs-preprocessor">#0: 0x033bb685 UIKit`-[UIViewController dismissViewControllerAnimated:completion:]</span>
+    frame <span class="hljs-preprocessor">#1: 0x03a7da2c UIKit`-[UIPopoverPresentationController dimmingViewWasTapped:] + 244</span>
+    frame <span class="hljs-preprocessor">#2: 0x036153ed UIKit`-[UIDimmingView handleSingleTap:] + 118</span>
+    frame <span class="hljs-preprocessor">#3: 0x03691287 UIKit`_UIGestureRecognizerSendActions + 327</span>
+    frame <span class="hljs-preprocessor">#4: 0x0368fb04 UIKit`-[UIGestureRecognizer _updateGestureWithEvent:buttonEvent:] + 561</span>
+    frame <span class="hljs-preprocessor">#5: 0x03691b4d UIKit`-[UIGestureRecognizer _delayedUpdateGesture] + 60</span>
+    frame <span class="hljs-preprocessor">#6: 0x036954ca UIKit`___UIGestureRecognizerUpdate_block_invoke661 + 57</span>
+    frame <span class="hljs-preprocessor">#7: 0x0369538d UIKit`_UIGestureRecognizerRemoveObjectsFromArrayAndApplyBlocks + 317</span>
+    frame <span class="hljs-preprocessor">#8: 0x03689296 UIKit`_UIGestureRecognizerUpdate + 3720</span>
+    frame <span class="hljs-preprocessor">#9: 0x032a226b UIKit`-[UIWindow _sendGesturesForEvent:] + 1356</span>
+    frame <span class="hljs-preprocessor">#10: 0x032a30cf UIKit`-[UIWindow sendEvent:] + 769</span>
+    frame <span class="hljs-preprocessor">#21: 0x032508b6 UIKit`UIApplicationMain + 1526</span>
+    frame <span class="hljs-preprocessor">#22: 0x000a119d PSPDFCatalog`main(argc=1, argv=0xbffcd65c) + 141 at main.m:15</span>
+</code></pre>
+
+<p>Now we’re talking! As expected, the fullscreen <code>UIDimmingView</code> receives our touch and processes it in <code>handleSingleTap:</code>, then forwarding it to <code>UIPopoverPresentationController</code>’s <code>dimmingViewWasTapped:</code>, which dismisses the controller (as it should). However, when we tap quickly, this breakpoint is called twice. Is there a second dimming view? Is it called on the same instance? We only have the assembly on this breakpoint, so calling <code>po self</code> will not work.</p>
+
+<h2>Calling Conventions 101</h2>
+
+<p>With some basic knowledge of assembly and function-calling conventions, we can still get the value of <code>self</code>. The <a href="http://developer.apple.com/library/ios/#documentation/Xcode/Conceptual/iPhoneOSABIReference/Introduction/Introduction.html">iOS ABI Function Call Guide</a> and the <a href="http://developer.apple.com/library/mac/#documentation/DeveloperTools/Conceptual/LowLevelABI/000-Introduction/introduction.html">Mac OS X ABI Function Call Guide</a> that is used in the iOS Simulator are both great resources.</p>
+
+<p>We know that every Objective-C method has two implicit parameters: <code>self</code> and <code>_cmd</code>. So what we need is the first object on the stack. For the <strong>32-bit</strong> architecture, the stack is saved in <code>$esp</code>, so you can use <code>po *(int*)($esp+4)</code> to get <code>self</code>, and <code>p (SEL)*(int*)($esp+8)</code> to get <code>_cmd</code> in Objective-C methods. The first value in <code>$esp</code> is the return address. Subsequent variables are in <code>$esp+12</code>, <code>$esp+16</code>, and so on.</p>
+
+<p>The <strong>x86-64</strong> architecture (iPhone Simulator for devices that have an arm64 chip) offers many more registers, so variables are placed in <code>$rdi</code>, <code>$rsi</code>, <code>$rdx</code>, <code>$rcx</code>, <code>$r8</code>, <code>$r9</code>. All subsequent variables land on the stack in <code>$rbp</code>, starting with <code>$rbp+16</code>, <code>$rbp+24</code>, etc.</p>
+
+<p>The <strong>armv7</strong> architecture generally places variables in <code>$r0</code>, <code>$r1</code>, <code>$r2</code>, <code>$r3</code>, and then moves the rest on the stack <code>$sp</code>:</p>
+
+<pre data-initialized="true" data-gclp-id="3"><code class=" hljs java">(lldb) po $r0
+&lt;PSPDFViewController: <span class="hljs-number">0x15a1ca00</span> document:&lt;PSPDFDocument <span class="hljs-number">0x15616e70</span> UID:amazondynamososp2007_0c7fb1fc6c0841562b090b94f0c1c890 files:<span class="hljs-number">1</span> pageCount:<span class="hljs-number">16</span> isValid:<span class="hljs-number">1</span>&gt; page:<span class="hljs-number">0</span>&gt;
+
+(lldb) p (SEL)$r1
+(SEL) $<span class="hljs-number">1</span> = <span class="hljs-string">"dismissViewControllerAnimated:completion:"</span>
+</code></pre>
+
+<p><strong>Arm64</strong> is similar to armv7, however, since there are more registers available, the whole range of <code>$x0</code> to <code>$x7</code> is used to pass over variables, before falling back to the stack register <code>$sp</code>.</p>
+
+<p>You can learn more about stack layout for <a href="http://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/">x86</a> and <a href="http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/">x86-64</a>, and also by reading the <a href="http://www.x86-64.org/documentation/abi.pdf">AMD64 ABI Draft</a>.</p>
+
+<h2>Using the Runtime</h2>
+
+<p>Another technique to track method execution is overriding the methods with a log statement before calling super. However, manually swizzling just to be able to debug more conveniently isn’t really time efficient. A while back, I wrote a small library called <a href="http://github.com/steipete/Aspects"><em>Aspects</em></a> that does exactly that. It can be used in production code, but I mostly use it for debugging and to write test cases. (If you’re curious about Aspects, you can <a href="https://speakerdeck.com/steipete/building-aspects">learn more here.</a>)</p>
+
+<pre data-initialized="true" data-gclp-id="4"><code class="objc hljs "><span class="hljs-preprocessor">#import <span class="hljs-title">"Aspects.h"</span></span>
+
+[UIPopoverPresentationController aspect_hookSelector:NSSelectorFromString(<span class="hljs-string">@"dimmingViewWasTapped:"</span>) 
+                                         withOptions:<span class="hljs-number">0</span> 
+                                          usingBlock:^(<span class="hljs-keyword">id</span> &lt;AspectInfo&gt; info, <span class="hljs-built_in">UIView</span> *tappedView) {
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"%@ dimmingViewWasTapped:%@"</span>, info<span class="hljs-variable">.instance</span>, tappedView);
+} error:<span class="hljs-literal">NULL</span>];
+</code></pre>
+
+<p>This hooks into <code>dimmingViewWasTapped:</code>, which is private — thus we use <code>NSSelectorFromString</code>. You can verify that this method exists, and also look up all other private and public methods of pretty much every framework class, by using the <a href="https://github.com/nst/iOS-Runtime-Headers">iOS Runtime Headers</a>. This project uses the fact that one can’t really hide methods at runtime to query all classes and create a more complete header than what Apple gives us. (Of course, actually calling a private API is not a good idea — this is just to better understand what’s going on.)</p>
+
+<p>With the log message in the hooked method, we get the following output:</p>
+
+<pre data-initialized="true" data-gclp-id="5"><code class=" hljs ">PSPDFCatalog[84049:1079574] &lt;UIPopoverPresentationController: 0x7fd09f91c530&gt; dimmingViewWasTapped:&lt;UIDimmingView: 0x7fd09f92f800; frame = (0 0; 768 1024)&gt;
+PSPDFCatalog[84049:1079574] &lt;UIPopoverPresentationController: 0x7fd09f91c530&gt; dimmingViewWasTapped:&lt;UIDimmingView: 0x7fd09f92f800; frame = (0 0; 768 1024)&gt;
+</code></pre>
+
+<p>We see that the object address is the same, so our poor dimming view really is called twice. We can use Aspects again to see on which controller the dismiss is actually called:</p>
+
+<pre data-initialized="true" data-gclp-id="6"><code class="objc hljs ">[<span class="hljs-built_in">UIViewController</span> aspect_hookSelector:<span class="hljs-keyword">@selector</span>(dismissViewControllerAnimated:completion:)
+                          withOptions:<span class="hljs-number">0</span>
+                           usingBlock:^(<span class="hljs-keyword">id</span> &lt;AspectInfo&gt; info) {
+    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"%@ dismissed."</span>, info<span class="hljs-variable">.instance</span>);
+} error:<span class="hljs-literal">NULL</span>];
+</code></pre>
+
+<pre data-initialized="true" data-gclp-id="7"><code class=" hljs objectivec"><span class="hljs-number">2014</span>-<span class="hljs-number">11</span>-<span class="hljs-number">22</span> <span class="hljs-number">19</span>:<span class="hljs-number">24</span>:<span class="hljs-number">51.900</span> PSPDFCatalog[<span class="hljs-number">84210</span>:<span class="hljs-number">1084883</span>] &lt;<span class="hljs-built_in">UINavigationController</span>: <span class="hljs-number">0x7fd673789da0</span>&gt; dismissed.
+<span class="hljs-number">2014</span>-<span class="hljs-number">11</span>-<span class="hljs-number">22</span> <span class="hljs-number">19</span>:<span class="hljs-number">24</span>:<span class="hljs-number">52.209</span> PSPDFCatalog[<span class="hljs-number">84210</span>:<span class="hljs-number">1084883</span>] &lt;<span class="hljs-built_in">UINavigationController</span>: <span class="hljs-number">0x7fd673789da0</span>&gt; dismissed.
+</code></pre>
+
+<p>Both times, the dimming view calls dismiss on our main navigation controller. UIViewControllers’s <code>dismissViewControllerAnimated:completion:</code> will forward the view controller dismissal request to its immediate child controller, if there is one, otherwise it will dismiss itself. So the first time, the dismiss request goes to the popover, and the second time, the navigation controller itself gets dismissed.</p>
+
+<h2>Finding a Workaround</h2>
+
+<p>We now know what is happening — so let’s move to the <em>why</em>. UIKit is closed source, but we can use a disassembler like <a href="http://www.hopperapp.com/">Hopper</a> to read the UIKit assembly and take a closer look what’s going on in <code>UIPopoverPresentationController</code>. You’ll find the binary under <code>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/UIKit.framework</code>. Use File -&gt; Read Executable to Disassemble… and select this in Hopper, and watch how it crawls through the binary and symbolicates code. The 32-bit disassembler is the most mature one, so you’ll get the best results selecting the 32-bit file slice. <a href="https://www.hex-rays.com/products/ida/">IDA by Hex-Rays</a> is another very powerful and expensive disassembler, which often provides <a href="https://twitter.com/steipete/status/537565877332639744">even better results</a>:</p>
+
+<p><img src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/hopper-dimmingView.png"></p>
+
+<p>Some basics in assembly are quite useful when reading through the code. However, you can also use the pseudo-code view to get something more C-like:</p>
+
+<p><img src="./Debugging  A Case Study - Debugging - objc.io issue #19_files/pseudo-code.png"></p>
+
+<p>Reading the pseudo-code is quite eye-opening. There are two code paths — one if the delegate implements <code>popoverPresentationControllerShouldDismissPopover:</code>, and one if it doesn’t — and the code paths are actually quite different. While the one reacting to the delegate basically has an <code>if (controller.presented &amp;&amp; !controller.dismissing)</code>, the other code path (that we currently fall into) doesn’t, and always dismisses. With that inside knowledge, we can attempt to work around this bug by implementing our own <code>UIPopoverPresentationControllerDelegate</code>:</p>
+
+<pre data-initialized="true" data-gclp-id="8"><code class=" hljs objectivec">- (<span class="hljs-built_in">BOOL</span>)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;
+}
+</code></pre>
+
+<p>My first attempt was to set this to the main view controller that creates the popover. However, that broke <code>UIPopoverController</code>. While not documented, the popover controller sets itself as the delegate in <code>_setupPresentationController</code>, and taking the delegate away will break things. Instead, I used a <code>UIPopoverController</code> subclass and added the above method directly. The connection between these two classes is not documented, and our fix relies on this undocumented behavior; however, the implementation matches the default and exists purely to work around this issue, so it’s future-proof code.</p>
+
+<h2>Reporting a Radar</h2>
+
+<p>Now please don’t stop here. You should always properly document such workarounds, and most importantly, file a radar with Apple. As an additional benefit, this allows you to verify that you actually understood the bug, and that no other side effects from your application play a role — and if you drop an iOS version, it’s easy to go back and test if the radar is still valid:</p>
+
+<pre data-initialized="true" data-gclp-id="9"><code class=" hljs objectivec"><span class="hljs-comment">// The UIPopoverController is the default delegate for the UIPopoverPresentationController</span>
+<span class="hljs-comment">// of it's contentViewController.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// There is a bug when someone double-taps on the dimming view, the presentation controller invokes</span>
+<span class="hljs-comment">// dismissViewControllerAnimated:completion: twice, thus also potentially dismissing the parent controller.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// Simply implementing this delegate runs a different code path that properly checks for dismissing.</span>
+<span class="hljs-comment">// rdar://problem/19067761</span>
+- (<span class="hljs-built_in">BOOL</span>)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;
+}
+</code></pre>
+
+<p>Writing radars is actually quite a fun challenge, and doesn’t take as much time as you might think. With an example, you’ll help out some overworked Apple engineer, and without it, the engineers will most likely push back and not even consider the radar. I managed to create a sample in about 50 LOC, including some comments and the workaround. The Single View Template is usually the quickest way to create an example.</p>
+
+<p>Now, we all know that Apple’s RadarWeb application isn’t great, however, you don’t have to use it. <a href="http://www.quickradar.com/">QuickRadar</a> is a great Mac front-end that can submit the radar for you, and also automatically sends a copy to <a href="http://openradar.appspot.com/">OpenRadar</a>. Furthermore, it makes duping radars extremely convenient. You should download it right away and dupe <a href="http://openradar.appspot.com/19067761">rdar://19067761</a> if you feel like this bug should be fixed.</p>
+
+<p>Not every issue can be solved with such a simple workaround, however, many of these steps will help you find better solutions to issues, or at least improve your understanding of why something is happening. </p>
+
+<h2>References</h2>
+
+<ul>
+<li> <a href="https://developer.apple.com/library/ios/technotes/tn2239/_index.html">iOS Debugging Magic (TN2239)</a></li>
+<li> <a href="https://github.com/nst/iOS-Runtime-Headers">iOS Runtime Headers</a></li>
+<li> <a href="http://www.peterfriese.de/debugging-tips-for-ios-developers/">Debugging Tips for iOS Developers</a></li>
+<li> <a href="http://www.hopperapp.com/">Hopper — a reverse engineering tool</a></li>
+<li> <a href="https://www.hex-rays.com/products/ida/">IDA by Hex-Rays</a></li>
+<li> <a href="http://github.com/steipete/Aspects">Aspects — Delightful, simple library for aspect-oriented programming.</a></li>
+<li> <a href="https://speakerdeck.com/steipete/building-aspects">Building Aspects</a></li>
+<li> <a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/event_delivery_responder_chain/event_delivery_responder_chain.html">Event Delivery: The Responder Chain</a></li>
+<li> <a href="https://github.com/facebook/chisel">Chisel — a collection of LLDB commands to assist debugging iOS apps</a></li>
+<li> <a href="http://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/">Where the top of the stack is on x86</a></li>
+<li> <a href="http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64">Stack frame layout on x86-64</a></li>
+<li> <a href="http://www.x86-64.org/documentation/abi.pdf">AMD64 ABI draft</a></li>
+<li> <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0055b/IHI0055B_aapcs64.pdf">ARM 64-bit Architecture</a></li>
+<li> <a href="https://twitter.com/steipete/status/537565877332639744">Decompiling assembly: IDA vs Hopper</a></li>
+</ul>
+
+    </div>
+
+    
+    <br>
+    <hr>
+    <p>
+    <a href="http://www.objc.io/issue-19">More articles in issue #19</a>
+    </p>
+    
+    
+</article>
+
+
+                </div>
+            </main>
+        </div>
+        
+                <footer class="site-footer">
+            <ul class="site-header-menu small links">
+                <li><a href="http://www.objc.io/privacy.html">Privacy policy</a></li>
+            </ul>
+        </footer>
+
+        <script>hljs.initHighlightingOnLoad();</script>
+        
+
+    
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 983.609375px; top: 2525.5625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 983.609375px; top: 3153.53125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 983.609375px; top: 3899.53125px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="3" data-hasqtip="true" style="left: 983.609375px; top: 4965.5px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="4" data-hasqtip="true" style="left: 983.609375px; top: 5581.46875px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="5" data-hasqtip="true" style="left: 983.609375px; top: 6024.46875px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="6" data-hasqtip="true" style="left: 983.609375px; top: 6218.46875px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="7" data-hasqtip="true" style="left: 983.609375px; top: 6379.46875px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="8" data-hasqtip="true" style="left: 983.609375px; top: 8198.625px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="9" data-hasqtip="true" style="left: 983.609375px; top: 8796.59375px; display: none;"></div></body></html>

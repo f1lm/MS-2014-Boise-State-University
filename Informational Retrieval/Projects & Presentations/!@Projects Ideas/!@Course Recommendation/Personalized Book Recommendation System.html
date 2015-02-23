@@ -1,0 +1,296 @@
+
+<!-- saved from url=(0058)http://nifty.stanford.edu/2011/craig-book-recommendations/ -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript" src="./Personalized Book Recommendation System_files/starfish.js"></script><style type="text/css"></style>
+<title>Personalized Book Recommendation System</title>
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<center>
+<h1>Personalized Book Recommendation System</h1>
+Michelle Craig<br>
+University of Toronto<br>
+mcraig@cs.toronto.edu<br>
+</center>
+<h2>Overview</h2>
+<p>
+Virtually every student has had an online experience where a website makes personalized
+recommendations in hopes of future sales or ongoing traffic. Amazon.com tells you 
+"Customers Who Bought This Item Also Bought", YouTube makes suggestions for other
+videos to watch, and NetFlix ran a 
+<a href="http://www.netflixprize.com/">contest
+with a million dollar prize</a> for an
+algorithm that would improve their movie recommendations.
+In this assignment,
+students write a program that makes personalized book recommendations using 
+algorithms with increasing levels of sophistication. 
+</p>
+<p>
+After reading a pre-collected set of ratings for a list of books, 
+the program makes recommendations
+for a particular reader based on a small set of sample ratings from that
+reader and the preferences of other readers in the community. 
+The assignment was inspired 
+by machine learning
+research used to predict book preferences for <a href="http://www.chapters.indigo.ca/">Chapters.Indigo.ca</a>.
+It provides the opportunity to discuss similarity 
+measures for non-trivial objects and alludes to machine learning techniques.
+</p><p>
+</p>
+<h2>Meta Information</h2>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Summary</td>
+      <td style="vertical-align: top;">
+Read book ratings for a set of users from a file.  Define a similarity measure
+for any pair of readers. Based on reader-similarity, use ratings from the reader
+community to recommend new books for a particular user.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Topics<br>
+      </td>
+      <td style="vertical-align: top;">arrays, reading from files. It requires
+        at least a one-dimensional array of Strings and 
+        either a 2D array of integers or a 1D array of objects. It could also
+        be designed to use dictionaries and/or include a GUI.
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Audience<br>
+      </td>
+      <td style="vertical-align: top;">CS1. It has also been used in 
+      senior high-school classes.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Difficulty<br>
+      </td>
+      <td style="vertical-align: top;">This is an intermediate assignment, taking 2 or 3 
+      weeks for a CS1 student. It can be made more or less complicated by
+      allowing the students varying degrees of flexibility in defining their
+      reader-similarity measure and data structures.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Strengths<br>
+      </td>
+      <td style="vertical-align: top;">
+<ul>
+<li>
+Students are inspired by the fact
+that the 
+<a href="http://www.netflixprize.com/">Netflix contest</a>
+offered significant money for the real-life version of this 
+problem. They like to see their programs make personalized predictions for themselves 
+and their friends.
+</li>
+<li>
+Instructors like the fact that it can be assigned when students haven't learned
+about more complex data-structures and that it can be a starting point for
+talking about other CS ideas: weighted averages, comparing non-trivial objects,
+designing distance measures between objects and writing comparators, sparse data 
+and machine learning.
+</li>
+<li>
+Instructors also like that is very flexible allowing them to meet other curriculum
+expectations as needed.
+</li>
+</ul>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Weaknesses<br>
+      </td>
+      <td style="vertical-align: top;">
+<ul><li>If the rating scheme and 
+distance measure (between two readers) are left up to the student, they
+may design something that doesn't make good predictions. Without direction, 
+students tend to design 1-5 or 0-5 based scheme similar to giving a book "3 stars".
+This makes generating a similarity measure more complicated. If you are giving the
+students a file of pre-collected ratings, you have to give them the rating scheme.
+</li>
+<li>
+In order to work, the assignment needs real data. You can use the
+<a href="http://nifty.stanford.edu/2011/craig-book-recommendations/books.txt">book list </a> and associated <a href="http://nifty.stanford.edu/2011/craig-book-recommendations/ratings.txt">ratings</a>
+files that I've collected or you can recruit a community of people to rate a large
+set of items. You can't generate the input data randomly. 
+</li>
+<li>
+The Netflix
+contest is still reasonably current, but it will soon be old news. That won't
+make the assignment less doable, but it won't be as nifty as it becomes less current.
+</li>
+</ul>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Dependencies<br>
+      </td>
+      <td style="vertical-align: top;">No external libraries required. 
+      </td>
+      
+      
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Variants<br>
+      </td>
+      <td style="vertical-align: top;">
+<ul>
+<li>
+Instead of using the book data that I've provided here,
+some teachers had students collect
+their own data set so that the predictions could be about something other
+than books. It can be a lot of work to get enough data but this can also be a very
+cool thing to do with a large class. You can encourage 
+each student in the class to submit their ratings with a simple web form.
+</li>
+<li>
+The amount of 
+freedom given to the students to design the rating scheme and the similarity
+function (between pairs of readers) can be varied. See the cautions in
+the weaknesses section.
+</li>
+<li>
+Including a GUI component works well, but the assignment is also fine with only a 
+text-based interface.
+</li>
+<li>
+While the prediction algorithms can be implemented using a 2D array of integer
+ratings, many of these ratings are zero leading to a sparse matrix. One way to make 
+the assignment harder is to require the use of a more sophisticated data-structure
+to store the ratings data without explicitly storing all the zeros. This can drive
+home the idea of having different representations for the same data.
+</li>
+<li>
+Reading the input file can be made slightly more difficult by combining the 
+book list data and the ratings data into a single input file that must be 
+parsed by the program. 
+</li>
+</ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2>History</h2>
+<p>
+This assignment was originally designed as a final project 
+for the university-track
+grade 12 computing course in Ontario (ICS4U). It was one component in an
+initiative by the Toronto District School Board to help CS teachers adopt 
+a new Ontario Ministry of Education curriculum. It was designed to address
+a number of specific curriculum expectations while not requiring programming
+concepts beyond the scope of the ministry-defined course. In particular, it 
+does not require the use of a GUI nor does it require objects, dictionaries
+or other data-structures more sophisticated than a 2D array. The templates 
+for the high school versions of the handouts include a lot of material about
+the software-development process that was specifically included to
+address ministry curriculum expectations and omitted when the assignment
+was reconfigured for CS1.
+</p>
+
+
+<h2>Data Set</h2>
+<p> Because this assignment was originally designed for high school students,
+the data set focuses on this audience. I worked with a community librarian to
+identify 55 books that in some sense covered the spectrum of books read by
+typical high school seniors in Canada. I then recruited 86 readers to rate
+the books in the set using the following rating scheme:
+</p><p>
+<table border="1" cellpadding="2" cellspacing="0" summary="Book ratings">
+    <tbody><tr>
+        <th>
+            Rating
+        </th>
+        <th>
+            Meaning
+        </th>
+    </tr>
+    <tr>
+        <td>-5</td> <td>Hated it!</td>
+    </tr>
+    <tr>
+        <td>-3</td> <td>Didn't like it</td>
+    </tr>
+    <tr>
+        <td>0</td> <td>Haven't read it</td>
+    </tr>
+    <tr>
+        <td>1</td> <td>ok - neither hot nor cold about it</td>
+    </tr>
+    <tr>       
+        <td>3</td> <td>Liked it!</td>
+    </tr>
+    <tr>
+        <td>5</td> <td>Really liked it!</td>
+    </tr>
+</tbody></table> 
+</p>
+Here are the resulting data files.
+<ul>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/books.txt">The list of 55 books</a></li>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/ratings.txt">Ratings file for the above book list </a> (from 86 different readers)</li>
+</ul>
+<p></p> 
+<h2>Solution Code</h2>
+<p>
+I have solutions to the assignment in both Java and Python and am happy
+to distribute them to instructors who are considering using the project.
+I ask that no solutions be posted on the web.
+</p>
+<h2>Example Handouts</h2>
+<p>
+Diane Horton gave this assignment at the University of Toronto in CS1 and 
+we are aware that it was given in various local high schools. The CS1 handout
+below is almost exactly what was used with the omission of instructions about our local
+submission and marking mechanisms. 
+The high school handouts are templates that
+were customized by different teachers. Teachers were intended to take material from
+the teacher supplement handout and paste it into the student handout template as
+needed. 
+</p><ul>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/cs1/handout.shtml">HTML handout used Winter 2010 in CS1</a></li>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/hs/student_handout.doc">Highschool Student handout Template (MS Word) </a></li>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/hs/teacher_supplement.doc">Teacher Supplement (MS Word) </a></li>
+</ul>
+<p></p>
+<h2>Other Related Resources</h2>
+<ul>
+<li>I presented this assignment at a conference for high school teachers 
+using <a href="http://nifty.stanford.edu/2011/craig-book-recommendations/BooksRatingsSuggestions.pdf">these slides</a> I am willing to 
+share the Keynote source for them if someone
+wants to customize them and use them for their own presentation. </li>
+<li><a href="http://www.cs.toronto.edu/~mcraig/RateBooks.html">The web page to contribute your rating for these books to the data set</a> I am happy to share
+the <em>very</em>-simple webform to use to collect ratings to build your own data set.  </li>
+
+<li>Diane Horton provided these sample program to her CS1 students when she assigned this
+project in Python. Neither of these are fundamental to the basic assignment, but if you use
+her variation, these files might be helpful.
+<ul>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/cs1/pickle_useful.py">pickle_useful.py</a> A program demonstrating the use of Pickle to save data between runs of a program </li>
+<li><a href="http://nifty.stanford.edu/2011/craig-book-recommendations/cs1/sort_demo.py">sort_demo.py</a> A program demonstrating the use of 
+Python's list.sort function.
+</li></ul>
+</li></ul>
+
+<h2>Extra Advice</h2>
+<p>
+It can be hard to grasp the concept of using <em>only</em> the ratings 
+from the community to predict the future rating for a given user but that
+is the most interesting computer science idea in the assignment.
+A surprising number
+of people claimed that they understood the basis
+for the assignment, but then clearly didn't. This was obvious when they made
+comments such as expressing a desire to replace the names of books in the provided data 
+file with the names of current movies (paired at random!)
+</p>
+<hr>
+<p>Extra info about this assignment:
+<script type="text/javascript">
+star();
+</script><iframe src="./Personalized Book Recommendation System_files/comments.html" id="comments_frame" name="comments" width="100%" height="100%" frameborder="0" background-color="#000000" scrolling="yes" <="" iframe="">
+&lt;/body&gt;
+&lt;/html&gt;
+</iframe></p><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>
