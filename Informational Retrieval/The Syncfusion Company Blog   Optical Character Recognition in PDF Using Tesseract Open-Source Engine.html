@@ -1,0 +1,1424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0133)http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class=""><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/menu174.js"></script><title>
+	The Syncfusion Company Blog | Optical Character Recognition in PDF Using Tesseract Open-Source Engine
+</title>
+    <link rel="icon" media="screen" href="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/favicon.ico" type="text/css">
+    <link href="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/css.axd" rel="stylesheet" type="text/css"><link href="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/css(1).axd" rel="stylesheet" type="text/css"><link type="text/css" rel="stylesheet" href="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/css(2).axd"><link href="http://d2g29cya9iq7ip.cloudfront.net/content/stylesheets/components/essentialjs/ej.widgets.theme.all.min.css" rel="stylesheet"><link href="http://www.syncfusion.com/blogs/themes/Standard/header-footer.css" rel="stylesheet">
+    <script id="twitter-wjs" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/widgets.js"></script><script type="text/javascript" async="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ga.js"></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/jquery-1.8.3.min.js" type="text/javascript"></script><style type="text/css"></style>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/shCore.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/shBrushJScript.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/after-view.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/before-view.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/menu-utils.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/supersubs.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/hoverIntent.js" type="text/javascript"></script>
+    <script type="text/javascript">        SyntaxHighlighter.all();</script>
+    <!--Script for Google analytics dated Aug 5, 2010-->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-8252259-3']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <script>        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
+    <!--Script for header and footer secion -->
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/jquery.easing.1.3.min.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ej.menu.all.min.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ej.autocomplete.all.min.js" type="text/javascript"></script>
+    <script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/header-footer.js" type="text/javascript"></script>
+<meta name="keywords" content="Optical Character Recognition,Tesseract,Essential PDF"><meta name="description" content="Optical character recognition is used to convert scanned PDF or paper-image documents to searchable, editable data with Syncfusion Essential PDF."><meta name="author" content="ushaclementine.henry"><link rel="last" title="Microsoft Azure Expands" href="http://www.syncfusion.com/blogs/post/Microsoft-Azure-Expands.aspx"><link rel="first" title="Multiple File upload in ASP.NET MVC" href="http://www.syncfusion.com/blogs/post/file-upload-in-asp-net-mvc.aspx"><link rel="next" title="Microsoft Azure Expands" href="http://www.syncfusion.com/blogs/post/Microsoft-Azure-Expands.aspx"><link rel="prev" title="Important Additions to ASP.NET Schedule Control" href="http://www.syncfusion.com/blogs/post/Important-Additions-to-ASPNET-Schedule-Control.aspx"><link type="application/rss+xml" rel="alternate" title="Optical Character Recognition in PDF Using Tesseract Open-Source Engine (RSS)" href="http://www.syncfusion.com/blogs/post/feed/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?format=ATOM"><link type="application/rss+xml" rel="alternate" title="Optical Character Recognition in PDF Using Tesseract Open-Source Engine (ATOM)" href="http://www.syncfusion.com/blogs/post/feed/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?format=ATOM"><link rel="contents" title="Archive" href="http://www.syncfusion.com/blogs/archive.aspx"><link rel="start" title="The Syncfusion Company Blog" href="http://www.syncfusion.com/blogs/"><link type="application/rdf+xml" rel="meta" title="SIOC" href="http://www.syncfusion.com/blogs/sioc.axd"><link type="application/apml+xml" rel="meta" title="APML" href="http://www.syncfusion.com/blogs/apml.axd"><link type="application/rdf+xml" rel="meta" title="FOAF" href="http://www.syncfusion.com/blogs/foaf.axd"><link type="application/rss+xml" rel="alternate" title="The Syncfusion Company Blog (RSS)" href="http://www.syncfusion.com/blogs/syndication.axd?format=rss"><link type="application/atom+xml" rel="alternate" title="The Syncfusion Company Blog (ATOM)" href="http://www.syncfusion.com/blogs/syndication.axd?format=atom"><link type="application/rsd+xml" rel="edituri" title="RSD" href="http://www.syncfusion.com/blogs/rsd.axd"><link type="application/opensearchdescription+xml" rel="search" title="The Syncfusion Company Blog" href="http://www.syncfusion.com/blogs/opensearch.axd"><link rel="stylesheet" type="text/css" href="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/widget015.top.svg.css" media="all"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><style data-c2c="c2c_print_container_style" media="print" type="text/css">span.skype_c2c_print_container {} span.skype_c2c_container {display:none !important;} .skype_c2c_menu_container {display:none !important;}</style><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/telemetry.js"></script><script src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/menu_handler.js"></script></head>
+<body data-twttr-rendered="true" data-gclp-initialized="true" data-gistbox-initialized="true"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/hub.e49de384ce9235929b9e175019bc4213(1).html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/hub.e49de384ce9235929b9e175019bc4213.html" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe>
+    <!--Header Secion -->
+    <div class="master-header-wrapper">
+        <div class="master-header">
+            <div class="syncfusion-logo master-header-left">
+                <a href="http://www.syncfusion.com/"><span id="logo"></span></a>
+            </div>
+            <div class="master-header-menusection">
+                <div class="menu-with-search">
+                    <div class="syncfusion-menu" style="display: block;">
+                        <div class="e-menu-wrap"><span class="e-menu-res-wrap"><span class="e-in-wrap e-box e-menu-res-in-wrap"><span class="e-res-title">Menu</span><span class="e-check-wrap e-icon"><span id="ejresponsive" class="e-chkbox-wrap e-widget" role="checkbox" tabindex="0" aria-checked="false"><input id="responsive" class="e-res-icon e-checkbox e-js e-input" type="checkbox" tabindex=""><div class="e-chkbox-medium"><span class="e-chk-inact"><span class="e-chk-image" role="presentation"></span></span></div></span></span></span></span><ul id="syncfusionMenu" class="e-menu e-js e-widget e-horizontal e-separator" tabindex="0" style="visibility: visible; height: 75px; width: 590px;" role="menu">
+                            <li class="menuitem e-list" role="menu" aria-haspopup="true"><a class="title aschild e-arrow-space" href="http://www.syncfusion.com/products/aspnet">PRODUCTS<span class="e-icon e-arrows"></span></a>
+                                <ul class="sub-item submenu_container" aria-hidden="true" style="width: 1349px;">
+                                    <li class="container e-list" role="menuitem">
+                                        <div class="row">
+                                            <ul class="childitem col-lg-3 left-offset">
+                                                <li class="menu-title">
+                                                    <div class="menu-heading">
+                                                        ESSENTIAL STUDIO</div>
+                                                </li>
+                                                <li class="item"><a href="http://www.syncfusion.com/downloads/evaluation">DOWNLOAD TRIAL </a></li>
+                                                <li class="item "><a href="http://samples.syncfusion.com/">LIVE DEMO</a></li>
+                                                <li class="item"><a href="http://www.syncfusion.com/products/whatsnew">WHAT’S NEW </a></li>                                                 
+                                            </ul>
+                                            <ul class="childitem middle-offset col-lg-9">
+                                                <li class="row">
+                                                    <ul class="col-lg-3 col-md-3 ">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                WEB</div>
+                                                        </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/aspnetmvc">ASP.NET MVC </a></li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/aspnet">ASP.NET Web Forms</a> </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/javascript">HTML5/JavaScript</a> </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/lightswitch">LightSwitch</a> </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/silverlight">Silverlight</a> </li>
+                                                    </ul>
+                                                    <ul class="col-lg-3">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                DESKTOP</div>
+                                                        </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/windows-forms">Windows Forms </a></li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/wpf">WPF</a> </li>
+                                                    </ul>
+                                                    <ul class="col-lg-3 splitleft">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                MOBILE
+                                                            </div>
+                                                        </li>
+                                                       <li class="item"><a href="http://www.syncfusion.com/products/ios">iOS</a> </li>
+														<li class="item"><a href="http://www.syncfusion.com/products/android">Android</a> </li>
+														 <li class="item"><a href="http://www.syncfusion.com/products/windows-phone">Windows Phone</a> </li>
+														<li class="item"><a href="http://www.syncfusion.com/products/winrt">WinRT</a> </li>
+														 <li class="item"><a href="http://www.syncfusion.com/products/xamarin">Xamarin</a></li>
+														<li class="item"><a href="http://www.syncfusion.com/products/javascript">HTML5/JavaScript</a> </li>
+														<li class="item"><a href="http://www.syncfusion.com/products/orubase">Orubase</a> </li>
+                                                    </ul>
+                                                    <ul class="col-lg-3 splitright">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                FILE FORMATS</div>
+                                                        </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/file-formats/xlsio">Excel </a></li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/file-formats/pdf">PDF</a> </li>
+                                                        <li class="item"><a href="http://www.syncfusion.com/products/file-formats/docio">Word</a> </li>
+                                                    </ul>                              
+                                                   
+                                                </li>
+                                                <li class="row subchild-item">                                                   
+                                                    <ul class="col-lg-3 col-md-3">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                DATA SCIENCE</div>
+                                                        </li>
+                                                            <li class="item"><a href="http://www.syncfusion.com/products/big-data">Big Data Platform</a> </li>                                                            
+                                                            <li class="item"><a href="http://www.syncfusion.com/products/data-science/predictive-analytics">Predictive Analytics</a> </li>
+                                                    </ul>
+                                                     <ul class="col-lg-3">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                                FREE PRODUCTS</div>
+                                                        </li>
+                                                            <li class="item"><a href="http://www.syncfusion.com/resources/techportal/ebooks">E-Books</a> </li>
+                                                            <li class="item"><a href="http://www.syncfusion.com/downloads/metrostudio">Metro Studio</a> </li>
+                                                            <li class="item"><a href="http://www.syncfusion.com/resources/techportal/whitepapers">White Papers</a> </li>
+                                                    </ul>
+                                                     <ul class="col-lg-3">
+                                                        <li class="menu-title">
+                                                            <div class="menu-heading">
+                                                               SYNCFUSION PLUS</div>
+                                                        </li>
+                                                            <li class="item"><a href="http://www.syncfusion.com/products/syncfusion-plus">Plus Benefits</a> </li>                                                            
+                                                    </ul>
+                                                   
+                                                </li>                                                   
+                                                
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menuitem e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/products/consulting">CONSULTING </a>
+                            </li>
+                            <li class="menuitem e-list" role="menu" aria-haspopup="true"><a class="title aschild e-arrow-space" href="http://www.syncfusion.com/support/directtrac">SUPPORT <span class="e-icon e-arrows"></span></a>
+                                <ul class="childitem sub-item sub-item-single col-lg-7 col-md-7" aria-hidden="true">
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/support/directtrac">DIRECT-TRAC SUPPORT SYSTEM</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/support/forums">COMMUNITY FORUMS</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/support/kb">KNOWLEDGE BASE</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/support/online-documentation">ONLINE DOCUMENTATION</a></li>
+                                </ul>
+                            </li>
+                            <li class="menuitem e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/sales/products">PURCHASE </a></li>
+                            <li class="menuitem e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/downloads">FREE TRIALS </a></li>
+                            <li class="menuitem e-list" role="menu" aria-haspopup="true"><a class="title aschild e-arrow-space" href="http://www.syncfusion.com/company/about-us">COMPANY <span class="e-icon e-arrows"></span></a>
+                                <ul class="childitem sub-item sub-item-single  col-lg-7 col-md-7" aria-hidden="true">
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/company/about-us">ABOUT US</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/company/news-press-release">PRESS RELEASE</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/blogs">BLOG</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/company/careers">CAREERS</a></li>
+                                    <li class="e-list" role="menuitem"><a class="title" href="http://www.syncfusion.com/company/contact-us">CONTACT US</a></li>
+                                </ul>
+                            </li>
+                        </ul></div>
+                    </div>
+                    <div class="others">
+                        <div class="search-bar">
+                            <div id="search-icon" class="search-icon">
+                            </div>
+                        </div>
+                        <div id="menu-signin" class="">
+                             
+                            <a href="http://www.syncfusion.com/blogs/login.aspx" class="login-button default-btn">SIGN IN</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="search-container" class="row">
+        <form method="get" action="http://www.syncfusion.com/search">
+        <div class="col-xl-6 col-xl-offset-3 col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <span id="search_wrapper" class="e-atc e-widget"><span class="e-in-wrap e-box">
+                <input id="search" class="e-autocomplete e-js e-input" name="keyword" tabindex="0" placeholder="Search" autocomplete="off">
+            </span></span>
+            <button type="submit" class="btn search-btn">
+            </button>
+        </div>
+        </form>
+    </div>
+    <div id="login-section" class="row">
+        <div class="col-xl-4 col-xl-offset-4 col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12 col-xs-offset-0">
+            <div class="content-big heading">
+                SIGN IN
+            </div>
+            <div class="form-group">
+                <label class="placeholder" for="Email">
+                    Email Address</label>
+                <input id="Email" class="form-control content-small" type="email" value="" tabindex="1" placeholder="Email address" name="Email">
+                <span id="emailValidationError" class="error content-small"></span>
+            </div>
+            <div class="form-group">
+                <a class="content-small forgot" href="http://www.syncfusion.com/account/forgotpassword">Forgot password?</a>
+                <label class="placeholder" for="Password">
+                    Password</label>
+                <input id="Password" class="form-control content-small" type="password" value="" tabindex="2" placeholder="Password" name="Password">
+                <span id="passwordValidationError" class="error content-small"></span>
+            </div>
+            <div id="remember">
+                <label>
+                    <input id="Rememberme" type="checkbox" value="true" name="Rememberme">
+                    <input type="hidden" value="false" name="Rememberme">
+                    <span class="content-small">Keep me logged in</span>
+                </label>
+            </div>
+            <div class="User-login">
+                <button id="login" class="content-big" tabindex="3" type="submit">
+                    SIGN IN</button>
+            </div>
+            <div class="new-user content-medium">
+                Don’t have an account? <a href="http://www.syncfusion.com/account/register">SIGN UP FOR FREE</a>
+            </div>
+        </div>
+    </div>
+    <div id="logout-section" style="">
+        <div class="container">
+            <div class="column">
+                <div class="customerimage">
+                    
+                    <a href="http://www.syncfusion.com/account/editaccount">
+                        <img id="cus-image" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/default-profile.png" alt="default picture"></a>
+                    
+                </div>
+                <div class="Customerinformation">
+                    <div class="customer-section">
+                        <div class="content-medium ">
+                            <a class="customername" href="http://www.syncfusion.com/account/editaccount">
+                                </a></div>
+                    </div>
+                    <div class="content-section">
+                        <div class="dashboard">
+                            <a href="http://www.syncfusion.com/support/directtrac/incidents" class="content-medium">My dashboard</a></div>
+                        <div class="support-ticket">
+                            <a href="http://www.syncfusion.com/support/directtrac/incidents/newincident" class="content-medium">Create a
+                                support incident</a></div>
+                        <div>
+                            <a href="http://www.syncfusion.com/blogs/login.aspx?logoff" class="small-btn">SIGN OUT</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="master-breadcrumb-wrapper">
+        <div id="master-breadcrumb">
+            <div class="clearFix" id="master-navigation-two">
+                <div id="breadcrumb" style="margin-top:0px;">
+                    
+                    <span class="bread-crumb"><a href="http://www.syncfusion.com/">Home</a></span> <span class="bread-crumb-separator">
+                        <img id="Img2" style="border-style: none" alt="|" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/seperator.png"></span>
+                    <span class="bread-crumb"><a href="http://www.syncfusion.com/blogs/category/Company.aspx">
+                        Company</a></span> <span class="bread-crumb-separator">
+                            <img id="Img3" style="border-style: none" alt="|" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/seperator.png"></span>
+                    <span class="bread-crumb"><a href="">Blog</a></span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Menu Secion End -->
+    <!-- Body -->
+    <a href="http://www.syncfusion.com/blogs/category/Company.aspx" style="text-decoration: none">
+        <div id="master-banner">
+            <div class="banner_image">
+                <img alt="banner" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/banner.png">
+                <p>
+                    Syncfusion Blog</p>
+            </div>
+        </div>
+    </a>
+    <div id="shadow-wrapper" class="clearFix">
+        <div id="master-wrapper" class="clearFix">
+            <div class="clearFix" id="master-main-section">
+                <form name="aspnetForm" method="post" action="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine.html" onsubmit="javascript:return WebForm_OnSubmit();" id="aspnetForm" class="body">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUIMzE3OTQ5NzYPZBYCZg9kFgRmD2QWBAIBDxUBGmh0dHA6Ly93d3cuc3luY2Z1c2lvbi5jb20vZAIHDxUMHi4uL1NjcmlwdHMvanF1ZXJ5LTEuOC4zLm1pbi5qcxQuLi9TY3JpcHRzL3NoQ29yZS5qcxwuLi9TY3JpcHRzL3NoQnJ1c2hKU2NyaXB0LmpzGC4uL1NjcmlwdHMvYWZ0ZXItdmlldy5qcxkuLi9TY3JpcHRzL2JlZm9yZS12aWV3LmpzIi4uL1NjcmlwdHMvbWFpbi1tZW51L21lbnUtdXRpbHMuanMhLi4vU2NyaXB0cy9tYWluLW1lbnUvc3VwZXJzdWJzLmpzIy4uL1NjcmlwdHMvbWFpbi1tZW51L2hvdmVySW50ZW50LmpzIy4uL1NjcmlwdHMvanF1ZXJ5LmVhc2luZy4xLjMubWluLmpzUS8vZDJnMjljeWE5aXE3aXAuY2xvdWRmcm9udC5uZXQvc2NyaXB0cy9jb21wb25lbnRzL2Vzc2VudGlhbGpzL2VqLm1lbnUuYWxsLm1pbi5qc1kvL2QyZzI5Y3lhOWlxN2lwLmNsb3VkZnJvbnQubmV0L3NjcmlwdHMvY29tcG9uZW50cy9lc3NlbnRpYWxqcy9lai5hdXRvY29tcGxldGUuYWxsLm1pbi5qcxsuLi9TY3JpcHRzL2hlYWRlci1mb290ZXIuanNkAgEPZBYCAgEPZBYIAgMPFgIeB1Zpc2libGVnFgQCAQ8PFgYeC05hdmlnYXRlVXJsBT8vYmxvZ3MvcG9zdC9JbXBvcnRhbnQtQWRkaXRpb25zLXRvLUFTUE5FVC1TY2hlZHVsZS1Db250cm9sLmFzcHgeBFRleHQFOCZsdDsmbHQ7IEltcG9ydGFudCBBZGRpdGlvbnMgdG8gQVNQLk5FVCBTY2hlZHVsZSBDb250cm9sHgdUb29sVGlwBQ1QcmV2aW91cyBwb3N0ZGQCAw8PFgYfAQUoL2Jsb2dzL3Bvc3QvTWljcm9zb2Z0LUF6dXJlLUV4cGFuZHMuYXNweB8CBSBNaWNyb3NvZnQgQXp1cmUgRXhwYW5kcyAmZ3Q7Jmd0Ox8DBQlOZXh0IHBvc3RkZAIJDxYCHwBnZAILD2QWAgIBD2QWAgIIDw8WAh8AaGRkAg0PFgIfAGhkZKVmi7XIaIkIciNegEEWBilI8fa2">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/js.axd" type="text/javascript"></script>
+
+
+<script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/js(1).axd" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+                <div id="content">
+                    
+                    
+  
+  
+
+  
+    <div id="postnavigation">
+      <a id="ctl00_cphBody_hlPrev" title="Previous post" href="http://www.syncfusion.com/blogs/post/Important-Additions-to-ASPNET-Schedule-Control.aspx">&lt;&lt; Important Additions to ASP.NET Schedule Control</a> | 
+      <a id="ctl00_cphBody_hlNext" title="Next post" href="http://www.syncfusion.com/blogs/post/Microsoft-Azure-Expands.aspx">Microsoft Azure Expands &gt;&gt;</a>
+    </div>
+  
+  
+  
+<div class="blogheader">
+    <h1>
+        <a class="linkheader taggedlink" href="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx">
+            Optical Character Recognition in PDF Using Tesseract Open-Source Engine</a></h1>
+</div>
+<div class="post xfolkentry" id="post0">
+    
+    <div id="postbreadcrumb" class="postarea">
+        <span class="bread-crumb">
+            Friday Feb 20, 2015 at 04:57 PM</span> <span class="postbread-crumb-separator">
+                | </span><span class="bread-crumb">Posted by: </span><span><a class="linkpostby" href="http://www.syncfusion.com/blogs/author/ushaclementine.henry.aspx">
+                    Usha Clementine</a></span>
+    </div>
+
+    
+
+    <div class="text withheaderImage">
+        
+            <div class="blogheaderImage">    
+                    <a class="linkheader" href="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx">
+                        <img src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/image.axd" alt="" align="right"></a>
+            </div>
+        <p>Optical character recognition (OCR) is a technology used to convert scanned paper documents, in the form of PDF files or images, to searchable, editable data. Paper documents—such as brochures, invoices, contracts, etc.—are sent via email. This process usually involves a scanner that converts the document to dots of different colors, known as a raster image. In order to extract the data and repurpose the content of the document, an OCR engine is necessary. The OCR engine detects the characters present in the image, puts those characters into words, and then into sentences, enabling you to search and edit the content of the document.</p>
+<h3>Tesseract Engine</h3>
+<p><a href="https://code.google.com/p/tesseract-ocr/"><strong>Tesseract</strong></a> is an optical character recognition engine, one of the most accurate OCR engines currently available. It is licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> and has been developed by Google since 2006.</p>
+<h3>Getting Started with Essential PDF and Tesseract Engine</h3>
+<p><a href="http://www.syncfusion.com/products/file-formats/pdf">Syncfusion Essential PDF</a> supports OCR by using the Tesseract open-source engine. With a few lines of code, a scanned paper document containing raster images is converted to a searchable and selectable document.</p>
+<h4>Deployment Requirements</h4>
+<p>The following assemblies are required to deploy Essential PDF and the OCR process.</p>
+
+<p><strong><em>Syncfusion Assemblies</em></strong></p>
+<ul>
+  <li>Syncfusion.Core.dll</li>
+  <li>Syncfusion.Compression.Base.dll</li>
+  <li>Syncfusion.Pdf.Base.dll</li>
+  <li>Syncfusion.OcrProcessor.Base.dll</li>
+</ul>
+<br>
+
+<p><strong><em>Tesseract</em></strong><strong> <em>Assemblies</em></strong></p>
+<ul>
+   <li>SyncfusionTessaract.dll (Tesseract Engine Version 3.02)</li>
+   <li>liblept168.dll (<a href="http://www.leptonica.com/">Leptonica</a> image processing library used by Tesseract engine)</li>
+</ul>
+<br>
+
+<h4>Referencing OCR Assemblies in a .NET Project</h4>
+<p>To reference the OCR assemblies in a .NET project:</p>
+<p>1. Open the <strong>Solution Explorer</strong> of the application you have created. Right-click the <strong>Reference</strong> folder and then click <strong>Add References</strong>.</p>
+
+<p>2. Add the following assemblies as references in the application.</p>
+<ul>
+   <li>Syncfusion.Core.dll</li>
+   <li>Syncfusion.Compression.Base.dll</li>
+   <li>Syncfusion.Pdf.Base.dll</li>
+   <li>Syncfusion.OcrProcessor.Base.dll</li>
+</ul>
+<br>
+
+<p>3. <strong>SyncfusionTessaract.dll </strong>and <strong>liblept168.dll</strong> should not be added as a reference. They should be kept in the local machine, and the location of the assemblies should be passed as a parameter to the OCR processor.</p>
+<h4>Performing OCR for a Scanned Paper Document</h4>
+<p>1. To perform optical character recognition, as a first step, create the <strong>OCR</strong> processor by generating an object of the <strong>OCRProcessor</strong> class. It is mandatory for the constructor of the <strong>OCRProcessor</strong> class to accept the path of the <strong>Tesseract</strong> binaries, <strong>SyncfusionTessaract.dll</strong>,<strong> </strong>and<strong> liblept168.dll</strong>.</p>
+<table class="MsoTableGrid" style="width: 100%; border-collapse: collapse; border: none; background: #e7e6e6;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; mso-yfti-lastrow: yes; height: 75.45pt;">
+<td style="width: 100.0%; border: solid #C8C8C8 1.0pt; mso-border-alt: solid #C8C8C8 .5pt; padding: 0in 5.4pt 0in 5.4pt; height: 75.45pt;" width="100%" valign="top">
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><strong><span style="mso-bidi-font-size: 10.0pt; font-family: &quot;Courier New&quot;;">[C#]</span></strong></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt 0.25in;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//Initializes the OCR processor by providing Tesseract   binaries(SyncfusionTesseract.dll and liblept168.dll)</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//to the OCR processor overload.</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">OCRProcessor</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;processor =&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: blue;">new</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">OCRProcessor</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">(</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #a31515;">@"TesseractBinaries\"</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">);</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;proxima-nova&quot;,serif; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-bidi-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>2. The PDF document that has to undergo the optical character recognition is loaded by using the <strong>PdfLoadedDocument </strong>class.</p>
+<table class="MsoTableGrid" style="width: 100%; border-collapse: collapse; border: none; background: #e7e6e6;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; mso-yfti-lastrow: yes; height: 46.3pt;">
+<td style="width: 100.0%; border: solid #C8C8C8 1.0pt; mso-border-alt: solid #C8C8C8 .5pt; padding: 0in 5.4pt 0in 5.4pt; height: 46.3pt;" width="100%" valign="top">
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><strong><span style="mso-bidi-font-size: 10.0pt; font-family: &quot;Courier New&quot;;">[C#]</span></strong></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//Loads a PDF document.</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">PdfLoadedDocument</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;lDoc =&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: blue;">new</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #2b91af;">PdfLoadedDocument</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">(</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #a31515;">"Input.pdf"</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">);</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;proxima-nova&quot;,serif; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-bidi-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>3. The next step is to set the language for the OCR process and start the OCR process with the input of the language dictionary. Tesseract supports a variety of languages. The following code explains the OCR process for English and how to provide the English dictionary input.</p>
+<table class="MsoTableGrid" style="width: 100%; border-collapse: collapse; border: none; background: #e7e6e6;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; mso-yfti-lastrow: yes; height: 46.3pt;">
+<td style="width: 100.0%; border: solid #C8C8C8 1.0pt; mso-border-alt: solid #C8C8C8 .5pt; padding: 0in 5.4pt 0in 5.4pt; height: 46.3pt;" width="100%" valign="top">
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><strong><span style="mso-bidi-font-size: 10.0pt; font-family: &quot;Courier New&quot;;">[C#]</span></strong></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//Sets OCR language to process.</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">processor.Settings.Language =&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #a31515;">"eng"</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//Processes OCR by providing PDF document,   data dictionary, and language.</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">processor.PerformOCR(lDoc,&nbsp;</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #a31515;">@"Tessdata\"</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">);</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;proxima-nova&quot;,serif; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-bidi-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong></strong></p>
+<p><strong><em>Note</em></strong><em>: The Tesseract binaries—namely <strong>SyncfusionTessaract.dll</strong>, <strong>liblept168.dll</strong>, and the language pack (<strong>tessdata</strong>)—are available at</em></p>
+<p><em>&lt;&lt;Installation Location&gt;&gt;\Syncfusion\Essential Studio\&lt;&lt;Version Number&gt;&gt;\OCRProcessor&gt;&gt;</em></p>
+<p>4. The final step is to save the PDF document and dispose of the <strong>PdfLoadedDocument</strong> object. The saved PDF document now contains the contents in a searchable form.</p>
+<table class="MsoTableGrid" style="width: 100%; border-collapse: collapse; border: none; background: #e7e6e6;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; mso-yfti-lastrow: yes; height: 49.9pt;">
+<td style="width: 100.0%; border: solid #C8C8C8 1.0pt; mso-border-alt: solid #C8C8C8 .5pt; padding: 0in 5.4pt 0in 5.4pt; height: 49.9pt;" width="100%" valign="top">
+<p class="MsoNormal" style="margin-bottom: 0.0001pt;"><strong><span style="mso-bidi-font-size: 10.0pt; font-family: &quot;Courier New&quot;;">[C#]</span></strong></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">&nbsp;</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: green;">//Saves the OCR-processed PDF document to a   disk.</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">lDoc.Save(</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #a31515;">"Sample.pdf"</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">);</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">lDoc.Close(</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: blue;">true</span><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;; mso-fareast-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">);</span></p>
+<p class="MsoNormal" style="margin: 2pt 0in 0.0001pt;"><span style="font-size: 10.0pt; font-family: &quot;proxima-nova&quot;,serif; mso-fareast-font-family: &quot;Times New Roman&quot;; mso-bidi-font-family: &quot;Times New Roman&quot;; color: #4f4f4f;">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>Performing OCR on a Section of the Document</h4>
+<p>Optical character recognition can also be performed on a section of a document rather than the complete document. The following documentation link provides a code sample and explanation.</p>
+<p><a href="http://help.syncfusion.com/ug/windows%20forms/documents/performocrforaspecif.htm">http://help.syncfusion.com/ug/windows%20forms/documents/performocrforaspecif.htm</a></p>
+<h3>Multi-Language Support for OCR</h3>
+<p>The Tesseract engine, starting from version 3, supports a variety of languages such as Arabic, English, Bulgarian, Catalan, Czech, Chinese, German, and other languages as given in the following table.</p>
+<p>Essential PDF also supports all these languages in the OCR processor. By default, Syncfusion ships only the English dictionary pack in Essential Studio. The pack is available locally in <strong><em>&lt;&lt;Installation Location&gt;&gt;\Syncfusion\Essential Studio\&lt;&lt;Version Number&gt;&gt;\OCRProcessor\Tessdata&gt;&gt;</em></strong>. The dictionary packs for the other languages can be downloaded from the following online location:</p>
+<p><a href="https://code.google.com/p/tesseract-ocr/downloads/list">https://code.google.com/p/tesseract-ocr/downloads/list</a></p>
+<p>1. The dictionary packs from the above link can be downloaded, extracted to a folder, and the location of the folder can be passed to the <strong>PerformOCR()</strong> method of the <strong>OCRProcessor</strong> class.</p>
+<p>2. It is also mandatory to change the corresponding language code in the <strong>OCRProcessor.Settings.Language</strong> property. For example, to perform optical character recognition in German, the property should be set as <strong>processor.Settings.Language = "deu";</strong></p>
+<p>The following table shows the complete set of supported languages and their language codes.</p>
+<p>Supported Languages and Language Codes     
+</p><table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td width="50%" valign="top">
+<p align="center"><strong>Language</strong></p>
+</td>
+<td width="50%" valign="top">
+<p align="center"><strong>Language code</strong></p>
+</td>
+</tr>
+<tr cellpadding="20">
+<td width="50%" valign="top">
+<p> Arabic</p>
+</td>
+<td width="50%" valign="top">
+<p> ara</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Azerbaijani</p>
+</td>
+<td width="50%" valign="top">
+<p> aze</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Bulgarian</p>
+</td>
+<td width="50%" valign="top">
+<p> bul</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Catalan</p>
+</td>
+<td width="50%" valign="top">
+<p> cat</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Czech</p>
+</td>
+<td width="50%" valign="top">
+<p> ces</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Simplified Chinese</p>
+</td>
+<td width="50%" valign="top">
+<p> chi_sim</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Traditional Chinese</p>
+</td>
+<td width="50%" valign="top">
+<p> chi_tra</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Cherokee</p>
+</td>
+<td width="50%" valign="top">
+<p> chr</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Danish</p>
+</td>
+<td width="50%" valign="top">
+<p> dan</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Danish (Fraktur)</p>
+</td>
+<td width="50%" valign="top">
+<p> dan-frak</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> German, standard and Fraktur script</p>
+</td>
+<td width="50%" valign="top">
+<p> deu</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Greek</p>
+</td>
+<td width="50%" valign="top">
+<p> ell</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> English</p>
+</td>
+<td width="50%" valign="top">
+<p> eng</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Old English</p>
+</td>
+<td width="50%" valign="top">
+<p> enm</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Esperanto</p>
+</td>
+<td width="50%" valign="top">
+<p> epo</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Estonian</p>
+</td>
+<td width="50%" valign="top">
+<p> est</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Finnish</p>
+</td>
+<td width="50%" valign="top">
+<p> fin</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> French</p>
+</td>
+<td width="50%" valign="top">
+<p> fra</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Old French</p>
+</td>
+<td width="50%" valign="top">
+<p>frm</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Galician</p>
+</td>
+<td width="50%" valign="top">
+<p> glg</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Hebrew</p>
+</td>
+<td width="50%" valign="top">
+<p> heb</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Hindi</p>
+</td>
+<td width="50%" valign="top">
+<p> hin</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Croatian</p>
+</td>
+<td width="50%" valign="top">
+<p> hrv</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Hungarian</p>
+</td>
+<td width="50%" valign="top">
+<p> hun</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Indonesian</p>
+</td>
+<td width="50%" valign="top">
+<p> ind</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Italian</p>
+</td>
+<td width="50%" valign="top">
+<p> ita</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Japanese</p>
+</td>
+<td width="50%" valign="top">
+<p> jpn</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Korean</p>
+</td>
+<td width="50%" valign="top">
+<p> kor</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Latvian</p>
+</td>
+<td width="50%" valign="top">
+<p> lav</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Lithuanian</p>
+</td>
+<td width="50%" valign="top">
+<p> lit</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Dutch</p>
+</td>
+<td width="50%" valign="top">
+<p> nld</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Norwegian</p>
+</td>
+<td width="50%" valign="top">
+<p> nor</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Polish</p>
+</td>
+<td width="50%" valign="top">
+<p> pol</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Portuguese</p>
+</td>
+<td width="50%" valign="top">
+<p> por</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Romanian</p>
+</td>
+<td width="50%" valign="top">
+<p> ron</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Russian</p>
+</td>
+<td width="50%" valign="top">
+<p> rus</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Slovakian</p>
+</td>
+<td width="50%" valign="top">
+<p> slk</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Slovenian</p>
+</td>
+<td width="50%" valign="top">
+<p> slv</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Albanian</p>
+</td>
+<td width="50%" valign="top">
+<p> sqi</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Spanish</p>
+</td>
+<td width="50%" valign="top">
+<p> spa</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Serbian</p>
+</td>
+<td width="50%" valign="top">
+<p> srp</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Swedish</p>
+</td>
+<td width="50%" valign="top">
+<p> swe</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Tamil</p>
+</td>
+<td width="50%" valign="top">
+<p> tam</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Telugu</p>
+</td>
+<td width="50%" valign="top">
+<p> tel</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Tagalog</p>
+</td>
+<td width="50%" valign="top">
+<p> tgl</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Thai</p>
+</td>
+<td width="50%" valign="top">
+<p> tha</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Turkish</p>
+</td>
+<td width="50%" valign="top">
+<p> tur</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Ukrainian</p>
+</td>
+<td width="50%" valign="top">
+<p> ukr</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<p> Vietnamese</p>
+</td>
+<td width="50%" valign="top">
+<p> vie</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<h3>Tips for Improving OCR Accuracy</h3>
+<p>You can improve the accuracy of the OCR process by choosing the correct compression method when converting the scanned paper to a TIFF image and then to a PDF document.</p>
+<p>1. Tesseract works best with text when at least 300 dots per inch (DPI) are used, so it is beneficial to resize images.</p>
+
+<p>2. Compression:</p>
+<ul>
+ <li>Use (zip) lossless compression for color or gray-scale images.</li>
+ <li>Use CCITT Group 4 or JBIG2 (lossless) compression for monochrome images. This ensures that optical character recognition works on the highest-quality image, thereby improving the OCR accuracy. This is especially useful in low-resolution scans.</li>
+</ul>
+
+<p>3. In addition, rotated images and skewed images can also affect the accuracy and readability of the OCR process.</p>
+<p>For more details regarding quality improvement, refer to the following link:</p>
+<p><a href="https://code.google.com/p/tesseract-ocr/wiki/ImproveQuality">https://code.google.com/p/tesseract-ocr/wiki/ImproveQuality</a></p>
+<h3>Online Sample</h3>
+<p>An online sample that performs OCR on a PDF with a monochrome image is available at</p>
+<p><a href="http://asp.syncfusion.com/demos/web/pdf/pdfocr.aspx">http://asp.syncfusion.com/demos/web/pdf/pdfocr.aspx</a>.</p>
+
+<p align="center"><i><b>Content Contributor</b>: Pravin Joshua David</i> | <b>Content Editor</b>: <i>Usha Clementine Henry</i></p>
+
+    </div>
+    
+    <div class="bottom">
+        <div>
+            
+            
+        </div>
+    </div>
+    <div>
+        
+          
+        
+        
+    </div>
+    <div style="margin-top: 10px;">
+        <div class="bookmarks">
+            <span class="bread-crumb" style="font-family: Segoe UI">
+                <img id="comments" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/comments.png"></span>
+            <span class="bread-crumb"><a href="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx#comment">
+                Comments
+                (1)</a> </span>
+
+
+            
+            <span class="sharelink">
+                <a id="atic_twitter" class="individualsharebutton" target="_blank" href="https://twitter.com/intent/tweet?status=Optical+Character+Recognition+in+PDF+Using+Tesseract+Open-Source+Engine+%7C+Syncfusion+Company+Blog+%3A+http%3A%2F%2Fbit.ly%2FQ2iGwU+%23syncfusionblog&url=http%3A%2F%2Fbit.ly%2FQ2iGwU" tabindex="12">                        
+                </a> 
+            </span>
+            <span class="sharelink">
+                <a id="ati_linkedin" class="at_item" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook.UARWGQDuyus.linkedin&title=Optical+Character+Recognition+in+PDF+Using+Tesseract+Open-Source+Engine+%7C+Syncfusion+Company+Blog+%3A+http%3A%2F%2Fwww.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook+%23syncfusionblog&ro=false&summary=&source=">
+                </a>
+            </span>
+            <span class="sharelink">
+                <a id="atic_facebook" class="individualsharebutton" onclick="return addthis_sendto(&#39;facebook&#39;);" href="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook#">
+                </a>
+            </span>
+            <span class="sharelink">   
+                <a id="ati_google_plusone_share" class="individualsharebutton" target="_blank" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook%23.UARa30_n4sY.google_plusone_share&t=Optical+Character+Recognition+in+PDF+Using+Tesseract+Open-Source+Engine+%7C+Syncfusion+Company+Blog+%3A+http%3A%2F%2Fwww.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook+%23syncfusionblog" tabindex="125">
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+
+  
+  
+    <!-- 
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+      <rdf:Description rdf:about="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx" dc:identifier="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx" dc:title="Optical Character Recognition in PDF Using Tesseract Open-Source Engine" trackback:ping="http://www.syncfusion.com/blogs/trackback.axd?id=a7a079f1-0fa0-4f22-92b9-9369bad8304f" />
+    </rdf:RDF>
+    -->
+  
+  
+  <div id="relatedPosts"><p>Related posts</p><div><a href="http://www.syncfusion.com/blogs/post/HTML-to-PDF-Conversion-by-using-the-WebKit-Rendering-Engine.aspx">HTML to PDF Conversion Using the WebKit Rendering Engine</a><span>How to convert HTML to PDF using the Webkit Rendering Engine.</span><a href="http://www.syncfusion.com/blogs/post/Inking-PDF-Documents-with-Essential-PDF-Viewer.aspx">Inking PDF Documents with Essential PDF Viewer</a><span>Written by Pravin Joshua
+Essential PDF Viewer for WPF has virtual ink that can be used to annotate ...</span><a href="http://www.syncfusion.com/blogs/post/Converting-Word-docs-to-PDFs.aspx">Converting Word docs to PDFs</a><span>How to convert a Word document into a PDF file.</span></div></div>
+  
+  
+<p id="comment">Comments</p>
+
+
+<div id="commentlist">
+  
+
+<div id="id_db854897-4e8e-4f01-8e81-0330f220b657" class="vcard comment">
+  <p class="date">2/23/2015 5:55:38 PM <a href="http://www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx?UTM_medium=Facebook#id_db854897-4e8e-4f01-8e81-0330f220b657">#</a></p>
+ 
+  <p class="gravatar"><img src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/blog_icon.png"></p>
+  <p class="content">Pingback from alvinashcraft.com
+<br>
+<br>Dew Drop – February 23, 2015 (#1960) | Morning Dew</p>
+  <p class="author">
+    <a href="http://www.alvinashcraft.com/2015/02/23/dew-drop-february-23-2015-1960/" class="url fn">alvinashcraft.com</a>
+   
+     | 
+    <a href="javascript:void(0);" class="reply-to-comment" onclick="BlogEngine.replyToComment(&#39;db854897-4e8e-4f01-8e81-0330f220b657&#39;);">Reply</a>    
+    
+  </p>
+  
+  <div class="comment-replies" id="replies_db854897-4e8e-4f01-8e81-0330f220b657" style="display:none;">
+	
+  </div>
+  
+</div>  
+</div>
+
+
+
+<div id="comment-form">
+
+	<img src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ajax-loader.gif" alt="Saving the comment" style="display:none" id="ajaxLoader">  
+	<span id="status"></span>
+
+	<div class="commentForm">
+	  <p id="addcomment">Add comment</p>
+
+	  <input type="hidden" name="ctl00$cphBody$CommentView1$hiddenReplyTo" id="ctl00_cphBody_CommentView1_hiddenReplyTo">
+		<p id="cancelReply" style="display:none;"><a href="javascript:void(0);" onclick="BlogEngine.cancelReply();">Cancel reply to comment</a></p>
+	  
+
+    
+	 
+
+	  <span class="bbcode" title="BBCode tags"><a title="[b][/b]" href="javascript:void(BlogEngine.addBbCode('b'))">b</a><a title="[i][/i]" href="javascript:void(BlogEngine.addBbCode('i'))">i</a><a title="[u][/u]" href="javascript:void(BlogEngine.addBbCode('u'))">u</a><a title="[quote][/quote]" href="javascript:void(BlogEngine.addBbCode('quote'))">quote</a></span>
+	  <span id="ctl00_cphBody_CommentView1_RequiredFieldValidator3" style="color:Red;display:none;">Required</span><br>
+
+	    
+	  <ul id="commentMenu">
+		<li id="compose" class="selected" onclick="BlogEngine.composeComment()">Comment</li>
+		<li id="preview" onclick="BlogEngine.showCommentPreview()">Preview</li>
+	  </ul>
+	  
+	  <div id="commentCompose">
+			<label for="ctl00_cphBody_CommentView1_txtContent" style="display:none">Comment</label>
+		<textarea name="ctl00$cphBody$CommentView1$txtContent" rows="10" cols="50" id="ctl00_cphBody_CommentView1_txtContent" tabindex="6"></textarea>
+	  </div>
+	  <div id="commentPreview">
+		<img src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ajax-loader.gif" alt="Loading">  
+	  </div>
+	  
+	  
+	  
+	  <br> 
+ 	  <label for="txtName635603244427360920">Name*</label>
+	  <input type="text" name="txtName635603244427360920" id="txtName635603244427360920" tabindex="2" value="">
+	  <span id="spnNameRequired" style="color:Red;display:none;"> Required</span>
+	  <span id="spnChooseOtherName" style="color:Red;display:none;"> Please choose another name</span><br>
+
+	  <label for="ctl00_cphBody_CommentView1_txtEmail">E-mail*</label>
+	  <input name="ctl00$cphBody$CommentView1$txtEmail" type="text" id="ctl00_cphBody_CommentView1_txtEmail" tabindex="3">
+	  <span id="gravatarmsg">
+	  
+	  </span>
+	  <span id="ctl00_cphBody_CommentView1_RequiredFieldValidator2" style="color:Red;display:none;">Required</span><span id="ctl00_cphBody_CommentView1_RegularExpressionValidator1" style="color:Red;display:none;">Please enter a valid e-mail</span><br>
+ 
+	 
+
+	  <input type="button" id="btnSaveAjax" style="margin-top:10px" value="Save comment" onclick="return BlogEngine.validateAndSubmitCommentForm()" tabindex="7">
+	  <!--<input type="button" id="btnSaveAjax" value="Save comment" onclick="return validateWithRecaptcha()" tabindex="9" />-->
+	  <input type="hidden" name="ctl00$cphBody$CommentView1$hfCaptcha" id="ctl00_cphBody_CommentView1_hfCaptcha" value="13624252-16e8-48f0-8c36-2473d2da285f">
+	</div>
+
+</div>
+
+<script type="text/javascript">
+<!--//
+function registerCommentBox(){
+	BlogEngine.comments.contentBox = BlogEngine.$("ctl00_cphBody_CommentView1_txtContent");
+	BlogEngine.comments.moderation = true;
+	BlogEngine.comments.checkName = "true";
+	BlogEngine.comments.postAuthor = "ushaclementine.henry";
+	BlogEngine.comments.nameBox = BlogEngine.$("txtName635603244427360920");
+	BlogEngine.comments.emailBox = BlogEngine.$("ctl00_cphBody_CommentView1_txtEmail");	
+	BlogEngine.comments.captchaField = BlogEngine.$('ctl00_cphBody_CommentView1_hfCaptcha');
+	BlogEngine.comments.controlId = 'ctl00$cphBody$CommentView1';
+	BlogEngine.comments.replyToId = BlogEngine.$("ctl00_cphBody_CommentView1_hiddenReplyTo"); 	
+}
+//-->
+</script>
+
+
+
+
+
+  
+  
+
+                </div>
+                <div id="sidepanel">
+                    
+                    <div class="widget subscribe">
+                        <!-- AddThis Button BEGIN -->
+                        <a href="http://www.syncfusion.com/blogs/post/syndication.axd" target="_blank" title="Subscribe to Syncfusion Blog Feeds">
+                            Subscribe</a><a href="http://www.addthis.com/feed.php?username=purchasesyncfusion&h1=http%3A%2F%2Fwww.syncfusion.com%2Fblogs%2Fsyndication.axd&t1=" onclick="return addthis_open(this, &#39;feed&#39;, &#39;http://www.syncfusion.com/blogs/syndication.axd&#39;)" alt="Subscribe using any feed reader!" target="_blank">
+                                <img alt="Subscribe" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/feed-icon-16x16.gif">
+                            </a>
+                        <!-- AddThis Button END -->
+                    </div>
+                    <div id="widgetzone_be_WIDGET_ZONE" class="widgetzone"><div class="widget search" id="widgetfb38ecdd-5813-4d10-8c5f-8d901c7c731e"><br><div class="content"><div id="searchbox">
+<label for="searchfield" style="display:none">Search</label><input type="text" value="" id="searchfield" onkeypress="if(event.keyCode==13) return BlogEngine.search(&#39;/blogs/&#39;)" onfocus="BlogEngine.searchClear(&#39;&#39;)" onblur="BlogEngine.searchClear(&#39;&#39;)"><input type="button" value="    " id="searchbutton" onclick="BlogEngine.search(&#39;/blogs/&#39;);" onkeypress="BlogEngine.search(&#39;/blogs/&#39;);"></div>
+</div></div><div class="widget monthlist" id="widget0ee1ed32-21cb-4bcc-b820-318809a97e9c"><h4>Blog Archive</h4><div class="content"><ul class="blogArchive"><li class="year_List"><a href="http://www.syncfusion.com/blogs">All</a></li><li class="year_List">2015<ul class="month_List"><li><a href="http://www.syncfusion.com/blogs/2015/02/default.aspx">February (8)</a></li><li><a href="http://www.syncfusion.com/blogs/2015/01/default.aspx">January (6)</a></li></ul></li><li class="year_List closed">2014<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2014/12/default.aspx">December (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/11/default.aspx">November (8)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/10/default.aspx">October (9)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/09/default.aspx">September (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/08/default.aspx">August (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/07/default.aspx">July (9)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/06/default.aspx">June (8)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/05/default.aspx">May (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/04/default.aspx">April (9)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/03/default.aspx">March (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/02/default.aspx">February (2)</a></li><li><a href="http://www.syncfusion.com/blogs/2014/01/default.aspx">January (2)</a></li></ul></li><li class="year_List closed">2013<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2013/12/default.aspx">December (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/11/default.aspx">November (2)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/10/default.aspx">October (13)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/09/default.aspx">September (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/08/default.aspx">August (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/07/default.aspx">July (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/06/default.aspx">June (4)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/05/default.aspx">May (2)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/04/default.aspx">April (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/03/default.aspx">March (4)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/02/default.aspx">February (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2013/01/default.aspx">January (4)</a></li></ul></li><li class="year_List closed">2012<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2012/12/default.aspx">December (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/11/default.aspx">November (4)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/10/default.aspx">October (4)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/09/default.aspx">September (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/08/default.aspx">August (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/07/default.aspx">July (4)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/06/default.aspx">June (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/05/default.aspx">May (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/04/default.aspx">April (8)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/03/default.aspx">March (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2012/02/default.aspx">February (5)</a></li></ul></li><li class="year_List closed">2011<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2011/12/default.aspx">December (1)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/11/default.aspx">November (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/10/default.aspx">October (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/09/default.aspx">September (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/08/default.aspx">August (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/07/default.aspx">July (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/05/default.aspx">May (6)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/04/default.aspx">April (1)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/03/default.aspx">March (1)</a></li><li><a href="http://www.syncfusion.com/blogs/2011/02/default.aspx">February (6)</a></li></ul></li><li class="year_List closed">2010<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2010/12/default.aspx">December (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/11/default.aspx">November (2)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/10/default.aspx">October (1)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/09/default.aspx">September (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/08/default.aspx">August (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/07/default.aspx">July (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/06/default.aspx">June (18)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/05/default.aspx">May (7)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/04/default.aspx">April (3)</a></li><li><a href="http://www.syncfusion.com/blogs/2010/02/default.aspx">February (1)</a></li></ul></li><li class="year_List closed">2009<ul class="month_List" style="display: none;"><li><a href="http://www.syncfusion.com/blogs/2009/07/default.aspx">July (5)</a></li><li><a href="http://www.syncfusion.com/blogs/2009/05/default.aspx">May (3)</a></li></ul></li></ul>
+</div></div> <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-timeline twitter-timeline-rendered" allowfullscreen="" style="border: none; max-width: 100%; min-width: 180px; margin: 0px; padding: 0px; display: inline-block; position: static; visibility: visible; width: 210px;" title="Twitter Timeline" height="600"></iframe><br><div class="widget tagcloud" id="widget91500d8a-0d52-4ac4-88d2-3d16cd1cbe22"><h4>Tag cloud</h4><div class="content"><ul id="ctl00_91500d8a0d524ac488d23d16cd1cbe22_ulTags"><li><a href="http://www.syncfusion.com/blogs/?tag=/NET" class="biggest" title="Tag: .NET">.NET</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/10-years" class="smallest" title="Tag: 10 years">10 years</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/10-year-anniversary" class="smallest" title="Tag: 10-year anniversary">10-year anniversary</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/2010-Vol-3" class="smallest" title="Tag: 2010 Vol 3">2010 Vol 3</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/2013-Volume-3" class="smallest" title="Tag: 2013 Volume 3">2013 Volume 3</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/2014" class="smallest" title="Tag: 2014">2014</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/3D" class="smallest" title="Tag: 3D">3D</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ActivePivot" class="smallest" title="Tag: ActivePivot">ActivePivot</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Adobe" class="smallest" title="Tag: Adobe">Adobe</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Amazon-Kindle" class="smallest" title="Tag: Amazon Kindle">Amazon Kindle</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/AMI-Partners" class="smallest" title="Tag: AMI-Partners">AMI-Partners</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Android" class="small" title="Tag: Android">Android</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/AngularJS3b-Angularjs3b-JavaScript" class="smallest" title="Tag: AngularJS; Angular.js; JavaScript">AngularJS; Angular.js; JavaScript</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/anniversary" class="smallest" title="Tag: anniversary">anniversary</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/API" class="smallest" title="Tag: API">API</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Apple" class="smallest" title="Tag: Apple">Apple</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/aspnet" class="small" title="Tag: asp.net">asp.net</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ASPNET-MVC" class="small" title="Tag: ASP.NET MVC">ASP.NET MVC</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/awards" class="smallest" title="Tag: awards">awards</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Azure" class="smallest" title="Tag: Azure">Azure</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Big-Data" class="medium" title="Tag: Big Data">Big Data</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Build" class="smallest" title="Tag: Build">Build</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/business-intelligence" class="smallest" title="Tag: business intelligence">business intelligence</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/C" class="smallest" title="Tag: C#">C#</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Chart" class="small" title="Tag: Chart">Chart</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/CodeFluent" class="smallest" title="Tag: CodeFluent">CodeFluent</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/community" class="smallest" title="Tag: community">community</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/components" class="smallest" title="Tag: components">components</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/controls" class="smallest" title="Tag: controls">controls</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/datagrid" class="smallest" title="Tag: datagrid">datagrid</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/desktop" class="smallest" title="Tag: desktop">desktop</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/developer" class="smallest" title="Tag: developer">developer</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/development" class="big" title="Tag: development">development</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Diagram" class="smallest" title="Tag: Diagram">Diagram</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/DirectX" class="smallest" title="Tag: DirectX">DirectX</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/e-book" class="smallest" title="Tag: e-book">e-book</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ebooks" class="smallest" title="Tag: ebooks">ebooks</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ES-2010-Vol2" class="smallest" title="Tag: ES 2010 Vol2">ES 2010 Vol2</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ES-2010-Vol3" class="medium" title="Tag: ES-2010-Vol3">ES-2010-Vol3</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/ES-2010-Vol3-video" class="smallest" title="Tag: ES-2010-Vol3-video">ES-2010-Vol3-video</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/essential-studio" class="small" title="Tag: essential studio">essential studio</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Essential-Studio-Enterprise-Edition" class="smallest" title="Tag: Essential Studio Enterprise Edition">Essential Studio Enterprise Edition</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Excel" class="smallest" title="Tag: Excel">Excel</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Extensions" class="smallest" title="Tag: Extensions">Extensions</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/free" class="smallest" title="Tag: free">free</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Giveaways" class="smallest" title="Tag: Giveaways">Giveaways</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Google" class="smallest" title="Tag: Google">Google</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Grid" class="medium" title="Tag: Grid">Grid</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Grouping" class="smallest" title="Tag: Grouping">Grouping</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/Hadoop" class="smallest" title="Tag: Hadoop">Hadoop</a> </li><li><a href="http://www.syncfusion.com/blogs/?tag=/hobby3b-license3b-development3b" class="smallest" title="Tag: hobby; license; development;">hobby; license; development;</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HTML" class="smallest" title="Tag: HTML">HTML</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/iOS" class="small" title="Tag: iOS">iOS</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/iPad" class="smallest" title="Tag: iPad">iPad</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/iPhone" class="smallest" title="Tag: iPhone">iPhone</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/iPod" class="smallest" title="Tag: iPod">iPod</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/JavaScript" class="medium" title="Tag: JavaScript">JavaScript</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/JavaScript3b-business3b-enterprise3b-controls3b-components" class="smallest" title="Tag: JavaScript; business; enterprise; controls; components">JavaScript; business; enterprise; controls; components</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/LINQ" class="smallest" title="Tag: LINQ">LINQ</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/machine-learning" class="smallest" title="Tag: machine learning">machine learning</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Marketing" class="smallest" title="Tag: Marketing">Marketing</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Microsoft" class="medium" title="Tag: Microsoft">Microsoft</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/mobile" class="big" title="Tag: mobile">mobile</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/MVC" class="smallest" title="Tag: MVC">MVC</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/open-source" class="smallest" title="Tag: open source">open source</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Orubase" class="small" title="Tag: Orubase">Orubase</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Partner" class="smallest" title="Tag: Partner">Partner</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/PDF" class="smallest" title="Tag: PDF">PDF</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Performance" class="smallest" title="Tag: Performance">Performance</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Predictive-Analytics" class="smallest" title="Tag: Predictive Analytics">Predictive Analytics</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Project-Templates" class="smallest" title="Tag: Project Templates">Project Templates</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/release" class="small" title="Tag: release">release</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/rendering" class="smallest" title="Tag: rendering">rendering</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/road-map" class="smallest" title="Tag: road map">road map</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/SfDataGrid" class="smallest" title="Tag: SfDataGrid">SfDataGrid</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Silverlight" class="medium" title="Tag: Silverlight">Silverlight</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/SoftFluent" class="smallest" title="Tag: SoftFluent">SoftFluent</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Succinctly-series" class="small" title="Tag: Succinctly series">Succinctly series</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/support" class="smallest" title="Tag: support">support</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Surface" class="smallest" title="Tag: Surface">Surface</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Syncfusion" class="big" title="Tag: Syncfusion">Syncfusion</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/tablet" class="smallest" title="Tag: tablet">tablet</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ToolsWeb" class="smallest" title="Tag: Tools.Web">Tools.Web</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Twitter" class="smallest" title="Tag: Twitter">Twitter</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/user-experience" class="smallest" title="Tag: user experience">user experience</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/User-Interface" class="smallest" title="Tag: User Interface">User Interface</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Visual-Studio" class="smallest" title="Tag: Visual Studio">Visual Studio</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/VS-Live!" class="smallest" title="Tag: VS Live!">VS Live!</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/VS2010" class="smallest" title="Tag: VS2010">VS2010</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Window-Forms" class="smallest" title="Tag: Window Forms">Window Forms</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows" class="smallest" title="Tag: Windows">Windows</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows-8" class="medium" title="Tag: Windows 8">Windows 8</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows-Forms" class="smallest" title="Tag: Windows Forms">Windows Forms</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows-Phone" class="small" title="Tag: Windows Phone">Windows Phone</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows-Phone-7" class="smallest" title="Tag: Windows Phone 7">Windows Phone 7</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/WinRT" class="medium" title="Tag: WinRT">WinRT</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/WPF" class="medium" title="Tag: WPF">WPF</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Xamarin" class="smallest" title="Tag: Xamarin">Xamarin</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/XamarinForms" class="smallest" title="Tag: Xamarin.Forms">Xamarin.Forms</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/XlsIO" class="smallest" title="Tag: XlsIO">XlsIO</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/app" class="smallest" title="Tag: app">app</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/App3b-development3b-mobile3b-native3b-hybrid" class="smallest" title="Tag: App; development; mobile; native; hybrid">App; development; mobile; native; hybrid</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/application" class="smallest" title="Tag: application">application</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/apps3b-learning3b-education" class="smallest" title="Tag: apps; learning; education">apps; learning; education</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Azure-Wintellect" class="smallest" title="Tag: Azure Wintellect">Azure Wintellect</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/barcode" class="smallest" title="Tag: barcode">barcode</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Barnes-and-Noble" class="smallest" title="Tag: Barnes and Noble">Barnes and Noble</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/BI-controls" class="smallest" title="Tag: BI controls">BI controls</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/BI-OLAP-intelligence" class="smallest" title="Tag: BI OLAP intelligence">BI OLAP intelligence</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Binary" class="smallest" title="Tag: Binary">Binary</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/bug" class="smallest" title="Tag: bug">bug</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/bug-tracking" class="smallest" title="Tag: bug tracking">bug tracking</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/bugs" class="smallest" title="Tag: bugs">bugs</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/business" class="smallest" title="Tag: business">business</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/C2b2b" class="smallest" title="Tag: C++">C++</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Caption-Text-Color" class="smallest" title="Tag: Caption Text Color">Caption Text Color</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/career" class="smallest" title="Tag: career">career</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Chart-Area" class="smallest" title="Tag: Chart Area">Chart Area</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Chart-filters" class="smallest" title="Tag: Chart filters">Chart filters</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ChartSeries" class="smallest" title="Tag: ChartSeries">ChartSeries</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Checkbox-with-linked-cells" class="smallest" title="Tag: Checkbox with linked cells">Checkbox with linked cells</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ClientSide" class="smallest" title="Tag: ClientSide">ClientSide</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Clipboard-pasting" class="smallest" title="Tag: Clipboard pasting">Clipboard pasting</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/cloud-computing" class="smallest" title="Tag: cloud computing">cloud computing</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Cloud-Service" class="smallest" title="Tag: Cloud Service">Cloud Service</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/command-binding" class="smallest" title="Tag: command binding">command binding</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Community-License" class="smallest" title="Tag: Community License">Community License</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/community3b-components3b-controls" class="smallest" title="Tag: community; components; controls">community; components; controls</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/company-overview" class="smallest" title="Tag: company overview">company overview</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Container-Controls" class="smallest" title="Tag: Container Controls">Container Controls</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/context-menu" class="smallest" title="Tag: context menu">context menu</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/conversion" class="smallest" title="Tag: conversion">conversion</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/convert" class="smallest" title="Tag: convert">convert</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Copy-paste" class="smallest" title="Tag: Copy paste">Copy paste</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Cordova" class="smallest" title="Tag: Cordova">Cordova</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Cortana" class="smallest" title="Tag: Cortana">Cortana</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/cross-platform" class="smallest" title="Tag: cross-platform">cross-platform</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/CSS" class="smallest" title="Tag: CSS">CSS</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/data-binding" class="smallest" title="Tag: data binding">data binding</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/data-binding-shape-dyanamic-object" class="smallest" title="Tag: data binding shape dyanamic object">data binding shape dyanamic object</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Data-Science" class="smallest" title="Tag: Data Science">Data Science</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Data-Table-Extensions" class="smallest" title="Tag: Data Table Extensions">Data Table Extensions</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Data-validation" class="smallest" title="Tag: Data validation">Data validation</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/datamatrix" class="smallest" title="Tag: datamatrix">datamatrix</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Debugging" class="smallest" title="Tag: Debugging">Debugging</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/defect-tracking" class="smallest" title="Tag: defect tracking">defect tracking</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Dell-Venue-Pro" class="smallest" title="Tag: Dell Venue Pro">Dell Venue Pro</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/demo" class="smallest" title="Tag: demo">demo</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Direct2D" class="smallest" title="Tag: Direct2D">Direct2D</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Direct3D" class="smallest" title="Tag: Direct3D">Direct3D</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/doc" class="smallest" title="Tag: doc">doc</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/doc-to-pdf" class="smallest" title="Tag: doc to pdf">doc to pdf</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Docking-Manager" class="smallest" title="Tag: Docking Manager">Docking Manager</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Drag-and-Drop" class="smallest" title="Tag: Drag and Drop">Drag and Drop</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/DVLUP" class="smallest" title="Tag: DVLUP">DVLUP</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Dynamic-Expressions" class="smallest" title="Tag: Dynamic Expressions">Dynamic Expressions</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/editors" class="smallest" title="Tag: editors">editors</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/education" class="smallest" title="Tag: education">education</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/education3b-learning3b-games3b-MonoGame" class="smallest" title="Tag: education; learning; games; MonoGame">education; learning; games; MonoGame</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/enterprise-management-license" class="smallest" title="Tag: enterprise management license">enterprise management license</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/error" class="smallest" title="Tag: error">error</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ES-2009-Vol3" class="smallest" title="Tag: ES 2009 Vol3">ES 2009 Vol3</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ES-2010-Vol1" class="smallest" title="Tag: ES 2010 Vol1">ES 2010 Vol1</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ES-2013-Vol-3" class="smallest" title="Tag: ES 2013 Vol 3">ES 2013 Vol 3</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ES-2010-Vol4" class="smallest" title="Tag: ES-2010-Vol4">ES-2010-Vol4</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Essential-JS" class="smallest" title="Tag: Essential JS">Essential JS</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Essential-PDF" class="smallest" title="Tag: Essential PDF">Essential PDF</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Evolve" class="smallest" title="Tag: Evolve">Evolve</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/excel-charts" class="smallest" title="Tag: excel charts">excel charts</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Excel-Grid-WPF-copy-paste-drag-drop-freeze-resize-comments-fill-increment" class="smallest" title="Tag: Excel Grid WPF copy paste drag drop freeze resize comments fill increment">Excel Grid WPF copy paste drag drop freeze resize comments fill increment</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Excel-to-Grid" class="smallest" title="Tag: Excel to Grid">Excel to Grid</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Excel-Word-Pdf-Report-xls-doc" class="smallest" title="Tag: Excel Word Pdf Report xls doc">Excel Word Pdf Report xls doc</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/expressions" class="smallest" title="Tag: expressions">expressions</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/FAQ" class="smallest" title="Tag: FAQ">FAQ</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/FileUpload" class="smallest" title="Tag: FileUpload">FileUpload</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/fun" class="smallest" title="Tag: fun">fun</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/globalization" class="smallest" title="Tag: globalization">globalization</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Green-Iguana-Studios" class="smallest" title="Tag: Green Iguana Studios">Green Iguana Studios</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Grid-ASPNet-MVC" class="smallest" title="Tag: Grid ASP.Net MVC">Grid ASP.Net MVC</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/GridData" class="smallest" title="Tag: GridData">GridData</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Grok" class="smallest" title="Tag: Grok">Grok</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HD-Insight" class="smallest" title="Tag: HD Insight">HD Insight</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/help" class="smallest" title="Tag: help">help</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/history" class="smallest" title="Tag: history">history</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Holiday3b-gifts3b-developers" class="smallest" title="Tag: Holiday; gifts; developers">Holiday; gifts; developers</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HTML-5-MAP" class="smallest" title="Tag: HTML 5 MAP">HTML 5 MAP</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HTML5" class="smallest" title="Tag: HTML5">HTML5</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HTTP-Succinctly" class="smallest" title="Tag: HTTP Succinctly">HTTP Succinctly</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/HubTile" class="smallest" title="Tag: HubTile">HubTile</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/hybrid-app" class="smallest" title="Tag: hybrid app">hybrid app</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/innovation" class="smallest" title="Tag: innovation">innovation</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/inspiration" class="smallest" title="Tag: inspiration">inspiration</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/interface" class="smallest" title="Tag: interface">interface</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Internet-of-Things" class="smallest" title="Tag: Internet of Things">Internet of Things</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/issue-tracking" class="smallest" title="Tag: issue tracking">issue tracking</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/iTextSharp" class="smallest" title="Tag: iTextSharp">iTextSharp</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/JavaScript3b-jQuery" class="smallest" title="Tag: JavaScript; jQuery">JavaScript; jQuery</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/JSON-Grid" class="smallest" title="Tag: JSON Grid">JSON Grid</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/keyboard" class="smallest" title="Tag: keyboard">keyboard</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Kindle" class="smallest" title="Tag: Kindle">Kindle</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Knockout" class="smallest" title="Tag: Knockout">Knockout</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/language" class="smallest" title="Tag: language">language</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/law-enforcement3bdatabase3b-crime3b-police3b-analysis" class="smallest" title="Tag: law enforcement;database; crime; police; analysis">law enforcement;database; crime; police; analysis</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/license" class="smallest" title="Tag: license">license</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/LINQPad" class="smallest" title="Tag: LINQPad">LINQPad</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Localization" class="smallest" title="Tag: Localization">Localization</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/M-Commerce" class="smallest" title="Tag: M-Commerce">M-Commerce</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/menu" class="smallest" title="Tag: menu">menu</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Metro" class="smallest" title="Tag: Metro">Metro</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/model-view-controller" class="smallest" title="Tag: model-view-controller">model-view-controller</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/music" class="smallest" title="Tag: music">music</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/music-intelligence3b-big-data3b-BI3b-Moogfest3b-The-Echo-Nest" class="smallest" title="Tag: music intelligence; big data; BI; Moogfest; The Echo Nest">music intelligence; big data; BI; Moogfest; The Echo Nest</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/MVC-Grid-Walkthrough-Set-up" class="smallest" title="Tag: MVC Grid Walkthrough Set up">MVC Grid Walkthrough Set up</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/MVC3" class="smallest" title="Tag: MVC3">MVC3</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/MVC3-Razor-Grid" class="smallest" title="Tag: MVC3 Razor Grid">MVC3 Razor Grid</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/MVVM" class="smallest" title="Tag: MVVM">MVVM</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/native-app" class="smallest" title="Tag: native app">native app</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/NFC" class="smallest" title="Tag: NFC">NFC</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Office-2007-Form" class="smallest" title="Tag: Office 2007 Form">Office 2007 Form</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/OLAP" class="smallest" title="Tag: OLAP">OLAP</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/OLAP-server" class="smallest" title="Tag: OLAP server">OLAP server</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/ONEBASE" class="smallest" title="Tag: ONEBASE">ONEBASE</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Optical-Character-Recognition" class="smallest" title="Tag: Optical Character Recognition">Optical Character Recognition</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/OReilly" class="smallest" title="Tag: O&#39;Reilly">O'Reilly</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/OS-X" class="smallest" title="Tag: OS X">OS X</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Partners" class="smallest" title="Tag: Partners">Partners</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/partnerships" class="smallest" title="Tag: partnerships">partnerships</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/PassThroughGrouping" class="smallest" title="Tag: PassThroughGrouping">PassThroughGrouping</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/phone" class="smallest" title="Tag: phone">phone</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/pivot-grid3b-calculations" class="smallest" title="Tag: pivot grid; calculations">pivot grid; calculations</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/portable-document-format" class="smallest" title="Tag: portable document format">portable document format</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/productivity" class="smallest" title="Tag: productivity">productivity</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/programmer" class="smallest" title="Tag: programmer">programmer</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Prospective-Software" class="smallest" title="Tag: Prospective Software">Prospective Software</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/QA" class="smallest" title="Tag: Q&amp;A">Q&amp;A</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/QuartetFS" class="smallest" title="Tag: QuartetFS">QuartetFS</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/R" class="smallest" title="Tag: R">R</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/radial" class="smallest" title="Tag: radial">radial</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Rating" class="smallest" title="Tag: Rating">Rating</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/RDL-Reporting" class="smallest" title="Tag: RDL Reporting">RDL Reporting</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/reporting" class="smallest" title="Tag: reporting">reporting</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/responsive-design" class="smallest" title="Tag: responsive design">responsive design</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Ribbon" class="smallest" title="Tag: Ribbon">Ribbon</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/right-click" class="smallest" title="Tag: right click">right click</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/right-to-left" class="smallest" title="Tag: right-to-left">right-to-left</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/RTL" class="smallest" title="Tag: RTL">RTL</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/S-Times-100" class="smallest" title="Tag: S Times 100">S Times 100</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/schedule-control" class="smallest" title="Tag: schedule control">schedule control</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/script" class="smallest" title="Tag: script">script</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/SD-Times" class="smallest" title="Tag: SD Times">SD Times</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Serialization" class="smallest" title="Tag: Serialization">Serialization</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/service" class="smallest" title="Tag: service">service</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Shopping" class="smallest" title="Tag: Shopping">Shopping</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/smartphone" class="smallest" title="Tag: smartphone">smartphone</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/SOAP" class="smallest" title="Tag: SOAP">SOAP</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/software" class="smallest" title="Tag: software">software</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/solution" class="smallest" title="Tag: solution">solution</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Solution-Services" class="smallest" title="Tag: Solution Services">Solution Services</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Sorting" class="smallest" title="Tag: Sorting">Sorting</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Sparklines" class="smallest" title="Tag: Sparklines">Sparklines</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Sprite" class="smallest" title="Tag: Sprite">Sprite</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/SQL" class="smallest" title="Tag: SQL">SQL</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Start-up3b-finance3b-marketing3b-software" class="smallest" title="Tag: Start-up; finance; marketing; software">Start-up; finance; marketing; software</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/state-persistence" class="smallest" title="Tag: state persistence">state persistence</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/statistics" class="smallest" title="Tag: statistics">statistics</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Steve-Jobs" class="smallest" title="Tag: Steve Jobs">Steve Jobs</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Strata" class="smallest" title="Tag: Strata">Strata</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Strata3b-Syncfusion" class="smallest" title="Tag: Strata; Syncfusion">Strata; Syncfusion</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/style" class="smallest" title="Tag: style">style</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Syncfusion-support" class="smallest" title="Tag: Syncfusion support">Syncfusion support</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/T4-Templates" class="smallest" title="Tag: T4 Templates">T4 Templates</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Technical-Indicator" class="smallest" title="Tag: Technical Indicator">Technical Indicator</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Technology" class="smallest" title="Tag: Technology">Technology</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Tesseract" class="smallest" title="Tag: Tesseract">Tesseract</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/theme" class="smallest" title="Tag: theme">theme</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Toolbar" class="smallest" title="Tag: Toolbar">Toolbar</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Tools" class="smallest" title="Tag: Tools">Tools</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/training" class="smallest" title="Tag: training">training</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/travel" class="smallest" title="Tag: travel">travel</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/TWB" class="smallest" title="Tag: TWB">TWB</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Tweet" class="smallest" title="Tag: Tweet">Tweet</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Twitter-Bootstrap" class="smallest" title="Tag: Twitter Bootstrap">Twitter Bootstrap</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/unit-testing" class="smallest" title="Tag: unit testing">unit testing</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/universal-apps3b-client-side" class="smallest" title="Tag: universal apps; client-side">universal apps; client-side</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Universal-Windows-Apps" class="smallest" title="Tag: Universal Windows Apps">Universal Windows Apps</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/UploadBox" class="smallest" title="Tag: UploadBox">UploadBox</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/UploadProgress" class="smallest" title="Tag: UploadProgress">UploadProgress</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/User-Guide" class="smallest" title="Tag: User Guide">User Guide</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/User-Interface-UI-WPF" class="smallest" title="Tag: User Interface UI WPF">User Interface UI WPF</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/UX" class="smallest" title="Tag: UX">UX</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/video" class="smallest" title="Tag: video">video</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/views" class="smallest" title="Tag: views">views</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/volume-1" class="smallest" title="Tag: volume 1">volume 1</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Volume-4" class="smallest" title="Tag: Volume 4">Volume 4</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/VS-2008" class="smallest" title="Tag: VS 2008">VS 2008</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/wearable-tech" class="smallest" title="Tag: wearable tech">wearable tech</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Web" class="smallest" title="Tag: Web">Web</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Webforms" class="smallest" title="Tag: Webforms">Webforms</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Webkit" class="smallest" title="Tag: Webkit">Webkit</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Whats-new" class="smallest" title="Tag: What&#39;s new">What's new</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Windows-10" class="smallest" title="Tag: Windows 10">Windows 10</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/WinForms" class="smallest" title="Tag: WinForms">WinForms</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Wintellect" class="smallest" title="Tag: Wintellect">Wintellect</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/WPF-Controls-Tools" class="smallest" title="Tag: WPF Controls Tools">WPF Controls Tools</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/Xbox" class="smallest" title="Tag: Xbox">Xbox</a> </li><li style="display: none;"><a href="http://www.syncfusion.com/blogs/?tag=/XlsIO-Excel-PivotTable" class="smallest" title="Tag: XlsIO Excel PivotTable">XlsIO Excel PivotTable</a> </li><br><li id="MoreTags"> Show more tags... </li><li id="LessTags" style="display: none;"> Show fewer tags... </li></ul></div></div><div class="widget bloggers" id="widgetea558bd7-60c5-46b0-bc4b-d3ed549814b3"><h4>Bloggers</h4><div class="content"><ul id="authorlist"><li><a href="http://www.syncfusion.com/blogs/author/darrenw.aspx" title="Author: Darren West">Darren West (12)</a></li><li><a href="http://www.syncfusion.com/blogs/author/aspnet.aspx" title="Author: ASP.NET Team">ASP.NET Team (2)</a></li><li><a href="http://www.syncfusion.com/blogs/author/diljithharshan.aspx" title="Author: Diljith Harshan">Diljith Harshan (3)</a></li><li><a href="http://www.syncfusion.com/blogs/author/grahamh.aspx" title="Author: Graham High">Graham High (29)</a></li><li><a href="http://www.syncfusion.com/blogs/author/jenniferw.aspx" title="Author: Jennifer Wright">Jennifer Wright (16)</a></li><li><a href="http://www.syncfusion.com/blogs/author/marissak.aspx" title="Author: marissa">marissa (18)</a></li><li><a href="http://www.syncfusion.com/blogs/author/morganc.aspx" title="Author: Morgan Cartier">Morgan Cartier (20)</a></li><li><a href="http://www.syncfusion.com/blogs/author/stephenj.aspx" title="Author: Stephen Jebaraj">Stephen Jebaraj (6)</a></li><li><a href="http://www.syncfusion.com/blogs/author/tresw.aspx" title="Author: Tres Watkins">Tres Watkins (24)</a></li><li><a href="http://www.syncfusion.com/blogs/author/ushaclementine.henry.aspx" title="Author: Usha Clementine">Usha Clementine (1)</a></li></ul>
+</div></div><div class="widget newsletter" id="widgetb292ba13-5d2b-44fe-b867-6b47d093e5bb"><h4>Newsletter</h4><div class="content">
+
+<div id="newsletterform">
+  <p>Get notified when a new post is published.</p>
+
+  <label for="ctl00_b292ba135d2b44feb8676b47d093e5bb_txtEmail" style="font-weight:bold">Enter your e-mail</label><br>
+  <input name="ctl00$b292ba135d2b44feb8676b47d093e5bb$txtEmail" type="text" id="ctl00_b292ba135d2b44feb8676b47d093e5bb_txtEmail" style="width:100%;">
+  <span id="ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00" style="color:Red;display:none;">Please enter an e-mail address</span>
+    
+  <span id="ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01" style="color:Red;display:none;">Please enter a valid e-mail</span>
+    
+    <br>
+
+  <div style="text-align:center">
+    <input type="submit" name="ctl00$b292ba135d2b44feb8676b47d093e5bb$btnSave" value="Notify me" onclick="return beginAddEmail();WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$b292ba135d2b44feb8676b47d093e5bb$btnSave&quot;, &quot;&quot;, true, &quot;newsletter&quot;, &quot;&quot;, false, false))" id="ctl00_b292ba135d2b44feb8676b47d093e5bb_btnSave">
+  </div>
+</div>
+
+<div id="newsletterthanks" style="display:none;text-align:center">
+  <br><br>
+  <h2 id="newsletteraction">Thank you</h2>
+  <br><br>
+</div>
+
+<script type="text/javascript">
+  function beginAddEmail()
+  {
+    if(!Page_ClientValidate('newsletter'))
+      return false;
+      
+    var arg = BlogEngine.$('ctl00_b292ba135d2b44feb8676b47d093e5bb_txtEmail').value;
+    var context = 'newsletter';
+    WebForm_DoCallback('ctl00$b292ba135d2b44feb8676b47d093e5bb',arg,endAddEmail,context,null,false);
+    
+    return false;
+  }
+  
+  function endAddEmail(arg, context)
+  {
+    BlogEngine.$('newsletterform').style.display = 'none';
+    BlogEngine.$('newsletterthanks').style.display = 'block';
+    if (arg == "false")
+    {
+      BlogEngine.$('newsletteraction').innerHTML = "You are now unsubscribed";
+    }
+  }
+</script></div></div></div>
+                </div>
+                
+<script type="text/javascript">
+//<![CDATA[
+var Page_Validators =  new Array(document.getElementById("ctl00_cphBody_CommentView1_RequiredFieldValidator3"), document.getElementById("ctl00_cphBody_CommentView1_RequiredFieldValidator2"), document.getElementById("ctl00_cphBody_CommentView1_RegularExpressionValidator1"), document.getElementById("ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00"), document.getElementById("ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var ctl00_cphBody_CommentView1_RequiredFieldValidator3 = document.all ? document.all["ctl00_cphBody_CommentView1_RequiredFieldValidator3"] : document.getElementById("ctl00_cphBody_CommentView1_RequiredFieldValidator3");
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.controltovalidate = "ctl00_cphBody_CommentView1_txtContent";
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.errormessage = "Required";
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.display = "Dynamic";
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.validationGroup = "AddComment";
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_cphBody_CommentView1_RequiredFieldValidator3.initialvalue = "";
+var ctl00_cphBody_CommentView1_RequiredFieldValidator2 = document.all ? document.all["ctl00_cphBody_CommentView1_RequiredFieldValidator2"] : document.getElementById("ctl00_cphBody_CommentView1_RequiredFieldValidator2");
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.controltovalidate = "ctl00_cphBody_CommentView1_txtEmail";
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.errormessage = "Required";
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.display = "Dynamic";
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.validationGroup = "AddComment";
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_cphBody_CommentView1_RequiredFieldValidator2.initialvalue = "";
+var ctl00_cphBody_CommentView1_RegularExpressionValidator1 = document.all ? document.all["ctl00_cphBody_CommentView1_RegularExpressionValidator1"] : document.getElementById("ctl00_cphBody_CommentView1_RegularExpressionValidator1");
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.controltovalidate = "ctl00_cphBody_CommentView1_txtEmail";
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.errormessage = "Please enter a valid e-mail";
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.display = "Dynamic";
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.validationGroup = "AddComment";
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_cphBody_CommentView1_RegularExpressionValidator1.validationexpression = "\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+var ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00 = document.all ? document.all["ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00"] : document.getElementById("ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00");
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.controltovalidate = "ctl00_b292ba135d2b44feb8676b47d093e5bb_txtEmail";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.errormessage = "Please enter an e-mail address";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.display = "Dynamic";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.validationGroup = "newsletter";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl00.initialvalue = "";
+var ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01 = document.all ? document.all["ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01"] : document.getElementById("ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01");
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.controltovalidate = "ctl00_b292ba135d2b44feb8676b47d093e5bb_txtEmail";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.errormessage = "Please enter a valid e-mail";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.display = "Dynamic";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.validationGroup = "newsletter";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.evaluationfunction = "RegularExpressionValidatorEvaluateIsValid";
+ctl00_b292ba135d2b44feb8676b47d093e5bb_ctl01.validationexpression = "\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAfP59a+annkvgsgmXfqIUZznoO3RBzPbmjE0cdgbAk8JirOIWbtzReGiXqygRkK+9KCc9ZZ9rjohV5xqFlVxNyGiEDSbsYEXcWhkP4A8kYQ/ldyrw0rgJzkrV0i8lE3j9ea4/bcnBnADEQHRIP1RXabX1jzYtuEESdptooKsnC/eWqi/14=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+function registerVariables(){BlogEngine.webRoot='/blogs/';BlogEngine.i18n.hasRated='You already rated this post';BlogEngine.i18n.savingTheComment='Saving the comment...';BlogEngine.i18n.comments='Comments';BlogEngine.i18n.commentWasSaved='The comment was saved. Thank you for the feedback';BlogEngine.i18n.commentWaitingModeration='Thank you for the feedback. The comment is now awaiting moderation';BlogEngine.i18n.cancel='Cancel';BlogEngine.i18n.filter='Filter';BlogEngine.i18n.apmlDescription='Enter the URL to your website or to your APML document';BlogEngine.i18n.beTheFirstToRate='Be the first to rate this post';BlogEngine.i18n.currentlyRated='Currently rated {0} by {1} people';BlogEngine.i18n.ratingHasBeenRegistered='Your rating has been registered. Thank you!';BlogEngine.i18n.rateThisXStars='Rate this {0} star{1} out of 5';};//]]>
+</script>
+<script type="text/javascript" defer="defer" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/js(2).axd"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/urchin.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/ga.js" type="text/javascript"></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-233131-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script type="text/javascript">
+ $(document).ready(function() {
+ _uacct = "UA-XXXXX-X";
+urchinTracker(); 
+});
+</script>
+<script type="text/javascript">
+//<![CDATA[
+
+WebForm_InitCallback();
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        //]]>
+</script>
+</form>
+            </div>
+        </div>
+    </div>
+    <!-- Body End -->
+    <!--   Footer Section  -->
+    <div id="newfooter" class="segment">
+        <div class="container">
+            <div class=" col-lg-3 content-list ">
+                <div class="top-content content-medium">
+                    WEB</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/aspnetmvc">ASP.NET MVC</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/aspnet">ASP.NET Web Forms</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/javascript">HTML5/JavaScript</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/lightswitch">LightSwitch</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/silverlight">Silverlight</a></li>
+                </ul>
+                <div class="inner-content content-medium">
+                    DESKTOP</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/windows-forms">Windows Forms</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/wpf">WPF</a></li>
+                </ul>
+                
+            </div>
+            <div class=" col-lg-3 content-list ">    
+                <div class="top-content content-medium">
+                    MOBILE</div>
+                <ul class="list-unstyled">
+					<li class="content-small"><a href="http://www.syncfusion.com/products/ios">iOS</a> </li>
+					<li class="content-small"><a href="http://www.syncfusion.com/products/android">Android</a> </li>
+					 <li class="content-small"><a href="http://www.syncfusion.com/products/windows-phone">Windows Phone</a> </li>
+					<li class="content-small"><a href="http://www.syncfusion.com/products/winrt">WinRT</a> </li>
+					 <li class="content-small"><a href="http://www.syncfusion.com/products/xamarin">Xamarin</a></li>
+					<li class="content-small"><a href="http://www.syncfusion.com/products/javascript">HTML5/JavaScript</a> </li>      
+					<li class="content-small"><a href="http://www.syncfusion.com/products/orubase">Orubase</a> </li> 				
+				</ul>            
+                <div class="inner-content content-medium">
+                    FILE FORMATS</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/file-formats/xlsio">Excel</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/file-formats/pdf">PDF</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/file-formats/docio">Word</a></li>
+                </ul>    
+                
+            </div>
+            <div class=" col-lg-3 content-list ">    
+                <div class="top-content content-medium">
+                    DATA SCIENCE</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/big-data">Big Data Platform</a></li>    
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/data-science/predictive-analytics">Predictive Analytics</a></li>                
+                </ul>                            
+                <div class="inner-content content-medium">
+                    SYNCFUSION PLUS</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/products/syncfusion-plus">Plus Benefits</a></li>                    
+                </ul>        
+                <div class="top-content content-medium">
+                    SUPPORT</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/support/directtrac/incidents/newincident">Create
+                        Support Incident</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/support/forums">Forums</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/support/kb">Knowledge Base</a></li>
+                    <li class="content-small"><a href="http://help.syncfusion.com/">Online Documentation</a></li>
+                </ul>                
+            </div>
+            
+            <div class=" col-lg-2 content-list ">
+                <div class="top-content content-medium">
+                    COMPANY</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/company/about-us">About Us</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/company/news-press-release">News &amp; Events</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/company/blogs">Blog</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/company/careers">Careers</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/company/contact-us">Contact Us</a></li>
+                </ul>
+                <div class="inner-content content-medium">
+                    FREE PRODUCTS</div>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="http://www.syncfusion.com/resources/techportal/case-studies">Case Studies</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/resources/techportal/ebooks">E-Books</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/downloads/metrostudio">Metro Studio</a></li>
+                    <li class="content-small"><a href="http://www.syncfusion.com/resources/techportal/whitepapers">White Papers</a></li>
+                </ul>
+                <div class="inner-content content-medium">
+                    CONTACT US</div>
+                <ul class="list-unstyled">
+                    <li class="content-small">Toll Free: <span class="skype_c2c_print_container notranslate">1-888-9DOTNET</span><span id="skype_c2c_container" class="skype_c2c_container notranslate" dir="ltr" tabindex="-1" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onclick="SkypeClick2Call.MenuInjectionHandler.makeCall(this, event)" data-numbertocall="+18889368638" data-isfreecall="true" data-isrtl="false" data-ismobile="false"><span class="skype_c2c_highlighting_inactive_common" dir="ltr" skypeaction="skype_dropdown"><span class="skype_c2c_textarea_span" id="free_num_ui"><img width="0" height="0" class="skype_c2c_logo_img" src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/call_skype_logo.png"><span class="skype_c2c_text_span">1-888-9DOTNET</span><span class="skype_c2c_free_text_span">&nbsp;FREE</span></span></span></span></li>
+                    <li class="content-small">Fax: +1 919.573.0305</li>
+                    <li class="content-small">US: <span class="skype_c2c_print_container notranslate">+1 919.481.1974</span><span id="skype_c2c_container" class="skype_c2c_container notranslate" dir="ltr" tabindex="-1" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onclick="SkypeClick2Call.MenuInjectionHandler.makeCall(this, event)" data-numbertocall="+19194811974" data-isfreecall="false" data-isrtl="false" data-ismobile="false"><span class="skype_c2c_highlighting_inactive_common" dir="ltr" skypeaction="skype_dropdown"><span class="skype_c2c_textarea_span" id="non_free_num_ui"><img width="0" height="0" class="skype_c2c_logo_img" src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/call_skype_logo.png"><span class="skype_c2c_text_span">+1 919.481.1974</span><span class="skype_c2c_free_text_span"></span></span></span></span></li>
+                    <li class="content-small">UK: <span class="skype_c2c_print_container notranslate">+44 20 7084 6215</span><span id="skype_c2c_container" class="skype_c2c_container notranslate" dir="ltr" tabindex="-1" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onclick="SkypeClick2Call.MenuInjectionHandler.makeCall(this, event)" data-numbertocall="+442070846215" data-isfreecall="false" data-isrtl="false" data-ismobile="false"><span class="skype_c2c_highlighting_inactive_common" dir="ltr" skypeaction="skype_dropdown"><span class="skype_c2c_textarea_span" id="non_free_num_ui"><img width="0" height="0" class="skype_c2c_logo_img" src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/call_skype_logo.png"><span class="skype_c2c_text_span">+44 20 7084 6215</span><span class="skype_c2c_free_text_span"></span></span></span></span></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li class="content-small"><a href="mailto:sales@syncfusion.com">sales@syncfusion.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="newfooter-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 content-small">
+                    <div class="link">
+                        <a class="social-link" href="http://www.syncfusion.com/privacy">Privacy Policy</a> | <a class="social-link" href="http://www.syncfusion.com/company/contact-us">Contact Us</a> | <a class="social-link" href="http://www.syncfusion.com/sitemap">Sitemap</a>
+                    </div>
+                    <div id="copyright">
+                        <a class="social-link" href="http://www.syncfusion.com/copyright">Copyright © 2001 - 2015 Syncfusion Inc. All
+                            Rights Reserved</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-lg-offset-0">
+                        <ul id="footer-icon">
+                            <li><a id="footer_icon_twitter" class="social-icon footerSpriteAll" href="http://twitter.com/#!/Syncfusion" target="_blank"><span class="footerDummyImage"></span>
+                                <img class="footerSprite s1" alt="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/common-icons-final.png">
+                            </a></li>
+                            <li><a id="footer_icon_facebook" class="social-icon footerSpriteAll" href="https://www.facebook.com/Syncfusion" target="_blank"><span class="footerDummyImage"></span>
+                                <img class="footerSprite s2" alt="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/common-icons-final.png">
+                            </a></li>
+                            <li><a id="footer_icon_linkedin" class="social-icon footerSpriteAll" href="https://www.linkedin.com/company/syncfusion?trk=top_nav_home" target="_blank"><span class="footerDummyImage"></span>
+                                <img class="footerSprite s3" alt="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/common-icons-final.png">
+                            </a></li>
+                            <li><a id="footer_icon_youtube" class="social-icon footerSpriteAll" href="http://www.youtube.com/syncfusioninc" target="_blank"><span class="footerDummyImage"></span>
+                                <img class="footerSprite s4" alt="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/common-icons-final.png">
+                            </a></li>
+                            <li id="icon_google"><a id="footer_icon_google" class="social-icon footerSpriteAll" href="https://google.com/+SyncfusionIncMorrisville" rel="publisher" target="_blank">
+                                <span class="footerDummyImage"></span>
+                                <img class="footerSprite s5" alt="" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/common-icons-final.png">
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <script type="text/javascript">        $(document).ready(function () { $(".widgetzone_be_WIDGET_ZONE iframe #twitter-widget-0 .timeline-header").css('background-color', '#333333'); });</script>
+    <script type="text/javascript" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/addthis_widget.js"></script><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; top: -9999px; z-index: 100000;"><iframe id="_atssh765" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; top: 0px; z-index: 100000; border: 0px; left: 0px;" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/sh200.html"></iframe></div><script type="text/javascript" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/core201.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //script for js menu.
+            $("#syncfusionMenu").ejMenu({ width: 590, height: 75, openOnClick: true, create: "menuCreate", click: "menuClick" });
+
+            var $currentIFrame = $('#twitter-widget-0');
+            $currentIFrame.contents().find("body #twitter-widget-0 .timeline-header").css('background-color', '#333333');
+
+            if ($.browser.webkit) {
+                $("#breadcrumb").attr("style", "margin-top:0px;");
+            }
+
+            $('pre').addClass('brush: js;');
+            $('.tagcloud ul li:gt(50)').hide();
+            $(".tagcloud ul").append("<br /><li id='MoreTags'> Show more tags... </li><li id='LessTags'> Show fewer tags... </li>");
+            $("#LessTags").hide();
+
+            $("#MoreTags").click(function () {
+                $('.tagcloud ul li:gt(50)').show();
+                $("#MoreTags").hide();
+                $("#LessTags").show();
+            });
+            $("#LessTags").click(function () {
+                $('.tagcloud ul li:gt(50)').hide();
+                $("#LessTags").hide();
+                $("#MoreTags").show();
+            });
+
+            $(".monthlist .blogArchive .year_List:gt(1)").children().hide();
+            $(".monthlist .blogArchive .year_List:gt(1)").addClass("closed");
+
+            $(".monthlist .blogArchive .year_List:gt(1)").click(function () {
+                if ($(this).hasClass("closed")) {
+                    $(this).addClass("opened");
+                    $(this).removeClass("closed");
+                    $(this).children().show();
+                }
+                else {
+                    $(this).addClass("closed");
+                    $(this).removeClass("opened");
+                    $(this).children().hide();
+                }
+
+            });
+
+        });
+    </script>
+    <!-- Google Code for Remarketing tag -->
+    <script type="text/javascript">
+        var google_conversion_id = 1072678817;
+        var google_conversion_label = "q7eHCJ7eiwQQoY-__wM";
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+
+    </script>
+    <script type="text/javascript" src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/conversion.js"> </script><iframe name="google_conversion_frame" title="Google conversion frame" width="300" height="13" src="about:blank" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no">&lt;img height="1" width="1" border="0" alt="" src="http://googleads.g.doubleclick.net/pagead/viewthroughconversion/1072678817/?frame=0&amp;random=1424745646987&amp;cv=7&amp;fst=1424745646987&amp;num=1&amp;fmt=1&amp;label=q7eHCJ7eiwQQoY-__wM&amp;guid=ON&amp;u_h=768&amp;u_w=1366&amp;u_ah=728&amp;u_aw=1366&amp;u_cd=24&amp;u_his=1&amp;u_tz=-420&amp;u_java=true&amp;u_nplug=15&amp;u_nmime=65&amp;frm=0&amp;url=http%3A//www.syncfusion.com/blogs/post/Optical-Character-Recognition-in-PDF-Using-Tesseract-Open-Source-Engine.aspx%3FUTM_medium%3DFacebook&amp;vis=2" /&gt;</iframe>
+    <noscript>
+        &lt;div style="display: inline;"&gt;
+            &lt;img height="1" width="1" style="border-style: none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1072678817/?value=0&amp;amp;label=q7eHCJ7eiwQQoY-__wM&amp;amp;guid=ON&amp;amp;script=0" /&gt;
+        &lt;/div&gt;
+    </noscript>
+
+
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" style="display: none;"></iframe><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="skype_c2c_menu_container notranslate" id="skype_c2c_menu_container" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" data-fp="{33513FC7-398E-42E1-AA26-1D309266F755}" data-murl="https://pipe.skype.com/Client/2.0/" data-uiid="0" style="display: none;"><div class="skype_c2c_menu_click2call"><a class="skype_c2c_menu_click2call_action" id="skype_c2c_menu_click2call_action" target="_self">Call</a></div><div class="skype_c2c_menu_click2sms"><a class="skype_c2c_menu_click2sms_action" id="skype_c2c_menu_click2sms_action" target="_self">Send SMS</a></div><div class="skype_c2c_menu_add2skype"><a class="skype_c2c_menu_add2skype_text" id="skype_c2c_menu_add2skype_text" target="_self">Add to Skype</a></div><div class="skype_c2c_menu_toll_info"><span class="skype_c2c_menu_toll_callcredit">You'll need Skype Credit</span><span class="skype_c2c_menu_toll_free">Free via Skype</span></div></div><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(1)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(1)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(2)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(3)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(3)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(4)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(4)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(5)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(6)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(6)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(6)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(7)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(8)" async=""></script><script src="./The Syncfusion Company Blog   Optical Character Recognition in PDF Using Tesseract Open-Source Engine_files/355760139531345920(9)" async=""></script></body></html>
