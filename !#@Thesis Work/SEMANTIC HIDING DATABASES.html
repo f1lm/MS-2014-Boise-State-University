@@ -1,0 +1,223 @@
+
+<!-- saved from url=(0046)http://cs.boisestate.edu/~jhyeh/SHDB/SHDB.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title> SEMANTIC HIDING DATABASES </title>
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+
+<body background="./SEMANTIC HIDING DATABASES_files/gray_3.gif" data-gclp-initialized="true" data-gistbox-initialized="true">
+
+<br>
+<p>
+</p><center>
+<table border="1" width="80%">
+<tbody><tr>
+ <td><center>Figure 1. The design of SHDB Application Programming Interface (API)</center></td>
+ <td></td>
+ <td><center>Figure 2. Query Processing in the SHDB</center></td>
+</tr>
+<tr>
+ <td><center><img src="./SEMANTIC HIDING DATABASES_files/SHDB-Architecture.gif" alt="_/ "></center></td>
+ <td></td>
+ <td><center><img src="./SEMANTIC HIDING DATABASES_files/SHDB-Query-Processing.gif" alt="_/ "></center></td>
+</tr>
+</tbody></table> 
+
+<br><br><br><br>
+<p></p><h2><b>RESEARCH ON SEMANTIC HIDING DATABASES (SHDB) IN CLOUDS</b></h2>
+
+
+<p>
+<b>Research Adviser: Jyh-haw Yeh, Computer Science, Boise State University.<br>
+Graduate Students: Andres Campossainz, Archana Nanjundarao, Fiona Yan Lee.<br>
+Undergraduate Students: Thomas Green. </b>
+</p></center>
+
+<br><br>
+<b>PROJECT MOTIVATION:</b>
+<p>
+In the current cloud computing setting, if customers outsource their data to clouds, they
+are actually forced to believe that the service providers will do their best 
+to protect customers' data privacy. However, from customers' perspective, 
+why should they trust service providers? Or more specifically why should they trust DBAs inside the service 
+providers who are eligible to access their data? The trust issue in cloud computing is one of
+the most difficult problems to overcome.
+
+
+</p><p>
+<b>PROJECT OBJECTIVE:</b>
+</p><p>
+This project tries to develop a semantic hiding database system to protect data privacy 
+while outsourcing data to clouds. In other words, we try to resolve the trust issue in cloud computing.
+Rather than creating clear database instances in clouds, customers create and outsource privacy protected
+SHDBs to clouds through a user friendly API, named SHDB tool. As a result, even the DBAs in clouds are
+malicious, they cannot easily guess any meaningful information from the outsourced SHDB instances.
+
+
+</p><p>
+<b>SEMANTIC HIDING DATABASES:</b> 
+</p><p>
+In a relational database, each data item itself may not reveal too much semantics. 
+If more correlated data items are available, the semantics become more obvious. 
+For example, the following two records show how semantic hiding can be done.
+</p><p>
+<ol>
+(A) In a PAYROLL database of an XYZ company, a record in the EMPLOYEE table shows that 
+John Smith's SALARY is 75,000. <br>
+(B) In a ? database of an ? company, a record in the ? table shows that ?'s ? is 75,000
+</ol><table border="0" width="100%">
+
+</table>
+Each ? mark represents the cryptographic cipher of the corresponding semantic 
+telling data (string type). 
+Line A is not encrypted and thus if the data is outsourced to clouds, malicious or 
+curious cloud DBAs can see the secret. 
+In line B, all the semantic telling data including the identities/names 
+(such as the data owner, database, table and attribute names) and string-typed data 
+(such as John Smith) are all encrypted. 
+The cloud DBAs can only see a number 75,000 and will have only a limited capability 
+of guessing the meaning of that number. 
+The reason of not encrypting the number is because no efficient fully homomorphic 
+encryption algorithm exists so that both multiply and add operations can be applied directly 
+on the numeric ciphers.
+</p><p>
+The semantic hiding database we proposed applies several encryption algorithms to 
+co-encrypt the database so that the cloud server can still execute SQL queries over 
+the encrypted database. 
+The encryption strategy is to encrypt everything, except some certain numeric data. 
+The encryption algorithms used include 
+</p><p>
+<table border="0" width="100%">
+<tbody><tr><td><ol>
+<dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Deterministic Encryption Algorithm (DEA): 
+Encrypts the names (identities) of database, tables and attributes. AES with a fixed IV,  
+MD5 and SHA are examples of such algorithms.<br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Order-Preserved Encryption (OPE): 
+Encrypts string type data if
+the data is not subject to substring matching operations such as SQL "like" command. <br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Order-Preserved Encryption in Word-by-Word mode (OPE-WbW): 
+Encrypts string type data word-by-word if
+the data is applicable to substring matching operations. <br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Multiplicative-Homomorphic Encryption (MHE):
+Encrypts numeric data if the data is applicable to multiplication only. 
+RSA algorithm is a typical example for such algorithms. <br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Additive Homomorphic Encryption (AHE):
+Encrypts numeric data if the data is applicable to addition only.  <br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> For numeric data applicable to both addition and 
+multiplication, a not-so secure polynomially-based homomorphic encoding 
+(developed by the project adviser Dr. Jyh-haw Yeh) will be applied.
+The encoding is not as secure as encryption algorithm and it is subject to known plaintext attacks,
+but it does provide privacy protection is several aspects.
+</dt></ol></td></tr>
+</tbody></table>
+
+To further hide the semantics of unencrypted numeric data, SHDB use the following two techniques:
+</p><p>
+<ol>
+<dt><img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "><b><em>Data obfuscation:</em></b> 
+While creating an SHDB instance, to obfuscate each unencrypted numeric data column,
+some false (not-real data) columns, with similar data range and format, will be injected to 
+increase the data obfuscation. <br>
+</dt><dt><img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "><b><em>Query obfuscation:</em></b>
+For frequently user issued legit queries on those unencrypted numeric data columns, the SHDB tool is designed to 
+periodically send similar but false (not user issued but automatically generated) queries to those false data columns. <br> 
+</dt></ol><table>
+
+</table>
+
+
+</p><p>
+<b> CURRENT STATUS:</b>
+</p><p>
+A graduate student Andres Campossainz
+has developed a prototype API, the cloud SHDB tool, which can create, load and query 
+SHDB instances stored in clouds.
+The API is a user friendly interface between customers and cloud database servers. 
+The API is responsible of performing all underlying encryption/decryption operations. 
+Thus the existence of semantic hiding database instances is transparent to
+both customers and cloud database servers. <br>
+
+The overall architecture design of the SHDB application programming interface (API)
+and how the query processing works in SHDB are illustrated in Figures 1 and 2 on the top of the page. 
+Some snapshots of the API dialogs are shown below (click to enlarge the figures).
+<br> <br>
+
+</p><center>
+<table border="1" width="80%">
+<tbody><tr>
+ <td><center>Figure 3. The SHDB API login Dialog</center></td>
+ <td></td>
+ <td><center>Figure 4. The SHDB API login dialog if wrong user name/password</center></td>
+ <td></td>
+ <td><center>Figure 5. The SHDB API login successfully</center></td>
+</tr>
+<tr>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog1.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog1-Small.gif" alt="_/ "></a></center></td>
+ <td></td>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog2.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog2-Small.gif" alt="_/ "></a></center></td>
+ <td></td>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog3.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog3-Small.gif" alt="_/ "></a></center></td>
+</tr>
+</tbody></table>
+<br><br><br>
+
+
+<table border="1" width="80%">
+<tbody><tr>
+ <td><center>Figure 6. The SHDB API main GUI - creating a new database</center></td>
+ <td></td>
+ <td><center>Figure 7. The SHDB API main GUI - creating tables. Users select an SHDB data type for each attribute</center></td>
+</tr>
+<tr>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog4.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog4-Small.gif" alt="_/ "></a></center></td>
+ <td></td>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog5.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog5-Small.gif" alt="_/ "></a></center></td>
+</tr>
+</tbody></table> 
+<br><br><br>
+
+<table border="1" width="80%">
+<tbody><tr>
+ <td><center>Figure 8. The SHDB API main GUI - loading data</center></td>
+ <td></td>
+ <td><center>Figure 9. The SHDB API main GUI - executing query</center></td>
+</tr>
+<tr>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog6.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog6-Small.gif" alt="_/ "></a></center></td>
+ <td></td>
+ <td><center><a href="http://cs.boisestate.edu/~jhyeh/SHDB/figures/SHDB-API-Dialog7.gif"><img src="./SEMANTIC HIDING DATABASES_files/SHDB-API-Dialog7-Small.gif" alt="_/ "></a></center></td>
+</tr>
+</tbody></table> 
+</center>
+<br><br><br>
+
+<p>
+
+</p><p>
+</p><p>
+<b>PROJECT TASKS:</b>
+The following lists the remaining tasks to be done: <br>
+
+<table border="0" width="90%">
+<tbody><tr><td><ol>
+<dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Need to implement the underlying encryption algorithm modules such as OPE and additive homomorphic encryption. Others have been implemented such as AES, RSA and homomorphic encoding.<br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> The SHDB API Needs to auto-generate the obfuscated data columns while creating the SHDB instance and periodically auto-generate obfuscated queries. <br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Need real application dataset to test the SHDB design.<br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Performance evaluation. Compare the time and storage efficiency of the SHDB instance to the baseline (clear) database instance.<br>
+ </dt><dt> <img src="./SEMANTIC HIDING DATABASES_files/pink.gif" alt="_/ "> Make the software available as open source project. 
+</dt></ol></td></tr>
+</tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

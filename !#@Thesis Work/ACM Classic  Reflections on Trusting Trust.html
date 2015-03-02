@@ -1,0 +1,221 @@
+
+<!-- saved from url=(0042)http://cm.bell-labs.com/who/ken/trust.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>ACM Classic: Reflections on Trusting Trust</title>
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+
+<body data-gclp-initialized="true" data-gistbox-initialized="true">
+<h2>Reflections on Trusting Trust<br>
+<em>Ken Thompson</em></h2>
+<hr>
+Reprinted from <cite>Communication of the ACM</cite>, Vol. 27, No. 8, August 1984,
+pp. 761-763.  Copyright © 1984, Association for Computing Machinery,
+Inc. Also appears in <cite>ACM Turing Award Lectures: The First Twenty Years
+1965-1985</cite> Copyright © 1987 by the ACM press and
+<cite>Computers Under Attack: Intruders, Worms, and Viruses</cite>
+Copyright © 1990 by the ACM press.
+
+<p>I copied this page from the
+<a href="http://www.acm.org/classics/sep95/">ACM,</a>
+in fear that it would someday turn stale.
+</p><hr>
+
+<h3>Introduction</h3>
+
+<p>I thank the ACM for this award. I can't help but feel that I am
+receiving this honor for timing and serendipity as much as technical
+merit. UNIX swept into popularity with an industry-wide change from central
+main frames to autonomous minis. I suspect that Daniel Bobrow (1)
+would be here instead of me if he could not afford a PDP-10 and
+and had to "settle" for a PDP-11. Moreover, the current state of UNIX
+is the result of the labors of a large number of people.
+
+</p><p>There is an old adage, "Dance with the one that brought you,"
+which means that I should talk about UNIX. I have not worked on
+mainstream UNIX in many years, yet I continue to get undeserved credit for
+the work of others. Therefore, I am not going to talk about UNIX, but
+I want to thank everyone who has contributed.
+
+</p><p>That brings me to Dennis Ritchie. Our collaboration has been a
+thing of beauty. In the ten years that we have worked together, I can
+recall only one case of miscoordination of work. On that occasion, I
+discovered that we both had written the same 20-line assembly language
+program. I compared the sources and was astounded to find that they
+matched character-for-character. The result of our work together has
+been far greater than the work that we each contributed.
+
+</p><p>I am a programmer. On my 1040 form, that is what I put down as
+my occupation. As a programmer, I write programs. I would like to present
+to you the cutest program I ever wrote. I will do this in three stages
+and try to bring it together at the end.
+
+
+</p><h3>Stage I</h3>
+
+<p>In college, before video games, we would amuse ourselves by posing
+programming exercises. One of the favorites was to write the shortest
+self-reproducing program. Since this is an exercise divorced from reality,
+the usual vehicle was FORTRAN. Actually, FORTRAN was the language
+of choice for the same reason that three-legged races are popular.
+
+</p><p>More precisely stated, the problem is to write a source program that,
+when compiled and executed, will produce as output an exact copy of its
+source. If you have never done this, I urge you to try it on your own.
+The discovery of how to do it is a revelation that far surpasses any benefit
+obtained by being told how to do it. The part about "shortest" was
+just an incentive to demonstrate skill and determine a winner.
+
+</p><p><a name="fig1"><img alt="[figure 1]" src="./ACM Classic  Reflections on Trusting Trust_files/fig1.gif"></a><br><strong>FIGURE 1</strong>
+
+</p><p><a href="http://cm.bell-labs.com/who/ken/trust.html#fig1.gif">Figure I</a> shows a self-reproducing program in the C programming
+language. (The purist will note that the program is not precisely a
+self-reproducing program, but will produce a self-reproducing program.)
+This entry is much too large to win a prize, but it demonstrates the
+technique and has two important properties that I need to complete my story:
+(1) This program can be easily written by another program.
+(2) This program
+can contain an arbitrary amount of excess baggage that will be
+reproduced along with the main algorithm. In the example, even the
+comment is reproduced.
+
+</p><h3>Stage II</h3>
+
+<p>The C compiler is written in C. What I am about to describe is one
+of many "chicken and egg" problems that arise when compilers are written
+in their own language. In this ease, I will use a specific example from
+the C compiler.
+
+</p><p>C allows a string construct to specify an initialized character array.
+The individual characters in the string can be escaped to represent
+unprintable characters. For example,
+
+</p><blockquote>
+"Hello world\n"
+</blockquote>
+
+<p>represents a string with the character "\n," representing the new line
+character.
+
+</p><p><a name="fig2"><img alt="[figure 2]" src="./ACM Classic  Reflections on Trusting Trust_files/fig2.gif"></a><br><strong>FIGURE 2</strong>
+
+</p><p><a href="http://cm.bell-labs.com/who/ken/trust.html#fig2">Figure 2</a> is an idealization of the code in the C compiler that
+interprets the character escape sequence. This is an amazing piece of code. It
+"knows" in a completely portable way what character code is compiled
+for a new line in any character set. The act of knowing then allows it to
+recompile itself, thus perpetuating the knowledge.
+
+</p><p><a name="fig3"><img alt="[figure 3]" src="./ACM Classic  Reflections on Trusting Trust_files/fig3.gif"></a><br><strong>FIGURE 3</strong>
+
+</p><p>Suppose we wish to alter the C compiler to include the sequence
+"\v" to represent the vertical tab character. The extension to <a href="http://cm.bell-labs.com/who/ken/trust.html#fig2">Figure 2</a> is
+obvious and is presented in <a href="http://cm.bell-labs.com/who/ken/trust.html#fig3">Figure 3</a>. We then recompile the C compiler,
+but we get a diagnostic. Obviously, since the binary version of the compiler
+does not know about "\v," the source is not legal C. We must
+"train" the compiler. After it "knows" what "\v" means, then our new
+change will become legal C. We look up on an ASCII chart that a vertical
+tab is decimal 11. We alter our source to look like <a href="http://cm.bell-labs.com/who/ken/trust.html#fig4">Figure 4</a>. Now the old
+compiler accepts the new source. We install the resulting binary as the
+new official C compiler and now we can write the portable version the
+way we had it in <a href="http://cm.bell-labs.com/who/ken/trust.html#fig3">Figure 3</a>.
+
+</p><p><a name="fig4"><img alt="[figure 4]" src="./ACM Classic  Reflections on Trusting Trust_files/fig4.gif"></a><br><strong>FIGURE 4</strong>
+
+</p><p>This is a deep concept. It is as close to a "learning" program as I
+have seen. You simply tell it once, then you can use this self-referencing
+definition.
+
+
+</p><h3>Stage III</h3>
+<a name="fig5"><img alt="[figure 5]" src="./ACM Classic  Reflections on Trusting Trust_files/fig5.gif"></a><br><strong>FIGURE 5</strong>
+
+<p>Again, in the C compiler, <a href="http://cm.bell-labs.com/who/ken/trust.html#fig5">Figure 5</a> represents the high-level control
+of the C compiler where the routine "compile" is called to compile the
+next line of source. <a href="http://cm.bell-labs.com/who/ken/trust.html#fig6">Figure 6</a> shows a simple modification to the compiler
+that will deliberately miscompile source whenever a particular pattern is
+matched. If this were not deliberate, it would be called a compiler
+"bug." Since it is deliberate, it should be called a "Trojan horse."
+
+</p><p><a name="fig6"><img alt="[figure 6]" src="./ACM Classic  Reflections on Trusting Trust_files/fig6.gif"></a><br><strong>FIGURE 6</strong>
+
+</p><p>The actual bug I planted in the compiler would match code in the
+UNIX "login" command. The replacement code would miscompile the
+login command so that it would accept either the intended encrypted
+password or a particular known password. Thus if this code were
+installed in binary and the binary were used to compile the login command,
+I could log into that system as any user.
+
+</p><p>Such blatant code would not go undetected for long. Even the most
+casual perusal of the source of the C compiler would raise suspicions.
+
+</p><p><a name="fig7"><img alt="[figure 7]" src="./ACM Classic  Reflections on Trusting Trust_files/fig7.gif"></a><br><strong>FIGURE 7</strong>
+
+</p><p>The final step is represented in <a href="http://cm.bell-labs.com/who/ken/trust.html#fig7">Figure 7</a>. This simply adds a second
+Trojan horse to the one that already exists. The second pattern is aimed
+at the C compiler. The replacement code is a Stage I self-reproducing
+program that inserts both Trojan horses into the compiler. This requires
+a learning phase as in the Stage II example. First we compile the modified
+source with the normal C compiler to produce a bugged binary. We install
+this binary as the official C. We can now remove the bugs from the
+source of the compiler and the new binary will reinsert the bugs whenever
+it is compiled. Of course, the login command will remain bugged with
+no trace in source anywhere.
+
+</p><h3>Moral</h3>
+
+<p>The moral is obvious. You can't trust code that you did not totally
+create yourself. (Especially code from companies that employ people
+like me.) No amount of source-level verification or scrutiny will protect
+you from using untrusted code. In demonstrating the possibility of this
+kind of attack, I picked on the C compiler. I could have picked on any
+program-handling program such as an assembler, a loader, or even
+hardware microcode. As the level of program gets lower, these bugs will be
+harder and harder to detect. A well installed microcode bug will be almost
+impossible to detect.
+
+</p><p>After trying to convince you that I cannot be trusted, I wish to
+moralize. I would like to criticize the press in its handling of the "hackers,"
+the 414 gang, the Dalton gang, etc. The acts performed by these kids are
+vandalism at best and probably trespass and theft at worst. It is only the
+inadequacy of the criminal code that saves the hackers from very serious
+prosecution. The companies that are vulnerable to this activity (and most
+large companies are very vulnerable) are pressing hard to update the
+criminal code. Unauthorized access to computer systems is already a
+serious crime in a few states and is currently being addressed in many more
+state legislatures as well as Congress.
+
+</p><p>There is an explosive situation brewing. On the one hand, the press,
+television, and movies make heroes of vandals by calling them whiz kids.
+On the other hand, the acts performed by these kids will soon be punishable by years in prison.
+
+</p><p>I have watched kids testifying before Congress. It is clear that they
+are completely unaware of the seriousness of their acts. There is
+obviously a cultural gap. The act of breaking into a computer system has to
+have the same social stigma as breaking into a neighbor's house. It
+should not matter that the neighbor's door is unlocked. The press must
+learn that misguided use of a computer is no more amazing than drunk
+driving of an automobile.
+
+
+</p><h3>Acknowledgment</h3>
+
+<p>I first read of the possibility of such a Trojan horse in an Air Force
+critique (4) of the security of an early implementation of Multics.
+
+</p><h3>References</h3>
+
+<ol>
+<li>Bobrow, D.G., Burchfiel, J.D., Murphy, D.L., and Tomlinson, R.S.
+TENEX, a paged time-sharing system for the PDP-10.
+Commun. ACM 15, 3 (Mar. 1972), 135-143.
+</li><li>Kernighan, B.W., and Ritchie, D.M.
+The C Programming Language.
+Prentice-Hall, Englewood Cliffs, N.J., 1978.
+</li><li> Ritchie, D.M., and Thompson, K.
+The UNIX time-sharing system.
+Commun. ACM 17, 7(July 1974), 365-375.
+</li><li>Karger, P.A., and Schell, R.R.
+Multics Security Evaluation: Vulnerability Analysis.
+ESD-TR-74-193, Vol II, June 1974, p 52.
+</li></ol>
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>
