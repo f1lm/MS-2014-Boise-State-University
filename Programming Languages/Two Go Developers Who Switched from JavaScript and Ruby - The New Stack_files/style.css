@@ -1,0 +1,3911 @@
+/*!
+Theme Name: The New Stack
+Theme URI: http://thenewstack.io
+Author: Thomson Muriyadan
+Author URI: http://thedigitalmonk.in/
+Description: Bespoke WordPress Theme Developed for The New Stack.
+Version: v 16.0.0
+*/
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,400italic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300);
+@font-face {
+  font-family: 'adamasregular_original';
+  src: url("fonts/adamas-regular-webfont.eot");
+  src: url("fonts/adamas-regular-webfont.eot?#iefix") format("embedded-opentype"), url("fonts/adamas-regular-webfont.woff2") format("woff2"), url("fonts/adamas-regular-webfont.woff") format("woff"), url("fonts/adamas-regular-webfont.ttf") format("truetype"), url("fonts/adamas-regular-webfont.svg#adamasregularwebfont") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'adamasregular';
+  src: url("fonts/newnewadamas-regular.eot");
+  src: url("fonts/newnewadamas-regular.eot?#iefix") format("embedded-opentype"), url("fonts/newnewadamas-regular.woff2") format("woff2"), url("fonts/newnewadamas-regular.woff") format("woff"), url("fonts/newnewadamas-regular.ttf") format("truetype"), url("fonts/newnewadamas-regular.svg#new_new_adamasregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'adamas';
+  src: url("fonts/adamas.eot");
+  src: url("fonts/adamas.eot?#iefix") format("embedded-opentype"), url("fonts/adamas.woff2") format("woff2"), url("fonts/adamas.woff") format("woff"), url("fonts/adamas.ttf") format("truetype"), url("fonts/adamas.svg#new_new_adamasregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* =Reset
+-------------------------------------------------------------- */
+/* line 4, newsass/_reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  border: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+/* line 22, newsass/_reset.scss */
+html {
+  font-size: 62.5%;
+  /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units http://clagnut.com/blog/348/#c790 */
+  overflow-y: scroll;
+  /* Keeps page centred in all browsers regardless of content height */
+  -webkit-text-size-adjust: 100%;
+  /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
+  -ms-text-size-adjust: 100%;
+  /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+}
+
+/* line 28, newsass/_reset.scss */
+*,
+*:before,
+*:after {
+  /* apply a natural box layout model to all elements; see http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 35, newsass/_reset.scss */
+body {
+  background: #9ABAD3;
+}
+
+/* line 38, newsass/_reset.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+  display: block;
+}
+
+/* line 50, newsass/_reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 53, newsass/_reset.scss */
+table {
+  /* tables still need 'cellspacing="0"' in the markup */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* line 57, newsass/_reset.scss */
+caption, th, td {
+  font-weight: normal;
+  text-align: left;
+}
+
+/* line 61, newsass/_reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+}
+
+/* line 65, newsass/_reset.scss */
+blockquote, q {
+  quotes: "" "";
+}
+
+/* line 68, newsass/_reset.scss */
+a:focus {
+  outline: thin dotted;
+}
+
+/* line 71, newsass/_reset.scss */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* line 75, newsass/_reset.scss */
+a img {
+  border: 0;
+}
+
+/* line 2, newsass/_mixins.scss */
+.clear:before,
+.entry-content:before,
+.comment-content:before,
+.site-header:before,
+.site-content:before,
+.site-footer:before, .topstory-container:before, .sponsor-logos:before, #main:before, .flex-box-container:before, .archive .top-bg:before, .search-results .top-bg:before, .blog .top-bg:before, .search-no-results .top-bg:before, .error404 .top-bg:before, .single .social-header:before, .single .related-posts:before, .single .newtags:before, .page .top-bg:before, #mainfooter:before, .sponsored-feed:before, .rss-unit:before, #masthead:before, #ancillary:before, .gallery:before, .clear:after,
+.entry-content:after,
+.comment-content:after,
+.site-header:after,
+.site-content:after,
+.site-footer:after, .topstory-container:after, .sponsor-logos:after, #main:after, .flex-box-container:after, .archive .top-bg:after, .search-results .top-bg:after, .blog .top-bg:after, .search-no-results .top-bg:after, .error404 .top-bg:after, .single .social-header:after, .single .related-posts:after, .single .newtags:after, .page .top-bg:after, #mainfooter:after, .sponsored-feed:after, .rss-unit:after, #masthead:after, #ancillary:after, .gallery:after {
+  content: "";
+  display: table;
+}
+/* line 6, newsass/_mixins.scss */
+.clear:after,
+.entry-content:after,
+.comment-content:after,
+.site-header:after,
+.site-content:after,
+.site-footer:after, .topstory-container:after, .sponsor-logos:after, #main:after, .flex-box-container:after, .archive .top-bg:after, .search-results .top-bg:after, .blog .top-bg:after, .search-no-results .top-bg:after, .error404 .top-bg:after, .single .social-header:after, .single .related-posts:after, .single .newtags:after, .page .top-bg:after, #mainfooter:after, .sponsored-feed:after, .rss-unit:after, #masthead:after, #ancillary:after, .gallery:after {
+  clear: both;
+}
+
+/* line 11, newsass/_mixins.scss */
+.topstory-box, .normalstory-box, .sponsor-box, .sponsor-box-resp, .singlerss-wrap {
+  background: #fff;
+  /* Firefox v1.0+ */
+  -moz-border-radius: 2px;
+  /* Safari v3.0+ and by Chrome v0.2+ */
+  -webkit-border-radius: 2px;
+  /* Firefox v4.0+ , Safari v5.0+ , Chrome v4.0+ ,
+  Opera v10.5+ and by IE v9.0+ */
+  border-radius: 2px;
+  /* Firefox v3.5+ */
+  -moz-box-shadow: 0px 1.5px 2px rgba(0, 0, 0, 0.2);
+  /* Safari v3.0+ and by Chrome v0.2+ */
+  -webkit-box-shadow: 0px 1.5px 2px rgba(0, 0, 0, 0.2);
+  /* Firefox v4.0+ , Safari v5.1+ , Chrome v10.0+,
+  IE v10+ and by Opera v10.5+ */
+  box-shadow: 0px 1.5px 2px rgba(0, 0, 0, 0.2);
+  -msfilter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1.5,Color=#33000000,Positive=true)";
+  filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=0,OffY=1.5,Color=#33000000,Positive=true);
+}
+
+/* line 38, newsass/_mixins.scss */
+.single #comments {
+  width: 600px;
+  margin: 0 auto;
+}
+
+/* line 43, newsass/_mixins.scss */
+.button, .ns-search-submit, #loadmore, .showDisqus {
+  /* Firefox v1.0+ */
+  -moz-border-radius: 2px;
+  /* Safari v3.0+ and by Chrome v0.2+ */
+  -webkit-border-radius: 2px;
+  /* Firefox v4.0+ , Safari v5.0+ , Chrome v4.0+ ,
+  Opera v10.5+ and by IE v9.0+ */
+  border-radius: 2px;
+}
+
+/* line 53, newsass/_mixins.scss */
+.button, .ns-search-submit, #loadmore, .showDisqus {
+  color: #fff;
+  height: 48px;
+  padding: 0 30px;
+  background-color: #00AFF4;
+  border: 0;
+  border-bottom: 1px solid #2a8bcc;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #2a8bcc;
+  box-shadow: inset 0 -2px #2a8bcc;
+  -webkit-appearance: none;
+}
+/* line 66, newsass/_mixins.scss */
+.button:active, .ns-search-submit:active, #loadmore:active, .showDisqus:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/* line 73, newsass/_mixins.scss */
+.button:active, .ns-search-submit:active, #loadmore:active, .showDisqus:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* =Global
+----------------------------------------------- */
+/* line 3, newsass/_global.scss */
+html {
+  height: 100%;
+}
+
+/* line 6, newsass/_global.scss */
+body {
+  min-height: 100%;
+  position: relative;
+}
+
+/* Alignment */
+/* line 12, newsass/_global.scss */
+.alignleft {
+  display: inline;
+  float: left;
+  margin-right: 30px;
+}
+
+/* line 17, newsass/_global.scss */
+.alignright {
+  display: inline;
+  float: right;
+  margin-left: 30px;
+}
+
+/* line 22, newsass/_global.scss */
+.aligncenter {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Text meant only for screen readers */
+/* line 29, newsass/_global.scss */
+.screen-reader-text {
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+}
+
+/* line 35, newsass/_global.scss */
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  clip: auto !important;
+  color: #21759b;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+  /* Above WP toolbar */
+}
+
+/* Clearing */
+/* line 66, newsass/_global.scss */
+pre {
+  background: #eee;
+  font-family: "Courier 10 Pitch", Courier, monospace;
+  font-size: 1.5rem;
+  line-height: 1em;
+  margin-bottom: 1.6em;
+  padding: 1.6em;
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+/* line 77, newsass/_global.scss */
+.button {
+  display: inline-block;
+  margin: 10px 0 30px 0;
+  padding: 10px 30px;
+}
+/* line 83, newsass/_global.scss */
+.button a {
+  color: #fff;
+}
+/* line 87, newsass/_global.scss */
+.button a:visited {
+  color: #fff;
+}
+/* line 91, newsass/_global.scss */
+.button a:hover {
+  color: #fff;
+}
+
+/* line 96, newsass/_global.scss */
+.button-center {
+  margin: 10px auto;
+  display: block;
+}
+
+/* line 1, newsass/_typography.scss */
+body,
+button,
+input,
+select,
+textarea {
+  color: #000000;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 170%;
+}
+
+/* HEADING STYLES
+********************/
+/* line 15, newsass/_typography.scss */
+h1, h2, h3, h4, h5, h6 {
+  clear: both;
+}
+
+/* line 19, newsass/_typography.scss */
+.sectionheader {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 200;
+  font-size: 44px;
+  line-height: 75%;
+  color: #475F79;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+@media (max-width: 600px) {
+  /* line 19, newsass/_typography.scss */
+  .sectionheader {
+    font-size: 36px;
+  }
+}
+
+/* line 35, newsass/_typography.scss */
+h1 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 33px;
+  line-height: 110%;
+  color: #000000;
+}
+@media (max-width: 600px) {
+  /* line 35, newsass/_typography.scss */
+  h1 {
+    font-size: 26px;
+  }
+}
+
+/* line 47, newsass/_typography.scss */
+h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 110%;
+  color: #000000;
+}
+
+/* line 56, newsass/_typography.scss */
+h2.small {
+  font-size: 18px;
+  line-height: 120%;
+  font-weight: 400;
+}
+/* line 61, newsass/_typography.scss */
+h2.small a {
+  color: #000000;
+}
+
+/* line 66, newsass/_typography.scss */
+.home h2 {
+  margin-bottom: 0;
+}
+
+/* line 68, newsass/_typography.scss */
+.topstory-box h2.small {
+  font-size: 21px;
+}
+@media (max-width: 600px) {
+  /* line 68, newsass/_typography.scss */
+  .topstory-box h2.small {
+    font-size: 18px;
+  }
+}
+
+/* line 76, newsass/_typography.scss */
+h3 {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 700;
+  font-size: 21px;
+  color: #475F79;
+}
+
+/* line 83, newsass/_typography.scss */
+h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 150%;
+  color: #475F79;
+  text-transform: uppercase;
+}
+/* line 91, newsass/_typography.scss */
+h4 a, h4 a:visited {
+  color: #00AFF4;
+}
+/* line 95, newsass/_typography.scss */
+h4 a:hover {
+  color: #475F79;
+}
+/* line 99, newsass/_typography.scss */
+h4 .reversedlinks {
+  color: #000000;
+}
+
+/* line 104, newsass/_typography.scss */
+.topstory-box h4, .story-box h4 {
+  text-transform: uppercase;
+}
+
+/* line 108, newsass/_typography.scss */
+h5 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 220%;
+  color: #475F79;
+}
+
+/* HELPER CLASSSES
+********************/
+/* line 118, newsass/_typography.scss */
+.reversed {
+  color: #fff;
+}
+
+/* line 120, newsass/_typography.scss */
+.links a {
+  color: #00AFF4;
+}
+
+/* line 122, newsass/_typography.scss */
+.h4links {
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 150%;
+  color: #00AFF4;
+}
+
+/* line 132, newsass/_typography.scss */
+.reversedlinks {
+  color: #fff;
+}
+/* line 132, newsass/_typography.scss */
+.reversedlinks a, .reversedlinks a:visited, .reversedlinks a:hover {
+  color: #fff;
+}
+
+/* line 134, newsass/_typography.scss */
+.notes {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 120%;
+  color: #fff;
+}
+
+/* line 141, newsass/_typography.scss */
+.editorsnote > p, .attribution, .wp-caption .wp-caption-text {
+  font-weight: 400;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 130%;
+  color: #475F79;
+  margin-bottom: 20px;
+}
+
+/* line 150, newsass/_typography.scss */
+hr {
+  background-color: #ccc;
+  border: 0;
+  height: 1px;
+  margin-bottom: 30px;
+}
+
+/* TEXT ELEMENTS
+********************/
+/* line 159, newsass/_typography.scss */
+p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* line 164, newsass/_typography.scss */
+ul, ol {
+  margin: 0 0 30px 3em;
+}
+
+/* line 167, newsass/_typography.scss */
+ul {
+  list-style: disc;
+}
+
+/* line 170, newsass/_typography.scss */
+ol {
+  list-style: decimal;
+}
+
+/* line 173, newsass/_typography.scss */
+li > ul,
+li > ol {
+  margin-bottom: 0;
+  margin-left: 30px;
+}
+
+/* line 178, newsass/_typography.scss */
+dt {
+  font-weight: bold;
+}
+
+/* line 181, newsass/_typography.scss */
+dd {
+  margin: 0 30px 30px;
+}
+
+/* line 184, newsass/_typography.scss */
+b, strong {
+  font-weight: bold;
+}
+
+/* line 187, newsass/_typography.scss */
+dfn, cite, em, i {
+  font-style: italic;
+}
+
+/* line 190, newsass/_typography.scss */
+blockquote > p {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: #FF3287;
+  margin: 0 30px 30px;
+  line-height: 120%;
+}
+
+/* line 199, newsass/_typography.scss */
+blockquote > p:last-of-type {
+  margin-bottom: 30px;
+}
+
+/* line 202, newsass/_typography.scss */
+address {
+  margin: 0 0 30px;
+}
+
+/* line 205, newsass/_typography.scss */
+pre {
+  background: #eee;
+  font-family: "Courier 10 Pitch", Courier, monospace;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  padding: 1.6em;
+  overflow: auto;
+  max-width: 100%;
+}
+
+/* line 216, newsass/_typography.scss */
+code, kbd, tt, var {
+  font: 15px Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+/* line 219, newsass/_typography.scss */
+abbr, acronym {
+  border-bottom: 1px dotted #666;
+  cursor: help;
+}
+
+/* line 223, newsass/_typography.scss */
+mark, ins {
+  background: #fff9c0;
+  text-decoration: none;
+}
+
+/* line 227, newsass/_typography.scss */
+sup,
+sub {
+  font-size: 75%;
+  height: 0;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 235, newsass/_typography.scss */
+sup {
+  bottom: 1ex;
+}
+
+/* line 238, newsass/_typography.scss */
+sub {
+  top: .5ex;
+}
+
+/* line 241, newsass/_typography.scss */
+small {
+  font-size: 75%;
+}
+
+/* line 244, newsass/_typography.scss */
+big {
+  font-size: 125%;
+}
+
+/* line 247, newsass/_typography.scss */
+figure {
+  margin: 0;
+}
+
+/* line 250, newsass/_typography.scss */
+table {
+  margin: 0 0 30px;
+  width: 100%;
+}
+
+/* line 254, newsass/_typography.scss */
+th {
+  font-weight: bold;
+}
+
+/* line 257, newsass/_typography.scss */
+img {
+  height: auto;
+  /* Make sure images are scaled correctly. */
+  max-width: 100%;
+  /* Adhere to container width. */
+}
+
+/* Links */
+/* line 263, newsass/_typography.scss */
+a {
+  color: #00AFF4;
+  text-decoration: none;
+}
+/* line 267, newsass/_typography.scss */
+a:visited {
+  color: #00AFF4;
+}
+/* line 272, newsass/_typography.scss */
+a:hover {
+  color: #00415b;
+}
+
+/* line 278, newsass/_typography.scss */
+.dropcap {
+  font-family: "adamas";
+  float: left;
+  font-weight: normal;
+  color: #475F79;
+  font-size: 66px;
+  line-height: 45px;
+  padding: 34px 10px 0 5px;
+  background: -webkit-linear-gradient(#00ACF2, #FF3285);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* line 291, newsass/_typography.scss */
+.testdrop-word {
+  font-family: "adamasregular_original";
+  color: #666;
+  font-size: 120px;
+  line-height: 115px;
+  padding-top: 12px;
+  padding-left: 14px;
+  background: -webkit-linear-gradient(#00ACF2, #FF3285);
+  /* For Safari 5.1 to 6.0 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* line 305, newsass/_typography.scss */
+.testdrop-letter {
+  font-family: "adamas";
+  float: left;
+  font-weight: normal;
+  color: #475F79;
+  font-size: 66px;
+  line-height: 66px;
+  padding: 15px 26px 0px 22px;
+  background: -webkit-linear-gradient(#00ACF2, #FF3285);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* FORM AND BUTTON STYLES
+******************************************************/
+/* line 4, newsass/_forms.scss */
+button,
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 4px;
+  font-size: 100%;
+  /* Corrects font size not being inherited in all browsers */
+  margin: 0;
+  /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+  vertical-align: baseline;
+  /* Improves appearance and consistency in all browsers */
+  *vertical-align: middle;
+  /* Improves appearance and consistency in all browsers */
+  border-top-style: none;
+  border-top-width: 0;
+  border-bottom-style: none;
+  border-bottom-width: 0;
+  border-left-style: none;
+  border-left-width: 0;
+  border-right-style: none;
+  border-right-width: 0;
+}
+
+/* line 25, newsass/_forms.scss */
+:-webkit-autofill {
+  background: #fff !important;
+}
+
+/* line 27, newsass/_forms.scss */
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0;
+  /* Addresses excess padding in IE8/9 */
+}
+
+/* line 32, newsass/_forms.scss */
+input[type="search"]::-webkit-search-decoration {
+  /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+  -webkit-appearance: none;
+}
+
+/* line 36, newsass/_forms.scss */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+  border: 0;
+  padding: 0;
+}
+
+/* line 42, newsass/_forms.scss */
+textarea {
+  overflow: auto;
+  /* Removes default vertical scrollbar in IE6/7/8/9 */
+  padding-left: 3px;
+  vertical-align: top;
+  /* Improves readability and alignment in all browsers */
+  width: 98%;
+}
+
+/* line 50, newsass/_forms.scss */
+.ns-search {
+  width: 100%;
+  padding: 10px !important;
+  color: #000;
+}
+
+/* line 56, newsass/_forms.scss */
+.ns-search:focus {
+  outline: none;
+}
+
+/* line 60, newsass/_forms.scss */
+.ns-search-submit {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  margin: 20px 0;
+}
+
+/* line 67, newsass/_forms.scss */
+.ns-search-form {
+  text-align: center;
+}
+
+/* Homepage Styling
+*****************************************************************/
+/* line 5, newsass/_layout.scss */
+.editor-box p {
+  font-size: 13px;
+  line-height: 140%;
+  margin-bottom: 0;
+  font-style: italic;
+  color: #fff;
+}
+
+/* line 14, newsass/_layout.scss */
+a#inifiniteLoader {
+  z-index: 2;
+  display: none;
+}
+
+/* line 19, newsass/_layout.scss */
+.top-bg {
+  background: #9ABAD3 url("img/DiagonalStripeBackground.png") repeat-x;
+}
+
+/* line 26, newsass/_layout.scss */
+.home #primary, .search-results #primary, .search #primary, .archive #primary {
+  background: #F5F8FA !important;
+}
+
+/* line 31, newsass/_layout.scss */
+.topstory-container {
+  width: 880px;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
+/* line 38, newsass/_layout.scss */
+.topstory-box {
+  width: 430px;
+  height: 270px;
+  float: left;
+  margin-right: 20px;
+  position: relative;
+}
+/* line 46, newsass/_layout.scss */
+.topstory-box:nth-child(odd) {
+  margin-right: 0;
+}
+
+/* line 51, newsass/_layout.scss */
+.attachment-topstory, .attachment-normal {
+  /* Firefox v1.0+ */
+  -moz-border-top-left-radius: 2px;
+  -moz-border-top-right-radius: 2px;
+  /* Safari v3.0+ and by Chrome v0.2+ */
+  -webkit-border-top-left-radius: 2px;
+  -webkit-border-top-right-radius: 2px;
+  /* Firefox v4.0+ , Safari v5.0+ , Chrome v4.0+ ,
+  Opera v10.5+ and by IE v9.0+ */
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+/* line 64, newsass/_layout.scss */
+.topstory-box .title-row {
+  height: 110px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  background: #fff;
+  opacity: 0.9;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-bottom-right-radius: 2px;
+  -moz-border-bottom-left-radius: 2px;
+}
+
+/* line 80, newsass/_layout.scss */
+#primary {
+  background: #F5F8FA;
+}
+
+/* line 86, newsass/_layout.scss */
+.sponsor-logowrap {
+  position: relative;
+  float: right;
+  right: 50%;
+}
+
+/* line 92, newsass/_layout.scss */
+.sponsor-logoinner {
+  position: relative;
+  float: right;
+  right: -50%;
+}
+
+/* line 98, newsass/_layout.scss */
+.sponsor-logos {
+  width: 100%;
+  margin: 0 auto;
+}
+/* line 104, newsass/_layout.scss */
+.sponsor-logos .sponsor-logo {
+  float: left;
+  margin: 0 20px;
+  height: 33px;
+  max-width: 125px;
+}
+/* line 111, newsass/_layout.scss */
+.sponsor-logos p {
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+/* line 117, newsass/_layout.scss */
+.sponsor-logos img {
+  height: 33px;
+}
+
+/* line 125, newsass/_layout.scss */
+#main {
+  width: 620px;
+  margin: 0 auto;
+}
+
+/* line 131, newsass/_layout.scss */
+.normalstory-box {
+  width: 290px;
+  min-height: 250px;
+  float: left;
+  margin: 0 10px 20px 10px;
+  position: relative;
+}
+/* line 139, newsass/_layout.scss */
+.normalstory-box .title-row {
+  height: 130px;
+  padding: 0 10px;
+  clear: both;
+}
+/* line 144, newsass/_layout.scss */
+.normalstory-box .title-row h2 a {
+  color: #000000;
+}
+/* line 147, newsass/_layout.scss */
+.normalstory-box .title-row h2 a:visited {
+  color: #000000;
+}
+/* line 152, newsass/_layout.scss */
+.normalstory-box .title-row h4 a {
+  color: #475F79;
+}
+/* line 155, newsass/_layout.scss */
+.normalstory-box .title-row h4 a:visited {
+  color: #475F79;
+}
+/* line 160, newsass/_layout.scss */
+.normalstory-box .title-row .links a {
+  color: #00AFF4;
+}
+/* line 163, newsass/_layout.scss */
+.normalstory-box .title-row .links a:visited {
+  color: #00AFF4;
+}
+/* line 167, newsass/_layout.scss */
+.normalstory-box .title-row .links a:hover {
+  color: #00415b;
+}
+/* line 175, newsass/_layout.scss */
+.normalstory-box .commentcloud {
+  display: none;
+  margin: 10px;
+}
+/* line 180, newsass/_layout.scss */
+.normalstory-box img {
+  height: 120px;
+}
+
+/* line 186, newsass/_layout.scss */
+.commentcloud {
+  width: 44px;
+  height: 35px;
+  background: url(img/iconsSprite.png) 210px 0;
+  position: absolute;
+  right: 0;
+  line-height: 190%;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* line 198, newsass/_layout.scss */
+.commentcloud a {
+  display: block;
+}
+
+/* line 202, newsass/_layout.scss */
+.athumbnail {
+  float: left;
+}
+
+/* line 206, newsass/_layout.scss */
+.timestamp {
+  padding-top: 4px;
+}
+
+/* line 210, newsass/_layout.scss */
+.editor-box {
+  background: #00AFF4;
+  height: 100px;
+  padding: 10px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-bottom-right-radius: 2px;
+  -moz-border-bottom-left-radius: 2px;
+}
+
+/* line 222, newsass/_layout.scss */
+.sponsor-box {
+  width: 290px;
+  min-height: 250px;
+  float: left;
+  margin: 0 10px 20px 10px;
+}
+/* line 229, newsass/_layout.scss */
+.sponsor-box .logo-row {
+  height: 53px;
+  border-bottom: 1px solid #C7D9E6;
+}
+/* line 233, newsass/_layout.scss */
+.sponsor-box .logo-row img {
+  height: 53px;
+  padding: 10px;
+}
+/* line 239, newsass/_layout.scss */
+.sponsor-box .title-row {
+  padding: 5px 10px;
+  height: 107px;
+}
+
+/* line 245, newsass/_layout.scss */
+.sponsor-box-resp {
+  width: 290px;
+  min-height: 250px;
+  margin-right: 25%;
+}
+/* line 251, newsass/_layout.scss */
+.sponsor-box-resp .logo-row {
+  height: 53px;
+  border-bottom: 1px solid #C7D9E6;
+}
+/* line 255, newsass/_layout.scss */
+.sponsor-box-resp .logo-row img {
+  height: 53px;
+  padding: 10px;
+}
+/* line 261, newsass/_layout.scss */
+.sponsor-box-resp .title-row {
+  padding: 5px 10px;
+  height: 107px;
+}
+
+/* line 267, newsass/_layout.scss */
+.flex-box-container {
+  display: none;
+  margin-bottom: 20px;
+}
+/* line 274, newsass/_layout.scss */
+.flex-box-container .flexslider .slides img {
+  width: auto !important;
+}
+/* line 279, newsass/_layout.scss */
+.flex-box-container .controls-container {
+  position: relative;
+}
+
+/* line 285, newsass/_layout.scss */
+.loadposts {
+  float: left;
+  text-align: center;
+  width: 100%;
+}
+
+/* line 291, newsass/_layout.scss */
+#loadmore {
+  margin: 10px 0 30px 0;
+  padding: 10px 30px;
+  display: inline-block;
+  float: none;
+}
+
+/* Post Archives Stlying
+*****************************************************************/
+/* line 307, newsass/_layout.scss */
+.archive #main, .search-results #main, .blog #main, .search-no-results #main, .error404 #main {
+  padding-top: 30px;
+}
+/* line 311, newsass/_layout.scss */
+.archive .normalstory-box, .search-results .normalstory-box, .blog .normalstory-box, .search-no-results .normalstory-box, .error404 .normalstory-box {
+  margin: 0 10 20 10px;
+}
+/* line 314, newsass/_layout.scss */
+.archive .normalstory-box img, .search-results .normalstory-box img, .blog .normalstory-box img, .search-no-results .normalstory-box img, .error404 .normalstory-box img {
+  height: 120px;
+}
+
+/* line 323, newsass/_layout.scss */
+.paging-navigation {
+  float: left;
+  width: 100%;
+}
+
+/* 404 page Styling
+*****************************************************************/
+/* line 332, newsass/_layout.scss */
+.error404 h1 {
+  text-transform: none;
+}
+/* line 336, newsass/_layout.scss */
+.error404 p {
+  margin-bottom: 20px;
+}
+
+/* Single Post Styling
+*****************************************************************/
+/* line 346, newsass/_layout.scss */
+.single #primary {
+  background: #fff;
+}
+/* line 350, newsass/_layout.scss */
+.single .entry-header {
+  margin: 30px 0;
+}
+/* line 354, newsass/_layout.scss */
+.single .social-icon, .single .ssba_twitter_share, .single .ssba_facebook_share, .single .ssba_linkedin_share, .single .ssba_google_share, .single .author .ssba_website, .author .single .ssba_website {
+  display: inline-block;
+  width: 35px;
+  height: 36px;
+  margin-right: 10px;
+}
+/* line 360, newsass/_layout.scss */
+.single .social-icon img, .single .ssba_twitter_share img, .single .ssba_facebook_share img, .single .ssba_linkedin_share img, .single .ssba_google_share img, .single .author .ssba_website img, .author .single .ssba_website img {
+  display: none !important;
+}
+/* line 366, newsass/_layout.scss */
+.single .ssba {
+  height: 36px;
+}
+/* line 370, newsass/_layout.scss */
+.single .ssba_twitter_share {
+  background: url(img/iconsSprite.png) 517px 0;
+}
+/* line 375, newsass/_layout.scss */
+.single .ssba_facebook_share {
+  background: url(img/iconsSprite.png) 472px 0;
+}
+/* line 380, newsass/_layout.scss */
+.single .ssba_linkedin_share {
+  background: url(img/iconsSprite.png) 382px 0;
+}
+/* line 385, newsass/_layout.scss */
+.single .ssba_google_share {
+  background: url(img/iconsSprite.png) 427px 0;
+}
+/* line 390, newsass/_layout.scss */
+.single .postshare {
+  margin-top: 20px;
+}
+/* line 394, newsass/_layout.scss */
+.single .social-header {
+  position: relative;
+}
+/* line 398, newsass/_layout.scss */
+.single .social-header .ssba {
+  float: left;
+}
+/* line 403, newsass/_layout.scss */
+.single .social-footer {
+  margin-bottom: 30px;
+}
+/* line 407, newsass/_layout.scss */
+.single .related-posts {
+  background: #F5F8FA;
+}
+/* line 412, newsass/_layout.scss */
+.single .related-posts-wrapper {
+  width: 620px;
+  margin: 0 auto;
+}
+/* line 417, newsass/_layout.scss */
+.single .comment-block {
+  background: #fff;
+}
+/* line 422, newsass/_layout.scss */
+.single #comments {
+  padding: 30px 0;
+}
+/* line 427, newsass/_layout.scss */
+.single .newtags {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #F5F8FA;
+}
+/* line 433, newsass/_layout.scss */
+.single .taglinks {
+  float: left;
+  margin-bottom: 19.5px;
+  text-transform: uppercase;
+  padding: 0 20px;
+  border: 1px solid #00AFF4;
+  display: inline;
+  border-radius: 2px;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+/* Single Page Styling
+*****************************************************************/
+/* line 452, newsass/_layout.scss */
+.page #primary {
+  background: #fff;
+}
+
+/* line 462, newsass/_layout.scss */
+.loader {
+  text-align: center;
+  width: 100%;
+  float: left;
+}
+
+/* Footer Styling
+*****************************************************************/
+/* line 470, newsass/_layout.scss */
+#colophon {
+  width: 600px;
+  margin: 0 auto;
+}
+
+/* line 475, newsass/_layout.scss */
+#mainfooter {
+  padding: 20px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #475F79;
+}
+
+/* line 482, newsass/_layout.scss */
+.footercol {
+  width: 25%;
+  float: left;
+}
+/* line 486, newsass/_layout.scss */
+.footercol .menu {
+  margin: 0;
+  list-style: none;
+}
+/* line 493, newsass/_layout.scss */
+.footercol .menu-item a:hover, .footercol .menu-item a, .footercol .menu-item a:visited {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 220%;
+  font-weight: 300;
+  color: #fff;
+}
+
+/* line 503, newsass/_layout.scss */
+.site-info {
+  margin-bottom: 40px;
+  text-align: center;
+}
+/* line 507, newsass/_layout.scss */
+.site-info h4 {
+  text-transform: none;
+}
+
+/* SINGLE POST SPONSOR FEED styling
+***********************************************************/
+/* line 515, newsass/_layout.scss */
+.sponsored-feed {
+  background: #C7D9E6;
+}
+
+/* line 520, newsass/_layout.scss */
+.singlerss-wrap {
+  background: #fff;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 30px;
+}
+
+/* line 528, newsass/_layout.scss */
+.rss-unit {
+  padding: 10px 0 12px 0;
+  border-bottom: 1px solid #C7D9E6;
+}
+/* line 533, newsass/_layout.scss */
+.rss-unit:last-of-type {
+  border-bottom: none;
+}
+
+/* line 538, newsass/_layout.scss */
+.rss-logo {
+  text-align: center;
+  float: left;
+  width: 30%;
+}
+/* line 543, newsass/_layout.scss */
+.rss-logo .imagefix {
+  margin-top: 5px;
+}
+/* line 547, newsass/_layout.scss */
+.rss-logo img {
+  height: 24.75px;
+}
+
+/* line 552, newsass/_layout.scss */
+.rss-title {
+  float: left;
+  width: 70%;
+  line-height: 115%;
+}
+/* line 557, newsass/_layout.scss */
+.rss-title .title a {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+}
+/* line 563, newsass/_layout.scss */
+.rss-title .date {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  padding-top: 4px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #475F79;
+}
+
+/* line 573, newsass/_layout.scss */
+.button-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+/* line 580, newsass/_layout.scss */
+.showDisqus {
+  display: inline-block;
+  padding: 10px 30px;
+  float: none;
+}
+
+/* =Menu
+----------------------------------------------- */
+/* line 3, newsass/_menu.scss */
+.nav-bar {
+  background: #fff;
+  height: 50px;
+  border-bottom: 1px solid #C7D9E6;
+}
+
+/* line 10, newsass/_menu.scss */
+#masthead {
+  width: 1170px;
+  margin: 0 auto;
+  position: relative;
+}
+/* line 16, newsass/_menu.scss */
+#masthead img {
+  height: 50px;
+  padding: 10px 0;
+}
+/* line 21, newsass/_menu.scss */
+#masthead .site-branding {
+  width: 210px;
+  margin-top: 12px;
+  margin-right: 10px;
+  float: left;
+  background: url("img/iconsSprite.png") 0 0;
+}
+/* line 28, newsass/_menu.scss */
+#masthead .site-branding a {
+  color: transparent;
+  width: 210px;
+  float: left;
+  height: 25px;
+}
+
+/* =Main Navigation Styling
+----------------------------------------------- */
+/* line 45, newsass/_menu.scss */
+.main-navigation ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+/* line 50, newsass/_menu.scss */
+.main-navigation ul li {
+  float: left;
+  position: relative;
+  padding: 7px 10px;
+}
+/* line 56, newsass/_menu.scss */
+.main-navigation ul li a {
+  display: block;
+  text-decoration: none;
+}
+/* line 60, newsass/_menu.scss */
+.main-navigation ul li a:visited {
+  color: #00AFF4;
+}
+/* line 64, newsass/_menu.scss */
+.main-navigation ul li a:hover {
+  color: #475F79;
+}
+/* line 72, newsass/_menu.scss */
+.main-navigation ul li:hover > ul {
+  display: block;
+}
+/* line 82, newsass/_menu.scss */
+.main-navigation ul ul {
+  border-color: #C7D9E6;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+  display: none;
+  float: left;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  z-index: 99999;
+  background: #fff;
+}
+/* line 98, newsass/_menu.scss */
+.main-navigation ul ul li {
+  padding: 5px 20px;
+}
+/* line 101, newsass/_menu.scss */
+.main-navigation ul ul li a {
+  width: 200px;
+}
+/* line 103, newsass/_menu.scss */
+.main-navigation ul ul li a:hover {
+  color: #475F79;
+}
+/* line 104, newsass/_menu.scss */
+.main-navigation ul ul li a:visited {
+  color: #00AFF4;
+}
+/* line 109, newsass/_menu.scss */
+.main-navigation ul ul ul {
+  left: 100%;
+  top: 0;
+}
+
+/* line 120, newsass/_menu.scss */
+.region-drop {
+  width: 30px;
+  height: 30px;
+  background: url(img/iconsSprite.png) 166px 0;
+  margin-top: 18px;
+  margin-left: 10px;
+}
+/* line 127, newsass/_menu.scss */
+.region-drop > h5 > a {
+  font-size: 0;
+}
+
+/* line 133, newsass/_menu.scss */
+.navsearch {
+  width: 24px;
+  height: 22px;
+  background: url(img/iconsSprite.png) 135px 0;
+  position: absolute !important;
+  top: 15px;
+  right: 0;
+  overflow: hidden;
+  margin-right: 0 !important;
+}
+/* line 143, newsass/_menu.scss */
+.navsearch > h5 > a:visited, .navsearch a, .navsearch a:hover {
+  position: relative;
+  top: -10px;
+  left: -30px;
+  opacity: 0;
+}
+
+/* line 153, newsass/_menu.scss */
+.menu-bar {
+  display: none;
+  width: 24px;
+  height: 18px;
+  background: url(img/iconsSprite.png) 113px 0;
+  position: absolute !important;
+  top: 15px;
+  right: 0;
+  overflow: hidden;
+}
+/* line 163, newsass/_menu.scss */
+.menu-bar > h5 > a:visited, .menu-bar a, .menu-bar a:hover {
+  position: relative;
+  top: -10px;
+  left: -30px;
+  opacity: 0;
+}
+
+/* =Ancillary Top Menus
+----------------------------------------------- */
+/* line 175, newsass/_menu.scss */
+.top-bar {
+  width: 1170px;
+  margin: 0 auto;
+  height: 40px;
+  background: #9ABAD3;
+}
+
+/* line 186, newsass/_menu.scss */
+#top-ancillary {
+  margin: 0;
+}
+/* line 189, newsass/_menu.scss */
+#top-ancillary li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 20px;
+  float: left;
+  margin-top: 2px;
+}
+/* line 197, newsass/_menu.scss */
+#top-ancillary li a {
+  font-size: 13px;
+  color: #fff;
+  text-transform: uppercase;
+}
+/* line 203, newsass/_menu.scss */
+#top-ancillary li:nth-of-type(3) {
+  display: none;
+}
+
+/* line 211, newsass/_menu.scss */
+#top-follow {
+  float: right;
+  margin: 0;
+}
+/* line 215, newsass/_menu.scss */
+#top-follow li {
+  display: inline;
+  list-style-type: none;
+  margin-left: 10px;
+  float: left;
+  margin-top: 5px;
+  width: 28px;
+  height: 28px;
+  overflow: hidden;
+}
+/* line 225, newsass/_menu.scss */
+#top-follow li a, #top-follow li a:visited, #top-follow li a:hover {
+  color: transparent;
+}
+/* line 230, newsass/_menu.scss */
+#top-follow .facebook {
+  background: url(img/iconsSprite.png) -568px 42px;
+}
+/* line 233, newsass/_menu.scss */
+#top-follow .twitter {
+  background: url(img/iconsSprite.png) -532px 42px;
+}
+/* line 237, newsass/_menu.scss */
+#top-follow .gplus {
+  background: url(img/iconsSprite.png) -604px 42px;
+}
+/* line 241, newsass/_menu.scss */
+#top-follow .linkedin {
+  background: url(img/iconsSprite.png) -640px 42px;
+}
+/* line 245, newsass/_menu.scss */
+#top-follow .rss {
+  background: url(img/iconsSprite.png) -36px 45px;
+}
+/* line 249, newsass/_menu.scss */
+#top-follow .youtube {
+  background: url(img/iconsSprite.png) -101px 45px;
+}
+
+/* =Responsive Menu Styling
+----------------------------------------------- */
+/* line 257, newsass/_menu.scss */
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+/* line 262, newsass/_menu.scss */
+.menu-open {
+  right: 0 !important;
+}
+
+/* line 266, newsass/_menu.scss */
+.search-open {
+  right: 0;
+}
+
+/* line 270, newsass/_menu.scss */
+#page {
+  left: 0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* line 277, newsass/_menu.scss */
+.push-wrap {
+  position: fixed;
+  width: 100%;
+  left: -200px !important;
+}
+
+/* line 284, newsass/_menu.scss */
+#responsive-menu {
+  width: 200px;
+  height: 100%;
+  padding-top: 25px;
+  top: 0;
+  z-index: 1001;
+  right: -200px;
+  position: fixed;
+  background: #9ABAD3;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/* line 297, newsass/_menu.scss */
+#responsive-menu h4 {
+  line-height: 1em;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+/* line 303, newsass/_menu.scss */
+#responsive-menu ul {
+  list-style: none;
+  margin: 0 0 0 0;
+}
+/* line 308, newsass/_menu.scss */
+#responsive-menu .reversedlinks {
+  line-height: 1em;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+/* line 315, newsass/_menu.scss */
+#responsive-menu .menu-close {
+  position: absolute;
+  top: 18px;
+}
+
+/* line 322, newsass/_menu.scss */
+#navsearchform {
+  width: 320px;
+  height: 100%;
+  padding: 20px;
+  top: 0;
+  z-index: 1001;
+  right: -320px;
+  position: fixed;
+  background: #9ABAD3;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/* line 335, newsass/_menu.scss */
+#navsearchform .menu-close {
+  left: 265px;
+}
+/* line 339, newsass/_menu.scss */
+#navsearchform h4 {
+  margin-bottom: 10px;
+}
+
+/* line 345, newsass/_menu.scss */
+.search-open {
+  right: 0 !important;
+}
+
+/* line 352, newsass/_menu.scss */
+.menu-close {
+  cursor: pointer;
+  position: relative;
+  left: 165px;
+  color: transparent;
+  background: url("img/iconsSprite.png") -669px 38px;
+  width: 15px;
+  height: 18px;
+  z-index: 1000;
+}
+
+/* line 363, newsass/_menu.scss */
+#resp-primary .menu-item-has-children, #resp-primary .navsearch {
+  display: none;
+}
+
+/* line 367, newsass/_menu.scss */
+.overlay {
+  display: none;
+  z-index: 8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.5;
+}
+
+/* line 379, newsass/_menu.scss */
+.cover {
+  display: block;
+}
+
+/* line 383, newsass/_menu.scss */
+.pinTop {
+  position: fixed;
+  width: 100%;
+  z-index: 7;
+}
+
+/* =Content
+----------------------------------------------- */
+/* line 6, newsass/_content.scss */
+.hentry {
+  margin: 0 0 30px;
+}
+
+/* line 9, newsass/_content.scss */
+.byline,
+.updated {
+  display: none;
+}
+
+/* line 14, newsass/_content.scss */
+.single .byline, .group-blog .byline {
+  display: inline;
+}
+
+/* line 18, newsass/_content.scss */
+.page-content,
+.entry-content,
+.entry-summary {
+  margin: 30px 0 0;
+}
+
+/* line 23, newsass/_content.scss */
+.page-links {
+  clear: both;
+  margin: 0 0 30px;
+}
+
+/* line 28, newsass/_content.scss */
+.sponsor_note {
+  font-size: 18px;
+  background-color: #f5f8fa;
+  padding: 10px 20px 10px 10px;
+  margin-bottom: 30px;
+}
+/* line 34, newsass/_content.scss */
+.sponsor_note .note-heading {
+  color: #48607a;
+}
+/* line 38, newsass/_content.scss */
+.sponsor_note img {
+  display: inline;
+  float: right;
+}
+
+/* line 46, newsass/_content.scss */
+.event_listing {
+  background: #f5f8fa;
+  margin-bottom: 30px;
+  font-size: 18px;
+  padding: 10px;
+}
+
+/* line 55, newsass/_content.scss */
+.event-logo {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+}
+
+/* line 62, newsass/_content.scss */
+.logo2x {
+  max-width: 125px;
+  margin-left: 0;
+}
+
+/* line 68, newsass/_content.scss */
+.event-content {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 73%;
+  padding-left: 10px;
+}
+
+/* line 75, newsass/_content.scss */
+.event-heading, .event-description {
+  line-height: 130%;
+}
+
+/* line 79, newsass/_content.scss */
+.event-date {
+  font-weight: 700;
+}
+/* line 83, newsass/_content.scss */
+.event-date span {
+  padding: 0 5px;
+}
+
+/* line 88, newsass/_content.scss */
+.mobile-date {
+  font-weight: 700;
+}
+/* line 91, newsass/_content.scss */
+.mobile-date span {
+  padding: 0 5px;
+}
+
+/* line 97, newsass/_content.scss */
+.mobile-show {
+  display: none;
+}
+
+/* line 102, newsass/_content.scss */
+.warmup-listing {
+  background: #48607a;
+  padding: 30px 0;
+  text-align: center;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 30px;
+}
+/* line 110, newsass/_content.scss */
+.warmup-listing .button {
+  margin-bottom: 0;
+}
+
+/* =Asides
+----------------------------------------------- */
+/* line 5, newsass/_postformats.scss */
+.blog .format-aside .entry-title, .archive .format-aside .entry-title {
+  display: none;
+}
+
+/* =Media
+----------------------------------------------- */
+/* line 7, newsass/_media.scss */
+.page-content img.wp-smiley,
+.entry-content img.wp-smiley,
+.comment-content img.wp-smiley {
+  border: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+/* line 15, newsass/_media.scss */
+.wp-caption {
+  max-width: 100%;
+}
+/* line 20, newsass/_media.scss */
+.wp-caption img[class*="wp-image-"] {
+  display: block;
+  margin: 1.2% auto 0;
+  max-width: 100%;
+}
+/* line 25, newsass/_media.scss */
+.wp-caption .wp-caption-text {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+/* line 32, newsass/_media.scss */
+.wp-caption iframe + .wp-caption-text {
+  margin-top: 2px;
+}
+
+/* line 38, newsass/_media.scss */
+.gallery {
+  margin-bottom: 30px;
+}
+/* line 44, newsass/_media.scss */
+.gallery .gallery-item {
+  float: left;
+}
+/* line 48, newsass/_media.scss */
+.gallery .gallery-item .gallery-icon a {
+  display: block;
+}
+/* line 50, newsass/_media.scss */
+.gallery .gallery-item .gallery-icon img {
+  border: none;
+  height: auto;
+  margin-bottom: 0;
+}
+/* line 57, newsass/_media.scss */
+.gallery .gallery-item .gallery-caption {
+  margin: 0;
+  text-align: center;
+}
+
+/* Fluid Gallery Columns
+   works well if you remove the default gallery styling
+   by adding the following to your functions.php
+   add_filter( 'use_default_gallery_style', '__return_false' );
+*/
+/* line 67, newsass/_media.scss */
+.gallery-columns-2 .gallery-item {
+  width: 49%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-2 .gallery-item:nth-of-type(2n - 2) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-3 .gallery-item {
+  width: 32%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-3 .gallery-item:nth-of-type(3n - 3) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-4 .gallery-item {
+  width: 23.5%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-4 .gallery-item:nth-of-type(4n - 4) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-5 .gallery-item {
+  width: 18.4%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-5 .gallery-item:nth-of-type(5n - 5) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-6 .gallery-item {
+  width: 15%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-6 .gallery-item:nth-of-type(6n - 6) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-7 .gallery-item {
+  width: 12.57143%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-7 .gallery-item:nth-of-type(7n - 7) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-8 .gallery-item {
+  width: 10.75%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-8 .gallery-item:nth-of-type(8n - 8) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* line 67, newsass/_media.scss */
+.gallery-columns-9 .gallery-item {
+  width: 9.33333%;
+  margin-right: 2;
+}
+
+/* line 71, newsass/_media.scss */
+.gallery-columns-9 .gallery-item:nth-of-type(9n - 9) {
+  margin-right: 0;
+  clear: right;
+}
+
+/* Make sure embeds and iframes fit their containers */
+/* line 89, newsass/_media.scss */
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+/* =Navigation
+----------------------------------------------- */
+/* line 4, newsass/_navigation.scss */
+.site-main [class*="navigation"] {
+  margin: 0 0 30px;
+  overflow: hidden;
+}
+/* line 8, newsass/_navigation.scss */
+.site-main [class*="navigation"] .nav-previous {
+  float: left;
+  width: 50%;
+}
+/* line 13, newsass/_navigation.scss */
+.site-main [class*="navigation"] .nav-next {
+  float: right;
+  text-align: right;
+  width: 50%;
+}
+
+/* =Comments
+----------------------------------------------- */
+/* line 3, newsass/_comments.scss */
+.comment-content a {
+  word-wrap: break-word;
+}
+
+/* =Widgets
+----------------------------------------------- */
+/* line 4, newsass/_widgets.scss */
+.widget {
+  margin: 0 0 30px;
+  /* Make sure select elements fit in widgets */
+  /* Search widget */
+}
+/* line 8, newsass/_widgets.scss */
+.widget select {
+  max-width: 100%;
+}
+/* line 13, newsass/_widgets.scss */
+.widget .widget-search .search-submit {
+  display: none;
+}
+
+/* line 1, newsass/_author.scss */
+.author-bio-container {
+  padding: 30px 0;
+  background: #C7D9E6;
+}
+
+/* line 6, newsass/_author.scss */
+.author-bio {
+  width: 620px;
+  margin: 0 auto;
+}
+/* line 10, newsass/_author.scss */
+.author-bio .description {
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
+/* line 16, newsass/_author.scss */
+.author-avatar {
+  text-align: center;
+}
+
+/* line 20, newsass/_author.scss */
+.author-avatar img {
+  width: 300px;
+}
+
+/* line 26, newsass/_author.scss */
+.author .site-main .sectionheader {
+  margin-top: 0;
+}
+/* line 30, newsass/_author.scss */
+.author .social-icon, .author .ssba_twitter_share, .author .ssba_facebook_share, .author .ssba_linkedin_share, .author .ssba_google_share, .author .ssba_website {
+  display: inline-block;
+  width: 35px;
+  height: 36px;
+  margin-right: 2px;
+}
+/* line 36, newsass/_author.scss */
+.author .social-icon img, .author .ssba_twitter_share img, .author .ssba_facebook_share img, .author .ssba_linkedin_share img, .author .ssba_google_share img, .author .ssba_website img {
+  display: none !important;
+}
+/* line 42, newsass/_author.scss */
+.author .morebutton {
+  text-align: center;
+  display: none;
+}
+/* line 47, newsass/_author.scss */
+.author .button {
+  margin: 20px 0 0 0;
+}
+/* line 51, newsass/_author.scss */
+.author .ssba-container {
+  padding: 12px 0;
+  text-align: center;
+}
+/* line 56, newsass/_author.scss */
+.author .ssba {
+  height: 36px;
+  display: inline-block;
+}
+/* line 62, newsass/_author.scss */
+.author .ssba_twitter_share {
+  background: url(img/iconsSprite.png) 517px 0;
+}
+/* line 67, newsass/_author.scss */
+.author .ssba_facebook_share {
+  background: url(img/iconsSprite.png) 472px 0;
+}
+/* line 72, newsass/_author.scss */
+.author .ssba_linkedin_share {
+  background: url(img/iconsSprite.png) 382px 0;
+}
+/* line 77, newsass/_author.scss */
+.author .ssba_google_share {
+  background: url(img/iconsSprite.png) 427px 0;
+}
+/* line 82, newsass/_author.scss */
+.author .ssba_website {
+  background: url(img/iconsSprite.png) 748px 46px;
+}
+
+/* line 89, newsass/_author.scss */
+.morecontent span {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  /* line 95, newsass/_author.scss */
+  .author .morebutton {
+    display: block;
+  }
+}
+/*MEDIUM TO LARGE************************************************************************************************************MEDIUM TO LARGE**************/
+@media (max-width: 1170px) {
+  /* line 4, newsass/_responsive.scss */
+  .top-bar {
+    padding: 0 10px;
+    width: 100%;
+  }
+  /* line 8, newsass/_responsive.scss */
+  .top-bar #ancillary {
+    padding-left: 20px;
+  }
+
+  /* line 13, newsass/_responsive.scss */
+  #top-follow {
+    margin-right: 15px;
+  }
+
+  /* line 17, newsass/_responsive.scss */
+  #masthead {
+    padding: 0 10px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 22, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 20px;
+  }
+
+  /* line 28, newsass/_responsive.scss */
+  .navsearch {
+    right: 20px;
+  }
+}
+/*INTERMEDIATE***********************************************************************************************************INTERMEDIATE**************/
+@media (min-width: 641px) and (max-width: 899px) {
+  /*This Query has been created for some basic corrections*/
+  /* line 40, newsass/_responsive.scss */
+  .top-bar {
+    display: none;
+  }
+
+  /* line 44, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 48, newsass/_responsive.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 53, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 20px;
+  }
+
+  /* line 59, newsass/_responsive.scss */
+  .navsearch {
+    right: 80px;
+  }
+
+  /* line 65, newsass/_responsive.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category, #site-navigation .menu-item-object-page {
+    display: none;
+  }
+  /* line 69, newsass/_responsive.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 30px;
+  }
+
+  /* line 77, newsass/_responsive.scss */
+  .topstory-container {
+    width: 430px;
+  }
+  /* line 80, newsass/_responsive.scss */
+  .topstory-container .topstory-box {
+    margin-right: 0;
+  }
+  /* line 83, newsass/_responsive.scss */
+  .topstory-container .topstory-box:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+
+  /* line 91, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 96, newsass/_responsive.scss */
+  .main-none {
+    padding: 0 20px;
+  }
+
+  /* line 100, newsass/_responsive.scss */
+  .h1-none {
+    text-transform: none;
+  }
+}
+/*MEDIUM***********************************************************************************************************************MEDIUM****************/
+@media (max-width: 640px) {
+  /* line 109, newsass/_responsive.scss */
+  #responsive-menu {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  /* line 113, newsass/_responsive.scss */
+  #responsive-menu .menu-close {
+    left: 160px;
+  }
+
+  /* line 118, newsass/_responsive.scss */
+  .top-bar {
+    display: none;
+  }
+
+  /* line 122, newsass/_responsive.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 127, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 20px;
+  }
+
+  /* line 133, newsass/_responsive.scss */
+  .navsearch {
+    right: 80px;
+  }
+
+  /* line 140, newsass/_responsive.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category, #site-navigation .menu-item-object-page {
+    display: none;
+  }
+  /* line 144, newsass/_responsive.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 30px;
+  }
+
+  /* line 150, newsass/_responsive.scss */
+  .topstory-container {
+    width: 430px;
+  }
+  /* line 153, newsass/_responsive.scss */
+  .topstory-container .topstory-box {
+    margin-right: 0;
+  }
+  /* line 156, newsass/_responsive.scss */
+  .topstory-container .topstory-box:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+
+  /* line 163, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 169, newsass/_responsive.scss */
+  #main > .sponsor-box {
+    display: none;
+  }
+
+  /* line 176, newsass/_responsive.scss */
+  .loop > .sponsor-box {
+    display: none;
+  }
+
+  /* line 184, newsass/_responsive.scss */
+  .error404 #main {
+    padding: 20px;
+  }
+
+  /* line 191, newsass/_responsive.scss */
+  #mainfooter {
+    padding-left: 20px;
+  }
+  /* line 196, newsass/_responsive.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 30%;
+  }
+  /* line 200, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 20%;
+  }
+
+  /* line 206, newsass/_responsive.scss */
+  .event-logo {
+    width: 25%;
+    height: auto;
+  }
+}
+/*SMALL TO MEDIUM*********************************************************************************************INTERMEDIATE*************************/
+@media (min-width: 600px) and (max-width: 639px) {
+  /* line 220, newsass/_responsive.scss */
+  #responsive-menu {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  /* line 224, newsass/_responsive.scss */
+  #responsive-menu .menu-close {
+    left: 160px;
+  }
+
+  /* line 229, newsass/_responsive.scss */
+  .top-bar {
+    display: none;
+  }
+
+  /* line 233, newsass/_responsive.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 238, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 20px;
+  }
+
+  /* line 244, newsass/_responsive.scss */
+  .navsearch {
+    right: 80px;
+  }
+
+  /* line 251, newsass/_responsive.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category, #site-navigation .menu-item-object-page {
+    display: none;
+  }
+  /* line 255, newsass/_responsive.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 30px;
+  }
+
+  /* line 261, newsass/_responsive.scss */
+  .topstory-container {
+    width: 430px;
+  }
+  /* line 264, newsass/_responsive.scss */
+  .topstory-container .topstory-box {
+    margin-right: 0;
+  }
+  /* line 267, newsass/_responsive.scss */
+  .topstory-container .topstory-box:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+
+  /* line 274, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 278, newsass/_responsive.scss */
+  #main {
+    width: 100%;
+  }
+  /* line 281, newsass/_responsive.scss */
+  #main > .sponsor-box {
+    display: none;
+  }
+
+  /* line 286, newsass/_responsive.scss */
+  .resp-container, .entry-header, .page .entry-content {
+    padding: 0 15px;
+  }
+
+  /* line 292, newsass/_responsive.scss */
+  .loop > .sponsor-box {
+    display: none;
+  }
+
+  /* line 300, newsass/_responsive.scss */
+  .error404 #main {
+    padding: 20px;
+  }
+
+  /* line 307, newsass/_responsive.scss */
+  #mainfooter {
+    padding-left: 20px;
+  }
+  /* line 312, newsass/_responsive.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 30%;
+  }
+  /* line 316, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 20%;
+  }
+
+  /* line 324, newsass/_responsive.scss */
+  .singlerss-wrap {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 15px 20px 15px;
+  }
+
+  /* line 330, newsass/_responsive.scss */
+  .author-bio {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  /* line 336, newsass/_responsive.scss */
+  #colophon {
+    width: 100%;
+  }
+
+  /* line 340, newsass/_responsive.scss */
+  .author-avatar img {
+    width: 50%;
+  }
+}
+@media (min-width: 600px) and (max-width: 619px) {
+  /* line 348, newsass/_responsive.scss */
+  .singlerss-wrap {
+    width: 290px;
+    margin-bottom: 20px;
+  }
+  /* line 352, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo {
+    text-align: left;
+    width: 100%;
+  }
+  /* line 356, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo .imagefix {
+    margin-top: 0px;
+  }
+  /* line 361, newsass/_responsive.scss */
+  .singlerss-wrap .rss-unit {
+    padding: 10px 0 12px 0;
+  }
+  /* line 365, newsass/_responsive.scss */
+  .singlerss-wrap .rss-title {
+    width: 100%;
+  }
+}
+/*MEDIUM*********************************************************************************************SMALL TO MEDIUM*************************/
+@media (max-width: 599px) {
+  /* line 376, newsass/_responsive.scss */
+  .author-bio-container {
+    padding: 20px 0;
+  }
+
+  /* line 380, newsass/_responsive.scss */
+  .author .ssba-container {
+    padding: 2px 0;
+  }
+}
+/*SMALL TO MEDIUM*********************************************************************************************SMALL TO MEDIUM*************************/
+@media (min-width: 321px) and (max-width: 599px) {
+  /* line 389, newsass/_responsive.scss */
+  #responsive-menu {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  /* line 393, newsass/_responsive.scss */
+  #responsive-menu .menu-close {
+    left: 160px;
+  }
+
+  /* line 399, newsass/_responsive.scss */
+  .top-bar {
+    display: none;
+  }
+
+  /* line 403, newsass/_responsive.scss */
+  .nav-bar {
+    height: 44px;
+  }
+
+  /* line 407, newsass/_responsive.scss */
+  #masthead {
+    width: 100%;
+    margin: 0;
+    padding: 0 4px;
+  }
+  /* line 412, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 10px;
+    margin-top: 13px;
+    width: 152px;
+    background: url("img/iconsSprite.png") -209px 0;
+  }
+
+  /* line 421, newsass/_responsive.scss */
+  .navsearch {
+    right: 80px;
+  }
+
+  /* line 428, newsass/_responsive.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category, #site-navigation .menu-item-object-page {
+    display: none;
+  }
+  /* line 432, newsass/_responsive.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite.png) 113px 48px;
+    width: 0px;
+    height: 15px;
+  }
+  /* line 440, newsass/_responsive.scss */
+  #site-navigation .navsearch {
+    width: 0;
+    right: 50px;
+    height: 17px;
+    background: url(img/iconsSprite.png) 135px 48px;
+  }
+
+  /* line 448, newsass/_responsive.scss */
+  .topstory-container {
+    width: 310px;
+    padding-bottom: 20px;
+  }
+  /* line 452, newsass/_responsive.scss */
+  .topstory-container .topstory-box {
+    width: 310px;
+    height: 200px;
+    margin-right: 0;
+  }
+  /* line 457, newsass/_responsive.scss */
+  .topstory-container .topstory-box img {
+    height: 100%;
+  }
+  /* line 461, newsass/_responsive.scss */
+  .topstory-container .topstory-box:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+  /* line 465, newsass/_responsive.scss */
+  .topstory-container .topstory-box .title-row {
+    height: 95px;
+  }
+
+  /* line 471, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 475, newsass/_responsive.scss */
+  #main {
+    width: 100%;
+  }
+  /* line 478, newsass/_responsive.scss */
+  #main > .sponsor-box {
+    display: none;
+  }
+
+  /* line 484, newsass/_responsive.scss */
+  .loop > .sponsor-box {
+    display: none;
+  }
+
+  /* line 489, newsass/_responsive.scss */
+  .normalstory-box {
+    margin-bottom: 20px;
+  }
+
+  /* line 496, newsass/_responsive.scss */
+  #loadmore {
+    margin: 10px 0 20px 0;
+  }
+
+  /* line 503, newsass/_responsive.scss */
+  .single #main {
+    width: 100%;
+  }
+  /* line 507, newsass/_responsive.scss */
+  .single #comments {
+    width: 100%;
+  }
+  /* line 511, newsass/_responsive.scss */
+  .single .entry-header {
+    margin: 20px 0;
+  }
+  /* line 515, newsass/_responsive.scss */
+  .single .postshare {
+    margin-top: 12px;
+  }
+  /* line 519, newsass/_responsive.scss */
+  .single .entry-content {
+    margin: 20px 0 0;
+  }
+  /* line 522, newsass/_responsive.scss */
+  .single .entry-content p {
+    margin-bottom: 20px;
+  }
+  /* line 527, newsass/_responsive.scss */
+  .single header {
+    padding: 0 15px;
+  }
+  /* line 531, newsass/_responsive.scss */
+  .single .related-posts-wrapper {
+    width: 100%;
+  }
+  /* line 535, newsass/_responsive.scss */
+  .single .resp-container {
+    width: 100%;
+    padding: 0 15px;
+  }
+  /* line 540, newsass/_responsive.scss */
+  .single .comment-block {
+    width: 100%;
+    padding: 20px 15px;
+  }
+  /* line 545, newsass/_responsive.scss */
+  .single .editors-note {
+    margin: 20px 0;
+  }
+  /* line 549, newsass/_responsive.scss */
+  .single .notes {
+    line-height: 120%;
+  }
+
+  /* line 559, newsass/_responsive.scss */
+  .page .entry-content {
+    padding: 0 15px;
+  }
+
+  /* line 567, newsass/_responsive.scss */
+  .error404 #main {
+    padding: 20px;
+  }
+
+  /* line 573, newsass/_responsive.scss */
+  #colophon {
+    width: 290px;
+    padding-bottom: 20px;
+  }
+
+  /* line 578, newsass/_responsive.scss */
+  .author-bio {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  /* line 584, newsass/_responsive.scss */
+  #mainfooter {
+    padding-left: 0;
+    position: relative;
+  }
+  /* line 591, newsass/_responsive.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 60%;
+  }
+  /* line 595, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(2) {
+    width: 40%;
+  }
+  /* line 599, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) {
+    width: 100%;
+    position: absolute;
+    bottom: -120px;
+    margin-bottom: 40px;
+  }
+  /* line 605, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) #nav_menu-4 {
+    text-align: center;
+  }
+  /* line 609, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) h4 {
+    display: none;
+  }
+  /* line 613, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) ul {
+    margin: 0 auto;
+    padding-left: 40px;
+  }
+  /* line 618, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li {
+    margin-right: 20px;
+    max-width: 50%;
+    float: left;
+  }
+  /* line 627, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #475F79;
+    margin-top: 20px;
+  }
+  /* line 633, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) h4 {
+    display: none;
+  }
+  /* line 637, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul {
+    width: 265px;
+    margin: 0 auto;
+  }
+  /* line 641, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li {
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-right: 10px;
+  }
+  /* line 647, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li a {
+    color: transparent;
+  }
+  /* line 653, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .facebook {
+    background: url(img/iconsSprite.png) -406px 35px;
+  }
+  /* line 656, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .twitter {
+    background: url(img/iconsSprite.png) -361px 35px;
+  }
+  /* line 660, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .gplus {
+    background: url(img/iconsSprite.png) -451px 35px;
+  }
+  /* line 664, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .linkedin {
+    background: url(img/iconsSprite.png) -496px 35px;
+  }
+  /* line 668, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .rss {
+    background: url(img/iconsSprite.png) 0 45px;
+    margin-right: 0;
+  }
+  /* line 673, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .youtube {
+    background: url(img/iconsSprite.png) -65px 45px;
+  }
+
+  /* line 685, newsass/_responsive.scss */
+  .singlerss-wrap {
+    width: 290px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 20px;
+  }
+  /* line 691, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo {
+    text-align: left;
+    max-width: 100%;
+  }
+  /* line 695, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo .imagefix {
+    margin-top: 0px;
+  }
+  /* line 700, newsass/_responsive.scss */
+  .singlerss-wrap .rss-unit {
+    padding: 10px 0 12px 0;
+  }
+  /* line 704, newsass/_responsive.scss */
+  .singlerss-wrap .rss-title {
+    width: 100%;
+  }
+
+  /* line 709, newsass/_responsive.scss */
+  .event-logo {
+    width: 26%;
+  }
+
+  /* line 713, newsass/_responsive.scss */
+  .event-content {
+    max-width: 73%;
+  }
+
+  /* line 721, newsass/_responsive.scss */
+  .event_listing {
+    padding: 10px;
+  }
+
+  /* line 725, newsass/_responsive.scss */
+  .author-avatar img {
+    width: 50%;
+  }
+}
+/*INBETWEEN*****************************************************************************************************************SMALL**********************/
+@media (min-width: 376px) and (max-width: 480px) {
+  /* line 740, newsass/_responsive.scss */
+  .event-content {
+    max-width: 71%;
+  }
+
+  /* line 744, newsass/_responsive.scss */
+  .event-logo {
+    width: 26%;
+  }
+}
+/*SMALL TO MEDIUM*********************************************************************************************INTERMEDIATE*************************/
+@media (min-width: 320px) and (max-width: 455px) {
+  /* line 753, newsass/_responsive.scss */
+  .paging-navigation {
+    padding: 0 40px;
+  }
+
+  /* line 757, newsass/_responsive.scss */
+  .event_listing {
+    margin-bottom: 15px;
+  }
+}
+/*SMALL*****************************************************************************************************************SMALL**********************/
+@media (max-width: 375px) {
+  /* line 769, newsass/_responsive.scss */
+  .mobile-show {
+    display: inline-block;
+    vertical-align: top;
+    width: 69%;
+    padding-left: 10px;
+  }
+
+  /* line 776, newsass/_responsive.scss */
+  .event-date {
+    display: none;
+  }
+
+  /* line 780, newsass/_responsive.scss */
+  .event-logo {
+    width: 85px;
+  }
+
+  /* line 784, newsass/_responsive.scss */
+  .event-content {
+    padding-left: 0;
+    max-width: 100%;
+  }
+
+  /* line 789, newsass/_responsive.scss */
+  .author-avatar img {
+    width: 150px;
+  }
+}
+/*SMALL*****************************************************************************************************************SMALL**********************/
+@media (min-width: 321px) and (max-width: 355px) {
+  /* line 797, newsass/_responsive.scss */
+  .mobile-show {
+    width: 64%;
+  }
+}
+/*SMALL*****************************************************************************************************************SMALL**********************/
+@media (max-width: 320px) {
+  /* line 806, newsass/_responsive.scss */
+  #responsive-menu {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  /* line 810, newsass/_responsive.scss */
+  #responsive-menu .menu-close {
+    left: 160px;
+  }
+
+  /* line 815, newsass/_responsive.scss */
+  .top-bar {
+    display: none;
+  }
+
+  /* line 819, newsass/_responsive.scss */
+  .nav-bar {
+    height: 44px;
+  }
+
+  /* line 823, newsass/_responsive.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 828, newsass/_responsive.scss */
+  #masthead .site-branding {
+    margin-left: 10px;
+    margin-top: 13px;
+    width: 152px;
+    background: url("img/iconsSprite.png") -209px 0;
+  }
+
+  /* line 837, newsass/_responsive.scss */
+  .navsearch {
+    right: 80px;
+  }
+
+  /* line 844, newsass/_responsive.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category, #site-navigation .menu-item-object-page {
+    display: none;
+  }
+  /* line 848, newsass/_responsive.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite.png) 113px 52px;
+    width: 0px;
+    margin-top: -2px;
+    height: 15px;
+  }
+  /* line 857, newsass/_responsive.scss */
+  #site-navigation .navsearch {
+    width: 0;
+    right: 50px;
+    height: 17px;
+    margin-top: -2px;
+    background: url(img/iconsSprite.png) 135px 48px;
+  }
+
+  /* line 866, newsass/_responsive.scss */
+  .topstory-container {
+    width: 310px;
+    padding-bottom: 20px;
+  }
+  /* line 870, newsass/_responsive.scss */
+  .topstory-container .topstory-box {
+    width: 310px;
+    height: 200px;
+    margin-right: 0;
+  }
+  /* line 875, newsass/_responsive.scss */
+  .topstory-container .topstory-box img {
+    height: 100%;
+  }
+  /* line 879, newsass/_responsive.scss */
+  .topstory-container .topstory-box:nth-of-type(2) {
+    margin-bottom: 20px;
+  }
+  /* line 883, newsass/_responsive.scss */
+  .topstory-container .topstory-box .title-row {
+    height: 95px;
+  }
+
+  /* line 890, newsass/_responsive.scss */
+  .sponsor-logos {
+    display: none;
+  }
+
+  /* line 895, newsass/_responsive.scss */
+  #main {
+    width: 100%;
+  }
+  /* line 898, newsass/_responsive.scss */
+  #main > .sponsor-box {
+    display: none;
+  }
+
+  /* line 903, newsass/_responsive.scss */
+  .single #main {
+    width: 100%;
+  }
+
+  /* line 908, newsass/_responsive.scss */
+  .loop > .sponsor-box {
+    display: none;
+  }
+
+  /* line 915, newsass/_responsive.scss */
+  .search-results #main, .archive #main, .blog #main {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
+  /* line 921, newsass/_responsive.scss */
+  .normalstory-box {
+    margin-bottom: 10px;
+  }
+
+  /* line 928, newsass/_responsive.scss */
+  #loadmore {
+    margin: 10px 0 20px 0;
+  }
+
+  /* line 932, newsass/_responsive.scss */
+  .author-bio {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  /* line 941, newsass/_responsive.scss */
+  .single .editors-note {
+    margin: 20px 0;
+  }
+  /* line 945, newsass/_responsive.scss */
+  .single .notes {
+    line-height: 120%;
+  }
+  /* line 949, newsass/_responsive.scss */
+  .single .entry-header {
+    margin: 10px 0;
+  }
+  /* line 953, newsass/_responsive.scss */
+  .single .postshare {
+    margin-top: 2px;
+  }
+  /* line 957, newsass/_responsive.scss */
+  .single .entry-content {
+    margin: 10px 0 0;
+  }
+  /* line 960, newsass/_responsive.scss */
+  .single .entry-content p {
+    margin-bottom: 10px;
+  }
+  /* line 965, newsass/_responsive.scss */
+  .single header {
+    padding: 0 15px;
+  }
+  /* line 969, newsass/_responsive.scss */
+  .single .related-posts-wrapper, .single .comment-block {
+    width: 100%;
+  }
+  /* line 973, newsass/_responsive.scss */
+  .single .comment-block {
+    padding: 20px 15px;
+  }
+  /* line 977, newsass/_responsive.scss */
+  .single .resp-container {
+    padding: 0 15px;
+  }
+  /* line 981, newsass/_responsive.scss */
+  .single #comments {
+    width: 100%;
+  }
+
+  /* line 990, newsass/_responsive.scss */
+  .page .entry-content {
+    padding: 0 15px;
+  }
+
+  /* line 998, newsass/_responsive.scss */
+  .error404 #main {
+    padding: 20px;
+  }
+
+  /* line 1004, newsass/_responsive.scss */
+  #colophon {
+    width: 290px;
+  }
+
+  /* line 1008, newsass/_responsive.scss */
+  #mainfooter {
+    padding-left: 0;
+    position: relative;
+  }
+  /* line 1015, newsass/_responsive.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 60%;
+  }
+  /* line 1019, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(2) {
+    width: 40%;
+  }
+  /* line 1023, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) {
+    width: 100%;
+    position: absolute;
+    bottom: -120px;
+    margin-bottom: 40px;
+  }
+  /* line 1029, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) #nav_menu-4 {
+    text-align: center;
+  }
+  /* line 1033, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) h4 {
+    display: none;
+  }
+  /* line 1037, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) ul {
+    width: 100%;
+    padding-left: 40px;
+  }
+  /* line 1041, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li {
+    margin-right: 20px;
+    max-width: 50%;
+    float: left;
+  }
+  /* line 1046, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li:nth-of-type(3) {
+    margin-right: 0;
+  }
+  /* line 1054, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #475F79;
+    margin-top: 20px;
+  }
+  /* line 1060, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) h4 {
+    display: none;
+  }
+  /* line 1064, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul {
+    width: 265px;
+    margin: 0 auto;
+  }
+  /* line 1068, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li {
+    width: 35px;
+    height: 35px;
+    float: left;
+    margin-right: 10px;
+  }
+  /* line 1074, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li a {
+    color: transparent;
+  }
+  /* line 1080, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .facebook {
+    background: url(img/iconsSprite.png) -406px 35px;
+  }
+  /* line 1083, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .twitter {
+    background: url(img/iconsSprite.png) -361px 35px;
+  }
+  /* line 1087, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .gplus {
+    background: url(img/iconsSprite.png) -451px 35px;
+  }
+  /* line 1091, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .linkedin {
+    background: url(img/iconsSprite.png) -496px 35px;
+  }
+  /* line 1095, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .rss {
+    background: url(img/iconsSprite.png) 0 45px;
+    margin-right: 0;
+  }
+  /* line 1100, newsass/_responsive.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .youtube {
+    background: url(img/iconsSprite.png) -65px 45px;
+  }
+
+  /* line 1111, newsass/_responsive.scss */
+  .event-content {
+    max-width: 100%;
+  }
+
+  /* line 1115, newsass/_responsive.scss */
+  .mobile-show {
+    width: 64%;
+  }
+
+  /* line 1119, newsass/_responsive.scss */
+  .event_listing {
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+
+  /* line 1124, newsass/_responsive.scss */
+  .singlerss-wrap {
+    width: 290px;
+    margin-bottom: 20px;
+  }
+  /* line 1128, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo {
+    text-align: left;
+    width: 100%;
+  }
+  /* line 1132, newsass/_responsive.scss */
+  .singlerss-wrap .rss-logo .imagefix {
+    margin-top: 0px;
+  }
+  /* line 1137, newsass/_responsive.scss */
+  .singlerss-wrap .rss-unit {
+    padding: 10px 0 12px 0;
+  }
+  /* line 1141, newsass/_responsive.scss */
+  .singlerss-wrap .rss-title {
+    width: 100%;
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Retina-specific stuff here. Screen Size Independent*/
+  /* Nav Top Region Dropdown Menu */
+  /* line 6, newsass/_retina.scss */
+  .region-drop {
+    width: 32px;
+    height: 30px;
+    background: url(img/iconsSprite@2x.png) 166px 0;
+    background-size: 875.5px auto;
+    margin-top: 19px;
+    margin-left: 10px;
+  }
+  /* line 14, newsass/_retina.scss */
+  .region-drop > h5 > a {
+    font-size: 0;
+  }
+
+  /* Close Button for Responsive Menu*/
+  /* line 20, newsass/_retina.scss */
+  .menu-close {
+    background: url("img/iconsSprite@2x.png") -667px 38px;
+    background-size: 875.5px auto;
+  }
+
+  /* Social Sharing Icons Post*/
+  /* line 26, newsass/_retina.scss */
+  .social-icon, .single .ssba_twitter_share, .single .ssba_facebook_share, .single .ssba_linkedin_share, .single .ssba_google_share, .author .ssba_twitter_share, .author .ssba_facebook_share, .author .ssba_linkedin_share, .author .ssba_google_share, .author .ssba_website {
+    width: 36px;
+  }
+
+  /* line 31, newsass/_retina.scss */
+  .single .ssba_twitter_share {
+    background: url(img/iconsSprite@2x.png) 517px 0;
+    background-size: 875.5px auto;
+  }
+  /* line 36, newsass/_retina.scss */
+  .single .ssba_facebook_share {
+    background: url(img/iconsSprite@2x.png) 472px 0;
+    background-size: 875.5px auto;
+  }
+  /* line 41, newsass/_retina.scss */
+  .single .ssba_linkedin_share {
+    background: url(img/iconsSprite@2x.png) 382px 0;
+    background-size: 875.5px auto;
+  }
+  /* line 46, newsass/_retina.scss */
+  .single .ssba_google_share {
+    background: url(img/iconsSprite@2x.png) 427px 0;
+    background-size: 875.5px auto;
+  }
+
+  /* line 55, newsass/_retina.scss */
+  .commentcloud {
+    position: absolute;
+  }
+  /* line 58, newsass/_retina.scss */
+  .commentcloud h5 {
+    width: 44px;
+    text-align: center;
+    height: 35px;
+    background: url(img/iconsSprite@2x.png) 209px 0;
+    background-size: 875.5px auto;
+  }
+  /* line 65, newsass/_retina.scss */
+  .commentcloud h5 span {
+    position: relative;
+    top: -2px;
+  }
+
+  /* line 74, newsass/_retina.scss */
+  .flex-direction-nav a.flex-prev {
+    background: url(img/iconsSprite@2x.png) 89px 0 !important;
+    background-size: 875.5px auto !important;
+  }
+
+  /* line 75, newsass/_retina.scss */
+  .flex-direction-nav a.flex-next {
+    background: url(img/iconsSprite@2x.png) 44px 0 !important;
+    background-size: 875.5px auto !important;
+  }
+}
+/*iPhone 5 Retina***********************************************************************************************************iPhone**************/
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /*Logo 2x*/
+  /* line 12, newsass/_iphone5.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 17, newsass/_iphone5.scss */
+  #masthead .site-branding {
+    margin-left: 10px;
+    width: 150px;
+    background: url("img/iconsSprite@2x.png") -209px 0;
+    background-size: 875.5px auto;
+  }
+
+  /*Menu Bar and Nav Search 2x*/
+  /* line 30, newsass/_iphone5.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category {
+    display: none;
+  }
+  /* line 34, newsass/_iphone5.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite@2x.png) 112px 51px;
+    background-size: 875.5px auto;
+    width: 0px;
+    height: 19px;
+  }
+  /* line 43, newsass/_iphone5.scss */
+  #site-navigation .navsearch {
+    width: 0;
+    right: 50px;
+    height: 19px;
+    background: url(img/iconsSprite@2x.png) 135px 48px;
+    background-size: 875.5px auto;
+  }
+
+  /* Footer Social Icons 2x. Only applicable to iPhone */
+  /* line 53, newsass/_iphone5.scss */
+  #mainfooter {
+    padding-left: 0;
+    position: relative;
+  }
+  /* line 60, newsass/_iphone5.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 60%;
+  }
+  /* line 64, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(2) {
+    width: 40%;
+  }
+  /* line 68, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) {
+    width: 100%;
+    position: absolute;
+    bottom: -120px;
+    margin-bottom: 40px;
+  }
+  /* line 74, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) #nav_menu-4 {
+    text-align: center;
+  }
+  /* line 78, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) h4 {
+    display: none;
+  }
+  /* line 82, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul {
+    width: 100%;
+    padding-left: 40px;
+  }
+  /* line 86, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li {
+    margin-right: 20px;
+    max-width: 50%;
+    float: left;
+  }
+  /* line 91, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li:nth-of-type(3) {
+    margin-right: 0;
+  }
+  /* line 99, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #475F79;
+    margin-top: 20px;
+  }
+  /* line 105, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) h4 {
+    display: none;
+  }
+  /* line 109, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul {
+    width: 266px;
+    margin: 0 auto;
+  }
+  /* line 113, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li {
+    width: 36px;
+    height: 35px;
+    float: left;
+    margin-right: 10px;
+  }
+  /* line 119, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li a {
+    color: transparent;
+  }
+  /* line 125, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .facebook {
+    background: url(img/iconsSprite@2x.png) -404px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 130, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .twitter {
+    background: url(img/iconsSprite@2x.png) -359px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 135, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .gplus {
+    background: url(img/iconsSprite@2x.png) -449px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 140, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .linkedin {
+    background: url(img/iconsSprite@2x.png) -494px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 145, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .rss {
+    background: url(img/iconsSprite@2x.png) 0 45px;
+    background-size: 875.5px auto;
+  }
+  /* line 150, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .youtube {
+    background: url(img/iconsSprite@2x.png) -65px 45px;
+    background-size: 875.5px auto;
+  }
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /*Logo 2x*/
+  /* line 173, newsass/_iphone5.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 178, newsass/_iphone5.scss */
+  #masthead .site-branding {
+    margin-left: 10px;
+    width: 150px;
+    background: url("img/iconsSprite@2x.png") -209px 0;
+    background-size: 875.5px auto;
+  }
+
+  /*Menu Bar and Nav Search 2x*/
+  /* line 191, newsass/_iphone5.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category {
+    display: none;
+  }
+  /* line 195, newsass/_iphone5.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite@2x.png) 112px 51px;
+    background-size: 875.5px auto;
+    width: 0px;
+    height: 19px;
+  }
+  /* line 204, newsass/_iphone5.scss */
+  #site-navigation .navsearch {
+    width: 0;
+    right: 50px;
+    height: 19px;
+    background: url(img/iconsSprite@2x.png) 135px 48px;
+    background-size: 875.5px auto;
+  }
+
+  /* Footer Social Icons 2x. Only applicable to iPhone */
+  /* line 214, newsass/_iphone5.scss */
+  #mainfooter {
+    padding-left: 0;
+    position: relative;
+  }
+  /* line 221, newsass/_iphone5.scss */
+  #mainfooter .footercol:first-of-type {
+    width: 60%;
+  }
+  /* line 225, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(2) {
+    width: 40%;
+  }
+  /* line 229, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) {
+    width: 100%;
+    position: absolute;
+    bottom: -120px;
+    margin-bottom: 40px;
+  }
+  /* line 235, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) #nav_menu-4 {
+    text-align: center;
+  }
+  /* line 239, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) h4 {
+    display: none;
+  }
+  /* line 243, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul {
+    width: 100%;
+    padding: 0 30px;
+  }
+  /* line 247, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li {
+    margin-right: 20px;
+    max-width: 50%;
+    float: left;
+  }
+  /* line 252, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(3) ul li:nth-of-type(3) {
+    margin-right: 0;
+  }
+  /* line 260, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) {
+    width: 100%;
+    padding-top: 20px;
+    border-top: 1px solid #475F79;
+    margin-top: 20px;
+  }
+  /* line 266, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) h4 {
+    display: none;
+  }
+  /* line 270, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul {
+    width: 269px;
+    margin: 0 auto;
+  }
+  /* line 274, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li {
+    width: 36px;
+    height: 35px;
+    float: left;
+    margin-right: 10px;
+  }
+  /* line 280, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul li a {
+    color: transparent;
+  }
+  /* line 286, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .facebook {
+    background: url(img/iconsSprite@2x.png) -404px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 291, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .twitter {
+    background: url(img/iconsSprite@2x.png) -359px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 296, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .gplus {
+    background: url(img/iconsSprite@2x.png) -449px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 301, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .linkedin {
+    background: url(img/iconsSprite@2x.png) -494px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 306, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .rss {
+    background: url(img/iconsSprite@2x.png) 0 45px;
+    background-size: 875.5px auto;
+  }
+  /* line 311, newsass/_iphone5.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .youtube {
+    background: url(img/iconsSprite@2x.png) -65px 45px;
+    background-size: 875.5px auto;
+  }
+}
+/*iPad Retina***********************************************************************************************************iPad Retina**************/
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /* line 13, newsass/_ipadretina.scss */
+  #masthead .site-branding {
+    width: 208px;
+    margin-right: 10px;
+    float: left;
+    background: url("img/iconsSprite@2x.png") 0 0;
+    background-size: 875.5px auto;
+  }
+
+  /* line 22, newsass/_ipadretina.scss */
+  .navsearch {
+    width: 24px;
+    height: 22px;
+    background: url(img/iconsSprite@2x.png) 135px 0;
+    background-size: 875.5px auto;
+    position: absolute !important;
+    top: 15px;
+    right: 20px;
+    overflow: hidden;
+    margin-right: 0 !important;
+  }
+  /* line 33, newsass/_ipadretina.scss */
+  .navsearch > h5 > a:visited, .navsearch a, .navsearch a:hover {
+    position: relative;
+    top: -10px;
+    left: -30px;
+    opacity: 0;
+  }
+
+  /* line 43, newsass/_ipadretina.scss */
+  .menu-bar {
+    display: none;
+    width: 24px;
+    height: 19px;
+    background: url(img/iconsSprite@2x.png) 113px 0;
+    background-size: 875.5px auto;
+    position: absolute !important;
+    top: 15px;
+    right: 0;
+    overflow: hidden;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 2) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /* line 68, newsass/_ipadretina.scss */
+  #masthead .site-branding {
+    width: 208px;
+    margin-right: 10px;
+    float: left;
+    background: url("img/iconsSprite@2x.png") 0 0;
+    background-size: 875.5px auto;
+  }
+
+  /* line 77, newsass/_ipadretina.scss */
+  .navsearch {
+    width: 24px;
+    height: 22px;
+    background: url(img/iconsSprite@2x.png) 135px 0;
+    background-size: 875.5px auto;
+    position: absolute !important;
+    top: 15px;
+    right: 80px;
+    overflow: hidden;
+    margin-right: 0 !important;
+  }
+  /* line 88, newsass/_ipadretina.scss */
+  .navsearch > h5 > a:visited, .navsearch a, .navsearch a:hover {
+    position: relative;
+    top: -10px;
+    left: -30px;
+    opacity: 0;
+  }
+
+  /* line 98, newsass/_ipadretina.scss */
+  .menu-bar {
+    display: none;
+    width: 24px;
+    height: 19px;
+    background: url(img/iconsSprite@2x.png) 113px 0;
+    background-size: 875.5px auto;
+    position: absolute !important;
+    top: 15px;
+    right: 0;
+    overflow: hidden;
+  }
+}
+/*CORRECTIONS FOR Nexus 5***********************************************************************************************************iPhone**************/
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 3) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /*Logo 2x*/
+  /* line 12, newsass/_nexus.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 17, newsass/_nexus.scss */
+  #masthead .site-branding {
+    margin-left: 10px;
+    width: 150px;
+    height: 28px;
+    background: url("img/iconsSprite@2x.png") -209px 0;
+    background-size: 875.5px auto;
+  }
+
+  /*Menu Bar and Nav Search 2x*/
+  /* line 31, newsass/_nexus.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite@2x.png) 112px -21px;
+    background-size: 875.5px auto;
+    width: 24px;
+    margin-top: -2px;
+    height: 18px;
+  }
+  /* line 41, newsass/_nexus.scss */
+  #site-navigation .navsearch {
+    width: 24px;
+    margin-top: -2px;
+    right: 50px;
+    height: 23px;
+    background: url(img/iconsSprite@2x.png) 135px -23px;
+    background-size: 875.5px auto;
+  }
+
+  /* Footer Social Icons 2x. Only applicable to iPhone */
+  /* line 52, newsass/_nexus.scss */
+  #mainfooter {
+    padding-left: 0;
+    position: relative;
+  }
+  /* line 61, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul {
+    width: 266px;
+    margin: 0 auto;
+  }
+  /* line 65, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .facebook {
+    background: url(img/iconsSprite@2x.png) -404px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 70, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .twitter {
+    background: url(img/iconsSprite@2x.png) -359px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 75, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .gplus {
+    background: url(img/iconsSprite@2x.png) -449px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 80, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .linkedin {
+    background: url(img/iconsSprite@2x.png) -494px 35px;
+    background-size: 875.5px auto;
+  }
+  /* line 85, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .rss {
+    background: url(img/iconsSprite@2x.png) 0 45px;
+    background-size: 875.5px auto;
+  }
+  /* line 90, newsass/_nexus.scss */
+  #mainfooter .footercol:nth-of-type(4) ul .youtube {
+    background: url(img/iconsSprite@2x.png) -65px 45px;
+    background-size: 875.5px auto;
+  }
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 640px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 3) {
+  /* STYLES GO HERE */
+  /*Nav Icons - Logo, Search, Menu Bar */
+  /* line 114, newsass/_nexus.scss */
+  .nav-bar {
+    height: 50px;
+  }
+
+  /*Logo 2x*/
+  /* line 119, newsass/_nexus.scss */
+  #masthead {
+    padding: 0 4px;
+    width: 100%;
+    margin: 0;
+  }
+  /* line 124, newsass/_nexus.scss */
+  #masthead .site-branding {
+    height: 28px;
+    margin-left: 10px;
+    width: 208px;
+    background: url("img/iconsSprite@2x.png") 0 0;
+    background-size: 875.5px auto;
+  }
+
+  /*Menu Bar and Nav Search 2x*/
+  /* line 138, newsass/_nexus.scss */
+  #site-navigation .region-drop, #site-navigation .menu-item-object-category {
+    display: none;
+  }
+  /* line 142, newsass/_nexus.scss */
+  #site-navigation .menu-bar {
+    display: block;
+    right: 10px;
+    background: url(img/iconsSprite@2x.png) 112px 0;
+    background-size: 875.5px auto;
+    width: 0px;
+    height: 18px;
+  }
+  /* line 151, newsass/_nexus.scss */
+  #site-navigation .navsearch {
+    width: 22px;
+    right: 50px;
+    height: 23px;
+    margin-top: -2px;
+    background: url(img/iconsSprite@2x.png) 134px 0;
+    background-size: 875.5px auto;
+  }
+
+  /* Footer Social Icons 2x.  */
+}
+/* =Infinite Scroll
+----------------------------------------------- */
+/* Globally hidden elements when Infinite Scroll is supported and in use. */
+/* line 5, newsass/_infinitescroll.scss */
+.infinite-scroll .paging-navigation,
+.infinite-scroll.neverending .site-footer {
+  /* Theme Footer (when set to scrolling) */
+  display: none;
+}
+
+/* When Infinite Scroll has reached its end we need to re-display elements that were hidden (via .neverending) before */
+/* line 11, newsass/_infinitescroll.scss */
+.infinity-end.neverending .site-footer {
+  display: block;
+}
+
+/* line 3, newsass/_tables.scss */
+.entry-content th {
+  font-weight: 700;
+  font-size: 18px;
+  border-left: 1px solid #C7D9E6;
+  color: #475F79;
+}
+/* line 9, newsass/_tables.scss */
+.entry-content th:last-child {
+  border-right: 1px solid #C7D9E6;
+}
+/* line 17, newsass/_tables.scss */
+.entry-content tr td {
+  border-left: 1px solid #C7D9E6;
+}
+/* line 20, newsass/_tables.scss */
+.entry-content tr td:first-child {
+  font-weight: 900;
+}
+/* line 24, newsass/_tables.scss */
+.entry-content tr td:last-child {
+  border-right: 1px solid #C7D9E6;
+}
+/* line 29, newsass/_tables.scss */
+.entry-content tr:nth-of-type(even) {
+  background: #F5F8FA;
+}
+
+@media only screen and (max-width: 767px) {
+  /* line 40, newsass/_tables.scss */
+  .pinned {
+    border-left: none !important;
+    border-right: none !important;
+  }
+  /* line 44, newsass/_tables.scss */
+  .pinned th {
+    border-right: 1px solid #C7D9E6;
+  }
+  /* line 48, newsass/_tables.scss */
+  .pinned tr td {
+    border-right: 1px solid #C7D9E6;
+  }
+
+  /* line 53, newsass/_tables.scss */
+  .pinned table th, .pinned table td {
+    white-space: normal !important;
+  }
+
+  /* line 57, newsass/_tables.scss */
+  div.table-wrapper div.scrollable {
+    border-left: none;
+  }
+
+  /* line 63, newsass/_tables.scss */
+  table.responsive tr td:nth-child(2) {
+    border-left: none !important;
+  }
+  /* line 67, newsass/_tables.scss */
+  table.responsive th:nth-child(2) {
+    border-left: none !important;
+  }
+}
