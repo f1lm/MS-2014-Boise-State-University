@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/ -->
+<html lang="en" class=""><!--
+	generated in 0.554 seconds
+	167164 bytes batcached for 300 seconds
+--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep Learning | Deep Learning</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://timdettmers.wordpress.com/xmlrpc.php">
+<meta name="google-site-verification" content="FMd6zHLORA0XtnNOBd_Z4kMzD5xtLswpoJQyXULE_fs">
+<link rel="alternate" type="application/rss+xml" title="Deep Learning » Feed" href="https://timdettmers.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Deep Learning » Comments Feed" href="https://timdettmers.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Deep Learning » Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep Learning Comments Feed" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource" type="text/css" media="all">
+<link rel="stylesheet" id="big-brother-gentium-css" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="big-brother-open-sans-css" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/css(1)" type="text/css" media="all">
+<link rel="stylesheet" id="all-css-4" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-4" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/global-print.css" type="text/css" media="print">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script><style type="text/css"></style>
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(2)"></script>
+<link rel="stylesheet" id="all-css-0" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://timdettmers.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="next" title="How To Build and Use a Multi GPU System for Deep Learning" href="https://timdettmers.wordpress.com/2014/09/21/how-to-build-and-use-a-multi-gpu-system-for-deep-learning/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning.html">
+<link rel="shortlink" href="http://wp.me/p4TBOw-4">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&url=https%3A%2F%2Ftimdettmers.wordpress.com%2F2014%2F08%2F14%2Fwhich-gpu-for-deep-learning%2F&for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&url=https%3A%2F%2Ftimdettmers.wordpress.com%2F2014%2F08%2F14%2Fwhich-gpu-for-deep-learning%2F&for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep Learning">
+<meta property="og:url" content="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/">
+<meta property="og:description" content="I have been using GPUs for nearly two years now and for me it is again and again amazing to see how much speedup you get. Compared to CPUs 20x speedups are typical, but on larger problems one can a...">
+<meta property="article:published_time" content="2014-08-14T08:00:43+00:00">
+<meta property="article:modified_time" content="2015-02-23T21:09:51+00:00">
+<meta property="article:author" content="https://timdettmers.wordpress.com/author/timdettmers/">
+<meta property="og:site_name" content="Deep Learning">
+<meta property="og:image" content="https://timdettmers.files.wordpress.com/2014/08/gpu-pic-copy.jpg">
+<meta property="og:image" content="https://timdettmers.files.wordpress.com/2014/08/memory-bandwidth.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:image" content="https://timdettmers.files.wordpress.com/2014/08/gpu-pic-copy.jpg?w=240">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://timdettmers.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://timdettmers.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://timdettmers.wordpress.com/osd.xml" title="Deep Learning">
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Deep Learning"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://timdettmers.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep Learning | Deep Learning on WordPress.com">
+<meta name="description" content="I have been using GPUs for nearly two years now and for me it is again and again amazing to see how much speedup you get. Compared to CPUs 20x speedups are typical, but on larger problems one can achieve 50x speedups. With GPUs you can try out new ideas, algorithms and experiments much faster…">
+
+<script type="text/javascript" src="https://partner.googleadservices.com/gampad/google_service.js">
+</script>
+<script type="text/javascript">
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="https://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type="text/javascript">
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 72358744, pt: 'permalink', wa: 0, as: 0, domain: 'timdettmers.wordpress.com', url: 'https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script type="text/javascript" async="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/ga.js"></script>
+
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/services.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><script type="text/javascript" async="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(3)"></script></head>
+
+<body class="single single-post postid-4 single-format-standard custom-background mp6 customizer-styles-applied highlander-enabled highlander-light" data-gclp-initialized="true" data-gistbox-initialized="true">
+<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header clearfix" role="banner">
+				<div class="site-branding">
+						<h1 class="site-title"><a href="https://timdettmers.wordpress.com/" rel="home" sl-processed="1">Deep Learning</a></h1>
+			<h2 class="site-description"></h2>
+		</div>
+
+		<nav id="site-navigation" class="main-navigation nav-horizontal" role="navigation">
+			<h1 class="menu-toggle">Menu</h1>
+			<a class="skip-link screen-reader-text" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#content" sl-processed="1">Skip to content</a>
+
+			<div class="menu"><ul class=" nav-menu"><li><a href="https://timdettmers.wordpress.com/" sl-processed="1">Home</a></li><li class="page_item page-item-1"><a href="https://timdettmers.wordpress.com/about/" sl-processed="1">About</a></li></ul></div>
+		</nav><!-- #site-navigation -->
+	</header><!-- #masthead -->
+
+	<div id="content" class="site-content clearfix">
+			<div class="breadcrumbs">
+			<a class="breadcrumbs-root" href="https://timdettmers.wordpress.com/" sl-processed="1">Home</a><span class="breadcrumbs-current">Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep&nbsp;Learning</span>		</div>
+		<div class="primary content-area">
+		<main id="main" class="site-main" role="main">
+
+					<div class="article-wrapper">
+				
+<article id="post-4" class="post-4 post type-post status-publish format-standard hentry category-uncategorized tag-cuda tag-deep-learning tag-gpu tag-neural-networks">
+	<header class="entry-header">
+					<h1 class="entry-title">Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep&nbsp;Learning</h1>
+		
+		<div class="entry-meta">
+						<span class="posted-on"><a href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning.html" rel="bookmark" sl-processed="1"><time class="entry-date published" datetime="2014-08-14T08:00:43+00:00">August 14, 2014</time><time class="updated" datetime="2015-02-23T21:09:51+00:00">February 23, 2015</time></a></span> <span class="byline"><span class="author vcard"><a class="url fn n" href="https://timdettmers.wordpress.com/author/timdettmers/" sl-processed="1">Tim Dettmers</a></span></span>
+			<span class="entry-categories"><a href="https://timdettmers.wordpress.com/category/uncategorized/" rel="category tag" sl-processed="1">Uncategorized</a></span><span class="entry-tags"><a href="https://timdettmers.wordpress.com/tag/cuda/" rel="tag" sl-processed="1">CUDA</a>, <a href="https://timdettmers.wordpress.com/tag/deep-learning/" rel="tag" sl-processed="1">Deep Learning</a>, <a href="https://timdettmers.wordpress.com/tag/gpu/" rel="tag" sl-processed="1">GPU</a>, <a href="https://timdettmers.wordpress.com/tag/neural-networks/" rel="tag" sl-processed="1">Neural Networks</a></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I have been using GPUs for nearly two years now and for me it is again and again amazing to see how much speedup you get. Compared to CPUs 20x speedups are typical, but on larger problems one can achieve 50x speedups. With GPUs you can try out new ideas, algorithms and experiments much faster than usual and get almost immediate feedback as to what works and what does not. This is a very important aspect when one begins to learn deep learning as this rapid gain in practical experience is key to building the expertise with which you will be able to apply deep learning to new problems. Without this rapid feedback it just takes too much time to learn from one’s mistakes and it can be discouraging and frustrating to go on with deep learning.</p>
+<p>With GPUs I quickly learned how to apply deep learning on a range of Kaggle competitions and I managed to earn second place in the Partly Sunny with a Chance of Hashtags Kaggle competition, where it was the task to predict weather ratings for a given tweet. In the competition I used a rather large two layered deep neural network with rectified linear units and dropout for regularization and this deep net fitted barely into my 6GB GPU memory. More details on my approach can be found <a title="How I did it" href="https://www.kaggle.com/c/crowdflower-weather-twitter/forums/t/6488/congratulations/35640#post35640" target="_blank" sl-processed="1">here</a>.</p>
+<p style="text-align:left;"><strong>Should I get multiple GPUs?</strong></p>
+<p>Excited by what deep learning can do with GPUs I plunged myself into multi-GPU territory by assembling a small GPU cluster with InfiniBand 40Gbit/s interconnect. I was thrilled to see if even better results can be obtained with multiple GPUs.</p>
+<p>I quickly found that it is not only very difficult to parallelize neural networks on multiple GPU efficiently, but also that the speedup was only mediocre for dense neural networks. Small neural networks could be parallelized rather efficiently using data parallelism, but larger neural networks like I used in the Partly Sunny with a Chance of Hashtags Kaggle competition received almost no speedup.</p>
+<figure><a href="https://timdettmers.files.wordpress.com/2014/08/gpu-pic-copy.jpg" sl-processed="1"><img class="alignnone size-full wp-image-10" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/gpu-pic-copy.jpg" alt="GPU pic - Copy" width="700" height="369"></a><br>
+<figcaption>Setup in my main computer: You can see three GXT Titan and an InfiniBand card. Is this a good setup for doing deep learning?</figcaption></figure>
+<p>However, using model parallelism, I was able to train neural networks that were much larger and that had almost 3 billion connections. But to leverage these connections one needs just much larger data sets which are uncommon outside of large companies – I found some for these large models when I trained a language model on the entire Wikipedia corpus, but that’s about it.</p>
+<p>On the other hand, one advantage of multiple GPUs is that you can run multiple algorithms or experiments separately on each GPU. You gain no speedups, but you get more information of your performance by using different algorithms or parameters at once. This is highly useful if your main goal is to gain deep learning experience as quickly as possible and also it is very useful for researchers, who want try multiple version of a new algorithm at the same time.</p>
+<p>If you use deep learning only occasionally, or you use rather small data sets (smaller than say 10-15GB) and foremost dense neural networks, then multiple GPUs are probably not for you. However, when you use convolutional neural networks a lot, then multiple GPUs might still make sense.</p>
+<p>Alex Krizhevsky released his <a title="cuda-convnet2" href="https://code.google.com/p/cuda-convnet2/" target="_blank" sl-processed="1">new updated code</a> which can run convolutional neural networks on up to four GPUs. Convolutional neural networks – unlike dense neural networks – can be run very efficiently on multiple GPUs because their use of weight sharing makes data parallelism very efficient. On top of that, Alex Krizhevsky’s implementation utilizes model parallelism for the densely connected final layers of the network which gives additional gains in speed.</p>
+<p>However, if you want to program similar networks yourself, be aware that to program efficient multiple GPU networks is a difficult undertaking which will consume much more time than programming a simple network on one GPU.</p>
+<p>So overall, one can say that one GPU should be sufficient for almost any task and that additional GPUs convey only benefits under very specific circumstances (many for very, very large data set).</p>
+<p><strong>So what kind of GPU should I get?&nbsp;</strong><strong>NVIDIA or AMD?</strong></p>
+<p>NVIDIA’s standard libraries made it very easy to establish the first deep learning libraries in CUDA, while there were&nbsp;no such powerful standard libraries for AMD’s OpenCL. Right now, there are just no good deep learning libraries for AMD cards – so NVIDIA it is. Even if some OpenCL libraries would be available in the future I would stick with NVIDIA: The thing is that the GPU computing or GPGPU community is very large for CUDA and rather small for OpenCL. Thus in the CUDA community good open source solutions and solid advice for your programming is readily available.</p>
+<p><strong>Required memory size for simple neural networks</strong></p>
+<p>People often ask me if the GPUs with the largest memory are best for them, as this would enable them to run the largest neural networks. I thought like this when I bought my GPU, a GTX Titan with 6GB memory. And I also thought that this was a good choice when my neural network in the Partly Sunny with a Chance of Hashtags Kaggle competition barely fitted in my GPU memory. But later I found out that my neural network implementation was very memory inefficient and much less memory would have been sufficient – so sometimes the underlying code is limiting rather than the GPU. Although standard deep learning libraries are efficient, these libraries are often optimized for speed rather than for memory efficiency.</p>
+<p>There is an easy formula for calculating the memory requirements of a simple neural network. This formula is the memory requirement in GB for standard implementation of a simple neural network, with dropout and momentum/Nesterov/AdaGrad/RMSProp:</p>
+<figure><img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/latex.php" alt="{\mbox{Memory in GB } = 12\times 1024^{-3}\left(\left(\sum\limits_{i=0}^{\mbox{weights}} \mbox{rows}_i\times \mbox{columns}_i \right) + \mbox{batchsize}\sum\limits_{i=0}^{\mbox{layers}} \mbox{units}_i \right)}" title="{\mbox{Memory in GB } = 12\times 1024^{-3}\left(\left(\sum\limits_{i=0}^{\mbox{weights}} \mbox{rows}_i\times \mbox{columns}_i \right) + \mbox{batchsize}\sum\limits_{i=0}^{\mbox{layers}} \mbox{units}_i \right)}" class="latex"><figcaption><em>Memory formula: The units for the first layer is the dimensionality of the input. In words this formula means: Sum up the weight sizes and input sizes each; multiply the input sizes by the batch size; multiply everything by 4 for bytes and by another 3 for the momentum and gradient matrix for the first term, and the dropout and error matrix for the second term; divide to get gigabytes.</em></figcaption></figure>
+<p>For the Kaggle competition I used a 9000x4000x4000x32 network with batchsize 128 which uses up:<br>
+<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/latex(1).php" alt="{12\times 1024^{-3}\ ((9000\times4000 + 4000\times 4000 + 4000 \times 32) + 128(9000+4000+4000+32)) \approx 0.62\mbox{GB}} " title="{12\times 1024^{-3}\ ((9000\times4000 + 4000\times 4000 + 4000 \times 32) + 128(9000+4000+4000+32)) \approx 0.62\mbox{GB}} " class="latex"><br>
+So this fits even into a small GPU with 1.5GBs memory. However, the world looks quite different when you use convolutional neural networks.</p>
+<p><strong>Understanding the memory requirements of convolutional nets</strong></p>
+<p>In the last update I made some corrections for the memory requirement of convolutional neural networks, but the topic was still unclear and lacked definite advice on the situation.</p>
+<p>I sat down and tried to build a similar formula as for simple neural networks, but the many parameters that vary from one net to another, and the implementations that vary from one net to another made such a formula too impractical – it would just contain too many variables and would be too large to give a quick overview of what memory size is needed. Instead I want to give a practical rule of thumb. But first let us dive into the question why convolutional nets require so much memory.</p>
+<p>There are generally two types of convolutional implementations. One uses Fourier transforms the other direct computation on image patches.</p>
+<figure><img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/latex(2).php" alt="{\mbox{featuremap}({\bf x}, {\bf x_0}) = \int\limits_{-\infty}^\infty \mbox{input}({\bf x }- {\bf x_0})\mbox{kernel}({\bf x_0})\, d{\bf x} = \sqrt{2\pi}\times \mbox{input}^\star\times\mbox{kernel}^\star}" title="{\mbox{featuremap}({\bf x}, {\bf x_0}) = \int\limits_{-\infty}^\infty \mbox{input}({\bf x }- {\bf x_0})\mbox{kernel}({\bf x_0})\, d{\bf x} = \sqrt{2\pi}\times \mbox{input}^\star\times\mbox{kernel}^\star}" class="latex"><figcaption><em>Continuous convolution theorem with abuse in notation: The input represents an image or feature map and the subtraction of the argument can be thought of creating image patches with width</em> <img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/latex(3).php" alt="{x_0}" title="{x_0}" class="latex"> <em>with respect to some x, which is then multiplied by the kernel. The integration turns into a multiplication in the Fourier domain; here</em> <img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/latex(4).php" alt="{f^\star(x)}" title="{f^\star(x)}" class="latex"> <em>denotes a Fourier transformed function. For discrete “dimensions”(x) we have a sum instead of an integral – but the idea is the same.</em></figcaption></figure>
+<p>The mathematical operation of convolution can be described by a simple matrix multiplication in the Fourier frequency domain. So one can perform a fast Fourier transform on the inputs and on each kernel and multiply them to obtain feature maps – the outputs of a convolutional layer. During the backward pass we do an inverse fast Fourier transform to receive gradients in the standard domain so that we can update the weights. Ideally, we store all these Fourier transforms in memory to save the time of allocating the memory during each pass. This can amount to a lot of extra memory and this is the chunk of memory that is added for the Fourier method for convolutional nets – holding all this memory is just required to make everything run smoothly.</p>
+<p>The method that operates directly on image patches realigns memory for overlapping patches to allow contiguous memory access. This means that all memory addresses lie next to each other – there is no “skipping” of indices – and this allows much faster memory reads. One can imagine this operation as unrolling a square (cubic) kernel in the convolutional net into a single line, a single vector. Slow memory access is probably the thing that hurts an algorithms performance the most and this prefetching and aligning of memory makes the convolution run much faster. There is much more going on in the CUDA code for this approach of calculating convolutions, but prefetching of inputs or pixels seems to be the main reason of increased memory usage.</p>
+<p>Another memory related issue which is general for any convolutional net implementation is that convolutional nets have small weight matrices due to weight sharing, but much more units then densely connected, simple neural networks. The result is that the second term in the equation for simple neural networks above is much larger for convolutional neural networks, while the first term is smaller. So this gives another intuition where the memory requirements come from.</p>
+<p>I hope this gives an idea about what is going on with memory in convolutional neural nets. Now we have a look at what practical advice might look like.</p>
+<p><strong>Required memory size for convolutional nets</strong></p>
+<p>Now that we understand that implementations and architectures vary wildly for convolutional nets we know that it might be best for look for other ways to gauge memory requirements.<br>
+In general, if you have enough memory, convolutional neural nets can be made nearly arbitrarily large for a given problem (dozen of convolutional layers). However, you will soon run into problems with overfitting, so that larger nets will not be any better than smaller ones. Therefore data set size and the label class size might serve well as a gauge of how big you can make your net and in turn how large your GPU memory needs to be.</p>
+<p>One example is here the Kaggle <a title="National Data Science Bowl competition" href="https://www.kaggle.com/c/datasciencebowl" target="_blank" sl-processed="1">plankton detection competition</a>. At first I thought about entering the competition as I might have a huge advantage through <a title="How To Build and Use a Multi GPU System for Deep Learning" href="https://timdettmers.wordpress.com/2014/09/21/how-to-build-and-use-a-multi-gpu-system-for-deep-learning/" target="_blank" sl-processed="1">my 4 GPU system</a>. I reasoned I might be able to train a very large convolutional net in a very short time – one thing that others cannot do because they lack the hardware. However, due to the small data set (about 50×50 pixels, 2 color channels, 400k training images; about 100 classes) I quickly found that overfitting was an issue even for small nets that neatly fit into one GPU and which are fast to train. So there was hardly a speed advantage of multiple GPUs and not any advantage at all of having a large GPU memory.</p>
+<p>If you look at the image net competition, you have 1000 classes, over a million 250×250 images with three color channels – that’s more than 250GB of data. Here Alex Krizhevsky’s original convolutional net did not fit into a single 3GB memory (but it did not use much more than 3GB). For ImageNet 6GB will usually be very sufficient for a competitive net. You can receive slightly better results <a title="Baidu Deep Image" href="http://arxiv.org/pdf/1501.02876.pdf" target="_blank" sl-processed="1">if you throw dozens of high memory GPUs at the problem</a>, but the improvement is only marginal compared to the resources that you need for that.</p>
+<p>I think it is very likely, that the next breakthrough in deep learning will be done with a single GPU by some researchers that try new recipes, rather than by researchers that use GPU clusters and try variations of the same recipe. So if you are a researcher you should not fear a small memory size – a faster GPU, or multiple smaller GPUs will often give you a better experience than a single large GPU.</p>
+<p>Right now, there are not many relevant data sets that are larger than ImageNet and thus for most people a 6GB GPU memory should be plenty; if you want to invest into a smaller GPU and are unsure if 3GB or 4GB is okay, a good rule might to look at the size of your problems when compared to ImageNet and judge from that.</p>
+<p>Overall, I think memory size is overrated. You can nicely gain some speedups if you have very large memory, but these speedups are rather small. I would say that GPU clusters are nice to have, but that they cause more overhead than the accelerate progress; a single 12GB GPU will last you for 3-6 years; a 6GB GPU is plenty for now; a 4GB GPU is good but might be limiting on some problems; and a 3GB GPU will be fine for most research that looks into new architectures.</p>
+<p><strong>Fastest GPU for a given budget</strong></p>
+<p>Processing performance is most often measured in floating-point operations per second (FLOPS). This measure is often advertised in GPU computing and it is also the measure which determines which supercomputer enters the TOP500 list of the fastest supercomputers. However, this measure is misleading, as it measures processing power on problems that do not occur in practice.<br>
+It turns out that the most important practical measure for GPU performance is bandwidth in GB/s, which measures how much memory can be read and written per second. This is because almost all mathematical operations, such as dot product, sum, addition etcetera, are bandwidth bound, i.e. limited by the GB/s of the card rather than its FLOPS.</p>
+<figure><a href="https://timdettmers.files.wordpress.com/2014/08/memory-bandwidth.png" sl-processed="1"><img class="alignnone wp-image-5" style="margin-bottom:5px;" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/memory-bandwidth.png" alt="memory-bandwidth" width="469" height="407"></a></figure>
+<figure><figcaption>Comparison of bandwidth for CPUs and GPUs over time. Bandwidth is one of<br>
+the main reasons why GPUs are faster for computing than CPUs are.</figcaption></figure>
+<p>To determine the fastest GPU for a given budget one can use <a title="List of NVIDIA GPUs" href="http://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units#GeForce_700_Series" target="_blank" sl-processed="1">this Wikipedia page</a> and look at Bandwidth in GB/s; the listed prices are quite accurate for newer cards (700 and 900 series), but the 500 and series is significantly cheaper than the listed prices – especially if you buy those cards via eBay. Sometimes cryptocurreny mining benchmarks also are a reliable gauge&nbsp;of performance (you could gauge the performance of the GTX980 nicely before there were any deep learning benchmarks). But beware, some cryptocurreny mining benchmarks are compute bound and thus are uninformative for deep learning performance.</p>
+<p>Another important factor to consider however, is that the Maxwell and Fermi architecture (Maxwell 900 series; Fermi 400 and 500 series) are quite a bit faster than the Kepler architecture (600 and 700 series); so that for example the GTX 580 is faster than any GTX 600 series GPU. The new Maxwell GPUs are significantly faster than most Kepler GPUs, and you should prefer Maxwell if you have the money. But please take note that the&nbsp;GTX 970 has a <a title="Memory problems" href="http://hexus.net/tech/news/graphics/79925-nvidia-explains-geforce-gtx-970s-memory-problems/" target="_blank" sl-processed="1">weird architecture which may cripple performance</a> if more than 3.5GB is used – this may be fixed with a driver, but as of now I cannot recommend the GTX 970 which otherwise is very cost efficient. If not a GTX 980,&nbsp;a 3GB GTX 580 from eBay is an excellent choice that will suffice for most application on medium sized data sets (like Kaggle competition data sets). The 700 series is outdated, and only the GTX Titan is interesting as a cost effective 6GB option.</p>
+<p>With all this information in this article you should be able to reason which GPU to choose by balancing the required memory size, bandwidth in GB/s for speed and the price of the GPU, and this reasoning will be solid for many years to come. But right now my recommendation is to get a GTX980 if you have the money, a 3GB GTX 580 from eBay otherwise; and if you need the memory a 6GB GTX Titan from eBay will be good (Titan Black if you have the money).</p>
+<p><strong>TL;DR advice</strong></p>
+<p><strong>Best (affordable) GPU</strong><em>:</em> GTX 980<br>
+<strong>Most cost effective GPUs</strong><em>:</em> GTX 580 3GB and GTX 980<br>
+<strong>I work with data sets &gt; 250GB:</strong> GTX Titan eBay<br>
+<strong>I have no money:</strong>&nbsp;GTX 580 3GB eBay<br>
+<strong>I do Kaggle:</strong> GTX 980 or GTX 580 1.5GB/3GB<br>
+<strong>I am a researcher:</strong> 1-4x GTX 980<br>
+<strong>I am a researcher with data sets &gt; 250GB:</strong> 1-4x GTX Titan<br>
+<strong>I never used deep learning before:</strong>&nbsp;GTX 580&nbsp;3GB<br>
+<strong>I want to build a GPU cluster:</strong> This is really complicated, I will write some advice about this soon, but you can get some ideas <a title="How To Build and Use a Multi GPU System for Deep Learning" href="https://timdettmers.wordpress.com/2014/09/21/how-to-build-and-use-a-multi-gpu-system-for-deep-learning/" sl-processed="1">here</a><br>
+<strong>I started deep learning and I am serious about it:</strong> Start with one GTX 580 3GB and buy more GTX 580s as you feel the need for them; save money for&nbsp;Volta GPUs in 2016 Q2/Q3</p>
+<p>Update 2014-09-28: Added emphasis for memory requirement of CNNs<br>
+Update 2015-02-23: Updated GPU recommendations and memory calculations</p>
+<p>[Image source: <a title="CUDA/C Programming Guide" href="http://docs.nvidia.com/cuda/cuda-c-programming-guide/#axzz3AI18t18Z" sl-processed="1">NVIDIA CUDA/C Programming Guide</a>]</p>
+
+<div class="wpcnt">
+<div class="wpa">
+<a class="wpa-about" href="http://wordpress.com/about-these-ads/" rel="nofollow" sl-processed="1">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Big Brother";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//pixel.wp.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "timdettmers.wordpress.com");
+GA_googleAddAttr("BlogId", "72358744");
+GA_googleAddAttr("PageURL", "https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "cuda");
+GA_googleAddAttr("Tag", "deep-learning");
+GA_googleAddAttr("Tag", "gpu");
+GA_googleAddAttr("Tag", "neural-networks");
+GA_googleAddAttr("theme_bg", "f5f6f7");
+GA_googleAddAttr("theme_border", "a6b7c0");
+GA_googleAddAttr("theme_text", "444444");
+GA_googleAddAttr("theme_link", "1185d7");
+GA_googleAddAttr("theme_url", "1185d7");
+GA_googleAddAdSensePageAttr("google_page_url", "https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+</div>
+
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//pixel.wp.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?share=twitter&nb=1" title="Click to share on Twitter" id="sharing-twitter-4" sl-processed="1"><span>Twitter<span class="share-count">277</span></span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?share=facebook&nb=1" title="Share on Facebook" id="sharing-facebook-4" sl-processed="1"><span>Facebook<span class="share-count">120</span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?share=google-plus-1&nb=1" title="Click to share on Google+" id="sharing-google-4" sl-processed="1"><span>Google</span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-72358744-4-54fe612694302" data-src="//widgets.wp.com/likes/#blog_id=72358744&amp;post_id=4&amp;origin=timdettmers.wordpress.com&amp;obj_id=72358744-4-54fe612694302" data-name="like-post-frame-72358744-4-54fe612694302"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-72358744-4-54fe612694302" height="55px" width="100%" frameborder="0" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(8).html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+			</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+			</div>
+
+				<nav role="navigation" id="nav-below" class="post-navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+
+	
+				<div class="nav-next"><a href="https://timdettmers.wordpress.com/2014/09/21/how-to-build-and-use-a-multi-gpu-system-for-deep-learning/" rel="next" sl-processed="1">How To Build and Use a Multi GPU System for Deep&nbsp;Learning <span class="meta-nav">→</span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+			
+<div id="comments" class="comments-area clearfix">
+
+	
+			<div class="comments-wrapper">
+			<h2 class="comments-title">
+				44 thoughts on “<span>Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep&nbsp;Learning</span>”			</h2>
+
+			
+			<ol class="comment-list">
+						<li id="comment-6" class="pingback even thread-even depth-1 highlander-comment">
+			<article id="div-comment-6" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://jonathanbriggs.net/software-engineering/neural-networks-gpus/" rel="external nofollow" class="url" sl-processed="1">Neural Networks and GPU's • Jonathan Briggs</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-6" sl-processed="1">
+							<time datetime="2014-09-26T23:51:16+00:00">
+								September 26, 2014 at 11:51 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] There are a number of sites with good information on choosing a GPU for machine learning. The first one I came across at FastML called “Running things on a GPU”. Recently I came across another site with good advice also. The page is “Which GPU(s) to Get for Deep Learning”. […]</p>
+<p id="comment-like-6" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=6&_wpnonce=f4e70c154d" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-6" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=6#respond" onclick="return addComment.moveForm( &quot;div-comment-6&quot;, &quot;6&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Neural Networks and GPU&#39;s • Jonathan Briggs" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-7" class="comment odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-7" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/41339b897dc478bb3154cb0b5fb86a8e" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-41339b897dc478bb3154cb0b5fb86a8e-0">						<b class="fn">Trace</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-7" sl-processed="1">
+							<time datetime="2014-09-28T10:53:02+00:00">
+								September 28, 2014 at 10:53 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>How much slower mid-level GPUs are? For example, I have a Mac with GeForce 750M, is it suitable for training DNN models?</p>
+<p id="comment-like-7" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=7&_wpnonce=c7a269ac85" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-7" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=7#respond" onclick="return addComment.moveForm( &quot;div-comment-7&quot;, &quot;7&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Trace" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-8" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-8" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-0">						<b class="fn">timdettmers</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-8" sl-processed="1">
+							<time datetime="2014-09-28T11:33:52+00:00">
+								September 28, 2014 at 11:33 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>There is a GT 750M version with DDR3 memory and GDDR5 memory; the GDDR5 memory will be about thrice as fast as the DDR3 version. With a GDDR5 model you probably will run three to four times slower than typical desktop GPUs but you should see a good speedup of 5-8x over a desktop CPU as well. So a GDDR5 750M will be sufficient for running most deep learning models. If you have the DDR3 version, then it might be too slow for deep learning (smaller models might take a day; larger models a week or so).</p>
+<p id="comment-like-8" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=8&_wpnonce=0834ea3174" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-8" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=8#respond" onclick="return addComment.moveForm( &quot;div-comment-8&quot;, &quot;8&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-9" class="comment odd alt thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-9" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/me-head-cartoon_normal.png" class="avatar avatar-60" height="60" width="60">						<b class="fn"><a href="http://twitter.com/LewisCowles1" rel="external nofollow" class="url" sl-processed="1">Lewis Cowles (@LewisCowles1)</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-9" sl-processed="1">
+							<time datetime="2014-10-05T09:04:40+00:00">
+								October 5, 2014 at 9:04 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>is it any good for processing non-mathematical data or non-floating point via GPU? How about the handling of generating hashes and keypairs?</p>
+<p id="comment-like-9" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=9&_wpnonce=f7739e7bb6" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-9" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=9#respond" onclick="return addComment.moveForm( &quot;div-comment-9&quot;, &quot;9&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Lewis Cowles (@LewisCowles1)" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-10" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-10" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-1">						<b class="fn">timdettmers</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-10" sl-processed="1">
+							<time datetime="2014-10-05T09:56:50+00:00">
+								October 5, 2014 at 9:56 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sometime it is good, but often it isn’t – it depends on the use-case. One applications of GPUs for hash generation is bitcoin mining. However the main measure of success in bitcoin mining (and cryptocurrency mining in general) is to generate as many hashes per watt of energy; GPUs are in the mid-field here, beating CPUs but are beaten by FPGA and other low-energy hardware.<br>
+In the case of keypair generation, e.g. in mapreduce, you often do little computation, but lots of IO operations so that GPUs cannot be utilized efficiently. For many applications GPUs are significantly faster in one case, but not in another similar case, e.g. for some but not all regular expressions, and this is the main problem why GPUs are not used in other cases.</p>
+<p id="comment-like-10" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=10&_wpnonce=3476819cf5" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-10" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=10#respond" onclick="return addComment.moveForm( &quot;div-comment-10&quot;, &quot;10&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-16" class="comment odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-16" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/MKQFGwex_normal.jpeg" class="avatar avatar-60" height="60" width="60">						<b class="fn"><a href="http://twitter.com/JamesDanged" rel="external nofollow" class="url" sl-processed="1">James Dang (@JamesDanged)</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-16" sl-processed="1">
+							<time datetime="2014-10-19T11:23:11+00:00">
+								October 19, 2014 at 11:23 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, nice writeup! Are you using single or double precision floats? You said divide by 4 for the byte size, which sounds like 32 bit floats, but then you point out that the Fermi cards are better than Kepler, which is more true when talking about double precision than single, as the Fermi cards have FP64 at 1/8th of FP32 while Kepler is 1/24th. Trying to decide myself whether to go with the cheaper Geforce cards or to spring for a Titan.</p>
+<p id="comment-like-16" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=16&_wpnonce=e826107a92" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-16" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=16#respond" onclick="return addComment.moveForm( &quot;div-comment-16&quot;, &quot;16&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to James Dang (@JamesDanged)" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-18" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-18" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-2">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-18" sl-processed="1">
+							<time datetime="2014-10-19T11:32:02+00:00">
+								October 19, 2014 at 11:32 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for you comment James. Yes, deep learning is generally done with single precision computation, as the gains in precision do not improve the results greatly.</p>
+<p>It depends what types of neural network you want to train and how large they are. But I think a good decision would be to go for a 3GB GTX580 from ebay, and then upgrade to a GTX 1000 series card next year. The GTX 1000 series cards will probably be quite good for deep learning, so waiting for them might be a wise choice.</p>
+<p id="comment-like-18" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=18&_wpnonce=530bb057ba" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-18" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=18#respond" onclick="return addComment.moveForm( &quot;div-comment-18&quot;, &quot;18&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-22" class="pingback odd alt thread-even depth-1 highlander-comment">
+			<article id="div-comment-22" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://www.seankelleher.org/2014/10/augmented-reality-and-computer-vision/" rel="external nofollow" class="url" sl-processed="1">Augmented reality and computer vision « Sean Kelleher</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-22" sl-processed="1">
+							<time datetime="2014-10-22T06:02:37+00:00">
+								October 22, 2014 at 6:02 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] vision. Reading an endless stack of papers, building sexy black-on-black computers with powerful GPUs, running late-night […]</p>
+<p id="comment-like-22" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=22&_wpnonce=d2f1c49401" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-22" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=22#respond" onclick="return addComment.moveForm( &quot;div-comment-22&quot;, &quot;22&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Augmented reality and computer vision « Sean Kelleher" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-33" class="comment even thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-33" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/58f769c068daef6cb980791f25d7b47b" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-58f769c068daef6cb980791f25d7b47b-0">						<b class="fn"><a href="http://gravatar.com/enedene" rel="external nofollow" class="url" sl-processed="1">enedene</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-33" sl-processed="1">
+							<time datetime="2014-12-28T20:51:35+00:00">
+								December 28, 2014 at 8:51 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you for the great post. Could you say something about having a new card on order CPU?</p>
+<p>For example I have 4 core Intel Q6600 from year 2007 with 8Gb of RAM (without possibility to upgrade). Could this be a bottleneck, if I choose to buy new GPU for CUDA and ML?</p>
+<p>I’m also not sure which one is a better choice GTX 780 2Gb of RAM, vs GTX 970 4Gb of RAM. 780 has more cores, but are a bit slower…</p>
+<p><a href="http://www.game-debate.com/gpu/index.php?gid=2438&gid2=880&compare=geforce-gtx-970-4gb-vs-geforce-gtx-780" rel="nofollow" sl-processed="1">http://www.game-debate.com/gpu/index.php?gid=2438&amp;gid2=880&amp;compare=geforce-gtx-970-4gb-vs-geforce-gtx-780</a></p>
+<p>A nice list of characteristics, still, I’m not sure which would be a better choice. I would use the GPU for all kind of problems, perhaps some with smaller networks, but I wouldn’t be shy of trying something bigger when I feel conferrable enough.</p>
+<p>What would you recommend?</p>
+<p id="comment-like-33" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=33&_wpnonce=d5beb67b81" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-33" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=33#respond" onclick="return addComment.moveForm( &quot;div-comment-33&quot;, &quot;33&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to enedene" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-34" class="comment byuser comment-author-timdettmers bypostauthor odd alt depth-2 parent highlander-comment">
+			<article id="div-comment-34" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-3">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-34" sl-processed="1">
+							<time datetime="2014-12-29T13:33:03+00:00">
+								December 29, 2014 at 1:33 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi enedene, thanks for your question!</p>
+<p>Your CPU should be sufficient and should slow you down only slightly (1-10%). </p>
+<p>My post is now a bit outdated as the new Maxwell GPUs have been released. The Maxwell architecture is much better than the Kepler architecture and so the GTX 970 is faster than the GTX 780 even though it has lower bandwidth. So I would recommend getting a GTX 970 over a GTX 780 (of course, a GTX 980 would be better still, but a GTX 970 will be fine for most things, even for larger nets).</p>
+<p>For low budgets I would still recommend a GTX 580 from eBay.</p>
+<p>I will update my post next week to reflect the new information.</p>
+<p id="comment-like-34" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=34&_wpnonce=0ced5af583" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-34" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=34#respond" onclick="return addComment.moveForm( &quot;div-comment-34&quot;, &quot;34&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-35" class="comment byuser comment-author-enedene even depth-3 highlander-comment">
+			<article id="div-comment-35" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/58f769c068daef6cb980791f25d7b47b" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-58f769c068daef6cb980791f25d7b47b-1">						<b class="fn"><a href="http://gravatar.com/enedene" rel="external nofollow" class="url" sl-processed="1">enedene</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-35" sl-processed="1">
+							<time datetime="2014-12-29T14:52:43+00:00">
+								December 29, 2014 at 2:52 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you for the quick reply. I will most probably get GTX 970. Looking forward to your updated post, and competing against your on Kaggle. <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p id="comment-like-35" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=35&_wpnonce=fef743379c" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-35" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-38" class="comment odd alt thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-38" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/c80f64040060a855e7794c506446f9af" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-c80f64040060a855e7794c506446f9af-0">						<b class="fn">Anatoly</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-38" sl-processed="1">
+							<time datetime="2014-12-30T18:31:11+00:00">
+								December 30, 2014 at 6:31 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim. What open-source package would you recommend if the objective was to classify non-image data? Most packages specifically are designed for classifying images</p>
+<p id="comment-like-38" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=38&_wpnonce=cb11ac8489" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-38" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=38#respond" onclick="return addComment.moveForm( &quot;div-comment-38&quot;, &quot;38&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Anatoly" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-41" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-41" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-4">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-41" sl-processed="1">
+							<time datetime="2015-01-01T19:52:02+00:00">
+								January 1, 2015 at 7:52 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I have only superficial experience with the most libraries, as I usually used my own implementations (which I adjusted from problem to problem). However, from what I know, Torch7 is a really strong for non-image data, but you will need to learn some lua to adjust some things here and there. I think pylearn2 is also a good candidate for non-image data, but if you are not used to theano then you will need some time to learn how to use it in the first place. Libraries like deepnet – which is programmed on top of cudamat – are much easier to use for non-image data, but the available algorithms are partially outdated and some algorithms are not available at all. </p>
+<p>I think you always have to change a few things in order to make it work for new data and so you might also want to check out libraries like caffe and see if you like the API better than other libraries. A neater API might outweigh the costs for needing to change stuff to make it work in the first place. So the best advice might be just to look a documentations and examples, try a few libraries, and then settle for something you like and can work with.</p>
+<p id="comment-like-41" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=41&_wpnonce=6fc4ac1cce" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-41" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=41#respond" onclick="return addComment.moveForm( &quot;div-comment-41&quot;, &quot;41&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-43" class="pingback odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-43" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://blog.kaggle.com/2015/01/02/cifar-10-competition-winners-interviews-with-dr-ben-graham-phil-culliton-zygmunt-zajac/" rel="external nofollow" class="url" sl-processed="1">CIFAR-10 Competition Winners: Interviews with Dr. Ben Graham, Phil Culliton, &amp; Zygmunt Zając | no free hunch</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-43" sl-processed="1">
+							<time datetime="2015-01-02T20:40:06+00:00">
+								January 2, 2015 at 8:40 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] network took about 90 hours to train on an NVIDIA GeForce GTX 780 graphics card. I had already written a convolutional neural network for spatially-sparse inputs […]</p>
+<p id="comment-like-43" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=43&_wpnonce=9da24aebd5" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-43" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=43#respond" onclick="return addComment.moveForm( &quot;div-comment-43&quot;, &quot;43&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to CIFAR-10 Competition Winners: Interviews with Dr. Ben Graham, Phil Culliton, &amp; Zygmunt Zając | no free hunch" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-48" class="comment even thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-48" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/d7072e5aa45bee1944578e24b1a6c717" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-d7072e5aa45bee1944578e24b1a6c717-0">						<b class="fn">Monica</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-48" sl-processed="1">
+							<time datetime="2015-01-16T18:41:37+00:00">
+								January 16, 2015 at 6:41 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim.  Do you have any references that explain why the convolutional kernels need more memory beyond that used by the network parameters.  I am trying to figure out why Alex’s net needs just over 3.5Gb when the parameters alone only take ~0.4 Gb…what’s hogging the rest?!?</p>
+<p id="comment-like-48" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=48&_wpnonce=f8f5f36f55" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-48" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=48#respond" onclick="return addComment.moveForm( &quot;div-comment-48&quot;, &quot;48&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Monica" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-49" class="comment byuser comment-author-timdettmers bypostauthor odd alt depth-2 highlander-comment">
+			<article id="div-comment-49" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-5">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-49" sl-processed="1">
+							<time datetime="2015-01-16T20:30:38+00:00">
+								January 16, 2015 at 8:30 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for your comment Monica. This is indeed something I overlooked, which is actually a quite important issue when selecting a GPU. I hope to address this in an update I aim to write soon.</p>
+<p>To answer your question: The increase memory usage stems from memory that is allocated during the computation of the convolutions to increase computational efficiency: Because image patches overlap one saves a lot of computation when one saves some of the image values to then reused them for an overlapping image patch. Albeit at a cost of device memory, one can achieve tremendous increases in computational efficiency when one does cleverly as Alex does in his CUDA kernels. Other solutions that use fast Fourier transforms (FFTs) are said to be even faster than Alex’s implementation, but these do need even more memory.</p>
+<p>If you are aiming to train large convolutional nets, then a good option might be to get a normal GTX Titan from eBay. If you use convolutional nets heavily, two, or even four GTX 980 (much faster than a Titan) also make sense if you plan to use the convnet2 library which supports dual GPU training. However, be aware that NVIDIA might soon release a Maxwell GTX Titan equivalent which would be much better than the GTX 980 for this application.</p>
+<p id="comment-like-49" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=49&_wpnonce=36d3e297db" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-49" class="comment-like-feedback">Liked by <a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" class="view-likers" data-like-count="1" sl-processed="1">1 person</a></span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=49#respond" onclick="return addComment.moveForm( &quot;div-comment-49&quot;, &quot;49&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-53" class="pingback even thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-53" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://www.person168.com/?p=78777" rel="external nofollow" class="url" sl-processed="1">廖君：机器学习&amp;深度学习资料 | 我爱互联网</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-53" sl-processed="1">
+							<time datetime="2015-01-20T03:50:13+00:00">
+								January 20, 2015 at 3:50 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] 《怎么选择深度学习的 GPUs》 […]</p>
+<p id="comment-like-53" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=53&_wpnonce=1f80895de0" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-53" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=53#respond" onclick="return addComment.moveForm( &quot;div-comment-53&quot;, &quot;53&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to 廖君：机器学习&amp;深度学习资料 | 我爱互联网" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-54" class="comment odd alt thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-54" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/09bfa8af5e04080c7b01f71a48b36329" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-09bfa8af5e04080c7b01f71a48b36329-0">						<b class="fn">Mike</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-54" sl-processed="1">
+							<time datetime="2015-01-20T05:06:41+00:00">
+								January 20, 2015 at 5:06 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim.  Thanks for this very informative post.</p>
+<p>Do you know how much of a boost Maxwell gives?  I’m trying to decide between a GTX 850M with 4GB DDR3 and a Quadro K1100M with 2GB GDDR5.  I understand that the K1100M is roughly equivalent to the 750M.  Which gives the bigger boost: going from Kepler to Maxwell or from Geforce to Quadro (including from DDR3 to GDDR5)?</p>
+<p>Thanks so much!</p>
+<p id="comment-like-54" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=54&_wpnonce=2384606934" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-54" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=54#respond" onclick="return addComment.moveForm( &quot;div-comment-54&quot;, &quot;54&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Mike" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-56" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 parent highlander-comment">
+			<article id="div-comment-56" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-6">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-56" sl-processed="1">
+							<time datetime="2015-01-20T07:26:00+00:00">
+								January 20, 2015 at 7:26 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Going from DDR3 to GDDR5 is a larger boost than going from Kepler to Maxwell. However, the Quadro K1100M has only a slightly faster bandwidth than the GTX 850M which will probably cancel out the benefits, so that both cards will perform at about the same level. If you want to use convolutional neural networks the 4GB memory on the GTX 850M might make the differnce; otherwise I would go with the cheaper option.</p>
+<p id="comment-like-56" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=56&_wpnonce=4b9bc2aef1" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-56" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=56#respond" onclick="return addComment.moveForm( &quot;div-comment-56&quot;, &quot;56&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-59" class="comment odd alt depth-3 highlander-comment">
+			<article id="div-comment-59" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/09bfa8af5e04080c7b01f71a48b36329" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-09bfa8af5e04080c7b01f71a48b36329-1">						<b class="fn">Mike</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-59" sl-processed="1">
+							<time datetime="2015-01-20T17:14:42+00:00">
+								January 20, 2015 at 5:14 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks!</p>
+<p id="comment-like-59" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=59&_wpnonce=d810386ccf" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-59" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-67" class="pingback even thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-67" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://www.doclens.com/186525/cifar-10-competition-winners-interviews-with-dr-ben-graham-phil-culliton-zygmunt-zajac/" rel="external nofollow" class="url" sl-processed="1">CIFAR-10 Competition Winners: Interviews with Dr. Ben Graham, Phil Culliton, &amp; Zygmunt Zając | Doclens</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-67" sl-processed="1">
+							<time datetime="2015-01-29T11:15:15+00:00">
+								January 29, 2015 at 11:15 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] network took about 90 hours to train on an NVIDIA GeForce GTX 780 graphics card. I had already written a convolutional neural network for spatially-sparse inputs […]</p>
+<p id="comment-like-67" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=67&_wpnonce=73808e3d8d" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-67" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=67#respond" onclick="return addComment.moveForm( &quot;div-comment-67&quot;, &quot;67&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to CIFAR-10 Competition Winners: Interviews with Dr. Ben Graham, Phil Culliton, &amp; Zygmunt Zając | Doclens" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-75" class="comment odd alt thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-75" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/5caf03779bef48f9b0a6fbf88e87a6d9" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-5caf03779bef48f9b0a6fbf88e87a6d9-0">						<b class="fn">ragv</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-75" sl-processed="1">
+							<time datetime="2015-02-04T14:00:43+00:00">
+								February 4, 2015 at 2:00 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, I am planning to replicate ImageNet object identification problem using CNNs as published in recent paper by G. Hinton et al…  ( just as an exercise to learn about deep learning and CNNs ).</p>
+<p>1. What GPU would you recommend considering I am student. I heard the original paper used 2 GTX 580 and yet took a week to train the 7 layer deep network? Is this true? Could the same be done using a single GTX 580 or GTX 970? How much time will it take to train the same on a GTX 970 or a single GTX 580 ? ( A week of time is okay for me )</p>
+<p>2. What kind of modifications in the original implementation could I do ( like 5 or 6 hidden layers instead of 7, or lesser number of objects to detect etc. ), to make this little project of mine easier to implement on a lower budget while at the same time helping me learn about the deep nets and CNNs ?</p>
+<p>3. What kind of libraries would you recommend for the same? Torch7 or pylearn2 / theano ( I am fairly proficient in python but not so much in lua ).</p>
+<p>4. Is there a small scale implementation of this anywhere in github etc?</p>
+<p>Also thanks a lot for the wonderful post. <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p id="comment-like-75" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=75&_wpnonce=f7e560d4a0" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-75" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=75#respond" onclick="return addComment.moveForm( &quot;div-comment-75&quot;, &quot;75&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to ragv" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-76" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 parent highlander-comment">
+			<article id="div-comment-76" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-7">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-76" sl-processed="1">
+							<time datetime="2015-02-04T15:37:52+00:00">
+								February 4, 2015 at 3:37 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>1. All GPUs with 4 GB should be able to run the network; you can run a bit smaller networks on one GTX 580; these networks will always take more than 5 days, even on the fastest GPUs<br>
+2. Read about convolutional neural networks, then you will understand what the layers do and how you can use them. This is a good, thorough tutorial: <a href="http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/" rel="nofollow" sl-processed="1">http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/</a><br>
+3. I would try pylearn2, convnet2, and caffe and pick which suits you best<br>
+4. The implementations are generally general implementations, i.e. you run small and large networks with the same code, it is only a difference in a parameters to a function; if you mean by “small”, a less complex API I heard good things about the Lasagne library</p>
+<p id="comment-like-76" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=76&_wpnonce=664205ebfe" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-76" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=76#respond" onclick="return addComment.moveForm( &quot;div-comment-76&quot;, &quot;76&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-78" class="comment odd alt depth-3 parent highlander-comment">
+			<article id="div-comment-78" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/d647b4eda4195ed7dcbc2b081d6a73e7" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-d647b4eda4195ed7dcbc2b081d6a73e7-0">						<b class="fn">Jack</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-78" sl-processed="1">
+							<time datetime="2015-02-04T18:36:27+00:00">
+								February 4, 2015 at 6:36 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim, super interesting article. What case did you use for the build that had the GPUs vertical?</p>
+<p id="comment-like-78" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=78&_wpnonce=1693549ae5" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-78" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-80" class="comment byuser comment-author-timdettmers bypostauthor even depth-3 parent highlander-comment">
+			<article id="div-comment-80" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-8">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-80" sl-processed="1">
+							<time datetime="2015-02-04T18:44:46+00:00">
+								February 4, 2015 at 6:44 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It looks like it is vertical, but it is not. I took that picture while my computer was laying on the ground. However, I use the Cooler Master HAF X for both of my computer. I bought this tower because it has a dedicated large fan for the GPU slot – in retrospect I am unsure if the fan is helping that much. There is another tower I saw that actually has vertical slots, but again I am unsure if that helps so much. I would probably opt for liquid cooling for my next system. It is more difficult to maintain, but has much better performance. With liquid cooling almost any case would go that fits the mainboard and GPUs.</p>
+<p id="comment-like-80" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=80&_wpnonce=476663e597" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-80" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-81" class="comment odd alt depth-3 highlander-comment">
+			<article id="div-comment-81" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/d647b4eda4195ed7dcbc2b081d6a73e7" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-d647b4eda4195ed7dcbc2b081d6a73e7-1">						<b class="fn">Jack</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-81" sl-processed="1">
+							<time datetime="2015-02-04T19:33:05+00:00">
+								February 4, 2015 at 7:33 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It looks like there is a bracket supporting the end of the cards, did that come with the case or did you put them in to support the cards?</p>
+<p id="comment-like-81" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=81&_wpnonce=f60731d0f0" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-81" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-88" class="comment even thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-88" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/b240aaab5e1897421d7a1933d0c510f4" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-b240aaab5e1897421d7a1933d0c510f4-0">						<b class="fn"><a href="http://www.gwern.net/" rel="external nofollow" class="url" sl-processed="1">gwern</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-88" sl-processed="1">
+							<time datetime="2015-02-23T20:08:16+00:00">
+								February 23, 2015 at 8:08 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>(Duplicate paragraph: “I quickly found”.)</p>
+<p id="comment-like-88" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=88&_wpnonce=3633b630c6" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-88" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=88#respond" onclick="return addComment.moveForm( &quot;div-comment-88&quot;, &quot;88&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to gwern" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-89" class="comment byuser comment-author-timdettmers bypostauthor odd alt depth-2 highlander-comment">
+			<article id="div-comment-89" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-9">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-89" sl-processed="1">
+							<time datetime="2015-02-23T20:37:41+00:00">
+								February 23, 2015 at 8:37 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks, fixed.</p>
+<p id="comment-like-89" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=89&_wpnonce=ffb41d7971" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-89" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=89#respond" onclick="return addComment.moveForm( &quot;div-comment-89&quot;, &quot;89&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-91" class="pingback even thread-even depth-1 highlander-comment">
+			<article id="div-comment-91" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://radar.oreilly.com/2015/02/four-short-links-24-february-2015.html" rel="external nofollow" class="url" sl-processed="1">Four short links: 24 February 2015 - O'Reilly Radar</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-91" sl-processed="1">
+							<time datetime="2015-02-24T11:05:23+00:00">
+								February 24, 2015 at 11:05 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] Which GPU for Deep Learning? — lots of numbers. Overall, I think memory size is overrated. You can nicely gain some speedups if you have very large memory, but these speedups are rather small. I would say that GPU clusters are nice to have, but that they cause more overhead than the accelerate progress; a single 12GB GPU will last you for 3-6 years; a 6GB GPU is plenty for now; a 4GB GPU is good but might be limiting on some problems; and a 3GB GPU will be fine for most research that looks into new architectures. […]</p>
+<p id="comment-like-91" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=91&_wpnonce=a65c5251be" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-91" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=91#respond" onclick="return addComment.moveForm( &quot;div-comment-91&quot;, &quot;91&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Four short links: 24 February 2015 - O&#39;Reilly Radar" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-95" class="comment byuser comment-author-endex odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-95" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/36dfe7e8f8cd570f92870f2f16ca0fae" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-36dfe7e8f8cd570f92870f2f16ca0fae-0">						<b class="fn"><a href="http://endex.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">vikasing</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-95" sl-processed="1">
+							<time datetime="2015-02-25T10:16:23+00:00">
+								February 25, 2015 at 10:16 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great article! </p>
+<p>You did not talk about the number of cores present in a graphics card (CUDA cores in case of nVidia). My perception was that a card with more cores will always be better because more number of cores will lead to a better parallelism, hence the training might be faster, given that the memory is enough. Plz correct me if my understanding is wrong.</p>
+<p>Which card would you suggest for RNNs and a data size of 15-20 Gb (wikipedia/freebase size)? A 960 would be good enough? Or should I go with a 970 one? 580 is not available in my country.</p>
+<p id="comment-like-95" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=95&_wpnonce=bbeeaf702c" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-95" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=95#respond" onclick="return addComment.moveForm( &quot;div-comment-95&quot;, &quot;95&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to vikasing" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-96" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 parent highlander-comment">
+			<article id="div-comment-96" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-10">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-96" sl-processed="1">
+							<time datetime="2015-02-25T11:50:04+00:00">
+								February 25, 2015 at 11:50 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for your comment. CUDA cores relate more closely to FLOPS and not to bandwidth, but it is the bandwidth that you want for deep learning. So cuda cores are a bad proxy for performance in deep learning. What you really want is a high memory bus width (e.g. 384 bits) and high memory clock (e.g. 7000MHz) – anything other than that hardly matters for deep learning. </p>
+<p>Mat Kelcey did some tests with theano for the GTX 970 and it seems that the GPU has no memory problems for compute – so the GTX 970 might be a good choice then.</p>
+<p id="comment-like-96" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=96&_wpnonce=0e5568a571" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-96" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=96#respond" onclick="return addComment.moveForm( &quot;div-comment-96&quot;, &quot;96&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-97" class="comment byuser comment-author-endex odd alt depth-3 highlander-comment">
+			<article id="div-comment-97" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/36dfe7e8f8cd570f92870f2f16ca0fae" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-36dfe7e8f8cd570f92870f2f16ca0fae-1">						<b class="fn"><a href="http://endex.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">vikasing</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-97" sl-processed="1">
+							<time datetime="2015-02-25T12:35:44+00:00">
+								February 25, 2015 at 12:35 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks a lot <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p id="comment-like-97" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=97&_wpnonce=43f31d718b" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-97" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-98" class="comment even thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-98" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/295155fa3a7eb671525cbb4ed6bab8a9" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-295155fa3a7eb671525cbb4ed6bab8a9-0">						<b class="fn">yakup</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-98" sl-processed="1">
+							<time datetime="2015-02-27T09:51:12+00:00">
+								February 27, 2015 at 9:51 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim,</p>
+<p>Thanks for your excellent blog posts. I am a statistician and I want to go into deep learning area. I have a budget of 1500-2000 $. Can you recommend me a good desktop system for deep learning purposes? From your blog post I know that I will get a gtx 980 but, what about cpu, ram, motherboard requirement?</p>
+<p>Thanks</p>
+<p id="comment-like-98" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=98&_wpnonce=81f215b495" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-98" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=98#respond" onclick="return addComment.moveForm( &quot;div-comment-98&quot;, &quot;98&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to yakup" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-99" class="comment byuser comment-author-timdettmers bypostauthor odd alt depth-2 parent highlander-comment">
+			<article id="div-comment-99" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-11">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-99" sl-processed="1">
+							<time datetime="2015-02-27T10:49:39+00:00">
+								February 27, 2015 at 10:49 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Yakup,<br>
+I wanted to write a blog post with detailed advice about this topic sometimes in the next two weeks and if you can wait for that you might get some insights what hardware is right for you. But I also want to give you some general, less specific advice.</p>
+<p>If you might be getting more GPUs in the future, it is better that you will buy a motherboard with PCIe 3.0 and 7 PCIx16 slots (one GPU takes typically two slots). If you will use only 1-2 GPUs, then almost any motherboard with do (PCIe 2.0 would be also be okay). Plan to get a power supply unit (PSU) which has enough Watts to power all GPUs you will get in the future (e.g. if you will get a maximum of 4, then buy a +1400 Watts PSU). The CPU does not need to be fast or have many cores. Twice as many threads as you have GPUs is almost always sufficient (for Intel CPUs we mostly have: 1 core = 2 threads); any CPU with more than 3GHz is okay; less than 3GHz might give you a tiny penalty in speed of about 1-3%. Fast memory caches are often more important for CPUs, but in the big picture they also contribute little in overall performance; a typical CPU with slow memory will decrease the overall performance by a few percent.</p>
+<p>One can work around a small RAM by loading data sequentially from your hard drive into your RAM, but it is often more convenient to have a larger RAM; two times the RAM your GPU has gives you more freedom and flexibility (i.e. 8GB RAM for a GTX 980). A SSD will it make more comfortable to work, but similarly to the CPU offers little performance gains (0-2%; depends on the software implementation); a SSD is nice if you need to preprocess large amounts of data and save them into smaller batches, e.g. preprocessing 200GB of data and save them into batches of 2GB is a situation in which SSDs can save a lot of time. If you decide to get a SSD, a good rule might be to buy a SSD that is twice as large as your largest data set. If you get a SSD, you should also get a large hard drive where you can move old data sets to.</p>
+<p>So the bottom line is, a $1000 system should perform at least at 95% of a $2000 system; but a $2000 system offers more convenience and might save some time for preprocessing.</p>
+<p id="comment-like-99" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=99&_wpnonce=b6e8673aea" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-99" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=99#respond" onclick="return addComment.moveForm( &quot;div-comment-99&quot;, &quot;99&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-100" class="comment even depth-3 parent highlander-comment">
+			<article id="div-comment-100" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/1bb9cdea58d72f2521a8c1fe8edc6017" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-1bb9cdea58d72f2521a8c1fe8edc6017-0">						<b class="fn">Dewan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-100" sl-processed="1">
+							<time datetime="2015-02-27T15:52:37+00:00">
+								February 27, 2015 at 3:52 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim,</p>
+<p>Nice and very informative post. I have a question regarding processor. Would you suggest to build a computer with AMD processor (for example, AMD FX-8350 4.0GHz 8-Core Processor) over INTEL based processor for deep learning? I also do not know, AMD processor has PCI 3.0 support. Could you please give your thought on this?</p>
+<p>And thanks a lot for the wonderful post.</p>
+<p id="comment-like-100" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=100&_wpnonce=f25987197c" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-100" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-101" class="comment byuser comment-author-timdettmers bypostauthor odd alt depth-3 highlander-comment">
+			<article id="div-comment-101" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-12">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-101" sl-processed="1">
+							<time datetime="2015-02-27T16:26:39+00:00">
+								February 27, 2015 at 4:26 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for your comment, Dewan. An AMD CPU is just as good as a Intel CPU; in fact I might favor AMD over Intel CPUs because Intel CPU pack just too much unnecessary punch – one simply does not need so much processing power as all the computation is done by the GPU. The CPU is only used to transfer data to the GPU and to start kernels (which is little more than a function call). Transferring data means that the CPU should have a high memory clock and a memory controller with many channels. This is often not advertised on CPUs as it not so relevant for ordinary computation, but you want to choose the CPU with the larger memory bandwidth (memory clock times memory controller channels). The clock on the processor itself is less relevant here. </p>
+<p>A 4GHz 8 core AMD CPU might be a bit overkill. You could definitely settle for less without any degradation in performance. But what you say about PCIe 3.0 support is important (some new Haswell CPUs do not support 40 lanes, but only 32; I think most AMD CPUs support all 40 lanes). As I wrote above I will write a more detailed analysis in a week or two.</p>
+<p id="comment-like-101" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=101&_wpnonce=063dc4ad2c" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-101" class="comment-like-feedback">Liked by <a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" class="view-likers" data-like-count="1" sl-processed="1">1 person</a></span></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-102" class="comment even thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-102" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/295155fa3a7eb671525cbb4ed6bab8a9" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-295155fa3a7eb671525cbb4ed6bab8a9-1">						<b class="fn">yakup</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-102" sl-processed="1">
+							<time datetime="2015-02-28T09:50:13+00:00">
+								February 28, 2015 at 9:50 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Tim,</p>
+<p>Thanks for the excellent detailed post. I look forward to reading your other posts. Keep going <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span></p>
+<p id="comment-like-102" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=102&_wpnonce=fc868966a1" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-102" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=102#respond" onclick="return addComment.moveForm( &quot;div-comment-102&quot;, &quot;102&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to yakup" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-103" class="comment byuser comment-author-elanmart odd alt thread-even depth-1 parent highlander-comment">
+			<article id="div-comment-103" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/172149cd692720ff9721d3fe0ecc382b" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-172149cd692720ff9721d3fe0ecc382b-0">						<b class="fn">elanmart</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-103" sl-processed="1">
+							<time datetime="2015-02-28T14:05:00+00:00">
+								February 28, 2015 at 2:05 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey! Thanks for the great post! </p>
+<p>I have one question, however: </p>
+<p>I’m in the “started DL, serious about it” group and have a decent PC already, although without NVIDIA GPU. I’m also a 1st yr student, so GTX 980 is out of question <span class="wp-smiley wp-emoji wp-emoji-wink" title=";)">;)</span> The question is: what do You think about Amazon EC2? I could easily buy a GTX580, but I’m not sure if it’s the best way to spend my money. And when I think about more expensive cards (like 980 or the ones to be released in 2016) it seems like running a spot instance for 10 cents per hour is a much better choice. </p>
+<p>What could be the main drawbacks of doing DL on EC2 instead of my own hardware?</p>
+<p id="comment-like-103" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=103&_wpnonce=bd7505660a" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-103" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=103#respond" onclick="return addComment.moveForm( &quot;div-comment-103&quot;, &quot;103&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to elanmart" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-104" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-104" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-13">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">timdettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-104" sl-processed="1">
+							<time datetime="2015-03-01T08:58:04+00:00">
+								March 1, 2015 at 8:58 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I think a Amazon web services (AWS) EC2 instance might be a great choice for you. AWS is great if you want to use a single or multiple separate GPUs (one GPU for one deep net). However, you cannot use them for multi-GPU computation (multiple GPUs for one deep net) as the virtualization cripples the PCIe bandwidth; there are rather complicated hacks that improve the bandwidth, but it is still bad. Everything beyond two GPUs will not work on AWS because their interconnect is way to slow for that.</p>
+<p id="comment-like-104" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=104&_wpnonce=707163b467" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-104" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=104#respond" onclick="return addComment.moveForm( &quot;div-comment-104&quot;, &quot;104&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to timdettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-106" class="comment byuser comment-author-fayzur20 odd alt thread-odd thread-alt depth-1 highlander-comment">
+			<article id="div-comment-106" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/1bb9cdea58d72f2521a8c1fe8edc6017" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-1bb9cdea58d72f2521a8c1fe8edc6017-1">						<b class="fn">fayzur20</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-106" sl-processed="1">
+							<time datetime="2015-03-02T11:17:15+00:00">
+								March 2, 2015 at 11:17 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the explanation. Looking forward to read the other post.</p>
+<p id="comment-like-106" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=106&_wpnonce=8cee7b5ad5" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-106" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=106#respond" onclick="return addComment.moveForm( &quot;div-comment-106&quot;, &quot;106&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to fayzur20" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-108" class="pingback even thread-even depth-1 highlander-comment">
+			<article id="div-comment-108" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="http://www.kareertracker.com/a/b/weekly-top-big-data-articles/" rel="external nofollow" class="url" sl-processed="1">KareerTracker » Weekly Top Big Data Articles</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-108" sl-processed="1">
+							<time datetime="2015-03-03T09:32:38+00:00">
+								March 3, 2015 at 9:32 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep Learning, read here […]</p>
+<p id="comment-like-108" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=108&_wpnonce=b5c772d30c" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-108" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=108#respond" onclick="return addComment.moveForm( &quot;div-comment-108&quot;, &quot;108&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to KareerTracker » Weekly Top Big Data Articles" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-113" class="comment odd alt thread-odd thread-alt depth-1 parent highlander-comment">
+			<article id="div-comment-113" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/3db91ddae463eb283d731afa5c03d888" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-3db91ddae463eb283d731afa5c03d888-0">						<b class="fn">Soumyajit Ganguly</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-113" sl-processed="1">
+							<time datetime="2015-03-07T10:37:34+00:00">
+								March 7, 2015 at 10:37 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tim,<br>
+     I am a bit confused between buying your recommended GTX 580 and a new GTX 750 (maxwell). The models which I am getting in ebay are around 120 USD but they are 1.5GB models. One big problem with the 580 would be, buying a new PSU (500watt). As you stated the maxwell architecture is the best, then would the GTX 750 (512 CUDA cores, 1GB DDR5) be a good choice? It will be about 95 USD and I can also do without an expensive PSU.<br>
+     My research area is mainly in text mining and nlp, not much of images. Other than this I would do Kaggle competetions.</p>
+<p id="comment-like-113" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=113&_wpnonce=ef48276845" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-113" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=113#respond" onclick="return addComment.moveForm( &quot;div-comment-113&quot;, &quot;113&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Soumyajit Ganguly" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+<ul class="children">
+		<li id="comment-114" class="comment byuser comment-author-timdettmers bypostauthor even depth-2 highlander-comment">
+			<article id="div-comment-114" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/a2403083d31517f7ad848c67a51cf2d2" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60" id="grav-a2403083d31517f7ad848c67a51cf2d2-14">						<b class="fn"><a href="https://timdettmers.wordpress.com/" rel="external nofollow" class="url" sl-processed="1">Tim Dettmers</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-114" sl-processed="1">
+							<time datetime="2015-03-08T10:42:36+00:00">
+								March 8, 2015 at 10:42 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>A GTX 750 will be a bit slower than a GTX 580 which should be fine and more cost effective in your case. However, maybe you want to opt for the 2 GB version; with 1 GB it will be difficult to run convolutional nets; 2 GB will also be limiting of course, but you could use it on most Kaggle competitions I think.</p>
+<p id="comment-like-114" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=114&_wpnonce=45ff18dc13" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-114" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=114#respond" onclick="return addComment.moveForm( &quot;div-comment-114&quot;, &quot;114&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to Tim Dettmers" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-118" class="pingback odd alt thread-even depth-1 highlander-comment">
+			<article id="div-comment-118" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+												<b class="fn"><a href="https://timdettmers.wordpress.com/2015/03/09/deep-learning-hardware-guide/" rel="external nofollow" class="url" sl-processed="1">A Full Hardware Guide to Deep Learning | Deep Learning</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/comment-page-1/#comment-118" sl-processed="1">
+							<time datetime="2015-03-09T15:16:55+00:00">
+								March 9, 2015 at 3:16 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>[…] talked at length about GPU choice in my previous blog post, and the choice of your GPU is probably the most critical choice for your deep learning system. […]</p>
+<p id="comment-like-118" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?like_comment=118&_wpnonce=7c5960a42f" class="comment-like-link needs-login" rel="nofollow" data-blog="72358744" sl-processed="1"><span>Like</span></a><span id="comment-like-count-118" class="comment-like-feedback">Like</span></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a class="comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/?replytocom=118#respond" onclick="return addComment.moveForm( &quot;div-comment-118&quot;, &quot;118&quot;, &quot;respond&quot;, &quot;4&quot; )" aria-label="Reply to A Full Hardware Guide to Deep Learning | Deep Learning" sl-processed="1">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+			</ol><!-- .comment-list -->
+
+					</div><!-- .comments-wrapper -->
+
+	
+	
+									<div id="respond" class="comment-respond js">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#respond" style="display:none;" sl-processed="1">Cancel reply</a></small></h3>
+									<form action="https://timdettmers.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="fb86f4f036"><input type="hidden" name="_wp_http_referer" value="/2014/08/14/which-gpu-for-deep-learning/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; word-wrap: break-word; overflow: hidden; -webkit-transition: none; transition: none; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: normal; width: 678px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="Enter your comment here..." placeholder="Enter your comment here..." style="height: 125px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#comment-form-guest" id="postas-guest" title="Guest" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook" sl-processed="1">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource.html" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank" sl-processed="1">				<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value=""></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/wplogo.png" alt="WordPress.com Logo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your <span class="skimlinks-unlinked">WordPress.com</span> account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/ad516503a11cd5ca435acc9bb6523536" alt="Google+ photo" width="25" class="no-grav">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );" sl-processed="1">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/#" onclick="javascript:HighlanderComments.switchAccount();return false;" sl-processed="1">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();" sl-processed="1">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+												<p class="form-submit" style="display: none;">
+							<input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment">
+							<input type="hidden" name="comment_post_ID" value="4" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+						</p>
+						<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="ff79993063"></p>
+<input type="hidden" name="genseq" value="1425957158">
+<p style="display: none;"></p>					<input type="hidden" id="ak_js" name="ak_js" value="1425957155464"></form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+					<div class="secondary widget-area" role="complementary">
+					<aside id="recent-posts-5" class="widget widget_recent_entries">		<h1 class="widget-title">Latest posts</h1>		<ul>
+					<li>
+				<a href="https://timdettmers.wordpress.com/2015/03/09/deep-learning-hardware-guide/" sl-processed="1">A Full Hardware Guide to Deep&nbsp;Learning</a>
+							<span class="post-date">March 9, 2015</span>
+						</li>
+					<li>
+				<a href="https://timdettmers.wordpress.com/2014/11/09/model-parallelism-deep-learning/" sl-processed="1">How to Parallelize Deep Learning on GPUs Part 2/2: Model&nbsp;Parallelism</a>
+							<span class="post-date">November 9, 2014</span>
+						</li>
+					<li>
+				<a href="https://timdettmers.wordpress.com/2014/10/09/deep-learning-data-parallelism/" sl-processed="1">How to Parallelize Deep Learning on GPUs Part 1/2: Data&nbsp;Parallelism</a>
+							<span class="post-date">October 9, 2014</span>
+						</li>
+					<li>
+				<a href="https://timdettmers.wordpress.com/2014/09/21/how-to-build-and-use-a-multi-gpu-system-for-deep-learning/" sl-processed="1">How To Build and Use a Multi GPU System for Deep&nbsp;Learning</a>
+							<span class="post-date">September 21, 2014</span>
+						</li>
+					<li>
+				<a href="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning.html" sl-processed="1">Which GPU(s) to Get for Deep Learning: My Experience and Advice for Using GPUs in Deep&nbsp;Learning</a>
+							<span class="post-date">August 14, 2014</span>
+						</li>
+				</ul>
+		</aside>		</div><!-- #secondary -->
+	
+	</div><!-- #content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-footer-wrapper">
+			<div class="site-info">
+								<a href="https://wordpress.com/?ref=footer_website" sl-processed="1">Create a free website or blog at WordPress.com</a>.
+				<span class="sep"> | </span>
+				<a href="https://wordpress.com/themes/big-brother/" title="Learn more about this theme" sl-processed="1">The Big Brother Theme</a>.			</div><!-- .site-info -->
+					</div><!-- .site-footer-wrapper -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-41339b897dc478bb3154cb0b5fb86a8e">
+	</div>
+	<div class="grofile-hash-map-a2403083d31517f7ad848c67a51cf2d2">
+	</div>
+	<div class="grofile-hash-map-f669f6dcf4a0f51c34ad8ba7b0aabf6a">
+	</div>
+	<div class="grofile-hash-map-bb12bf72c6feeaefc3bf2b3feb7e78e4">
+	</div>
+	<div class="grofile-hash-map-58f769c068daef6cb980791f25d7b47b">
+	</div>
+	<div class="grofile-hash-map-58f769c068daef6cb980791f25d7b47b">
+	</div>
+	<div class="grofile-hash-map-c80f64040060a855e7794c506446f9af">
+	</div>
+	<div class="grofile-hash-map-d7072e5aa45bee1944578e24b1a6c717">
+	</div>
+	<div class="grofile-hash-map-09bfa8af5e04080c7b01f71a48b36329">
+	</div>
+	<div class="grofile-hash-map-5caf03779bef48f9b0a6fbf88e87a6d9">
+	</div>
+	<div class="grofile-hash-map-d647b4eda4195ed7dcbc2b081d6a73e7">
+	</div>
+	<div class="grofile-hash-map-b240aaab5e1897421d7a1933d0c510f4">
+	</div>
+	<div class="grofile-hash-map-36dfe7e8f8cd570f92870f2f16ca0fae">
+	</div>
+	<div class="grofile-hash-map-295155fa3a7eb671525cbb4ed6bab8a9">
+	</div>
+	<div class="grofile-hash-map-1bb9cdea58d72f2521a8c1fe8edc6017">
+	</div>
+	<div class="grofile-hash-map-172149cd692720ff9721d3fe0ecc382b">
+	</div>
+	<div class="grofile-hash-map-1bb9cdea58d72f2521a8c1fe8edc6017">
+	</div>
+	<div class="grofile-hash-map-3db91ddae463eb283d731afa5c03d888">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/timdettmers.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/timdettmers.wordpress.com\/wp-login.php?action=logout&_wpnonce=40abb132c9","homeURL":"https:\/\/timdettmers.wordpress.com\/","postID":"4","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(4)"></script>
+
+	<div id="bit" class="loggedout-follow-normal" style="bottom: -272px;">
+		<a class="bsub" href="javascript:void(0)" sl-processed="1"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Deep Learning”</label></h3>
+
+			<form action="https://subscribe.wordpress.com/" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input type="email" name="email" value="Enter your email address" onfocus="this.value=(this.value==&quot;Enter your email address&quot;) ? &quot;&quot; : this.value;" onblur="this.value=(this.value==&quot;&quot;) ? &quot;Enter your email address&quot; : this.value;" id="loggedout-follow-field"></p>
+
+			<input type="hidden" name="action" value="subscribe">
+			<input type="hidden" name="blog_id" value="72358744">
+			<input type="hidden" name="source" value="https://timdettmers.wordpress.com/2014/08/14/which-gpu-for-deep-learning/">
+			<input type="hidden" name="sub-type" value="loggedout-follow">
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="9b47b47737"><input type="hidden" name="_wp_http_referer" value="/2014/08/14/which-gpu-for-deep-learning/">
+			<p id="bsub-subscribe-button"><input type="submit" value="Sign me up"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof" sl-processed="1">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"https:\/\/timdettmers.wordpress.com\/2014\/08\/14\/which-gpu-for-deep-learning\/":4}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var comment_like_text = {"loading":"Loading..."};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/saved_resource(5)"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "timdettmers.wordpress.com";
+	</script>
+	<script type="text/javascript" src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/725X1342.skimlinks.js"></script><script src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/w.js" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'72358744','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'72358744','v':'wpcom','tz':'0','user_id':'0','post':'4','subd':'timdettmers'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VT3hvS29QYSU4UWNHUVRKZSw/JUZqXzRpNVlbb05VRmJKWklOMmlhbj18RXNTVW56MkNuUXNRXUw5MFIxeHBGSWEycm5jRUl8Lld5ZGk4blJCTWYmZz9OZ3Q1NEZNWz95VmQsP1NbSktfJjNWLHFqSG5mbXxsNGcxZS1Bckc3bFEzR05ITUolU3pMeEpLVHA0R3ZIS19CaFBnU0ZzVnxQakV3UE1SJndacm5LZVFfa2pwfFNkUDY1UHQzNFJVRVVGLG8zMmVQWUpdWmZ+X3pnUTNzN05sdnJ2ak00V0JPVS1WaGN6K2h5NVR3Rm12bVU1Zm1hVUQwWXVoYg=='}]);
+_stq.push([ 'clickTrackerInit', '72358744', '4' ]);
+	</script>
+<noscript>&lt;img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /&gt;</noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<div class="comment-likes-overlay" style="display: none;"></div><img src="./Which GPU(s) to Get for Deep Learning  My Experience and Advice for Using GPUs in Deep Learning   Deep Learning_files/g.gif" id="wpstats"><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>
