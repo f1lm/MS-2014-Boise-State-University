@@ -82,25 +82,12 @@ public class VendingTest extends TestCase {
 		vending.insertCoin(Coin.QUARTER);
 		assertEquals(225, vending.getDeposit());
 		
-		vending.purchase(VendingMachine.JUICE);
+		vending.setDrink(VendingMachine.JUICE, 60, 1);
 		vending.purchase(VendingMachine.JUICE);
 		
-		//All available Juice count = 2 are sold so not able to purchase additional Juice	
+		//All available Juice are sold so not able to purchase it
 		assertEquals(0, vending.getJuice().getCount());
 		assertFalse(vending.purchase(VendingMachine.JUICE));
 	}
-	
-	@Test
-	public void testMultiplePurchase(){
-		vending.insertCoin(Coin.DOLLAR);
-		vending.insertCoin(Coin.DOLLAR);
-		vending.insertCoin(Coin.DOLLAR);
-		vending.insertCoin(Coin.QUARTER);
-		assertTrue("", vending.getCoffee().getCount() == 3);
-		assertTrue("", vending.getJuice().getCount() == 2);
-		assertTrue("", vending.getSoda().getCount() == 5);
-		
-	}
-	
 	
 }
