@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/ -->
+<html lang="en-US" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://eran.sandler.co.il/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="http://eran.sandler.co.il/wp-content/themes/twentyfifteen/js/html5.js"></script>
+	<![endif]-->
+	<script>(function(){document.documentElement.className='js'})();</script>
+	<style type="text/css"></style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Redirecting_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Redirecting_files/services.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head><body class="single single-post postid-141 single-format-standard custom-background" data-gclp-initialized="true" data-gistbox-initialized="true">OAuth C# (very) Basic LibraryAnother blog bites the dust | Another blog bites the dust<title></title>
+<link rel="stylesheet" href="./Redirecting_files/codesnippet.css" type="text/css">
+<style type="text/css">
+.codesnip-container  {border:1px solid #ccc; background:#eee; padding: 5px;margin:10px;}
+</style>
+<link rel="alternate" type="application/rss+xml" title="Another blog bites the dust » Feed" href="http://eran.sandler.co.il/feed/">
+<link rel="alternate" type="application/rss+xml" title="Another blog bites the dust » Comments Feed" href="http://eran.sandler.co.il/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Another blog bites the dust » OAuth C# (very) Basic Library Comments Feed" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/feed/">
+<link rel="stylesheet" id="twentyfifteen-jetpack-css" href="./Redirecting_files/twentyfifteen.css" type="text/css" media="all">
+<link rel="stylesheet" id="openid-css" href="./Redirecting_files/openid.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpcf-css" href="./Redirecting_files/wpcf.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfifteen-fonts-css" href="./Redirecting_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./Redirecting_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfifteen-style-css" href="./Redirecting_files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentyfifteen-ie-css'  href='http://eran.sandler.co.il/wp-content/themes/twentyfifteen/css/ie.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='twentyfifteen-ie7-css'  href='http://eran.sandler.co.il/wp-content/themes/twentyfifteen/css/ie7.css?ver=20141010' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="jetpack_css-css" href="./Redirecting_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="./Redirecting_files/jquery.js"></script>
+<script type="text/javascript" src="./Redirecting_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./Redirecting_files/openid.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://eran.sandler.co.il/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://eran.sandler.co.il/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Assembling a Linux based Home Storage Server" href="http://eran.sandler.co.il/2007/10/09/assembling-a-linux-based-home-storage-server/">
+<link rel="next" title="Got a new MP3 player – iRiver X20" href="http://eran.sandler.co.il/2007/10/25/got-a-new-mp3-player-iriver-x20/">
+<meta name="generator" content="WordPress 4.1">
+<link rel="canonical" href="./Redirecting_files/Redirecting.html">
+<link rel="shortlink" href="http://wp.me/p1YyA0-2h">
+<meta http-equiv="X-XRDS-Location" content="http://eran.sandler.co.il/?xrds">
+<meta http-equiv="X-Yadis-Location" content="http://eran.sandler.co.il/?xrds">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth C# (very) Basic Library">
+<meta property="og:url" content="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/">
+<meta property="og:description" content="I know it took me a while (sorry) but I had a couple things on my plate. At first I wanted to release a more complete integration of OAuth within ASP.NET, but that will have to wait to the next tim...">
+<meta property="article:published_time" content="2007-10-17T01:20:51+00:00">
+<meta property="article:modified_time" content="2007-10-17T01:20:51+00:00">
+<meta property="article:author" content="http://eran.sandler.co.il/author/eran/">
+<meta property="og:site_name" content="Another blog bites the dust">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta name="twitter:site" content="@jetpack">
+<meta name="twitter:card" content="summary">
+
+
+
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/#content">Skip to content</a>
+
+	<div id="sidebar" class="sidebar" style="top: 131px;">
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+										<p class="site-title"><a href="http://eran.sandler.co.il/" rel="home">Another blog bites the dust</a></p>
+											<p class="site-description">Not biting dust since 2005</p>
+									<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+		
+		
+					<div id="widget-area" class="widget-area" role="complementary">
+				<aside id="text-2" class="widget widget_text">			<div class="textwidget">A blog by Eran Sandler <a href="http://eran.sandler.co.il/about"><br>About</a> / <a href="http://eran.sandler.co.il/contact">Contact</a></div>
+		</aside><aside id="text-3" class="widget widget_text"><h2 class="widget-title">Me elsewhere</h2>			<div class="textwidget"><ul>
+<li><a href="https://twitter.com/erans" rel="me">@erans</a></li>
+<li><a href="https://www.facebook.com/eran.sandler" rel="me">me@facebook</a></li>
+<li><a href="https://github.com/erans" rel="me">me@github</a></li>
+<li><a href="http://forecastcloudy.net/" rel="me" title="My cloud related blog">forecastcloudy.net</a></li>
+<li><a href="http://dotnetdebug.net/" rel="me" title="My unmaintained Advanced .NET debugging blog">Advanced .NET Debugging blog (unmaintained)</a></li>
+</ul></div>
+		</aside><aside id="wpgh_projects-2" class="widget wpgh_projects"><h2 class="widget-title">GitHub Projects</h2><ul><li><a target="_blank" href="https://github.com/erans/beanstalkdcloudwatch" title="Script to update AWS CloudWatch with custom metric from a Beanstalkd work queue (http://kr.github.com/beanstalkd/) — 5 watchers ">beanstalkdcloudwatch</a></li><li><a target="_blank" href="https://github.com/erans/devdev" title="The code behind devdev.io — 0 watchers ">devdev</a></li><li><a target="_blank" href="https://github.com/erans/disco" title="a Map/Reduce framework for distributed computing — 1 watcher ">disco</a></li><li><a target="_blank" href="https://github.com/erans/ec2instancespricing" title="Quick and dirty Python (and also PHP) API and CLI (PHP is without CLI) to get EC2 instance pricing for On-Demand and Reserved Instances — 66 watchers ">ec2instancespricing</a></li><li><a target="_blank" href="https://github.com/erans/ec2ssh" title="A simple script to use EC2 Name tags to connect directly to machines — 5 watchers ">ec2ssh</a></li><li><a target="_blank" href="https://github.com/erans/fabric-aws-tools" title="Tools to integrate Amazon Web Services (AWS) with Fabric — 0 watchers ">fabric-aws-tools</a></li><li><a target="_blank" href="https://github.com/erans/fabric-gce-tools" title="Tools to integrate Fabric with Google Compute Engine (GCE) — 1 watcher ">fabric-gce-tools</a></li><li><a target="_blank" href="https://github.com/erans/fabric-slack-tools" title="Tools to integrate Fabric with Slack — 0 watchers ">fabric-slack-tools</a></li><li><a target="_blank" href="https://github.com/erans/go-celery" title="WIP — 0 watchers ">go-celery</a></li><li><a target="_blank" href="https://github.com/erans/gosnowflake" title="Twitter&#39;s Snowflake server implemented in Go — 13 watchers ">gosnowflake</a></li><li><a target="_blank" href="https://github.com/erans/logstash-output-google_cloud_storage" title=" — 0 watchers ">logstash-output-google_cloud_storage</a></li><li><a target="_blank" href="https://github.com/erans/membase_cloudformation_template_generator" title="Membase CloudFormation template generator — 5 watchers ">membase_cloudformation_template_generator</a></li><li><a target="_blank" href="https://github.com/erans/pysnowflake" title="Python implementation of Twitter&#39;s Snowflake Unique ID generation service — 48 watchers ">pysnowflake</a></li><li><a target="_blank" href="https://github.com/erans/pysnowflakeclient" title="Python Client for Twitter&#39;s Snowflake Unique ID Generator Service — 10 watchers ">pysnowflakeclient</a></li><li><a target="_blank" href="https://github.com/erans/redash" title="Rethinking how data is queried, shared and visualized. A web application that allows to easily query an existing database, share the dataset and visualize it in different ways. Oh and you can also create dashboards. — 0 watchers ">redash</a></li><li><a target="_blank" href="https://github.com/erans/reversim-summit-2013" title="The reversim summit 2013 web site — 0 watchers ">reversim-summit-2013</a></li><li><a target="_blank" href="https://github.com/erans/snowflake" title="Snowflake is a network service for generating unique ID numbers at high scale with some simple guarantees. — 1 watcher ">snowflake</a></li><li><a target="_blank" href="https://github.com/erans/sqscloudwatchqueuecount" title="Script to update AWS CloudWatch with a custom metric which contains the count of an AWS SQS queue — 4 watchers ">sqscloudwatchqueuecount</a></li><li><a target="_blank" href="https://github.com/erans/statsd" title="Simple daemon for easy stats aggregation — 2 watchers ">statsd</a></li><li><a target="_blank" href="https://github.com/erans/thriftify" title="Thrift Compiler as a Service — 3 watchers ">thriftify</a></li><li><a target="_blank" href="https://github.com/erans/twitter-csharp-library" title="Twitter C# REST API Library (Wrapper) — 5 watchers ">twitter-csharp-library</a></li></ul></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h2 class="widget-title">Recent Posts</h2>		<ul>
+					<li>
+				<a href="http://eran.sandler.co.il/2015/02/05/mongodb-replica-set-aware-backup-script/">MongoDB Replica-Set Aware Backup Script</a>
+						</li>
+					<li>
+				<a href="http://eran.sandler.co.il/2012/02/16/seedcamp-tel-aviv-2012/">Seedcamp Tel-Aviv 2012</a>
+						</li>
+					<li>
+				<a href="http://eran.sandler.co.il/2011/11/20/requiem-for-a-modem/">Requiem for a modem</a>
+						</li>
+					<li>
+				<a href="http://eran.sandler.co.il/2011/11/15/scott-berkuns-mindfire-big-ideas-for-curious-minds-book-review/">Scott Berkun’s Mindfire: Big Ideas For Curious Minds – Book Review</a>
+						</li>
+					<li>
+				<a href="http://eran.sandler.co.il/2011/11/07/uiimage-in-ios-5-orientation-and-resize/">UIImage in iOS 5, Orientation and Resize</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h2 class="widget-title">Recent Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="https://www.fipe.net/" rel="external nofollow" class="url">VPN Service</a></span> on <a href="http://eran.sandler.co.il/2010/08/30/pptp-vpn-on-ubuntu-10-04-for-your-iphone-ipad/comment-page-1/#comment-111414">PPTP VPN on Ubuntu 10.04 for your iPhone / iPad</a></li><li class="recentcomments"><span class="comment-author-link">youadeadbeat</span> on <a href="http://eran.sandler.co.il/2005/09/01/how-to-editdelete-google-talk-custom-messages/comment-page-1/#comment-93021">How to edit/delete Google Talk custom messages</a></li><li class="recentcomments"><span class="comment-author-link">lolol</span> on <a href="http://eran.sandler.co.il/2005/09/01/how-to-editdelete-google-talk-custom-messages/comment-page-1/#comment-92907">How to edit/delete Google Talk custom messages</a></li><li class="recentcomments"><span class="comment-author-link">Tim Gupta</span> on <a href="http://eran.sandler.co.il/2011/05/20/extract-gps-latitude-and-longitude-data-from-exif-using-python-imaging-library-pil/comment-page-1/#comment-80904">Extract GPS Latitude and Longitude Data from EXIF using Python Imaging Library (PIL)</a></li><li class="recentcomments"><span class="comment-author-link">Mike</span> on <a href="http://eran.sandler.co.il/2010/08/30/pptp-vpn-on-ubuntu-10-04-for-your-iphone-ipad/comment-page-1/#comment-69062">PPTP VPN on Ubuntu 10.04 for your iPhone / iPad</a></li></ul></aside><aside id="archives-2" class="widget widget_archive"><h2 class="widget-title">Archives</h2>		<ul>
+	<li><a href="http://eran.sandler.co.il/2015/02/">February 2015</a></li>
+	<li><a href="http://eran.sandler.co.il/2012/02/">February 2012</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/11/">November 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/10/">October 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/08/">August 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/07/">July 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/05/">May 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2011/03/">March 2011</a></li>
+	<li><a href="http://eran.sandler.co.il/2010/08/">August 2010</a></li>
+	<li><a href="http://eran.sandler.co.il/2010/05/">May 2010</a></li>
+	<li><a href="http://eran.sandler.co.il/2010/03/">March 2010</a></li>
+	<li><a href="http://eran.sandler.co.il/2009/12/">December 2009</a></li>
+	<li><a href="http://eran.sandler.co.il/2009/11/">November 2009</a></li>
+	<li><a href="http://eran.sandler.co.il/2009/09/">September 2009</a></li>
+	<li><a href="http://eran.sandler.co.il/2009/01/">January 2009</a></li>
+	<li><a href="http://eran.sandler.co.il/2008/11/">November 2008</a></li>
+	<li><a href="http://eran.sandler.co.il/2008/09/">September 2008</a></li>
+	<li><a href="http://eran.sandler.co.il/2008/04/">April 2008</a></li>
+	<li><a href="http://eran.sandler.co.il/2008/03/">March 2008</a></li>
+	<li><a href="http://eran.sandler.co.il/2008/01/">January 2008</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/12/">December 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/10/">October 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/09/">September 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/08/">August 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/07/">July 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/06/">June 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/05/">May 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/04/">April 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/03/">March 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/02/">February 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2007/01/">January 2007</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/12/">December 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/11/">November 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/09/">September 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/08/">August 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/07/">July 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/06/">June 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/04/">April 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/03/">March 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/02/">February 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2006/01/">January 2006</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/12/">December 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/11/">November 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/10/">October 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/09/">September 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/08/">August 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/07/">July 2005</a></li>
+	<li><a href="http://eran.sandler.co.il/2005/06/">June 2005</a></li>
+		</ul>
+</aside>			</div><!-- .widget-area -->
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		
+<article id="post-141" class="post-141 post type-post status-publish format-standard hentry category-code category-oauth tag-net tag-aspnet tag-authentication tag-c tag-code tag-csharp tag-delegation tag-oauth">
+	
+	<header class="entry-header">
+		<h1 class="entry-title">OAuth C# (very) Basic Library</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I know it took me a while (sorry) but I had a couple things on my plate.</p>
+<p>At first I wanted to release a more complete integration of <a href="http://oauth.net/">OAuth</a> within ASP.NET, but that will have to wait to the next time frame I can allocate to work on this.</p>
+<p>In the meantime, there is some <a href="http://oauth.googlecode.com/svn/code/csharp/">basic C# code</a> in the <a href="http://oauth.net/code/">OAuth code repository</a> which generates the OAuth signature, which is the most complicated thing to implement in the spec (not that it’s that difficult to implement :-) It’s actually quite easy).</p>
+<p>To use the C# code, simply do this (based on the samples in the spec):</p>
+<blockquote><p>using OAuth;</p>
+<p>OAuthBase oauth = new OAuthBase();</p>
+<p>Uri url = new Uri(“http://photos.example.net/photos?file=vacation.jpg&amp;size=original”);</p>
+<p>string signature = oauth.GenerateSignature(url, “dpf43f3p2l4k3l03″, “kd94hf93k423kf44″, “nnch734d00sl2jdk”, “pfkkdhi9sl3r4s00″, “GET”, oauth.GenerateTimeStamp(), oauth.GenerateNonce(), OAuthBase.SignatureTypes.HMACSHA1);</p></blockquote>
+<p>After that you can concatenate the relevant query parameters as well as the signature value to the URL and use it.</p>
+<p>If you have a different timestamp and/or nonce generation method, you can inherit and override these methods.</p>
+<p>If you require a different hashing algorithm other than the default HMAC-SHA1 or the PLAINTEXT (which MUST be used with a secure communication channel such as HTTPS) you can use the “GenerateSignatureBase” method to generate the signature base string and then call “GenerateSignatureUsingHash” passing the signature base and the hash algorithm you are using.</p>
+<p>That’s about it. I’ll update when I’ll have some more integrative code.</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-141" class="share-twitter sd-button share-icon" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/?share=twitter&nb=1" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-141" class="share-google-plus-1 sd-button share-icon" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/?share=google-plus-1&nb=1" title="Click to share on Google+"><span>Google</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-141" class="share-facebook sd-button share-icon" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/?share=facebook&nb=1" title="Share on Facebook"><span>Facebook</span></a></li><li class="share-reddit"><a rel="nofollow" data-shared="" class="share-reddit sd-button share-icon" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/?share=reddit&nb=1" title="Click to share on Reddit"><span>Reddit</span></a></li><li class="share-email share-service-visible"><a rel="nofollow" data-shared="" class="share-email sd-button share-icon" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/?share=email&nb=1" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-end"></li></ul></div></div></div>	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="./Redirecting_files/Redirecting.html" rel="bookmark"><time class="entry-date published updated" datetime="2007-10-17T03:20:51+00:00">October 17, 2007</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="http://eran.sandler.co.il/author/eran/">Eran Sandler</a></span></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="http://eran.sandler.co.il/category/code/" rel="category tag">Code</a>, <a href="http://eran.sandler.co.il/category/oauth/" rel="category tag">OAuth</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="http://eran.sandler.co.il/tag/net/" rel="tag">.NET</a>, <a href="http://eran.sandler.co.il/tag/aspnet/" rel="tag">ASP.NET</a>, <a href="http://eran.sandler.co.il/tag/authentication/" rel="tag">Authentication</a>, <a href="http://eran.sandler.co.il/tag/c/" rel="tag">C#</a>, <a href="http://eran.sandler.co.il/tag/code/" rel="tag">Code</a>, <a href="http://eran.sandler.co.il/tag/csharp/" rel="tag">csharp</a>, <a href="http://eran.sandler.co.il/tag/delegation/" rel="tag">delegation</a>, <a href="http://eran.sandler.co.il/tag/oauth/" rel="tag">OAuth</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-## -->
+
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			24 thoughts on “OAuth C# (very) Basic Library”		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-5340" class="comment even thread-even depth-1">
+			<article id="div-comment-5340" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/75c77235cd479bc14e0ee352877ba467" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-75c77235cd479bc14e0ee352877ba467-0">						<b class="fn"><a href="http://livz.org/" rel="external nofollow" class="url">Steven Livingstone</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-5340">
+							<time datetime="2007-12-01T14:41:14+00:00">
+								December 1, 2007 at 2:41 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Eric – thanks for this. How far along are you with the follow up work?</p>
+<p>I have written an API I wish to protected and was looking into the Amazon, Google, Flickr etc athentication meachanisms and then it hit me as to what OAuth is really useful for!</p>
+<p>I need a client and server OAuth implementation – can your library do this? At first look it seems to be the client side of thing. I don’t know the spec enough to know what the server implementation involves but i’m reading up this weekend.</p>
+<p>Best Wishes,<br>
+Steven</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-5341" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-5341" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/75c77235cd479bc14e0ee352877ba467" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-75c77235cd479bc14e0ee352877ba467-1">						<b class="fn"><a href="http://livz.org/" rel="external nofollow" class="url">Steven Livingstone</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-5341">
+							<time datetime="2007-12-01T14:42:01+00:00">
+								December 1, 2007 at 2:42 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sorry… Eran :)</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-5346" class="comment byuser comment-author-eran bypostauthor even thread-even depth-1">
+			<article id="div-comment-5346" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-0">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-5346">
+							<time datetime="2007-12-02T02:41:47+00:00">
+								December 2, 2007 at 2:41 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Steven,</p>
+<p>I just want to make sure we are on the same page, meaning, OAuth will be used in your API to enable users/applications/whatever to perform actions on behalf of a certain user without that user actually passing his/her credentials.</p>
+<p>If that is the case, OAuth is exactly for you.</p>
+<p>Regarding the (very basic) library I have written (which is a good time to update to the latest draft ;-) ), the actions it performs, generating the signature, is the hardest and most significant part of OAuth and it can be used in both client and server sides.</p>
+<p>It doesn’t cover the complete workflow in which a user lacking authentication will need to be redirect to a place where it can be authenticated, but that should be fairly easy.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-5352" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-5352" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/75c77235cd479bc14e0ee352877ba467" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-75c77235cd479bc14e0ee352877ba467-2">						<b class="fn"><a href="http://livz.org/" rel="external nofollow" class="url">Steven Livingstone</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-5352">
+							<time datetime="2007-12-02T14:44:24+00:00">
+								December 2, 2007 at 2:44 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks Eran. That sounds exactly like what i want. For example, to enable site A to embed some javascript which will perform a *write* to my site – i would want that user to be authenticated but don’t like the idea of passing username and password information. I am *very* interested in how this would be implemented in these cases. I see you have some good articles so i’ll need to read them more.</p>
+<p>I also want to do the usually REST API authentication but access from JavaScript via XML/JSON with authentication is part of my use case.</p>
+<p>I was originally going to follow the MS5/HMAC method flickr/google and so on have used but OAuth looks good.</p>
+<p>Thanks for your work on all this! If i get something useful out of this for my site i’ll try and box up and end to end sample and share it.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-17208" class="comment even thread-even depth-1">
+			<article id="div-comment-17208" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/899a5e90979de9046f2982aabf9eebfd" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-899a5e90979de9046f2982aabf9eebfd-0">						<b class="fn">Simon</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-17208">
+							<time datetime="2008-03-13T23:38:48+00:00">
+								March 13, 2008 at 11:38 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Eran,</p>
+<p>Thanks for your OAuth C# library. I’m trying to use it to generate a valid sig for Fire Eagle but no matter what I try, I get the response:</p>
+<p>Here is my code:</p>
+<p>            string consumerKey = “XYZ”;<br>
+            string consumerSecret = “ABC”;<br>
+            Uri uri = new Uri(“https://fireeagle.yahooapis.com/oauth/request_token”);<br>
+            OAuthBase oAuth = new OAuthBase();<br>
+            string nonce = oAuth.GenerateNonce();<br>
+            string timeStamp = oAuth.GenerateTimeStamp();<br>
+            string sig = oAuth.GenerateSignature(uri, consumerKey, consumerSecret, string.Empty, string.Empty, “GET”, timeStamp, nonce, OAuth.SignatureTypes.HMACSHA1);</p>
+<p>            StringBuilder sb = new StringBuilder(uri.ToString());<br>
+            sb.AppendFormat(“?oauth_consumer_key={0}&amp;”, consumerKey);<br>
+            sb.AppendFormat(“oauth_nonce={0}&amp;”, nonce);<br>
+            sb.AppendFormat(“oauth_timestamp={0}&amp;”, timeStamp);<br>
+            sb.AppendFormat(“oauth_signature_method={0}&amp;”, “HMAC-SHA1″);<br>
+            sb.AppendFormat(“oauth_version={0}&amp;”, “1.0”);<br>
+            sb.AppendFormat(“oauth_signature={0}”, sig);<br>
+            Debug.WriteLine(sb.ToString());</p>
+<p>Can you see anything wrong with this?</p>
+<p>Thanks a million!</p>
+<p>Simon</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-17209" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-17209" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/899a5e90979de9046f2982aabf9eebfd" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-899a5e90979de9046f2982aabf9eebfd-1">						<b class="fn">Simon</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-17209">
+							<time datetime="2008-03-13T23:40:46+00:00">
+								March 13, 2008 at 11:40 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>damn brackets!</p>
+<p>response is </p>
+<p>&lt; err msg=”Invalid OAuth signature.” code=”23″ &gt;</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-17540" class="comment byuser comment-author-eran bypostauthor even thread-even depth-1">
+			<article id="div-comment-17540" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-1">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-17540">
+							<time datetime="2008-03-15T22:00:28+00:00">
+								March 15, 2008 at 10:00 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Simon,</p>
+<p>I didn’t update the C# library to the release spec and the signature algorithm was changed a bit (sorry about that).<br>
+I’ll try to fix the signature method in the next couple of days and I’ll post the updated code.</p>
+<p>Eran</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-17644" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-17644" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/899a5e90979de9046f2982aabf9eebfd" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-899a5e90979de9046f2982aabf9eebfd-2">						<b class="fn">Simon</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-17644">
+							<time datetime="2008-03-16T15:11:39+00:00">
+								March 16, 2008 at 3:11 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks Eran, much appreciated</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-17651" class="comment byuser comment-author-eran bypostauthor even thread-even depth-1">
+			<article id="div-comment-17651" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-2">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-17651">
+							<time datetime="2008-03-16T16:14:43+00:00">
+								March 16, 2008 at 4:14 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Simon,</p>
+<p>I’ve checked in the fix. It now generates the right signature as the tests on the spec shows.<br>
+You can grab it from the same location and check it out.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-20218" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-20218" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/04cb0cf31651110e9e9e4762dcbfe738" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-04cb0cf31651110e9e9e4762dcbfe738-0">						<b class="fn">Marco</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-20218">
+							<time datetime="2008-04-14T05:00:12+00:00">
+								April 14, 2008 at 5:00 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Eran,</p>
+<p>I have been trying to use the OAuth C# library to validate requests coming from orkut,<br>
+but I never managed to validate a request against the provided signature.<br>
+This is what i am doing:</p>
+<p>X509Certificate2 certificate = new X509Certificate2(@”C:\pub.<br>
+1199819524.-1556113204990931254.cer”);<br>
+RSACryptoServiceProvider rsacp = new RSACryptoServiceProvider();<br>
+string publicKey = certificate.PublicKey.Key.ToXmlString(false);<br>
+rsacp.FromXmlString(publicKey); </p>
+<p>byte[] verify = Encoding.UTF8.GetBytes(baseSignature); </p>
+<p>byte[] signature = Convert.FromBase64String(oauth_signature);<br>
+bool ok = rsacp.VerifyData(verify, ‘SHA1′, signature);<br>
+Console.WriteLine(“Success: {0}”, ok); </p>
+<p>Would you know where am I going wrong?</p>
+<p>Marco</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-21051" class="comment even thread-even depth-1">
+			<article id="div-comment-21051" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/c326c5f4432b3f47a97390d43966e4cb" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-c326c5f4432b3f47a97390d43966e4cb-0">						<b class="fn"><a href="http://blog.stevienova.com/" rel="external nofollow" class="url">Steve</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-21051">
+							<time datetime="2008-04-20T04:19:31+00:00">
+								April 20, 2008 at 4:19 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>maybe its just me, but using this c# library, the timestamp it generates is incorrect. it comes out with .  ex (1208643626.611) – if i cut off the .611, then it works. Otherwise I get invalid signature when doing oauth requests (tested here: <a href="http://term.ie/oauth/example/" rel="nofollow">http://term.ie/oauth/example/</a>) and with the pownce oauth… </p>
+<p>I changed GetTimeStamp to </p>
+<p>        public virtual string GenerateTimeStamp() {<br>
+            // Default implementation of UNIX time of the current UTC time<br>
+            TimeSpan ts = DateTime.UtcNow – new DateTime(1970, 1, 1, 0, 0, 0, 0);<br>
+            string timeStamp = ts.TotalSeconds.ToString();<br>
+            timeStamp = timeStamp.Substring(0, timeStamp.IndexOf(“.”));<br>
+            return timeStamp;<br>
+        }</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-21329" class="comment byuser comment-author-eran bypostauthor odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-21329" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-3">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran Sandler</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-21329">
+							<time datetime="2008-04-22T21:16:18+00:00">
+								April 22, 2008 at 9:16 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Steve, thanks for the fix.<br>
+Perhaps I was too precise with that time :-)</p>
+<p>I think there is a better way of fixing it instead of substringing the timestamp string, but I’ll look into that and release a fix.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-23665" class="comment byuser comment-author-eran bypostauthor even thread-even depth-1">
+			<article id="div-comment-23665" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-4">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran Sandler</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-23665">
+							<time datetime="2008-05-19T15:35:19+00:00">
+								May 19, 2008 at 3:35 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Steve,</p>
+<p>I’ve checked in a version that simply casts the double returned from ts.TotalSeconds into an int64 (just in case) so that the “ToString” method will not return a decimal number (only an integer) which is what you need.</p>
+<p>The latest version is checked in so you can get it from the usual place.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-26393" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-26393" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/b4b29aa90ff70c262bcef91d02e5fe1d" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-b4b29aa90ff70c262bcef91d02e5fe1d-0">						<b class="fn"><a href="http://www.propertywala.com/" rel="external nofollow" class="url">Mukesh</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-26393">
+							<time datetime="2008-08-07T13:55:53+00:00">
+								August 7, 2008 at 1:55 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I have an Another Solution For error when request having both post and get data</p>
+<p><a href="http://coderheaven.blogspot.com/2008/08/authenticate-oauth-signature-in-corkut.html" rel="nofollow">http://coderheaven.blogspot.com/2008/08/authenticate-oauth-signature-in-corkut.html</a></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-26717" class="comment even thread-even depth-1">
+			<article id="div-comment-26717" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/0b7612f39baa984b97b2257753c6539a" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-0b7612f39baa984b97b2257753c6539a-0">						<b class="fn">memel</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-26717">
+							<time datetime="2008-09-22T22:10:42+00:00">
+								September 22, 2008 at 10:10 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>has someone a solution that works in app opensocial, accessing a page in c #?</p>
+<p>the code below (Suggested by Mukesh) always return false.</p>
+<p>if (!string.IsNullOrEmpty(Request[“oauth_signature”]))<br>
+{</p>
+<p>                    string certificateValue = @”—–BEGIN CERTIFICATE—–<br>
+                                                            MIIDHDCCAoWgAwIBAgIJAMbTCksqLiWeMA0GCSqGSIb3DQEBBQUAMGgxCzAJBgNV<br>
+                                                            BAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIG<br>
+                                                            A1UEChMLR29vZ2xlIEluYy4xDjAMBgNVBAsTBU9ya3V0MQ4wDAYDVQQDEwVscnlh<br>
+                                                            bjAeFw0wODAxMDgxOTE1MjdaFw0wOTAxMDcxOTE1MjdaMGgxCzAJBgNVBAYTAlVT<br>
+                                                            MQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChML<br>
+                                                            R29vZ2xlIEluYy4xDjAMBgNVBAsTBU9ya3V0MQ4wDAYDVQQDEwVscnlhbjCBnzAN<br>
+                                                            BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAseBXZ4NDhm24nX3sJRiZJhvy9eDZX12G<br>
+                                                            j4HWAMmhAcnm2iBgYpAigwhVHtOs+ZIUIdzQHvHeNd0ydc1Jg8e+C+Mlzo38OvaG<br>
+                                                            D3qwvzJ0LNn7L80c0XVrvEALdD9zrO+0XSZpTK9PJrl2W59lZlJFUk3pV+jFR8NY<br>
+                                                            eB/fto7AVtECAwEAAaOBzTCByjAdBgNVHQ4EFgQUv7TZGZaI+FifzjpTVjtPHSvb<br>
+                                                            XqUwgZoGA1UdIwSBkjCBj4AUv7TZGZaI+FifzjpTVjtPHSvbXqWhbKRqMGgxCzAJ<br>
+                                                            BgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEU<br>
+                                                            MBIGA1UEChMLR29vZ2xlIEluYy4xDjAMBgNVBAsTBU9ya3V0MQ4wDAYDVQQDEwVs<br>
+                                                            cnlhboIJAMbTCksqLiWeMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEA<br>
+                                                            CETnhlEnCJVDXoEtSSwUBLP/147sqiu9a4TNqchTHJObwTwDPUMaU6XIs2OTMmFu<br>
+                                                            GeIYpkHXzTa9Q6IKlc7Bt2xkSeY3siRWCxvZekMxPvv7YTcnaVlZzHrVfAzqNsTG<br>
+                                                            P3J//C0j+8JWg6G+zuo5k7pNRKDY76GxxHPYamdLfwk=<br>
+                                                            —–END CERTIFICATE—–“;</p>
+<p>                    X509Certificate2 cert = new X509Certificate2(Encoding.ASCII.GetBytes(certificateValue), “”, X509KeyStorageFlags.MachineKeySet);<br>
+                    System.Collections.Specialized.NameValueCollection queryString = Request.QueryString;<br>
+                    string signature = Request[“oauth_signature”];<br>
+                    //Base64Decoder decoder = new Base64Decoder(signature.ToCharArray());<br>
+                    byte[] sign = Convert.FromBase64String(signature);</p>
+<p>                    String urvl, urlNPAM;</p>
+<p>                    RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)cert.PublicKey.Key;<br>
+                    OAuth.OAuthBase asd = new OAuth.OAuthBase();<br>
+                    string url = Request.Url.ToString();<br>
+                    foreach (string name in Request.Form)<br>
+                        url += “&amp;” + name + “=” + Request.Form[name];<br>
+                    Uri reqURi = new Uri(url);<br>
+                    string signatureBase = asd.GenerateSignatureBase(reqURi, Request[“oauth_consumer_key”], “”, “”,<br>
+                        Request.ServerVariables[“REQUEST_METHOD”].ToUpper(), Request[“oauth_timestamp”],<br>
+                        Request[“oauth_nonce”], Request[“oauth_signature_method”], out urvl, out urlNPAM);<br>
+                    bool rtn = rsa.VerifyData(<br>
+                        Encoding.ASCII.GetBytes(signatureBase), “SHA1″, sign);</p>
+<p>                    Response.Write(rtn);<br>
+}</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-27032" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-27032" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/94005288fe0d93d571a5a335d83a20d1" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-94005288fe0d93d571a5a335d83a20d1-0">						<b class="fn">David</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-27032">
+							<time datetime="2008-10-23T20:07:26+00:00">
+								October 23, 2008 at 8:07 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I’m trying it out, but the signatures it is generating are not accepted by the Netflix API…I get a bad request<br>
+I was wondering if I can be of some help to debug it.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-27035" class="comment byuser comment-author-eran bypostauthor even thread-even depth-1">
+			<article id="div-comment-27035" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-5">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="url">Eran Sandler</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-27035">
+							<time datetime="2008-10-24T11:17:22+00:00">
+								October 24, 2008 at 11:17 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>David, have you looked at this step-by-step tutorial by Jospeh Smarr – <a href="http://josephsmarr.com/2008/10/01/using-netflixs-new-api-a-step-by-step-guide/" rel="nofollow">http://josephsmarr.com/2008/10/01/using-netflixs-new-api-a-step-by-step-guide/</a></p>
+<p>It has all the values of each steps that you can compare and see if it all works well.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-36988" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-36988" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/a2e49b2f10f1e47cdb90b477e07b185b" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-a2e49b2f10f1e47cdb90b477e07b185b-0">						<b class="fn"><a href="http://sunshinepeacehappyness.blogspot.com/" rel="external nofollow" class="openid_link url">David Friedman</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-36988">
+							<time datetime="2009-10-13T11:47:22+00:00">
+								October 13, 2009 at 11:47 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Eran!</p>
+<p>Your Oauth Base class gave me a big help! I’ve started only with a portion of the features of OAuth, so Your basic C# was a big help.<br>
+However :), maybe my experience could help others too:<br>
+– Your UrlEncode is not prepared for international characters – i returned to HttpUtiliity.UrlEncode and capitalised the %__ parts<br>
+– QueryParameterComparer used Compare needs the extra (3rd) StringComparison.Ordinal parameter to Order the params in the specified (“lexicographical byte value ordering”) order (all capitalised ABC first, then comes abc).<br>
+thnx,<br>
+{:-D</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-42201" class="comment even thread-even depth-1">
+			<article id="div-comment-42201" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/602ed358124aa88cf13131bb99a606d2" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-602ed358124aa88cf13131bb99a606d2-0">						<b class="fn">venkata</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-42201">
+							<time datetime="2010-02-03T18:18:50+00:00">
+								February 3, 2010 at 6:18 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>hi,</p>
+<p>I am trying to develop an appilication which will contact google using OAuth.</p>
+<p>but i am getting this error message</p>
+<p>signature_invalid<br>
+base_string:GET&amp;https%3A%2F%2Fwww.google.com%2Faccounts%2FOAuthGetRequestToken&amp;oauth_consumer_key%3Dwww.frooly.com%26oauth_nonce%3D8841340%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1265201014%26oauth_version%3D1.0%26scope%3Dhttp%253A%252F%252Fwww.google.com%252Fcalendar%252Ffeeds</p>
+<p>I have registered with google and got consumer key and secret also. and the domain is status is Active.</p>
+<p>well my code is able to get the request token from twitter but fails with google. any idea ?</p>
+<p>please help me.</p>
+<p>kind regards,</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-42798" class="comment byuser comment-author-eran bypostauthor odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-42798" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/eaffa4d2fa91827c2566ef0b1f17a447" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-eaffa4d2fa91827c2566ef0b1f17a447-6">						<b class="fn"><a href="http://eran.sandler.co.il/" rel="external nofollow" class="openid_link url">Eran Sandler</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-42798">
+							<time datetime="2010-02-19T09:03:22+00:00">
+								February 19, 2010 at 9:03 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I would suggest to use the signature code from google. I think they have that in their sdk. At first glance this seems to be a signature issue so check the parameters you pass to the signature function.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-53737" class="comment even thread-even depth-1">
+			<article id="div-comment-53737" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/e75d025019dc8790bc38314e70088e73" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-e75d025019dc8790bc38314e70088e73-0">						<b class="fn">Bobby</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-53737">
+							<time datetime="2010-12-02T23:04:25+00:00">
+								December 2, 2010 at 11:04 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I”m new to OAuth, I understand the idea and the steps necessary to execute the protocol. I’m having a rough time with obtaining the auth token. I can’t get anything but “400 Bad Request” from the Google Analytics server. I know this isn’t a lot of information but does anyone have any ideas?</p>
+<p>I really appreciate it.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-60276" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-60276" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/adfcf12dbb68b20484ab3b84c7d236e7" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-adfcf12dbb68b20484ab3b84c7d236e7-0">						<b class="fn">Matthias</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-60276">
+							<time datetime="2011-05-10T10:09:40+00:00">
+								May 10, 2011 at 10:09 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>One little detail: the GenerateTimestamp method currently only works when a dot (.) is used with decimal numbers. When a comma (,) is used the code fails. A workaround would be to use the NumberDecimalProperty of the NumberFormatInfo class, like so:</p>
+<p>        ///<br>
+        /// Generate the timestamp for the signature<br>
+        ///<br>
+        ///<br>
+        public virtual string GenerateTimeStamp() {<br>
+            // Default implementation of UNIX time of the current UTC time<br>
+            TimeSpan ts = DateTime.UtcNow – new DateTime(1970, 1, 1, 0, 0, 0, 0);<br>
+            string timeStamp = ts.TotalSeconds.ToString();<br>
+            timeStamp = timeStamp.Substring(0,<br>
+                timeStamp.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));<br>
+            return timeStamp;<br>
+        }</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-61485" class="comment even thread-even depth-1">
+			<article id="div-comment-61485" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/4be54b9a419bfe003315fa1b12da559a" class="avatar avatar-56 photo grav-hashed grav-hijack" height="56" width="56" id="grav-4be54b9a419bfe003315fa1b12da559a-0">						<b class="fn">Deepak</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-61485">
+							<time datetime="2011-05-31T08:26:26+00:00">
+								May 31, 2011 at 8:26 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Another solution is SocialAuth.NET (<a href="http://code.google.com/p/socialauth-net/" rel="nofollow">http://code.google.com/p/socialauth-net/</a>) This library takes care of all handshake with provider and expose methods like Login(), GetProfile() and GetContacts(). Infact it also provides option to use its inbuilt authentication engine using which a site with no authentication can be turned authentication enabled with Yahoo, Google, Facebook and MSN in less than 10 minutes.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		<li id="comment-63923" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-63923" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./Redirecting_files/ad516503a11cd5ca435acc9bb6523536" class="avatar avatar-56 photo avatar-default grav-hashed grav-hijack" height="56" width="56" id="grav-ad516503a11cd5ca435acc9bb6523536-0">						<b class="fn"><a href="http://coffeeaddict.myopenid.com/" rel="external nofollow" class="url">CoffeeAddict</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/comment-page-1/#comment-63923">
+							<time datetime="2012-02-29T09:22:00+00:00">
+								February 29, 2012 at 9:22 am							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Lol easy?  Yea when you have the code already readily available for you to use, because it does all the hard part for you (in that OAuthBase.cs).  Otherwise even understanding all the combination of what’s going on in that file can get confusing because there are so many parts and things that have to take place in a certain order in order for it to create a correct signature.  </p>
+<p>No it’s not easy…if you’re trying to roll your own signature creation methods.  Sure, if you’re using code available like the OAuthBase.cs, then it’s “easy” because you aren’t having to do jack.  But then again, do I like the code in OAuthBase.cs…depends.  I might want to take snippets of it but also roll my own in a different way in terms of syntax.</p>
+<p>This whole OAuth is not easy period.  You have to understand all parts even if you’re using code that’s doing all the dirty work for you.  I love it when developers through the word “easy” around as if they either bypass the REAL code somehow (by using a framework or such as existing code e.g. OAuthBase.cs) or they say everything is “easy” so as to not seem incapable of doing x,y,z…which to me is stupid that we as developers even have to sit here and try to act like we know everything cause we do not.  In other words, devs need to humble themselves to the fact and admit not everything is easy…the truth…especially with OAuth.</p>
+<p>My point is, stop using the term easy so loosely just to try to make yourself look like you’re some genius you’re not.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+	
+						
+		<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/#respond" style="display:none;">Cancel reply</a></small></h3>
+			<div id="commentform" class="comment-form">
+				<iframe src="./Redirecting_files/saved_resource.html" allowtransparency="false" style="width: 100%; height: 58px; border: 0px;" frameborder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			<input id="ak_js" name="ak_js" type="hidden" value="1425769109965"></div>
+		</div>
+
+		
+		<input type="hidden" name="comment_parent" id="comment_parent" value="">
+
+		
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="http://eran.sandler.co.il/2007/10/09/assembling-a-linux-based-home-storage-server/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">Assembling a Linux based Home Storage Server</span></a></div><div class="nav-next"><a href="http://eran.sandler.co.il/2007/10/25/got-a-new-mp3-player-iriver-x20/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Got a new MP3 player – iRiver X20</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info">
+						<a href="https://wordpress.org/">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-75c77235cd479bc14e0ee352877ba467">
+	</div>
+	<div class="grofile-hash-map-eaffa4d2fa91827c2566ef0b1f17a447">
+	</div>
+	<div class="grofile-hash-map-899a5e90979de9046f2982aabf9eebfd">
+	</div>
+	<div class="grofile-hash-map-04cb0cf31651110e9e9e4762dcbfe738">
+	</div>
+	<div class="grofile-hash-map-c326c5f4432b3f47a97390d43966e4cb">
+	</div>
+	<div class="grofile-hash-map-b4b29aa90ff70c262bcef91d02e5fe1d">
+	</div>
+	<div class="grofile-hash-map-0b7612f39baa984b97b2257753c6539a">
+	</div>
+	<div class="grofile-hash-map-94005288fe0d93d571a5a335d83a20d1">
+	</div>
+	<div class="grofile-hash-map-a2e49b2f10f1e47cdb90b477e07b185b">
+	</div>
+	<div class="grofile-hash-map-602ed358124aa88cf13131bb99a606d2">
+	</div>
+	<div class="grofile-hash-map-e75d025019dc8790bc38314e70088e73">
+	</div>
+	<div class="grofile-hash-map-adfcf12dbb68b20484ab3b84c7d236e7">
+	</div>
+	<div class="grofile-hash-map-4be54b9a419bfe003315fa1b12da559a">
+	</div>
+	<div class="grofile-hash-map-d41d8cd98f00b204e9800998ecf8427e">
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/eran.sandler.co.il\/2007\/10\/17\/oauth-c-very-basic-library\/":141}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+			
+<script type="text/javascript" src="./Redirecting_files/form.js"></script>
+<script type="text/javascript" src="./Redirecting_files/devicepx-jetpack.js"></script>
+<script type="text/javascript" src="./Redirecting_files/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Redirecting_files/wpgroho.js"></script>
+<script type="text/javascript" src="./Redirecting_files/skip-link-focus-fix.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Redirecting_files/functions.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Redirecting_files/sharing.js"></script>
+
+		<!--[if IE]>
+		<script type="text/javascript">
+		if ( 0 === window.location.hash.indexOf( '#comment-' ) ) {
+			// window.location.reload() doesn't respect the Hash in IE
+			window.location.hash = window.location.hash;
+		}
+		</script>
+		<![endif]-->
+		<script type="text/javascript">
+			var comm_par_el = document.getElementById( 'comment_parent' ),
+			    comm_par = (comm_par_el && comm_par_el.value) ? comm_par_el.value : '',
+			    frame = document.getElementById( 'jetpack_remote_comment' ),
+			    tellFrameNewParent;
+
+			tellFrameNewParent = function() {
+				if ( comm_par ) {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=29208944&postid=141&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en-US&jetpack_version=3.3&sig=9beee0ad8f857818977f03114a8aaf8a7fa3b973#parent=http%3A%2F%2Feran.sandler.co.il%2F2007%2F10%2F17%2Foauth-c-very-basic-library%2F" + '&replytocom=' + parseInt( comm_par, 10 ).toString();
+				} else {
+					frame.src = "http://jetpack.wordpress.com/jetpack-comment/?blogid=29208944&postid=141&comment_registration=0&require_name_email=1&stc_enabled=1&stb_enabled=1&show_avatars=1&avatar_default=mystery&greeting=Leave+a+Reply&greeting_reply=Leave+a+Reply+to+%25s&color_scheme=light&lang=en-US&jetpack_version=3.3&sig=9beee0ad8f857818977f03114a8aaf8a7fa3b973#parent=http%3A%2F%2Feran.sandler.co.il%2F2007%2F10%2F17%2Foauth-c-very-basic-library%2F";
+				}
+			};
+
+	
+			if ( window.postMessage ) {
+				if ( document.addEventListener ) {
+					window.addEventListener( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				} else if ( document.attachEvent ) {
+					window.attachEvent( 'message', function( event ) {
+						if ( "http:\/\/jetpack.wordpress.com" !== event.origin ) {
+							return;
+						}
+
+						jQuery( frame ).height( event.data );
+					} );
+				}
+			}
+		</script>
+
+	
+	<script src="./Redirecting_files/e-201510.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	st_go({v:'ext',j:'1:3.3',blog:'29208944',post:'141',tz:'2'});
+	var load_cmc = function(){linktracker_init(29208944,141,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img src="./Redirecting_files/g.gif" id="wpstats">
+
+
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using memcached
+Database Caching using memcached
+Object Caching 1879/2160 objects using memcached
+
+ Served from: eran.sandler.co.il @ 2015-03-08 01:02:44 by W3 Total Cache --><div id="sharing_email" style="display: none;">
+		<form action="./Redirecting_files/Redirecting.html" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+			
+			
+			<img style="float: right; display: none" class="loading" src="./Redirecting_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a href="http://eran.sandler.co.il/2007/10/17/oauth-c-very-basic-library/#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>

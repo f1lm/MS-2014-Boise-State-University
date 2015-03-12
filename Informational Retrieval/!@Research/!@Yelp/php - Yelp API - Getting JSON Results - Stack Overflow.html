@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1 -->
+<html itemscope="" itemtype="http://schema.org/QAPage" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>php - Yelp API - Getting JSON Results - Stack Overflow</title>
+    <link rel="shortcut icon" href="http://cdn.sstatic.net/stackoverflow/img/favicon.ico?v=00a326f96f68">
+    <link rel="apple-touch-icon image_src" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=41f6e13ade69">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=ea71a5211a91">
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Yelp API - Getting JSON Results">
+    <meta name="twitter:description" property="og:description" itemprop="description" content="I&#39;m new to JSON and Yelp&#39;s API. I&#39;m trying to search the API with a form. Here&#39;s my HTML:
+
+&amp;lt;div&amp;gt;
+    &amp;lt;form action=&quot;sample.php&quot; method=&quot;post&quot;&amp;gt;
+    ">
+    <meta property="og:url" content="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results">
+    <link rel="canonical" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results">
+
+    
+    
+    <script type="text/javascript" async="" src="http://engine.adzerk.net/ados?t=1425773219292&request={%22Placements%22:[{%22A%22:22,%22S%22:8277,%22D%22:%22adzerk2068069327%22,%22ATA%22:[17,2221],%22Z%22:45}],%22Keywords%22:%22php%2Cjquery%2Cjson%2Coauth%2Cyelp%2Cx-user-registered%2Cx-200plus-rep%22,%22Referrer%22:%22http%3A%2F%2Fstackoverflow.com%2Fquestions%2F23641328%2Fhow-to-get-results-using-yelp-api%3Frq%3D1%22,%22IsAsync%22:true}"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/quant.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/beacon.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/analytics.js"></script><script type="text/javascript" async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/ados.js"></script><script src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/jquery.min.js"></script>
+    <script src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/stub.en.js"></script>
+    <link rel="stylesheet" type="text/css" href="./php - Yelp API - Getting JSON Results - Stack Overflow_files/all.css">
+    
+    <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Yelp API - Getting JSON Results&#39;" href="http://stackoverflow.com/feeds/question/25107990">
+    <meta name="twitter:app:country" content="US">
+    <meta name="twitter:app:name:iphone" content="Stack Exchange iOS">
+    <meta name="twitter:app:id:iphone" content="871299723">
+    <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/25107990/yelp-api-getting-json-results">
+    <meta name="twitter:app:name:ipad" content="Stack Exchange iOS">
+    <meta name="twitter:app:id:ipad" content="871299723">
+    <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/25107990/yelp-api-getting-json-results">
+    <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+    <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results">
+    <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+    <script>
+        
+        StackExchange.ready(function () {
+                
+                StackExchange.using("snippets", function () {
+                    StackExchange.snippets.initSnippetRenderer();
+                });
+                
+
+            StackExchange.using("postValidation", function () {
+                StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+            });
+
+            
+            StackExchange.question.init({canOpenBounty:true,votesCast:[],totalCommentCount:2,shownCommentCount:2,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:25107990});
+
+            styleCode();
+
+                StackExchange.realtime.subscribeToQuestion('1', '25107990');
+            
+                    });
+    </script>
+
+
+    <script>
+        StackExchange.ready(function () {
+            StackExchange.realtime.init('wss://qa.sockets.stackexchange.com,ws://qa.sockets.stackexchange.com');
+            StackExchange.realtime.subscribeToInboxNotifications();
+                    StackExchange.realtime.subscribeToReputationNotifications('1');
+                StackExchange.realtime.subscribeToTopBarNotifications('1');
+        });
+    </script>
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1425773218,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"e670294454c73cb5570325e25b44e834","isRegistered":true,"userType":3,"userId":1316060,"accountId":404159,"gravatar":"<div class=\"gravatar-wrapper-32\"><img src=\"http://i.stack.imgur.com/zCOuj.jpg?s=32&g=1\" alt=\"\" width=\"32\" height=\"32\"></div>","profileUrl":"http://stackoverflow.com/users/1316060/milson","notificationsUnviewedCount":0,"inboxUnviewedCount":0}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"3ab25183041d","js/moderator.en.js":"52c2b88cc3e0","js/full-anon.en.js":"139389e1a570","js/full.en.js":"080a7e1da349","js/wmd.en.js":"d7fe33e246a8","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"fac6ecff0be9","js/help.en.js":"1ad0e1555080","js/tageditor.en.js":"dd06da2aa5f4","js/tageditornew.en.js":"c06ba485875b","js/inline-tag-editing.en.js":"9d7c6b9d01c1","js/revisions.en.js":"8e050c5bb5cd","js/review.en.js":"0ac00e336bab","js/tagsuggestions.en.js":"b278f9a0b23b","js/post-validation.en.js":"46310812440c","js/explore-qlist.en.js":"fd55f9ed0bb7","js/events.en.js":"2c42da9ca685","js/keyboard-shortcuts.en.js":"97fd18de8fc7","js/external-editor.en.js":"fccec2b4bb15","js/external-editor.en.js":"fccec2b4bb15","js/snippet-javascript.en.js":"49fc6920793f","js/snippet-javascript-codemirror.en.js":"5ffeca005c94"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+    
+    
+<script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/full.en.js"></script><style type="text/css"></style><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/snippet-javascript.en.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/post-validation.en.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/prettify-full.en.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/external-editor.en.js"></script><script async="" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/wmd.en.js"></script><script type="text/javascript" src="http://static.adzerk.net/Extensions/adFeedback.js"></script><link rel="stylesheet" href="http://static.adzerk.net/Extensions/adFeedback.css"><style type="text/css">.fancybox-margin{margin-right:0px;}</style><style type="text/css"> .wmd-snippet-button span { background-position: 0 0; } .wmd-snippet-button:hover span { background-position: 0 -40px; }</style><link type="text/css" rel="stylesheet" href="./php - Yelp API - Getting JSON Results - Stack Overflow_files/jobs.min.css"></head>
+<body class="question-page new-topbar" data-gclp-initialized="true" data-gistbox-initialized="true">
+    <noscript>&lt;div id="noscript-padding"&gt;&lt;/div&gt;</noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="http://stackoverflow.com/">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+            <a href="http://chat.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:6 })">chat</a>
+                    <a href="http://blog.stackoverflow.com/" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:7 })">blog</a>
+                    <a href="http://stackoverflow.com/users/logout" class="js-gps-track" data-gps-track="site_switcher.click({ item_type:8 })">log out</a>
+    </div>
+
+
+
+
+    <a href="http://stackoverflow.com/" class="current-site-link site-link js-gps-track" data-id="1" data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com/" class="site-link js-gps-track" data-id="552" data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track" href="http://careers.stackoverflow.com/?utm_source=stackoverflow.com&utm_medium=site-ui&utm_campaign=multicollider" data-gps-track="site_switcher.click({ item_type:9 })">
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+                <a href="http://stackexchange.com/users/404159/?tab=accounts">your communities</a>
+        </h3>
+            
+            <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" id="edit-pinned-sites">edit</a>
+            <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" id="cancel-pinned-sites" style="display: none;">cancel</a>
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <ul class="my-sites">
+                    <li>
+                        
+
+
+
+    <a href="http://stackoverflow.com/" class="site-link js-gps-track" data-id="1" data-gps-track="
+            site.switch({ target_site:1, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+            <span class="rep-score">282</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://askubuntu.com/" class="site-link js-gps-track" data-id="89" data-gps-track="
+            site.switch({ target_site:89, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-askubuntu" title="Ask Ubuntu"></div>
+        Ask Ubuntu
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://meta.stackexchange.com/" class="site-link js-gps-track" data-id="4" data-gps-track="
+            site.switch({ target_site:4, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>
+        Meta Stack Exchange
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://serverfault.com/" class="site-link js-gps-track" data-id="2" data-gps-track="
+            site.switch({ target_site:2, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-serverfault" title="Server Fault"></div>
+        Server Fault
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+                    <li>
+                        
+
+
+
+    <a href="http://superuser.com/" class="site-link js-gps-track" data-id="3" data-gps-track="
+            site.switch({ target_site:3, item_type:3 }),
+        site_switcher.click({ item_type:1 })">
+        <div class="site-icon favicon favicon-superuser" title="Super User"></div>
+        Super User
+            <span class="rep-score">101</span>
+    </a>
+
+                    </li>
+            </ul>
+                <div class="pinned-site-editor-container" style="display: none;">
+                    <input id="js-site-search-txt" type="text" class="site-filter-input" value="" placeholder="Add a Stack Exchange community">
+                    <input type="submit" id="pin-site-btn" value="Add" disabled="disabled">
+                    <ul class="js-found-sites found-sites"></ul>
+                    <ul class="pinned-site-list sortable" data-custom-list="False">
+                    </ul>
+                    <input type="submit" value="Save" id="save-pinned-sites-btn" disabled="disabled">
+                    <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" id="reset-pinned-sites">reset to default list</a>
+                </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="http://stackexchange.com/sites">more stack exchange communities</a></h3>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="http://stackexchange.com/" class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track" data-gps-track="site_switcher.show" title="A list of all 137 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+                <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="topbar-icon icon-inbox yes-hover js-inbox-button" title="Recent inbox messages">
+                    <span class="hidden-text">Inbox</span>
+                    <span class="unread-count" style="display:none"></span>
+                </a>
+                <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="topbar-icon icon-achievements yes-hover js-achievements-button " data-unread-class="" title="Recent achievements: reputation, badges, and privileges earned">
+                    <span class="hidden-text">Reputation and Badges</span>
+                    <span class="unread-count" style="display:none">
+                        
+                    </span>
+                </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <a href="http://stackoverflow.com/users/1316060/milson" class="profile-me js-gps-track" data-gps-track="profile_summary.click()">
+                    <div class="gravatar-wrapper-24" title="Milson"><img src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/zCOuj.jpg" alt="" width="24" height="24" class="avatar-me js-avatar-me"></div>
+                    <div class="links-container topbar-flair">
+
+                        <span class="reputation" title="your reputation: 282">
+                            282
+                        </span>
+<span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="15 bronze badges"><span class="badge3"></span><span class="badgecount">15</span></span>                    </div>
+                </a>
+                <div class="links-container">
+                    <span class="topbar-menu-links">
+
+
+
+
+    <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="http://stackoverflow.com/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="http://stackoverflow.com/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="http://meta.stackoverflow.com/" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/help/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://stackoverflow.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope="" itemtype="http://schema.org/Question">
+	<link itemprop="image" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+			<div id="question-header">
+			<h1 itemprop="name"><a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results" class="question-hyperlink">Yelp API - Getting JSON Results</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="25107990" id="question">
+
+        <table>
+        <tbody><tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+    <input type="hidden" name="_id_" value="25107990">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+    <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+    
+    <a class="star-off" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b></b></div>   
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+        <p>I'm new to JSON and Yelp's API. I'm trying to search the API with a form. Here's my HTML:</p>
+
+<pre class="lang-php prettyprint prettyprinted" data-initialized="true" data-gclp-id="0"><code><span class="tag">&lt;div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;form</span><span class="pln"> </span><span class="atn">action</span><span class="pun">=</span><span class="atv">"sample.php"</span><span class="pln"> </span><span class="atn">method</span><span class="pun">=</span><span class="atv">"post"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;label&gt;</span><span class="pln">Term</span><span class="tag">&lt;/label&gt;</span><span class="pln">&amp;nbsp;</span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"term"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"term"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;label&gt;</span><span class="pln">Location</span><span class="tag">&lt;/label&gt;</span><span class="pln">&amp;nbsp;</span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"location"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"location"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"submitRest"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"SUBMIT"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"success"</span><span class="tag">&gt;&lt;/div&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"result"</span><span class="tag">&gt;</span><span class="pln">Result</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+</span><span class="tag">&lt;/div&gt;</span></code></pre>
+
+<p>I'm submitting the form via ajax here:</p>
+
+<pre class="lang-php prettyprint prettyprinted" data-initialized="true" data-gclp-id="1"><code><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/javascript"</span><span class="tag">&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'form'</span><span class="pun">).</span><span class="pln">submit</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(</span><span class="pln">evt</span><span class="pun">){</span><span class="pln">
+        evt</span><span class="pun">.</span><span class="pln">preventDefault</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">var</span><span class="pln"> url </span><span class="pun">=</span><span class="pln"> $</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">).</span><span class="pln">attr</span><span class="pun">(</span><span class="str">"action"</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">var</span><span class="pln"> formData </span><span class="pun">=</span><span class="pln"> $</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">).</span><span class="pln">serialize</span><span class="pun">();</span><span class="pln">
+        $</span><span class="pun">.</span><span class="pln">ajax</span><span class="pun">(</span><span class="pln">url</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            data </span><span class="pun">:</span><span class="pln"> formData</span><span class="pun">,</span><span class="pln">
+            type </span><span class="pun">:</span><span class="pln"> </span><span class="str">"POST"</span><span class="pun">,</span><span class="pln">
+            success </span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">response</span><span class="pun">){</span><span class="pln">
+                $</span><span class="pun">(</span><span class="str">'#success'</span><span class="pun">).</span><span class="pln">html</span><span class="pun">(</span><span class="str">"&lt;p&gt;It worked!&lt;/p&gt;&lt;p&gt;"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="pun">&lt;?</span><span class="pln">php $getYelpData </span><span class="pun">?&gt;</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">"&lt;/p&gt;"</span><span class="pun">)</span><span class="pln">
+            </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">});</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></code></pre>
+
+<p>The problem lies in "sample.php". It consists of this Oauth call:</p>
+
+<pre class="lang-php prettyprint prettyprinted" data-initialized="true" data-gclp-id="2"><code><span class="pln">require_once</span><span class="pun">(</span><span class="str">'lib/OAuth.php'</span><span class="pun">);</span><span class="pln">
+
+    $Term </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">isset</span><span class="pun">(</span><span class="pln">$_POST</span><span class="pun">[</span><span class="str">'term'</span><span class="pun">]))</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'term'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+    $Location </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">isset</span><span class="pun">(</span><span class="pln">$_POST</span><span class="pun">[</span><span class="str">'location'</span><span class="pun">]))</span><span class="pln"> </span><span class="pun">?</span><span class="pln"> $_POST</span><span class="pun">[</span><span class="str">'location'</span><span class="pun">]</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="kwd">function</span><span class="pln"> getYelpData</span><span class="pun">(</span><span class="pln">$Term</span><span class="pun">,</span><span class="pln"> $Location</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        $URL </span><span class="pun">=</span><span class="pln"> </span><span class="str">"http://api.yelp.com/v2/search?term="</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> $Term </span><span class="pun">.</span><span class="pln"> </span><span class="str">"&amp;amp;location="</span><span class="pln"> </span><span class="pun">.</span><span class="pln"> $Location</span><span class="pun">;</span><span class="pln"> 
+
+        $CONSUMER_KEY </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-;</span><span class="pln">
+        $CONSUMER_SECRET </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-;</span><span class="pln">
+        $TOKEN </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-;</span><span class="pln">
+        $TOKEN_SECRET </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-;</span><span class="pln">
+
+        $AuthToken </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OAuthToken</span><span class="pun">(</span><span class="pln">$TOKEN</span><span class="pun">,</span><span class="pln"> $TOKEN_SECRET</span><span class="pun">);</span><span class="pln">
+        $Consumer </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OAuthConsumer</span><span class="pun">(</span><span class="pln">$CONSUMER_KEY</span><span class="pun">,</span><span class="pln"> $CONSUMER_SECRET</span><span class="pun">);</span><span class="pln">
+
+        $AuthRequest </span><span class="pun">=</span><span class="pln"> </span><span class="typ">OAuthRequest</span><span class="pun">::</span><span class="pln">from_consumer_and_token</span><span class="pun">(</span><span class="pln">
+            $Consumer</span><span class="pun">,</span><span class="pln"> 
+            $AuthToken</span><span class="pun">,</span><span class="pln"> 
+            </span><span class="str">'GET'</span><span class="pun">,</span><span class="pln"> 
+            $URL
+        </span><span class="pun">);</span><span class="pln">
+
+        $AuthRequest</span><span class="pun">-&gt;</span><span class="pln">sign_request</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">OAuthSignatureMethod_HMAC_SHA1</span><span class="pun">(),</span><span class="pln"> $Consumer</span><span class="pun">,</span><span class="pln"> $AuthToken</span><span class="pun">);</span><span class="pln">
+
+        $Handle </span><span class="pun">=</span><span class="pln"> curl_init</span><span class="pun">(</span><span class="pln">$AuthRequest</span><span class="pun">-&gt;</span><span class="pln">to_url</span><span class="pun">());</span><span class="pln">
+        curl_setopt</span><span class="pun">(</span><span class="pln">$Handle</span><span class="pun">,</span><span class="pln"> CURLOPT_RETURNTRANSFER</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+        curl_setopt</span><span class="pun">(</span><span class="pln">$Handle</span><span class="pun">,</span><span class="pln"> CURLOPT_HEADER</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+        $YelpResponse </span><span class="pun">=</span><span class="pln"> curl_exec</span><span class="pun">(</span><span class="pln">$Handle</span><span class="pun">);</span><span class="pln"> </span><span class="com">// Yelp response</span><span class="pln">
+        curl_close</span><span class="pun">(</span><span class="pln">$Handle</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> json_decode</span><span class="pun">(</span><span class="pln">$YelpResponse</span><span class="pun">,</span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+    </span><span class="pun">}</span></code></pre>
+
+<p>How do I grab the JSON data from $YelpResponse? The ajax displays the success message, so I know it's working, but I'm not sure how to get the data I want out of it.</p>
+
+    </div>
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/php" class="post-tag js-gps-track" title="show questions tagged &#39;php&#39;" rel="tag">php</a> <a href="http://stackoverflow.com/questions/tagged/jquery" class="post-tag js-gps-track" title="show questions tagged &#39;jquery&#39;" rel="tag">jquery</a> <a href="http://stackoverflow.com/questions/tagged/json" class="post-tag js-gps-track" title="show questions tagged &#39;json&#39;" rel="tag">json</a> <a href="http://stackoverflow.com/questions/tagged/oauth" class="post-tag js-gps-track" title="show questions tagged &#39;oauth&#39;" rel="tag">oauth</a> <a href="http://stackoverflow.com/questions/tagged/yelp" class="post-tag js-gps-track" title="show questions tagged &#39;yelp&#39;" rel="tag">yelp</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+<div class="post-menu"><a href="http://stackoverflow.com/q/25107990/1316060" title="short permalink to this question" class="short-link" id="link-post-25107990">share</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/25107990/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span><a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="25107990">flag</a></div>        
+    </td>
+    <td class="post-signature owner">
+        <div class="user-info ">
+    <div class="user-action-time">
+        asked <span title="2014-08-03 18:54:16Z" class="relativetime">Aug 3 '14 at 18:54</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="http://stackoverflow.com/users/2766423/user2766423"><div class="gravatar-wrapper-32"><img src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/d8cfcd541dbe1c22d3ed1f79c644fd74" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="http://stackoverflow.com/users/2766423/user2766423">user2766423</a><br>
+        <span class="reputation-score" title="reputation score " dir="ltr">59</span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span>
+    </div>
+</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-25107990" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0" data-canpost="true" data-cansee="false" data-comments-unavailable="false" data-addlink-disabled="false">
+
+
+
+    <tr id="comment-39073422" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">Where do you want to work with the data...in javascript on the client side, or in php on the server side. If on the server, simply do <code>$resp = json_decode($YelpResponse);</code> then <code>foreach($resp as $idx =&gt; $obj){//iteration }</code> if in ajax, return the object <code>return $YelpResponse</code> add <code>dataType:'json'</code> to your <code>ajax</code> call, and then iterate it with <code>$.each(response, function(i,obj){ console.log(obj) });</code></span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/1206267/ohgodwhy" title="16666 reputation" class="comment-user">Ohgodwhy</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#comment39073422_25107990"><span title="2014-08-03 19:09:49Z" class="relativetime-clean">Aug 3 '14 at 19:09</span></a></span>
+                    <span class="edited-yes" title="this comment was edited 1 time"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-39078004" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                <a class="comment-up comment-up-off" title="this comment adds something useful to the post">upvote</a>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                                <td>
+                                    <a class="comment-flag" title="Flag this comment for serious problems or moderator attention">flag</a>
+                                </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">@Ohgodwhy I seem to be having a lot of trouble grasping where I'm going wrong. To answer your question I don't know. I'm assuming I just want the data on the client side. I only want the results displayed in a list.</span>
+                –&nbsp;
+                    <a href="http://stackoverflow.com/users/2766423/user2766423" title="59 reputation" class="comment-user owner">user2766423</a>
+                <span class="comment-date" dir="ltr"><a class="comment-link" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#comment39078004_25107990"><span title="2014-08-04 00:53:46Z" class="relativetime-clean">Aug 4 '14 at 0:53</span></a></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+				    <tfoot>
+					    <tr>
+						    <td></td>
+						    <td class="comment-form">
+							    <form id="add-comment-25107990" class="" data-placeholdertext="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."></form>
+						    </td>
+					    </tr>
+				    </tfoot>
+		    </table>
+	    </div>
+
+        <div id="comments-link-25107990">
+
+                <a class="js-add-link comments-link " title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments." href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#">add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post, or add one of your own" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" onclick=""></a>
+        </div>         
+    </td>
+</tr>              <tr class="bounty-notification">
+          <td class="votecell"></td>
+          <td>
+          <div style="margin-top:20px">
+            <a class="bounty-link bounty" title="offer some of your reputation for better answers">
+                start a bounty
+            </a>
+          </div>
+          </td>
+          </tr>
+    </tbody></table>
+</div>
+
+			<div id="answers" class="no-answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+						</h2>
+						<div style="display:none;">
+							<div id="tabs">
+        <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+        <a class="youarehere" href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+        <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+											<h2 class="bottom-notice bottom-share-links" style="padding-top: 8px; margin-bottom: -8px;">
+								Know someone who can answer? 
+								Share a link to this <a href="http://stackoverflow.com/q/25107990/1316060">question</a> via <a href="mailto:?subject=Stack%20Overflow%20Question&body=Yelp%20API%20-%20Getting%20JSON%20Results%0Ahttp%3a%2f%2fstackoverflow.com%2fq%2f25107990%2f1316060%3fsem%3d2">email</a>, <a href="https://plus.google.com/share?url=http%3a%2f%2fstackoverflow.com%2fq%2f25107990%2f1316060%3fsgp%3d2">Google+</a>, <a href="http://twitter.com/share?url=http%3a%2f%2fstackoverflow.com%2fq%2f25107990%2f1316060%3fstw%3d2">Twitter</a>, or <a href="http://www.facebook.com/sharer.php?u=http%3a%2f%2fstackoverflow.com%2fq%2f25107990%2f1316060%3fsfb%3d2">Facebook</a>.
+							</h2>
+					<a name="new-answer"></a>
+						<form id="post-form" action="http://stackoverflow.com/questions/25107990/answer/submit" method="post" class="post-form">
+						    <input type="hidden" id="post-id" value="25107990">
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false">
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/23641328/how-to-get-results-using-yelp-api?rq=1">
+							<h2 class="space">Your Answer</h2>
+
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+            // Have to fire editor after snippets, if snippets enabled
+            if (StackExchange.options.snippets.enabled) {
+                StackExchange.using("snippets", function() {
+                    createEditor();
+                });
+            }
+            else {
+                createEditor();
+            }
+        });
+
+        function createEditor() {
+            prepareEditor({
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: false,
+                    discardSelector: ".discard-answer"
+                
+                });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li class="wmd-button" id="wmd-bold-button" title="Strong &lt;strong&gt; Ctrl+B" style="left: 0px;"><span style="background-position: 0px 0px;"></span></li><li class="wmd-button" id="wmd-italic-button" title="Emphasis &lt;em&gt; Ctrl+I" style="left: 25px;"><span style="background-position: -20px 0px;"></span></li><li class="wmd-spacer wmd-spacer1" id="wmd-spacer1"></li><li class="wmd-button" id="wmd-link-button" title="Hyperlink &lt;a&gt; Ctrl+L" style="left: 75px;"><span style="background-position: -40px 0px;"></span></li><li class="wmd-button" id="wmd-quote-button" title="Blockquote &lt;blockquote&gt; Ctrl+Q" style="left: 100px;"><span style="background-position: -60px 0px;"></span></li><li class="wmd-button" id="wmd-code-button" title="Code Sample &lt;pre&gt;&lt;code&gt; Ctrl+K" style="left: 125px;"><span style="background-position: -80px 0px;"></span></li><li class="wmd-button" id="wmd-image-button" title="Image &lt;img&gt; Ctrl+G" style="left: 150px;"><span style="background-position: -100px 0px;"></span></li><li class="wmd-button wmd-snippet-button" style="left:175px" id="wmd-snippet-button" title="Code snippet Ctrl-M"><span style="background-image: url(http://stackoverflow.com/content/balsamiq/wmd-mockup-button.png?v=4);"></span></li><li class="wmd-spacer wmd-spacer2" id="wmd-spacer2" style="left: 220px;"></li><li class="wmd-button" id="wmd-olist-button" title="Numbered List &lt;ol&gt; Ctrl+O" style="left: 225px;"><span style="background-position: -120px 0px;"></span></li><li class="wmd-button" id="wmd-ulist-button" title="Bulleted List &lt;ul&gt; Ctrl+U" style="left: 250px;"><span style="background-position: -140px 0px;"></span></li><li class="wmd-button" id="wmd-heading-button" title="Heading &lt;h1&gt;/&lt;h2&gt; Ctrl+H" style="left: 275px;"><span style="background-position: -160px 0px;"></span></li><li class="wmd-button" id="wmd-hr-button" title="Horizontal Rule &lt;hr&gt; Ctrl+R" style="left: 300px;"><span style="background-position: -180px 0px;"></span></li><li class="wmd-spacer wmd-spacer3" id="wmd-spacer3" style="left: 346px;"></li><li class="wmd-button" id="wmd-undo-button" title="Undo - Ctrl+Z" style="left: 350px;"><span style="background-position: -200px -20px;"></span></li><li class="wmd-button" id="wmd-redo-button" title="Redo - Ctrl+Y" style="left: 375px;"><span style="background-position: -220px -20px;"></span></li><li class="wmd-button wmd-help-button" id="wmd-help-button" title="Markdown Editing Help" style="right: 0px;"><span style="background-position: -240px 0px;"></span></li></ul></div>
+            <textarea id="wmd-input" class="wmd-input processed" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        <div class="grippie" style="margin-right: 0px;"></div></div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+    <div class="community-option">
+        <input id="communitymode" name="communitymode" type="checkbox">
+        <label for="communitymode" title="Marking an answer community wiki encourages others to edit it by lowering the reputation barrier required to edit. However, you will not gain any upvote reputation from it. This cannot be undone.">community wiki</label>
+    </div>
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="e670294454c73cb5570325e25b44e834">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="discard-answer dno">discard</a>
+								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+							Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/php" class="post-tag" title="show questions tagged &#39;php&#39;" rel="tag">php</a> <a href="http://stackoverflow.com/questions/tagged/jquery" class="post-tag" title="show questions tagged &#39;jquery&#39;" rel="tag">jquery</a> <a href="http://stackoverflow.com/questions/tagged/json" class="post-tag" title="show questions tagged &#39;json&#39;" rel="tag">json</a> <a href="http://stackoverflow.com/questions/tagged/oauth" class="post-tag" title="show questions tagged &#39;oauth&#39;" rel="tag">oauth</a> <a href="http://stackoverflow.com/questions/tagged/yelp" class="post-tag" title="show questions tagged &#39;yelp&#39;" rel="tag">yelp</a>  or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tbody><tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2014-08-03 18:54:16Z"><b>7 months ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>228 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			        </tbody></table>
+			    </div>
+			<div class="module community-bulletin" data-tracker="cb=1">
+    <div class="related">
+                <div class="bulletin-title">
+                    Featured on Meta
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackexchange.com/questions/249951/help-us-test-the-shiny-new-user-activity-page-plus-a-bunch-of-new-features?cb=1" class="question-hyperlink">
+<div class="favicon favicon-stackexchangemeta" title="Meta Stack Exchange"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackexchange.com/questions/249951/help-us-test-the-shiny-new-user-activity-page-plus-a-bunch-of-new-features?cb=1" class="question-hyperlink">Help us test the shiny new “User Activity” page! (Plus a bunch of new features.)</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <a href="http://meta.stackoverflow.com/questions/287466/help-improve-the-help-improvement-queue?cb=1" class="question-hyperlink">
+<div class="favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>                </a>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/287466/help-improve-the-help-improvement-queue?cb=1" class="question-hyperlink">Help Improve The Help &amp; Improvement Queue!</a>
+                </div>
+                <br class="cbt">
+            </div>
+                <div class="bulletin-title">
+                    Hot Meta Posts
+                </div>
+                <hr>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">11</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/287541/the-purpose-of-the-etymology-tag?cb=1" class="question-hyperlink">The purpose of the etymology tag</a>
+                </div>
+                <br class="cbt">
+            </div>
+    <div class="spacer">
+        <div class="bulletin-item-type">
+                <span title="Vote score (upvotes - downvotes)">8</span>
+            </div>
+                <div class="bulletin-item-content">
+                    <a href="http://meta.stackoverflow.com/questions/287600/should-an-old-question-be-edited-to-use-a-newer-programming-language-objective?cb=1" class="question-hyperlink">Should an old question be edited to use a newer programming language (Objecti…</a>
+                </div>
+                <br class="cbt">
+            </div>
+    </div>
+</div>			
+			<script>
+                var ados = ados || {};ados.run = ados.run || [];
+                ados.run.push(function() { ados_add_placement(22,8277,"adzerk2068069327",[17,2221]).setZone(45) ; });                    
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk2068069327">
+            <iframe id="ados_frame_adzerk2068069327_502646" frameborder="0" scrolling="no" height="250" width="220"></iframe><img height="0" width="0" border="0" style="position: absolute; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;" src="http://engine.adzerk.net/i.gif?e=eyJhdiI6NDM3LCJhdCI6MTcsImJ0IjowLCJjbSI6MjE3MDk2LCJjaCI6MTE3OCwiY3IiOjc2MDgzNiwiZGkiOiJiNjQxMmNiYjUxNDQ0NTcxOWE3MmM4MTc4ODNiM2Y4ZSIsImRtIjoxLCJmYyI6NzkyMTIwLCJmbCI6NTAyNjQ2LCJpcCI6IjEzMi4xNzguOS4xOSIsImt3IjoicGhwLGpxdWVyeSxqc29uLG9hdXRoLHllbHAseC11c2VyLXJlZ2lzdGVyZWQseC0yMDBwbHVzLXJlcCIsIm53IjoyMiwicGMiOjMsInByIjo1NzkyLCJydCI6MiwicmYiOiJodHRwOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzIzNjQxMzI4L2hvdy10by1nZXQtcmVzdWx0cy11c2luZy15ZWxwLWFwaT9ycT0xIiwic3QiOjgyNzcsInVrIjoidWUxLTU1ODcwZTExMDk1MDRmZjRhYWQ1MmMwNjdlODBlNzRhIiwiem4iOjQ1LCJ0cyI6MTQyNTc3MzIxOTA4OSwiYmYiOnRydWUsInBuIjoiYWR6ZXJrMjA2ODA2OTMyNyIsImZxIjoxfQ&s=8HcgNwzzX2Wxl0T_AxyeOmny3l0"></div>  
+        <div id="hireme" class="blue near-you tagged"><a href="http://careers.stackoverflow.com/jobs/location/Boise%2C%20Idaho?a=2zumI" target="_blank" data-loc="Boise%2C%20Idaho" data-la="94CoTIs" data-hf="h" class="top"> <span>Jobs near you</span></a><ul class="jobs"><li><a data-cid="167173" data-la="r7nCotjLrTH" href="http://careers.stackoverflow.com/jobs/80863/c-sharp-developer-architect-win-osx-ios-xamarin-cloud-pingman-tools" target="_blank" title="C# Developer/Architect; Win/OSX/iOS ~Xamarin/cloud at Pingman Tools. Click to learn more.">C# Developer/Architect; Win/OSX/iOS ~Xamarin/cloud<br><div class="company">Pingman Tools</div><div class="location" title="Boise, ID">Boise, ID</div><span class="post-tag">multi-platform</span><span class="post-tag">c#</span></a></li><li><a data-cid="167331" data-la="raFiZomOpY6" href="http://careers.stackoverflow.com/jobs/81021/data-scientist-balihoo" target="_blank" title="Data Scientist at Balihoo. Click to learn more.">Data Scientist<br><div class="company">Balihoo</div><div class="location" title="Boise, ID">Boise, ID</div><span class="post-tag">r</span><span class="post-tag">python</span></a></li><li class="city"><a href="http://careers.stackoverflow.com/jobs/location/Boise%2C%20Idaho" target="_blank" data-hf="f" data-loc="Boise%2C%20Idaho" data-la="94CoTIs">More jobs near Boise…</a></li></ul><img class="impression" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/i" style="display:none;"><img class="impression" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/r7nCotjLrTH-raFiZomOpY6-2zumI" style="display:none;"></div>
+			  
+    
+            
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/477816?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">4928
+    </div>
+</a><a href="http://stackoverflow.com/questions/477816/what-is-the-correct-json-content-type?rq=1" class="question-hyperlink">What is the correct JSON content type?</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/6662682?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/6662682/parsing-json-response-using-php-for-yelp-api?rq=1" class="question-hyperlink">Parsing JSON response using PHP for Yelp API</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/8570122?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/8570122/yelp-error-invalid-signature?rq=1" class="question-hyperlink">yelp error :INVALID_SIGNATURE</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/9009993?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/9009993/get-data-on-api-yelp?rq=1" class="question-hyperlink">Get data on API yelp</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/13213925?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/13213925/unable-to-get-reviews-from-yelp-api-using-tmhoauth-php-library-i-get-no-errors?rq=1" class="question-hyperlink">Unable to get reviews from Yelp API using tmhOAuth php library. I get NO ERRORS</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/14282459?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/14282459/error-parsing-json-from-yelp-api?rq=1" class="question-hyperlink">Error Parsing JSON from YELP API</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/15448495?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/15448495/append-json-data-from-yelp-api-to-html?rq=1" class="question-hyperlink">Append JSON data from Yelp API to html</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/17684866?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="http://stackoverflow.com/questions/17684866/parsing-yelp-search-api-results-with-json?rq=1" class="question-hyperlink">Parsing Yelp Search API results with JSON</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/23641328?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/23641328/how-to-get-results-using-yelp-api?rq=1" class="question-hyperlink">How to get results using yelp api</a>
+</div>
+<div class="spacer js-gps-track">
+<a href="http://stackoverflow.com/q/23810970?rq=1" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="http://stackoverflow.com/questions/23810970/getting-data-from-yelp-api?rq=1" class="question-hyperlink">Getting data from Yelp API</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="http://stackexchange.com/questions?tab=hot" class="js-gps-track" data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li>
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/28885132/why-is-x-in-x-faster-than-x-x" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is 'x' in ('x',) faster than 'x' == 'x'?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1177104/what-is-an-odd-prime" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is an odd prime?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1179505/why-is-the-implication-if-tuesday-is-a-day-of-the-week-then-i-am-a-penguin-a" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why is the implication “If Tuesday is a day of the week, then I am a penguin.” a false implication?
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-unix" title="Unix &amp; Linux Stack Exchange"></div><a href="http://unix.stackexchange.com/questions/188782/how-to-extract-text-using-sed" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:106 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to extract text using sed
+                </a>
+
+            </li>
+            <li>
+                <div class="favicon favicon-serverfault" title="Server Fault"></div><a href="http://serverfault.com/questions/673776/how-do-i-check-if-a-backup-by-rsync-is-successful" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:2 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How do I check if a backup by rsync is successful?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/83284/why-wasnt-the-droids-escape-pod-blown-up" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why wasn't the droids' escape pod blown up?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/41152/should-one-offer-to-take-over-a-lecture-that-the-lecturer-is-struggling-to-teach" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Should one offer to take over a lecture that the lecturer is struggling to teach?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mathoverflow" title="MathOverflow"></div><a href="http://mathoverflow.net/questions/199212/maryam-mirzakhanis-works" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:504 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Maryam Mirzakhani's works
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-engineering" title="Engineering Stack Exchange"></div><a href="http://engineering.stackexchange.com/questions/1995/mechanism-of-gear-rotation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:595 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Mechanism of gear rotation
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-genealogy" title="Genealogy &amp; Family History Stack Exchange"></div><a href="http://genealogy.stackexchange.com/questions/7961/handwriting-help-what-is-david-l-aldrichs-occupation" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:467 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Handwriting Help: What is David L. Aldrich's Occupation?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/231733/is-there-any-idiom-which-is-exactly-opposite-of-head-start" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there any idiom which is exactly opposite of 'head start'?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/9929/secrets-over-the-phone" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Secrets over the phone
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-blender" title="Blender Stack Exchange"></div><a href="http://blender.stackexchange.com/questions/26756/how-can-i-automatically-extend-edge-loop-selection" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:502 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I automatically extend edge loop selection?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-history" title="History Stack Exchange"></div><a href="http://history.stackexchange.com/questions/20735/what-is-the-earliest-reference-to-space-aliens" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:324 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What is the earliest reference to "space aliens"?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/83298/has-bruce-wayne-ever-impersonated-nightwing" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Has Bruce Wayne ever impersonated Nightwing?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-emacs" title="Emacs Stack Exchange"></div><a href="http://emacs.stackexchange.com/questions/9877/warning-message-about-load-path" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:583 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Warning message about load-path.
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-physics" title="Physics Stack Exchange"></div><a href="http://physics.stackexchange.com/questions/169009/bell-in-a-vacuum-where-does-the-sound-energy-go" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:151 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Bell in a vacuum, where does the sound energy go?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/76721/how-can-i-express-this-recurrence-function-in-mathematica" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How can I express this recurrence function in Mathematica?
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/55482/how-does-a-pinch-of-salt-make-a-difference-to-a-recipe" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How does A pinch of salt make a difference to a recipe
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-vi" title="Vi and Vim Stack Exchange"></div><a href="http://vi.stackexchange.com/questions/2410/vimscript-optional-arguments" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:599 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    vimscript optional arguments
+                </a>
+
+            </li>
+            <li class="dno js-hidden" style="display: list-item;">
+                <div class="favicon favicon-earthscience" title="Earth Science Stack Exchange"></div><a href="http://earthscience.stackexchange.com/questions/4491/water-veins-underground-causing-health-problems" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:553 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    water veins underground causing health problems
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-askubuntu" title="Ask Ubuntu"></div><a href="http://askubuntu.com/questions/593999/what-are-the-other-software-ppas" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:89 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What are the 'Other Software' PPAs?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-ux" title="User Experience Stack Exchange"></div><a href="http://ux.stackexchange.com/questions/74461/is-it-frowned-upon-to-allow-the-user-two-different-options-to-perform-the-same-a" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:102 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is it frowned upon to allow the user two different options to perform the same action?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/140547/how-to-describe-statistics-in-one-sentence" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to describe statistics in one sentence?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="http://stackoverflow.com/questions/25107990/yelp-api-getting-json-results?rq=1#" class="show-more js-show-more js-gps-track" data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="http://stackoverflow.com/feeds/question/25107990" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/25107990/ivc/42ec');});
+</script>
+<noscript>
+    &lt;div&gt;&lt;img src="/posts/25107990/ivc/42ec" class="dno" alt="" width="0" height="0"&gt;&lt;/div&gt;
+</noscript><div style="display:none" id="prettify-lang">lang-php</div></div>
+
+    <script>
+        $('#wmd-input').one("keypress", function() {
+            $.ajax({
+                url: '/accounts/email-settings-form',
+                cache: false,
+                success: function(data) {
+                    $('#submit-button').parent().prepend(data);
+                }
+            });
+        });
+
+    </script>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="http://stackoverflow.com/tour">tour</a>
+                    <a href="http://stackoverflow.com/help">help</a>
+                    <a href="http://blog.stackoverflow.com/?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com/">chat</a>
+                    <a href="http://data.stackexchange.com/">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick="StackExchange.switchMobile(&quot;on&quot;)">mobile</a>
+                    <b><a href="http://stackoverflow.com/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tbody><tr>
+            <th colspan="3">
+                Technology
+            </th>
+            <th>
+                Life / Arts
+            </th>
+            <th>
+                Culture / Recreation
+            </th>
+            <th>
+                Science
+            </th>
+            <th>
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="http://stackoverflow.com/" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="http://serverfault.com/" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="http://superuser.com/" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="http://webapps.stackexchange.com/" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="http://askubuntu.com/" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="http://webmasters.stackexchange.com/" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="http://gamedev.stackexchange.com/" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="http://tex.stackexchange.com/" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://programmers.stackexchange.com/" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="http://unix.stackexchange.com/" title="users of Linux, FreeBSD and other Un*x-like operating systems.">Unix &amp; Linux</a></li>
+                        <li><a href="http://apple.stackexchange.com/" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="http://wordpress.stackexchange.com/" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="http://gis.stackexchange.com/" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="http://electronics.stackexchange.com/" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="http://android.stackexchange.com/" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="http://security.stackexchange.com/" title="Information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="http://dba.stackexchange.com/" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="http://drupal.stackexchange.com/" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="http://sharepoint.stackexchange.com/" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="http://ux.stackexchange.com/" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="http://mathematica.stackexchange.com/" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="http://salesforce.stackexchange.com/" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (14)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://photo.stackexchange.com/" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="http://scifi.stackexchange.com/" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="http://graphicdesign.stackexchange.com/" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="http://cooking.stackexchange.com/" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="http://diy.stackexchange.com/" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="http://money.stackexchange.com/" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="http://academia.stackexchange.com/" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (10)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://english.stackexchange.com/" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="http://skeptics.stackexchange.com/" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="http://judaism.stackexchange.com/" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="http://travel.stackexchange.com/" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="http://christianity.stackexchange.com/" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="http://gaming.stackexchange.com/" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="http://bicycles.stackexchange.com/" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="http://rpg.stackexchange.com/" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://math.stackexchange.com/" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="http://stats.stackexchange.com/" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="http://cstheory.stackexchange.com/" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="http://physics.stackexchange.com/" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="http://mathoverflow.net/" title="professional mathematicians">MathOverflow</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (7)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="http://stackapps.com/" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="http://meta.stackexchange.com/" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="http://area51.stackexchange.com/" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="http://careers.stackoverflow.com/">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</tbody></table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo © 2015 stack exchange inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.3.6.2368
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        &lt;div id="noscript-warning"&gt;Stack Overflow works best with JavaScript enabled&lt;img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"&gt;&lt;/div&gt;
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('php,jquery,json,oauth,yelp,x-user-registered,x-200plus-rep');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');        
+        ga('set', 'dimension1', '404159');         
+        ga('set', 'dimension2', '|php|jquery|json|oauth|yelp|');         
+        ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>        
+    
+    
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form><div class="gclp-code-grabber" data-gclp-id="0" data-hasqtip="true" style="left: 1142.5px; top: 251px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="1" data-hasqtip="true" style="left: 1142.5px; top: 484px; display: none;"></div><div class="gclp-code-grabber" data-gclp-id="2" data-hasqtip="true" style="left: 1142.5px; top: 765px; display: none;"></div><script type="text/javascript" src="./php - Yelp API - Getting JSON Results - Stack Overflow_files/p"></script></body></html>
