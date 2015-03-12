@@ -1,0 +1,23 @@
+global
+    maxconn 2000
+    user haproxy
+    group haproxy
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    option redispatch
+    timeout connect  5000
+    timeout client  10000
+    timeout server  10000
+listen socialnetworking 0.0.0.0:80
+    balance roundrobin
+    cookie JSESSIONID prefix indirect nocache
+    server monitor_service1 132.178.129.230:8080 cookie monitor_service1
+    server monitor_service2 132.178.128.254:8080 cookie monitor_service2
+listen haproxyapp_admin:9100 132.178.128.200:9100
+  mode http
+  cookie haproxyapp_admin insert
+  stats uri /
