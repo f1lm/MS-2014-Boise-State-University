@@ -1,0 +1,443 @@
+
+<!-- saved from url=(0039)http://www.artima.com/intv/exceptP.html -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Failure, Preconditions, and Reuse</title>
+<meta name="description" content="
+Bertrand Meyer talks with Bill Venners about strategies for dealing with failure,
+where to check preconditions, and when it&#39;s appropriate to design for reuse.
+">
+<meta name="keywords" content="design, contract, contracts, bertrand, meyer, test, driven, development">
+<meta name="author" content="Bill Venners">
+<link rel="stylesheet" type="text/css" href="./Failure, Preconditions, and Reuse_files/artimapf.css">
+<link rel="shortcut icon" href="http://www.artima.com/favicon.ico">
+<style type="text/css"></style><style type="text/css">.fancybox-margin{margin-right:0px;}</style></head>
+<body data-gclp-initialized="true" data-gistbox-initialized="true"><table width="100%" bgcolor="#FFFFFF" style="margin-top: 5px">
+<tbody><tr>
+<td align="center">
+<div id="topbanner" style="height: 90px"><noscript>&lt;a href='http://www.artima.com/zcr/adclick.php?n=a86d37e9' target='_top'&gt;&lt;img src='http://www.artima.com/zcr/adview.php?what=zone:1&amp;amp;n=a86d37e9' border='0' alt='' /&gt;&lt;/a&gt;</noscript></div>
+</td>
+</tr>
+</tbody></table>
+<table width="100%" cellspacing="0">
+<tbody><tr>
+<td align="left" valign="bottom">
+<a href="http://www.artima.com/index.jsp"><img src="./Failure, Preconditions, and Reuse_files/a7.gif" alt="The Artima Developer Community" border="0" width="550" height="43"></a>
+</td>
+</tr></tbody></table>
+<table width="100%" bgcolor="#333333">
+<tbody><tr>
+<td align="center">
+<div class="ml">
+<a href="http://www.artima.com/articles" class="hl">Articles</a>&nbsp;|
+<a href="http://www.artima.com/news/index.jsp" class="hl">News</a>&nbsp;|
+<a href="http://www.artima.com/weblogs/index.jsp" class="hl">Weblogs</a>&nbsp;|
+<a href="http://www.artima.com/buzz/index.jsp" class="hl">Buzz</a>&nbsp;|
+<a href="http://www.artima.com/shop/catalog" class="hl">Books</a>&nbsp;|
+<a href="http://www.artima.com/forums/index.jsp" class="hl">Forums</a>
+</div>
+</td>
+</tr>
+</tbody></table>
+<table width="100%" bgcolor="#AACCFF">
+<tbody><tr>
+<td align="center">
+<div class="sc">
+<a href="http://www.artima.com/articles">Interviews</a>&nbsp;| 
+<a href="http://www.artima.com/forums/flat.jsp?forum=226&thread=37878">Discuss</a>&nbsp;| 
+Print&nbsp;| 
+<a href="mailto:?subject=Failure,%20Preconditions,%20and%20Reuse&body=%20%0AFailure,%20Preconditions,%20and%20Reuse%20%0AA%20Conversation%20with%20Bertrand%20Meyer,%20Part%20IV%20%0Aby%20Bill%20Venners%20%0A%0Ahttp://www.artima.com/intv/exceptP.html">Email</a>&nbsp;| 
+<a href="http://www.artima.com/intv/except.html">Screen Friendly Version</a>&nbsp;| 
+<a href="http://www.artima.com/intv/contracts.html">Previous</a>&nbsp;| 
+Next
+</div>
+</td>
+</tr>
+</tbody></table>
+<table width="100%" bgcolor="#EEEEEE">
+<tbody><tr>
+<td align="center">
+<div class="sc">
+<span style="color: #555555">Sponsored Link</span> <span style="color: #888888">•</span> 
+<script language="JavaScript" type="text/javascript" src="http://www.artima.com/zcr/adx.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+   if (!document.phpAds_used) document.phpAds_used = ',';
+   phpAds_random = new String (Math.random()); phpAds_random = phpAds_random.substring(2,11);
+   
+   document.write ("<" + "script language='JavaScript' type='text/javascript' src='");
+   document.write ("http://www.artima.com/zcr/adjs.php?n=" + phpAds_random);
+   document.write ("&amp;what=zone:9&amp;target=_top");   document.write ("&amp;exclude=" + document.phpAds_used);
+   if (document.referrer)
+      document.write ("&amp;referer=" + escape(document.referrer));
+   document.write ("'><" + "/script>");
+//-->
+</script><script language="JavaScript" type="text/javascript" src="http://www.artima.com/zcr/adjs.php?n=479413767&what=zone:9&target=_top&exclude=,&referer=http%3A//www.bing.com/search%3FFORM%3DUP97DF%26PC%3DUP97%26q%3DDiscuss+when+demanding+precondition+design+and+tolerant+precondition+design+are+appropriate%252C+respectively"></script><noscript>&lt;a href='http://www.artima.com/zcr/adclick.php?n=a799ecf6' target='_top'&gt;&lt;img src='http://www.artima.com/zcr/adview.php?what=zone:9&amp;amp;n=a0587811' border='0' alt=''&gt;&lt;/a&gt;</noscript>
+</div>
+</td>
+</tr>
+</tbody></table>
+<br>
+<div class="vegies">
+<div class="tc">
+<span class="ts">Failure, Preconditions, and Reuse</span><br>
+<span class="sts">A Conversation with Bertrand Meyer, Part IV</span><br>
+<span class="as">by Bill Venners</span><br>
+<span class="pd">March 8, 2004</span><br>
+</div>
+<blockquote>
+<b>Summary</b><br>
+Bertrand Meyer talks with Bill Venners about strategies for dealing with failure,
+where to check preconditions, and when it's appropriate to design for reuse.
+</blockquote>
+
+<p>
+Bertrand Meyer is a software pioneer whose activities have spanned both the academic and business worlds.
+He is currently the Chair of Software Engineering at ETH, the Swiss Institute of Technology.
+He is the author of numerous papers and many books, including the classic <em>Object-Oriented
+Software Construction</em> (Prentice Hall, 1994, 2000).
+In 1985, he founded Interactive Software Engineering, Inc., now called Eiffel Software, Inc., a company
+which offers Eiffel-based software tools, training, and consulting.
+
+</p><p>On September 28, 2003, Bill Venners conducted a phone interview with Bertrand Meyer.
+In this interview, which is being published in multiple installments on Artima.com,
+Meyer gives insights into many software-related topics, including quality, complexity,
+design by contract, and test-driven development.
+
+</p><ul>
+<li>In <a href="http://www.artima.com/intv/serious.html">Part I: The Demand for Software Quality</a>,
+Meyer discusses the increasing importance of
+software quality, the commercial forces on quality, and 
+the challenges of complexity.
+</li><li>In <a href="http://www.artima.com/intv/contracts.html">Part II: Design by Contract</a>, Meyer discusses Design by Contract and
+the limits of formal languages for expressing contracts.
+</li><li>In <a href="http://www.artima.com/intv/contest.html">Part III: Contract-Driven Development</a>, Meyer discusses how Design by Contract relates
+to test-driven development.
+</li><li>In this fourth and final installment, Meyer
+discusses strategies for dealing with failure,
+where to check preconditions, and when it's appropriate to design for reuse.
+</li></ul>
+
+<h1>Dealing with Failure</h1>
+
+<p>
+<b>Bill Venners</b>: The aim of test-driven development is to help programmers avoid 
+bugs, to get systems that are robust. But one aspect of a system that is not just robust, 
+but also reliable, is that when things do go wrong, either because of a bug or because of 
+circumstances outside of the system, the system can deal with the problem without 
+requiring an administrator or user to solve the problem. How can we create systems that 
+deal with failure autonomously so that humans don't have to step in? We have the tool of 
+exceptions, but what do we do with them? And what do we do when a contract assertion 
+is false?
+
+</p><p>
+<b>Bertrand Meyer</b>: The really deep and final answer is it depends. There are really 
+two approaches. One approach is to say, this problem simply shouldn't happen. If it ever 
+does happen, the best you can do is shut your system down, fix the bug, and restart it. 
+Some people take this approach, but it is probably not sustainable for telephone system. 
+If you're AT&amp;T and you're handling millions of telephone calls in your system and 
+suddenly an invariant is violated, you're not going to shut off the AT&amp;T network. For 
+other kinds of systems, however, it is probably the most reasonable thing to do. Some 
+problem has not been caught in debugging. It should have never happened, so they just 
+stop the whole system, correct the defect, and restart. That is one approach. It's rather 
+extreme. The other approach is to do essentially fault-tolerant computing. Not hardware 
+fault tolerance, but software fault tolerance, which is a relatively new option. The term 
+has been around a long time, but the approach hasn't been practiced that much.
+
+</p><p>
+The first thing to do if you have a problem is obviously to log it. Typically when you 
+have an assertion violation during operation, not during debugging, but during operation, 
+it's an indication that something needs to be fixed in the software. The defect cannot be 
+left to stand in the long term. What you do in the short term is try to recover as 
+reasonably as you can. And indeed, that's where exception handling comes in. The 
+approach I suggest for exception handling is more low profile than the approach that 
+seems to have become popular these days. In most recent programming languages, 
+exceptions are a normal part of life. For example, exceptions figure prominently in the 
+specification of operations. The exception handling strategy that I've pushed for is more 
+low profile in the sense that it views exceptions really as what happens when everything 
+else has failed, and you don't have much of a clue as to what is going on except that 
+something is seriously wrong. The best you can really do is to try to restart in a clean 
+state.
+
+</p><p>
+The exception mechanism in Eiffel is quite different from those that exist in other 
+languages, and it surprises many people. When you have an exception in Eiffel, you only 
+have two ways of reacting to it. The reason that you only have two ways is that 
+exceptions are something that you don't want to see happening. So it's quite different 
+from the approach that says exceptions are special cases that we are going to expect and 
+process in a special way. In Eiffel, exceptions are really a sign that something quite wrong 
+has happened, so you have only these two ways of reacting. One is to accept that you 
+can not do anything better, and to just pass on the problem up to the next routine up the 
+call chain, which of course will be faced with the same dilemma. That is often, especially 
+for operations deep down in the call chain, the only real world reaction, because the 
+operation does not have enough context to do anything smarter. The other reaction is, if 
+you actually do have some elements that enable you to think you're smarter, to attempt 
+to fix the condition that led to the exception and try the same operation again after 
+correcting the context. This is the kind of mechanism that provides direct support for 
+what I was calling software fault tolerance, and I think it can be quite effective provided 
+it's used with reason, that is to say, not as another algorithmic mechanism, but as a 
+mechanism of last resort.
+
+
+</p><h1>Checking the Preconditions</h1>
+
+<p>
+<b>Bill Venners</b>: One of the recommendations you make in your book <em>Object-
+Oriented Software Construction</em> that has always surprised me is the notion that 
+under no circumstances shall the body of a routine check for the precondition of the 
+routine. I understand that you don't want to have the same condition being tested in 
+multiple places, both the client and the supplier, as you called it, but you also said, "If the 
+client's part of the contract is not fulfilled, that is to say if the class does not satisfy 
+precondition, then the class is not bound by the post condition." So the supplier class can 
+either throw an exception or return a wrong result. I tend to prefer defining exceptions 
+that will be thrown if preconditions are broken, because then the behavior of the routine is 
+specified even under broken preconditions. The behavior of the routine is fully specified. 
+That's my intuitive preference. Could you describe your reasoning for recommending the 
+other approach?
+
+</p><p>
+<b>Bertrand Meyer</b>: I don't think you're expressing a preference with respect to 
+language rules, but rather, a preference for a design style that puts more responsibility on 
+the supplier. That is to say, you prefer a design style in which the supplier in effect 
+extends the specification to account for more cases. In the end, it's really a matter of 
+design style. Personally, I have found it far more effective to define for each operation the 
+conditions under which it will work, and leave the behavior undefined in other cases. I 
+think in the end it's a more effective approach.
+
+</p><p>
+If you take the viewpoint of the client, what happens typically is this: You are writing 
+some software and you instantiate a class. Assuming you are programming in a context in 
+which the only way to use the class is through it's specification, which includes the 
+contract, you'll see the pre-condition. If you are a reasonable client programmer, if you 
+know what you are doing, you'll know to program against the precondition. Of course, 
+you may not like the precondition. You may find it's too demanding, but that's life. It's 
+part of the contract. I think that style works pretty well.
+
+</p><p>
+The other style is a bit more problematic. For example, I recently looked at some 
+collections classes from .NET. You can see the interface for a certain library class, but 
+you don't necessarily see the exceptions. If you're careful and serious, you will go deeper 
+into the documentation of the class and see that some exceptions can be raised in certain 
+cases. If you want to process such cases, you'll have to write a try catch structure in your 
+own client code. That structure is actually more complicated than dealing with the 
+negation of the precondition in the first place, because you're trying to do some task, and 
+after the fact you have to catch possible violations and try to recover. So 
+you will actually end up doing the same thing either way, but it's more complicated to 
+deal with it after the fact than if you just checked the precondition in the first place. 
+Likely, however, many programmers are simply not going to take the trouble to look at 
+these exception clauses, or they might miss some of them. If something wrong happens, 
+some exception will occur, and there's no guarantee at all whether and how the exception 
+is going to be processed. Is it going to be processed properly? Is it going to be passed 
+back up the call chain to a routine that has no clue about what actually happened? So it 
+seems to me that this approach is really a way to ignore the problem, to put your head 
+in the sand and pretend that nothing is going to happen, when in fact things can happen. 
+It is better to tackle the problem head on, to have a specification that explicitly says what 
+is expected of the caller to get correct treatment, and to make sure before the call that 
+these conditions are satisfied.
+
+
+</p><h1>The Cost of Reuse</h1>
+
+<p>
+<b>Bill Venners</b>: My last question is about reuse. You have talked a lot about reuse, 
+and seem to value reuse. I find that I reuse classes all the time in standard APIs, but that 
+in the context of everyday programming tasks, it's often a better approach in my 
+experience to solve the specific problem. In their everyday programming tasks, how much 
+should programmers worry about reuse of the components or pieces of software they are 
+building?
+
+</p><p>
+<b>Bertrand Meyer</b>: That's a very good point. I think it's really not a problem for 
+the programmers. It's really a problem for the businesses, for the corporations. That is to 
+say, if you are a programmer working in the usual conditions of typically a lot of stress, 
+pressure, and deadlines, then it can actually be detrimental to focus too much on making 
+your software reusable. You may even be accused of not doing your work properly, and 
+that accusation might be in part at least justified. Your job is to produce is a set of 
+products by a certain time at a certain price with certain functionality. That's what you 
+have to do, and reuse can wait. Reuse is usually not part of the specification.
+
+</p><p>
+Of course, you should be a good programmer. You should do things carefully. Contrary to 
+what I think the XP people are saying—I may be misinterpreting here, but I think it is a 
+major point of disagreement I have with XP—if you have a way to do something more 
+generally and another way to do it more specifically, at roughly equal cost, you should 
+always try to do the more general solution. So you should always <em>think</em> about 
+reuse, but really it would be improper in many cases to make something reusable. You 
+would not be fulfilling your duty to the group and to the corporation if you were 
+spending too much time on generalizing for future benefit as opposed to the immediate 
+benefit of the project.
+
+</p><p>
+It's really in the end a question for the corporation. Does the corporation want to spend a 
+little more money and time on generalization once the product has been delivered or the 
+milestone achieved? I think I understood only recently the difference between this and the 
+idea of refactoring. A few years ago I published a book called <em>Object Success</em>, 
+a presentation of object technology for management, in which I talked a lot about reuse. In 
+particular, I pushed this idea that the software lifecycle should allow for an explicit step 
+of generalization. The idea I think is very simple: put management in front of its 
+responsibilities. Many companies that will say, we don't have the time to do this. We just 
+want to deliver a product, and we don't have time for any extra effort to generalize the 
+software. It's not part of our charter. And I would say, that's fine. It has the advantage of 
+being completely open and frank and conscious, as opposed to the unconscious decisions 
+that are far too often made in software environments.
+
+</p><p>
+On the other hand, I think that a more progressive and forward looking software 
+environment would say, yes, we are going to devote a small but reasonable part of our 
+project, five to ten percent, to make sure that after the project is delivered we not only 
+clean up the code but perform some generalization to prepare for the next project, to 
+prepare for reuse. I think in the end that will be more effective than constant refactoring. 
+First you meet your deadlines, and then you have a period of your work that is officially 
+devoted to making things better. Then you do the refactoring, but with a specific focus on 
+reuse. That refactoring is an official part of your job description, not something that you 
+do on the side, almost hiding it from your manager, pretending that you're working on 
+some other project In the end I think it's a management decision. Are you are you not 
+willing to spend more in order to not only deliver to your customers and users what they 
+expect now, but also to provide for better software development in the future. It is 
+fundamentally in a business decision.
+
+<img align="top" src="./Failure, Preconditions, and Reuse_files/ik.gif" width="15" height="15">
+</p><h1>Next Week</h1>
+<p>
+Come back Monday, March 15 for the first installment of a conversation with
+Luke Hohman.
+If you'd like to receive a brief weekly email
+announcing new articles at Artima.com, please subscribe to
+the <a href="http://www.artima.com/account.jsp">Artima Newsletter</a>.
+
+</p><h1>Talk Back!</h1>
+<p>
+Have an opinion about the design principles presented in this article?
+Discuss this article in the Articles Forum topic,
+<a href="http://www.artima.com/forums/flat.jsp?forum=226&thread=37878">Failure, Preconditions, and Reuse</a>.
+
+<a name="resources">
+</a></p><h1><a name="resources">Resources</a></h1><a name="resources">
+</a>
+
+<p>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0136291554/billvennersA/"><img src="./Failure, Preconditions, and Reuse_files/oosoft.jpg" align="left"></a>
+Bertrand Meyer is the author of <em>Object-Oriented Software Construction</em>, which
+is available on Amazon.com at:<br>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0136291554/billvennersA/">http://www.amazon.com/exec/obidos/ASIN/020171499X/</a>
+
+<br clear="all">
+</p><p>
+Bertrand Meyer's Home Page at ETH, the Swiss Institute of Technology:<br>
+<a href="http://www.inf.ethz.ch/personal/meyer/">http://www.inf.ethz.ch/personal/meyer/</a>
+
+</p><p>
+<em>The Grand Challenge of Trusted Components</em>, presented by Bertrand Meyer at the International
+Conference on Software Engineering, May 2003:<br>
+<a href="http://www.inf.ethz.ch/~meyer/publications/ieee/trusted-icse.pdf">http://www.inf.ethz.ch/~meyer/publications/ieee/trusted-icse.pdf</a>
+
+</p><p>
+<em>The Structure and Interpretation of Computer Programs</em>, by Harold Abelson and Gerald Jay Sussman 
+ with Julie Sussman:<br>
+<a href="http://mitpress.mit.edu/sicp/full-text/sicp/book/book.html">http://mitpress.mit.edu/sicp/full-text/sicp/book/book.html</a>
+
+</p><p>
+Find out more about Eiffel at:<br>
+<a href="http://www.eiffel.com/">http://www.eiffel.com/</a>
+
+</p><p>
+The Eiffel language FAQ:<br>
+<a href="http://www.eiffel.com/developers/faqs/eiffel-language.html">http://www.eiffel.com/developers/faqs/eiffel-language.html</a>
+
+</p><p>
+The 2001 <em>Interview with Programming Expert Bertrand Meyer</em> in InformIT:<br>
+<a href="http://www.informit.com/isapi/product_id~%7B8EAB5105-33FC-42B0-8D8C-35CF6417C9D2%7D/st~%7BEA7C8D03-4995-402D-B085-06E000F897B8%7D/session_id~%7B26B502BA-DD01-4755-8EDC-250CA0373FD0%7D/content/articlex.asp">(Gratuitously long URL omitted...)</a>
+
+</p><p>
+<em>Design by Contract by Example</em>, by Richard Mitchell and Jim McKim:<br>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0201634600/billvennersA/">http://www.amazon.com/exec/obidos/ASIN/0201634600/</a>
+
+</p><p>
+<em>Object Success: A Manager's Guide to Object-Oriented Technology And Its Impact On the Corporation</em>, by Bertrand Meyer:<br>
+<a href="http://www.amazon.com/exec/obidos/ASIN/0131928333/billvennersA/">http://www.amazon.com/exec/obidos/ASIN/0131928333/</a>
+
+
+</p><p>
+</p><center>
+<div class="sc">
+<a href="http://www.artima.com/articles">Interviews</a>&nbsp;| 
+<a href="http://www.artima.com/forums/flat.jsp?forum=226&thread=37878">Discuss</a>&nbsp;| 
+Print&nbsp;| 
+<a href="mailto:?subject=Failure,%20Preconditions,%20and%20Reuse&body=%20%0AFailure,%20Preconditions,%20and%20Reuse%20%0AA%20Conversation%20with%20Bertrand%20Meyer,%20Part%20IV%20%0Aby%20Bill%20Venners%20%0A%0Ahttp://www.artima.com/intv/exceptP.html">Email</a>&nbsp;| 
+<a href="http://www.artima.com/intv/except.html">Screen Friendly Version</a>&nbsp;| 
+<a href="http://www.artima.com/intv/contracts.html">Previous</a>&nbsp;| 
+Next
+</div>
+</center>
+</div>
+<hr width="100%">
+<table width="50%" align="center">
+<tbody><tr>
+<td>
+<div class="horizontaltextadbox">
+<div class="adheadline">Sponsored Links</div>
+<div id="sponsoredlinks">
+</div>
+</div>
+</td>
+</tr>
+</tbody></table>
+<hr width="100%">
+<div class="sp">
+<div style="text-align: center">
+<a href="http://www.artima.com/copyright.html">Copyright</a> © 1996-2015 Artima, Inc. All Rights Reserved. - <a href="http://www.artima.com/privacy.html">Privacy Policy</a> - <a href="http://www.artima.com/termsofuse.html">Terms of Use</a> - <a href="http://www.artima.com/advertising.html">Advertise with Us</a>
+</div>
+</div>
+<br>
+<script language="JavaScript" type="text/javascript">
+<!--
+function initBannerVarForZone(zone) {
+        initBannerVarForZoneWithScript(zone, 'adjs_modified');
+}
+
+function initBannerVarForZoneWithScript(zone, phpScript) {
+
+        if (!document.phpAds_used) document.phpAds_used = ',';
+        phpAds_random = new String (Math.random());
+        phpAds_random = phpAds_random.substring(2,11);
+
+        var nextScriptSrc = 'http://www.artima.com/zcr/' + phpScript + '.php?n=' +
+                phpAds_random  +
+                '&amp;what=zone:' + zone + '&amp;target=_top&amp;block=1&amp;blockcampaign=1' +
+                '&amp;exclude=' + document.phpAds_used;
+
+        document.write("<script language='JavaScript' type='text/javascript' src='");
+        document.write(nextScriptSrc);
+        document.write("'><\/script>");
+
+}
+
+function replaceDiv(divID) {
+        document.getElementById(divID).innerHTML = phpadsbanner;
+}
+-->
+</script>
+<script language="JavaScript" type="text/javascript">
+<!--
+initBannerVarForZone(1);
+-->
+</script><script language="JavaScript" type="text/javascript" src="http://www.artima.com/zcr/adjs_modified.php?n=214686474&what=zone:1&target=_top&block=1&blockcampaign=1&exclude=,"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+replaceDiv('topbanner');
+-->
+</script>
+<script language="JavaScript" type="text/javascript">
+<!--
+initBannerVarForZoneWithScript(4, 'textman');
+-->
+</script><script language="JavaScript" type="text/javascript" src="http://www.artima.com/zcr/textman.php?n=906452762&what=zone:4&target=_top&block=1&blockcampaign=1&exclude=,"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!--
+replaceDiv('sponsoredlinks');
+-->
+</script>
+
+
+<iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}"></div><form id="gclp-frame-form" target="gclp-frame" method="post" style="display: none;"></form></body></html>
