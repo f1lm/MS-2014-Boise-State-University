@@ -1,0 +1,1 @@
+define(["jquery","version!components/social-links","version!fly/components/social-counts"],function(e){e.widget("fly.socialCounts",e.fly.socialCounts,{_create:function(){this._super("_create")}})})
