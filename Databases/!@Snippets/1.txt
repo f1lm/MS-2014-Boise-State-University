@@ -1,0 +1,117 @@
+use university;
+
+-- 1.  Retrieve the names of all students who major in computer science.
+SELECT * FROM STUDENT S;
+SELECT * FROM DEPT D;
+SELECT * FROM MAJOR Maj;
+
+
+select S.FName, S.LName from STUDENT S, MAJOR M WHERE S.SSN = M.SSN AND M.DeptCode IN (
+select DeptCode from DEPT where DeptCode='CS');
+
+SELECT FName, LName FROM STUDENT S
+INNER JOIN MAJOR M ON M.SSN = S.SSN AND M.DeptCode IN (SELECT DeptCode FROM DEPT WHERE DName = 'Computer Science');
+            
+-- 2.  Retrieve the names of all students who didn’t take any course from the computer science department.
+SELECT FName, LName FROM STUDENT S WHERE S.SSN NOT IN (
+SELECT DISTINCT G.SSN FROM GRADE_REPORT G INNER JOIN COURSE C ON C.CourseNo =  G.CourseNo AND C.DeptCode IN (SELECT DeptCode FROM DEPT WHERE DName = 'Computer Science'));
+
+SELECT FName, LName FROM STUDENT S WHERE SSN NOT IN(
+SELECT DISTINCT G.SSN FROM GRADE_REPORT G INNER JOIN COURSE C ON C.CourseNo = G.CourseNo AND C.DeptCode = 'CS');
+
+-- 3.  For each college, count the number of sections offered by that college.
+SELECT D.College, COUNT(Sec.SectionNo) FROM DEPT D LEFT JOIN COURSE C  ON C.DeptCode = D.DeptCode 
+LEFT JOIN SECTION Sec ON Sec.CourseNo = C.CourseNo GROUP BY D.College;
+
+-- 4.  Retrieve the names of students who only took courses from his/her major department.
+SELECT FName, LName FROM STUDENT Stu WHERE Stu.SSN NOT IN(
+SELECT S.SSN FROM STUDENT S 
+INNER JOIN GRADE_REPORT G ON G.SSN = S.SSN
+INNER JOIN COURSE C ON C.CourseNo = G.CourseNo
+INNER JOIN DEPT D ON D.DeptCode = C.DeptCode AND D.DeptCode NOT IN (SELECT DISTINCT Maj.DeptCode FROM MAJOR Maj WHERE Maj.SSN = S.SSN)
+);
+
+SELECT * FROM STUDENT WHERE SSN NOT IN(
+SELECT S.SSN FROM STUDENT S
+INNER JOIN GRADE_REPORT G ON G.SSN = S.SSN
+INNER JOIN COURSE C ON C.CourseNo = G.CourseNo
+INNER JOIN DEPT D ON D.DeptCode = C.DeptCode AND D.DeptCode NOT IN (SELECT DISTINCT Maj.DeptCode FROM MAJOR Maj WHERE Maj.SSN = S.SSN));
+
+-- 5.  Retrieve the names of students whose accumulated credit hours are greater than or equal to 10 
+-- (Only passed courses will be counted; A passed course means the student get a grade C or above).
+
+SELECT *, SUM(C.Hours) FROM STUDENT S
+INNER JOIN GRADE_REPORT G ON G.SSN = S.SSN
+INNER JOIN COURSE C ON C.CourseNo = G.CourseNo
+WHERE G.LGRADE <= 'C' GROUP BY S.SSN
+HAVING SUM(C.Hours) >=10
+
+-- 6.  Retrieve the names of departments which offered at least 2 courses (not sections) in spring, 2001.
+SELECT *, COUNT(DISTINCT S.CourseNo) AS Count FROM DEPT D
+INNER JOIN COURSE C ON C.DeptCode = D.DeptCode
+INNER JOIN SECTION S ON S.CourseNo = C.CourseNo WHERE S.Semester = 'S' AND S.Year ='2001' GROUP BY D.DName HAVING Count >=2
+
+select DNAME from (
+select DName, count(distinct C.CourseNo) as Course from DEPT D
+inner join COURSE C on C.DeptCode = D.DeptCode
+inner join SECTION Sec on Sec.CourseNo = C.CourseNo 
+where Sec.Year='2001' and Sec.Semester='S' group by D.DName) as temp
+where Course >=2;
+
+ -- 7.  For each student who took courses from his/her minor department, retrieve the student’s name, 
+-- the course name, and the grade the student received.
+
+SELECT * FROM STUDENT S
+INNER JOIN MINOR Min ON Min.SSN = S.SSN
+INNER JOIN DEPT D ON D.DeptCode = Min.DeptCode
+INNER JOIN COURSE C ON C.DeptCode = D.DeptCode
+INNER JOIN GRADE_REPORT G ON G.CourseNo = C.CourseNo AND G.SSN = S.SSN;
+
+
+-- 8.  Retrieve the name of each student who claims a minor in a college, which is different from the student’s major college.
+SELECT DISTINCT FName FROM STUDENT S
+LEFT JOIN MINOR Min ON Min.SSN = S.SSN
+LEFT JOIN MAJOR Maj ON Maj.SSN = S.SSN
+LEFT JOIN DEPT D1 ON D1.DeptCode = Maj.DeptCode
+LEFT JOIN DEPT D2 ON D2.DeptCode = Min.DeptCode
+WHERE D1.College <> D2.College;
+
+-- 9.  Retrieve the name of each student who has claimed minor(s), but has 
+-- not yet received any grade from any of his/her minor departments. 
+SELECT * FROM STUDENT S1 WHERE S1.SSN NOT IN(
+SELECT DISTINCT S.SSN FROM STUDENT S INNER JOIN MINOR Min ON Min.SSN = S.SSN
+INNER JOIN DEPT D ON D.DeptCode = Min.DeptCode
+INNER JOIN COURSE C ON C.DeptCode = D.DeptCode
+WHERE (S.SSN, C.CourseNo) IN (SELECT G.SSN, G.CourseNo FROM GRADE_REPORT G WHERE G.SSN = S.SSN));
+
+-- 10.  Retrieve the names of students who have taken all the courses offered by his/her major department. 
+-- Show the result in ascending order of student’s last name, first name.
+
+SELECT FName, LName FROM (
+SELECT FName, LName, COUNT(S.SSN) AS 'WANTED', COUNT(G.SSN) AS 'PASSED' FROM STUDENT S 
+INNER JOIN MAJOR Maj ON Maj.SSN = S.SSN
+INNER JOIN DEPT D ON D.DeptCode = Maj.DeptCode
+INNER JOIN COURSE C ON C.DeptCode = D.DeptCode
+LEFT JOIN GRADE_REPORT G ON G.SSN = S.SSN AND G.CourseNo = C.CourseNo 
+GROUP BY S.SSN) AS TEMP
+WHERE WANTED = PASSED;
+
+select distinct FNAME, LNAME from
+(select S.SSN, S.FName, S.LName, count(S.SSN) as 'wanted', count(G.SSN) as 'passed' from STUDENT S 
+inner join MAJOR Maj on Maj.SSN = S.SSN
+inner join COURSE C on C.DeptCode = Maj.DeptCode
+left outer join GRADE_REPORT G on (G.CourseNo = C.CourseNo and G.SSN = S.SSN)
+group by S.SSN) as temp
+where wanted=passed;
+
+-- 11.  Retrieve the department name of every department which has more minor students than major students.
+SELECT * FROM DEPT D
+INNER JOIN
+(SELECT MA.DeptCode FROM (SELECT D.DeptCode, COUNT(Maj.SSN) AS 'TOTAL' FROM MAJOR Maj
+RIGHT OUTER JOIN DEPT D ON D.DeptCode = Maj.DeptCode GROUP BY D.DeptCode) AS MA
+JOIN
+(SELECT D.DeptCode, COUNT(Min.SSN) AS 'TOTAL' FROM MINOR Min
+RIGHT OUTER JOIN DEPT D ON D.DeptCode = Min.DeptCode GROUP BY D.DeptCode) AS MI
+ON MA.DeptCode = MI.DeptCode AND MI.TOTAL > MA.TOTAL) AS TEMP
+ON D.DeptCode = TEMP.DeptCode
+

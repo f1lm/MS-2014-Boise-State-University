@@ -1,0 +1,60 @@
+USE ecommerce;
+
+-- 1.	For all shipped orders within USA determine the number of orders for each state, sort in descending by number of orders.   
+SELECT *, COUNT(DISTINCT orderNumber) AS COUNT FROM orders O
+INNER JOIN customers C ON C.customerNumber = O.customerNumber AND O.status = 'Shipped' AND C.country = 'USA'
+GROUP BY C.STATE
+ORDER BY COUNT DESC;
+
+-- 2.	Determine the type and the quantity of ‘motorcycles’ that have been shipped to customers. 
+-- (Hint: Use Products.productLine='Motorcycles' with orders.status ='Shipped' )
+SELECT *, SUM(OD.quantityOrdered) FROM products P 
+-- SELECT * FROM productlines PL WHERE PL.orderNumber ='Motorcycles'
+INNER JOIN orderdetails OD ON OD.productCode = P.productCode
+INNER JOIN orders O ON O.orderNumber = OD.orderNumber 
+-- INNER JOIN customers C ON C.customerNumber = O.customerNumber
+WHERE P.productLine ='Motorcycles' AND O.status = 'Shipped' 
+GROUP BY (P.productCode) 
+
+-- 3.	For the ‘Shipped’ orders how much revenue 
+-- (use ROUND(SUM(quantityOrdered*priceEach), 2) to calculate revenue) is from sales within USA 
+-- and how much revenue is from sales outside USA 
+-- (Hint: use orders.status=’Shipped’ and the customers.country to aggregate the revenue for USA 
+-- and sum all the revenue from foreign countries. 
+-- Use UNION ALL to merge the results for two queries) 
+
+SELECT 'USA', ROUND(SUM(OD.quantityOrdered*OD.priceEach), 2) FROM orders O
+INNER JOIN orderdetails OD ON OD.orderNumber = O.orderNumber
+INNER JOIN customers C ON C.customerNumber = O.customerNumber AND O.status = 'Shipped' AND C.country = 'USA'
+UNION ALL
+SELECT 'OUTSIDE USA', ROUND(SUM(OD.quantityOrdered*OD.priceEach), 2) FROM orders O
+INNER JOIN orderdetails OD ON OD.orderNumber = O.orderNumber
+INNER JOIN customers C ON C.customerNumber = O.customerNumber AND O.status = 'Shipped' AND C.country != 'USA'
+
+-- 4.	Based on shipped orders, determine the sales in each product line by quantity of items ordered during the first quarter of 2004. 
+-- Order results in descending order based on the quantities sold.  
+-- SELECT QUARTER(NOW());
+SELECT P.productLine, SUM(OD.quantityOrdered) AS SALES FROM orders O 
+INNER JOIN orderdetails OD ON OD.orderNumber = O.orderNumber AND QUARTER(O.orderDate) = 1 AND YEAR(O.orderDate) = '2004'
+INNER JOIN products P ON P.productCode =  OD.productCode
+INNER JOIN productlines PL ON PL.productLine = P.productLine
+GROUP BY P.productLine
+ORDER BY SALES DESC
+
+
+-- 5.	Based on the price of the shipped orders and payments received. Calculate the outstanding payment amount for each of the customers that have any outstanding payments. 
+-- Order by outstanding payment in desc order. (Hint: use Round(number,0) to round off the amount to nearest whole number)
+
+SELECT *, ROUND((C.creditLimit - sum(P.amount)), 0) AS 'OutstandingPayment' FROM payments P 
+INNER JOIN customers C ON C.customerNumber = P.customerNumber
+-- INNER JOIN orders O ON O.customerNumber = C.customerNumber AND O.status = 'Shipped'
+GROUP BY P.customerNumber
+ORDER BY OutstandingPayment DESC
+
+select c.customerName, round((debit - credit), 0) from customers c,
+(select SUM(p.amount) as debit, c.creditLimit as credit, p.customerNumber
+from customers c, payments p
+where c.customerNumber = p.customerNumber) r
+where round((credit - debit), 0) > 0 AND c.customerNumber = r.customerNumber
+GROUP BY r.customerNumber
+order by round((credit - debit), 0) desc;
